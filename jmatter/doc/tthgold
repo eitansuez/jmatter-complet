@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# steps:
+# 1. export .lyx file to .tex
+# 2. /home/eitan/devel/tthgold/tthprep guide.tex
+# 3. tth appears to get hung up in the production of the toc
+#    it gets hung up on the last item ( i think because the title contains a footnoote reference )
+#    so, delete the reference to appendix B.3 in guide.toc
+# 4., finally run tth -s ... :
+
+/home/eitan/devel/tthgold/tth -s -e2 -w4 -Lguide < guide.tex | /home/eitan/devel/tthgold/tthsplit 
+
+# need to automate this:
+# [a] produce html in separate directory
+# [b] zip it up (recursive, exclude .svn in figures)
+
+

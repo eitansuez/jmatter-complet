@@ -1,0 +1,79 @@
+/*
+ * Created on Oct 11, 2004
+ */
+package com.u2d.list;
+
+import javax.swing.event.ListDataListener;
+import com.u2d.element.CommandInfo;
+import com.u2d.element.Command;
+import com.u2d.model.ComplexEObject;
+import com.u2d.model.Harvester;
+import com.u2d.model.ComplexType;
+import com.u2d.pubsub.*;
+import com.u2d.pattern.*;
+import com.u2d.find.Query;
+import com.u2d.reflection.CommandAt;
+
+/**
+ * @author Eitan Suez
+ */
+public class PagedList extends CriteriaListEO
+{
+   private AppEventListener _addListener =
+     new AppEventListener()
+       {
+          public void onEvent(AppEvent evt)
+          {
+             add((ComplexEObject) evt.getTarget());
+          }
+       };
+
+   public PagedList(Query query)
+   {
+      super(query);
+      type().addAppEventListener("ONCREATE", _addListener);
+   }
+
+   // See NullAssociation for comments
+   @CommandAt
+   public ComplexEObject New(CommandInfo cmdInfo)
+   {
+      return New(cmdInfo, type());
+   }
+   @CommandAt
+   public ComplexEObject New(CommandInfo cmdInfo, ComplexType type)
+   {
+      return type.New(cmdInfo);
+   }
+   public ComplexType abstractType()
+   {
+      if (type().isAbstract())
+         return type();
+      return null;
+   }
+
+
+   public void removeListDataListener(ListDataListener l)
+   {
+      super.removeListDataListener(l);
+      if (_listDataListenerList.getListenerCount() == 0)
+      {
+        type().removeAppEventListener("ONCREATE", _addListener);
+        _addListener = null;
+      }
+   }
+
+   private static Onion _commands3;
+   static
+   {
+      _commands3 = Harvester.
+            simpleHarvestCommands(PagedList.class,
+                                  new Onion(), false, null);
+   }
+   public Onion commands() { return _commands3; }
+   public Command command(String commandName)
+   {
+      return (Command) _commands3.find(Command.finder(commandName));
+   }
+
+}

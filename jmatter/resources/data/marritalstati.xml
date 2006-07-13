@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<code-items>
+  <marrital-status code="s" caption="Single" />
+  <marrital-status code="m" caption="Married" />
+  <marrital-status code="d" caption="Divorced" />
+  <marrital-status code="w" caption="Widowed" />
+  <marrital-status code="c" caption="Child" />
+  <marrital-status code="o" caption="Other" />
+</code-items>
+

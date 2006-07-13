@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO: specify application name (or title) below (the 'name' attribute) -->
+<application name="jMatter Application">
+   <view-mechanism>com.u2d.view.swing.SwingViewMechanism</view-mechanism>
+   <look-and-feel>Metal</look-and-feel>
+   <page-size>15</page-size>
+   <persistence-mechanism>com.u2d.persist.HBMSingleSession</persistence-mechanism>
+   <persist-classes>
+      <!-- TODO: add model classes to this list to make them a part of the persistence schema -->
+      <class>com.u2d.type.USState</class>
+      <class>com.u2d.type.composite.ContactMethod</class>
+      <class>com.u2d.type.composite.Folder</class>
+      <class>com.u2d.find.CompositeQuery</class>
+      <class>com.u2d.type.composite.LoggedEvent</class>
+      <class>com.u2d.app.User</class>
+      <class>com.u2d.app.Role</class>
+      <class>com.u2d.restrict.CommandRestriction</class>
+      <class>com.u2d.restrict.FieldRestriction</class>
+      <class>com.u2d.restrict.Restriction</class>
+      <class>com.u2d.reporting.SimpleReport</class>
+   </persist-classes>
+</application>
+

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+latex2html -local_icons guide.tex
+# produces a guide/ subdirectory
+
+# has problems with footnotes and numbering things?
+# maybe needs more options or a second pass through the file?
+

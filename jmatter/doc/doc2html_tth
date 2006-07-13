@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# must first export .lyx file to .tex
+
+tth -e2 -w4 guide.tex
+# produces guide.html
+

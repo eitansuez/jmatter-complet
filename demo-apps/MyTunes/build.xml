@@ -1,0 +1,241 @@
+<project name="MyTunes" default="run">
+
+ <description>A demonstration (demo-only) itunes-like audio playing application</description>
+
+ <property name="build.dir" location="build" />
+ <property name="build.classes.dir" location="${build.dir}/classes" />
+ <property name="src.dir" location="src" />
+ <property name="lib.basedir" location="lib" />
+
+ <property name="framework.dir" location="../../jmatter" />
+ <property name="framework.lib.dir" location="${framework.dir}/lib/src" />
+ <property name="framework.classes.dir" location="${framework.dir}/build/classes" />
+ <property name="lib.tools.dir" location="${framework.dir}/lib/tools" />
+
+ <property name="jws-dist.dir" location="jws-dist" />
+ <property name="dist.dir" location="dist" />
+ <property name="jar.file" location="${jws-dist.dir}/${ant.project.name}.jar" />
+ <property name="war.file" location="${dist.dir}/${ant.project.name}.war" />
+
+ <property name="test.dir" location="test" />
+ <property name="test.src.dir" location="${test.dir}" />
+ <property name="test.classes.dir" location="${build.classes.dir}" />
+ <property name="test.lib.dir" location="${framework.lib.dir}/test" />
+ <property name="test.reports.dir" location="${build.dir}/reports" />
+	
+ <property name="main.class" value="com.u2d.mytunes.Application" />
+ 
+ <property name="hbprops" value="hibernate" />
+
+ <path id="class.path">
+   <fileset dir="${framework.lib.dir}" includes="**/*.jar" />
+   <fileset dir="lib/src" includes="*.jar" />
+   <pathelement location="${build.classes.dir}" />
+   <pathelement location="${framework.classes.dir}" />
+ </path>
+
+ <target name="init">
+   <tstamp />
+   <mkdir dir="${build.classes.dir}" />
+   <mkdir dir="${jws-dist.dir}" />
+   <mkdir dir="${dist.dir}" />
+   <available property="keystore.exists" file="tempKeystore"/>
+ </target>
+
+ <target name="clean">
+   <delete dir="${build.dir}" />
+   <delete dir="${jws-dist.dir}" />
+   <delete dir="${dist.dir}" />
+ </target>
+
+ <path id="test.classpath">
+   <path refid="class.path" />
+   <fileset dir="${test.lib.dir}" includes="**/*.jar" />
+   <pathelement location="${test.classes.dir}" />
+ </path>
+	
+ <target name="keystore" unless="keystore.exists">
+   <genkey alias="unknown" storepass="public" keystore="tempKeystore"
+           dname="CN=Anonymous Signature, OU=unknown, o=unknown, c=unknown" />
+ </target>
+ 
+
+ <target name="compile" description="compile code" depends="init, compile-framework">
+   <javac debug="on" deprecation="on" 
+          classpathref="class.path" destdir="${build.classes.dir}" srcdir="${src.dir}" />
+   <copy todir="${build.classes.dir}">
+      <fileset dir="resources" includes="images/*.gif,images/*.png,**/*.jpg" />
+      <fileset dir="resources" includes="model-metadata.properties" />
+      <!-- <fileset dir="resources" includes="log4j.properties" /> -->
+      <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- jfree report xmls -->
+      <fileset dir="${src.dir}" includes="**/*.gif,**/*.png" />  <!-- any images referenced by jfree report xmls -->
+      <fileset dir="resources/data" includes="*.xml" /> <!-- codes files -->
+   </copy>
+   <copy file="resources/${hbprops}.properties" tofile="${build.classes.dir}/hibernate.properties" />
+ </target>
+ 
+ <target name="compile-framework">
+   <ant antfile="${framework.dir}/build.xml" inheritAll="false" target="bind" />
+ </target>
+
+ <target name="run" description="run app" depends="genhbm">
+   <java classname="${main.class}" classpathref="class.path" 
+         fork="true" maxmemory="192m" />
+ </target>
+
+ <target name="jar" description="jar it" depends="clean,genhbm">
+   <jar basedir="${build.classes.dir}" file="${jar.file}">
+     <manifest>
+       <attribute name="Created-By" value="jMatter" />
+       <attribute name="Main-Class" value="${main.class}" />
+     </manifest>
+   </jar>
+ </target>
+
+
+ <target name="schema-export" description="export schema to db">
+    <antcall target="schema-x">
+      <param name="arg" value="export" />
+    </antcall>
+ </target>
+ <target name="schema-update" description="update db schema">
+    <antcall target="schema-x">
+      <param name="arg" value="update" />
+    </antcall>
+ </target>
+ <target name="schema-x" depends="genhbm">
+    <echo message="performing a schema ${arg}" />
+    <java fork="true" classpathref="class.path" 
+       classname="com.u2d.persist.HibernatePersistor">
+      <arg value="${arg}" />
+      <arg value="${build.dir}" />
+    </java>
+ </target>
+
+ <!-- TODO: (optional) to test .hbm.xml file generation for a single class file,
+    specify name of class file in the following property 'class.file' -->
+ <property name="class.file" value="com.u2d.nfjs.Talk" />
+ <target name="hbmxml" depends="compile">
+   <java classname="com.u2d.persist.HBMMaker" 
+         classpathref="class.path" 
+         fork="true" 
+         dir="${build.classes.dir}">
+     <arg value="${class.file}" />
+   </java>
+ </target>
+   
+   
+ <target name="genhbm" depends="bind" description="generate hbm.xml files">
+   <mkdir dir="${build.classes.dir}/com/u2d/app" />
+   <mkdir dir="${build.classes.dir}/com/u2d/type" />
+   <mkdir dir="${build.classes.dir}/com/u2d/restrict" />
+   <mkdir dir="${build.classes.dir}/com/u2d/type/composite" />
+   <mkdir dir="${build.classes.dir}/com/u2d/find" />
+   <mkdir dir="${build.classes.dir}/com/u2d/calendar" />
+   <mkdir dir="${build.classes.dir}/com/u2d/model" />
+   <java classpathref="class.path" dir="${build.classes.dir}"
+         fork="true" classname="com.u2d.persist.HBMGenerator" />
+ </target>
+
+
+ <!-- JiBX - related -->
+
+ <!-- JiBX binding compiler task definition --> 
+ <taskdef name="bind" classname="org.jibx.binding.ant.CompileTask">
+   <classpath>
+     <pathelement location="${lib.tools.dir}/bcel.jar" />
+     <pathelement location="${lib.tools.dir}/jibx-bind.jar" />
+     <pathelement location="${framework.lib.dir}/jibx-run.jar" />
+     <pathelement location="${framework.lib.dir}/xpp3.jar" />
+   </classpath>
+ </taskdef>
+
+ <!-- Run JiBX binding compiler -->
+ <target name="bind" depends="compile" description="run JiBX binding compiler">
+   <bind binding="resources/binding.xml">
+     <classpathset dir="${build.classes.dir}" />
+     <classpathset dir="${framework.classes.dir}" />
+     <classpathset dir="${lib.dir}/hibernate3.jar" />
+     <classpathset dir="${lib.dir}/jibx-run.jar" />
+   </bind>
+ </target>
+
+ <target name="hbm-practice" description="run hbm practice tool" depends="genhbm">
+   <java classname="com.u2d.view.swing.HBMPracticeTool" classpathref="class.path"
+         fork="true" maxmemory="128m" />
+ </target>
+
+ <taskdef name="make-jnlp" classname="com.u2d.tools.JnlpMaker" 
+          classpath="${lib.tools.dir}/jnlp-maker.jar:${lib.tools.dir}/velocity-dep-1.4.jar" />
+
+ <target name="jws-dist" description="create java webstart distribution" 
+         depends="jar, keystore">
+   <copy todir="${jws-dist.dir}">
+     <fileset dir="resources/jws" includes="*" excludes="dynamic" />
+   </copy>
+
+   <mkdir dir="${jws-dist.dir}/lib" />
+   <copy todir="${jws-dist.dir}/lib">
+     <fileset dir="${framework.lib.dir}" includes="**/*.jar" />
+   </copy>
+
+   <make-jnlp template="resources/jws/dynamic/project-jnlp.vm" 
+              props="resources/jws/dynamic/project.properties"
+              jarbasepath="${jws-dist.dir}"
+              excludejar="${jar.file}"
+              tofile="${jws-dist.dir}/project.jnlp" />
+
+   <signjar alias="unknown" storepass="public" keystore="tempKeystore">
+     <fileset dir="${jws-dist.dir}" includes="**/*.jar" />
+   </signjar>
+
+   <war destfile="${war.file}" webxml="resources/web.xml"
+   	    basedir="${jws-dist.dir}" />
+
+ </target>
+
+ <!-- targets pertaining to junit testing -->
+
+ <target name="test-init">
+   <mkdir dir="${test.classes.dir}"/>
+   <mkdir dir="${test.reports.dir}"/>
+ </target>
+
+ <target name="compile-tests" depends="test-init,genhbm" description="compile tests">
+   <javac debug="on" deprecation="on"
+          classpathref="test.classpath" destdir="${test.classes.dir}" srcdir="${test.src.dir}" />
+ </target>
+
+ <target name="run-tests" depends="compile-tests" description="run tests" >
+    <junit fork="true" haltonfailure="false" printsummary="true">
+       <classpath refid="test.classpath" />
+       <formatter type="xml" />
+       <batchtest todir="${test.reports.dir}">
+          <fileset dir="${test.classes.dir}" includes="**/*Suite.class" />
+       </batchtest>
+    </junit>
+ </target>
+
+ <target name="run-a-test" depends="compile-tests,bind" description="run a test">
+    <junit fork="true" haltonfailure="true" printsummary="true">
+       <classpath refid="test.classpath" />
+       <formatter type="brief" usefile="false" /> <!-- alternative type="xml" for producing reports -->
+       <batchtest todir="${test.reports.dir}">
+          <fileset dir="${test.classes.dir}" includes="**/${test.name}.class" />
+       </batchtest>
+    </junit>
+ </target>
+
+ <target name="run-test" description="run a test class" depends="compile-tests,bind">
+   <java classname="${main.class}" classpathref="test.classpath" fork="true" />
+ </target>
+
+	
+ <target name="test-report" depends="run-tests" description="produce junit reports">
+   <junitreport todir="${test.reports.dir}">
+     <fileset dir="${test.reports.dir}" includes="TEST-*.xml" />
+     <report todir="${test.reports.dir}/html" />
+   </junitreport>
+ </target>
+
+</project>

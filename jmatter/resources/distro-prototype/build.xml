@@ -1,0 +1,39 @@
+<project name="jmatter" default="new-project">
+
+  <description>jMatter framework</description>
+
+  <property name="lib.dir" location="lib" />
+  <property name="src.lib.dir" location="${lib.dir}/src" />
+  <property name="tools.lib.dir" location="${lib.dir}/tools" />
+  <property name="test.lib.dir" location="${lib.dir}/test" />
+
+  <property name="main.class" value="com.u2d.domain.App" />
+
+  <!-- (override with -Dnew.project.name flag upon invoking target) -->
+  <property name="new.project.name" value="new-jmatter-project" />
+  <target name="new-project" 
+           description="create a new project (flag: new.project.name)">
+
+      <mkdir dir="${new.project.name}" />
+      <copy todir="${new.project.name}" verbose="true" filtering="true">
+         <fileset dir="project-template" />
+         <filterset>
+           <filter token="PROJECTNAME" value="${new.project.name}" />
+           <filter token="MAINCLASSNAME" value="${main.class}" />
+         </filterset>
+      </copy>
+      <copy todir="${new.project.name}/lib/tools">
+         <fileset dir="${tools.lib.dir}" />
+      </copy>
+      <copy todir="${new.project.name}/lib/src">
+         <fileset dir="${src.lib.dir}" />
+      </copy>
+      <copy todir="${new.project.name}/lib/test">
+         <fileset dir="${test.lib.dir}" />
+      </copy>
+      <copy file="${lib.dir}/jmatter.jar" 
+            todir="${new.project.name}/lib/src" />
+  </target>
+   
+</project>
+

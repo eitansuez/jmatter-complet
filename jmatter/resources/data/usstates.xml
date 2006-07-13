@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<code-items>
+  <us-state code="AL" caption="Alabama" />
+  <us-state code="AK" caption="Alaska" />
+  <us-state code="AZ" caption="Arizona" />
+  <us-state code="AR" caption="Arkansas" />
+  <us-state code="CA" caption="California" />
+  <us-state code="CO" caption="Colorado" />
+  <us-state code="CT" caption="Connecticut" />
+  <us-state code="DE" caption="Delaware" />
+  <us-state code="DC" caption="District of Columbia" />
+  <us-state code="FL" caption="Florida" />
+
+  <us-state code="GA" caption="Georgia" />
+  <us-state code="HI" caption="Hawaii" />
+  <us-state code="ID" caption="Idaho" />
+  <us-state code="IL" caption="Illinois" />
+  <us-state code="IN" caption="Indiana" />
+  <us-state code="IA" caption="Iowa" />
+  <us-state code="KS" caption="Kansas" />
+  <us-state code="KY" caption="Kentucky" />
+  <us-state code="LA" caption="Louisiana" />
+  <us-state code="ME" caption="Maine" />
+
+  <us-state code="MD" caption="Maryland" />
+  <us-state code="MA" caption="Massachussetts" />
+  <us-state code="MI" caption="Michigan" />
+  <us-state code="MN" caption="Minneosta" />
+  <us-state code="MS" caption="Mississippi" />
+  <us-state code="MO" caption="Missouri" />
+  <us-state code="MT" caption="Montana" />
+  <us-state code="NE" caption="Nebraska" />
+  <us-state code="NV" caption="Nevada" />
+  <us-state code="NH" caption="New Hampshire" />
+
+  <us-state code="NJ" caption="New Jersey" />
+  <us-state code="NM" caption="New Mexico" />
+  <us-state code="NY" caption="New York" />
+  <us-state code="NC" caption="North Carolina" />
+  <us-state code="ND" caption="North Dakota" />
+  <us-state code="OH" caption="Ohio" />
+  <us-state code="OK" caption="Oklahoma" />
+  <us-state code="OR" caption="Oregon" />
+  <us-state code="PA" caption="Pennsylvania" />
+  <us-state code="PR" caption="Puerto Rico" />
+
+  <us-state code="RI" caption="Rhode Island" />
+  <us-state code="SC" caption="South Carolina" />
+  <us-state code="SD" caption="South Dakota" />
+  <us-state code="TN" caption="Tennessee" />
+  <us-state code="TX" caption="Texas" />
+  <us-state code="UT" caption="Utah" />
+  <us-state code="VT" caption="Vermont" />
+  <us-state code="VA" caption="Virginia" />
+  <us-state code="WA" caption="Washington" />
+  <us-state code="WV" caption="West Virginia" />
+      
+  <us-state code="WI" caption="Wisconsin" />
+  <us-state code="WY" caption="Wyoming" />
+</code-items>
+

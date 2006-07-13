@@ -1,0 +1,42 @@
+package com.u2d.mytunes;
+
+[import's collapsed]
+
+public class Song extends AbstractComplexEObject
+{
+   private final StringEO _title = new StringEO();
+   private final TimeEO _duration = new TimeEO();
+   private Album _album;
+   private final Genre _genre = new Genre();
+   private Artist _artist;
+
+   static { TimeEO.setFormat("m:ss"); }
+
+   public static String[] fieldOrder = {"title", "duration", "artist", "album", "genre"};
+
+   public Song() {}
+
+   public StringEO getTitle() { return _title; }
+   public TimeEO getDuration() { return _duration; }
+
+   public Album getAlbum() { return _album; }
+   public void setAlbum(Album album)
+   {
+      Album oldAlbum = _album;
+      _album = album;
+      firePropertyChange("album", oldAlbum, _album);
+   }
+
+   public Genre getGenre() { return _genre; }
+
+   public Artist getArtist() { return _artist; }
+   public void setArtist(Artist artist)
+   {
+      Artist oldValue = _artist;
+      _artist = artist;
+      firePropertyChange("artist", oldValue, _artist);
+   }
+
+   public Title title() { return _title.title().appendBracket(_duration); }
+
+}

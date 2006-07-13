@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+   <name>Class List</name>
+   <items>
+      <folder>
+         <name>Model</name>
+         <items>
+            <type>com.u2d.domain.Order</type>
+            <type>com.u2d.domain.Shipment</type>
+            <type>com.u2d.type.composite.USAddress</type>
+            <type>com.u2d.domain.AtomicMedley</type>
+            <type>com.u2d.calendar.Calendrier</type>
+            <type>com.u2d.domain.Resource</type>
+            <type>com.u2d.domain.Visit</type>
+         </items>
+      </folder>
+   </items>
+</folder>

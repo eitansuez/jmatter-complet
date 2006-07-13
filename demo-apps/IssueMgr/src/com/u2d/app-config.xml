@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<application name="Issue Manager">
+   <view-mechanism>com.u2d.view.swing.SwingViewMechanism</view-mechanism>
+   <look-and-feel>Metal</look-and-feel>
+   <page-size>15</page-size>
+   <persistence-mechanism>com.u2d.persist.HBMSingleSession</persistence-mechanism>
+   <persist-classes>
+      <class>com.u2d.issuemgr.IssueCategory</class>
+      <class>com.u2d.issuemgr.Issue</class>
+      <class>com.u2d.type.composite.Note</class>
+      <class>com.u2d.app.User</class>
+      <class>com.u2d.app.Role</class>
+      <class>com.u2d.restrict.CommandRestriction</class>
+      <class>com.u2d.restrict.FieldRestriction</class>
+      <class>com.u2d.find.CompositeQuery</class>
+      <class>com.u2d.type.composite.LoggedEvent</class>
+      <class>com.u2d.restrict.Restriction</class>
+      <class>com.u2d.type.composite.Folder</class>
+   </persist-classes>
+</application>
+

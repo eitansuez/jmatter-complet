@@ -1,0 +1,315 @@
+<project name="jmatter" default="run">
+
+  <description>jMatter framework</description>
+
+  <property name="build.dir" location="build" />
+  <property name="build.classes.dir" location="${build.dir}/classes" />
+  <property name="build.gen.dir" location="${build.dir}/gen" />
+  <property name="dist.dir" location="dist" />
+
+  <property name="src.dir" location="src" />
+  <property name="lib.dir" location="lib" />
+  <property name="resource.dir" location="resources" />
+  
+  <property name="src.lib.dir" location="${lib.dir}/src" />
+  <property name="tools.lib.dir" location="${lib.dir}/tools" />
+  <property name="gen.lib.dir" location="${lib.dir}/gen" />
+  <property name="web.lib.dir" location="${lib.dir}/web" />
+
+  <property name="main.class" value="com.u2d.domain.App" />
+
+  <path id="class.path">
+    <fileset dir="${src.lib.dir}" includes="**/*.jar" />
+    <fileset dir="${web.lib.dir}" includes="**/*.jar" />
+    <pathelement location="${build.classes.dir}" />
+  </path>
+
+  <property name="test.src.dir" location="test" />
+  <property name="test.classes.dir" location="${build.dir}/classes" />
+  <property name="test.lib.dir" location="${lib.dir}/test" />
+  <property name="test.reports.dir" location="${build.dir}/reports" />
+  <property name="test.resource.dir" location="test/resources" />
+
+  <path id="test.classpath">
+    <path refid="class.path" />
+    <fileset dir="${test.lib.dir}" includes="**/*.jar" />
+    <pathelement location="${test.classes.dir}" />
+  </path>
+
+  <!-- TARGETS -->
+
+  <target name="init">
+    <tstamp />
+    <mkdir dir="${build.classes.dir}" />
+    <mkdir dir="${build.gen.dir}" />
+    <mkdir dir="${dist.dir}" />
+  </target>
+ 
+  <target name="clean">
+    <delete dir="${build.dir}" />
+    <delete dir="${dist.dir}" />
+  </target>
+
+  <property name="smc.jar" location="${gen.lib.dir}/Smc.jar" />
+
+  <taskdef name="smc" classname="net.sf.smc.ant.SmcJarWrapper"
+    classpath="${gen.lib.dir}/smc-ant.jar" />
+
+  <target name="gen" description="generate smc support code" depends="init">
+    <mkdir dir="${build.gen.dir}/com/u2d/app" />
+    <smc target="java" smfile="${src.dir}/com/u2d/app/Application.sm" 
+         destdir="${build.gen.dir}/com/u2d/app"
+         smcjar="${smc.jar}" />
+  </target>
+
+  <target name="authgraph" description="use smc -graph option to produce a state machine diagram of authentication logic" depends="gen">
+    <java dir="${src.dir}/com/u2d/app" jar="${smc.jar}"
+          classpathref="class.path" fork="true">
+      <arg line="-graph -glevel 2 -d ${build.gen.dir}/com/u2d/app Application.sm" />
+    </java>
+  </target>
+
+  <target name="compile" description="compile code" depends="gen">
+    <javac debug="on" deprecation="on" 
+           classpathref="class.path"
+           destdir="${build.classes.dir}">
+      <compilerarg line="-Xmaxwarns 0" />
+      <src path="${src.dir}" />
+      <src path="${build.gen.dir}" />
+    </javac>
+    <copy todir="${build.classes.dir}">
+      <fileset dir="${resource.dir}" includes="images/*.gif,images/*.png" />
+      <fileset dir="${resource.dir}" includes="jfreereport.properties" />
+      <fileset dir="${resource.dir}/data" includes="*.xml" />
+      <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- wizard fsm -->
+    </copy>
+  </target>
+ 
+
+  <property name="example.resource.dir" location="${resource.dir}/examples-resources" />
+
+  <target name="compile-examples" depends="bind">
+    <copy todir="${build.classes.dir}/images">
+      <fileset dir="${example.resource.dir}/images" includes="*.gif,*.png" />
+    </copy>
+  </target>
+
+  <target name="run-example" depends="compile-examples">
+   <copy file="${example.resource.dir}/app-${appname}.properties" tofile="${build.classes.dir}/app.properties" overwrite="true" />
+   <java classname="com.u2d.app.Application" classpathref="class.path" fork="true" />
+  </target>
+
+ <target name="run-managers" description="run managers example">
+   <antcall target="run-example">
+     <param name="appname" value="managers" />
+   </antcall>
+ </target>
+
+ <target name="run-projects" description="run projects example">
+   <antcall target="run-example">
+     <param name="appname" value="projects" />
+   </antcall>
+ </target>
+
+ <target name="run-orders" description="run orders example" depends="compile-examples">
+   <copy file="${example.resource.dir}/app-orders.properties" tofile="${build.classes.dir}/app.properties" overwrite="true" />
+   <java classname="examples.orders.Application" classpathref="class.path" fork="true" />
+ </target>
+
+  <target name="just-jar" description="just jar jmatter framework (assume compiled)">
+    <jar basedir="${build.classes.dir}" file="${dist.dir}/${ant.project.name}.jar">
+      <manifest>
+        <attribute name="Created-By" value="Eitan Suez" />
+        <attribute name="Main-Class" value="${main.class}" />
+        <attribute name="Class-Path" value="layouts.jar skinlf.jar" />
+      </manifest>
+      <!-- <fileset dir="${src.lib.dir}" includes="**/*.jar" /> -->
+    </jar>
+  </target>
+
+  <target name="jar" description="jar jmatter framework" depends="bind">
+    <jar basedir="${build.classes.dir}" file="${dist.dir}/${ant.project.name}.jar">
+      <manifest>
+        <attribute name="Created-By" value="Eitan Suez" />
+        <attribute name="Main-Class" value="${main.class}" />
+        <attribute name="Class-Path" value="layouts.jar skinlf.jar" />
+      </manifest>
+      <!-- <fileset dir="${src.lib.dir}" includes="**/*.jar" /> -->
+    </jar>
+  </target>
+
+  <target name="run" depends="genhbm" 
+          description="run some class (flag: main.class)">
+    <java classname="${main.class}" classpathref="test.classpath" fork="true" />
+  </target>
+ 
+  <target name="cleanrun" depends="clean, run" description="clean, then run" />
+
+ <!-- targets pertaining to junit testing -->
+
+  <target name="test-init">
+    <mkdir dir="${test.classes.dir}"/>
+    <mkdir dir="${test.reports.dir}"/>
+  </target>
+
+  <target name="compile-tests" 
+          depends="test-init,bind" 
+          description="compile tests">
+    <javac debug="on" deprecation="on"
+           classpathref="test.classpath"
+           destdir="${test.classes.dir}" srcdir="${test.src.dir}" />
+    <copy todir="${build.classes.dir}">
+      <fileset dir="${test.resource.dir}" includes="**/*.properties" />
+      <fileset dir="${test.resource.dir}" includes="images/*.gif" />
+      <!-- <fileset dir="${test.src.dir}" includes="**/*.hbm.xml" /> -->
+      <fileset dir="${test.src.dir}" includes="**/*.xml" /> <!-- jfree report templates -->
+    </copy>
+  </target>
+
+  <target name="run-tests" depends="compile-tests" description="run tests" >
+    <junit fork="true" haltonfailure="true" printsummary="true">
+      <classpath refid="test.classpath" />
+      <formatter type="xml" />
+      <!-- <formatter type="brief" usefile="false" /> -->
+      <batchtest todir="${test.reports.dir}">
+        <fileset dir="${test.classes.dir}" includes="**/*Suite.class" />
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="run-a-test" depends="compile-tests" 
+          description="run a test case (flag: test.name)" >
+    <junit fork="true" haltonfailure="true" printsummary="true">
+      <classpath refid="test.classpath" />
+      <formatter type="brief" usefile="false" /> <!-- alternative type="xml" for producing reports -->
+      <batchtest todir="${test.reports.dir}">
+        <fileset dir="${test.classes.dir}" includes="**/${test.name}.class" />
+      </batchtest>
+    </junit>
+  </target>
+
+ <target name="run-test" description="run a test class" depends="compile-tests">
+   <java classname="${main.class}" classpathref="test.classpath" fork="true" />
+ </target>
+
+  <target name="test-report" depends="run-tests" 
+          description="produce junit reports">
+    <junitreport todir="${test.reports.dir}">
+      <fileset dir="${test.reports.dir}" includes="TEST-*.xml" />
+      <report todir="${test.reports.dir}/html" />
+    </junitreport>
+  </target>
+
+
+  <target name="genhbm" depends="compile-tests" 
+          description="generate hbm.xml files">
+    <java classpathref="test.classpath" dir="${test.classes.dir}"
+          fork="true" classname="com.u2d.persist.HBMGenerator" />
+  </target>
+    <!-- todo: need to use uptodate task to not call genhbm needlessly when 
+         they're already up to date -->
+
+  <target name="schema-export" depends="genhbm" 
+          description="export test schema to db">
+    <taskdef name="schemaexport"
+             classname="org.hibernate.tool.hbm2ddl.SchemaExportTask"
+             classpathref="test.classpath" />
+    <schemaexport properties="${test.resource.dir}/hibernate.properties"
+                  quiet="no" text="no" drop="no"
+                  delimiter=";" output="${build.dir}/schema-export.sql">
+      <fileset dir="${test.classes.dir}" includes="**/*.hbm.xml" />
+    </schemaexport>
+  </target>
+
+  <property name="class.file" value="com.u2d.domain.Shipment" /> 
+
+  <target name="hbmxml" depends="compile-tests"
+          description="Produce a single hbm.xml file">
+    <java classname="com.u2d.persist.HBMMaker" classpathref="class.path" fork="true">
+      <arg value="${class.file}" />
+    </java>
+  </target>
+
+ <!-- first experimentation with aspectj: goal is to weave into jmatter.jar a simple
+    tracing aspect from a prebuilt tracing aspect library -->
+
+ <!--
+ <taskdef
+     resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+ </taskdef>
+
+ <target name="weave-trace" description="weave trace aspectlib into project code"
+    depends="jar">
+   <iajc classpathref="class.path" outjar="${dist.dir}/woven.jar">
+     <aspectpath>
+       <pathelement location="${lib.dir}/tools/trace-aspectlib.jar" />
+     </aspectpath>
+     <injars>
+       <pathelement location="${dist.dir}/${ant.project.name}.jar" />
+       <pathelement location="${lib.dir}/tools/trace-aspectlib.jar" />
+     </injars>
+   </iajc>
+ </target>
+ -->
+
+   
+
+   <!-- JiBX - related -->
+
+   <!-- JiBX binding compiler task definition --> 
+   <taskdef name="bind" classname="org.jibx.binding.ant.CompileTask">
+     <classpath>
+       <pathelement location="${tools.lib.dir}/bcel.jar" />
+       <pathelement location="${tools.lib.dir}/jibx-bind.jar" />
+       <pathelement location="${src.lib.dir}/jibx-run.jar" />
+       <pathelement location="${src.lib.dir}/xpp3.jar" />
+     </classpath>
+   </taskdef>
+
+   <!-- Run JiBX binding compiler -->
+   <target name="bind" depends="compile" description="run JiBX binding compiler">
+     <bind binding="${resource.dir}/binding.xml">
+       <classpathset dir="${build.classes.dir}" />
+       <classpathset dir="${src.lib.dir}/jibx-run.jar" />
+     </bind>
+   </target>
+   
+   
+   <!-- TODO: override with -Dnew.project.name flag upon invoking target -->
+   <property name="new.project.name" value="new-jmatter-project" />
+   <target name="new-project" depends="jar" 
+           description="create a new project (flag: new.project.name)">
+      <mkdir dir="../${new.project.name}" />
+      <copy todir="../${new.project.name}" verbose="true" filtering="true">
+         <fileset dir="${resource.dir}/project-template" />
+         <filterset>
+           <filter token="PROJECTNAME" value="${new.project.name}" />
+           <filter token="MAINCLASSNAME" value="${main.class}" />
+         </filterset>
+      </copy>
+      <copy todir="../${new.project.name}/lib/tools">
+         <fileset dir="${tools.lib.dir}" />
+      </copy>
+      <copy todir="../${new.project.name}/lib/src">
+         <fileset dir="${src.lib.dir}" />
+      </copy>
+      <copy todir="../${new.project.name}/lib/test">
+         <fileset dir="${test.lib.dir}" />
+      </copy>
+      <copy todir="../${new.project.name}/lib/web">
+         <fileset dir="${web.lib.dir}" />
+      </copy>
+      <copy file="${dist.dir}/${ant.project.name}.jar" 
+            todir="../${new.project.name}/lib/src" />
+   </target>
+   
+
+   <target name="javadoc" description="produce jmatter javadocs">
+     <javadoc sourcepath="${src.dir}"
+              destdir="${build.dir}/javadocs"
+              classpathref="class.path" 
+              packagenames="com.u2d.*" />
+   </target>
+   
+</project>
+

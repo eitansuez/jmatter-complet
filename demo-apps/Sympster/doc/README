@@ -1,0 +1,70 @@
+
+Project Sympster
+----------------------
+
+Welcome.
+
+Getting Started
+---------------
+
+  create a database 
+  edit resources/hibernate.properties accordingly
+
+  create a model class, conforming to the conventions
+   described in the file named "Cliche" in this directory.
+
+  add type to src/com/u2d/app-config.xml
+       and to src/com/u2d/class-list.xml
+
+  then:
+   ant genhbm
+      ..will automatically create hibernate hbm.xml mapping files for your model classes
+      you can navigate through the package hierarchy under build/classes and locate the
+       generated hbm.xml files for your model classes.
+   ant schema-export
+      ..will automatically create and export the ddl to your database
+      you should be able to connect to your database and see the generated tables at
+      this point.
+
+   place image files for your new type in resources/images
+    (see the README file in that directory)
+
+   then:
+    ant run
+
+   will automatically launch your application.  by default, a single user will
+   already exist in the system:  username: admin with password: admin
+   passwords are hashed and then stored in the database.  Feel free to create
+   new users via the gui.  As soon as a new user is created, that new user
+   can log in to the system.
+
+   if you wish to customize a splash screen for your application, simply
+   put a "splash.gif" (or png or jpg) in resources/images.
+
+   out of the box you get a lot:
+
+   a. persistence
+   b. a rich gui
+   c. authentication
+   d. ability to manage users and roles directly from the gui
+   e. complete search/query support for your types directly 
+        from the gui
+   f. ability to define and save your query specifications for
+        later execution
+   g. desktop configuration is saved per user when they log out
+      or quit, regardless of where they log in from.
+   h. support for building wizards into the application
+   i. support for producing pdf's via jfreereport and iText
+   j. authorization system not yet completely working
+   k. meta-information visible from ui (not yet editable)
+   l. support for n-parameter captions
+   m. built-in paging support for large lists
+   n. export to csv feature for lists
+   o. multiple views for lists (table, icons, list, composite views, ..)
+   p. copy/paste feature
+
+
+Sincerely,
+/ Eitan Suez
+2005
+

@@ -1,0 +1,128 @@
+/*
+ * Created on Jan 20, 2004
+ */
+package com.u2d.field;
+
+import java.util.*;
+import java.beans.*;
+import java.lang.reflect.Modifier;
+import com.u2d.element.Field;
+import com.u2d.list.RelationalList;
+import com.u2d.model.*;
+import com.u2d.pattern.*;
+import com.u2d.type.Choice;
+import com.u2d.type.atom.BooleanEO;
+import com.u2d.view.*;
+
+/**
+ * @author Eitan Suez
+ */
+public class AggregateField extends CompositeField implements FieldParent
+{
+   private List _fields;
+   private Map _fieldsMap;  // key is field name for fast retrieval of child
+      // field by name
+
+   protected final BooleanEO _flattenIntoParent = new BooleanEO(false);
+   public BooleanEO getFlattenIntoParent() { return _flattenIntoParent; }
+   public boolean flattenIntoParent() { return _flattenIntoParent.booleanValue(); }
+   
+   
+   public AggregateField(FieldParent parent, PropertyDescriptor descriptor)
+			throws IntrospectionException
+	{
+		super(parent, descriptor);
+      harvestFields();
+	}
+   
+	public AggregateField(FieldParent parent, String name)
+			throws IntrospectionException
+	{
+		super(parent, name);
+      harvestFields();
+	}
+   
+   private void harvestFields() throws IntrospectionException
+   {
+      _fields = Harvester.harvestFields(this);
+      _fieldsMap = makeFieldMap(_fields);
+      _subFields.setItems(_fields);
+   }
+   
+   public List fields() { return _fields; }
+   public Field field(String propname)
+   {
+      //return (Field) Member.member(propname, fields());
+      return (Field) _fieldsMap.get(propname);
+   }
+   
+   // note: was package private, forced to make public after package
+   // restructuring
+   public static Map makeFieldMap(Collection fields)
+   {
+      Map fieldMap = new HashMap();
+      Iterator itr = fields.iterator();
+      Field field = null;
+      while (itr.hasNext())
+      {
+         field = (Field) itr.next();
+         fieldMap.put(field.name(), field);
+      }
+      return fieldMap;
+   }
+   public Map fieldsMap() { return _fieldsMap; }
+   
+
+   private final RelationalList _subFields = new RelationalList(Field.class);
+   public static Class subFieldsType = Field.class;
+   public RelationalList getSubFields() { return _subFields; }
+
+
+   
+   public EView getView(ComplexEObject parent)
+   {
+      ComplexEObject value = (ComplexEObject) get(parent);
+      if (value instanceof Choice)
+      {
+         return value.getView();
+      }
+      else if (isTabView())
+      {
+         return value.getTabBodyView();
+      }
+      else
+      {
+         return value.getExpandableView();
+      }
+   }
+   
+   public int validate(ComplexEObject parent)
+   {
+      int result = 0;
+      Field field = null;
+      ComplexEObject fieldValue = (ComplexEObject) get(parent);
+      for (int i=0; i<_fields.size(); i++)
+      {
+         field = (Field) _fields.get(i);
+         result += field.validate(fieldValue);
+      }
+      result += fieldValue.validate();
+      return result;
+   }
+   
+   public void setState(ComplexEObject parent, State state)
+   {
+      EObject value = get(parent);
+      ((ComplexEObject) value).setState(state);
+   }
+
+   public boolean isInterfaceType() { return _clazz.isInterface(); }
+   public boolean isAbstract()
+   {
+      return _clazz.isInterface() || 
+            Modifier.isAbstract(_clazz.getModifiers());
+   }
+   public ComplexType fieldtype() { return ComplexType.forClass(_clazz); }
+
+
+}

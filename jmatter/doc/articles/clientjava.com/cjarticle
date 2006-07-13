@@ -1,0 +1,279 @@
+June 26 2006
+by Eitan Suez
+
+Extreme Agility with jMatter
+============================
+
+Introduction
+------------
+
+jMatter is a modern framework for constructing two-tier business applications in Java.  It was recently open-sourced, and it is my privilege to introduce you to this framework.
+
+jMatter was built on a simple premise:  that many of the services that business applications depend on are generic, and can be implemented generically.
+
+Specifically, most business applications require persistence to relational database, a user interface, the ability to query the database, possibly save queries.  They require an authentication mechanism, authorization, reporting services.  All assume the ability to construct and edit objects and to associate them via a user interface.  Oftentimes, a wizard may prove helpful in assisting the end user with the construction of certain, complex objects.
+
+Why is it that each time we start on a new project, we tend to build most of these services from scratch?  We rebuild login screens from scratch (or we copy the code from a previous project, which is definitely not good).
+We hand-code the forms necessary for creating and editing objects.  Various basic facilities such as listing and querying objects are written yet again from scratch, in a manner that is coupled to the domain model in question.  Oftentimes, the applications we deliver are lacking the implementation of certain services that may not be absolutely necessary, because of time and resource constraints.
+
+Why not instead implement these services once and for all, generically?  What would this buy us?  We'd be able to reuse the implementations from project to project.  The amount of time we spend on each project building this infrastructure for a specific domain model could easily be in excess of 50-75% of the total time devoted to the project.
+
+The jMatter framework provides implementations for many of the services that we traditionally build by hand.  The idea is that the framework will provide the user interface, the persistence and more, while we, the business developers, provide the model:  we are free to concentrate on the business logic, on the needs of our customers.
+
+Let us proceed by building a small application together, and experience first-hand what leverage we might gain from using jMatter.
+
+
+A Sample Application
+--------------------
+
+Go ahead and download a copy of jMatter from [http://jmatter.org/](http://jmatter.org/).
+
+Unpack the zip or tgz file and at the command line, from within the jmatter directory, invoke this command:
+
+    ant new-project -Dnew.project.name=AddressBook
+
+We're instructing jMatter that we wish to create a new project named "Address Book."  The project is created in a sibling directory:
+
+    cd ../AddressBook
+    
+Similar to the NakedObjects framework, jMatter relies coding conventions.  The Java classes we'll be writing will need to follow these conventions.  Let's create a package `org.jmatter.addressbook` and within that package, we'll define the class `Contact`.  We'll keep the implementation simplistic on purpose, since this is our first look at jMatter.  See Figure 1.
+
+
+      package org.jmatter.addressbook;
+
+      import com.u2d.model.AbstractComplexEObject;
+      import com.u2d.model.Title;
+      import com.u2d.type.atom.*;
+      import com.u2d.type.USState;
+      import javax.swing.*;
+      import java.awt.*;
+
+      public class Contact extends AbstractComplexEObject
+      {
+         private final StringEO name = new StringEO();
+         private final ImgEO photo = new ImgEO();
+         private final StringEO street = new StringEO();
+         private final StringEO city = new StringEO();
+         private final USState stateCode = new USState();
+         private final USZipCode zipCode = new USZipCode();
+
+         public static String[] fieldOrder = {"name", "photo", "street", "city", "stateCode", "zipCode"};
+         public static Color colorCode = new Color(0x0dA858);
+
+         public Contact() {}
+
+         public StringEO getName() { return name; }
+         public ImgEO getPhoto() { return photo; }
+         public StringEO getStreet() { return street; }
+         public StringEO getCity() { return city; }
+         public USState getStateCode() { return stateCode; }
+         public USZipCode getZipCode() { return zipCode; }
+
+         public Title title() { return name.title(); }
+
+
+         /* *** custom icon code:  use photo as icon if possible  *** */
+         private transient PhotoIconAssistant _assistant = new PhotoIconAssistant(this, photo);
+         public Icon iconLg() { return _assistant.iconLg(); }
+         public Icon iconSm() { return _assistant.iconSm(); }
+      }
+
+*Figure 1:  The Class "Contact"*
+
+
+Let's review this code.  We define a class named `Contact` with typical properties, including the contact name, photo, and address information.  Note that each property is defined as a final, thus exposed only with a getter method.  There's a `title()` method, which the jMatter user interface will use to display objects' titles.
+
+Note that we also specify (via a form of metadata) what order fields should be displayed in, and that we wish to use a specific color-code to distinguish contacts from additional types that we might later define.  We also cutomize the user interface by providing two icons (one 16x16 pixel, and one 32x32 pixel icon) that we place in the directory `resources/images`.
+
+Furthermore, we can customize the splash screen for our application with an image, by placing a file named "splash.gif" (or jpg or png) in `resources/images`.
+
+Finally, we wish to use each contact's photo (if specified) as the actual icon for representing each instance in the user interface.  jMatter provides the class `PhotoIconAssistant` which takes care of the details of producing the properly-sized icons from the photo.  We override the `iconLg()` and `iconSm()` methods on `Contact` to customize the icon.
+
+
+###Configuration
+
+We need to:
+
+  1. configure the database that we'll be connecting to;
+  2. tell jMatter which classes are part of our persistence model;
+  3. tell jMatter which classes we wish to place in our toolbar in the user interface.
+  
+To configure the database, we edit the file `hibernate.properties` in the `resources` directory.  This should be a familiar task for anyone who's worked with Hibernate.  We specify the usual information:  jdbc driver name, url, username and password.  Here's my copy, after I've made the edits:
+
+      # PostgreSQL
+      hibernate.connection.driver_class=org.postgresql.Driver
+      hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+      hibernate.connection.url=jdbc:postgresql://127.0.0.1/addressbook
+      hibernate.connection.username=eitan
+      hibernate.connection.password=eitan
+
+I prefer to use PostgreSQL.  You should be able to use any database supported by Hibernate.
+
+We edit the file `src/com/u2d/app-config.xml` and add our class to the list of persisted classes:
+
+    ..
+    <persist-classes>
+       <class>org.jmatter.addressbook.Contact</class>
+       ..
+
+Similarly, we customize the toolbar (this is not strictly necessary), editing
+ `src/com/u2d/class-list.xml`:
+
+      ..
+      <folder>
+         <name>Model</name>
+         <items>
+            <type>org.jmatter.addressbook.Contact</type>
+            ..
+
+
+Ok, we should be all set.  We'll be using some ant targets to compile the code, to generate corresponding hibernate mapping files, and to generate the database schema:
+
+    ant schema-export
+
+The `schema-export` target depends on the `genhbm` and `compile` targets and so we don't need to invoke them explicitly.  At this point you should be able to verify that your database schema has been generated.
+
+It's finally time to run our application.  Keep in mind that many of the facets of the application we're about to use will be new to us, simply because we didn't have to write them:  they're provided by the framework:
+
+    ant run
+
+
+
+Exploring the Application
+-----------
+
+We're greeted by a login dialog, as shown in Figure 1.  The default username and password are *admin*.  Proceed by logging in.
+
+![Login Screen](images/figure1.png)
+
+*Figure 1:  Login Screen*
+
+You'll see a toolbar on the left hand side (I call this toolbar the *Class Bar*), as shown on Figure 2.
+
+![jMatter Application Desktop](images/figure2.png)
+
+*Figure 2:  jMatter Application Desktop*
+
+Follow these instructions:
+
+1. Right-click on the Contacts icon, select the *Browse* action.  An empty listing of Contacts will appear.
+
+2. Create a new Contact.  This can be done in a number of ways:
+
+  - press `Ctrl-n`, or
+  - right-click on the listing's title bar and select the "New" command from its context menu, or
+  - right-click the *Contacts* icon in the class bar and select the "New" command.
+  
+  You should see a screen that resembles Figure 3.
+
+  ![Creating a new Contact Instance](images/figure3.png)
+
+  *Figure 3:  Creating a new Contact Instance*
+
+  Go ahead and complete the form click the *Save* button.  This application could definitely use a few improvements, namely specifying required fields, and perhaps default values for certain fields.  jMatter supports both features, which I hope to cover in a future article (alternatively, simply consult jMatter's documentation directly).
+
+  If the Contacts listing window is still open, you should see the addition of the new contact reflected in the listing.  Go ahead and close the view of the contact we just created (the keyboard shortcut is `Ctrl-w` on linux or windows, and `Cmd-w` on a mac)).
+
+3. Although our database is mostly empty, let's go ahead and exercise the query features that are built in to jMatter's user interface.  Right-click on *Contacts* again and select the *Find* command.  In an ad-hoc fashion, we can now construct a query to mine information from the Contacts table, without writing a single line of code (see Figure 4).
+
+  ![Query Features](images/figure4.png)
+
+  *Figure 4:  Query Features*
+
+  Remember that all of these features, including query constrution and invocation are provided by the framework.  You do not need to write any code to get these features.  We can query contacts by name, city, etc..  The field comparators dynamically change based on the field type you've opted to search by.  This query user interface becomes much more powerful as our model gets richer.  This query mechanism fully supports the underlying polymorphic features of Hibernate.  Finally, you can compose complex queries by adding criteria (you do this by clicking on the green '+' icon).
+
+  jMatter also supports a feature I termed *Smart Lists*, whereby any of the queries you defined can be named and persisted to database, for later execution.  In figure 4, after constructing a query, click on the *Save Query* command, name the query, and save it.  Notice how the *Class Bar* contains a definition of q *Query* model object.  Just like any other model object, you can list queries and execute them at a later point in time.  You can even query queries (if that makes sense).
+
+4. jMatter also keeps track of user activity.  You can browse the log and see at what time you logged in, for example, or find out that you saved a new contact at a specific time (see Figure 5).
+
+  ![Activity Log](images/figure5.png)
+
+  *Figure 5:  Activity Log*
+  
+  You can query activity logs in the same manner that you query contacts.
+  
+5.  Another built-in model object represents *Users*.  We can create new users, or modify a user's password in a manner akin to the way we manipulate other types:
+
+  - right-click *Browse* on *Users*
+  - double click on the "admin" user
+  - Click "Change Password" and enter the new password.
+
+  ![Changing the administrator password](images/figure6.png)
+
+  *Figure 6: Changing the administrator password*
+
+  
+### Implementing Actions
+
+Let's inspect the implementation of the class `User` (in package `com.u2d.app`).  We discover that it too is implemented by using and following the same conventions that we used to implement `Contact.java`.  It's just another model object.  Here's how User.java implements the "Change Password" action:
+
+      @CommandAt(mnemonic='p')
+      public String ChangePassword(CommandInfo cmdInfo,
+                                   @ParamAt("New Password") Password password)
+      {
+         _password.setValue(password);
+         save();
+         log(LoggedEvent.INFO, cmdInfo.getCommand(), "User changed password");
+         return "Password has been changed";
+      }
+
+All we need to do is define a method and annotate it.  The annotation implies that we wish to expose this behaviour to the user interface.  We also went ahead and specified a mnemonic for the action.  Stop for a moment and think about the amount of work required to implement an action in Swing:  for one thing, we'd have to ensure that the action is launched off the event dispatch thread, that subsequent UI-related code is invoked back on the event dispatch thread.  Furthermore, the construction of any user interface related code would have to be implemented manually.
+
+The fact that this method takes the argument "password" indicates to the framework that the invocation of this action will require input from the end user.  So the framework goes ahead and prompts the user to enter a new password, supplying the default editor for the "Password" type.  In this case, I customized the caption for the argument in question using the `@ParamAt` annotation.
+
+This particular method implementation also chose to record its activity by invoking the `log()` method.  The text returned by the method is automatically displayed as a message to the user (assuming this command was invoked from the user interface).
+
+Note also that validation is built-in here.  If the specified password is too short or if the two entries provided by the user do not match, a validation exception will pre-empt setting and saving the password.  The user interface will display a specific error message next to the field in question and the user will be prompted to re-enter the password.
+
+The command is automatically exposed to the user interface.  No additional work is required.
+
+
+How'd it do that?
+-----------------
+
+It turns out that everything jMatter does, you've probably done before.  The main difference is that the jMatter implementations are domain-agnostic:  they're generic.  The consequence cannot be underestimated:  for the next application we develop, we won't have to start again from scratch.
+
+In fact, it would be correct to state that the application we just ran was not implemented by us.  We ran someone else's application, while abstracting what we often consider the core:  the domain model.  There's nothing that prevents us from further improving this application, possibly even implementing features that the framework does not support directly.  To the extent that our implementation remains generic, these additional features can be integrated directly into the framework, and made to support other, unrelated applications.
+
+Ask yourself:
+
+  1. How long did it take us to construct this application?  Perhaps ten minutes.  
+  2. How long would it take to construct this application the "traditional" way, from scratch?
+  
+I think you'd agree that the 50%-75% ratio I mentioned earlier in this article is quite conservative.  We can look at different metrics, from the amount of time it takes to implement a custom software solution, to the number of lines of code.  To me, a term that reflects well what we have here is *Extreme Agility*.
+
+Allow me to list some of the services that jMatter provides directly out of the box:
+
+  1. A rich and full-featured graphical user interface, with support for multiple alternative views
+  2. Powerful query capabilities
+  3. Smart Lists
+  4. Authentication
+  5. Persistence via Hibernate
+  6. Calendaring
+  7. Wizards
+  8. Polymorphic modeling (support for interface-based modeling)
+  9. Java WebStart integration (auto-generation of jnlp file)
+  0. Logging
+  1. A Folders feature for ad-hoc categorization
+  2. Exporting lists as CSV files
+  3. Integration with JFreeReport
+  4. A rich set of predefined basic types (text, dates, zip codes, percentages, passwords, ssn's, etc.)
+  5. The ability to customize the user interface with custom views
+  
+jMatter leverages the excellent Hibernate O/RM framework for its persistence mechanism.  It leverages Swing to provide a very rich and consistent user interface, one that is rooted in the study of works such as the NakedObjects book, Jef Raskin's *Humane Interface*, and from my own experience.
+
+
+Summary
+-------
+
+This article is only a first, small step in the direction of understanding the jMatter framework.
+
+I invite you to learn more about jMatter by visiting [http://jmatter.org](http://jmatter.org), where you'll find a project weblog, screenshots, a flash movie, a 130+ -page manual, and more.  Finally, we invite you to actively participate in the discussions on our mailing list, and to consider jMatter for your next project.
+
+
+References
+----------
+
+ - [jMatter web site](http://jmatter.org/):  http://jmatter.org/
+ - [NakedObjects web site](http://nakedobjects.org/): http://nakedobjects.org/
+

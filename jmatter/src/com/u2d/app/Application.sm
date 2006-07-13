@@ -1,0 +1,32 @@
+%class Application
+%package com.u2d.app
+
+%start AuthMap::InitState
+
+%map AuthMap
+%%
+InitState
+{
+  onBegin() LoggedOutState {}
+}
+
+LoggedInState
+Exit { clearUser(); }
+{
+  onLogout LoggedOutState {}
+}
+
+LoggedOutState
+Entry { showLoginDialog(); }
+Exit { dismissLoginDialog(); }
+{
+  onLogin(username: String, password: String) [ctxt.isLocked(username)] nil {displayLockedDialog();}
+  onLogin(username: String, password: String) [ctxt.authenticate(username, password)] LoggedInState 
+      { clearBadAttempts(username); setupUser(username); }
+  onLogin(username: String, password: String) [ctxt.tooManyBadAttempts(username)] nil 
+      { lock(username); displayLockedDialog(); }
+  onLogin(username: String, password: String) nil { loginInvalid(); }
+}
+
+%%
+

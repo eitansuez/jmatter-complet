@@ -1,0 +1,21 @@
+March 2004
+
+Reminder on how to configure java security on machines
+to allow locally deployed apps without signing:
+
+
+  1. create $java.home/lib/security/additional.policy as:
+    // should be (but doesn't work):  grant codeBase "http://apple-g5:8080/-"
+    grant codeBase "file:///-"
+    {
+      permission java.security.AllPermission;
+    };
+
+  2. in $java.home/lib/security/java.security, add this line:
+    policy.url.3=file:${java.home}/lib/security/additional.policy
+
+Note:  this is a bad idea because codeBase doesn't really work.  It's a 
+  security hole.  Information placed here only for the purpose of 
+  remembering how this is configured.
+
+

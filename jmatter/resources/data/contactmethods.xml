@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<code-items>
+  <contact-method code="workPhone" caption="Work Phone" />
+  <contact-method code="mobilePhone" caption="Mobile Phone" />
+  <contact-method code="homePhone" caption="Home Phone" />
+  <contact-method code="email" caption="Email" />
+</code-items>

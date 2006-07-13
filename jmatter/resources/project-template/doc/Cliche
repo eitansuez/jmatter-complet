@@ -1,0 +1,490 @@
+
+ Summary
+ -------
+
+ The p4 framework is a NakedObjects-like framework I have written
+ to support LAN application development.  I am currently in the process
+ of developing a Clinic application to manage Patient information and
+ more.  The type of application that p4 supports at the moment is a
+ two-tier, rich-client type application written in Swing, distributable
+ over Java Web Start.
+ 
+ As in NakedObjects, the main goals of the p4 framework is:
+  >> to speed up app development <<
+ It does so by:
+   a. providing a user interface for your application without
+      requiring you to write any user interface code.  the only
+      requirement is abiding by the conventions/contract of the
+      framework, as outlined below.
+   b. providing a persistence mechanism for your application
+      without requiring you to write any persistence code.  Again,
+      the only requirements is abiding by the conventions/contract
+      of the framework, outlined below.
+      The persistence mechanism is based on the hibernate api.
+      The p4 framework automatically generates hbm.xml mapping files
+      for your application.  Also, the p4 framework provides an
+      ant task based on the hibernate schema-export tool, that 
+      automatically creates your schema for you.
+      
+ The best way to understand how to use and work with p4 is to
+ study an example application.  The application pinfo-p4 is
+ such an application.  It is a medical application for small
+ clinics.  It is a work in progress.  p4 was developed specifically
+ to support pinfo-p4.  So pinfo-p4 pretty much exercises all
+ of the features of p4.
+ 
+ Cliche
+ ------
+
+ 1. Classes must extent com.u2d.model.AbstractComplexEObject
+   which is a base implementation of the interface ComplexEObject
+ 
+    Example:
+     public class Person extends AbstractComplexEObject
+
+ 2. Value fields should be marked final
+ 
+    Example:
+     protected final Name _name = new Name();
+
+ 3. Value fields should only have a getter (no setter)
+ 
+    Example:
+     public Name getName() { return _name; }
+
+ 4. To set the value of a value property, use setValue()
+ 
+    Example:
+     getName().setValue(name);
+ 
+ 5. For each class, provide a title() method:
+ 
+    Example:
+     public Title title() { return _name.title(); }
+ 
+ 5b.  Optional Hint:  if derivation of plural name for an object by appending
+   an "s" is incorrect, you may optionally specify the proper plural name for
+   that class with a simple public static method named "pluralName."
+   For example:
+   
+      public static String pluralName() { return "Addresses"; }
+   
+ 
+ 6. Optional Hint:  fieldOrder controls the field display order in the user interface
+ 
+    Example:
+     public static String[] fieldOrder = {"name", "contact"};
+    
+    fieldOrder is a String array.  Specify the name of each property as a String, 
+    as it would be derived from the accessor method by the JavaBeans conventions:
+    
+      getName() -> property name is "name"
+      getPropertyName() -> property name is "propertyName"
+    
+ 6b. Optional Hint:  flattenIntoParent
+     Description:  applies only to aggregate fields.  by default, an aggregated 
+      field such as "address" or "name" (with multiple fields such as first, last, etc..)
+      is displayed as such in the ui: the formview contains an expandable/collapsible
+      view, reflecting the model.  in the ui, if you prefer to collapse the aggregated field's
+      child fields directly into the parent, use this hint.
+
+    Example:
+     public static String[] flattenIntoParent = {"name"};
+
+    
+ 7. Optional Hint:  tabViews controls which fields (if any) should be displayed 
+      in a separate tab in the user interface
+      
+   public static String[] tabViews = {"contact"};
+ 
+ 8. For "atomic" value types, use type wrappers (see com.u2d.type.atom).
+ 
+   BooleanEO, CharEO, StringEO, TextEO, Password
+   IntEO, FloatEO, Percent
+   DateEO, TimeEO, DateTime, TimeInterval, TimeSpan
+   Photo
+   URI, Email, SSN
+   USZipCode, USPhone, USDollar
+   
+ 9. In addition, p4 defines some composite value types (see com.u2d.type.composite)
+   
+   Contact, ContactMethod, Name, Note, USAddress
+   
+   (Note that these composite types are themselves defined as ComplexEObjects)
+   
+ 10. For associations, a property should be a reference to another object.  The property 
+     should, of course, not be final and should have both getter and setter methods.
+     Furthermore, the setter should fire a property change events, just like JavaBeans 
+     bound properties do (you don't have to provide PropertyChangeSupport as it is
+     provided by the superclass).
+     
+     Example:
+      private Visit _visit;
+      public Visit getVisit() { return _visit; }
+      public void setVisit(Visit visit)
+      {
+         Visit oldVisit = _visit;
+         _visit = visit;
+         firePropertyChange("visit", oldVisit, _visit);
+      }
+     
+ 11. To-many associations
+ 
+     To model a relationship to a list of items of a specific type, use the
+     RelationalList object.  Field should be final, and the item type should
+     be specified in the constructor.
+     
+     Example:
+      private final RelationalList _plans = new RelationalList(Plan.class);
+     
+     *Caveat*:
+     
+      At the moment also need to provide a mechanism for the system
+      to statically introspect the list item type so the following is required
+      as well:
+        public static Class plansType = Plan.class;
+     
+
+     Provide a Getter method;  for example:
+     
+      public RelationalList getPlans() { return _plans; }
+      
+     
+     
+ 12. Required Fields.  Whether a field is required (i.e. cannot be blank)
+     can be specified declaratively in the file model-metadata.properties.
+     
+     Example (snippet of model-metadata.properties):
+      Patient.name.required=true
+      Patient.name.first.required=true
+      Patient.name.last.required=true
+      
+ 13. Defaults.  For atomic types, defaults can be specified declaratively
+     in the file model-metadata.properties
+     
+     Example (snippet of model-metadata.properties):
+      Provider.name.salutation.default=Dr.
+      Service.qty.default=1
+     
+     Defaults can also be specified for entities (complex objects
+     saved in a database) in terms of an hql query:
+     Visit.provider.default=from Provider as prov where prov.name.first='Daniel' and prov.name.last='Suez'
+     
+     Lastly, for Choice type objects (Choices are basically code/caption pairs;  examples
+      are USState ('TX'/'Texas') or Sex ('m'/'Male')) you can simply specify the code
+      value as the default.  The proper choice object will be looked up.
+ 
+ 14. Complex Validation
+ 
+     Whether a field is required in a certain context is not always determined 
+     in a static fashion.  The answer often depends on the context, such as 
+     values of other fields, and needs to be determined dynamically.  p4 framework
+     provides support for this.
+     
+     For example, for a Patient object, whether the referring physician property
+     is required depends on whether the patient's insurance type is HMO.  Here
+     is how this is implemented:
+     
+      private static String physicianRequiredMsg =  "Required for HMO-type insurance plans";
+      public Required referringPhysicianRequired()
+      {
+        if (getInsuranceInfo().getPlan() == null)
+          return new Required(false);
+        boolean isit = getInsuranceInfo().getPlan().isHMO();
+        return new Required(isit, physicianRequiredMsg);
+      }
+      
+     So, you simply implement a method in the Patient object whose name follows
+     the convention:  <fieldname> + Required()
+     The method must return a Required object.  The reason you return an object
+     and not just a boolean is to allow you to provide a custom validation message.
+     
+     The validation method is evaluated at the time when the end user attempts
+     to save or update the object's value.
+     
+ 15. Read Only fields
+ 
+     Object fields can be marked as "read only" by providing an optional 
+     "readOnly" static field (in the same way that fieldOrder is specified).
+     
+     Example:
+     public static String[] readOnly = {"created"};
+     
+ 
+ 16. Identity fields
+ 
+     Object fields can be marked as identities by providing an optional
+     "identities" static field.
+     
+     Example:
+     public static String[] identities = {"name"};
+     
+     The framework uses this information to prevent the specified fields
+     from being edited when attempting to edit/update an existing object.
+     The idea is that an identity field is a natural key for an object.
+     I still question the value/behavior of this feature since in practice
+     one often needs to edit information that supposedly should never
+     change for an object (e.g. name).  This value is also used by the
+     framework when constructing hbm mapping files:  the property is
+     marked unique.
+ 
+ 17. Commands / Object Behavior
+ 
+     To expose an object method/behavior in the ui, tag it with an annotation, as follows:
+     
+       @CommandAt()
+       public <returntype> <MethodName>(CommandInfo cmdInfo, [add'l args]) {}
+     
+     The framework will mine these methods and expose them to the user
+     interface as buttons at the right edge of windows and as menu items
+     in context menus.
+     
+     See the CommandAt annotation for the various options you may
+     specify.  They're all optional.  You can specify a mnemonic,
+     and two other options at the moment.
+     
+     The caption on the button or menu item is derived from the method
+     name.  So for example, applyCopay(CommandInfo cmdInfo) will result in
+     a button captioned "Apply Copay."
+     
+     The return type can be anything you like.  A method can return void.
+     If the method returns a Patient, then after invoking the method, the 
+     resulting patient is displayed in the user interface.  Returning
+     a String results in the text being treated as a message to the end
+     user in a brief (timer-dismissed) popup dialog.
+     
+     The CommandInfo parameter object provides limited information about
+     the context within which the method was invoked.  At the moment it
+     has one field called "source" which tells which view triggered the 
+     invocation of the method.  This is at the moment used internally
+     by the framework and should not be a concern to end users of the
+     framework.  That is, you may ignore this parameter for all practical 
+     purposes.  However, it must be present in the method signature 
+     (temporary).
+ 
+ 18. Commands with Arguments
+ 
+     Additional arguments in the command method signature, can be 
+     specified after the CommandInfo argument.  In that case,
+     the end user will be prompted to provide the information prior
+     to method invocation.  The arguments are then passed to the
+     command (i.e. used when the command method is invoked
+     reflectively).  (See User.ChangePassword() for an example)
+     
+     To customize the caption for each argument when the UI prompts
+     the end user for the information (in a dialog, displayed after
+     the command is invoked), you can do so by specifying an 
+     annotation, as shown in this example:
+     
+       @CommandAt(mnemonic='p')
+       public String ChangePassword(CommandInfo cmdInfo,
+                                @ParamAt("New Password") Password password)
+       { ... }
+     
+     Note the value of the ParamAt annotation is the caption itself.
+
+     
+ 19. App Events
+ 
+     After login and before logout, the class Application (the static
+     method ESystem.getApplication() will return this object for you)
+     will fire an AppEvent.  Any object in your system can be made
+     to listen to app events.  AppEvents are a basic publish/subscribe
+     design pattern implemented in a way that is more generic/flexible
+     than it is with AWT Event Listeners for example.  The main difference
+     is that the event type is not a hard-coded class.  The type of app event
+     is distinguished by a unique String.  So to listen to login events,
+     you'd do this:
+     
+       Application app = ESystem.getApplication();
+       app.addAppEventListener("LOGIN", new AppEventListener()
+       {
+         public void onEvent(AppEvent evt) { ... }
+       });
+       
+       The string "LOGIN" says "I want to listen to LOGIN events."
+       
+  20. Persistent Object Life Cycle Events
+  
+     Likewise, the persistence mechanism was setup to notify 
+     ComplexEObjects when they enter/leave various states in
+     their life cycle:  when they're created, loaded from the 
+     store, deleted, updated, etc.. (See PersistorListener)
+     
+     Your ComplexEObjects can override these methods if they need to
+      
+     Here's one example of how the Patient class uses notification of
+     an object about to be created to programmatically set the value
+     of one of its fields:  its creation date/time:
+     
+     public void onBeforeCreate()
+     {
+       _created.setValue(new Date());
+     }
+     
+     In addition, ComplexEObject is an AppEventNotifier.  This means
+     that any other object can listen to these life cycle events and
+     use them to trigger some work.
+     
+ 21. Bidirectional relationships
+ 
+     For bidirectional relationships, the framework must be provided
+     one additional piece of information:  The "inverse" field name.
+     That is, the name of the field from the other object that points
+     back to this one.  For example, the relationship between Bill and
+     Visit is bidirectional.  Here is how the code specifies the
+     inverse field name on each one:
+     
+     In Bill:
+     public static String visitInverseFieldName = "bill";
+     In Visit:
+     public static String billInverseFieldName = "visit";
+     
+     That is, Bill has a field called "visit" and Visit
+     has a field called "bill".  In Bill you're telling the framework
+     that its "visit" field is part of a bidirectional relationship
+     and that the field from Visit back to Bill is called "bill."
+     
+     What the framework does with this information is twofold:
+      1. it allows it to distinguish bidirectional relationships
+      2. it allows the framework to set both sides of a relationship
+         when the connection is made visually.  That is, if I create
+         a new Visit and then a Bill and associate them visually,
+         the framework will ensure that both sides of the relationship
+         are cleanly established.
+     
+     At the moment I believe the way this is done is somewhat overly
+     complex;  this contract may change in the future.
+     
+ 22. Object state
+ 
+     Some objects often have a life cycle that follows some kind of
+     state machine.  For example, a Patient Visit can start out as
+     "scheduled" and then move to "confirmed" state, then to "in 
+     progress", and "billed."  This behavior is usually implemented
+     using the state pattern.  The p4 framework provides support for
+     and awareness of the state pattern.  That is, commands can be
+     exposed in the ui in a state-sensitive way.  A command such
+     as "Confirm Visit" will only appear when the visit is in "Scheduled"
+     state, for example.  All you, the Visit class author, should 
+     have to do is:
+     
+     a. adhere to a specified naming convention for each inner class
+     that represents a class state.  The convention is that the
+     inner class name be <statename>State.  For example:
+     
+     public class CompletedState extends ReadState
+     
+     (the 'extends ReadState' part is required at the moment.  it
+      exposes some of the internals of the framework at the
+      present time, unfortunately)
+     
+     the inner class is marked public so that the framework can
+     introspect it without security violations.  A future version
+     of the framework will get around this issue without requiring
+     that you make the inner class public.
+     
+     Next, simply by defining command methods (see point 17 above) within 
+     this inner class, you're exposing state-specific behavior.
+     
+     (Note:  i realize that there are many conventions to adhere to
+      here but the value that the framework provides more than offsets
+      it:  you get a simple way to define state/context-specific 
+      behavior for objects, with ui)
+ 
+ 24. app-config.xml
+ 
+     The framework requires that each application provide an app-config.xml
+     file, where you specify various properties used by the application:
+     
+     appName:  The application's name.  Used in the titlebar of the application's
+      main window.
+      
+     viewMechanism:  The framework is designed to support various viewing
+      mechanisms.  The only one currently available is the Swing viewing
+      mechanism.  The value therefore must be:
+      com.u2d.view.swing.SwingViewMechanism
+      The intent is to allow an open door for other mechanisms, possibly
+      an html viewing mechanism, possibly an swt viewing mechanism.
+      
+     lookandfeel:  for the swing mechanism, the name of the look and
+      feel that you want the application to default to.  Your options
+      at this time are:  Mac OS X Aqua, Meta, CDE/Motif, aqua, bbj,
+      beos, cellshaded, macos, modern, default, whistler, xpluna, toxic
+      (aqua through toxic are skinlf themes).  Of course on windows
+      Mac OS X Aqua won't be an option, but the Windows LF will be.
+      
+     persistenceMechanism:  the framework provides a number of persistence
+     mechanisms.  The one to use for real apps at the moment is the
+      com.u2d.persist.HBMSingleSession which uses Hibernate to provide
+     persistence to db.  It uses a session-per-application technique.
+     There's also the HibernatePersistor which uses a session-per-transaction
+     technique which has a major problem at the moment:  it does not guarantee
+     that only one copy of the same object exists in the application.  I need
+     to work on a second level cache in conjunction with this strategy.
+     The other mechanisms:  InMemoryPersistor is good for testing.
+     MockPersistor is also good for testing.
+     
+    classList:  the list of major classes/entities that you want to make
+     available (accessible) from the classbar.
+     
+    persistClasses:  the list of persistence classes that make up the system/
+     application, fed to hibernate for initial configuration.
+     
+
+ 23. hibernate.properties
+  
+    you must also supply the required hibernate.properties file for 
+    hibernate to work.  the essential information in that file is the 
+    jdbc connection info.
+
+ 24. To-many composite elements:  not yet implemented by framework
+ 
+ 25. Calendaring, Events, the ability to tie into framework-provided
+    calendar. [to be documented.  for an example see pinfo-p4 and
+    how and provider's visits can be placed on a calendar/schedule]
+
+ 26. Authentication:  the framework provides built-in authentication
+    for the application, as well as management of users and roles.
+    To be documented.
+
+ 27. Authorization:  although not 100% completed, the framework provides
+    a mechanism for defining authorizations in the application.  that is,
+    restrictions imposed on roles.  there are two kinds of restrictions:
+      command restrictions and field restrictions.  command restrictions
+      provide a basic mechanism for disabling access to specific behaviors
+      or commands in the application.  field restrictions allow you to
+      specify that certain fields should be read-only, or that they should
+      be hidden.
+
+  28. Logging:  log events are modeled as naked objects in the system.
+    this basically gives administrators the ability to view and query application
+    logs for free.  the application developer must invoke log() messages
+    for anything that they'd like to record.
+
+  29. Query Services:  One of the compelling features of this framework
+    is that it provides a ui with user-friendly query mechanism for free.
+    Queries can be defined, performed, and saved as a "smart list."
+
+  30. Smart Lists:  basically the ability to define a query and name it
+    for later execution.  example query (see the nfjs manager sample
+    application):  "list all talks whose topic is related to xml"
+    can be defined and saved.  it can be later revised/edited if desired.
+    finally the query can be executed.  if later a new xml-related talk
+    is added to the system, the query will automatically update its resultset.
+    similar to the smart folder feature in apple's mail application (among
+    others).
+
+  31. Wizards:  the framework currently provides
+      / builds a ui for your model objects automatically.  i have discovered
+      that it is likewise possible to automate the production of wizards
+      for each model object.  i have come to believe that wizards can be
+      a useful complementary tool in a gui application.  they're handy
+      for the construction of complex objects, where the work is divided
+      into multiple sequential steps.  the goal is for the framework to
+      automatically support wizard features for all designated model objects,
+      for free.
+
+ --
+ October 2004
+ Updated July 2005
