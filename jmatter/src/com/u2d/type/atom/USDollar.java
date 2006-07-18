@@ -26,13 +26,14 @@ public class USDollar extends AbstractAtomicEO
       _value = value;
    }
    
-   public void add(double amount)
+   public USDollar add(double amount)
    {
       setValue(_value + amount);
+      return this;  // for chaining
    }
-   public void add(USDollar amount)
+   public USDollar add(USDollar amount)
    {
-      add(amount.doubleValue());
+      return add(amount.doubleValue());
    }
 
    private static double TOLERANCE = 0.001;
