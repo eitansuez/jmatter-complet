@@ -11,6 +11,7 @@ import com.u2d.model.*;
 import com.u2d.reflection.CommandAt;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 
 /**
  * @author Eitan Suez
@@ -44,7 +45,7 @@ public class FloatEO extends AbstractAtomicEO
    public boolean isEmpty() { return false; }
 
    private static DecimalFormat format = new DecimalFormat("#.##");
-   
+
    public Title title()
    {
       return new Title(format.format(_value));
@@ -78,8 +79,23 @@ public class FloatEO extends AbstractAtomicEO
 
    public void parseValue(String stringValue)
    {
-      double doubleVal = Double.parseDouble(stringValue);
-      setValue(doubleVal);
+      try
+      {
+         double doubleVal = Double.parseDouble(stringValue);
+         setValue(doubleVal);
+      }
+      catch (NumberFormatException ex)
+      {
+         try
+         {
+            double doubleVal = format.parse(stringValue).doubleValue();
+            setValue(doubleVal);
+         }
+         catch (ParseException e)
+         {
+            throw new RuntimeException(e);
+         }
+      }
    }
 
    public EObject makeCopy()
