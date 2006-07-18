@@ -141,5 +141,21 @@
       <ant antfile="${demo.dir}/MyTunes/build.xml" inheritAll="false" target="clean" />
   </target>
 
+
+  <target name="checksum-all" description="generate checksum files for distributions">
+    <antcall target="checksum">
+      <param name="algorithm" value="MD5" />
+    </antcall>
+    <antcall target="checksum">
+      <param name="algorithm" value="SHA-1" />
+    </antcall>
+  </target>
+
+  <target name="checksum">
+    <checksum algorithm="${algorithm}">
+      <fileset dir="${dist.dir}" includes="*.tgz, *.zip" />
+    </checksum>
+  </target>
+
 </project>
 
