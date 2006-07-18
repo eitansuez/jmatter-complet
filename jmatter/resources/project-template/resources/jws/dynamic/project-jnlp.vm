@@ -20,7 +20,7 @@
  </security>
 
  <resources>
-   <j2se version="1.4+" />
+   <j2se version="1.5+" />
    <jar href="@PROJECTNAME@.jar" main="true" />
    #foreach( $jarpath in $jarpathlist )
    <jar href="$jarpath" />
