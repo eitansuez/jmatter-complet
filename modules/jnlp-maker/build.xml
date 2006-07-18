@@ -1,0 +1,43 @@
+<project name="pinfo-4 tools" default="jar">
+
+ <description>jnlp maker</description>
+
+ <property name="src.dir" location="." />
+ <property name="build.dir" location="build" />
+ <property name="build.classes.dir" location="${build.dir}/classes" />
+ <property name="lib.dir" location="lib" />
+ <property name="dist.dir" location="dist" />
+
+ <path id="class.path">
+   <fileset dir="${lib.dir}" includes="**/*.jar" />
+   <pathelement location="${build.classes.dir}" />
+ </path>
+
+ <target name="init">
+   <tstamp />
+   <mkdir dir="${build.classes.dir}" />
+   <mkdir dir="${dist.dir}" />
+ </target>
+
+ <target name="clean">
+   <delete dir="${build.dir}" />
+   <delete dir="${dist.dir}" />
+ </target>
+
+ <target name="compile" description="compile tools code" depends="init">
+   <javac source="1.4" target="1.4" debug="on" deprecation="on" 
+          classpathref="class.path" destdir="${build.classes.dir}">
+     <src path="${src.dir}" />
+   </javac>
+ </target>
+ 
+ <target name="jar" description="jar it" depends="clean,compile">
+   <jar basedir="${build.classes.dir}" file="${dist.dir}/jnlp-maker.jar">
+     <manifest>
+       <attribute name="Created-By" value="Eitan Suez" />
+     </manifest>
+   </jar>
+ </target>
+
+</project>
+
