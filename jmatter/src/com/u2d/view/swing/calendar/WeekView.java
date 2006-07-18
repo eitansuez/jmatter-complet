@@ -305,6 +305,7 @@ public class WeekView extends JPanel implements TimeIntervalView
       //System.out.println("yPos: "+yPos+"; distance: "+distance);
 
       int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / _cellRes.getMilis() );
+      eventHeight = Math.max(eventHeight, rowHeight);
 
       Calendar cal = Calendar.getInstance();
       cal.setTime(span.startDate());
