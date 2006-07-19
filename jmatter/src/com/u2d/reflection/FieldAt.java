@@ -16,5 +16,7 @@ import java.lang.annotation.ElementType;
 public @interface FieldAt
 {
    public char mnemonic() default '\0';
-   public String label();
+   public String label() default "";
+   public int colsize() default 0;
+   public int displaysize() default 0;
 }

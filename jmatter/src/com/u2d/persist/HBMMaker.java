@@ -480,6 +480,11 @@ public class HBMMaker
             propElem.addAttribute("column", prefix + "_" + field.getName());
       }
       
+      if (field.colsize() > 0)
+      {
+         propElem.addAttribute("length", ""+field.colsize());
+      }
+      
       try
       {
          java.lang.reflect.Method method = field.getJavaClass().getMethod("getLength", null);

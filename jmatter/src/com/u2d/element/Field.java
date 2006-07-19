@@ -13,6 +13,7 @@ import com.u2d.persist.FieldUserType;
 import com.u2d.restrict.*;
 import com.u2d.type.Choice;
 import com.u2d.type.atom.BooleanEO;
+import com.u2d.type.atom.IntEO;
 import com.u2d.validation.Required;
 import com.u2d.view.*;
 import com.u2d.reflection.FieldAt;
@@ -388,7 +389,14 @@ public abstract class Field extends Member
    private final BooleanEO _required = new BooleanEO(false);
    public BooleanEO getRequired() { return _required; }
    public boolean required() { return _required.booleanValue(); }
+   
+   private final IntEO _colsize = new IntEO();
+   public IntEO getColsize() { return _colsize; }
+   public int colsize() { return _colsize.intValue(); }
 
+   private final IntEO _displaysize = new IntEO();
+   public IntEO getDisplaysize() { return _displaysize; }
+   public int displaysize() { return _displaysize.intValue(); }
 
    private transient Method _requiredMethod;
    public void setRequiredMethod(Method method) { _requiredMethod = method; }
@@ -420,6 +428,12 @@ public abstract class Field extends Member
          
          if (fat.label() != null && fat.label().length() > 0)
             getLabel().setValue(fat.label());
+         
+         if (fat.colsize() > 0)
+            getColsize().setValue(fat.colsize());
+         
+         if (fat.displaysize() > 0)
+            getDisplaysize().setValue(fat.displaysize());
       }
    }
 
