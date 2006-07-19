@@ -123,15 +123,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/postgresql-8.0-313.jdbc3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/src/jibx-run.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -186,20 +177,11 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/forms-1.0.5.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/src/iText.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../devel/itext/src" />
+          <root url="file://$MODULE_DIR$/../../../../devel/itext/src" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -246,7 +228,7 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../devel/hibernate/src" />
+          <root url="file://$MODULE_DIR$/../../../../devel/hibernate/src" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -277,28 +259,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../modules/ds-swing/build/classes" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../modules/ds-swing/src" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../modules/ds-wizard/build/classes" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../modules/ds-wizard/src" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="JUnit" level="application" />
     <orderEntry type="module-library">
       <library>
@@ -307,7 +267,7 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../devel/jfreereport-0.8.7/source" />
+          <root url="file://$MODULE_DIR$/../../../../devel/jfreereport-0.8.7/source" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -360,6 +320,55 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/src/jexplose.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/src/forms-1.0.7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/src/postgresql-8.1-405.jdbc3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/src/ds-wizard.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../modules/ds-wizard/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/src/ds-swing.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../modules/ds-swing/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/web/wings.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
