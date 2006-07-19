@@ -454,6 +454,8 @@ public class ComplexType extends AbstractComplexEObject
    public Title title() { return new Title(_pluralName); }
    public Color colorCode() { return _colorCode; }
    public String sortBy() { return _sortBy; }  // a property name
+   public Field sortField() { return field(_sortBy); }
+
    public boolean isSortable()
    {
       //return _sortBy != null;
