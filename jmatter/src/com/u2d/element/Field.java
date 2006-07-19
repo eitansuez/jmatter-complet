@@ -411,12 +411,15 @@ public abstract class Field extends Member
       return new Required(required());
    }
 
-   public void applyMnemonic()
+   public void applyMetadata()
    {
       if (_getter.isAnnotationPresent(FieldAt.class))
       {
          FieldAt fat = (FieldAt) _getter.getAnnotation(FieldAt.class);
          setMnemonic(fat.mnemonic());
+         
+         if (fat.label() != null && fat.label().length() > 0)
+            getLabel().setValue(fat.label());
       }
    }
 

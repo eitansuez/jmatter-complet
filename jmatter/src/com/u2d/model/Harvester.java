@@ -185,8 +185,6 @@ public class Harvester
                ((AggregateField) field).getFlattenIntoParent().setValue(true);
             }
             
-            field.applyMnemonic();
-            
             if ( "deleted".equals(descriptors[i].getName()) ||
                  "deletedOn".equals(descriptors[i].getName()) )
             {
@@ -199,6 +197,8 @@ public class Harvester
             field = new AssociationField(parent, descriptors[i]);
          }
 
+         field.applyMetadata();
+            
          try
          {
             String requiredMethodName = field.getName()+"Required";
