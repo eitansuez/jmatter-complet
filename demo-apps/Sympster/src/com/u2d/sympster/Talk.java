@@ -17,6 +17,7 @@ public class Talk extends AbstractComplexEObject
 
    public static String[] fieldOrder = {"title", "talkAbstract", "speaker"};
    public static Color colorCode = new Color(0xff3333);
+//   public static String sortBy = "speaker";  // not yet working..
 
    public Talk() {}
 

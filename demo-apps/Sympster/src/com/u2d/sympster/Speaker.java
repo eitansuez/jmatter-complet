@@ -27,6 +27,7 @@ public class Speaker extends AbstractComplexEObject
 
    public static String[] fieldOrder = {"name", "title", "photo", "bio", "talks"};
    public static Color colorCode = new Color(0x4169aa);
+   public static String sortBy = "name";
 
    public Speaker() {}
 

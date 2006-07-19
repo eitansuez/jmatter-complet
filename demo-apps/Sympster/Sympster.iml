@@ -31,15 +31,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/jfreereport-0.8.5-3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/ds-wizard.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -131,24 +122,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/hibernate3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/forms-1.0.5.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/postgresql-8.0-313.jdbc3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -293,33 +266,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/jfree/pixie-0.8.4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/jfree/jcommon-xml-1.0.0-rc1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/jfree/jcommon-1.0.0-rc1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/jfree/poi-2.5.1-final-20040804.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
