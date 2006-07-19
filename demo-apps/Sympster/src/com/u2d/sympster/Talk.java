@@ -4,6 +4,8 @@ import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TextEO;
+import com.u2d.reflection.FieldAt;
+
 import java.awt.Color;
 
 public class Talk extends AbstractComplexEObject
@@ -18,6 +20,7 @@ public class Talk extends AbstractComplexEObject
 
    public Talk() {}
 
+   @FieldAt(displaysize=25)
    public StringEO getTitle() { return title; }
    public TextEO getTalkAbstract() { return talkAbstract; }
    public Speaker getSpeaker() { return speaker; }
