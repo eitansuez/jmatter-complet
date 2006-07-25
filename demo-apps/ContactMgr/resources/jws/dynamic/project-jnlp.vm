@@ -5,8 +5,8 @@
       href="project.jnlp">
 
  <information>
-   <title>Project App</title> <!-- TODO: revise title appropriately -->
-   <vendor>DS Allergy, Inc.</vendor> <!-- TODO: plug in vendor name here -->
+   <title>Contact Mgr</title> <!-- TODO: revise title appropriately -->
+   <vendor>UptoData, Inc.</vendor> <!-- TODO: plug in vendor name here -->
    <homepage href="index.html" />
    <description kind="one-line">ContactMgr App</description>
    <description kind="short">ContactMgr App</description>
@@ -20,8 +20,8 @@
  </security>
 
  <resources>
-   <j2se version="1.4+" />
-   <jar href="lib/p4.jar" main="true" />
+   <j2se version="1.5+" />
+   <jar href="ContactMgr.jar" main="true" />
    #foreach( $jarpath in $jarpathlist )
    <jar href="$jarpath" />
    #end
