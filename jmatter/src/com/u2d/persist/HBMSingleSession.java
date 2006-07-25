@@ -14,6 +14,7 @@ import com.u2d.type.atom.Password;
 import com.u2d.find.SimpleQuery;
 import com.u2d.element.Field;
 import org.hibernate.*;
+import org.hibernate.cfg.Environment;
 import org.hibernate.criterion.Expression;
 import java.util.*;
 import java.util.logging.Logger;
@@ -59,8 +60,8 @@ public class HBMSingleSession extends HibernatePersistor
 
       _cfg.addClass(ComplexType.class);
 
-      // automatically create database schema?
-      // cfg.setProperty(Environment.HBM2DDL_AUTO, "create");
+      // automatically create database schema if necessary..
+      //_cfg.setProperty(Environment.HBM2DDL_AUTO, "update");
 
       // properties file has default name and is in classpath base so should be picked up automatically
       Date start = new Date();
