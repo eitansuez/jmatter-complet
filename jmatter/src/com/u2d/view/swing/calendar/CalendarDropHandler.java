@@ -36,7 +36,8 @@ public class CalendarDropHandler implements DropListener
          Field field = (Field) itr.next();
          ComplexType transferObjectType = evt.getTransferObject().type();
          ComplexType fieldType = field.fieldtype();
-         if (transferObjectType.equals(fieldType))
+         if (fieldType != null && fieldType.isAssignableFrom(transferObjectType))
+//         if (transferObjectType.equals(fieldType))
          {
             field.set(calEvent, evt.getTransferObject());
 
