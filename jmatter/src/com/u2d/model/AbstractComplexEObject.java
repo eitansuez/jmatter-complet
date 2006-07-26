@@ -761,7 +761,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public boolean isDataFlavorSupported(DataFlavor f)
    {
-      return f.equals(type().getFlavor());
+      // was:
+      //  return f.equals(type().getFlavor());
+      
+      // now: make sure that type() is assignable from flavor's type
+      return type().getJavaClass().isAssignableFrom(f.getRepresentationClass());
    }
 
 
