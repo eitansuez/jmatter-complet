@@ -6,7 +6,6 @@ package com.u2d.view.swing.calendar;
 import com.u2d.calendar.*;
 import com.u2d.model.EObject;
 import com.u2d.model.Editor;
-import com.u2d.model.ComplexType;
 import com.u2d.type.atom.*;
 import javax.swing.*;
 import java.beans.*;
@@ -14,8 +13,6 @@ import java.awt.*;
 import java.awt.event.*;
 import com.u2d.view.*;
 import com.u2d.view.swing.SwingViewMechanism;
-import com.u2d.element.Field;
-
 import java.util.*;
 
 /**
@@ -55,7 +52,9 @@ public class ScheduleView extends JPanel implements ComplexEView
             }
          });
 
-      _timeSheet.getDayView().addDropListener(new CalendarDropHandler(_schedule));
+      CalendarDropHandler cdh = new CalendarDropHandler(_schedule);
+      _timeSheet.getDayView().addDropListener(cdh);
+      _timeSheet.getWeekView().addDropListener(cdh);
    }
    
    public void propertyChange(final PropertyChangeEvent evt) {}
