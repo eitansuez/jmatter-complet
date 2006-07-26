@@ -29,8 +29,14 @@ public class FieldCaption extends com.u2d.ui.Caption
       if (field.hasMnemonic())
       {
          String text = field.label();
-         char mnemonic = field.getMnemonic();
+         char mnemonic = Character.toLowerCase(field.getMnemonic());
          int index = text.indexOf(mnemonic);
+         if (index < 0)
+         {
+            mnemonic = Character.toUpperCase(field.getMnemonic());
+            index = text.indexOf(mnemonic);
+         }
+         
          if (index >= 0)
          {
             setDisplayedMnemonic(mnemonic);
