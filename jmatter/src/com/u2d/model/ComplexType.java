@@ -194,6 +194,11 @@ public class ComplexType extends AbstractComplexEObject
    {
       return Choice.class.isAssignableFrom(_clazz);
    }
+   
+   public boolean isAssignableFrom(ComplexType type)
+   {
+      return _clazz.isAssignableFrom(type.getJavaClass());
+   }
 
    public AbstractListEO concreteTypes()
    {
