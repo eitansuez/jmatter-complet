@@ -17,7 +17,6 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import com.u2d.calendar.CalEvent;
-import com.u2d.calendar.Schedulable;
 import com.u2d.type.atom.*;
 import com.u2d.ui.CustomLabel;
 import com.u2d.model.ComplexEObject;
