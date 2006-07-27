@@ -236,21 +236,7 @@
         <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
       </PATH_ELEMENT>
       <PATH_ELEMENT>
-        <option name="myItemId" value="com.u2d.reflection" />
-        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-      </PATH_ELEMENT>
-    </PATH>
-    <PATH>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="JMatter.ipr" />
-        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="JMatter" />
-        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="com.u2d.field" />
+        <option name="myItemId" value="com.u2d.view.swing" />
         <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
       </PATH_ELEMENT>
     </PATH>
@@ -362,13 +348,6 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
     </tempConfiguration>
-    <configuration selected="false" default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration selected="false" default="true" type="JUnit" factoryName="JUnit">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -384,6 +363,13 @@
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="wholeProject" />
       </option>
+    </configuration>
+    <configuration selected="false" default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration selected="false" default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -452,13 +438,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1280" height="750" extended-state="0" />
+    <frame x="217" y="25" width="1051" height="746" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.25531915" order="0" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.32744783" order="1" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.25276938" order="0" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.32561985" order="1" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.26217532" order="6" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.32744783" order="8" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.39872408" order="6" />
@@ -545,107 +531,107 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/Editor.java">
+    <entry file="jar:///usr/lib/j2sdk1.5-sun/src.zip!/java/awt/dnd/DropTargetDropEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="17" selection-start="104" selection-end="104" vertical-scroll-proportion="0.15254237">
+        <state line="205" column="24" selection-start="7511" selection-end="7511" vertical-scroll-proportion="3.1597846">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AtomicEObject.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/dnd/DropTargetHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="23" selection-start="280" selection-end="280" vertical-scroll-proportion="0.27966103">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AtomicEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="17" selection-start="115" selection-end="115" vertical-scroll-proportion="0.20338982">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/atom/AtomicView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="23" selection-start="1172" selection-end="1172" vertical-scroll-proportion="0.5355932">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/atom/StringEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="324" selection-end="324" vertical-scroll-proportion="0.3338983">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$devel.dir$/hibernate/src/org/hibernate/usertype/CompositeUserType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="17" selection-start="1139" selection-end="1139" vertical-scroll-proportion="0.40677965">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/find/SimpleQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="10" selection-start="903" selection-end="903" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/find/Query.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="17" selection-start="290" selection-end="290" vertical-scroll-proportion="0.36842105">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/PersistenceMechanism.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="644" selection-end="644" vertical-scroll-proportion="0.58474576">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/persist/HBMSingleSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="406" column="23" selection-start="10947" selection-end="10947" vertical-scroll-proportion="0.38305086">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/list/PagedList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="37" selection-start="454" selection-end="454" vertical-scroll-proportion="0.27118644">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Field.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="209" column="4" selection-start="5382" selection-end="5382" vertical-scroll-proportion="0.41913044">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/Harvester.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="235" column="24" selection-start="8295" selection-end="8295" vertical-scroll-proportion="0.38305086">
+        <state line="44" column="44" selection-start="1425" selection-end="1425" vertical-scroll-proportion="0.62836623">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="326" column="16" selection-start="10160" selection-end="10160" vertical-scroll-proportion="0.3322034">
+        <state line="584" column="10" selection-start="17861" selection-end="17861" vertical-scroll-proportion="0.5745063">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/list/CriteriaListEO.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/calendar/EventMaker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="13" selection-start="722" selection-end="722" vertical-scroll-proportion="0.02881356">
+        <state line="8" column="10" selection-start="143" selection-end="143" vertical-scroll-proportion="0.3448276">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CalendarDropHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="29" selection-start="465" selection-end="465" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/ScheduleView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="4" selection-start="1763" selection-end="1763" vertical-scroll-proportion="0.57608694">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CalendarView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="51" selection-start="2180" selection-end="2180" vertical-scroll-proportion="0.53532606">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="22" selection-start="2715" selection-end="2726" vertical-scroll-proportion="0.33144477">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DayView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="493" column="27" selection-start="15598" selection-end="15613" vertical-scroll-proportion="0.26062322">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Member.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="18" selection-start="2128" selection-end="2128" vertical-scroll-proportion="0.64685315">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FieldCaption.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="10" selection-start="1114" selection-end="1114" vertical-scroll-proportion="1.0255972">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FormView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="173" column="18" selection-start="4863" selection-end="4863" vertical-scroll-proportion="-1.4623468">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="409" column="64" selection-start="11086" selection-end="11086" vertical-scroll-proportion="-3.5288966">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="42" selection-start="1274" selection-end="1286" vertical-scroll-proportion="0.38528895">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="58" selection-start="864" selection-end="864" vertical-scroll-proportion="0.78809106">
           <folding />
         </state>
       </provider>

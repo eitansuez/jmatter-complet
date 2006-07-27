@@ -304,6 +304,18 @@
    </target>
    
 
+   <target name="umlc" description="new project from a uml file"
+           depends="new-project">
+      <taskdef name="umlc" classname="umlc.Compiler">
+        <classpath>
+         <pathelement location="lib/src/hb/antlr-2.7.6rc1.jar"/>
+         <pathelement location="lib/tools/velocity-dep-1.4.jar"/>
+         <pathelement location="lib/tools/umlc.jar"/>
+        </classpath>
+      </taskdef>
+      <umlc outputdir="../${new.project.name}/src"/>
+   </target> 
+
    <target name="javadoc" description="produce jmatter javadocs">
      <javadoc sourcepath="${src.dir}"
               destdir="${build.dir}/javadocs"
