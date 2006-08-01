@@ -418,7 +418,11 @@ public abstract class Field extends Member
       }
       return new Required(required());
    }
-
+   
+   private boolean _tabView = false;
+   public boolean isTabView() { return _tabView; }
+   public void setTabView(boolean isTabView) { _tabView = isTabView; }
+   
    public void applyMetadata()
    {
       if (_getter.isAnnotationPresent(FieldAt.class))

@@ -174,7 +174,7 @@ public class Harvester
             }
 
             if (tabViewList.contains(descriptors[i].getName()))
-               ((CompositeField)field).setTabView(true);
+               field.setTabView(true);
             if (identities.contains(descriptors[i].getName()))
                ((CompositeField)field).setIdentity(true);
             if (readOnly.contains(descriptors[i].getName()))

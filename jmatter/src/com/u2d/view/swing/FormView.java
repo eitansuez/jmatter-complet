@@ -149,13 +149,16 @@ public class FormView extends JPanel implements ComplexEView, Editor
 
          JComponent comp = (JComponent) view;
 
-         if ( field.isComposite() && !field.isIndexed() &&
-              ((CompositeField)field).isTabView() )
+         if ( field.isTabView() )
          {
-            if (field.isAggregate())
-               tabbedPane().addTab(field.label(), field.fieldtype().iconSm(), comp);
-            else  // atomic
+            if (field.isAtomic())
+            {
                tabbedPane().addTab(field.label(), comp);
+            }
+            else
+            {
+               tabbedPane().addTab(field.label(), field.fieldtype().iconSm(), comp);
+            }
          }
          else if (field.isAggregate() && ((AggregateField) field).flattenIntoParent())
          {

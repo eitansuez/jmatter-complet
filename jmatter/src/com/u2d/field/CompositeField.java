@@ -69,10 +69,6 @@ public abstract class CompositeField extends Field implements Restrictable
       eo.setValue((EObject) value);
    }
    
-   private boolean _tabView = false;
-   public boolean isTabView() { return _tabView; }
-   public void setTabView(boolean isTabView) { _tabView = isTabView; }
-   
    public boolean _identity = false;
    public boolean isIdentity() { return _identity; }
    public void setIdentity(boolean identity)
