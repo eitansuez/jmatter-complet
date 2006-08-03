@@ -198,9 +198,39 @@ public class SwingViewMechanism implements ViewMechanism
          }
       });
    }
-   public void dismissLogin() { _loginDialog.setVisible(false); }
-   public void loginInvalid() { _loginDialog.loginInvalid(); }
-   public void userLocked() { _loginDialog.userLocked(); }
+
+   public void dismissLogin()
+   {
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            _loginDialog.setVisible(false);
+         }
+      });
+   }
+
+   public void loginInvalid()
+   {
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            _loginDialog.loginInvalid();
+         }
+      });
+   }
+
+   public void userLocked()
+   {
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            _loginDialog.userLocked();
+         }
+      });
+   }
 
 
    public void displayViewFor(Object value, EView source, Positioning positioningHint)

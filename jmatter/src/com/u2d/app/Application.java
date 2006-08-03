@@ -244,35 +244,41 @@ public class Application implements AuthManager, AppEventNotifier
    public void loginInvalid() { _vmech.loginInvalid(); }
    public void displayLockedDialog() { _vmech.userLocked(); }
 
-   public void setupUser(String username)
+   public void setupUser(final String username)
    {
-      User user = null;
-      if (hbmpersistence())
+      new Thread()
       {
-         HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) _pmech;
-         Session session = hbm.getSession();
-         try
+         public void run()
          {
-            user = (User) session.createCriteria(User.class).add(
-                    Restrictions.eq("username", new StringEO(username))
-                  ).uniqueResult();
+            User user = null;
+            if (hbmpersistence())
+            {
+               HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) _pmech;
+               Session session = hbm.getSession();
+               try
+               {
+                  user = (User) session.createCriteria(User.class).add(
+                          Restrictions.eq("username", new StringEO(username))
+                        ).uniqueResult();
+               }
+               catch (HibernateException ex)
+               {
+                  System.err.println("HibernateException: "+ex.getMessage());
+                  ex.printStackTrace();
+                  // TODO: throw an exception that translates into a truthful message to the end user
+                  return;
+               }
+            }
+            else
+            {
+               user = new User(username);
+            }
+            user.onLoad();
+            setUser(user);
+            log(LoggedEvent.LOGIN, null, "Logged In");
+            fireAppEventNotification("LOGIN");
          }
-         catch (HibernateException ex)
-         {
-            System.err.println("HibernateException: "+ex.getMessage());
-            ex.printStackTrace();
-            // TODO: throw an exception that translates into a truthful message to the end user
-            return;
-         }
-      }
-      else
-      {
-         user = new User(username);
-      }
-      user.onLoad();
-      setUser(user);
-      log(LoggedEvent.LOGIN, null, "Logged In");
-      fireAppEventNotification("LOGIN");
+      }.start();
    }
 
    public void clearUser()
@@ -282,9 +288,29 @@ public class Application implements AuthManager, AppEventNotifier
       setUser(null);
    }
 
-   public boolean authenticate(String username, String password)
+   public boolean authenticate(final String username, final String password)
    {
-      return _pmech.authenticate(username, password);
+      class AuthThread extends Thread
+      {
+         boolean authResult = false;
+         public void run()
+         {
+            authResult = _pmech.authenticate(username, password);
+         }
+         public boolean authResult() { return authResult; }
+      }
+      AuthThread t = new AuthThread();
+      t.start();
+      try
+      {
+         t.join(10000);
+         return t.authResult();
+      }
+      catch (InterruptedException ex)
+      {
+         ex.printStackTrace();
+         return false;
+      }
    }
 
    public void clearBadAttempts(String username)
@@ -335,23 +361,29 @@ public class Application implements AuthManager, AppEventNotifier
          return _locked;
       }
    }
-   public void lock(String username)
+   public void lock(final String username)
    {
-      if (hbmpersistence())
+      new Thread()
       {
-         HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) _pmech;
-         Session session = hbm.getSession();
-         Query query = session.createQuery("from com.u2d.app.User as user where user.username = :username");
-         query.setString("username", username);
-         User user = (User) query.uniqueResult();
-         if (user == null) return; // no such user
-         user.getLocked().setValue(true);
-         user.save();
-      }
-      else
-      {
-         _locked = true;
-      }
+         public void run()
+         {
+            if (hbmpersistence())
+            {
+               HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) _pmech;
+               Session session = hbm.getSession();
+               Query query = session.createQuery("from com.u2d.app.User as user where user.username = :username");
+               query.setString("username", username);
+               User user = (User) query.uniqueResult();
+               if (user == null) return; // no such user
+               user.getLocked().setValue(true);
+               user.save();
+            }
+            else
+            {
+               _locked = true;
+            }
+         }
+      }.start();
    }
 
    // == "authmgr" interface
