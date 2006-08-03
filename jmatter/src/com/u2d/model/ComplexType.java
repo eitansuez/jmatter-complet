@@ -465,7 +465,7 @@ public class ComplexType extends AbstractComplexEObject
    {
       //return _sortBy != null;
       return false; // disable for now..i just realized that
-      // hibernate sort() is not sophisticated enoupgh.  it's not
+      // hibernate sort() is not sophisticated enough.  it's not
       // an hql sort but a sql sort, so for example sort appointments
       // by charge.amount throws an exception :-(
    }
