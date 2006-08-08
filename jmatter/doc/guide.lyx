@@ -9678,8 +9678,12 @@ Finally, we also see that JMatter provides an avenue for producing PDFs
  by integrating and leveraging the open source JFreeReport API.
 \layout Standard
 
-In the next chapter, we're going to learn how to deploy our applications
- to all our users.
+In chapter 
+\begin_inset LatexCommand \ref{cha:Deploying-your-Application}
+
+\end_inset 
+
+, we're going to learn how to deploy our applications to all our users.
  I hope you'll agree that here too, JMatter helps turn a difficult and complex
  job into a trivial task.
 \layout Chapter
