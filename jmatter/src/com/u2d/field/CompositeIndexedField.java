@@ -40,4 +40,11 @@ public class CompositeIndexedField extends IndexedField
          
       return list;
    }
+
+   public int validate(ComplexEObject parent)
+   {
+      int count = super.validate(parent);
+      count += get(parent).validate();
+      return count;
+   }
 }
