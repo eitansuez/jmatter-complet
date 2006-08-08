@@ -126,6 +126,16 @@ public abstract class AbstractEObject
    }
    public void fireValidationException(String errorMsg)
    {
+      /*
+       * explanation: formview binds various validationnotice panels for each
+       * property of an object. if the property is a compositelist, each element
+       * in the list is validated but each doesn't have its own validationnoticepanel
+       * so just send a message to the parent's validation notice panel
+       */
+      if (field() != null && field().isComposite() && field().isIndexed())
+      {
+         field().get(parentObject()).fireValidationException(errorMsg, false);
+      }
       fireValidationException(errorMsg, false);
    }
 
