@@ -315,6 +315,10 @@ public class Harvester
    {
         return "get" + capitalize(fieldName);
    }
+   public static String makeSetterName(String fieldName)
+   {
+       return "set" + capitalize(fieldName);
+   }
    public static String capitalize(String fieldName)
    {
         if (fieldName.length() == 0)
