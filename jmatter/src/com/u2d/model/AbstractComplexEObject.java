@@ -319,6 +319,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       for (Iterator itr = childFields().iterator(); itr.hasNext(); )
       {
          field = (Field) itr.next();
+         
+         if ( "createdOn".equals(field.name()) || "deleted".equals(field.name())
+               || "deletedOn".equals(field.name()))
+            continue;
+
          if (!field.isEmpty(this))
             return false;
       }
@@ -541,7 +546,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       transferCopy(this, ceo, forCopy);
    }
 
-
    /* ** State Related Code ** */
 
    public class TransientState extends EditableState
@@ -560,6 +564,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          {
             log(LoggedEvent.ERROR, cmdInfo.getCommand(), DUPLICATE_KEY_CONSTRAINT_ERROR_MSG);
             return DUPLICATE_KEY_CONSTRAINT_ERROR_MSG;
+         }
+         catch (org.hibernate.StaleObjectStateException ex)
+         {
+            fireValidationException(STALE_OBJECT_MSG);
+            return null;
          }
       }
       @CommandAt(mnemonic='c')
@@ -598,15 +607,19 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          "Cannot delete objects still referenced by other objects in the system";
    private static String DUPLICATE_KEY_CONSTRAINT_ERROR_MSG =
          "Cannot save object with pre-existing identity/key value";
+   private static String STALE_OBJECT_MSG = 
+         "Object has been modified by another user;  please refresh object";
+
 
    public class ReadState extends State
    {
       @CommandAt
       public ComplexEObject Open(CommandInfo cmdInfo)
       {
+         refresh();
          return AbstractComplexEObject.this;
       }
-
+      
       @CommandAt
       public void Copy(CommandInfo cmdInfo)
       {
@@ -618,6 +631,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       public ComplexEObject Edit(CommandInfo cmdInfo)
       {
 //         System.out.println("Read.edit");
+         refresh();
 
          saveCopy();
          pushState(_editState);
@@ -657,6 +671,13 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          JSON.writeJson(file.fileValue(), AbstractComplexEObject.this);
          return file.fileValue().getName() + " created.";
       }
+      
+      @CommandAt(mnemonic='r')
+      public void Refresh(CommandInfo cmdInfo)
+      {
+         refresh();
+      }
+      
    }
 
 
@@ -684,6 +705,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          {
             log(LoggedEvent.ERROR, cmdInfo.getCommand(), DUPLICATE_KEY_CONSTRAINT_ERROR_MSG);
             return DUPLICATE_KEY_CONSTRAINT_ERROR_MSG;
+         }
+         catch (org.hibernate.StaleObjectStateException ex)
+         {
+            fireValidationException(STALE_OBJECT_MSG);
+            return null;
          }
       }
       @CommandAt(mnemonic='c')
@@ -724,6 +750,12 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    private Long _id;
    public Long getID() { return _id; }
    public void setID(Long id) { _id = id; }
+   
+   // Hibernate version field, for Optimistic Locking
+   private Long _version;
+   public Long getVersion() { return _version; }
+   private void setVersion(Long version) { _version = version; }
+   
 
    protected final DateTime _createdOn = new DateTime(new Date());
    public DateTime getCreatedOn() { return _createdOn; }
@@ -941,5 +973,12 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       AppFactory.getInstance().getApp().log(typeString, cmd, msg);
    }
+   
+   
+   public void refresh()
+   {
+      hbmPersistor().getSession().refresh(this);
+   }
+   
 
 }

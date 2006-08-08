@@ -51,6 +51,7 @@ public class HBMMaker
       else if (!_joinedSubclass)
       {
          produceIDProperty(classElem);
+         produceVersionProperty(classElem);
       }
       
       produceFieldMapping(classElem, _type);
@@ -616,6 +617,13 @@ public class HBMMaker
          idGenElem.addAttribute("class", "native");
       }
 
+      return idElem;
+   }
+   private Element produceVersionProperty(Element parentElem)
+   {
+      Element idElem = parentElem.addElement("version");
+      idElem.addAttribute("name", "version");
+      idElem.addAttribute("type", "long");
       return idElem;
    }
    
