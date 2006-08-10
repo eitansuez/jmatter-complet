@@ -23,6 +23,11 @@ public class ViewInfo
    Icon _icon, _rolloverIcon;
    String _factoryName;
 
+   public ViewInfo(String viewname, String factoryName)
+   {
+      this(viewname+".png", viewname+"-hover.png", factoryName);
+   }
+   
    public ViewInfo(Icon icon, Icon rolloverIcon, String factoryName)
    {
       _icon = icon;
@@ -72,20 +77,17 @@ public class ViewInfo
    static
    {
       _listViewMap.put("listtableview", 
-            new ViewInfo("listtableview.png", "listtableview-hover.png",
-                  "getListViewAsTable"));
+            new ViewInfo("listtableview", "getListViewAsTable"));
       _listViewMap.put("listview",
-            new ViewInfo("listview.png", "listview-hover.png",
-                  "getListView"));
+            new ViewInfo("listview", "getListView"));
       _listViewMap.put("listiconsview",
-            new ViewInfo("listiconsview.png", "listiconsview-hover.png",
-            "getListViewAsIcons"));
+            new ViewInfo("listiconsview", "getListViewAsIcons"));
       _listViewMap.put("listtreeview",
-            new ViewInfo("listtreeview.png", "listtreeview-hover.png",
-            "getListViewAsTree"));
+            new ViewInfo("listtreeview", "getListViewAsTree"));
       _listViewMap.put("omnilistview",
-            new ViewInfo("omnilistview.png", "omnilistview-hover.png",
-            "getOmniListView"));
+            new ViewInfo("omnilistview", "getOmniListView"));
+      _listViewMap.put("weekview", 
+            new ViewInfo("weekview", "getWeekListView"));
    }
    
    
@@ -126,26 +128,19 @@ public class ViewInfo
    static
    {
       _viewMap.put("formview",
-            new ViewInfo("formview.png", "formview-hover.png", 
-                  "getFormView"));
+            new ViewInfo("formview", "getFormView"));
       _viewMap.put("folderview",
-            new ViewInfo("folderview.png", "folderview-hover.png",
-                  "getFolderView"));
+            new ViewInfo("folderview", "getFolderView"));
       _viewMap.put("outlookview",
-            new ViewInfo("folderview.png", "folderview-hover.png",
-                  "getOutlookView"));
+            new ViewInfo("folderview.png", "folderview-hover.png", "getOutlookView"));
       _viewMap.put("treeview",
-            new ViewInfo("treeview.png", "treeview-hover.png",
-                  "getTreeView"));
+            new ViewInfo("treeview", "getTreeView"));
       _viewMap.put("omniview",
-            new ViewInfo("omniview.png", "omniview-hover.png",
-                  "getOmniView"));
+            new ViewInfo("omniview", "getOmniView"));
       _viewMap.put("iconview",
-            new ViewInfo("listiconsview.png", "listiconsview-hover.png",
-            "getIconView"));
+            new ViewInfo("listiconsview.png", "listiconsview-hover.png", "getIconView"));
       _viewMap.put("collapsedview",
-            new ViewInfo("listiconsview.png", "listiconsview-hover.png",
-            "getCollapsedView"));
+            new ViewInfo("listiconsview.png", "listiconsview-hover.png", "getCollapsedView"));
    }
    
    public static ComplexEView getViewByName(String viewName, ComplexEObject ceo)
