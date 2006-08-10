@@ -118,7 +118,10 @@ public class WingSViewMechanism implements ViewMechanism
    // views for complex types (complexeobjects)
    public ComplexEView getIconView(ComplexEObject ceo)
    {
-      return null;
+      checkState(ceo);
+      IconView view = new IconView();
+      view.bind(ceo);
+      return view;
    }
 
    public ComplexEView getCollapsedView(ComplexEObject ceo)
@@ -128,7 +131,10 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ComplexEView getListItemView(ComplexEObject ceo)
    {
-      return null;
+      checkState(ceo);
+      ListItemView view = new ListItemView();
+      view.bind(ceo);
+      return view;
    }
 
    public ComplexEView getFormView(ComplexEObject ceo)
@@ -591,5 +597,31 @@ public class WingSViewMechanism implements ViewMechanism
    public void setEditable(Editor editor, boolean editable)
    {
       editor.setEditable(editable);
+   }
+
+
+   private void checkState(final ComplexEObject ceo)
+   {
+      // it's time to bring out the aop..[tbd]
+      if (ceo.isNullState())
+      {
+         Thread t = new Thread()
+         {
+            public void run()
+            {
+               ceo.restoreState();
+            }
+         };
+         t.start();
+         try  // must wait for state update before producing the
+               // view so the right commands show up in the ui
+         {
+            t.join();
+         }
+         catch (InterruptedException e)
+         {
+            e.printStackTrace();
+         }
+      }
    }
 }

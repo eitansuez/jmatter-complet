@@ -33,7 +33,7 @@ public class AppFrame extends SFrame
 
       Folder classesFolder = _app.getClassesFolder();
       _classesView = new OutlookFolderView(classesFolder);
-      _centerPane.add(new SScrollPane(_classesView), SBorderLayout.WEST);
+      _centerPane.add(_classesView, SBorderLayout.WEST);
 
       _msgPnl = new MessagePanel();
       contentPane.add(_msgPnl, SBorderLayout.SOUTH);

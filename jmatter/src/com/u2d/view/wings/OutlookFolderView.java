@@ -7,12 +7,8 @@ import com.u2d.model.EObject;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ChangeEvent;
-import java.util.ArrayList;
-import java.util.List;
 import java.beans.PropertyChangeEvent;
-import org.wings.SPanel;
-import org.wings.SComponent;
-import org.wings.SScrollPane;
+import org.wings.*;
 
 /**
  * for now flatten the tabs and add all items to a single
@@ -21,12 +17,13 @@ import org.wings.SScrollPane;
 public class OutlookFolderView extends SPanel implements ComplexEView
 {
    private Folder _folder;
-   private List _tabs = new ArrayList();
 
    public OutlookFolderView(Folder folder)
    {
       _folder = folder;
-
+      
+      setLayout(new SFlowDownLayout());
+      
       ComplexEObject item;
       for (int i=0; i<folder.size(); i++)
       {
@@ -34,31 +31,27 @@ public class OutlookFolderView extends SPanel implements ComplexEView
          if (item instanceof Folder)
          {
             Folder subfolder = (Folder) item;
-//            SPanel pnl = new VerticalFolderPane(subfolder);
-//            addTab(subfolder.getName().stringValue(),
-//                   folder.iconSm(),
-//                   makeScrollPane((SComponent) pnl));
-//            _tabs.add(pnl);
+            SPanel pnl = new VerticalFolderPane(subfolder);
+            add(pnl);
          }
       }
 
    }
 
-   class VerticalFolderPane // extends FolderPanel
+   class VerticalFolderPane extends SPanel
                             implements ListDataListener
    {
       VerticalFolderPane(Folder folder)
       {
-//         super(folder);
-//         setLayout(new PercentLayout(PercentLayout.VERTICAL, 0));
-//         setOpaque(false);
+         setLayout(new SFlowDownLayout());
          folder.getItems().addListDataListener(this);
 
          ComplexEObject item;
          for (int i=0; i<folder.size(); i++)
          {
             item = (ComplexEObject) folder.get(i);
-//            add((JComponent) item.getIconView());
+            System.out.println("adding item: "+item);
+            add((SComponent) item.getIconView());
          }
       }
 
@@ -74,4 +67,3 @@ public class OutlookFolderView extends SPanel implements ComplexEView
    public void stateChanged(ChangeEvent e) {}
 
 }
-
