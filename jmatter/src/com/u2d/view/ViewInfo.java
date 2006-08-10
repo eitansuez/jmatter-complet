@@ -86,8 +86,6 @@ public class ViewInfo
             new ViewInfo("listtreeview", "getListViewAsTree"));
       _listViewMap.put("omnilistview",
             new ViewInfo("omnilistview", "getOmniListView"));
-      _listViewMap.put("weekview", 
-            new ViewInfo("weekview", "getWeekListView"));
    }
    
    
