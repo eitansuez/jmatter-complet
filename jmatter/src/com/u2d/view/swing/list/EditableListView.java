@@ -30,7 +30,7 @@ import java.awt.event.ActionEvent;
  * Wraps/Decorates JListView
  */
 public class EditableListView extends JPanel
-                              implements ListEView, CompositeView
+                              implements ListEView, CompositeView, ListSelectionListener
 {
    private RelationalList _leo;
    private JListView _listView;
@@ -56,19 +56,18 @@ public class EditableListView extends JPanel
 
       setBorder(BorderFactory.createTitledBorder(_leo.field().getNaturalPath()));
 
-      _listView.addListSelectionListener(new ListSelectionListener()
-      {
-         public void valueChanged(ListSelectionEvent e)
-         {
-            if (e.getValueIsAdjusting()) return;
-            adjustRemoveBtnEnabled();
-         }
-      });
+      _listView.addListSelectionListener(this);
+   }
+
+   public void valueChanged(ListSelectionEvent e)
+   {
+      if (e.getValueIsAdjusting()) return;
+      adjustRemoveBtnEnabled();
    }
 
    private void adjustRemoveBtnEnabled()
    {
-      boolean selected = (_listView.getSelectedValue() != null);
+      boolean selected = (_listView.selectedEO() != null);
       _removeBtn.setEnabled(selected);
    }
 
@@ -105,7 +104,7 @@ public class EditableListView extends JPanel
    
    private void dissociateItem()
    {
-      Object item = _listView.getSelectedValue();
+      EObject item = _listView.selectedEO();
       if (item == null) return;
       ComplexEObject eo = (ComplexEObject) item;
       _leo.dissociate(eo);
@@ -137,7 +136,12 @@ public class EditableListView extends JPanel
    }
 
    public EObject getEObject() { return _leo; }
-   public void detach() {}
+
+   public void detach()
+   {
+      _listView.removeListSelectionListener(this);
+      _listView.detach();
+   }
 
    public void stateChanged(ChangeEvent e) { }
 
