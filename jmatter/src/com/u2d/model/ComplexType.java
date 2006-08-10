@@ -33,6 +33,7 @@ import com.u2d.persist.*;
 import com.u2d.view.View;
 import com.u2d.reflection.*;
 import com.u2d.type.Choice;
+import com.u2d.type.atom.TimeSpan;
 
 /**
  * @author Eitan Suez
@@ -194,7 +195,7 @@ public class ComplexType extends AbstractComplexEObject
    {
       return Choice.class.isAssignableFrom(_clazz);
    }
-   
+
    public boolean isAssignableFrom(ComplexType type)
    {
       return _clazz.isAssignableFrom(type.getJavaClass());
@@ -217,6 +218,24 @@ public class ComplexType extends AbstractComplexEObject
          types[i++] = ComplexType.forClass(cls);
       }
       return types;
+   }
+
+   public boolean hasFieldOfType(Class cls)
+   {
+      Field fld;
+      for (int i=0; i<_fields.size(); i++)
+      {
+         fld = (Field) _fields.get(i);
+         if (fld.getJavaClass().equals(cls))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+   public boolean isCalendarable()
+   {
+      return hasFieldOfType(TimeSpan.class);
    }
 
    private void deriveNames()
