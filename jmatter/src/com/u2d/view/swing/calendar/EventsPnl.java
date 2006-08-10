@@ -56,42 +56,23 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ChangeListe
       SwingViewMechanism.getInstance().setCursor(
               Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
       
-//      new Thread()
-//      {
-//         public void run()
-//         {
-            try
-            {
-               com.u2d.type.atom.TimeSpan newspan = _view.getSpan();
-               final java.util.List events = _schedule.getEventsInTimeSpan(newspan);
-//               SwingUtilities.invokeLater(new Runnable()
-//               {
-//                  public void run()
-//                  {
-                     Iterator itr = events.iterator();
-                     while (itr.hasNext())
-                     {
-                        CalEvent event = (CalEvent) itr.next();
-                        JComponent comp = (JComponent) event.getCalEventView(_schedule);
-                        add(comp, event);
-                     }
+      try
+      {
+         com.u2d.type.atom.TimeSpan newspan = _view.getSpan();
+         final java.util.List events = _schedule.getEventsInTimeSpan(newspan);
+         for (Iterator itr = events.iterator(); itr.hasNext(); )
+         {
+            CalEvent event = (CalEvent) itr.next();
+            JComponent comp = (JComponent) event.getCalEventView(_schedule);
+            add(comp, event);
+         }
 
-                     revalidate(); repaint();
-//                  }
-//               });
-            }
-            finally
-            {
-//               SwingUtilities.invokeLater(new Runnable()
-//               {
-//                  public void run()
-//                  {
-                     SwingViewMechanism.getInstance().setCursor(Cursor.getDefaultCursor());
-//                  }
-//               });
-            }
-//         }
-//      }.start();
+         revalidate(); repaint();
+      }
+      finally
+      {
+         SwingViewMechanism.getInstance().setCursor(Cursor.getDefaultCursor());
+      }
    }
 
    // since the scrollbar is tied to the weekview, need to do some work
