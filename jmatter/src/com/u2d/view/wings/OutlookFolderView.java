@@ -4,10 +4,14 @@ import com.u2d.view.ComplexEView;
 import com.u2d.type.composite.Folder;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
+import com.u2d.app.Tracing;
+
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeEvent;
+import java.util.logging.Logger;
+
 import org.wings.*;
 
 /**
@@ -17,6 +21,7 @@ import org.wings.*;
 public class OutlookFolderView extends SPanel implements ComplexEView
 {
    private Folder _folder;
+   private Logger _tracer = Tracing.tracer();
 
    public OutlookFolderView(Folder folder)
    {
@@ -24,14 +29,18 @@ public class OutlookFolderView extends SPanel implements ComplexEView
       
       setLayout(new SFlowDownLayout());
       
+      _tracer.fine("In outlookfolderview..");
+      
       ComplexEObject item;
       for (int i=0; i<folder.size(); i++)
       {
          item = (ComplexEObject) folder.get(i);
+         _tracer.fine("processing folder "+item);
          if (item instanceof Folder)
          {
             Folder subfolder = (Folder) item;
             SPanel pnl = new VerticalFolderPane(subfolder);
+            _tracer.fine("adding panel..");
             add(pnl);
          }
       }
@@ -46,12 +55,16 @@ public class OutlookFolderView extends SPanel implements ComplexEView
          setLayout(new SFlowDownLayout());
          folder.getItems().addListDataListener(this);
 
+         _tracer.fine("ok.  in verticalfolderpane..");
+         
          ComplexEObject item;
          for (int i=0; i<folder.size(); i++)
          {
             item = (ComplexEObject) folder.get(i);
-            System.out.println("adding item: "+item);
-            add((SComponent) item.getIconView());
+            _tracer.fine("adding item "+item);
+            SComponent view = (SComponent) item.getIconView();
+            _tracer.fine("view is: "+view);
+            add(view);
          }
       }
 

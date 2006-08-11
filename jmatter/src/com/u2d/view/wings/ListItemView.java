@@ -16,6 +16,7 @@ import java.awt.*;
 
 import org.wings.SLabel;
 import org.wings.SDimension;
+import org.wings.SConstants;
 
 /**
  * @author Eitan Suez
@@ -28,9 +29,9 @@ public class ListItemView extends SLabel implements ComplexEView
 
    public ListItemView()
    {
-      setHorizontalAlignment(JLabel.LEFT);
-      setVerticalAlignment(JLabel.CENTER);
-      setHorizontalTextPosition(JLabel.RIGHT);
+      setHorizontalAlignment(SConstants.LEFT);
+      setVerticalAlignment(SConstants.CENTER);
+      setHorizontalTextPosition(SConstants.RIGHT);
 
 //      setTransferHandler(new EOTransferHandler(this));  // set up as drag source
 

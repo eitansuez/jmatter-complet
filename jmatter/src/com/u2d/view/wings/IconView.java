@@ -1,12 +1,20 @@
 package com.u2d.view.wings;
 
 import com.u2d.view.ComplexEView;
+import com.u2d.view.swing.CommandAdapter;
+import com.u2d.view.wings.list.CommandsContextMenuView;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
+import com.u2d.element.Command;
+
 import javax.swing.*;
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
+import java.awt.*;
+
 import org.wings.SLabel;
+import org.wings.SImageIcon;
+import org.wings.SConstants;
+import org.wings.SFont;
 import org.wings.border.SEmptyBorder;
 
 /**
@@ -15,33 +23,35 @@ import org.wings.border.SEmptyBorder;
 public class IconView extends SLabel implements ComplexEView
 {
    protected ComplexEObject _ceo;
-//   private transient CommandsContextMenuView _cmdsView;
+   private transient CommandsContextMenuView _cmdsView;
 //   private MouseListener _defaultActionListener;
 
    public IconView()
    {
-      setHorizontalAlignment(SwingConstants.CENTER);
-      setVerticalAlignment(SwingConstants.TOP);
-      setHorizontalTextPosition(SwingConstants.CENTER);
-      setVerticalTextPosition(SwingConstants.BOTTOM);
+      setHorizontalAlignment(SConstants.CENTER);
+      setVerticalAlignment(SConstants.TOP);
+      setHorizontalTextPosition(SConstants.CENTER);
+      setVerticalTextPosition(SConstants.BOTTOM);
       setBorder(new SEmptyBorder(0, 5, 0, 5));
 
-//      getFont().setSize(10);
+      SFont font = new SFont();
+      font.setSize(10);
+      setFont(font);
 
-//      _cmdsView = new CommandsContextMenuView();
+      _cmdsView = new CommandsContextMenuView();
    }
 
    public void bind(ComplexEObject ceo)
    {
       _ceo = ceo;
+      
       _ceo.addPropertyChangeListener(this);
       _ceo.addChangeListener(this);
 
-//      _cmdsView.bind(ceo, this);
-
       setText(_ceo.title().toString());
-//      ImageIcon icon = (ImageIcon) _ceo.iconLg();
-//      setIcon(_ceo.iconLg());
+      setIcon(new SImageIcon((ImageIcon) _ceo.iconLg()));
+
+      _cmdsView.bind(ceo, this);
 
       // TODO: NullComplexEObject should have its own iconview.
       //  i shouldn't have to put conditions in like this..
@@ -64,7 +74,8 @@ public class IconView extends SLabel implements ComplexEView
    {
       _ceo.removeChangeListener(this);
       _ceo.removePropertyChangeListener(this);
-//      _cmdsView.detach();
+      
+      _cmdsView.detach();
 //      removeMouseListener(_defaultActionListener);
    }
 
@@ -74,7 +85,7 @@ public class IconView extends SLabel implements ComplexEView
    {
       if ("icon".equals(evt.getPropertyName()))
       {
-//         setIcon(_ceo.iconLg());
+         setIcon(new SImageIcon((ImageIcon) _ceo.iconLg()));
       }
    }
 
