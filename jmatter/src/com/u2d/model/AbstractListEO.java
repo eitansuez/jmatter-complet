@@ -4,7 +4,8 @@
 package com.u2d.model;
 
 import java.util.*;
-import javax.swing.*;
+import javax.swing.ListModel;
+import javax.swing.Icon;
 import javax.swing.event.*;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.Field;
