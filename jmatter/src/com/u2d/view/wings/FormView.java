@@ -90,6 +90,7 @@ public class FormView extends SPanel implements ComplexEView, Editor
       SPanel mainPane = new SPanel();
       mainPane.setLayout(new SGridBagLayout());
       GridBagConstraints cc = new GridBagConstraints();
+      cc.gridy = 0;
       
       layoutChildFields(_ceo, mainPane, cc);
 
@@ -182,8 +183,10 @@ public class FormView extends SPanel implements ComplexEView, Editor
       cc.gridx = 0;
       cc.gridwidth = GridBagConstraints.REMAINDER;
       parentPanel.add(vPnl, cc);
+      cc.gridy++;
       
       appendItem(parentPanel, cc, caption, comp);
+      cc.gridy++;
    }
 
    private void appendItem(SPanel parentPanel, GridBagConstraints cc,

@@ -212,7 +212,7 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ComplexEView getFormView(ComplexEObject ceo)
    {
-      return new FormView(ceo);
+      return new TopLevelFormView(ceo);
    }
 
    public ComplexEView getExpandableView(ComplexEObject ceo)
