@@ -1,16 +1,12 @@
 package com.u2d.view.wings;
 
 import com.u2d.view.ComplexEView;
-import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.wings.list.CommandsContextMenuView;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
-import com.u2d.element.Command;
-
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.awt.*;
-
 import org.wings.SLabel;
 import org.wings.SImageIcon;
 import org.wings.SConstants;
@@ -91,13 +87,7 @@ public class IconView extends SLabel implements ComplexEView
 
    public void stateChanged(javax.swing.event.ChangeEvent evt)
    {
-      SwingUtilities.invokeLater(new Runnable()
-         {
-            public void run()
-            {
-               setText(_ceo.title().toString());
-            }
-         });
+      setText(_ceo.title().toString());
    }
 
    private Insets _insets = new Insets(3, 4, 3, 4);

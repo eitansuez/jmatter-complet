@@ -1,10 +1,16 @@
 package com.u2d.view.wings;
 
 import org.wings.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.impl.Jdk14Logger;
 import com.u2d.app.Application;
+import com.u2d.app.Tracing;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.type.composite.Folder;
 import java.awt.Cursor;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,6 +25,8 @@ public class AppFrame extends SFrame
    private SDesktopPane _desktopPane;
    private MessagePanel _msgPnl;
    private SComponent _classesView;
+
+   private transient Logger _tracer = Tracing.tracer();
 
    public AppFrame(Application app)
    {
@@ -45,7 +53,10 @@ public class AppFrame extends SFrame
 
    public SInternalFrame addFrame(SInternalFrame frame)
    {
-      _desktopPane.addComponent(frame, null, 0);
+      _tracer.fine("inappframe.addframe: about to add internal frame: "+frame.getTitle());
+      frame.setVisible(true);
+      _desktopPane.add(frame);
+      _tracer.fine("frame added to desktop");
       return frame;
    }
    public SInternalFrame addFrame(SInternalFrame frame, Positioning positioning)

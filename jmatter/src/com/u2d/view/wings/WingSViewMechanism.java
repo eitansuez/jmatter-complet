@@ -3,7 +3,12 @@ package com.u2d.view.wings;
 import com.u2d.app.ViewMechanism;
 import com.u2d.app.Application;
 import com.u2d.app.AppFactory;
+import com.u2d.app.Tracing;
 import com.u2d.view.*;
+import com.u2d.view.wings.list.ListEOFrame;
+import com.u2d.view.wings.list.ListView;
+import com.u2d.view.wings.list.PaginableView;
+import com.u2d.view.wings.atom.StringRenderer;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.wizard.details.Wizard;
 import com.u2d.reporting.Reportable;
@@ -17,6 +22,9 @@ import com.u2d.calendar.CalEvent;
 import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
+import org.wings.SInternalFrame;
+
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,6 +36,8 @@ public class WingSViewMechanism implements ViewMechanism
 {
    private Application _app;
    private AppFrame _appFrame;
+
+   private transient Logger _tracer = Tracing.tracer();
 
    private static WingSViewMechanism _instance = null;
    public static WingSViewMechanism getInstance()
@@ -75,14 +85,77 @@ public class WingSViewMechanism implements ViewMechanism
 
    public void displayViewFor(Object value, EView source, Positioning positioningHint)
    {
+      _tracer.fine("displayViewFor:: value: "+value);
+      if (value == null) return;
+
+      if (value instanceof Viewable)
+      {
+         EView view = ((Viewable) value).getMainView();
+
+         if (value instanceof ComplexEObject)
+         {
+            ComplexEObject ceo = (ComplexEObject) value;
+            if (ceo.isEditableState() && view instanceof Editor)
+            {
+               ceo.setEditor((Editor) view);
+            }
+         }
+
+         _tracer.fine("displayViewFor:: displaying view: "+view);
+         displayView(view);
+      }
+      else if (value instanceof EView)
+      {
+         _tracer.fine("displayViewFor:: view is an EView");
+         displayView((EView) value);
+      }
+      else if (value instanceof View)
+      {
+         View view = (View) value;
+         displayView(view, positioningHint);
+      }
+      else if (value instanceof String)
+      {
+         showMsgDlg((String) value, source);
+      }
    }
 
    public void displayView(View view, Positioning positioning)
    {
+      if (view instanceof SInternalFrame)
+      {
+         _appFrame.addFrame((SInternalFrame) view, positioning);
+      }
+      else
+      {
+         System.out.println("tbd..");
+//         GenericFrame frame = new GenericFrame(view);
+//         _appFrame.addFrame(frame, positioning);
+      }
    }
 
    public void displayView(EView view)
    {
+      _tracer.fine("in displayview(EView)..");
+
+      _appFrame.addFrame(frameFor(view));
+   }
+
+   private SInternalFrame frameFor(EView view)
+   {
+      if (view instanceof SInternalFrame)
+         return (SInternalFrame) view;
+      if (view instanceof ListEView)
+         return new ListEOFrame((ListEView) view);
+//      else if (view instanceof CalendarView)
+//         return new CalendarFrame((CalendarView) view);
+//      else if (view instanceof ScheduleView)
+//         return new CalendarFrame((ScheduleView) view);
+//      else if (view instanceof ComplexEView)
+//         return new EOFrame((ComplexEView) view);
+
+      throw new IllegalArgumentException(
+            "Don't know how to make a frame for view: "+view);
    }
 
    public void displayWizard(Wizard wizard)
@@ -139,7 +212,7 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ComplexEView getFormView(ComplexEObject ceo)
    {
-      return null;
+      return new FormView(ceo);
    }
 
    public ComplexEView getExpandableView(ComplexEObject ceo)
@@ -235,8 +308,7 @@ public class WingSViewMechanism implements ViewMechanism
 
    public AtomicRenderer getStringRenderer()
    {
-      // need to implement this
-      return null;
+      return new StringRenderer();
    }
 
    public AtomicEditor getStringEditor()
@@ -516,7 +588,7 @@ public class WingSViewMechanism implements ViewMechanism
    // views for lists (listeobjects)
    public ListEView getListView(AbstractListEO leo)
    {
-      return null;
+      return new ListView(leo);
    }
 
    public ListEView getListViewAsTable(AbstractListEO leo)
@@ -566,7 +638,7 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ListEView getPaginableView(ListEView leview)
    {
-      return null;
+      return new PaginableView(leview);
    }
 
    public ListEView getEditableListView(AbstractListEO leo)
@@ -586,12 +658,16 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ListEView getAlternateListView(AbstractListEO leo, String[] viewNames)
    {
-      return null;
+//      return null;
+      // stubbed for now:
+      return getListView(leo);
    }
 
    public ComplexEView getAlternateView(ComplexEObject ceo, String[] viewNames)
    {
-      return null;
+//      return null;
+      // stubbed for now:
+      return getFormView(ceo);
    }
 
    public void setEditable(Editor editor, boolean editable)
@@ -603,25 +679,7 @@ public class WingSViewMechanism implements ViewMechanism
    private void checkState(final ComplexEObject ceo)
    {
       // it's time to bring out the aop..[tbd]
-      if (ceo.isNullState())
-      {
-         Thread t = new Thread()
-         {
-            public void run()
-            {
-               ceo.restoreState();
-            }
-         };
-         t.start();
-         try  // must wait for state update before producing the
-               // view so the right commands show up in the ui
-         {
-            t.join();
-         }
-         catch (InterruptedException e)
-         {
-            e.printStackTrace();
-         }
-      }
+      if (ceo.isNullState()) ceo.restoreState();
    }
+
 }

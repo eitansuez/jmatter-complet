@@ -2,7 +2,7 @@ package com.u2d.view.wings.list;
 
 import com.u2d.view.ListEView;
 import com.u2d.view.EView;
-import com.u2d.view.swing.CommandAdapter;
+import com.u2d.view.wings.CommandAdapter;
 import com.u2d.model.EObject;
 import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
@@ -13,8 +13,6 @@ import javax.swing.Action;
 import javax.swing.SwingUtilities;
 import java.util.Map;
 import java.util.HashMap;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import org.wings.SPopupMenu;
 import org.wings.SSeparator;
 import org.wings.SMenuItem;
@@ -121,47 +119,30 @@ public class CommandsContextMenuView
 
    public void intervalAdded(final ListDataEvent e)
    {
-      SwingUtilities.invokeLater(new Runnable() {
-         public void run()
-         {
-            for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
-            {
-               Command cmd = (Command) _eo.commands().get(i);
+      for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
+      {
+         Command cmd = (Command) _eo.commands().get(i);
 //               int componentIndex =
 //                     ((Integer) _indexMap.get(new Integer(i))).intValue();
 
-               Action action = new CommandAdapter(cmd, _eo, _source);
+         Action action = new CommandAdapter(cmd, _eo, _source);
 //               add(new SMenuItem(action), componentIndex);
-               add(new SMenuItem(action));
-            }
-         }
-      });
+         add(new SMenuItem(action));
+      }
    }
 
    public void intervalRemoved(final ListDataEvent e)
    {
-      SwingUtilities.invokeLater(new Runnable() {
-         public void run()
-         {
-            for (int i=e.getIndex1(); i>=e.getIndex0(); i--)
-            {
-               int componentIndex = ((Integer) _indexMap.
-                  get(new Integer(i))).intValue();
-               remove(componentIndex);
-            }
-         }
-      });
+      for (int i=e.getIndex1(); i>=e.getIndex0(); i--)
+      {
+         int componentIndex = ((Integer) _indexMap.
+            get(new Integer(i))).intValue();
+         remove(componentIndex);
+      }
    }
 
-   public void contentsChanged(ListDataEvent e)
-   {
-      SwingUtilities.invokeLater(new Runnable() { public void run() { setup(); }});
-   }
-
-   public void stateChanged(javax.swing.event.ChangeEvent evt)
-   {
-      SwingUtilities.invokeLater(new Runnable() { public void run() { setup(); }});
-   }
+   public void contentsChanged(ListDataEvent e) { setup(); }
+   public void stateChanged(javax.swing.event.ChangeEvent evt) { setup(); }
 
    public EObject getEObject() { return _eo; }
    public boolean isMinimized() { return false; }
