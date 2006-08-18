@@ -8,7 +8,7 @@ import com.u2d.view.*;
 import com.u2d.view.wings.list.ListEOFrame;
 import com.u2d.view.wings.list.ListView;
 import com.u2d.view.wings.list.PaginableView;
-import com.u2d.view.wings.atom.StringRenderer;
+import com.u2d.view.wings.atom.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.wizard.details.Wizard;
 import com.u2d.reporting.Reportable;
@@ -151,8 +151,8 @@ public class WingSViewMechanism implements ViewMechanism
 //         return new CalendarFrame((CalendarView) view);
 //      else if (view instanceof ScheduleView)
 //         return new CalendarFrame((ScheduleView) view);
-//      else if (view instanceof ComplexEView)
-//         return new EOFrame((ComplexEView) view);
+      else if (view instanceof ComplexEView)
+         return new EOFrame((ComplexEView) view);
 
       throw new IllegalArgumentException(
             "Don't know how to make a frame for view: "+view);
@@ -302,8 +302,9 @@ public class WingSViewMechanism implements ViewMechanism
    // views for atomic types (atomiceobjects)
    public AtomicEView getAtomicView(AtomicEObject eo)
    {
-      // need to implement this
-      return null;
+      AtomicView view = new AtomicView();
+      view.bind(eo);
+      return view;
    }
 
    public AtomicRenderer getStringRenderer()
@@ -313,8 +314,7 @@ public class WingSViewMechanism implements ViewMechanism
 
    public AtomicEditor getStringEditor()
    {
-      // need to implement this
-      return null;
+      return new StringEditor();
    }
 
    public AtomicRenderer getPasswordRenderer()
@@ -331,14 +331,12 @@ public class WingSViewMechanism implements ViewMechanism
 
    public AtomicRenderer getBooleanRenderer()
    {
-      // punt for now
-      return null;
+      return new BooleanRenderer();
    }
 
    public AtomicEditor getBooleanEditor()
    {
-      // punt for now
-      return null;
+      return new BooleanRadioEditor();
    }
 
    public AtomicRenderer getTextRenderer()
@@ -511,14 +509,12 @@ public class WingSViewMechanism implements ViewMechanism
 
    public AtomicRenderer getDateTimeRenderer()
    {
-      // punt for now
-      return null;
+      return getStringRenderer();
    }
 
    public AtomicEditor getDateTimeEditor()
    {
-      // punt for now
-      return null;
+      return new DateTimeEditor();
    }
 
    public AtomicRenderer getTimeRenderer()
