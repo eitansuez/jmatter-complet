@@ -4,8 +4,6 @@ import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
 import com.u2d.type.atom.StringEO;
 import com.u2d.view.swing.ActionNotifier;
-import com.u2d.element.Field;
-
 import javax.swing.*;
 
 /**

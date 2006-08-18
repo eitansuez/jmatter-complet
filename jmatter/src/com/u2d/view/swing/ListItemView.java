@@ -6,7 +6,6 @@ package com.u2d.view.swing;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
-
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.view.*;
@@ -14,7 +13,6 @@ import com.u2d.view.swing.dnd.*;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import com.u2d.element.Command;
 import com.u2d.ui.UIUtils;
-//import com.u2d.view.swing.list.CommandsContextMenuView;
 
 /**
  * @author Eitan Suez
