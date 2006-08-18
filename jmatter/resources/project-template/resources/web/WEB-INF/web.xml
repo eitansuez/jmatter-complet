@@ -11,6 +11,29 @@
             <param-name>wings.mainclass</param-name>
             <param-value>com.u2d.app.WingSEntryPoint</param-value>
         </init-param>
+       <init-param>
+           <param-name>wings.lookandfeel.factory</param-name>
+           <param-value>org.wings.plaf.LookAndFeelFactory$Default</param-value>
+       </init-param>
+       <init-param>
+           <param-name>wings.lookandfeel.default</param-name>
+           <param-value>org.wings.plaf.css.CSSLookAndFeel</param-value>
+       </init-param>
+       <init-param>
+           <param-name>wings.error.template</param-name>
+           <param-value>/templates/ErrorTemplate.thtml</param-value>
+          <description>The template for the default error catcher</description>
+       </init-param>
+       <init-param>
+           <param-name>wings.capture.default.bindings</param-name>
+           <param-value>alt LEFT, alt RIGHT, F1</param-value>
+          <description>See KeyStroke.getKeyStroke(String s).</description>
+       </init-param>
+       <init-param>
+           <param-name>wings.template.beanscript</param-name>
+           <param-value>TRUE</param-value>
+          <description>Allows bean scripting in STemplate layout templates.</description>
+       </init-param>
     </servlet>
 
     <!-- the DWR stuff is for the AJAX based features of wingS  -->
