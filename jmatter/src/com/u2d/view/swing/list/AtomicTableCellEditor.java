@@ -8,7 +8,7 @@ import com.u2d.type.atom.TextEO;
 import com.u2d.type.atom.DateEO;
 import com.u2d.view.swing.atom.BooleanCheckboxEditor;
 import com.u2d.view.swing.atom.TextEditor;
-import com.u2d.view.swing.ActionNotifier;
+import com.u2d.view.ActionNotifier;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import javax.swing.*;

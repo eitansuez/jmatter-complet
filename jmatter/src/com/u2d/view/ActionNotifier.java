@@ -1,4 +1,4 @@
-package com.u2d.view.swing;
+package com.u2d.view;
 
 import java.awt.event.ActionListener;
 

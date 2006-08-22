@@ -15,11 +15,10 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.beans.PropertyChangeEvent;
-import java.awt.*;
-
 import org.wings.*;
 import org.wings.border.SEmptyBorder;
 import javax.swing.ImageIcon;
+import java.awt.GridBagConstraints;
 
 /**
  * @author Eitan Suez

@@ -3,8 +3,7 @@ package com.u2d.view.swing.atom;
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
 import com.u2d.type.atom.BooleanEO;
-import com.u2d.view.swing.ActionNotifier;
-
+import com.u2d.view.ActionNotifier;
 import javax.swing.*;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;

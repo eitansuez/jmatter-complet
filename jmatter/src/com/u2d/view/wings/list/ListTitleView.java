@@ -22,7 +22,7 @@ public class ListTitleView extends SLabel implements ListEView
    {
       TITLE_FONT = new SFont();
       TITLE_FONT.setSize(16);
-      TITLE_FONT.setSize(SFont.BOLD);
+      TITLE_FONT.setStyle(SFont.BOLD);
    }
 
    public ListTitleView(AbstractListEO leo, EView parentView)
@@ -39,10 +39,10 @@ public class ListTitleView extends SLabel implements ListEView
       setHorizontalTextPosition(SConstants.RIGHT);
       setVerticalTextPosition(SConstants.CENTER);
 
-      setFont(com.u2d.view.wings.list.ListTitleView.TITLE_FONT);
+      setFont(TITLE_FONT);
 
-      updateTitle();
       setIcon(new SImageIcon((ImageIcon) _leo.iconLg()));
+      updateTitle();
    }
 
    public void contentsChanged(ListDataEvent evt) { updateTitle(); }

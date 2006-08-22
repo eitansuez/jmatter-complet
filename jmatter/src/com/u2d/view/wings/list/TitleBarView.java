@@ -21,13 +21,13 @@ public class TitleBarView extends SPanel implements ListEView
 
    public TitleBarView(AbstractListEO leo, EView parentView, EView innerView)
    {
-      setBackground(leo.type().colorCode());
       _leo = leo;
-      setLayout(new SBorderLayout());
 
       _titleView = new ListTitleView(_leo, parentView);
+      setBackground(leo.type().colorCode());
+      setLayout(new SBorderLayout());
       add(_titleView, SBorderLayout.WEST);
-      
+
 //      FormLayout layout = new FormLayout(
 //            "left:pref:grow, 3dlu, right:pref",
 //            "bottom:pref, pref");

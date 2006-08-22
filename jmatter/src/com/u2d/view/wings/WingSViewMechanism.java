@@ -23,7 +23,6 @@ import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
 import org.wings.SInternalFrame;
-
 import java.util.logging.Logger;
 
 /**
@@ -146,7 +145,9 @@ public class WingSViewMechanism implements ViewMechanism
       if (view instanceof SInternalFrame)
          return (SInternalFrame) view;
       if (view instanceof ListEView)
+      {
          return new ListEOFrame((ListEView) view);
+      }
 //      else if (view instanceof CalendarView)
 //         return new CalendarFrame((CalendarView) view);
 //      else if (view instanceof ScheduleView)
@@ -217,7 +218,10 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ComplexEView getExpandableView(ComplexEObject ceo)
    {
-      return null;
+      checkState(ceo);
+      ExpandableView view = new ExpandableView();
+      view.bind(ceo);
+      return view;
    }
 
    public ComplexEView getTreeView(ComplexEObject ceo)
@@ -307,181 +311,64 @@ public class WingSViewMechanism implements ViewMechanism
       return view;
    }
 
-   public AtomicRenderer getStringRenderer()
-   {
-      return new StringRenderer();
-   }
+   public AtomicRenderer getStringRenderer()    { return new StringRenderer(); }
+   public AtomicEditor getStringEditor() { return new StringEditor(); }
 
-   public AtomicEditor getStringEditor()
-   {
-      return new StringEditor();
-   }
+   public AtomicRenderer getPasswordRenderer() { return new PasswordRenderer(); }
+   public AtomicEditor getPasswordEditor() { return new PasswordEditor(); }
 
-   public AtomicRenderer getPasswordRenderer()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicEditor getPasswordEditor()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicRenderer getBooleanRenderer()
-   {
-      return new BooleanRenderer();
-   }
-
-   public AtomicEditor getBooleanEditor()
-   {
-      return new BooleanRadioEditor();
-   }
+   public AtomicRenderer getBooleanRenderer() { return new BooleanRenderer(); }
+   public AtomicEditor getBooleanEditor() { return new BooleanRadioEditor(); }
 
    public AtomicRenderer getTextRenderer()
    {
-      // punt for now
-      return null;
+      TextEditor editor = new TextEditor();
+      editor.setEditable(false);
+      return editor;
    }
-
-   public AtomicEditor getTextEditor()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicRenderer getCharRenderer()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicEditor getCharEditor()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicEditor getTextEditor() { return new TextEditor(); }
+   public AtomicRenderer getCharRenderer() { return getStringRenderer(); }
+   public AtomicEditor getCharEditor() { return new CharEditor(); }
 
    public AtomicRenderer getIntRenderer()
    {
-      // punt for now
-      return null;
+      IntEditor editor = new IntEditor();
+      editor.setEditable(false);
+      return editor;
    }
+   public AtomicEditor getIntEditor() { return new IntEditor(); }
 
-   public AtomicEditor getIntEditor()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicRenderer getLongRenderer()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicEditor getLongEditor()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getLongRenderer() { return new StringRenderer(); }
+   public AtomicEditor getLongEditor() { return new LongEditor(); }
 
    public AtomicRenderer getFloatRenderer()
    {
-      // punt for now
-      return null;
+      FloatEditor editor = new FloatEditor();
+      editor.setEditable(false);
+      return editor;
    }
+   public AtomicEditor getFloatEditor() { return new FloatEditor(); }
 
-   public AtomicEditor getFloatEditor()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getPercentRenderer() { return getStringRenderer(); }
+   public AtomicEditor getPercentEditor() { return new PercentEditor(); }
 
-   public AtomicRenderer getPercentRenderer()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getEmailRenderer() { return new StringRenderer(); }
+   public AtomicEditor getEmailEditor() { return new EmailEditor(); }
 
-   public AtomicEditor getPercentEditor()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getURIRenderer() { return new URIRenderer(); }
+   public AtomicEditor getURIEditor() { return new URIEditor(); }
 
-   public AtomicRenderer getEmailRenderer()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getUSDollarRenderer() { return getStringRenderer(); }
+   public AtomicEditor getUSDollarEditor() { return new USDollarEditor(); }
 
-   public AtomicEditor getEmailEditor()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getUSZipRenderer() { return getStringRenderer(); }
+   public AtomicEditor getUSZipEditor() { return new USZipEditor(); }
 
-   public AtomicRenderer getURIRenderer()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getUSPhoneRenderer() { return getStringRenderer(); }
+   public AtomicEditor getUSPhoneEditor() { return new USPhoneEditor(); }
 
-   public AtomicEditor getURIEditor()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicRenderer getUSDollarRenderer()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicEditor getUSDollarEditor()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicRenderer getUSZipRenderer()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicEditor getUSZipEditor()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicRenderer getUSPhoneRenderer()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicEditor getUSPhoneEditor()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicRenderer getSSNRenderer()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicEditor getSSNEditor()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getSSNRenderer() { return getStringRenderer(); }
+   public AtomicEditor getSSNEditor() { return new SSNEditor(); }
 
    public AtomicRenderer getDateRenderer()
    {

@@ -1,12 +1,11 @@
-package com.u2d.view.swing.atom;
+package com.u2d.view.wings.atom;
 
-import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
-import com.u2d.type.atom.IntEO;
-import com.u2d.ui.UIUtils;
+import com.u2d.model.AtomicEObject;
 import com.u2d.view.ActionNotifier;
-
-import javax.swing.*;
+import com.u2d.type.atom.IntEO;
+import org.wings.STextField;
+import org.wings.SConstants;
 
 /**
  * Date: Jun 8, 2005
@@ -14,14 +13,14 @@ import javax.swing.*;
  *
  * @author Eitan Suez
  */
-public class IntEditor extends JTextField implements AtomicEditor, ActionNotifier
+public class IntEditor extends STextField implements AtomicEditor, ActionNotifier
 {
    public IntEditor()
    {
       //setFormatting();
       setColumns(4);
-      setHorizontalAlignment(JTextField.RIGHT);
-      UIUtils.selectOnFocus(this);
+      setHorizontalAlignment(SConstants.RIGHT);
+//      UIUtils.selectOnFocus(this);
    }
 
 //   private void setFormatting()

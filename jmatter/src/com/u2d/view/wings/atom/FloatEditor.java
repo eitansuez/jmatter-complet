@@ -1,15 +1,14 @@
-package com.u2d.view.swing.atom;
+package com.u2d.view.wings.atom;
 
-import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
-import com.u2d.type.atom.FloatEO;
+import com.u2d.model.AtomicEObject;
 import com.u2d.view.ActionNotifier;
-import javax.swing.*;
-import javax.swing.text.NumberFormatter;
-import java.awt.event.FocusListener;
-import java.awt.event.FocusEvent;
+import com.u2d.type.atom.FloatEO;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import org.wings.SFormattedTextField;
+import org.wings.SConstants;
+import org.wings.text.SNumberFormatter;
 
 /**
  * Date: Jun 8, 2005
@@ -17,31 +16,31 @@ import java.text.NumberFormat;
  *
  * @author Eitan Suez
  */
-public class FloatEditor extends JFormattedTextField 
+public class FloatEditor extends SFormattedTextField
                          implements AtomicEditor, ActionNotifier
 {
    public FloatEditor()
    {
       setFormatting();
       setColumns(6);
-      setHorizontalAlignment(JTextField.RIGHT);
+      setHorizontalAlignment(SConstants.RIGHT);
 
-      addFocusListener(new FocusListener()
-      {
-         public void focusGained(FocusEvent evt) { if (isEditable()) selectAll(); }
-         public void focusLost(FocusEvent evt) { }
-      });
+//      addFocusListener(new FocusListener()
+//      {
+//         public void focusGained(FocusEvent evt) { if (isEditable()) selectAll(); }
+//         public void focusLost(FocusEvent evt) { }
+//      });
    }
 
    private void setFormatting()
    {
-      NumberFormatter formatter = new NumberFormatter();
-      formatter.setAllowsInvalid(false);
+      SNumberFormatter formatter = new SNumberFormatter();
+//      formatter.setAllowsInvalid(false);
       DecimalFormat decformat = (DecimalFormat) NumberFormat.getInstance();
       decformat.applyPattern("##0.00");
       decformat.setMaximumIntegerDigits(3);
       decformat.setMaximumFractionDigits(2);
-      formatter.setFormat(decformat);
+      formatter.setNumberFormat(decformat);
       setFormatter(formatter);
    }
 

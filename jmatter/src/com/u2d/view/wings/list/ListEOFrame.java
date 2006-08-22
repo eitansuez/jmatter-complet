@@ -6,8 +6,9 @@ import com.u2d.view.EView;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.EObject;
 import javax.swing.event.ListDataEvent;
-import org.wings.*;
+import javax.swing.event.ChangeEvent;
 import javax.swing.ImageIcon;
+import org.wings.*;
 
 /**
  * @author Eitan Suez
@@ -38,15 +39,7 @@ public class ListEOFrame extends SInternalFrame
       _titleBarView = new TitleBarView(_leo, this, _view);
       contentPane.add(_titleBarView, SBorderLayout.NORTH);
 
-      if (_view instanceof CompositeView)
-      {
-         contentPane.add((SComponent) _view, SBorderLayout.CENTER);
-      }
-      else
-      {
-//         JScrollPane scrollPane = new JScrollPane((JComponent) _view);
-         contentPane.add((SComponent) _view, SBorderLayout.CENTER);
-      }
+      contentPane.add((SComponent) _view, SBorderLayout.CENTER);
 
       setupKeyStrokes();
 
@@ -76,7 +69,7 @@ public class ListEOFrame extends SInternalFrame
 
    private void updateTitle() { setTitle(_leo.title().toString()); }
 
-   public void stateChanged(javax.swing.event.ChangeEvent evt) {}
+   public void stateChanged(ChangeEvent evt) {}
 
    public EView getInnerView()
    {

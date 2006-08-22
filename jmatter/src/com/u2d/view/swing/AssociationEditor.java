@@ -1,6 +1,7 @@
 package com.u2d.view.swing;
 
 import com.u2d.view.ListEView;
+import com.u2d.view.ActionNotifier;
 import com.u2d.view.swing.list.PaginableView;
 import com.u2d.field.Association;
 import com.u2d.find.QuerySpecification;
