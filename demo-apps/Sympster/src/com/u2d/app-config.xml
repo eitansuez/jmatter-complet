@@ -5,6 +5,8 @@
    <page-size>15</page-size>
    <persistence-mechanism>com.u2d.persist.HBMSingleSession</persistence-mechanism>
    <persist-classes>
+      <class>com.u2d.type.USState</class>
+      <class>com.u2d.type.composite.ContactMethod</class>
       <class>com.u2d.sympster.Room</class>
       <class>com.u2d.sympster.Session</class>
       <class>com.u2d.sympster.Speaker</class>

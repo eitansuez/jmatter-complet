@@ -6,6 +6,7 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TextEO;
 import com.u2d.type.atom.ImgEO;
 import com.u2d.type.atom.PhotoIconAssistant;
+import com.u2d.type.composite.Contact;
 import com.u2d.list.RelationalList;
 import com.u2d.element.CommandInfo;
 import com.u2d.reflection.CommandAt;
@@ -20,6 +21,8 @@ public class Speaker extends AbstractComplexEObject
    private final StringEO title = new StringEO();
    private final TextEO bio = new TextEO();
    private final ImgEO photo = new ImgEO();
+   
+   private final Contact contact = new Contact();
 
    private final RelationalList talks = new RelationalList(Talk.class);
    public static Class talksType = Talk.class;
@@ -27,9 +30,16 @@ public class Speaker extends AbstractComplexEObject
 
    public static String[] fieldOrder = {"name", "title", "photo", "bio", "talks"};
    public static Color colorCode = new Color(0x4169aa);
-   public static String sortBy = "name";
+   public static String sortBy = "com.u2d.sympster.Speaker#contact.homePhone";
+   public static String[] tabViews = {"contact", "talks"};
+   
 
    public Speaker() {}
+
+   public void initialize()
+   {
+      contact.initialize();
+   }
 
    @FieldAt(displaysize=12)
    public StringEO getName() { return name; }
@@ -38,6 +48,8 @@ public class Speaker extends AbstractComplexEObject
    public TextEO getBio() { return bio; }
    public ImgEO getPhoto() { return photo; }
    public RelationalList getTalks() { return talks; }
+   
+   public Contact getContact() { return contact; }
 
    private transient PhotoIconAssistant assistant = new PhotoIconAssistant(this, photo);
    public Icon iconLg() { return assistant.iconLg(); }
