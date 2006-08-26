@@ -110,6 +110,11 @@
 
    <mkdir dir="${build.target.dir}/doc" />
    <copy todir="${build.target.dir}/doc" file="${jmatter.dir}/doc/guide.pdf" />
+   <copy todir="${build.target.dir}/doc" file="${jmatter.dir}/doc/jMatter-License" />
+   <exec dir="${jmatter.dir}/doc" executable="markdown" output="${build.target.dir}/doc/jMatter-License.html">
+     <arg line="jMatter-License" />
+   </exec>
+   <copy todir="${build.target.dir}/doc" file="${jmatter.dir}/doc/Changes" />
 
    <copy todir="${build.target.dir}">
     <fileset dir="${jmatter.dir}" includes="build.xml" />
