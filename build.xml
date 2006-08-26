@@ -67,6 +67,7 @@
     <fileset dir="${jmatter.dir}/lib" includes="src/**/*.jar" />
     <fileset dir="${jmatter.dir}/lib" includes="tools/**/*.jar" />
     <fileset dir="${jmatter.dir}/lib" includes="test/**/*.jar" />
+    <fileset dir="${jmatter.dir}/lib" includes="web/**/*.jar" />
     <fileset dir="${jmatter.dir}/dist" includes="jmatter.jar" />
    </copy>
    <copy todir="${build.target.dir}" file="${jmatter.dir}/doc/jMatter-License" />
