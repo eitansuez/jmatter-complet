@@ -6,6 +6,7 @@
   <property name="src.lib.dir" location="${lib.dir}/src" />
   <property name="tools.lib.dir" location="${lib.dir}/tools" />
   <property name="test.lib.dir" location="${lib.dir}/test" />
+  <property name="web.lib.dir" location="${lib.dir}/web" />
 
   <property name="main.class" value="com.u2d.domain.App" />
 
