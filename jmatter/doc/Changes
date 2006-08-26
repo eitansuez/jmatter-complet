@@ -1,0 +1,77 @@
+
+JMatter release v20060825
+
+Summary of Bug Fixes, Enhancements
+==================================
+
+To find out further details about each item below, simply lookup the issue in trac at http://trac.jmatter.org/
+
+
+Authentication
+--------------
+Issue #33:  Fixed a problem with the redrawing of the login dialog that would sometimes occur when attempting to authenticate
+
+
+Calendaring
+------------
+
+Issue #1:  Fix an issue where events shown on the calendar did not have appropriate minimum bounds. Widget's height was a strict function of the event's duration.  So that a 5-minute event on a 30-minute resolution grid would draw ridiculously thin.
+
+
+Documentation
+-------------
+
+* PDF documentation search now works
+
+Issue #27:  Posted Javadocs online (see http://jmatter.org/pages/documentation/
+
+
+i18n and l12n
+-------------
+
+Issue #15:  FloatEO's parse() method was not friendly to, say, numbers displayed with different localization.  e.g. French 1.500,23
+
+Issue #20:  Fixed a character encoding issue in unmarshalling app-config.xml
+
+
+MetaSystem
+----------
+
+Issue #22:  Added ability to customize field caption.  Caption is usually derived from introspection of the bean property.  Now can specify in annotation an overriding caption
+
+Issue #23:  Added ability to specify in annotation desired custom field length, both from display and persistence perspectives.
+
+
+Persistence
+-----------
+
+Issue #2:  JMatter now supports hsqldb and defaults to hsqldb
+Issue #5:  Persistence with MySQL works
+Issue #11: Revised boolean types to bind to a bit type instead of char, which for some reason was a problem for oracle.
+Issue #10: Added optimistic locking support.  Base type (AbstractComplexEObject) now has a version property, passed on to hibernate for optimistic locking.  When stale object exceptions are thrown, the ui properly catches the exception and posts a validation message.
+
+
+Swing GUI
+---------
+
+Issue #24: Fixed a bug which prohibited the specification of a list type in a separate tab view.
+
+
+Tooling
+-------
+
+Issue #26:  Integrated Ryan Ramage's first umlc prototype for jmatter.
+
+
+Miscellaneous
+-------------
+
+A discrepancy existed between the build file in the binary distribution and the one in the source
+distribution.  Specifically, in regards to the target "new-project" there was confusion whether
+where the new project base directory resided.  This distribution tries to rectify this.  The default
+directory where the project is placed is next to (as a sibling of) the jmatter/ directory.
+
+The project is standalone (it contains all the jars it needs) and so can later be moved to any
+other location on one's disk.
+
+
