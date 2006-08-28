@@ -61,7 +61,18 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       _currentState = _nullState;
    }
 
-   public void initialize() {}
+   public void initialize()
+   {
+      Field field;
+      for (int i=0; i<childFields().size(); i++)
+      {
+         field = (Field) childFields().get(i);
+         if (field.isAggregate())
+         {
+            ((AbstractComplexEObject) field.get(this)).initialize();
+         }
+      }
+   }
 
    public ComplexType type()
    {
