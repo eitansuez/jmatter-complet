@@ -11,7 +11,6 @@ import com.u2d.list.RelationalList;
 import com.u2d.element.CommandInfo;
 import com.u2d.reflection.CommandAt;
 import com.u2d.reflection.FieldAt;
-
 import javax.swing.Icon;
 import java.awt.Color;
 
@@ -35,11 +34,6 @@ public class Speaker extends AbstractComplexEObject
    
 
    public Speaker() {}
-
-   public void initialize()
-   {
-      contact.initialize();
-   }
 
    @FieldAt(displaysize=12)
    public StringEO getName() { return name; }
