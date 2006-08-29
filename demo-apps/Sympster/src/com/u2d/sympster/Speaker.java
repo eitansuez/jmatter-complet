@@ -31,7 +31,7 @@ public class Speaker extends AbstractComplexEObject
    public static Color colorCode = new Color(0x4169aa);
    public static String sortBy = "com.u2d.sympster.Speaker#contact.homePhone";
    public static String[] tabViews = {"contact", "talks"};
-   
+   public static String defaultSearchPath = "name";
 
    public Speaker() {}
 

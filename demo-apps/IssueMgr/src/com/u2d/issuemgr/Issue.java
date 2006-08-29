@@ -48,8 +48,8 @@ public class Issue extends AbstractComplexEObject
 
    public static String[] fieldOrder = {"status", "title", "description", "notes",
          "openedBy", "assignedTo", "history", "severity", "priority", "category"};
-
    public static String[] readOnly = {"openedBy"};
+   public static String defaultSearchPath = "title";
    
    
    public Issue() {}
@@ -136,8 +136,6 @@ public class Issue extends AbstractComplexEObject
       type.command("Fix", AcceptedState.class).setOwner(type.field("assignedTo"));
       type.command("RejectFix", FixedState.class).setOwner(type.field("openedBy"));
       type.command("Close", FixedState.class).setOwner(type.field("openedBy"));
-      
-      type.setDefaultSearchField(type.field("title"));
    }
 
 

@@ -5,7 +5,6 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TextEO;
 import com.u2d.reflection.FieldAt;
-
 import java.awt.Color;
 
 public class Talk extends AbstractComplexEObject
@@ -18,6 +17,7 @@ public class Talk extends AbstractComplexEObject
    public static String[] fieldOrder = {"title", "talkAbstract", "speaker"};
    public static Color colorCode = new Color(0xff3333);
 //   public static String sortBy = "speaker";  // not yet working..
+   public static String defaultSearchpath = "title";
 
    public Talk() {}
 

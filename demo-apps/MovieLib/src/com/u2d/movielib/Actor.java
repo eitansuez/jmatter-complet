@@ -5,7 +5,6 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.*;
 import com.u2d.list.RelationalList;
 import com.u2d.app.PersistenceMechanism;
-
 import javax.swing.*;
 
 /**
