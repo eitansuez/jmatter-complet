@@ -46,10 +46,9 @@ public class FieldFilter extends JPanel
       add(ineqCombo());
       add(_valueSpot);
 
-      if (_type.hasDefaultSearchField())
+      if (_type.hasDefaultSearchPath())
       {
-         String path = _type.getDefaultSearchField().getFullPath();
-         FieldPath fieldPath = new FieldPath(path);
+         FieldPath fieldPath = new FieldPath(_type.defaultSearchPath());
          _fieldCombo.setSelectedPath(fieldPath.getPathList());
       }
       else

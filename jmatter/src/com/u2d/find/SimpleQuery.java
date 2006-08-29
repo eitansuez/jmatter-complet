@@ -25,12 +25,8 @@ public class SimpleQuery extends AbstractComplexEObject
    private final StringEO _name = new StringEO();
    private ComplexType _queryType;
    private QuerySpecification _querySpecification;
-
-   static
-   {
-      ComplexType type = ComplexType.forClass(SimpleQuery.class);
-      type.setDefaultSearchField(type.field("name"));
-   }
+   
+   public static String defaultSearchPath = "name";
 
    public SimpleQuery(ComplexType type)
    {

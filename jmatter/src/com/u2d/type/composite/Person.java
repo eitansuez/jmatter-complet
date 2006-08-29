@@ -5,7 +5,6 @@ package com.u2d.type.composite;
 
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
-import com.u2d.model.ComplexType;
 
 /**
  * @author Eitan Suez
@@ -17,12 +16,8 @@ public class Person extends AbstractComplexEObject
 
    public static String[] fieldOrder = {"name", "contact"};
    public static String[] tabViews = {"contact"};
-
-   static
-   {
-      ComplexType type = ComplexType.forClass(Person.class);
-      type.setDefaultSearchField(type.field("name").field("first"));
-   }
+   
+   public static String defaultSearchPath = "name.first";
 
    public Person() {}
 

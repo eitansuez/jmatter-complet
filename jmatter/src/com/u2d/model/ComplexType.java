@@ -34,6 +34,7 @@ import com.u2d.view.View;
 import com.u2d.reflection.*;
 import com.u2d.type.Choice;
 import com.u2d.type.atom.TimeSpan;
+import com.u2d.type.atom.StringEO;
 
 /**
  * @author Eitan Suez
@@ -107,6 +108,13 @@ public class ComplexType extends AbstractComplexEObject
    {
       _colorCode = (Color) Harvester.introspectField(_clazz, "colorCode", DEFAULT_COLOR);
       _sortBy = (String) Harvester.introspectField(_clazz, "sortBy");
+      
+      String searchPath = (String) Harvester.introspectField(_clazz, "defaultSearchPath");
+      if (searchPath != null)
+      {
+         String fieldPath = getQualifiedName() + "#" + searchPath;
+         _defaultSearchPath.setValue(fieldPath);
+      }
 
       try
       {
@@ -898,36 +906,28 @@ public class ComplexType extends AbstractComplexEObject
    public boolean isMeta() { return true; }
 
 
-   private Field _defaultSearchField;
+   private StringEO _defaultSearchPath = new StringEO();
 
-   public Field getDefaultSearchField()
+   public StringEO getDefaultSearchPath()
    {
-      Field field = _defaultSearchField;
-      if ( (field == null) && !_clazz.isInterface() &&
+      StringEO path = _defaultSearchPath;
+      if ( (path.isEmpty()) && !_clazz.isInterface() &&
            (ComplexEObject.class.isAssignableFrom(_clazz.getSuperclass())) )
       {
-         field = ComplexType.forClass(_clazz.getSuperclass()).getDefaultSearchField();
+         path.setValue(ComplexType.forClass(_clazz.getSuperclass()).getDefaultSearchPath());
       }
-      return field;
+      return path;
    }
+   
+   public String defaultSearchPath() { return getDefaultSearchPath().stringValue(); }
 
-   public void setDefaultSearchField(Field field)
+   public void defaultSearchPath(String path)
    {
-      Field oldDefault = _defaultSearchField;
-      _defaultSearchField = field;
-      firePropertyChange("defaultSearchField", oldDefault, _defaultSearchField);
+      _defaultSearchPath.setValue(path);
    }
-   public void defaultSearchField(String fieldName)
+   public boolean hasDefaultSearchPath()
    {
-      setDefaultSearchField(field(fieldName));
-   }
-   public void defaultSearchFieldPath(String fieldPath)
-   {
-      setDefaultSearchField(Field.forPath(fieldPath));
-   }
-   public boolean hasDefaultSearchField()
-   {
-      return (getDefaultSearchField() != null);
+      return (!getDefaultSearchPath().isEmpty());
    }
 
 

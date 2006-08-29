@@ -51,9 +51,9 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
 
       _type = field.fieldtype();
 
-      if (_type.hasDefaultSearchField())
+      if (_type.hasDefaultSearchPath())
       {
-         _searchByField = _type.getDefaultSearchField();
+         _searchByField = Field.forPath(_type.defaultSearchPath());
       }
       else
       {

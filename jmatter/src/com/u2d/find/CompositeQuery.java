@@ -36,12 +36,8 @@ public class CompositeQuery extends AbstractComplexEObject
 
    public static String[] fieldOrder = {"name", "queryType", "querySpecifications"};
    public static String pluralName() { return "Queries"; }
-
-   static
-   {
-      ComplexType type = ComplexType.forClass(CompositeQuery.class);
-      type.setDefaultSearchField(type.field("name"));
-   }
+   
+   public static String defaultSearchPath = "name";
 
    
    public CompositeQuery() {}
