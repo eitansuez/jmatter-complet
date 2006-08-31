@@ -23,6 +23,7 @@ import java.beans.IntrospectionException;
 import com.u2d.app.HBMPersistenceMechanism;
 import com.u2d.app.AppFactory;
 import com.u2d.app.PersistenceMechanism;
+import com.u2d.app.Tracing;
 import com.u2d.element.*;
 import com.u2d.field.*;
 import com.u2d.find.CompositeQuery;
@@ -42,6 +43,42 @@ import com.u2d.type.atom.StringEO;
 public class ComplexType extends AbstractComplexEObject
                          implements FieldParent
 {
+   static PropertyResourceBundle localeBundle = null;
+   static
+   {
+      try
+      {
+         localeBundle = (PropertyResourceBundle)
+               ResourceBundle.getBundle("locale-metadata", Locale.getDefault());
+      }
+      catch (MissingResourceException ex) {}
+   }
+   
+   static Properties metadata = null;
+   static
+   {
+      ClassLoader loader = ComplexType.class.getClassLoader();
+      InputStream stream = loader.getResourceAsStream("model-metadata.properties");
+      if (stream == null)
+      {
+         Tracing.tracer().info("No model-metadata properties file..");
+      }
+      else
+      {
+         metadata = new Properties();
+         try
+         {
+            metadata.load(stream);
+         }
+         catch (IOException ex)
+         {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+         }
+      }
+   }
+   
+   
    private static transient Map _typeCache = new HashMap();
    public static String[] commandOrder = {"Browse", "New", "Find"};
 
@@ -123,6 +160,7 @@ public class ComplexType extends AbstractComplexEObject
          _fields = Harvester.harvestFields(this);
 
          loadFieldMetaData();
+         loadLocaleData();
       }
       catch (IntrospectionException ex)
       {
@@ -249,7 +287,7 @@ public class ComplexType extends AbstractComplexEObject
    private void deriveNames()
    {
       _className = _clazz.getName();
-      _shortName = _className.substring(_className.lastIndexOf(".")+1);
+      _shortName = shortName(_clazz);
       _naturalName = ProgrammingElement.deriveLabel(_shortName);
       _pluralName = derivePluralName(_naturalName);
    }
@@ -400,26 +438,8 @@ public class ComplexType extends AbstractComplexEObject
 
    private void loadFieldMetaData()
    {
-      ClassLoader loader = getClass().getClassLoader();
-      InputStream stream = loader.getResourceAsStream("model-metadata.properties");
-      if (stream == null)
-      {
-         System.err.println("Did not find model-metadata.properties");
-         return; // done
-      }
-
-      final Properties metadata = new Properties();
-      try
-      {
-         metadata.load(stream);
-      }
-      catch (IOException ex)
-      {
-         System.err.println(ex.getMessage());
-         ex.printStackTrace();
-         return;
-      }
-
+      if (metadata == null) return;
+      
       FieldRecurser.recurseFields(_fields, new FieldProcessor()
          {
             public void processField(Field field)
@@ -457,6 +477,55 @@ public class ComplexType extends AbstractComplexEObject
          });
    }
 
+   private void loadLocaleData()
+   {
+      if (localeBundle == null) return;
+      localizeFields();
+      localizeTypeName();
+   }
+   private void localizeFields()
+   {
+      if (localeBundle == null) return;
+      FieldRecurser.recurseFields(_fields, new FieldProcessor()
+         {
+            public void processField(Field field)
+            {
+               try
+               {
+                  String label = localeBundle.getString(field.getPath());
+                  field.getLabel().setValue(label);
+               }
+               catch (MissingResourceException ex) {}
+            }
+         });
+   }
+   private void localizeTypeName()
+   {
+      if (localeBundle == null) return;
+      try
+      {
+         _naturalName = localeBundle.getString(_shortName);
+         _pluralName = localeBundle.getString(_pluralName);
+      }
+      catch (MissingResourceException ex) {}
+   }
+   public static void localizeCommand(Command cmd, Class cls)
+   {
+      if (localeBundle == null) return;
+      Class declaringClass = cls.getDeclaringClass();
+      if (declaringClass == null)
+      {
+         declaringClass = cls;
+      }
+      String key = shortName(declaringClass) + "." + cmd.name();
+      try
+      {
+         String label = localeBundle.getString(key);
+         cmd.getLabel().setValue(label);
+      }
+      catch (MissingResourceException ex) {}
+   }
+   
    // *** icon stuff ***
 
    protected Icon _iconSm, _iconLg, _iconsSm, _iconsLg;
@@ -928,6 +997,13 @@ public class ComplexType extends AbstractComplexEObject
    public boolean hasDefaultSearchPath()
    {
       return (!getDefaultSearchPath().isEmpty());
+   }
+   
+   
+   public static String shortName(Class cls)
+   {
+      String name = cls.getName();
+      return name.substring(name.lastIndexOf(".")+1);
    }
 
 

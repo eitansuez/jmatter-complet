@@ -27,6 +27,7 @@ public class OverloadedEOCmd extends Command
       }
 
       _name.setValue(_cmd.getName());
+      _label.setValue(_cmd.label());
    }
 
    public void execute(Object value, EView source) throws InvocationTargetException

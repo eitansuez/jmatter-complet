@@ -32,6 +32,7 @@ public class AnnotationsReflector implements Reflector
                                     parameterInfo(method),
                                     at.isSensitive());
       cmd.setPositioningHint(at.viewPosition());
+      ComplexType.localizeCommand(cmd, klass);
       return cmd;
    }
 

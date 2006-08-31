@@ -117,6 +117,11 @@ public class EOCommand extends Command
    {
       return ((ComplexType) _parent).title().append(" ", _name);
    }
+   
+   public String qualifiedName()
+   {
+      return _parent.name() + "." + _name;
+   }
 
    public EOCommand copy()
    {
