@@ -41,9 +41,9 @@ import com.u2d.type.atom.StringEO;
  * @author Eitan Suez
  */
 public class ComplexType extends AbstractComplexEObject
-                         implements FieldParent
+                         implements FieldParent, Localized
 {
-   static PropertyResourceBundle localeBundle = null;
+   private static PropertyResourceBundle localeBundle = null;
    static
    {
       try
@@ -54,7 +54,7 @@ public class ComplexType extends AbstractComplexEObject
       catch (MissingResourceException ex) {}
    }
    
-   static Properties metadata = null;
+   private static Properties metadata = null;
    static
    {
       ClassLoader loader = ComplexType.class.getClassLoader();
@@ -139,6 +139,8 @@ public class ComplexType extends AbstractComplexEObject
       _fieldsMap = AggregateField.makeFieldMap(_fields);
       populateCommandsList();
       _fieldsList.setItems(_fields);
+      
+      localize();
    }
 
    private void harvest()
@@ -160,7 +162,6 @@ public class ComplexType extends AbstractComplexEObject
          _fields = Harvester.harvestFields(this);
 
          loadFieldMetaData();
-         loadLocaleData();
       }
       catch (IntrospectionException ex)
       {
@@ -477,31 +478,27 @@ public class ComplexType extends AbstractComplexEObject
          });
    }
 
-   private void loadLocaleData()
+   public String localeLookup(String key)
+   {
+      if (localeBundle == null) return null;
+      try
+      {
+         return localeBundle.getString(key);
+      }
+      catch (MissingResourceException ex) {}
+      return null;
+   }
+
+   private void localize()
    {
       if (localeBundle == null) return;
+      localizeLabel();
       localizeFields();
-      localizeTypeName();
+      localizeCommands();
    }
-   private void localizeFields()
+   
+   private void localizeLabel()
    {
-      if (localeBundle == null) return;
-      FieldRecurser.recurseFields(_fields, new FieldProcessor()
-         {
-            public void processField(Field field)
-            {
-               try
-               {
-                  String label = localeBundle.getString(field.getPath());
-                  field.getLabel().setValue(label);
-               }
-               catch (MissingResourceException ex) {}
-            }
-         });
-   }
-   private void localizeTypeName()
-   {
-      if (localeBundle == null) return;
       try
       {
          _naturalName = localeBundle.getString(_shortName);
@@ -509,21 +506,32 @@ public class ComplexType extends AbstractComplexEObject
       }
       catch (MissingResourceException ex) {}
    }
-   public static void localizeCommand(Command cmd, Class cls)
+   private void localizeFields()
    {
-      if (localeBundle == null) return;
-      Class declaringClass = cls.getDeclaringClass();
-      if (declaringClass == null)
+      FieldRecurser.recurseFields(_fields, new FieldProcessor()
+         {
+            public void processField(Field field)
+            {
+               field.localize(ComplexType.this);
+            }
+         });
+   }
+   private void localizeCommands()
+   {
+      for (Iterator itr = _commands.values().iterator(); itr.hasNext(); )
       {
-         declaringClass = cls;
+         Onion cmds = (Onion) itr.next();
+         localizeCommands(cmds);
       }
-      String key = shortName(declaringClass) + "." + cmd.name();
-      try
+      localizeCommands(_typeCommands);
+   }
+   private void localizeCommands(Onion cmds)
+   {
+      for (Iterator oitr = cmds.deepIterator(); oitr.hasNext(); )
       {
-         String label = localeBundle.getString(key);
-         cmd.getLabel().setValue(label);
+         Command cmd = (Command) oitr.next();
+         cmd.localize(this);
       }
-      catch (MissingResourceException ex) {}
    }
    
    // *** icon stuff ***

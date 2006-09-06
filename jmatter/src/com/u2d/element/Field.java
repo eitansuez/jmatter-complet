@@ -95,6 +95,12 @@ public abstract class Field extends Member
       set(parent, value);
    }
 
+   public String localizedLabel(Localized l)
+   {
+      String key = getPath();
+      return l.localeLookup(key);
+   }
+
    public abstract EView getView(ComplexEObject parent);
    public abstract int validate(ComplexEObject parent);
    public abstract void setState(ComplexEObject parent, State state);

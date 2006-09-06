@@ -3,6 +3,8 @@ package com.u2d.element;
 import com.u2d.view.EView;
 import com.u2d.model.Typed;
 import com.u2d.model.ComplexType;
+import com.u2d.model.Localized;
+
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -48,5 +50,7 @@ public class OverloadedEOCmd extends Command
 
       cmd.execute(value, source);
    }
+
+   public String localizedLabel(Localized l) { return _cmd.localizedLabel(l); }
 
 }

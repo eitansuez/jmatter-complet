@@ -11,6 +11,9 @@ import com.u2d.app.User;
 import com.u2d.app.Tracing;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
+import com.u2d.model.ComplexType;
+import com.u2d.model.Localized;
+
 import java.util.Arrays;
 
 /**
@@ -33,6 +36,12 @@ public abstract class Command extends Member
    public boolean isSensitive() { return _sensitive; }
    public void setSensitive(boolean sensitive) { _sensitive = sensitive; }
 
+
+   public String localizedLabel(Localized l)
+   {
+      String key = "Command." + name();
+      return l.localeLookup(key);
+   }
 
    /* authorization-related */
 

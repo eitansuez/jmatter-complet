@@ -113,6 +113,24 @@ public class EOCommand extends Command
    public ParameterInfo[] paramInfo() { return _params; }
 
 
+   public String localizedLabel(Localized l)
+   {
+      Class cls = _method.getDeclaringClass();
+      Class declaringClass = cls.getDeclaringClass();
+      if (declaringClass == null)
+      {
+         declaringClass = cls;
+      }
+      String key = ComplexType.shortName(declaringClass) + "." + name();
+      String value = l.localeLookup(key);
+      if (value == null)
+      {
+         return super.localizedLabel(l);
+      }
+      return value;
+   }
+
+
    public Title title()
    {
       return ((ComplexType) _parent).title().append(" ", _name);

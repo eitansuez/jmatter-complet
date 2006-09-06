@@ -5,12 +5,14 @@ package com.u2d.element;
 
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
+import com.u2d.model.ComplexType;
+import com.u2d.model.Localized;
 import com.u2d.type.atom.*;
 
 /**
  * @author Eitan Suez
  */
-public class ProgrammingElement extends AbstractComplexEObject
+public abstract class ProgrammingElement extends AbstractComplexEObject
 {
    protected final StringEO _name = new StringEO();
    protected final StringEO _label = new StringEO();
@@ -36,6 +38,14 @@ public class ProgrammingElement extends AbstractComplexEObject
    {
       String labelValue = deriveLabel(getName().stringValue());
       getLabel().setValue(labelValue);
+   }
+   
+   public abstract String localizedLabel(Localized l);
+   public void localize(Localized l)
+   {
+      String value = localizedLabel(l);
+      if (value != null)
+         _label.setValue(value);
    }
    
    public static String deriveLabel(String name)
