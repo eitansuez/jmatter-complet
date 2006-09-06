@@ -1,0 +1,41 @@
+package com.u2d.generated;
+
+
+class Person  
+[search="" no_class_list="false" color="0x99ccff" icon32="/home/eitan/projects/u2d/other-apps/NFJSMgr/resources/images/Speaker32.png" plural="People" icon16="/home/eitan/projects/u2d/other-apps/NFJSMgr/resources/images/Speaker16.png" dx="120.0" dy="70.0" ]
+{
+    name Name [flatten="true" ]; 
+    address USAddress [tab="true" ]; 
+    birthday DateWithAge ; 
+    ssn SSN ; 
+}
+
+
+class Pet  
+[abstract dx="460.0" dy="80.0" ]
+{
+    tag StringEO ; 
+}
+
+
+class Dog extends Pet 
+[title="name.title()" dx="320.0" dy="290.0" ]
+{
+    name StringEO ; 
+    isClipped BooleanEO ; 
+}
+
+
+class Cat extends Pet 
+[dx="560.0" dy="290.0" ]
+{
+    registrationNumber IntEO ; 
+    isTabby BooleanEO ; 
+}
+
+
+association PersonPet {
+    ( Person as person   )
+    *-*
+    ( Pet as pets  )
+}
