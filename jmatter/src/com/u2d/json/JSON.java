@@ -54,6 +54,14 @@ public class JSON
       for (Iterator itr = eo.childFields().iterator(); itr.hasNext(); )
       {
          Field field = (Field) itr.next();
+
+         if ( "createdOn".equals(field.name()) ||
+              "deleted".equals(field.name()) ||
+              "deletedOn".equals(field.name()) )
+         {
+            continue;
+         }
+         
          if (field.isAtomic())
          {
             obj.put(field.name(), field.get(eo).toString());
@@ -126,11 +134,11 @@ public class JSON
       return eo;
    }
 
-   public static String readTextFile(String fullPathFilename)
+   public static String readInputStream(InputStream is)
          throws IOException
    {
       StringBuffer sb = new StringBuffer(1024);
-      BufferedReader reader = new BufferedReader(new FileReader(fullPathFilename));
+      BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
       char[] chars = new char[1024];
       while (reader.read(chars) > -1)
@@ -140,6 +148,11 @@ public class JSON
 
       reader.close();
       return sb.toString();
+   }
+   public static String readTextFile(String fullPathFilename)
+         throws IOException
+   {
+      return readInputStream(new FileInputStream(fullPathFilename));
    }
    public static void writeTextFile(String data, String fullPathFilename)
          throws IOException

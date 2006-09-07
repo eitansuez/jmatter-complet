@@ -672,12 +672,12 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          }
       }
 
-      // @CommandAt
+      @CommandAt
       public void ExportToXML(CommandInfo cmdInfo) throws Exception
       {
          XMLExport.export(cmdInfo, AbstractComplexEObject.this);
       }
-//      @CommandAt
+      @CommandAt
       public String ExportJSON(CommandInfo cmdInfo, @ParamAt("Save to:") FileWEO file) throws Exception
       {
          JSON.writeJson(file.fileValue(), AbstractComplexEObject.this);
