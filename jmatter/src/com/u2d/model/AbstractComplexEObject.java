@@ -678,7 +678,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          XMLExport.export(cmdInfo, AbstractComplexEObject.this);
       }
       @CommandAt
-      public String ExportJSON(CommandInfo cmdInfo, @ParamAt("Save to:") FileWEO file) throws Exception
+      public String ExportToJSON(CommandInfo cmdInfo, @ParamAt("Save to:") FileWEO file) throws Exception
       {
          JSON.writeJson(file.fileValue(), AbstractComplexEObject.this);
          return file.fileValue().getName() + " created.";
