@@ -518,6 +518,12 @@ public class HBMMaker
       Element compElem = parentElem.addElement("component");
       compElem.addAttribute("name", field.name());
       compElem.addAttribute("class", field.getJavaClass().getName());
+      
+      if (field.isIdentity())
+      {
+         compElem.addAttribute("unique", "true");
+      }
+      
       addAccessAttribute(compElem);
       
       produceFieldMapping(compElem, field, subPrefix(field, prefix));
