@@ -12,6 +12,8 @@
       <class>com.u2d.sympster.Speaker</class>
       <class>com.u2d.sympster.Symposium</class>
       <class>com.u2d.sympster.Talk</class>
+      <class>com.u2d.sympster.BOF</class>
+      <class>com.u2d.sympster.Event</class>
       <class>com.u2d.sympster.Venue</class>
       <class>com.u2d.sympster.Hotel</class>
       <class>com.u2d.sympster.Campus</class>

@@ -8,22 +8,22 @@ import java.awt.Color;
 public class Session extends CalEvent
 {
    private final TimeSpan time = new TimeSpan();
-   private Talk talk;
+   private Event event;
    private Room location;
 
-   public static String[] fieldOrder = {"talk", "time", "location"};
+   public static String[] fieldOrder = {"event", "time", "location"};
    public static Color colorCode = new Color(0x9966ff);
 
    public Session() {}
 
    public TimeSpan getTime() { return time; }
 
-   public Talk getTalk() { return talk; }
-   public void setTalk(Talk talk)
+   public Event getEvent() { return event; }
+   public void setEvent(Event event)
    {
-      Talk oldTalk = this.talk;
-      this.talk = talk;
-      firePropertyChange("talk", oldTalk, this.talk);
+      Event oldEvent = this.event;
+      this.event = event;
+      firePropertyChange("event", oldEvent, this.event);
    }
 
    public Room getLocation() { return location; }
@@ -36,16 +36,16 @@ public class Session extends CalEvent
 
    public Title title()
    {
-      return time.title().append(":", talk).append(" in", location);
+      return time.title().append(":", event).append(" in", location);
    }
 
    public static String timespanFieldname = "time";
    public static String schedulableFieldname = "location";
    public Title calTitle()
    {
-      if (talk == null)
+      if (event == null)
          return new Title("--");
       else
-         return talk.title();
+         return event.title();
    }
 }

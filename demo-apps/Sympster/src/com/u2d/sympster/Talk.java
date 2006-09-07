@@ -7,7 +7,7 @@ import com.u2d.type.atom.TextEO;
 import com.u2d.reflection.FieldAt;
 import java.awt.Color;
 
-public class Talk extends AbstractComplexEObject
+public class Talk extends AbstractComplexEObject implements Event
 {
    private final StringEO title = new StringEO();
    private final TextEO talkAbstract = new TextEO();

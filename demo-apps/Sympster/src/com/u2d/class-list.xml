@@ -7,7 +7,7 @@
          <items>
            <type>com.u2d.sympster.Symposium</type>
            <type>com.u2d.sympster.Speaker</type>
-           <type>com.u2d.sympster.Talk</type>
+           <type>com.u2d.sympster.Event</type>
            <type>com.u2d.sympster.Session</type>
            <type>com.u2d.sympster.Venue</type>
            <type>com.u2d.type.composite.Folder</type>
