@@ -69,7 +69,7 @@
       <!-- <fileset dir="resources" includes="log4j.properties" /> -->
       <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- jfree report xmls -->
       <fileset dir="${src.dir}" includes="**/*.gif,**/*.png" />  <!-- any images referenced by jfree report xmls -->
-      <fileset dir="resources/data" includes="*.xml" /> <!-- codes files -->
+      <fileset dir="resources/data" includes="*.xml,*.json" /> <!-- codes files -->
    </copy>
    <copy file="resources/${hbprops}.properties" tofile="${build.classes.dir}/hibernate.properties" />
  </target>
