@@ -574,6 +574,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          catch (org.hibernate.exception.ConstraintViolationException ex)
          {
             log(LoggedEvent.ERROR, cmdInfo.getCommand(), DUPLICATE_KEY_CONSTRAINT_ERROR_MSG);
+            fireValidationException(DUPLICATE_KEY_CONSTRAINT_ERROR_MSG);
             return DUPLICATE_KEY_CONSTRAINT_ERROR_MSG;
          }
          catch (org.hibernate.StaleObjectStateException ex)
@@ -617,7 +618,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    private static String DELETE_CONSTRAINT_ERROR_MSG =
          "Cannot delete objects still referenced by other objects in the system";
    private static String DUPLICATE_KEY_CONSTRAINT_ERROR_MSG =
-         "Cannot save object with pre-existing identity/key value";
+         "Cannot save object:  duplicate value for a unique field";
    private static String STALE_OBJECT_MSG = 
          "Object has been modified by another user;  please refresh object";
 
