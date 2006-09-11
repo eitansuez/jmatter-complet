@@ -1,0 +1,36 @@
+Credits
+=======
+
+Eitan Suez is the principal author of JMatter.  I would like
+to extend my thanks to the following individuals for their
+contributions to JMatter, though this list is not exhaustive.
+
+ 1. Ryan Ramage
+      Ryan is the author of UltraViolet, a JMatter UML
+      design tool.  He also wrote UMLC, a JMatter uml
+      compiler.  See:
+
+        http://ryan.ramage.googlepages.com/ultravioletandumlc2
+
+ 2. Felix Torre
+
+      Felix and myself co-developed localization in JMatter:
+      the ability to work with JMatter in languages other
+      than English.
+
+ 3. Matt Payne
+
+    Matt has embraced JMatter and has been evangelizing it.
+    His weblog has a subcategory dedicated to JMatter.  See:
+
+    http://www.mattpayne.org/blog/category/programming/java/swing/jmatter/ 
+
+ 4. A number of developers have been active on the mailing list and
+    have answered others' questions about JMatter, or filed a bug
+    on the jmatter Trac (http://trac.jmatter.org/ ).  Thank you for
+    your contributions.  These include users "mnutall" and "tobe"
+
+ 5. I would also like to thank all the bloggers who have written about
+    JMatter.  These include John Reynolds, Glenn Vanderburg, Neal
+    Ford, Jared Richardson, and many others.
+
