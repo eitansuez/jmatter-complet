@@ -74,7 +74,9 @@
    <exec dir="${jmatter.dir}/doc" executable="markdown" output="${build.target.dir}/jMatter-License.html">
      <arg line="jMatter-License" />
    </exec>
-   <copy todir="${build.target.dir}" file="${jmatter.dir}/doc/Changes" />
+   <copy todir="${build.target.dir}">
+     <fileset dir="${jmatter.dir}/doc" includes="Changes,Credits" />
+   </copy>
    <copy todir="${build.target.dir}" file="${jmatter.dir}/resources/distro-prototype/build.xml" />
    <copy todir="${build.target.dir}">
     <fileset dir="${jmatter.dir}/resources" includes="project-template/**/*" />
