@@ -2,6 +2,7 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicRenderer;
+import com.u2d.utils.BrowserLauncher;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -26,16 +27,7 @@ public class URIRenderer extends JLabel implements AtomicRenderer
       {
          public void mouseClicked(MouseEvent evt)
          {
-            try
-            {
-               edu.stanford.ejalbert.BrowserLauncher.openURL(getText());
-                 // TODO: replace with Mustang Desktkop API
-            }
-            catch (java.io.IOException ex)
-            {
-               System.err.println("Failed to launch url in browser? "+ex.getMessage());
-               ex.printStackTrace();
-            }
+            BrowserLauncher.openInBrowser(getText());
          }
       });
    }
