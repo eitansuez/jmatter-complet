@@ -8,7 +8,7 @@
 #    so, delete the reference to appendix B.3 in guide.toc
 # 4., finally run tth -s ... :
 
-/home/eitan/devel/tthgold/tth -s -e2 -w4 -Lguide < guide.tex | /home/eitan/devel/tthgold/tthsplit 
+tth -s -e2 -w4 -Lguide < guide.tex | tthsplit 
 
 # need to automate this:
 # [a] produce html in separate directory
