@@ -57,7 +57,7 @@
 
   <target name="gen" description="generate smc support code" depends="init">
     <mkdir dir="${build.gen.dir}/com/u2d/app" />
-    <smc target="java" smfile="${src.dir}/com/u2d/app/Application.sm" 
+    <smc target="java" smfile="${src.dir}/com/u2d/app/Application.sm"
          destdir="${build.gen.dir}/com/u2d/app"
          smcjar="${smc.jar}" />
   </target>
@@ -277,32 +277,37 @@
    
    <!-- TODO: override with -Dnew.project.name flag upon invoking target -->
    <property name="new.project.name" value="new-jmatter-project" />
-   <target name="new-project" depends="jar" 
-           description="create a new project (flag: new.project.name)">
-      <mkdir dir="../${new.project.name}" />
-      <copy todir="../${new.project.name}" verbose="true" filtering="true">
+   <property name="new.project.basedir" value=".." />
+   <property name="new.project.standalone" value="true" />
+
+   <target name="new-project" depends="jar"
+           description="create a new project (flags: new.project.name, new.project.basedir)">
+      <property name="np.basedir" location="${new.project.basedir}/${new.project.name}" />
+      <mkdir dir="${np.basedir}" />
+      <copy todir="${np.basedir}" verbose="true" filtering="true">
          <fileset dir="${resource.dir}/project-template" />
          <filterset>
            <filter token="PROJECTNAME" value="${new.project.name}" />
            <filter token="MAINCLASSNAME" value="${main.class}" />
          </filterset>
       </copy>
-      <copy todir="../${new.project.name}/lib/tools">
-         <fileset dir="${tools.lib.dir}" />
+      <copy todir="${np.basedir}/lib">
+        <fileset dir="${lib.dir}" excludes="gen/**" />
       </copy>
-      <copy todir="../${new.project.name}/lib/src">
-         <fileset dir="${src.lib.dir}" />
-      </copy>
-      <copy todir="../${new.project.name}/lib/test">
-         <fileset dir="${test.lib.dir}" />
-      </copy>
-      <copy todir="../${new.project.name}/lib/web">
-         <fileset dir="${web.lib.dir}" />
-      </copy>
-      <copy file="${dist.dir}/${ant.project.name}.jar" 
-            todir="../${new.project.name}/lib/src" />
+      <copy file="${dist.dir}/${ant.project.name}.jar"
+            todir="${np.basedir}/lib/src" />
    </target>
-   
+
+   <!-- Eitan TODO:  maybe write an ant task instead?
+   <target name="new-project" depends="jar" 
+           description="create a new project">
+      <new-project projectname="${new.project.name}"
+                   basedir="${new.project.basedir}"
+                   standalone="${new.project.standalone}" />
+   </target>
+   -->
+
+
 
    <target name="ultraviolet" description="Launch UltraViolet design tool" depends="bind">
       <ant antfile="tools/ultraviolet/run.xml" inheritAll="false" />
