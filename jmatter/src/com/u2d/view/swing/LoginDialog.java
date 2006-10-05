@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.awt.*;
 import com.u2d.app.*;
 import com.u2d.ui.*;
+import com.u2d.model.ComplexType;
 
 /**
  * @author Eitan Suez
@@ -24,6 +25,7 @@ public class LoginDialog extends JInternalFrame
    public LoginDialog(AuthManager authMgr)
    {
       super("Login", false, false, false, false);
+      setTitle(lookup("logindlg.title"));
       _authMgr = authMgr;
 
       setFrameIcon(LOGIN_ICON_SMALL);
@@ -37,6 +39,11 @@ public class LoginDialog extends JInternalFrame
 
       layItOut();
       pack();
+   }
+   
+   private String lookup(String key)
+   {
+      return ComplexType.localeLookupStatic(key);
    }
 
    private void setupFields()
@@ -86,11 +93,11 @@ public class LoginDialog extends JInternalFrame
       DefaultFormBuilder innerBuilder = new DefaultFormBuilder(innerLayout);
 
 
-      JLabel label = innerBuilder.addLabel("User &Name:", cc.xy(1, 1));
+      JLabel label = innerBuilder.addLabel(lookup("logindlg.lbl.username"), cc.xy(1, 1));
       label.setLabelFor(_userNameFld);
       innerBuilder.add(_userNameFld, cc.xy(3, 1));
       
-      label = innerBuilder.addLabel("&Password:", cc.xy(1, 3));
+      label = innerBuilder.addLabel(lookup("logindlg.lbl.pwd"), cc.xy(1, 3));
       label.setLabelFor(_pwdField);
       innerBuilder.add(_pwdField, cc.xy(3, 3));
       
@@ -144,9 +151,9 @@ public class LoginDialog extends JInternalFrame
       pack();
    }
    
-   public void clear() { reset("Please log in.."); }
-   public void loginInvalid() { reset("Invalid username & password; Please retry.."); }
-   public void userLocked() { reset("Your account is locked;  Please contact administrator.."); }
+   public void clear() { reset(lookup("logindlg.msg.login")); }
+   public void loginInvalid() { reset(lookup("logindlg.msg.failed_auth")); }
+   public void userLocked() { reset(lookup("logindlg.msg.user_locked")); }
    
    public void makeVisible()
    {

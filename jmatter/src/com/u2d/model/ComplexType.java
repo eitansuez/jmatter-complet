@@ -480,6 +480,10 @@ public class ComplexType extends AbstractComplexEObject
 
    public String localeLookup(String key)
    {
+      return localeLookupStatic(key);
+   }
+   public static String localeLookupStatic(String key)
+   {
       if (localeBundle == null) return null;
       try
       {
