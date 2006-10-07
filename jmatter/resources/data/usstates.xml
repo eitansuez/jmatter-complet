@@ -57,5 +57,12 @@
       
   <us-state code="WI" caption="Wisconsin" />
   <us-state code="WY" caption="Wyoming" />
+
+  <us-state code="AS" caption="American Samoa" />
+  <us-state code="CQ" caption="N Mariana Islands" />
+  <us-state code="GU" caption="Guam" />
+  <us-state code="MQ" caption="Midway Atoll" />
+  <us-state code="VI" caption="Virgin Islands" />
+  <us-state code="WQ" caption="Wake Island" />
 </code-items>
 
