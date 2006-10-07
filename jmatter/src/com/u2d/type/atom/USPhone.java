@@ -47,7 +47,7 @@ public class USPhone extends AbstractAtomicEO implements Searchable
       return StringEO.isEmpty(_value);
    }
    
-   private static String omit = "()-. ";
+   private static String omit = "()-. '";
    private static String valid = "0123456789";
    
    public int validate()
