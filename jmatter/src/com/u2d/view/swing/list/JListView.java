@@ -22,8 +22,10 @@ public class JListView extends SeeThruList
                        implements ListEView, ListCellRenderer, Selectable
 {
    protected AbstractListEO _leo;
+   protected ProxyListModel _leoProxy;
+   
    private boolean _asIcons = false;
-   private Map _views = new HashMap();
+   private Map<Object, EView> _views = new HashMap<Object, EView>();
    
    private ChangeListener _memberChangeListener = 
       new ChangeListener()
@@ -58,7 +60,8 @@ public class JListView extends SeeThruList
       
       SwingViewMechanism.setupEnterKeyBinding(this);
       
-      setModel(_leo);
+      _leoProxy = new ProxyListModel(_leo);
+      setModel(_leoProxy);
       setCellRenderer(this);
       
       setDragEnabled(true);
@@ -135,6 +138,7 @@ public class JListView extends SeeThruList
    public void detach()
    {
       _leo.removeListDataListener(this);
+      _leoProxy.detach();
       detachItems();
       firePropertyChange("model", _leo, null);  // get BasicListUI$Handler
       // to stop listening;  jprofiler tells me it still is.

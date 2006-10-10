@@ -50,9 +50,23 @@ public class ListTitleView extends JLabel implements ListEView
    public void intervalAdded(ListDataEvent evt) { updateTitle(); }
    public void intervalRemoved(ListDataEvent evt) { updateTitle(); }
    
+   // TODO: solve all this with an aspect
    private void updateTitle()
    {
-      setText(_leo.toString());
+      if (!SwingUtilities.isEventDispatchThread())
+      {
+         SwingUtilities.invokeLater(new Runnable()
+         {
+            public void run()
+            {
+               setText(_leo.toString());
+            }
+         });
+      }
+      else
+      {
+         setText(_leo.toString());
+      }
    }
    
    public void stateChanged(javax.swing.event.ChangeEvent evt) {}

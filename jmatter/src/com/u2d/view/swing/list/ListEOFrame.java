@@ -77,8 +77,24 @@ public class ListEOFrame extends CloseableJInternalFrame
    public void contentsChanged(ListDataEvent evt) { updateTitle(); }
    public void intervalAdded(ListDataEvent evt) { updateTitle(); }
    public void intervalRemoved(ListDataEvent evt) { updateTitle(); }
-   
-   private void updateTitle() { setTitle(_leo.title().toString()); }
+
+   private void updateTitle()
+   {
+      if (!SwingUtilities.isEventDispatchThread())
+      {
+         SwingUtilities.invokeLater(new Runnable()
+         {
+            public void run()
+            {
+               setTitle(_leo.title().toString());
+            }
+         });
+      }
+      else
+      {
+         setTitle(_leo.title().toString());
+      }
+   }
 
    public void stateChanged(javax.swing.event.ChangeEvent evt) {}
    
