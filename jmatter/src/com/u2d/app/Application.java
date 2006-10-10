@@ -100,7 +100,7 @@ public class Application implements AuthManager, AppEventNotifier
          Session session = hbm.getSession();
 
          String hql = "select count(*) from com.u2d.app.User as user where user.username='admin'";
-         int count = ((Integer) session.createQuery(hql).iterate().next()).intValue();
+         int count = ((Long) session.createQuery(hql).iterate().next()).intValue();
          if (count == 0)
          {
             Transaction tx = session.beginTransaction();
