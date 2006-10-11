@@ -45,7 +45,15 @@ public class Splash extends JWindow
       }
    };
 
-   public Splash(String appName)
+   public Splash()
+   {
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run() { begin(); }
+      });
+   }
+   
+   private void begin()
    {
       URL imgURL = resolveSplashURL();
       if (imgURL == null)
@@ -129,7 +137,13 @@ public class Splash extends JWindow
 
    public void dispose()
    {
-      timer.stop();
-      super.dispose();
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            timer.stop();
+            super.dispose();
+         }
+      });
    }
 }
