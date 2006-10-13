@@ -117,10 +117,24 @@ public class Splash extends JWindow
    }
 
    String _msg = "";
-   public void message(String text)
+   public void message(final String text)
    {
-      _msg = text;
-      _messageLabel.setText(_msg);
+      if (SwingUtilities.isEventDispatchThread())
+      {
+         _msg = text;
+         _messageLabel.setText(_msg);
+      }
+      else
+      {
+         SwingUtilities.invokeLater(new Runnable()
+         {
+            public void run()
+            {
+               _msg = text;
+               _messageLabel.setText(_msg);
+            }
+         });
+      }
    }
    
    private URL resolveSplashURL()
@@ -142,7 +156,7 @@ public class Splash extends JWindow
          public void run()
          {
             timer.stop();
-            super.dispose();
+            Splash.super.dispose();
          }
       });
    }
