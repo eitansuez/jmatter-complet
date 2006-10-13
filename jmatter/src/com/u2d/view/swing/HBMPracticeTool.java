@@ -16,6 +16,8 @@ import com.u2d.list.PlainListEObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.persist.HBMSingleSession;
 import org.hibernate.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author Eitan Suez
@@ -25,28 +27,29 @@ public class HBMPracticeTool extends JFrame
    EODesktopPane _desktopPane;
    HBMPersistenceMechanism _pmech;
    MessagePanel _msgPnl;
-   
+
    public HBMPracticeTool()
    {
-      Application app = new Application(true);
-      _pmech = (HBMPersistenceMechanism) app.getPersistenceMechanism();
-      
-//      _pmech = (HBMPersistenceMechanism) AppFactory.getInstance().getApp().getPersistenceMechanism();
-      
+      SwingViewMechanism.setupAntiAliasing();
+      ApplicationContext context =
+            new ClassPathXmlApplicationContext("applicationContext.xml");
+
+      _pmech = (HBMPersistenceMechanism) context.getBean("persistor");
+
       // hbm initialization takes place in Application constructor
       // Persisted class list read from app.properties
-      
+
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       JPanel contentPane = (JPanel) getContentPane();
       contentPane.setLayout(new BorderLayout());
-      
+
       contentPane.add(new HBMQueryPanel(), BorderLayout.NORTH);
       _desktopPane = new EODesktopPane();
       contentPane.add(_desktopPane, BorderLayout.CENTER);
       _msgPnl = new MessagePanel();
       contentPane.add(_msgPnl, BorderLayout.SOUTH);
    }
-   
+
    class HBMQueryPanel extends JPanel
    {
       private JTextArea _queryArea;
@@ -56,15 +59,15 @@ public class HBMPracticeTool extends JFrame
          _queryArea = queryTextArea();
          add(_queryArea, BorderLayout.CENTER);
          add(submitQueryBtn(), BorderLayout.EAST);
-         
+
          setBorder(BorderFactory.createTitledBorder("Query"));
       }
-      
+
       private JTextArea queryTextArea()
       {
          return new MyTextArea(3, 60);
       }
-      
+
       private JButton submitQueryBtn()
       {
          JButton btn = new JButton("Submit Query");
@@ -79,10 +82,10 @@ public class HBMPracticeTool extends JFrame
                      try
                      {
                         String hql = clean(_queryArea.getText());
-                        
+
                         Session session = _pmech.getSession();
                         final java.util.List results = session.createQuery(hql).list();
-                           
+
                         SwingUtilities.invokeLater( new Runnable()
                         {
             public void run()
@@ -112,14 +115,14 @@ public class HBMPracticeTool extends JFrame
                }
             }
                         });
-                           
+
                      }
                      catch (HibernateException ex)
                      {
                         System.err.println("Hibernate Exception: "+ex.getMessage());
                         ex.printStackTrace();
                         _msgPnl.message(ex.getMessage());
-                        
+
                         if (_pmech instanceof HBMSingleSession)
                         {
                            ((HBMSingleSession) _pmech).newSession();
@@ -127,13 +130,13 @@ public class HBMPracticeTool extends JFrame
                      }
                   }
                }.start();
-               
+
             }
                });
          return btn;
       }
    }
-   
+
    private String clean(String hql)
    {
       if (hql.endsWith(";"))

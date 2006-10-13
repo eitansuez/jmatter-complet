@@ -3,11 +3,12 @@ package com.u2d.view.swing.list;
 import com.u2d.ui.RenderHelper;
 import com.u2d.view.ListEView;
 import com.u2d.view.EView;
-import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.list.SimpleListEO;
+import com.u2d.app.Context;
+
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ChangeEvent;
@@ -151,7 +152,7 @@ public class CheckboxListBuilder extends JList
       {
          _ceo = ceo;
 
-         _listItemView = SwingViewMechanism.getInstance().
+         _listItemView = Context.getInstance().swingvmech().
                getListItemViewAdapter(ceo);
          ((JComponent) _listItemView).setOpaque(false);
 

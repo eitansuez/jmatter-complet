@@ -7,6 +7,8 @@ import com.u2d.app.*;
 import com.u2d.domain.*;
 import com.u2d.list.SimpleListEO;
 import com.u2d.type.composite.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author Eitan Suez
@@ -14,14 +16,18 @@ import com.u2d.type.composite.*;
 public class AppFrameTester
 {
    ViewMechanism _vmech;
-   
+
    public AppFrameTester()
    {
-      Application a = new Application();
-      _vmech = a.getViewMechanism();
-      a.launch();
+      SwingViewMechanism.setupAntiAliasing();
+      ApplicationContext context =
+            new ClassPathXmlApplicationContext("applicationContext.xml");
+
+      AppSession session = (AppSession) context.getBean("app-session");
+      session.launch();
+      _vmech = (ViewMechanism) context.getBean("view-mechanism");
    }
-   
+
    void testEObjects()
    {
       Shipment shipment = new Shipment("My Shipment", 25);
@@ -31,43 +37,43 @@ public class AppFrameTester
       USAddress addr2 = new USAddress("7301 Ashkelon Rd", "Boston", "MA", "08703");
       //shipment.setTo(addr2);
       shipment.getTo().setValue(addr2);
-      
+
       Shipment sh2 = new Shipment("Second Shipment", 5);
       //sh2.setFrom(addr2);
       sh2.getFrom().setValue(addr2);
       //sh2.setTo(addr);
       sh2.getTo().setValue(addr);
-      
+
       _vmech.displayView(addr.getFormView());
       _vmech.displayView(shipment.getFormView());
       _vmech.displayView(addr2.getFormView());
       _vmech.displayView(sh2.getFormView());
    }
-   
+
    void testLists()
    {
       SimpleListEO shipments = shipmentsList();
 //      _vmech.displayView(shipments.getView());
       _vmech.displayView(shipments.getListViewAsIcons());
-      
+
       try {
          Thread.sleep(4000);
       } catch (Exception ex) {}
-      
+
       shipments.add(new Shipment("My Last Shipment", 23));
-      
+
       try {
          Thread.sleep(2000);
       } catch (Exception ex) {}
-      
+
       Shipment shipment = (Shipment) shipments.getElementAt(2);
       shipments.remove(shipment);
    }
-   
+
    private SimpleListEO shipmentsList()
    {
       SimpleListEO shipments = new SimpleListEO(Shipment.class);
-      
+
       Shipment shipment = null;
       for (int i=0; i<7; i++)
       {
@@ -76,13 +82,13 @@ public class AppFrameTester
       }
       return shipments;
    }
-   
+
    public static void main(String[] args)
    {
       AppFrameTester tester = new AppFrameTester();
       //tester.testEObjects();
       tester.testLists();
    }
-   
+
 
 }

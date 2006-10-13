@@ -16,8 +16,6 @@ public interface PersistenceMechanism
    public static final int ONE_TO_MANY = 1;
    public static final int MANY_TO_MANY = 2;
    
-   public void init(Class[] classList);
-   
    public ComplexEObject load(Class clazz, Long id);
    public void save(ComplexEObject ceo);
    public void delete(ComplexEObject ceo);

@@ -4,6 +4,7 @@
 package com.u2d.view;
 
 import com.u2d.model.EObject;
+import com.u2d.app.ViewMechanism;
 
 /**
  * @author Eitan Suez

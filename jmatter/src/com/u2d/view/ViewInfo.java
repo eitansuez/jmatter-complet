@@ -11,7 +11,7 @@ import java.util.HashMap;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import com.u2d.app.ViewMechanism;
-import com.u2d.app.AppFactory;
+import com.u2d.app.Context;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexEObject;
 
@@ -50,7 +50,7 @@ public class ViewInfo
    public ListEView getListView(AbstractListEO leo) throws NoSuchMethodException, 
             InvocationTargetException, IllegalAccessException
    {
-      ViewMechanism vmech = AppFactory.getInstance().getApp().getViewMechanism();
+      ViewMechanism vmech = Context.getInstance().getViewMechanism();
       
       Class[] paramTypes = {AbstractListEO.class};
       Method factory = vmech.getClass().getMethod(_factoryName, paramTypes);
@@ -61,7 +61,8 @@ public class ViewInfo
    public ComplexEView getView(ComplexEObject ceo) throws NoSuchMethodException,
          InvocationTargetException, IllegalAccessException
    {
-      ViewMechanism vmech = AppFactory.getInstance().getApp().getViewMechanism();
+      ViewMechanism vmech = Context.getInstance().getViewMechanism();
+      
       Class[] paramTypes = {ComplexEObject.class};
       Method factory = vmech.getClass().getMethod(_factoryName, paramTypes);
       return (ComplexEView) factory.invoke(vmech, new Object[] {ceo});
@@ -73,7 +74,7 @@ public class ViewInfo
    
    // ====
    
-   static Map _listViewMap = new HashMap();
+   static Map<String, ViewInfo> _listViewMap = new HashMap<String, ViewInfo>();
    static
    {
       _listViewMap.put("listtableview", 
@@ -122,7 +123,7 @@ public class ViewInfo
    
    // that's a lot of duplication..
    
-   static Map _viewMap = new HashMap();
+   static Map<String, ViewInfo> _viewMap = new HashMap<String, ViewInfo>();
    static
    {
       _viewMap.put("formview",

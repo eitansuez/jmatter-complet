@@ -1,9 +1,6 @@
 package com.u2d.view.wings;
 
-import com.u2d.app.ViewMechanism;
-import com.u2d.app.Application;
-import com.u2d.app.AppFactory;
-import com.u2d.app.Tracing;
+import com.u2d.app.*;
 import com.u2d.view.*;
 import com.u2d.view.wings.list.ListEOFrame;
 import com.u2d.view.wings.list.ListView;
@@ -23,6 +20,9 @@ import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
 import org.wings.SInternalFrame;
+import org.wings.SContainer;
+import org.wings.SComponent;
+
 import java.util.logging.Logger;
 
 /**
@@ -33,48 +33,50 @@ import java.util.logging.Logger;
  */
 public class WingSViewMechanism implements ViewMechanism
 {
-   private Application _app;
+   private AppSession _appSession;
    private AppFrame _appFrame;
+   private LoginDialog _loginDialog;
 
    private transient Logger _tracer = Tracing.tracer();
 
-   private static WingSViewMechanism _instance = null;
-   public static WingSViewMechanism getInstance()
-   {
-      if (_instance == null)
-         _instance = new WingSViewMechanism();
-      return _instance;
-   }
-   private WingSViewMechanism() { }
+   public WingSViewMechanism() { }
+
+   public void setAppSession(AppSession appSession) { _appSession = appSession; }
 
    // lots of work to do here..
 
    public void launch()
    {
-      _app = AppFactory.getInstance().getApp();
-      _appFrame = new AppFrame(_app);
+      _appFrame = new AppFrame(_appSession);
       _appFrame.setVisible(true);
    }
 
    // login-related
    public void showLogin()
    {
-      // [tbd] noop
+      if (_loginDialog == null)
+      {
+         _loginDialog = new LoginDialog(_appSession);
+         _appFrame.addLoginDialog(_loginDialog);
+      }
+
+      _appFrame.centerFrame(_loginDialog);
+      _loginDialog.clear();
    }
 
    public void dismissLogin()
    {
-      // [tbd] noop
+      _loginDialog.setVisible(false);
    }
 
    public void loginInvalid()
    {
-      // [tbd] noop
+      _loginDialog.loginInvalid();
    }
 
    public void userLocked()
    {
-      // [tbd] noop
+      _loginDialog.userLocked();
    }
 
    public void initReporting()
@@ -127,9 +129,8 @@ public class WingSViewMechanism implements ViewMechanism
       }
       else
       {
-         System.out.println("tbd..");
-//         GenericFrame frame = new GenericFrame(view);
-//         _appFrame.addFrame(frame, positioning);
+         GenericFrame frame = new GenericFrame(view);
+         _appFrame.addFrame(frame, positioning);
       }
    }
 
@@ -171,10 +172,12 @@ public class WingSViewMechanism implements ViewMechanism
 
    public void dismiss(EView eview)
    {
+      getParentInternalFrame((SComponent) eview).dispose();
    }
 
    public void onMessage(String message)
    {
+      _appFrame.onMessage(message);
    }
 
    public void showMsgDlg(String message)
@@ -261,9 +264,10 @@ public class WingSViewMechanism implements ViewMechanism
       return null;
    }
 
+   /* the understanding here is that choices are also CEOs */
    public ComplexEView getChoiceView(AbstractChoiceEO choice)
    {
-      return null;
+      return new ChoiceView(choice);
    }
 
    // for calendaring / scheduling
@@ -290,7 +294,7 @@ public class WingSViewMechanism implements ViewMechanism
    // for commands
    public View getParamListView(EOCommand cmd, Object value, CommandInfo cmdInfo)
    {
-      return null;
+      return new ParamListView(cmd, value, cmdInfo);
    }
 
    public View getFindView(ComplexType type)
@@ -370,51 +374,18 @@ public class WingSViewMechanism implements ViewMechanism
    public AtomicRenderer getSSNRenderer() { return getStringRenderer(); }
    public AtomicEditor getSSNEditor() { return new SSNEditor(); }
 
-   public AtomicRenderer getDateRenderer()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getDateRenderer() { return new DateRenderer(); }
+   public AtomicEditor getDateEditor() { return new DateEditor(); }
 
-   public AtomicEditor getDateEditor()
-   {
-      // punt for now
-      return null;
-   }
 
-   public AtomicRenderer getDateWithAgeRenderer()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getDateWithAgeRenderer() { return new DateWithAgeRenderer(); }
+   public AtomicEditor getDateWithAgeEditor() { return new DateWithAgeEditor(); }
 
-   public AtomicEditor getDateWithAgeEditor()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getDateTimeRenderer() { return getStringRenderer(); }
+   public AtomicEditor getDateTimeEditor() { return new DateTimeEditor(); }
 
-   public AtomicRenderer getDateTimeRenderer()
-   {
-      return getStringRenderer();
-   }
-
-   public AtomicEditor getDateTimeEditor()
-   {
-      return new DateTimeEditor();
-   }
-
-   public AtomicRenderer getTimeRenderer()
-   {
-      // punt for now
-      return null;
-   }
-
-   public AtomicEditor getTimeEditor()
-   {
-      // punt for now
-      return null;
-   }
+   public AtomicRenderer getTimeRenderer() { return new StringRenderer(); }
+   public AtomicEditor getTimeEditor() { return new TimeEditor(); }
 
    public AtomicRenderer getTimeSpanRenderer()
    {
@@ -428,15 +399,8 @@ public class WingSViewMechanism implements ViewMechanism
       return null;
    }
 
-   public AtomicRenderer getChoiceEORenderer()
-   {
-      return null;
-   }
-
-   public AtomicEditor getChoiceEOEditor()
-   {
-      return null;
-   }
+   public AtomicRenderer getChoiceEORenderer() { return new StringRenderer(); }
+   public AtomicEditor getChoiceEOEditor() { return new ChoiceEOEditor(); }
 
    public AtomicRenderer getTermsRenderer()
    {
@@ -448,25 +412,16 @@ public class WingSViewMechanism implements ViewMechanism
       return null;
    }
 
-   public AtomicRenderer getImageRenderer()
-   {
-      return null;
-   }
-
+   public AtomicRenderer getImageRenderer() { return new ImagePicker(); }
    public AtomicEditor getImageEditor()
    {
-      return null;
+      ImagePicker imgPicker = new ImagePicker();
+      imgPicker.putInEditMode();
+      return imgPicker;
    }
 
-   public AtomicRenderer getFileRenderer()
-   {
-      return null;
-   }
-
-   public AtomicEditor getFileEditor()
-   {
-      return null;
-   }
+   public AtomicRenderer getFileRenderer() { return new FilePicker(); }
+   public AtomicEditor getFileEditor() { return new FilePicker().putInEditMode(); }
 
    // views for lists (listeobjects)
    public ListEView getListView(AbstractListEO leo)
@@ -565,4 +520,15 @@ public class WingSViewMechanism implements ViewMechanism
       if (ceo.isNullState()) ceo.restoreState();
    }
 
+   public static SInternalFrame getParentInternalFrame(SComponent item)
+   {
+      SContainer parent = item.getParent();
+      while (!(parent instanceof SInternalFrame))
+      {
+         parent = parent.getParent();
+      }
+      return (SInternalFrame) parent;
+   }
+
+   
 }

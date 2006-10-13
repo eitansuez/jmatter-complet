@@ -4,16 +4,14 @@
 package com.u2d.type.composite;
 
 import com.u2d.app.PersistenceMechanism;
-import com.u2d.app.AppFactory;
 import com.u2d.list.RelationalList;
 import com.u2d.model.*;
 import com.u2d.type.atom.StringEO;
 import com.u2d.view.EView;
 import com.u2d.element.CommandInfo;
-import com.u2d.persist.HBMSingleSession;
+import com.u2d.persist.HibernatePersistor;
 import com.u2d.reflection.CommandAt;
 import com.u2d.reflection.ParamAt;
-
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.event.TreeModelListener;
@@ -130,12 +128,11 @@ public class Folder extends AbstractComplexEObject
       }
    }
 
-   public static Folder fetchFolderByName(String name)
+   public static Folder fetchFolderByName(PersistenceMechanism pmech, String name)
    {
-      PersistenceMechanism pmech = AppFactory.getInstance().getApp().getPersistenceMechanism();
-      if (pmech instanceof HBMSingleSession)
+      if (pmech instanceof HibernatePersistor)
       {
-         HBMSingleSession hbp = (HBMSingleSession) pmech; 
+         HibernatePersistor hbp = (HibernatePersistor) pmech; 
          Session s = hbp.getSession();
          Folder folder = (Folder) s.createQuery("from Folder where name = :name")
                .setParameter("name", name)
@@ -155,7 +152,12 @@ public class Folder extends AbstractComplexEObject
    public void save()
    {
       Set folders = getNestedFolderSet(this, new HashSet());
-      ((HBMSingleSession) persistor()).saveMany(folders);
+      hbmPersistor().saveMany(folders);
+   }
+   
+   public Set getSelfAndNestedFolders()
+   {
+      return getNestedFolderSet(this, new HashSet());
    }
 
    private Set getNestedFolderSet(Folder folder, Set folders)

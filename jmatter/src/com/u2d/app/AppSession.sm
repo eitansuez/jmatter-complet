@@ -1,4 +1,4 @@
-%class Application
+%class AppSession
 %package com.u2d.app
 
 %start AuthMap::InitState

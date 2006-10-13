@@ -3,11 +3,12 @@
  */
 package com.u2d.persist;
 
-import com.u2d.app.Application;
 import com.u2d.app.Tracing;
-
-import java.util.List;
+import com.u2d.app.HBMPersistenceMechanism;
+import java.util.Set;
 import java.io.File;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Use HBMMaker to generate hbm.xml files for each item in app.properties' persistClasses
@@ -16,14 +17,20 @@ import java.io.File;
  */
 public class HBMGenerator
 {
-
-   public void processClassList(List persistClasses)
+   private Set<Class> _persistClasses;
+   
+   public HBMGenerator() {}
+   
+   public void setPersistClasses(Set<Class> classes)
    {
-      Class clazz = null;
-      for (int i=0; i<persistClasses.size(); i++)
+      _persistClasses = classes;
+   }
+   
+
+   public void processClassList()
+   {
+      for (Class clazz : _persistClasses)
       {
-         clazz = (Class) persistClasses.get(i);
-         
          if (isUptodate(clazz)) continue;  // skip processing if file is uptodate
 
          Tracing.tracer().info("HBMGenerator is Processing "+clazz.getName());
@@ -39,24 +46,27 @@ public class HBMGenerator
          }
       }
    }
-   
+
    private boolean isUptodate(Class clazz)
    {
       String classfilename = clazz.getName().replace('.', File.separatorChar) + ".class";
       String hbmxmlfilename = clazz.getName().replace('.', File.separatorChar) + ".hbm.xml";
-      
+
       File hbmxmlfile = new File(hbmxmlfilename);
       if (!hbmxmlfile.exists())
          return false;
-      
+
       File classfile = new File(classfilename);
       return (hbmxmlfile.lastModified() > classfile.lastModified());
    }
-      
+
 
    public static void main(String[] args)
    {
-      new Application(new HBMGenerator());
+      ApplicationContext context =
+            new ClassPathXmlApplicationContext("hbmGeneratorContext.xml");
+      HBMGenerator generator = (HBMGenerator) context.getBean("hbm-generator");
+      generator.processClassList();
    }
 
 }

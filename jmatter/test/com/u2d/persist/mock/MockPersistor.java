@@ -100,5 +100,4 @@ public class MockPersistor implements PersistenceMechanism
       return null;
    }
 
-   public void init(Class[] classList) { }
 }

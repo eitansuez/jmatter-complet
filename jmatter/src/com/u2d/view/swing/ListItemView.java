@@ -59,7 +59,6 @@ public class ListItemView extends JLabel implements ComplexEView
       _ceo.removeChangeListener(this);
       _ceo.removePropertyChangeListener(this);
       removeMouseListener(_defaultActionListener);
-      SwingViewMechanism.getInstance().returnObject(this);
    }
 
    public EObject getEObject() { return _ceo; }

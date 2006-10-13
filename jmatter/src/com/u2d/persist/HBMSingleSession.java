@@ -14,7 +14,6 @@ import com.u2d.type.atom.Password;
 import com.u2d.find.SimpleQuery;
 import com.u2d.element.Field;
 import org.hibernate.*;
-import org.hibernate.cfg.Environment;
 import org.hibernate.criterion.Expression;
 import java.util.*;
 import java.util.logging.Logger;
@@ -24,53 +23,20 @@ import java.util.logging.Logger;
  */
 public class HBMSingleSession extends HibernatePersistor
 {
-   private static PersistenceMechanism _instance = null;
    private SessionFactory _sessionFactory;
    private Session _session;
 
-   private static transient Logger _tracer = Tracing.tracer();
+   public HBMSingleSession() { super(); }
 
-   public static PersistenceMechanism getInstance()
+   public void initialize()
    {
-      if (_instance == null) _instance = new HBMSingleSession();
-      return _instance;
-   }
-
-   private HBMSingleSession()
-   {
-      super();
-   }
-
-   public void init(Class[] classList)
-   {
-      for (int i=0; i<classList.length; i++)
-      {
-         try
-         {
-            _tracer.fine("Adding class "+classList[i].getName()+" to hibernate configuration");
-            _cfg.addClass(classList[i]);
-         }
-         catch (HibernateException ex)
-         {
-            System.err.println("HibernateException: "
-                  + ex.getMessage());
-            ex.printStackTrace();
-         }
-      }
-
-      _cfg.addClass(ComplexType.class);
+      super.initialize();
 
       // automatically create database schema if necessary..
       //_cfg.setProperty(Environment.HBM2DDL_AUTO, "update");
 
-      // properties file has default name and is in classpath base so should be picked up automatically
-      Date start = new Date();
       _sessionFactory = _cfg.buildSessionFactory();
       _session = _sessionFactory.openSession();
-      long time = new Date().getTime() - start.getTime();
-      _tracer.info("time to build session factory and open session: "+
-            time + "(ms)");
-
 
       // problem with this:  two listeners for onlogout
       // doing things at the same time:  application tries
@@ -291,49 +257,6 @@ public class HBMSingleSession extends HibernatePersistor
       return parent;
    }
    
-   public void saveMany(java.util.Set ceos)
-   {
-      try
-      {
-         Transaction tx = null;
-         try
-         {
-            tx = _session.beginTransaction();
-
-            Iterator itr = ceos.iterator();
-            ComplexEObject ceo = null;
-            while (itr.hasNext())
-            {
-               ceo = (ComplexEObject) itr.next();
-               if (ceo.isTransientState()) ceo.onBeforeCreate();
-               ceo.onBeforeSave();
-               _session.save(ceo);
-            }
-            tx.commit();
-
-            itr = ceos.iterator();
-            ceo = null;
-            while (itr.hasNext())
-            {
-               ceo = (ComplexEObject) itr.next();
-               if (ceo.isTransientState()) ceo.onCreate();
-               else ceo.onSave();
-            }
-         }
-         catch (HibernateException ex)
-         {
-            if (tx != null) tx.rollback();
-            throw ex;
-         }
-      }
-      catch (HibernateException ex)
-      {
-         ex.printStackTrace();
-         newSession();
-         throw ex;
-      }
-   }
-
    public void updateAssociation(ComplexEObject one, ComplexEObject two)
    {
       _tracer.fine("Updating association between " + one + " and " + two);
@@ -505,6 +428,7 @@ public class HBMSingleSession extends HibernatePersistor
          System.err.println("Error attempting to initialize hibernate");
          throw ex;
       }
+      
    }
 
 }

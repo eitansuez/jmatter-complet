@@ -1,16 +1,17 @@
 package com.u2d.view.wings;
 
 import org.wings.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.impl.Jdk14Logger;
-import com.u2d.app.Application;
-import com.u2d.app.Tracing;
+import com.u2d.app.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.type.composite.Folder;
+import com.u2d.element.Command;
+import com.u2d.pubsub.AppEventListener;
+import com.u2d.persist.HibernatePersistor;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
 import java.util.logging.Logger;
-import java.util.logging.Level;
+import javax.swing.Action;
+import javax.swing.AbstractAction;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,18 +21,27 @@ import java.util.logging.Level;
  */
 public class AppFrame extends SFrame
 {
-   private Application _app;
-   private SPanel _centerPane;
    private SDesktopPane _desktopPane;
    private MessagePanel _msgPnl;
-   private SComponent _classesView;
 
+   private AppSession _appSession;
+   private Application _app;
+   
+   private SMenuBar _menuBar;
+   private SMenu _userMenu;
+
+   private SPanel _centerPane;
+   private SComponent _classesView;
+   
+   
    private transient Logger _tracer = Tracing.tracer();
 
-   public AppFrame(Application app)
+   public AppFrame(AppSession appSession)
    {
       super();
-      _app = app;
+      _appSession = appSession;
+      _app = _appSession.getApp();
+      
       setTitle(_app.getName());
 
       SContainer contentPane = getContentPane();
@@ -39,17 +49,30 @@ public class AppFrame extends SFrame
       _desktopPane = new SDesktopPane();
       _centerPane.add(_desktopPane, SBorderLayout.CENTER);
 
-      Folder classesFolder = _app.getClassesFolder();
-      _classesView = new OutlookFolderView(classesFolder);
-      _centerPane.add(_classesView, SBorderLayout.WEST);
-
       _msgPnl = new MessagePanel();
-      contentPane.add(_msgPnl, SBorderLayout.SOUTH);
       contentPane.add(_centerPane, SBorderLayout.CENTER);
+      contentPane.add(_msgPnl, SBorderLayout.SOUTH);
+
+      _menuBar = new SMenuBar();
+      setMenuBar(_menuBar);
+      makeUserMenu();
+      listenForUserEvents();
    }
 
+   private void setMenuBar(SMenuBar menuBar)
+   {
+      SToolBar toolbar = new SToolBar();
+      toolbar.add(menuBar);
+      _centerPane.add(toolbar, SBorderLayout.NORTH);
+   }
 
    /* ** public interface ** */
+   public SInternalFrame addLoginDialog(SInternalFrame loginDialog)
+   {
+      addFrame(loginDialog, Positioning.CENTERED);
+//      loginDialog.setLayer(LayeredPane.MODAL_LAYER);
+      return loginDialog;
+   }
 
    public SInternalFrame addFrame(SInternalFrame frame)
    {
@@ -88,5 +111,119 @@ public class AppFrame extends SFrame
    }
 
 
+   // ==
+   
+   private void listenForUserEvents()
+   {
+      _appSession.addAppEventListener("LOGIN", new AppEventListener()
+      {
+         public void onEvent(com.u2d.pubsub.AppEvent evt)
+         {
+            showClassBar();
+            showUserMenu();
+            _desktopPane.setEnabled(true); // enable context menu
+         }
+      });
+      _appSession.addAppEventListener("LOGOUT", new AppEventListener()
+      {
+         public void onEvent(com.u2d.pubsub.AppEvent evt)
+         {
+            closeAllDesktopPaneChildren();
+            hideClassBar();
+            hideUserMenu();
+            _desktopPane.setEnabled(false); // disable context menu
+
+            PersistenceMechanism pmech = _app.getPersistenceMechanism();
+            if (pmech instanceof HibernatePersistor)
+            {
+               ((HibernatePersistor) pmech).newSession();
+            }
+         }
+      });
+   }
+
+   private void closeAllDesktopPaneChildren()
+   {
+      for (int i=0; i<_desktopPane.getComponentCount(); i++)
+      {
+         if (_desktopPane.getComponent(i) instanceof SInternalFrame)
+         {
+            SInternalFrame f = (SInternalFrame) _desktopPane.getComponent(i);
+            if (f.isVisible())
+            {
+               f.dispose();  // how nice!  wings does the right thing!
+               // that is: if.dispose automatically does a desktoppane.remove
+            }
+         }
+      }
+   }
+
+   private void makeClassBar()
+   {
+      Folder classesFolder = _appSession.getClassesFolder();
+      _classesView = new OutlookFolderView(classesFolder);
+   }
+   private void showClassBar()
+   {
+      if (_classesView == null)
+      {
+         makeClassBar();
+      }
+      _centerPane.add(_classesView, SBorderLayout.WEST);
+   }
+   private void hideClassBar()
+   {
+      _centerPane.remove(_classesView);
+   }
+
+   private static String USERMENUGENERICLABEL = "User";
+
+   private void makeUserMenu()
+   {
+      _userMenu = new SMenu(USERMENUGENERICLABEL);
+
+      Action logoutAction = new AbstractAction("Logout")
+      {
+         public void actionPerformed(ActionEvent evt)
+         {
+            _appSession.onLogout();
+         }
+      };
+
+      Action chgPassAction = new AbstractAction("Change Password")
+      {
+         public void actionPerformed(ActionEvent evt)
+         {
+            User currentUser = _appSession.getUser();
+            Command cmd = currentUser.command("ChangePassword");
+            try
+            {
+               cmd.execute(currentUser, null);
+            }
+            catch (java.lang.reflect.InvocationTargetException ex)
+            {
+               System.err.println("InvocationTargetException: "+ex.getMessage());
+               ex.printStackTrace();
+            }
+         }
+      };
+
+      SMenuItem item = new SMenuItem(chgPassAction);
+      _userMenu.add(item);
+      item = new SMenuItem(logoutAction);
+      _userMenu.add(item);
+   }
+
+   private void showUserMenu()
+   {
+      User currentUser = _appSession.getUser();
+      _userMenu.setText(currentUser.toString());
+      _menuBar.add(_userMenu);
+   }
+
+   private void hideUserMenu()
+   {
+      _menuBar.remove(_userMenu);
+   }
 
 }

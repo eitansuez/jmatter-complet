@@ -2,15 +2,13 @@ package com.u2d.view.swing;
 
 import com.u2d.list.CompositeList;
 import com.u2d.view.swing.list.TableView;
-import com.u2d.app.ViewMechanism;
-import com.u2d.app.Application;
 import com.u2d.model.AtomicEObject;
-
 import javax.swing.*;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.util.Date;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,9 +20,8 @@ public class TableViewTester
 {
    public TableViewTester()
    {
-      Application app = new Application();
-      ViewMechanism vmech = app.getViewMechanism();
-      
+      new ClassPathXmlApplicationContext("applicationContext.xml");
+
       JFrame f = new JFrame();
       JPanel p = (JPanel) f.getContentPane();
       p.setLayout(new BorderLayout());
@@ -37,7 +34,7 @@ public class TableViewTester
       addFalafel(items, "Four", 4, 7.8, date);
 
       final TableView view = new TableView(items);
-      
+
       CellEditor editor = view.getDefaultEditor(AtomicEObject.class);
       editor.addCellEditorListener(new CellEditorListener()
       {

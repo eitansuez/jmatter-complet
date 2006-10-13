@@ -79,7 +79,6 @@ public class IconView extends Caption implements ComplexEView
       _ceo.removePropertyChangeListener(this);
 
       _cmdsView.detach();
-      SwingViewMechanism.getInstance().returnObject(this);
       
       removeMouseListener(_defaultActionListener);
    }

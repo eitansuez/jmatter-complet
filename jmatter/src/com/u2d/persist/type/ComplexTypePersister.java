@@ -1,6 +1,8 @@
 package com.u2d.persist.type;
 
 import java.io.Serializable;
+import java.util.Comparator;
+
 import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -172,4 +174,14 @@ public class ComplexTypePersister extends EntityPersisterAdapter
       return getComplexType((String) id);
    }
 
+
+   public boolean canExtractIdOutOfEntity()
+   {
+      return true;
+   }
+
+   public Comparator getVersionComparator()
+   {
+      return null;
+   }
 }

@@ -4,7 +4,7 @@
 package com.u2d.persist;
 
 import com.u2d.app.PersistenceMechanism;
-import com.u2d.app.AppFactory;
+import com.u2d.app.Context;
 import com.u2d.model.*;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -64,7 +64,7 @@ public class EObjectUserTypeDelegate implements UserType
          else
          {
             long id = Long.parseLong(value);
-            PersistenceMechanism pmech = AppFactory.getInstance().getApp().getPersistenceMechanism();
+            PersistenceMechanism pmech = Context.getInstance().getPersistenceMechanism();
             eo = pmech.load(clazz, new Long(id));
          }
       }

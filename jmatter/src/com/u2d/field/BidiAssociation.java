@@ -7,7 +7,7 @@ import com.u2d.element.Field;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
 import com.u2d.pubsub.*;
-import com.u2d.app.AppFactory;
+import com.u2d.app.Context;
 
 import java.util.List;
 
@@ -100,9 +100,7 @@ public class BidiAssociation extends Association
       AbstractListEO list = (AbstractListEO) _field.get(_parent);
       list.remove(eo);
       _otherSide.set(eo, null);
-      AppFactory.getInstance().
-            getApp().
-            getPersistenceMechanism().
+      Context.getInstance().getPersistenceMechanism().
             updateAssociation(eo, _parent);
    }
 

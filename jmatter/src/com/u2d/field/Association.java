@@ -90,7 +90,7 @@ public class Association implements Transferable, java.io.Serializable, Validati
 
       if (!_parent.isEditableState())
       {
-         AppFactory.getInstance().getApp().getPersistenceMechanism().updateAssociation(_parent, oldValue);
+         Context.getInstance().getPersistenceMechanism().updateAssociation(_parent, oldValue);
       }
    }
    

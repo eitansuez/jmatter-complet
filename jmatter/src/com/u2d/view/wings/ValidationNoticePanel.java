@@ -22,7 +22,7 @@ public class ValidationNoticePanel extends SLabel implements ValidationListener
 
    ValidationNotifier _target;
 
-   ValidationNoticePanel(ValidationNotifier target, ComplexEObject ceo)
+   ValidationNoticePanel(ValidationNotifier target, boolean startListening)
    {
       _target = target;
 
@@ -30,8 +30,12 @@ public class ValidationNoticePanel extends SLabel implements ValidationListener
       setFont(ITALIC_FONT);
       setForeground(Color.RED);
 
-      if (ceo.isEditableState())
+      if (startListening)
          startListening();
+   }
+   ValidationNoticePanel(ValidationNotifier target, ComplexEObject ceo)
+   {
+      this(target, ceo.isEditableState());
    }
 
    void startListening()

@@ -78,8 +78,6 @@ public class ExpandableView extends JPanel implements ComplexEView, Editor
          _leaf.detach();
          _leaf = null; // for now, until formviews become poolable
       }
-      
-      SwingViewMechanism.getInstance().returnObject(this);
    }
    
 

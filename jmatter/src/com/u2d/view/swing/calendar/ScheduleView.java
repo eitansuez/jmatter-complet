@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.*;
 import com.u2d.view.*;
 import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.app.Context;
+
 import java.util.*;
 
 /**
@@ -48,7 +50,7 @@ public class ScheduleView extends JPanel implements ComplexEView
                if (calEvt.isEditableState() && calView instanceof Editor)
                   calEvt.setEditor((Editor) calView);
                
-               SwingViewMechanism.getInstance().displayView(calView);
+               Context.getInstance().swingvmech().displayView(calView);
             }
          });
 

@@ -29,7 +29,8 @@ public class EOFrame extends SInternalFrame
    public EOFrame(EView view)
    {
       super();
-//      setResizable(true); setIconifiable(true);
+//      setResizable(true);
+      setIconifyable(true);
       setMaximizable(true); setClosable(true);
 
       _view = view;

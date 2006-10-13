@@ -28,7 +28,7 @@ public class ValidationNoticePanel extends JLabel implements ValidationListener
    
    ValidationNotifier _target;
    
-   ValidationNoticePanel(ValidationNotifier target, ComplexEObject ceo)
+   ValidationNoticePanel(ValidationNotifier target, boolean startListening)
    {
       _target = target;
       
@@ -36,8 +36,12 @@ public class ValidationNoticePanel extends JLabel implements ValidationListener
       setFont(ITALIC_FONT);
       setForeground(Color.RED);
       
-      if (ceo.isEditableState())
+      if (startListening)
          startListening();
+   }
+   ValidationNoticePanel(ValidationNotifier target, ComplexEObject ceo)
+   {
+      this(target, ceo.isEditableState());
    }
    
    void startListening()

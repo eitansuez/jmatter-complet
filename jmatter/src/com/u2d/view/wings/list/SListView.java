@@ -7,6 +7,7 @@ import com.u2d.view.wings.WingSViewMechanism;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
+import com.u2d.app.Context;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataEvent;
@@ -79,6 +80,10 @@ public class SListView extends SList
       getSelectionModel().setSelectionInterval(0, 0);
    }
 
+   private WingSViewMechanism vmech()
+   {
+      return (WingSViewMechanism) Context.getInstance().getViewMechanism();
+   }
 
    public SComponent getListCellRendererComponent(SComponent list,
                                                   Object value,
@@ -92,13 +97,11 @@ public class SListView extends SList
          EView view = null;
          if (_asIcons)
          {
-            view = WingSViewMechanism.getInstance().
-                  getIconView(ceo);
+            view = vmech().getIconView(ceo);
          }
          else
          {
-            view = WingSViewMechanism.getInstance().
-                  getListItemView(ceo);
+            view = vmech().getListItemView(ceo);
 
             // ensure that if a change takes place in an item in the list,
             // that the list gets repainted: 

@@ -132,17 +132,7 @@
     <option name="myCurrentFavoritesList" value="jnlp-maker" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="JnlpMaker.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/JnlpMaker.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="0" selection-start="1059" selection-end="1059" vertical-scroll-proportion="0.5881356">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -298,15 +288,6 @@
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
     </configuration>
-    <configuration selected="false" default="true" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="" />
-    </configuration>
     <configuration selected="false" default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -334,6 +315,15 @@
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="wholeProject" />
       </option>
+    </configuration>
+    <configuration selected="false" default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <module name="" />
     </configuration>
   </component>
   <component name="SelectInManager" />
@@ -385,7 +375,7 @@
     <layout>
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.2545008" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.22340426" order="0" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.25" order="1" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="8" />
@@ -399,12 +389,12 @@
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="3" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.4" order="4" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="sliding" type="sliding" visible="false" weight="0.4" order="0" />
-      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="-1" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="8" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.25" order="2" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="0" />
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.25" order="3" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.25" order="5" />
+      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="8" />
     </layout>
   </component>
   <component name="VCS.FileViewConfiguration">
@@ -472,45 +462,33 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///home/eitan/projects/sourcecache/ant/src/main/org/apache/tools/ant/types/Commandline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="389" column="33" selection-start="12253" selection-end="12253" vertical-scroll-proportion="-4.759599">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/projects/sourcecache/ant/src/main/org/apache/tools/ant/Task.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="961" selection-end="961" vertical-scroll-proportion="0.33222038">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/projects/sourcecache/ant/src/main/org/apache/tools/ant/types/CommandlineJava.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="392" column="34" selection-start="11997" selection-end="12011" vertical-scroll-proportion="0.33222038">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/projects/sourcecache/ant/src/main/org/apache/tools/ant/taskdefs/Java.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="912" column="41" selection-start="27383" selection-end="27397" vertical-scroll-proportion="0.49916527">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/ShellScriptMaker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="6" selection-start="587" selection-end="587" vertical-scroll-proportion="0.72621036">
+        <state line="36" column="0" selection-start="762" selection-end="762" vertical-scroll-proportion="0.5860869">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/JnlpMaker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="1059" selection-end="1059" vertical-scroll-proportion="0.5881356">
+        <state line="81" column="40" selection-start="2537" selection-end="2537" vertical-scroll-proportion="0.76949155">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/ant.jar!/org/apache/tools/ant/ProjectComponent.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="42" selection-start="260" selection-end="260" vertical-scroll-proportion="0.25932205">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/ProjectMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="0" selection-start="2327" selection-end="2327" vertical-scroll-proportion="0.82711864">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -31,6 +31,7 @@
    <fileset dir="${framework.lib.dir}" includes="**/*.jar" />
    <pathelement location="${build.classes.dir}" />
    <pathelement location="${framework.classes.dir}" />
+   <fileset dir="${framework.dir}/lib/web" includes="**/*.jar" />
  </path>
 
  <target name="init">

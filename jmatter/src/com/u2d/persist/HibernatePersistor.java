@@ -4,11 +4,20 @@
 package com.u2d.persist;
 
 import com.u2d.app.*;
+import com.u2d.model.ComplexEObject;
+import com.u2d.model.ComplexType;
 import org.hibernate.cfg.*;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
+import org.hibernate.Transaction;
+import org.hibernate.HibernateException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.Iterator;
+import java.util.Set;
 import java.io.File;
 
 
@@ -18,14 +27,73 @@ import java.io.File;
 public abstract class HibernatePersistor implements HBMPersistenceMechanism
 {
    protected Configuration _cfg;
+   protected transient Logger _tracer = Tracing.tracer();
+   protected Set<Class> _classes;
 
-   public HibernatePersistor()
+   public HibernatePersistor() {}
+   
+   public Set<Class> getClasses() { return _classes; }
+   public void setClasses(Set<Class> classes) { _classes = classes; }
+
+   public void initialize()
    {
       // reduce verboseness of hibernate logger..
       Logger.getLogger("org.hibernate").setLevel(Level.WARNING);
       _cfg = new Configuration();
+      
+      for (Class cls : _classes)
+      {
+         _tracer.fine("Adding class "+cls.getName()+" to hibernate configuration");
+         _cfg.addClass(cls);
+      }
+      _cfg.addClass(ComplexType.class);
    }
    
+   public void saveMany(java.util.Set ceos)
+   {
+      try
+      {
+         Transaction tx = null;
+         try
+         {
+            tx = getSession().beginTransaction();
+
+            Iterator itr = ceos.iterator();
+            ComplexEObject ceo = null;
+            while (itr.hasNext())
+            {
+               ceo = (ComplexEObject) itr.next();
+               if (ceo.isTransientState()) ceo.onBeforeCreate();
+               ceo.onBeforeSave();
+               getSession().save(ceo);
+            }
+            tx.commit();
+
+            itr = ceos.iterator();
+            ceo = null;
+            while (itr.hasNext())
+            {
+               ceo = (ComplexEObject) itr.next();
+               if (ceo.isTransientState()) ceo.onCreate();
+               else ceo.onSave();
+            }
+         }
+         catch (HibernateException ex)
+         {
+            if (tx != null) tx.rollback();
+            throw ex;
+         }
+      }
+      catch (HibernateException ex)
+      {
+         ex.printStackTrace();
+         newSession();
+         throw ex;
+      }
+   }
+   
+   public abstract void newSession();
+
    private String outputFilePath(String path)
    {
       if (!path.endsWith(File.separator))
@@ -51,9 +119,8 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 
    public static void main(String[] args)
    {
-      Application app = new Application(true);
-      HibernatePersistor p =
-            (HibernatePersistor) app.getPersistenceMechanism();
+      ApplicationContext context = new ClassPathXmlApplicationContext("persistorContext.xml");
+      HibernatePersistor persistor = (HibernatePersistor) context.getBean("persistor");
 
       if (args.length != 2)
       {
@@ -62,11 +129,11 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       }
       if ("export".equals(args[0]))
       {
-         p.exportSchema(args[1]);
+         persistor.exportSchema(args[1]);
       }
       else if ("update".equals(args[0]))
       {
-         p.updateSchema();
+         persistor.updateSchema();
       }
    }
 

@@ -9,6 +9,8 @@ import com.u2d.domain.*;
 import com.u2d.element.Field;
 import com.u2d.type.composite.*;
 import com.u2d.app.Application;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author Eitan Suez
@@ -17,7 +19,8 @@ public class ValidationTest extends TestCase
 {
    Shipment _shipment;
    {
-      new Application(true);
+      ApplicationContext context =
+            new ClassPathXmlApplicationContext("applicationContext.xml");
    }
 
    protected void setUp() throws Exception

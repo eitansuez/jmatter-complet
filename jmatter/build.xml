@@ -57,7 +57,7 @@
 
   <target name="gen" description="generate smc support code" depends="init">
     <mkdir dir="${build.gen.dir}/com/u2d/app" />
-    <smc target="java" smfile="${src.dir}/com/u2d/app/Application.sm"
+    <smc target="java" smfile="${src.dir}/com/u2d/app/AppSession.sm" 
          destdir="${build.gen.dir}/com/u2d/app"
          smcjar="${smc.jar}" />
   </target>

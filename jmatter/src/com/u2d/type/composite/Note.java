@@ -8,7 +8,6 @@ import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.type.atom.*;
 import com.u2d.app.User;
-import com.u2d.app.AppFactory;
 import com.u2d.reflection.CommandAt;
 import java.util.*;
 import java.awt.*;
@@ -29,10 +28,7 @@ public class Note extends AbstractComplexEObject implements Printable
 
    public Note() {}
 
-   public void initialize()
-   {
-      _author = AppFactory.getInstance().getApp().getUser();
-   }
+   public void initialize() { _author = currentUser(); }
 
    public StringEO getSubject() { return _subject; }
 	public DateTime getDate() { return _date; }

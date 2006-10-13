@@ -2,7 +2,6 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.ui.CardPanel;
 import com.u2d.view.AtomicEView;
-import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import com.u2d.model.*;
 import javax.swing.*;
@@ -77,12 +76,6 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
       ((JComponent) _editor).removeFocusListener(_focusAdapter);
       
       _cmdsView.detach();
-
-      SwingViewMechanism vmech = SwingViewMechanism.getInstance();
-      vmech.returnObject(_renderer);
-      vmech.returnObject(_editor);
-
-      vmech.returnObject(this);
    }
 
 

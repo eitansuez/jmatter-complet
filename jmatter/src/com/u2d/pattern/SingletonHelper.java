@@ -1,8 +1,8 @@
 package com.u2d.pattern;
 
 import com.u2d.app.PersistenceMechanism;
-import com.u2d.app.AppFactory;
 import com.u2d.app.Tracing;
+import com.u2d.app.Context;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
 
@@ -16,7 +16,7 @@ public class SingletonHelper
 {
    public static Singleton getInstance(Class clazz)
    {
-      PersistenceMechanism persistor = AppFactory.getInstance().getApp().getPersistenceMechanism();
+      PersistenceMechanism persistor = Context.getInstance().getPersistenceMechanism();
       ComplexEObject item = persistor.fetchSingle(clazz);
 
       if (item /* still */ == null)

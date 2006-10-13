@@ -7,7 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import com.u2d.app.HBMPersistenceMechanism;
-import com.u2d.app.AppFactory;
+import com.u2d.app.Context;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.CriteriaListEO;
 import com.u2d.model.AbstractComplexEObject;
@@ -60,8 +60,7 @@ public class SimpleQuery extends AbstractComplexEObject
 
    public Criteria getCriteria()
    {
-      HBMPersistenceMechanism p =
-         (HBMPersistenceMechanism) AppFactory.getInstance().getApp().getPersistenceMechanism();
+      HBMPersistenceMechanism p = Context.getInstance().hbmpersitor();
       return getCriteria(p.getSession());
    }
 

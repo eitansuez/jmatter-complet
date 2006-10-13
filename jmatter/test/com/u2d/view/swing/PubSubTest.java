@@ -20,8 +20,7 @@ public class PubSubTest extends TestCase
 
    protected void setUp() throws Exception
    {
-      AppFactory.getInstance().getApp().
-            getViewMechanism().launch();
+      Context.getInstance().getViewMechanism().launch();
    }
    
    public void testPubSub1()

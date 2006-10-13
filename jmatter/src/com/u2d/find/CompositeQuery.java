@@ -7,7 +7,8 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import com.u2d.app.HBMPersistenceMechanism;
-import com.u2d.app.AppFactory;
+import com.u2d.app.Application;
+import com.u2d.app.Context;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.CompositeList;
 import com.u2d.list.CriteriaListEO;
@@ -62,8 +63,7 @@ public class CompositeQuery extends AbstractComplexEObject
 
    public Criteria getCriteria()
    {
-      HBMPersistenceMechanism p =
-         (HBMPersistenceMechanism) AppFactory.getInstance().getApp().getPersistenceMechanism();
+      HBMPersistenceMechanism p = hbmPersistor();
 
       try
       {
@@ -138,8 +138,7 @@ public class CompositeQuery extends AbstractComplexEObject
                                          @ParamAt("HQL Text") TextEO hqlText)
    {
       String hql = hqlText.stringValue();
-      HBMPersistenceMechanism hbm = (HBMPersistenceMechanism)
-            AppFactory.getInstance().getApp().getPersistenceMechanism();
+      HBMPersistenceMechanism hbm = Context.getInstance().hbmpersitor();
       return hbm.hql(hql);
    }
 

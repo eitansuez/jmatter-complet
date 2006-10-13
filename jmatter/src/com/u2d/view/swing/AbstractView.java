@@ -18,6 +18,7 @@ import com.u2d.ui.CardPanel;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.atom.TypePicker;
+import com.u2d.app.ViewMechanism;
 
 public class AbstractView extends JPanel
                           implements ComplexEView, Editor, ItemListener

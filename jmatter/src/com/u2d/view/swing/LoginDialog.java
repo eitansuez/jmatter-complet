@@ -116,15 +116,11 @@ public class LoginDialog extends JInternalFrame
       {
          public void actionPerformed(ActionEvent evt)
          {
-            new Thread()
-            {
-               public void run()
-               {
-                  String username = _userNameFld.getText();
-                  String pwd = new String(_pwdField.getPassword());
-                  _authMgr.onLogin(username, pwd);
-               }
-            }.start();
+            final String username = _userNameFld.getText();
+            final String pwd = new String(_pwdField.getPassword());
+            new Thread() { public void run() {
+               _authMgr.onLogin(username, pwd);
+            } }.start();
          }
       });
       

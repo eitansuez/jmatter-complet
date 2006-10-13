@@ -63,7 +63,7 @@ public class DropTargetHandler extends TransferHandler
 
                   if (!parent.isEditableState())
                   {
-                     AppFactory.getInstance().getApp().getPersistenceMechanism().updateAssociation(parent, ceo);
+                     Context.getInstance().getPersistenceMechanism().updateAssociation(parent, ceo);
                   }
                }
             }.start();

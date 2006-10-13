@@ -21,7 +21,6 @@ import com.u2d.type.atom.DateTime;
 import com.u2d.type.atom.FileWEO;
 import com.u2d.view.*;
 import com.u2d.xml.XMLExport;
-import com.u2d.app.AppFactory;
 import com.u2d.reflection.CommandAt;
 import com.u2d.reflection.ParamAt;
 import com.u2d.json.JSON;
@@ -85,6 +84,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       restoreState();
       vmech().onMessage("Loaded "+title());
+      
       Field child;
       for (int i=0; i<childFields().size(); i++)
       {
@@ -981,9 +981,9 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public boolean isMeta() { return false; }
 
    // convenience..
-   public static void log(String typeString, EOCommand cmd, String msg)
+   public void log(String typeString, EOCommand cmd, String msg)
    {
-      AppFactory.getInstance().getApp().log(typeString, cmd, msg);
+      app().log(typeString, cmd, msg);
    }
    
    

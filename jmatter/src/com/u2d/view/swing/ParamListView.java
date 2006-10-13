@@ -10,8 +10,6 @@ import com.u2d.element.CommandInfo;
 import com.u2d.element.EOCommand;
 import com.u2d.element.ParameterInfo;
 import com.u2d.model.*;
-import com.u2d.validation.ValidationEvent;
-import com.u2d.validation.ValidationListener;
 import com.u2d.validation.ValidationNotifier;
 import com.u2d.view.*;
 import com.u2d.view.swing.atom.TypePicker;
@@ -31,7 +29,7 @@ public class ParamListView extends JPanel implements View
    private CommandInfo _cmdInfo;
    private Object _value;
    
-   private java.util.List _views = new ArrayList();
+   private java.util.List<EView> _views = new ArrayList<EView>();
    
    public ParamListView(EOCommand cmd, Object value, CommandInfo cmdInfo)
    {
@@ -105,7 +103,7 @@ public class ParamListView extends JPanel implements View
             label.setLabelFor(comp);
 
             ValidationNotifier notifier = (ValidationNotifier) eo;
-            JPanel vPnl = new ValidationNoticePanel(notifier);
+            JComponent vPnl = new ValidationNoticePanel(notifier, true);
 
             appendRow(builder, cc, label, comp, vPnl);
          }
@@ -128,7 +126,7 @@ public class ParamListView extends JPanel implements View
    }
 
    private void appendRow(DefaultFormBuilder builder, CellConstraints cc,
-                          JComponent caption, JComponent comp, JPanel vPnl)
+                          JComponent caption, JComponent comp, JComponent vPnl)
    {
       builder.appendRow("pref");
       builder.add(vPnl, cc.xy(3, builder.getRow()));
@@ -259,55 +257,10 @@ public class ParamListView extends JPanel implements View
    
    // would be nice if _cmd were an eobject..then wouldn't have to do this.
    public String getTitle() { return _cmd.label(); }
-   public Icon iconSm() { return null; }
-   public Icon iconLg() { return null; }
+   public Icon iconSm() { return _cmd.iconSm(); }
+   public Icon iconLg() { return _cmd.iconLg(); }
    public boolean withTitlePane() { return true; }   
-   
-   class ValidationNoticePanel extends JPanel implements ValidationListener
-   {
-      JLabel _msgLabel;
-      ValidationNotifier _target;
-      
-      ValidationNoticePanel(ValidationNotifier target)
-      {
-         _target = target;
-         
-         setLayout(new FlowLayout(FlowLayout.LEFT));
-         _msgLabel = new JLabel("");
-         _msgLabel.setFont(ITALIC_FONT);
-         _msgLabel.setForeground(Color.RED);
-         add(_msgLabel);
-         
-         _target.addValidationListener(this);
-      }
-      
-      void reset()
-      {
-         _msgLabel.setText("");
-      }
-      
-      public void validationException(final ValidationEvent evt)
-      {
-         SwingUtilities.invokeLater(new Runnable()
-         {
-            public void run()
-            {
-               _msgLabel.setText(evt.getMsg());
-            }
-         });
-      }
-
-   }
-   
-   private static Font ITALIC_FONT;
-//   private static Font BOLD_FONT;
-   static
-   {
-      ITALIC_FONT = UIManager.getFont("Label.font").deriveFont(Font.ITALIC);
-//      BOLD_FONT = UIManager.getFont("Label.font").deriveFont(Font.BOLD);
-   }
    
    public Dimension getMinimumSize() { return getPreferredSize(); }
    
-
 }

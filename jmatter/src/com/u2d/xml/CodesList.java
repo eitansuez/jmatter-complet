@@ -2,8 +2,8 @@ package com.u2d.xml;
 
 import com.u2d.list.PlainListEObject;
 import com.u2d.app.PersistenceMechanism;
-import com.u2d.app.AppFactory;
 import com.u2d.app.HBMPersistenceMechanism;
+import com.u2d.app.Context;
 import com.u2d.type.USState;
 import com.u2d.type.Sex;
 import com.u2d.type.MarritalStatus;
@@ -14,6 +14,7 @@ import com.u2d.model.AbstractListEO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
+import java.util.Set;
 import java.io.InputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -57,27 +58,26 @@ public class CodesList
 //      populateItemsFor();
    }
 
-   public static void populateCodes(List classList)
+   public static void populateCodes(PersistenceMechanism pmech, Set<Class> classList)
    {
-      if (classList.contains(USState.class))
+      populateCodesFor(pmech, classList, USState.class, "usstates.xml");
+      populateCodesFor(pmech, classList, ContactMethod.class, "contactmethods.xml");
+      populateCodesFor(pmech, classList, Sex.class, "sexes.xml");
+      populateCodesFor(pmech, classList, MarritalStatus.class, "marritalstati.xml");
+   }
+   
+   private static void populateCodesFor(PersistenceMechanism pmech,
+                                        Set<Class> classList, 
+                                        Class cls, String resourceName)
+   {
+      if (classList.contains(cls))
       {
-         CodesList.populateItemsFor(USState.class, "usstates.xml");
-      }
-      if (classList.contains(ContactMethod.class))
-      {
-         CodesList.populateItemsFor(ContactMethod.class,  "contactmethods.xml");
-      }
-      if (classList.contains(Sex.class))
-      {
-         CodesList.populateItemsFor(Sex.class,  "sexes.xml");
-      }
-      if (classList.contains(MarritalStatus.class))
-      {
-         CodesList.populateItemsFor(MarritalStatus.class,  "marritalstati.xml");
+         populateItemsFor(pmech, cls, resourceName);
       }
    }
-
-   public static void populateItemsFor(Class klass, String resourceName)
+   
+   public static void populateItemsFor(PersistenceMechanism pmech, 
+                                       Class klass, String resourceName)
    {
       List items = (resourceName.endsWith(".json")) ? unmarshalJSON(resourceName)
             : unmarshalXML(klass, resourceName);
@@ -86,7 +86,7 @@ public class CodesList
          // redo this design entirely
          return;
       }
-      saveItems(klass, items);
+      saveItems(pmech, klass, items);
    }
 
    public static List unmarshalJSON(String resourceName)
@@ -148,9 +148,8 @@ public class CodesList
 
    }  // end populateCodes()
 
-   private static void saveItems(Class klass, List items)
+   private static void saveItems(PersistenceMechanism pmech, Class klass, List items)
    {
-      PersistenceMechanism pmech = AppFactory.getInstance().getApp().getPersistenceMechanism();
       if (!(pmech instanceof HBMPersistenceMechanism))
          return;
 
@@ -183,7 +182,7 @@ public class CodesList
    public static void dumpItemsFor(Class klass) throws Exception
    {
       CodesList codesList = new CodesList();
-      PersistenceMechanism pmech = AppFactory.getInstance().getApp().getPersistenceMechanism();
+      PersistenceMechanism pmech = Context.getInstance().getPersistenceMechanism();
       codesList.setItems(pmech.list(klass));
       JibxBoiler boiler = new JibxBoiler(klass);
       boiler.marshal("dump.xml");

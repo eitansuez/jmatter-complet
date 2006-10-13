@@ -8,7 +8,8 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.view.*;
-import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.app.Context;
+
 import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -37,7 +38,7 @@ public class MyListTreeView extends JPanel implements ListEView
       while (itr.hasNext())
       {
          ceo = (ComplexEObject) itr.next();
-         view = SwingViewMechanism.getInstance().
+         view = Context.getInstance().swingvmech().
                getExpandableView(ceo, false /* collapsed */);
          _childViews.add(view);
          add((JComponent) view);
@@ -54,7 +55,7 @@ public class MyListTreeView extends JPanel implements ListEView
          {
             AbstractListEO source = (AbstractListEO) evt.getSource();
             ComplexEObject ceo = (ComplexEObject) source.getElementAt(evt.getIndex0());
-            EView view = SwingViewMechanism.getInstance().
+            EView view = Context.getInstance().swingvmech().
                   getExpandableView(ceo);
             _childViews.add(view);
             add((JComponent) view, evt.getIndex0());
@@ -84,8 +85,7 @@ public class MyListTreeView extends JPanel implements ListEView
    {
       _leo.removeListDataListener(this);
 
-      Iterator itr = _childViews.iterator();
-      while (itr.hasNext())
+      for (Iterator itr = _childViews.iterator(); itr.hasNext(); )
          ((EView) itr.next()).detach();
 
    }

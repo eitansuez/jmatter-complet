@@ -9,6 +9,8 @@ import com.u2d.model.EObject;
 import com.u2d.ui.*;
 import com.u2d.view.*;
 import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.app.Context;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
@@ -40,7 +42,7 @@ public class PickView extends JList implements ListEView, ListCellRenderer
       if (_views.get(value) == null)
       {
          ComplexEObject ceo = (ComplexEObject) value;
-         ComplexEView view = SwingViewMechanism.getInstance().
+         ComplexEView view = Context.getInstance().swingvmech().
                getListItemViewAdapter(ceo);
          JComponent comp = (JComponent) view;
          comp.setOpaque(true);

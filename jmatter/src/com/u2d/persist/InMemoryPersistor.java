@@ -168,6 +168,4 @@ public class InMemoryPersistor implements PersistenceMechanism
       // (TODO: read password from config file) 
    }
    
-   public void init(Class[] classList) {}
-   
 }

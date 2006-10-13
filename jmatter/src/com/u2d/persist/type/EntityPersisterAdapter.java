@@ -340,4 +340,12 @@ public abstract class EntityPersisterAdapter implements EntityPersister
 //      ( (Custom) object ).id = (String) id;
    }
 
+
+   public Object forceVersionIncrement(Serializable serializable, Object object, SessionImplementor sessionImplementor)
+         throws HibernateException
+   {
+      return null;
+   }
+   
+   
 }

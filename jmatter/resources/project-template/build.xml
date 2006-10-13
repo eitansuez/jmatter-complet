@@ -42,6 +42,7 @@
  <target name="clean">
    <delete dir="${build.dir}" />
    <delete dir="${jws-dist.dir}" />
+   <delete dir="${build.web.dir}" />
    <delete dir="${dist.dir}" />
  </target>
 
@@ -258,7 +259,11 @@
     <mkdir dir="${build.web.dir}/WEB-INF/classes" />
  </target>
  <target name="web-app" depends="genhbm, init-web">
-    <copy file="resources/web/WEB-INF/web.xml" tofile="${build.web.dir}/WEB-INF/web.xml" />
+    <copy todir="${build.web.dir}/WEB-INF">
+      <fileset dir="resources/web/WEB-INF" includes="web*.xml" />
+      <fileset dir="${src.dir}" includes="persistClasses.xml" />
+    </copy>
+
     <copy file="resources/web/WEB-INF/classes/commons-logging.properties" todir="${build.web.dir}/WEB-INF/classes" />
     <copy todir="${build.web.dir}/WEB-INF/classes">
        <fileset dir="${build.classes.dir}" includes="**/*" />

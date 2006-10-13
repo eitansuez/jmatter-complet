@@ -20,10 +20,7 @@ import org.hibernate.criterion.Order;
 import java.awt.Color;
 import java.awt.datatransfer.DataFlavor;
 import java.beans.IntrospectionException;
-import com.u2d.app.HBMPersistenceMechanism;
-import com.u2d.app.AppFactory;
-import com.u2d.app.PersistenceMechanism;
-import com.u2d.app.Tracing;
+import com.u2d.app.*;
 import com.u2d.element.*;
 import com.u2d.field.*;
 import com.u2d.find.CompositeQuery;
@@ -596,12 +593,10 @@ public class ComplexType extends AbstractComplexEObject
       if (_persistedTypes == null)
       {
          _persistedTypes = new PlainListEObject(ComplexType.class);
-         List persistClasses =
-               AppFactory.getInstance().getApp().getPersistClasses();
-         Class cls = null;
-         for (int i=0; i<persistClasses.size(); i++)
+         HBMPersistenceMechanism hbm = hbmPersistor();
+         Set<Class> persistClasses = hbm.getClasses();
+         for (Class cls : persistClasses)
          {
-            cls = (Class) persistClasses.get(i);
             _persistedTypes.add(ComplexType.forClass(cls));
          }
       }
@@ -952,11 +947,8 @@ public class ComplexType extends AbstractComplexEObject
    }
 
 
-   public static void associateQueries()
+   public static void associateQueries(PersistenceMechanism pmech)
    {
-      PersistenceMechanism pmech = (PersistenceMechanism)
-            AppFactory.getInstance().getApp().getPersistenceMechanism();
-
       if (!(pmech instanceof HBMPersistenceMechanism))
       {
          return;

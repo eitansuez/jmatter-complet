@@ -33,7 +33,9 @@ import com.u2d.persist.HBMSingleSession;
  */
 public class AppFrame extends JFrame
 {
+   private AppSession _appSession;
    private Application _app;
+   
    private JMenuBar _menuBar;
    private JMenu _userMenu;
    private JPanel _centerPane;
@@ -42,9 +44,10 @@ public class AppFrame extends JFrame
    private EODesktopPane _desktopPane;
    private MessagePanel _msgPnl;
 
-   public AppFrame(Application app)
+   public AppFrame(AppSession appSession, String lfname)
    {
-      _app = app;
+      _appSession = appSession;
+      _app = _appSession.getApp();
 
       setTitle(_app.getName());
       setAppIcon();
@@ -64,7 +67,7 @@ public class AppFrame extends JFrame
 
       contentPane.add(_centerPane, BorderLayout.CENTER);
 
-      _lfSupport.setLF(_app.getLFName());
+      _lfSupport.setLF(lfname);
       setSize(800, 600);
       UIUtils.centerOnScreen(this);
       setupQuitHooks();
@@ -91,7 +94,7 @@ public class AppFrame extends JFrame
 
    private void listenForUserEvents()
    {
-      _app.addAppEventListener("LOGIN", new AppEventListener()
+      _appSession.addAppEventListener("LOGIN", new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {
@@ -113,7 +116,7 @@ public class AppFrame extends JFrame
             });
          }
       });
-      _app.addAppEventListener("LOGOUT", new AppEventListener()
+      _appSession.addAppEventListener("LOGOUT", new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {
@@ -203,10 +206,8 @@ public class AppFrame extends JFrame
    //===
    private void makeClassBar()
    {
-//      SimpleListEO classList = _app.getClassList();
-      Folder classesFolder = _app.getClassesFolder();
+      Folder classesFolder = _appSession.getClassesFolder();
       _classesView = new OutlookFolderView(classesFolder);
-//      _classBar = (JToolBar) classList.getToolbarView("Class List");
    }
    private void showClassBar()
    {
@@ -218,7 +219,6 @@ public class AppFrame extends JFrame
                {
                   makeClassBar();
                }
-//               _centerPane.add(_classBar, BorderLayout.NORTH);
                _centerPane.add(_classesView, BorderLayout.WEST);
                _centerPane.revalidate(); _centerPane.repaint();
             }
@@ -230,7 +230,6 @@ public class AppFrame extends JFrame
          {
             public void run()
             {
-//               _centerPane.remove(_classBar);
                _centerPane.remove(_classesView);
                _centerPane.revalidate(); _centerPane.repaint();
             }
@@ -254,7 +253,7 @@ public class AppFrame extends JFrame
                {
                   public void run()
                   {
-                     _app.onLogout();
+                     _appSession.onLogout();
                   }
                }.start();
             }
@@ -264,7 +263,7 @@ public class AppFrame extends JFrame
          {
             public void actionPerformed(ActionEvent evt)
             {
-               User currentUser = _app.getUser();
+               User currentUser = _appSession.getUser();
                Command cmd = currentUser.command("ChangePassword");
                try
                {
@@ -286,7 +285,7 @@ public class AppFrame extends JFrame
 
       private void showUserMenu()
       {
-         User currentUser = _app.getUser();
+         User currentUser = _appSession.getUser();
          _userMenu.setText(currentUser.toString());
          _menuBar.add(_userMenu);
          _menuBar.revalidate(); _menuBar.repaint();
@@ -324,10 +323,7 @@ public class AppFrame extends JFrame
 
       public void actionPerformed(ActionEvent evt)
       {
-         Cursor WAITCURSOR =
-            Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
-         SwingViewMechanism.getInstance().setCursor(WAITCURSOR);
-
+         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
          SwingUtilities.invokeLater(new Runnable()
             {
                public void run()
@@ -368,7 +364,7 @@ public class AppFrame extends JFrame
 
    private void quit()
    {
-      if (_app.getUser() != null) _app.onLogout();
+      if (_appSession.getUser() != null) _appSession.onLogout();
       System.exit(0);
    }
 
@@ -397,7 +393,7 @@ public class AppFrame extends JFrame
       // ---
 
       JInternalFrame[] frames = _desktopPane.getAllFrames();
-      java.util.List frameInfo = new java.util.ArrayList();
+      java.util.List<FrameInfo> frameInfo = new java.util.ArrayList<FrameInfo>();
       for (int i=0; i<frames.length; i++)
       {
          if (!frames[i].isVisible() || frames[i].isIcon()) continue;
@@ -442,10 +438,8 @@ public class AppFrame extends JFrame
          }
       }
       enc.writeObject(new Integer(frameInfo.size()));
-      java.util.Iterator itr = frameInfo.iterator();
-      while (itr.hasNext())
+      for (FrameInfo finfo : frameInfo)
       {
-         FrameInfo finfo = (FrameInfo) itr.next();
          enc.writeObject(finfo.type);
          enc.writeObject(finfo.id);
          enc.writeObject(finfo.classname);
@@ -455,7 +449,7 @@ public class AppFrame extends JFrame
       // ---
 
       enc.close();
-      User currentUser = _app.getUser();
+      User currentUser = _appSession.getUser();
       currentUser.getDesktop().setValue(baos.toString());
       currentUser.save();
 
@@ -511,7 +505,7 @@ public class AppFrame extends JFrame
 
    private void restoreUserDesktop()
    {
-      String desktop = _app.getUser().getDesktop().stringValue();
+      String desktop = _appSession.getUser().getDesktop().stringValue();
       if (desktop == null || desktop.length() <= 0) return;  // nothing saved
       XMLDecoder dec = new XMLDecoder(new ByteArrayInputStream(desktop.getBytes()));
       final Rectangle bounds = (Rectangle) dec.readObject();
@@ -519,7 +513,7 @@ public class AppFrame extends JFrame
 //      final String toolbarLocation = (String) dec.readObject();
 
       int numframes = ((Integer) dec.readObject()).intValue();
-      final java.util.List finfos = new java.util.ArrayList();
+      final java.util.List<FrameInfo> finfos = new java.util.ArrayList<FrameInfo>();
       for (int i=0; i<numframes; i++)
       {
          FrameInfo finfo = new FrameInfo((String) dec.readObject(),

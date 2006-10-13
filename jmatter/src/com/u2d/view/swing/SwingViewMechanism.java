@@ -44,32 +44,24 @@ public class SwingViewMechanism implements ViewMechanism
 {
    private AppFrame _appFrame;
    private LoginDialog _loginDialog;
-   private Application _app;
    private ReportingInterface _reportingInterface;
-   
-//   private KeyedObjectPool _pool;
-   
-   private static SwingViewMechanism _instance = null;
-   
-   public static SwingViewMechanism getInstance()
-   {
-      if (_instance == null)
-         _instance = new SwingViewMechanism();
-      return _instance;
-   }
 
-   private SwingViewMechanism()
-   {
-      setupAntiAliasing();
-//      setupViewPool();
-   }
+   private AppSession _appSession;
+   private String _lfname;
    
+   public SwingViewMechanism() { setupAntiAliasing(); }
+
    public static void setupAntiAliasing()
    {
       String antialising = "swing.aatext";
       if (null == System.getProperty(antialising))
          System.setProperty(antialising, "true");
    }
+   
+   public void setAppSession(AppSession appSession) { _appSession = appSession; }
+
+   public String getLfname() { return _lfname; }
+   public void setLfname(String lfname) { _lfname = lfname; }
 
    
    private ReportingInterface reportingInterface()
@@ -78,104 +70,16 @@ public class SwingViewMechanism implements ViewMechanism
          _reportingInterface = new ReportingInterface();
       return _reportingInterface;
    }
-   
    public void initReporting() { reportingInterface(); }
-
-   /*
-   private void setupViewPool()
-   {
-      GenericKeyedObjectPool.Config config = 
-            new GenericKeyedObjectPool.Config();
-
-      config.maxActive = 100;
-      config.maxIdle = -1;
-      //config.whenExhaustedAction = GenericKeyedObjectPool.WHEN_EXHAUSTED_FAIL;
-      config.whenExhaustedAction = GenericKeyedObjectPool.WHEN_EXHAUSTED_GROW;
-      
-      KeyedPoolableObjectFactory poolRendererFactory = 
-            new BaseKeyedPoolableObjectFactory()
-      {
-         public Object makeObject(Object key) throws Exception
-         {
-            Class cls = (Class) key;
-            return cls.newInstance();
-         }
-
-         public void passivateObject(Object key, Object obj)
-               throws Exception
-         {
-            if (obj instanceof AtomicRenderer)
-            {
-               ((AtomicRenderer) obj).passivate();
-            }
-         }
-      };
-      
-      
-      KeyedObjectPoolFactory poolFactory = 
-            new GenericKeyedObjectPoolFactory(poolRendererFactory, config);
-      _pool = poolFactory.createPool();
-   }
-   */
-
-   private Object borrowObject(Object key)
-   {
-      try
-      {
-         return ((Class) key).newInstance();
-      }
-      catch (InstantiationException ex) {}
-      catch (IllegalAccessException ex2) {}
-      return null;
-//      try
-//      {
-//         Object obj = _pool.borrowObject(key);
-//         Class cls = ((Class) key);
-//         tracePoolInfo(ExpandableView.class,  cls, false);
-//         return obj;
-//      }
-//      catch (Exception ex)
-//      {
-//         throw new RuntimeException("Failed to borrow view object from view pool", ex);
-//      }
-   }
-   public void returnObject(Object object)
-   {
-      /*
-      try
-      {
-         _pool.returnObject(object.getClass(), object);
-         Class cls = object.getClass();
-         tracePoolInfo(ExpandableView.class,  cls, true);
-      }
-      catch (Exception ex)
-      {
-         throw new RuntimeException("Failed to return view object to view pool", ex);
-      }
-      */
-   }
    
-   /*
-   private void tracePoolInfo(Class targetCls, Class cls, boolean returning)
-   {
-      if (targetCls.equals(cls))
-      {
-         int size = _pool.getNumActive(targetCls);
-         String returningStr = (returning) ? "returning" : "borrowing";
-         Tracing.tracer().fine(returningStr + " an object (type is: " 
-               + cls.getName() + ")" + " (" + size + ")" );
-      }
-   }
-   */
-
+   
    public void launch()
    {
       SwingUtilities.invokeLater(new Runnable()
       {
          public void run()
          {
-            _app = AppFactory.getInstance().getApp();
-            _appFrame = new AppFrame(_app);
+            _appFrame = new AppFrame(_appSession, _lfname);
             _appFrame.setVisible(true);
          }
       });
@@ -189,7 +93,7 @@ public class SwingViewMechanism implements ViewMechanism
          {
             if (_loginDialog == null)
             {
-               _loginDialog = new LoginDialog(_app);
+               _loginDialog = new LoginDialog(_appSession);
                _appFrame.addLoginDialog(_loginDialog);
             }
 
@@ -413,14 +317,16 @@ public class SwingViewMechanism implements ViewMechanism
             });
    }
    
+   
+   
    // ================================
    // ComplexEObject Views:
    // ================================
    
-   public synchronized ComplexEView getIconView(ComplexEObject ceo)
+   public ComplexEView getIconView(ComplexEObject ceo)
    {
       checkState(ceo);
-      IconView view = (IconView) borrowObject(IconView.class);
+      IconView view = new IconView();
       view.bind(ceo);
       return view;
    }
@@ -432,16 +338,14 @@ public class SwingViewMechanism implements ViewMechanism
    public ComplexEView getIconViewAdapter(ComplexEObject ceo)
    {
       checkState(ceo);
-      IconViewAdapter view = (IconViewAdapter) 
-            borrowObject(IconViewAdapter.class);
+      IconViewAdapter view = new IconViewAdapter();
       view.bind(ceo);
       return view;
    }
    public ComplexEView getListItemView(ComplexEObject ceo)
    {
       checkState(ceo);
-      
-      ListItemView view = (ListItemView) borrowObject(ListItemView.class);
+      ListItemView view = new ListItemView();
       view.bind(ceo);
       return view;
    }
@@ -473,8 +377,7 @@ public class SwingViewMechanism implements ViewMechanism
    {
       checkState(ceo);
       
-      ListItemViewAdapter view = (ListItemViewAdapter)
-            borrowObject(ListItemViewAdapter.class);
+      ListItemViewAdapter view = new ListItemViewAdapter();
       view.bind(ceo);
       return view;
    }
@@ -482,8 +385,7 @@ public class SwingViewMechanism implements ViewMechanism
    {
       checkState(ceo);
 
-      ExpandableView view = (ExpandableView)
-            borrowObject(ExpandableView.class);
+      ExpandableView view = new ExpandableView();
       view.bind(ceo);
       return view;
    }
@@ -492,8 +394,7 @@ public class SwingViewMechanism implements ViewMechanism
    {
       checkState(ceo);
 
-      ExpandableView view = (ExpandableView)
-            borrowObject(ExpandableView.class);
+      ExpandableView view = new ExpandableView();
       view.bind(ceo, expanded);
       return view;
    }
@@ -554,272 +455,114 @@ public class SwingViewMechanism implements ViewMechanism
 
    public AtomicEView getAtomicView(AtomicEObject eo)
    {
-      AtomicView view = (AtomicView) borrowObject(AtomicView.class);
+      AtomicView view = new AtomicView();
       view.bind(eo);
       return view;
    }
 
-   public AtomicRenderer getStringRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
+   public AtomicRenderer getStringRenderer() { return new StringRenderer(); }
+   public AtomicEditor getStringEditor() { return new StringEditor(); }
 
-   public AtomicEditor getStringEditor()
-   {
-      return (AtomicEditor) borrowObject(StringEditor.class);
-   }
+   public AtomicRenderer getPasswordRenderer() { return new PasswordRenderer(); }
+   public AtomicEditor getPasswordEditor() { return new PasswordEditor(); }
 
-   public AtomicRenderer getPasswordRenderer()
-   {
-      return (AtomicRenderer) borrowObject(PasswordRenderer.class);
-   }
-
-   public AtomicEditor getPasswordEditor()
-   {
-      return (AtomicEditor) borrowObject(PasswordEditor.class);
-   }
-
-   public AtomicRenderer getBooleanRenderer()
-   {
-      return (AtomicRenderer) borrowObject(BooleanRenderer.class);
-   }
-
-   public AtomicEditor getBooleanEditor()
-   {
-      return (AtomicEditor) borrowObject(BooleanRadioEditor.class);
-   }
+   public AtomicRenderer getBooleanRenderer() { return new BooleanRenderer(); }
+   public AtomicEditor getBooleanEditor() { return new BooleanRadioEditor(); }
 
    public AtomicRenderer getTextRenderer()
    {
-      TextEditor editor = (TextEditor) borrowObject(TextEditor.class);
+      TextEditor editor = new TextEditor();
       editor.setEditable(false);
       return editor;
    }
-
    public AtomicEditor getTextEditor()
    {
-      TextEditor editor = (TextEditor) borrowObject(TextEditor.class);
+      TextEditor editor = new TextEditor();
       editor.setEditable(true);
       return editor;
    }
 
-   public AtomicRenderer getCharRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
-
-   public AtomicEditor getCharEditor()
-   {
-      return (AtomicEditor) borrowObject(CharEditor.class);
-   }
+   public AtomicRenderer getCharRenderer() { return new StringRenderer(); }
+   public AtomicEditor getCharEditor() { return new CharEditor(); }
 
    public AtomicRenderer getIntRenderer()
    {
-//      return (AtomicRenderer) borrowObject(StringRenderer.class);
-      IntEditor editor = (IntEditor) borrowObject(IntEditor.class);
+      IntEditor editor = new IntEditor();
       editor.setEditable(false);
       return editor;
    }
-
-   public AtomicEditor getIntEditor()
-   {
-      return (AtomicEditor) borrowObject(IntEditor.class);
-   }
-
-   public AtomicRenderer getLongRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
-
-   public AtomicEditor getLongEditor()
-   {
-      return (AtomicEditor) borrowObject(LongEditor.class);
-   }
-
+   public AtomicEditor getIntEditor() { return new IntEditor(); }
+   
+   public AtomicRenderer getLongRenderer() { return new StringRenderer(); }
+   public AtomicEditor getLongEditor() { return new LongEditor(); } 
+   
    public AtomicRenderer getFloatRenderer()
    {
-//      return (AtomicRenderer) borrowObject(StringRenderer.class);
-      FloatEditor editor = (FloatEditor) borrowObject(FloatEditor.class);
+      FloatEditor editor = new FloatEditor();
       editor.setEditable(false);
       return editor;
    }
+   public AtomicEditor getFloatEditor() { return new FloatEditor(); }
 
-   public AtomicEditor getFloatEditor()
-   {
-      return (AtomicEditor) borrowObject(FloatEditor.class);
-   }
+   public AtomicRenderer getPercentRenderer() { return new StringRenderer(); }
+   public AtomicEditor getPercentEditor() { return new PercentEditor(); }
 
-   public AtomicRenderer getPercentRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
+   public AtomicRenderer getEmailRenderer() { return new StringRenderer(); }
+   public AtomicEditor getEmailEditor() { return new EmailEditor(); }
 
-   public AtomicEditor getPercentEditor()
-   {
-      return (AtomicEditor) borrowObject(PercentEditor.class);
-   }
+   public AtomicRenderer getURIRenderer() { return new URIRenderer(); }
+   public AtomicEditor getURIEditor() { return new URIEditor(); }
 
-   public AtomicRenderer getEmailRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
+   public AtomicRenderer getUSDollarRenderer() { return new StringRenderer(); }
+   public AtomicEditor getUSDollarEditor() { return new USDollarEditor(); }
 
-   public AtomicEditor getEmailEditor()
-   {
-      return (AtomicEditor) borrowObject(EmailEditor.class);
-   }
+   public AtomicRenderer getUSZipRenderer() { return new StringRenderer(); }
+   public AtomicEditor getUSZipEditor() { return new USZipEditor(); }
 
-   public AtomicRenderer getURIRenderer()
-   {
-      return (AtomicRenderer) borrowObject(URIRenderer.class);
-   }
+   public AtomicRenderer getUSPhoneRenderer() { return new StringRenderer(); }
+   public AtomicEditor getUSPhoneEditor() { return new USPhoneEditor(); }
 
-   public AtomicEditor getURIEditor()
-   {
-      return (AtomicEditor) borrowObject(URIEditor.class);
-   }
+   public AtomicRenderer getSSNRenderer() { return new StringRenderer(); }
+   public AtomicEditor getSSNEditor() { return new SSNEditor(); }
 
-   public AtomicRenderer getUSDollarRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
+   public AtomicRenderer getDateRenderer() { return new DateRenderer(); }
+   public AtomicEditor getDateEditor() { return new DateEditor(); }
 
-   public AtomicEditor getUSDollarEditor()
-   {
-      return (AtomicEditor) borrowObject(USDollarEditor.class);
-   }
+   public AtomicRenderer getDateWithAgeRenderer() { return new DateWithAgeRenderer(); }
+   public AtomicEditor getDateWithAgeEditor() { return new DateWithAgeEditor(); }
 
-   public AtomicRenderer getUSZipRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
+   public AtomicRenderer getDateTimeRenderer() { return new StringRenderer(); }
+   public AtomicEditor getDateTimeEditor() { return new DateTimeEditor(); }
 
-   public AtomicEditor getUSZipEditor()
-   {
-      return (AtomicEditor) borrowObject(USZipEditor.class);
-   }
+   public AtomicRenderer getTimeRenderer() { return new StringRenderer(); }
+   public AtomicEditor getTimeEditor() { return new TimeSpinnerEditor(); }
 
-   public AtomicRenderer getUSPhoneRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
+   public AtomicRenderer getTimeSpanRenderer() { return new StringRenderer(); }
+   public AtomicEditor getTimeSpanEditor() { return new TimeSpanEditor(); }
 
-   public AtomicEditor getUSPhoneEditor()
-   {
-      return (AtomicEditor) borrowObject(USPhoneEditor.class);
-   }
+   public AtomicRenderer getChoiceEORenderer() { return new StringRenderer(); }
+   public AtomicEditor getChoiceEOEditor() { return new ChoiceEOEditor(); }
 
-   public AtomicRenderer getSSNRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
+   public AtomicRenderer getTermsRenderer() { return new BooleanRenderer(); }
+   public AtomicEditor getTermsEditor() { return new TermsEditor(); }
 
-   public AtomicEditor getSSNEditor()
-   {
-      return (AtomicEditor) borrowObject(SSNEditor.class);
-   }
-
-   public AtomicRenderer getDateRenderer()
-   {
-      return (AtomicRenderer) borrowObject(DateRenderer.class);
-   }
-
-   public AtomicEditor getDateEditor()
-   {
-      return (AtomicEditor) borrowObject(DateEditor.class);
-   }
-
-   public AtomicRenderer getDateWithAgeRenderer()
-   {
-      return (AtomicRenderer) borrowObject(DateWithAgeRenderer.class);
-   }
-
-   public AtomicEditor getDateWithAgeEditor()
-   {
-      return (AtomicEditor) borrowObject(DateWithAgeEditor.class);
-   }
-
-   public AtomicRenderer getDateTimeRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
-
-   public AtomicEditor getDateTimeEditor()
-   {
-      return (AtomicEditor) borrowObject(DateTimeEditor.class);
-   }
-
-   public AtomicRenderer getTimeRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
-
-   public AtomicEditor getTimeEditor()
-   {
-      return (AtomicEditor) borrowObject(TimeSpinnerEditor.class);
-   }
-
-   public AtomicRenderer getTimeSpanRenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
-
-   public AtomicEditor getTimeSpanEditor()
-   {
-      return (AtomicEditor) borrowObject(TimeSpanEditor.class);
-   }
-
-   public AtomicRenderer getChoiceEORenderer()
-   {
-      return (AtomicRenderer) borrowObject(StringRenderer.class);
-   }
-
-   public AtomicEditor getChoiceEOEditor()
-   {
-      return (AtomicEditor) borrowObject(ChoiceEOEditor.class);
-   }
-
-   public AtomicRenderer getTermsRenderer()
-   {
-      return (AtomicRenderer) borrowObject(BooleanRenderer.class);
-   }
-
-   public AtomicEditor getTermsEditor()
-   {
-      return (AtomicEditor) borrowObject(TermsEditor.class);
-   }
-
-   public AtomicRenderer getImageRenderer()
-   {
-      return (AtomicRenderer) borrowObject(ImagePicker.class);
-   }
-
+   public AtomicRenderer getImageRenderer() { return new ImagePicker(); }
    public AtomicEditor getImageEditor()
    {
       ImagePicker imgPicker = 
-            (ImagePicker) borrowObject(ImagePicker.class);
+            new ImagePicker();
       imgPicker.putInEditMode();
       return imgPicker;
    }
 
-   public AtomicRenderer getFileRenderer()
-   {
-      return new FilePicker();
-   }
-   public AtomicEditor getFileEditor()
-   {
-      return new FilePicker().putInEditMode();
-   }
+   public AtomicRenderer getFileRenderer() { return new FilePicker(); }
+   public AtomicEditor getFileEditor() { return new FilePicker().putInEditMode(); }
 
    // ================================
    // SimpleListEO Views:
    // ================================
 
-   public ListEView getListView(AbstractListEO leo)
-   {
-      return new JListView(leo);
-   }
-
+   public ListEView getListView(AbstractListEO leo) { return new JListView(leo); }
    public ListEView getListViewAsTable(AbstractListEO leo) { return new TableView(leo); }
    public ListEView getListViewAsIcons(AbstractListEO leo) { return new IconListView(leo); }
    public ListEView getListViewAsTree(AbstractListEO leo) { return new MyListTreeView(leo); }
@@ -934,7 +677,7 @@ public class SwingViewMechanism implements ViewMechanism
                   ComplexEObject selected = component.selectedEO();
                   if (selected == null)
                   {
-                     SwingViewMechanism.getInstance().onMessage("No items selected");
+                     Context.getInstance().swingvmech().onMessage("No items selected");
                      return;
                   }
                   try

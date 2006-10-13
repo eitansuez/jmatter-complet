@@ -61,5 +61,20 @@
         <servlet-name>dwr-invoker</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
+   
+    <listener>
+       <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+   
+    <listener>
+       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+   
+    <context-param>
+       <param-name>contextConfigLocation</param-name>
+       <param-value>/WEB-INF/webapplicationContext.xml,
+          /WEB-INF/webpersistorContext.xml,
+          /WEB-INF/persistClasses.xml</param-value>
+    </context-param>
 
 </web-app>

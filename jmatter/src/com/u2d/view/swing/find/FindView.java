@@ -92,6 +92,7 @@ public class FindView extends JPanel implements View
                return;
             }
             
+            ViewMechanism vmech = Context.getInstance().getViewMechanism();
             if (cleo.isEmpty())
             {
                JInternalFrame jif = (JInternalFrame)
@@ -100,11 +101,11 @@ public class FindView extends JPanel implements View
                MsgDialog.showMsgDlg(jif, "No (0) matching search results", "No match found");
                
                // might as well do it in the status bar..
-               AppFactory.getInstance().getApp().getViewMechanism().onMessage("No matching search results");
+               vmech.onMessage("No matching search results");
             }
             else
             {
-               AppFactory.getInstance().getApp().getViewMechanism().displayView(cleo.getView());
+               vmech.displayView(cleo.getView());
             }
             
          } // end execute method

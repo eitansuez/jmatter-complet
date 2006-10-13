@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE binding SYSTEM "binding.dtd">
 <binding>
 
   <format type="com.u2d.type.atom.StringEO" 
@@ -96,16 +97,4 @@
     <value name="caption" field="_caption" style="attribute" />
   </mapping>
 
-  <mapping name="application" class="com.u2d.app.Application">
-     <value name="name" field="_appName" style="attribute" />
-     <value name="view-mechanism" set-method="setViewMechanism" get-method="placebo" />
-     <value name="look-and-feel" field="_lfName" />
-     <value name="page-size" field="_pagesize" />
-     <value name="persistence-mechanism" set-method="setPersistenceMechanism" get-method="placebo"/>
-     <collection name="persist-classes" field="_persistClasses"
-                 item-type="java.lang.Class">
-        <value name="class" />
-     </collection>
-  </mapping>
-   
 </binding>

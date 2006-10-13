@@ -88,7 +88,7 @@ public class DateEditor extends JPanel
          {
             DateEO deo = new DateEO();
             bind(deo);
-            if (e.getKeyChar() == '+')
+            if (e.getKeyChar() == '+' || e.getKeyChar() == '=')
             {
                deo.add(TimeInterval.ONEDAY);
                render(deo);

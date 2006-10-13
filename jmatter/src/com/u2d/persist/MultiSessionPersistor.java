@@ -1,6 +1,7 @@
 package com.u2d.persist;
 
 import com.u2d.app.PersistenceMechanism;
+import com.u2d.app.Tracing;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexType;
@@ -9,6 +10,9 @@ import com.u2d.list.PlainListEObject;
 import com.u2d.find.SimpleQuery;
 import com.u2d.type.atom.Password;
 import org.hibernate.*;
+import org.hibernate.cfg.Environment;
+import org.wings.session.SessionManager;
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,38 +22,15 @@ import org.hibernate.*;
  */
 public class MultiSessionPersistor extends HibernatePersistor
 {
-   private static PersistenceMechanism _instance = null;
    private SessionFactory _sessionFactory;
 
-   public static PersistenceMechanism getInstance()
-   {
-      if (_instance == null)
-         _instance = new MultiSessionPersistor();
-      return _instance;
-   }
+   public MultiSessionPersistor() { super(); }
 
-   private MultiSessionPersistor()
+   public void initialize()
    {
-      super();
-   }
-
-
-   public void init(Class[] classList)
-   {
-      for (int i=0; i<classList.length; i++)
-      {
-         try
-         {
-//            System.out.println("Adding class "+classList[i].getName()+" to hibernate configuration");
-            _cfg.addClass(classList[i]);
-         }
-         catch (HibernateException ex)
-         {
-            System.err.println("HibernateException: "
-                  + ex.getMessage());
-            ex.printStackTrace();
-         }
-      }
+      super.initialize();
+      
+      _cfg.setProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
       // automatically create database schema?
       // cfg.setProperty(Environment.HBM2DDL_AUTO, "create");
@@ -61,7 +42,7 @@ public class MultiSessionPersistor extends HibernatePersistor
 
    public ComplexEObject load(Class clazz, Long id)
    {
-      Session session = _sessionFactory.openSession();
+      Session session = getSession();
       Transaction tx = null;
       try
       {
@@ -76,15 +57,11 @@ public class MultiSessionPersistor extends HibernatePersistor
          if (tx != null) tx.rollback();
          throw ex;
       }
-      finally
-      {
-         session.close();
-      }
    }
 
    public ComplexEObject fetchSingle(Class clazz)
    {
-      Session session = _sessionFactory.openSession();
+      Session session = getSession();
       Transaction tx = null;
       try
       {
@@ -100,16 +77,12 @@ public class MultiSessionPersistor extends HibernatePersistor
          if (tx != null) tx.rollback();
          throw ex;
       }
-      finally
-      {
-         session.close();
-      }
       return null;
    }
 
    public void save(ComplexEObject ceo)
    {
-      Session session = _sessionFactory.openSession();
+      Session session = getSession();
       Transaction tx = null;
       try
       {
@@ -136,10 +109,6 @@ public class MultiSessionPersistor extends HibernatePersistor
          if (tx != null) tx.rollback();
          throw ex;
       }
-      finally
-      {
-         session.close();
-      }
    }
 
    // TODO:  must set up persistor as some kind of lifecycle listener
@@ -152,7 +121,7 @@ public class MultiSessionPersistor extends HibernatePersistor
 
    public void updateAssociation(ComplexEObject one, ComplexEObject two)
    {
-      Session session = _sessionFactory.openSession();
+      Session session = getSession();
       Transaction tx = null;
       try
       {
@@ -174,15 +143,11 @@ public class MultiSessionPersistor extends HibernatePersistor
          if (tx != null) tx.rollback();
          throw ex;
       }
-      finally
-      {
-         session.close();
-      }
    }
 
    public void delete(ComplexEObject ceo)
    {
-      Session session = _sessionFactory.openSession();
+      Session session = getSession();
       Transaction tx = null;
       try
       {
@@ -197,10 +162,6 @@ public class MultiSessionPersistor extends HibernatePersistor
          if (tx != null) tx.rollback();
          throw ex;
       }
-      finally
-      {
-         session.close();
-      }
    }
 
    public AbstractListEO browse(Class clazz)
@@ -210,7 +171,7 @@ public class MultiSessionPersistor extends HibernatePersistor
 
    public PlainListEObject list(Class clazz)
    {
-      Session session = _sessionFactory.openSession();
+      Session session = getSession();
       Transaction tx = null;
       try
       {
@@ -232,10 +193,6 @@ public class MultiSessionPersistor extends HibernatePersistor
             tx.rollback();
          throw ex;
       }
-      finally
-      {
-         session.close();
-      }
    }
    public PlainListEObject list(ComplexType type)
    {
@@ -247,7 +204,7 @@ public class MultiSessionPersistor extends HibernatePersistor
    {
       try
       {
-         Session session = _sessionFactory.openSession();
+         Session session = getSession();
          try
          {
             Query query = session.createQuery("select user.password from com.u2d.app.User as user where user.username = :username");
@@ -261,10 +218,6 @@ public class MultiSessionPersistor extends HibernatePersistor
             System.err.println("HibernateException: "+ex.getMessage());
             ex.printStackTrace();
             return false;  // TODO: throw an exception that translates into a truthful message to the end user
-         }
-         finally
-         {
-            session.close();
          }
       }
       catch (HibernateException ex)
@@ -281,16 +234,45 @@ public class MultiSessionPersistor extends HibernatePersistor
 
    public Session getSession()
    {
-      throw new RuntimeException("Not Yet Implemented");
+      return _sessionFactory.getCurrentSession();
    }
 
-   public ComplexEObject fetch(String query)
+   public ComplexEObject fetch(String hql)
    {
-      throw new RuntimeException("Not Yet Implemented");
+      ComplexEObject ceo = (ComplexEObject) getSession().createQuery(hql).iterate().next();
+      if (ceo == null) return null;
+      ceo.onLoad();
+      return ceo;
    }
 
-   public AbstractListEO hql(String query)
+   public AbstractListEO hql(String hql)
    {
-      throw new RuntimeException("Not Yet Implemented");
+      return hqlQuery(getSession().createQuery(hql));
    }
+   public AbstractListEO hqlQuery(Query query)
+   {
+      java.util.List results = query.list();
+
+      if (results.isEmpty())
+      {
+         return null;
+      }
+      else
+      {
+         for (int i = 0; i < results.size(); i++)
+         {
+            ((ComplexEObject) results.get(i)).onLoad();
+         }
+
+         /* this is not correct all the time.
+           the right way to do this is to use the hibernate
+           hql parser and ask it for the cls
+         */
+         Class cls = ((ComplexEObject) results.get(0)).type().getJavaClass();
+         return new PlainListEObject(cls, results);
+      }
+   }
+
+   public void newSession() { /* noop */ }
+   
 }

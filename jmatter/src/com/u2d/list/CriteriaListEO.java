@@ -6,7 +6,7 @@ package com.u2d.list;
 import java.util.Iterator;
 import javax.swing.event.ListDataListener;
 import javax.swing.table.TableModel;
-import com.u2d.app.AppFactory;
+import com.u2d.app.Context;
 import com.u2d.model.*;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
@@ -27,7 +27,7 @@ import org.hibernate.criterion.Projections;
  */
 public class CriteriaListEO extends AbstractListEO implements Paginable
 {
-   private static int PAGE_SIZE = AppFactory.getInstance().getApp().getPageSize();
+   private static int PAGE_SIZE = Context.getInstance().getApplication().getPagesize();
 
    private Query _query;
    private Criteria _criteria;

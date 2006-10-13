@@ -133,7 +133,8 @@ public class EOCommand extends Command
 
    public Title title()
    {
-      return ((ComplexType) _parent).title().append(" ", _name);
+//      return ((ComplexType) _parent).title().append(" ", _name);
+      return new Title(label());
    }
    
    public String qualifiedName()

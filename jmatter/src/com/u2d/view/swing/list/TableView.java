@@ -10,12 +10,12 @@ import javax.swing.table.*;
 import javax.swing.event.*;
 import java.util.*;
 import com.u2d.view.*;
-import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.model.*;
 import com.u2d.ui.*;
 import com.u2d.ui.sorttable.TableSortSupport;
 import com.u2d.ui.sorttable.SortTableModel;
 import com.u2d.field.Association;
+import com.u2d.app.Context;
 
 /**
  * @author Eitan Suez
@@ -24,7 +24,7 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
 {
    private AbstractListEO _leo;
    private Map _components = new HashMap();
-   private ChangeListener _stopCellEditingEr; 
+   private ChangeListener _stopCellEditingEr;
 
    public TableView(AbstractListEO leo)
    {
@@ -42,7 +42,7 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
    private void setItUp(TableModel tableModel)
    {
       setModel(tableModel);
-      
+
       AtomicTableCellEditor atomRender = new AtomicTableCellEditor();
       setDefaultRenderer(AtomicEObject.class,  atomRender);
       setDefaultRenderer(AbstractAtomicEO.class,  atomRender);
@@ -59,7 +59,7 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
       CEOCellRenderer ceoRenderer = new CEOCellRenderer();
       setDefaultRenderer(ComplexEObject.class, ceoRenderer);
       setDefaultRenderer(AbstractComplexEObject.class, ceoRenderer);
-      
+
       adjustColumnWidths(tableModel);
       adjustRowHeight(tableModel);
 
@@ -72,7 +72,7 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
       setColumnSelectionAllowed(false);
       setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       getTableHeader().setReorderingAllowed(true);
-      
+
       _stopCellEditingEr = new ChangeListener()
          {
             public void stateChanged(ChangeEvent e)
@@ -186,7 +186,7 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
          if (comp == null)
          {
             ComplexEObject ceo = (ComplexEObject) value;
-            comp = (JComponent) SwingViewMechanism.getInstance().getListItemViewAdapter(ceo);
+            comp = (JComponent) Context.getInstance().swingvmech().getListItemViewAdapter(ceo);
             comp.setOpaque(true);
             _components.put(value, comp);
          }
@@ -205,7 +205,7 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
          {
             Association a = (Association) value;
             ComplexEObject ceo = a.get();
-            comp = (JComponent) SwingViewMechanism.getInstance().getListItemViewAdapter(ceo);
+            comp = (JComponent) Context.getInstance().swingvmech().getListItemViewAdapter(ceo);
             comp.setOpaque(true);
             _components.put(value, comp);
          }

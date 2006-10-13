@@ -8,6 +8,8 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.view.*;
 import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.app.Context;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import java.util.*;
@@ -21,7 +23,7 @@ public class ToolbarView extends JToolBar implements ListEView
    private AbstractListEO _leo;
    private JComponent _sampleChild;
    private ToolbarPanel _tbpanel;
-   private SwingViewMechanism vmech = SwingViewMechanism.getInstance();
+   private SwingViewMechanism vmech = Context.getInstance().swingvmech();
    
    public ToolbarView(String name, AbstractListEO leo)
    {
