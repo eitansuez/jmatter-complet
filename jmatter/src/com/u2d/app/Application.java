@@ -48,7 +48,7 @@ public class Application
    public void initialize()
    {
       // set repaintmanager for debugging EDT issues:
-      RepaintManager.setCurrentManager(new spin.over.CheckingRepaintManager());
+//      RepaintManager.setCurrentManager(new spin.over.CheckingRepaintManager());
 
       String launchingMsg = String.format("Launching %s", _name);
       message(launchingMsg);
