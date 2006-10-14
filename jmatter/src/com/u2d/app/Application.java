@@ -15,8 +15,6 @@ import org.hibernate.*;
 import org.jibx.runtime.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import javax.swing.*;
 import java.io.InputStream;
 
 /**

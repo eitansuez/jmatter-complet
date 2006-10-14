@@ -240,7 +240,8 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ComplexEView getTabBodyView(ComplexEObject ceo)
    {
-      return null;
+      checkState(ceo);
+      return new TabBodyView(ceo);
    }
 
    // TODO: revise signature to strictly apply to Folder argument types
