@@ -11,7 +11,6 @@ import com.u2d.field.CompositeField;
 import com.u2d.validation.ValidationNotifier;
 import com.u2d.app.Tracing;
 import java.util.List;
-import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.beans.PropertyChangeEvent;
@@ -28,8 +27,8 @@ public class FormView extends SPanel implements ComplexEView, Editor
    private ComplexEObject _ceo;
    private boolean _leafContext;
 
-   private java.util.List _childViews;  // exclude read-only fields
-   private java.util.Collection _vPnls;
+   private java.util.List<EView> _childViews;  // exclude read-only fields
+   private java.util.Collection<ValidationNoticePanel> _vPnls;
 
    private boolean _hasTabs = false;
    private boolean _editable = false;
@@ -72,19 +71,14 @@ public class FormView extends SPanel implements ComplexEView, Editor
 
       stopListeningForValidations();
 
-      Iterator itr = _childViews.iterator();
-      EView view = null;
-      while (itr.hasNext())
-      {
-         view = (EView) itr.next();
+      for (EView view : _childViews)
          view.detach();
-      }
    }
 
    private void layItOut()
    {
-      _childViews = new ArrayList();
-      _vPnls = new HashSet();
+      _childViews = new ArrayList<EView>();
+      _vPnls = new HashSet<ValidationNoticePanel>();
 
       SPanel mainPane = new SPanel();
       mainPane.setLayout(new SGridBagLayout());
@@ -100,6 +94,12 @@ public class FormView extends SPanel implements ComplexEView, Editor
          _hasTabs = true;
          mainPane.setBorder(new SEmptyBorder(5,5,5,5));
          tabbedPane().insertTab("Main", null, mainPane, "", 0);
+         
+         // temporary, to get around a bug in wings..
+         tabbedPane().setSelectedIndex(1);
+         tabbedPane().setSelectedIndex(0);
+         // end
+         
          add(tabbedPane(), SBorderLayout.CENTER);
       }
       else
@@ -122,18 +122,15 @@ public class FormView extends SPanel implements ComplexEView, Editor
       if ((ceo.field() != null) && (ceo.field().isInterfaceType()) )
          ceo.setField(null, null);
 
-      List fields = _partialFieldList;
+      List<Field> fields = _partialFieldList;
       if (fields == null)
       {
-         fields =  ceo.childFields();
+         fields = ceo.childFields();
       }
 
-      SComponent vPnl;
-      Field field = null;
-      for (Iterator itr = fields.iterator(); itr.hasNext(); )
+      ValidationNoticePanel vPnl;
+      for (Field field : fields)
       {
-         field = (Field) itr.next();
-
          if ( field.isHidden() || "createdOn".equals(field.name())
                || "status".equals(field.name()) )
             continue;
@@ -226,14 +223,11 @@ public class FormView extends SPanel implements ComplexEView, Editor
 
    public int transferValue()
    {
-      Iterator itr = _childViews.iterator();
-
-      EView view = null;
       Field field = null;
       int count = 0;
-      while (itr.hasNext())
+      
+      for (EView view : _childViews)
       {
-         view = (EView) itr.next();
          Tracing.tracer().fine("attempting to transfer value for field "+view.getEObject().field());
          if (view instanceof Editor)
          {
@@ -271,13 +265,11 @@ public class FormView extends SPanel implements ComplexEView, Editor
          resetValidations();
       }
 
-      EView view = null;
       Field field = null;
       EObject eo = null;
 
-      for (Iterator itr = _childViews.iterator(); itr.hasNext(); )
+      for (EView view : _childViews)
       {
-         view = (EView) itr.next();
          if (view instanceof Editor)
          {
             eo = view.getEObject();
@@ -314,33 +306,18 @@ public class FormView extends SPanel implements ComplexEView, Editor
 
    private void resetValidations()
    {
-      Iterator itr = _vPnls.iterator();
-      ValidationNoticePanel vPnl = null;
-      while (itr.hasNext())
-      {
-         vPnl = (ValidationNoticePanel) itr.next();
+      for (ValidationNoticePanel vPnl : _vPnls)
          vPnl.reset();
-      }
    }
    private void listenForValidations()
    {
-      Iterator itr = _vPnls.iterator();
-      ValidationNoticePanel vPnl = null;
-      while (itr.hasNext())
-      {
-         vPnl = (ValidationNoticePanel) itr.next();
+      for (ValidationNoticePanel vPnl : _vPnls)
          vPnl.startListening();
-      }
    }
    private void stopListeningForValidations()
    {
-      Iterator itr = _vPnls.iterator();
-      ValidationNoticePanel vPnl = null;
-      while (itr.hasNext())
-      {
-         vPnl = (ValidationNoticePanel) itr.next();
+      for (ValidationNoticePanel vPnl : _vPnls)
          vPnl.stopListening();
-      }
    }
 
    public boolean isEditable() { return _editable; }
