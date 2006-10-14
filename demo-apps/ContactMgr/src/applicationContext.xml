@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd"
+      default-init-method="initialize">
+
+   <import resource="persistorContext.xml" />
+
+   <bean id="splash" class="com.u2d.ui.Splash" />
+
+   <bean id="app-session" class="com.u2d.app.AppSession">
+      <property name="app" ref="application" />
+      <property name="viewMechanism" ref="view-mechanism" />
+   </bean>
+   
+   <bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism">
+      <property name="lfname" value="Metal" />
+      <property name="appSession" ref="app-session" />
+   </bean>
+   
+   <bean id="context-wrapper" class="com.u2d.app.Context" 
+         factory-method="getInstance" />
+   
+   <bean id="application" class="com.u2d.app.Application">
+      <property name="name" value="Contact Manager" /> <!-- TODO: Customize App Name Here -->
+      <property name="pagesize" value="15" />
+      <property name="persistenceMechanism" ref="persistor" />
+      <property name="splash" ref="splash" />
+   </bean>
+   
+</beans>

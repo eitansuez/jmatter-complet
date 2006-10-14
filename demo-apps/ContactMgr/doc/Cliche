@@ -81,6 +81,16 @@
       getName() -> property name is "name"
       getPropertyName() -> property name is "propertyName"
     
+ 6b. Optional Hint:  flattenIntoParent
+     Description:  applies only to aggregate fields.  by default, an aggregated 
+      field such as "address" or "name" (with multiple fields such as first, last, etc..)
+      is displayed as such in the ui: the formview contains an expandable/collapsible
+      view, reflecting the model.  in the ui, if you prefer to collapse the aggregated field's
+      child fields directly into the parent, use this hint.
+
+    Example:
+     public static String[] flattenIntoParent = {"name"};
+
     
  7. Optional Hint:  tabViews controls which fields (if any) should be displayed 
       in a separate tab in the user interface
@@ -220,17 +230,21 @@
  
  17. Commands / Object Behavior
  
-     To expose an object method/behavior in the ui, the method signature must
-     conform to the following convention:
+     To expose an object method/behavior in the ui, tag it with an annotation, as follows:
      
-       public <returntype> command<MethodName>(CommandInfo cmdInfo, [add'l args]) {}
+       @CommandAt()
+       public <returntype> <MethodName>(CommandInfo cmdInfo, [add'l args]) {}
      
      The framework will mine these methods and expose them to the user
      interface as buttons at the right edge of windows and as menu items
      in context menus.
      
+     See the CommandAt annotation for the various options you may
+     specify.  They're all optional.  You can specify a mnemonic,
+     and two other options at the moment.
+     
      The caption on the button or menu item is derived from the method
-     name.  So commandApplyCopay(CommandInfo cmdInfo) will result in
+     name.  So for example, applyCopay(CommandInfo cmdInfo) will result in
      a button captioned "Apply Copay."
      
      The return type can be anything you like.  A method can return void.
@@ -245,7 +259,8 @@
      invocation of the method.  This is at the moment used internally
      by the framework and should not be a concern to end users of the
      framework.  That is, you may ignore this parameter for all practical 
-     purposes.
+     purposes.  However, it must be present in the method signature 
+     (temporary).
  
  18. Commands with Arguments
  
@@ -254,8 +269,21 @@
      the end user will be prompted to provide the information prior
      to method invocation.  The arguments are then passed to the
      command (i.e. used when the command method is invoked
-     reflectively).  (See User.commandChangePassword for an example)
- 
+     reflectively).  (See User.ChangePassword() for an example)
+     
+     To customize the caption for each argument when the UI prompts
+     the end user for the information (in a dialog, displayed after
+     the command is invoked), you can do so by specifying an 
+     annotation, as shown in this example:
+     
+       @CommandAt(mnemonic='p')
+       public String ChangePassword(CommandInfo cmdInfo,
+                                @ParamAt("New Password") Password password)
+       { ... }
+     
+     Note the value of the ParamAt annotation is the caption itself.
+
+     
  19. App Events
  
      After login and before logout, the class Application (the static
@@ -364,9 +392,9 @@
       it:  you get a simple way to define state/context-specific 
       behavior for objects, with ui)
  
- 24. app.properties
+ 24. app-config.xml
  
-     The framework requires that each application provide an app.properties
+     The framework requires that each application provide an app-config.xml
      file, where you specify various properties used by the application:
      
      appName:  The application's name.  Used in the titlebar of the application's
@@ -447,7 +475,7 @@
     similar to the smart folder feature in apple's mail application (among
     others).
 
-  31. Wizards:  still in development.  the framework currently provides
+  31. Wizards:  the framework currently provides
       / builds a ui for your model objects automatically.  i have discovered
       that it is likewise possible to automate the production of wizards
       for each model object.  i have come to believe that wizards can be
