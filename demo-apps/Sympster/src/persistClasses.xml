@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd"
+      default-init-method="initialize">
+
+   <util:set id="persist-classes">
+      <value>com.u2d.type.USState</value>
+      <value>com.u2d.type.composite.ContactMethod</value>
+      <value>com.u2d.sympster.Room</value>
+      <value>com.u2d.sympster.Session</value>
+      <value>com.u2d.sympster.Speaker</value>
+      <value>com.u2d.sympster.Symposium</value>
+      <value>com.u2d.sympster.Talk</value>
+      <value>com.u2d.sympster.BOF</value>
+      <value>com.u2d.sympster.Event</value>
+      <value>com.u2d.sympster.Venue</value>
+      <value>com.u2d.sympster.Hotel</value>
+      <value>com.u2d.sympster.Campus</value>
+      <value>com.u2d.sympster.ConferenceCenter</value>
+      <value>com.u2d.type.composite.Folder</value>
+      <value>com.u2d.find.CompositeQuery</value>
+      <value>com.u2d.type.composite.LoggedEvent</value>
+      <value>com.u2d.app.User</value>
+      <value>com.u2d.app.Role</value>
+      <value>com.u2d.restrict.CommandRestriction</value>
+      <value>com.u2d.restrict.FieldRestriction</value>
+      <value>com.u2d.restrict.Restriction</value>
+      <value>com.u2d.reporting.SimpleReport</value>
+   </util:set>
+   
+</beans>
