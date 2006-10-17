@@ -1,0 +1,61 @@
+October 2006
+---
+
+The ContactMgr app can be used to demonstrate the early web capabilities 
+of JMatter.
+
+Note:  the current implementation of JMatter's web view mechanism is 
+alpha-quality.
+
+Foundation
+---
+
+The web work is based on the excellent WingS web application framework 
+(see http://www.j-wings.org/).  The unique aspect of WingS is that its API 
+tries to be analogous to the Swing API.  I chose this framework so as to 
+maintain the existing JMatter design.  Producing a web view mechanism ends
+up being a fairly straightforward porting job.
+
+The next version of WingS is expected to support AJAX features (requests 
+will not reload entire page) and (I hope/exect) InternalFrames will actually 
+be draggable.  These improvements should come about with little to no change 
+to the WingS API.
+
+
+Basic Steps to Run JMatter App Either as a Web App
+---
+
+(It is worth noting that this application will still run as a Swing
+ application the same old way, either deployed as a Java WebStart 
+ application, or run from the command line, say with "ant run")
+
+
+1. Invoke the ant task:
+
+  ant web-app
+
+  This will produce the web application in the subdirectory "build/web"
+
+  Move that direcory to your web server's webapps directory (tested
+  with jetty):
+
+    mv build/web $WEBHOME/webapps/ContactMgr
+
+2. Start the web server.  Example for jetty:
+
+  cd jetty
+  ./bin/jetty.sh start
+
+3. Fire up firefox and hit http://localhost:8080/ContactMgr
+
+
+What's not yet implemented
+-----------
+
+ - UI support for Associations (big one)
+ - UI support for query features
+ - UI support for wizards
+ - Alternative views (tableview, omniview, etc..)
+ - Polish (make it look good)
+ - Drag and Drop support
+
