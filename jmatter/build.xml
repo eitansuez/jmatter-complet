@@ -280,6 +280,11 @@
    <property name="new.project.basedir" value=".." />
    <!-- DOC: presence of "standalone" property determines whether new project is standalone or not -->
 
+   <target name="new-project-ui" depends="jar"
+           description="GUI for creating a new jmatter project">
+     <java jar="lib/tools/newprojectui.jar" fork="true" />
+   </target>
+
    <target name="new-project" depends="jar"
            description="create a new project (flags: new.project.name, new.project.basedir)">
       <property name="np.basedir" location="${new.project.basedir}/${new.project.name}" />
