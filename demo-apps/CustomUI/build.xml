@@ -1,16 +1,18 @@
 <project name="customui" default="run">
 
- <description><!-- TODO: enter project description here --></description>
+ <description>Illustration of how to customize aspects of the ui:  how objects are displayed, laid out.</description>
 
  <property name="build.dir" location="build" />
  <property name="build.classes.dir" location="${build.dir}/classes" />
  <property name="src.dir" location="src" />
- <property name="lib.basedir" location="lib" />
 
- <property name="framework.dir" location="../../jmatter" />
- <property name="framework.lib.dir" location="${framework.dir}/lib/src" />
+ <property name="framework.dir" location="/home/eitan/work/jmatter-complet/jmatter" />
  <property name="framework.classes.dir" location="${framework.dir}/build/classes" />
- <property name="lib.tools.dir" location="${framework.dir}/lib/tools" />
+ <property name="lib.basedir" location="${framework.dir}/lib" />
+
+ <property name="lib.dir" location="${lib.basedir}/src" />
+ <property name="lib.tools.dir" location="${lib.basedir}/tools" />
+ <property name="lib.web.dir" location="${lib.basedir}/web" />
 
  <property name="jws-dist.dir" location="jws-dist" />
  <property name="dist.dir" location="dist" />
@@ -20,17 +22,19 @@
  <property name="test.dir" location="test" />
  <property name="test.src.dir" location="${test.dir}" />
  <property name="test.classes.dir" location="${build.classes.dir}" />
- <property name="test.lib.dir" location="${framework.lib.dir}/test" />
+ <property name="test.lib.dir" location="${lib.basedir}/test" />
  <property name="test.reports.dir" location="${build.dir}/reports" />
 	
+ <!-- TODO: specify main class here -->
  <property name="main.class" value="com.u2d.app.Application" />
  
  <property name="hbprops" value="hibernate" />
 
  <path id="class.path">
-   <fileset dir="${framework.lib.dir}" includes="**/*.jar" />
+   <fileset dir="${lib.dir}" includes="**/*.jar" />
    <pathelement location="${build.classes.dir}" />
    <pathelement location="${framework.classes.dir}" />
+   <fileset dir="${lib.web.dir}" includes="**/*.jar" />
  </path>
 
  <target name="init">
@@ -44,6 +48,7 @@
  <target name="clean">
    <delete dir="${build.dir}" />
    <delete dir="${jws-dist.dir}" />
+   <delete dir="${build.web.dir}" />
    <delete dir="${dist.dir}" />
  </target>
 
@@ -65,21 +70,28 @@
    <copy todir="${build.classes.dir}">
       <fileset dir="resources" includes="images/*.gif,images/*.png,**/*.jpg" />
       <fileset dir="resources" includes="model-metadata.properties" />
-      <fileset dir="resources/data" includes="*.xml" /> <!-- codes files -->
+      <fileset dir="resources" includes="locale-metadata*.properties" />
+      <fileset dir="resources/data" includes="*.xml,*.json" /> <!-- codes files -->
       <!-- <fileset dir="resources" includes="log4j.properties" /> -->
       <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- jfree report xmls -->
       <fileset dir="${src.dir}" includes="**/*.gif,**/*.png" />  <!-- any images referenced by jfree report xmls -->
    </copy>
    <copy file="resources/${hbprops}.properties" tofile="${build.classes.dir}/hibernate.properties" />
  </target>
-
+ 
  <target name="compile-framework">
    <ant antfile="${framework.dir}/build.xml" inheritAll="false" target="bind" />
  </target>
- 
+
+
  <target name="run" description="run app" depends="genhbm">
    <java classname="${main.class}" classpathref="class.path" 
-         fork="true" maxmemory="192m" />
+         fork="true" maxmemory="192m">
+     <jvmarg value="-Dawt.toolkit=sun.awt.motif.MToolkit" />
+    <!-- to test localization, uncomment this..
+     <sysproperty key="user.language" value="fr" />
+      -->
+   </java>
  </target>
 
  <taskdef name="script-maker" classname="com.u2d.tools.ShellScriptMaker" 
@@ -91,16 +103,16 @@
                   outputFile="run.sh" />
  </target>
 
-
  <target name="jar" description="jar it" depends="clean,genhbm">
-   <jar basedir="${build.classes.dir}" file="${jar.file}">
+   <jar file="${jar.file}">
      <manifest>
        <attribute name="Created-By" value="jMatter" />
        <attribute name="Main-Class" value="${main.class}" />
      </manifest>
+     <fileset dir="${build.classes.dir}" includes="**/*" />
+     <fileset dir="${framework.classes.dir}" includes="**/*" />
    </jar>
  </target>
-
 
  <target name="schema-export" description="export schema to db">
     <antcall target="schema-x">
@@ -155,8 +167,8 @@
    <classpath>
      <pathelement location="${lib.tools.dir}/bcel.jar" />
      <pathelement location="${lib.tools.dir}/jibx-bind.jar" />
-     <pathelement location="${framework.lib.dir}/jibx-run.jar" />
-     <pathelement location="${framework.lib.dir}/xpp3.jar" />
+     <pathelement location="${lib.dir}/jibx-run.jar" />
+     <pathelement location="${lib.dir}/xpp3.jar" />
    </classpath>
  </taskdef>
 
@@ -188,7 +200,7 @@
 
    <mkdir dir="${jws-dist.dir}/lib" />
    <copy todir="${jws-dist.dir}/lib">
-     <fileset dir="${framework.lib.dir}" includes="**/*.jar" />
+     <fileset dir="${lib.dir}" includes="**/*.jar" />
    </copy>
 
    <make-jnlp template="resources/jws/dynamic/project-jnlp.vm" 
@@ -249,5 +261,44 @@
      <report todir="${test.reports.dir}/html" />
    </junitreport>
  </target>
+
+
+ <!-- not yet fully working:  for deploying as a web application using WingS -->
+ <property name="build.web.dir" location="${build.dir}/web" />
+ <target name="init-web">
+    <mkdir dir="${build.web.dir}" />
+    <mkdir dir="${build.web.dir}/WEB-INF" />
+    <mkdir dir="${build.web.dir}/WEB-INF/lib" />
+    <mkdir dir="${build.web.dir}/WEB-INF/classes" />
+ </target>
+ <target name="web-app" depends="genhbm, init-web">
+    <copy todir="${build.web.dir}/WEB-INF">
+      <fileset dir="resources/web/WEB-INF" includes="web*.xml" />
+      <fileset dir="${src.dir}" includes="persistClasses.xml" />
+    </copy>
+
+    <copy file="resources/web/WEB-INF/classes/commons-logging.properties" todir="${build.web.dir}/WEB-INF/classes" />
+    <copy todir="${build.web.dir}/WEB-INF/classes">
+       <fileset dir="${build.classes.dir}" includes="**/*" />
+       <fileset dir="${framework.classes.dir}" includes="**/*" />
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/lib" flatten="true">
+       <fileset dir="${lib.dir}" includes="**/*.jar" />
+       <fileset dir="${lib.web.dir}" includes="**/*.jar" />
+    </copy>
+    <copy todir="${build.web.dir}">
+      <fileset dir="resources/web" excludes="*.xml" />
+    </copy>
+ </target>
+
+
+   <target name="wings-war" depends="compile">
+      <war destfile="build/nfjsmgr.war"
+           webxml="resources/wings-web.xml">
+         <classes dir="${build.classes.dir}" />
+         <lib dir="${lib.dir}" includes="**/*.jar" />
+         <lib dir="${lib.web.dir}" includes="**/*.jar" />
+      </war>
+   </target>
 
 </project>
