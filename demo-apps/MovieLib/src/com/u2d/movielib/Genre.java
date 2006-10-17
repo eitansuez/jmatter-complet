@@ -13,6 +13,7 @@ import com.u2d.type.atom.StringEO;
 public class Genre extends AbstractComplexEObject
 {
    private final StringEO _name = new StringEO();
+   public static String defaultSearchPath = "name";
 
    public Genre() {}
 
