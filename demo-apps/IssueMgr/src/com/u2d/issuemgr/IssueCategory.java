@@ -21,6 +21,8 @@ import com.u2d.reflection.CommandAt;
 public class IssueCategory extends AbstractComplexEObject
 {
    private final StringEO _name = new StringEO();
+   
+   public static String defaultSearchPath = "name";
 
    public IssueCategory() {}
 
