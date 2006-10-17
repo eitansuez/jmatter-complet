@@ -278,7 +278,7 @@
    <!-- TODO: override with -Dnew.project.name flag upon invoking target -->
    <property name="new.project.name" value="new-jmatter-project" />
    <property name="new.project.basedir" value=".." />
-   <property name="new.project.standalone" value="true" />
+   <!-- DOC: presence of "standalone" property determines whether new project is standalone or not -->
 
    <target name="new-project" depends="jar"
            description="create a new project (flags: new.project.name, new.project.basedir)">
@@ -289,23 +289,25 @@
          <filterset>
            <filter token="PROJECTNAME" value="${new.project.name}" />
            <filter token="MAINCLASSNAME" value="${main.class}" />
+           <filter token="FRAMEWORK_DIR" value="${basedir}" />
          </filterset>
       </copy>
+      <antcall target="new-standalone-project" />
+      <antcall target="new-dependent-project" />
+   </target>
+
+   <target name="new-standalone-project" if="standalone">
       <copy todir="${np.basedir}/lib">
         <fileset dir="${lib.dir}" excludes="gen/**" />
       </copy>
       <copy file="${dist.dir}/${ant.project.name}.jar"
             todir="${np.basedir}/lib/src" />
+      <move file="${np.basedir}/build-standalone.xml" tofile="${np.basedir}/build.xml" />
    </target>
 
-   <!-- Eitan TODO:  maybe write an ant task instead?
-   <target name="new-project" depends="jar" 
-           description="create a new project">
-      <new-project projectname="${new.project.name}"
-                   basedir="${new.project.basedir}"
-                   standalone="${new.project.standalone}" />
+   <target name="new-dependent-project" unless="standalone">
+      <delete file="${np.basedir}/build-standalone.xml" />
    </target>
-   -->
 
 
 
