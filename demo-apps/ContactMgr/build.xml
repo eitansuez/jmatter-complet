@@ -5,12 +5,14 @@
  <property name="build.dir" location="build" />
  <property name="build.classes.dir" location="${build.dir}/classes" />
  <property name="src.dir" location="src" />
- <property name="lib.basedir" location="lib" />
 
  <property name="framework.dir" location="../../jmatter" />
- <property name="framework.lib.dir" location="${framework.dir}/lib/src" />
  <property name="framework.classes.dir" location="${framework.dir}/build/classes" />
- <property name="lib.tools.dir" location="${framework.dir}/lib/tools" />
+ <property name="lib.basedir" location="${framework.dir}/lib" />
+
+ <property name="lib.dir" location="${lib.basedir}/src" />
+ <property name="lib.tools.dir" location="${lib.basedir}/tools" />
+ <property name="lib.web.dir" location="${lib.basedir}/web" />
 
  <property name="jws-dist.dir" location="jws-dist" />
  <property name="dist.dir" location="dist" />
@@ -20,7 +22,7 @@
  <property name="test.dir" location="test" />
  <property name="test.src.dir" location="${test.dir}" />
  <property name="test.classes.dir" location="${build.classes.dir}" />
- <property name="test.lib.dir" location="${framework.lib.dir}/test" />
+ <property name="test.lib.dir" location="${lib.basedir}/test" />
  <property name="test.reports.dir" location="${build.dir}/reports" />
 	
  <property name="main.class" value="com.u2d.app.Application" />
@@ -28,10 +30,10 @@
  <property name="hbprops" value="hibernate" />
 
  <path id="class.path">
-   <fileset dir="${framework.lib.dir}" includes="**/*.jar" />
+   <fileset dir="${lib.dir}" includes="**/*.jar" />
    <pathelement location="${build.classes.dir}" />
    <pathelement location="${framework.classes.dir}" />
-   <fileset dir="${framework.dir}/lib/web" includes="**/*.jar" />
+   <fileset dir="${lib.web.dir}" includes="**/*.jar" />
  </path>
 
  <target name="init">
@@ -99,7 +101,6 @@
                   outputFile="run.sh" />
  </target>
 
-
  <target name="jar" description="jar it" depends="clean,genhbm">
    <jar file="${jar.file}">
      <manifest>
@@ -165,8 +166,8 @@
    <classpath>
      <pathelement location="${lib.tools.dir}/bcel.jar" />
      <pathelement location="${lib.tools.dir}/jibx-bind.jar" />
-     <pathelement location="${framework.lib.dir}/jibx-run.jar" />
-     <pathelement location="${framework.lib.dir}/xpp3.jar" />
+     <pathelement location="${lib.dir}/jibx-run.jar" />
+     <pathelement location="${lib.dir}/xpp3.jar" />
    </classpath>
  </taskdef>
 
@@ -198,7 +199,7 @@
 
    <mkdir dir="${jws-dist.dir}/lib" />
    <copy todir="${jws-dist.dir}/lib">
-     <fileset dir="${framework.lib.dir}" includes="**/*.jar" />
+     <fileset dir="${lib.dir}" includes="**/*.jar" />
    </copy>
 
    <make-jnlp template="resources/jws/dynamic/project-jnlp.vm" 
@@ -281,8 +282,8 @@
        <fileset dir="${framework.classes.dir}" includes="**/*" />
     </copy>
     <copy todir="${build.web.dir}/WEB-INF/lib" flatten="true">
-       <fileset dir="${framework.lib.dir}" includes="**/*.jar" />
-       <fileset dir="${framework.dir}/lib/web" includes="**/*.jar" />
+       <fileset dir="${lib.dir}" includes="**/*.jar" />
+       <fileset dir="${lib.web.dir}" includes="**/*.jar" />
     </copy>
     <copy todir="${build.web.dir}">
       <fileset dir="resources/web" excludes="*.xml" />
@@ -295,7 +296,7 @@
            webxml="resources/wings-web.xml">
          <classes dir="${build.classes.dir}" />
          <lib dir="${lib.dir}" includes="**/*.jar" />
-         <lib dir="${framework.dir}/lib/web" includes="**/*.jar" />
+         <lib dir="${lib.web.dir}" includes="**/*.jar" />
       </war>
    </target>
 
