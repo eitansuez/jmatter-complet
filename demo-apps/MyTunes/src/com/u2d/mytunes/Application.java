@@ -10,15 +10,15 @@ import com.u2d.xml.CodesList;
  */
 public class Application extends com.u2d.app.Application
 {
-   public void initObjects()
+   public void initialize()
    {
-      super.initObjects();
-//      CodesList.populateItemsFor(Genre.class,  "genres.xml");
-      CodesList.populateItemsFor(Genre.class,  "genres.json");
+      super.initialize();
+//      CodesList.populateItemsFor(_pmech, Genre.class,  "genres.xml");
+      CodesList.populateItemsFor(_pmech, Genre.class,  "genres.json");
    }
 
    public static void main(String[] args)
    {
-      new Application().launch();
+      com.u2d.app.Application.main(null);
    }
 }

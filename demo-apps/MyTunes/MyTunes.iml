@@ -2,7 +2,7 @@
 <module version="4" relativePaths="true" type="JAVA_MODULE">
   <component name="JiBX binding compiler" />
   <component name="ModuleRootManager" />
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/build/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
@@ -76,15 +76,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/browserlauncher.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/Date_selector.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -149,15 +140,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/ds-swing.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/postgresql-8.1-405.jdbc3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -248,24 +230,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/hb/asm.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/hb/ehcache-1.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/src/hb/antlr-2.7.6rc1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -367,7 +331,9 @@
           <root url="file://$MODULE_DIR$/../../jmatter/build/classes" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../jmatter/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">

@@ -6,10 +6,11 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TimeEO;
 import com.u2d.type.atom.FileEO;
 import com.u2d.element.CommandInfo;
-import com.u2d.app.AppFactory;
 import com.u2d.persist.HBMSingleSession;
 import com.u2d.reflection.CommandAt;
 import com.u2d.reflection.ParamAt;
+import com.u2d.app.Context;
+
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.net.MalformedURLException;
@@ -102,11 +103,12 @@ public class Song extends AbstractComplexEObject
       Set songs = new HashSet();
       for (int i=0; i<songFiles.size(); i++)
       {
+         
          songs.add(new Song((File) songFiles.get(i)));
       }
 
       HBMSingleSession pmech = (HBMSingleSession)
-            AppFactory.getInstance().getApp().getPersistenceMechanism();
+            Context.getInstance().getPersistenceMechanism();
       pmech.saveMany(songs);
       return "Finished importing MP3s";
    }
