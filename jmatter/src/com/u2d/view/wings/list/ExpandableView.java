@@ -52,12 +52,13 @@ public class ExpandableView
       
       _handle = new ListItemView(_leo);
       
-      setLayout(new SGridLayout(2, 2));
+      setLayout(new SBorderLayout());
       
       _toggleBtn = new ExpandableView.ExpandCollapseButton();
-      
-      add(_toggleBtn);
-      add((SComponent) _handle);
+      SPanel panel = new SPanel(new SFlowLayout());
+      panel.add(_toggleBtn);
+      panel.add((SComponent) _handle);
+      add(panel, SBorderLayout.NORTH);
       
       _toggleBtn.addActionListener( new ActionListener()
          {
@@ -87,11 +88,11 @@ public class ExpandableView
 		_toggleBtn.toggle();
 		if (expand)
       {
-         add(leaf());
+         add(leaf(), SBorderLayout.CENTER);
       }
       else
       {
-         remove(2);
+         remove(1);
       }
 	}
 	
