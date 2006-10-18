@@ -16,6 +16,8 @@ import org.jibx.runtime.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.InputStream;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * @author Eitan Suez
@@ -45,6 +47,8 @@ public class Application
 
    public void initialize()
    {
+      Logger.getLogger("org.springframework").setLevel(Level.WARNING);
+
       // set repaintmanager for debugging EDT issues:
 //      RepaintManager.setCurrentManager(new spin.over.CheckingRepaintManager());
 

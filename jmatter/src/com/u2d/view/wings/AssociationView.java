@@ -6,7 +6,6 @@ import com.u2d.field.Association;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.NullAssociation;
-import com.u2d.element.Command;
 import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeEvent;
 import java.awt.event.*;
@@ -150,7 +149,6 @@ public class AssociationView extends CardPanel implements ComplexEView
    {
       EView view;
       AssociationView.ItemPanel itemPnl;
-      SButton assocBtn;
       NullAssociation nullAssoc = new NullAssociation(_association);
 
       public DissociatedPanel()
@@ -158,31 +156,9 @@ public class AssociationView extends CardPanel implements ComplexEView
          setLayout(new SFlowLayout());
          itemPnl = new AssociationView.ItemPanel();
          add(itemPnl);
-         add(assocBtn());
-         stateChanged();
       }
 
-      public void stateChanged()
-      {
-         assocBtn.setVisible(_association.isEditableState());
-      }
-
-      private SButton assocBtn()
-      {
-         SPopupMenu menu = new SPopupMenu();
-         menu.add(menuItem("New"));
-         menu.add(menuItem("Browse"));
-         menu.add(menuItem("Find"));
-         assocBtn = new MenuButton(ASSOCIATE_ICON, ASSOCIATE_ROLLOVER, menu);
-         return assocBtn;
-      }
-
-      private SMenuItem menuItem(String cmdName)
-      {
-         Command cmd = nullAssoc.command(cmdName);
-         CommandAdapter action = new CommandAdapter(cmd, nullAssoc, AssociationView.this);
-         return new SMenuItem(action);
-      }
+      public void stateChanged() { }
 
       public String name() { return "dissociated"; }
       public void bind(ComplexEObject value)

@@ -46,6 +46,8 @@ public class EOFrame extends SInternalFrame
       setIcon(new SImageIcon((ImageIcon) _ceo.iconSm()));
 
       SContainer contentPane = getContentPane();
+      contentPane.setLayout(new SBorderLayout());
+      
       _titleView = new TitleView(_ceo, this);
       contentPane.add(_titleView, SBorderLayout.NORTH);
 

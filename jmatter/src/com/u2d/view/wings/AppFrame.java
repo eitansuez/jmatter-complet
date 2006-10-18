@@ -45,6 +45,8 @@ public class AppFrame extends SFrame
       setTitle(_app.getName());
 
       SContainer contentPane = getContentPane();
+      contentPane.setLayout(new SBorderLayout());
+      
       _centerPane = new SPanel(new SBorderLayout());
       _desktopPane = new SDesktopPane();
       _centerPane.add(_desktopPane, SBorderLayout.CENTER);

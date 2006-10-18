@@ -85,9 +85,6 @@ public class TitleView extends SLabel implements ComplexEView
       }
    }
 
-   private Insets _insets = new Insets(2, 5, 6, 8);
-   public Insets getInsets() { return _insets; }
-
    public EObject getEObject() { return _ceo; }
 
 //   protected void paintBorder(java.awt.Graphics g)
