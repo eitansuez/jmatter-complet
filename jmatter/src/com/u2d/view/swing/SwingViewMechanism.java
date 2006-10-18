@@ -578,7 +578,11 @@ public class SwingViewMechanism implements ViewMechanism
       return new MultiPickView(leo);
    }
 
-   public ListEView getRelationalListView(RelationalList leo) { return new RelationalListView(leo); }
+   public ListEView getRelationalListView(RelationalList leo)
+   {
+      return new RelationalListView(leo);
+   }
+
    public ListEView getListViewMinimized(AbstractListEO leo)
    {
       return new com.u2d.view.swing.list.ListItemView(leo);

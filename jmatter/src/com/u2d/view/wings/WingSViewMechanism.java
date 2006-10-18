@@ -2,9 +2,7 @@ package com.u2d.view.wings;
 
 import com.u2d.app.*;
 import com.u2d.view.*;
-import com.u2d.view.wings.list.ListEOFrame;
-import com.u2d.view.wings.list.ListView;
-import com.u2d.view.wings.list.PaginableView;
+import com.u2d.view.wings.list.*;
 import com.u2d.view.wings.atom.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.wizard.details.Wizard;
@@ -19,6 +17,7 @@ import com.u2d.calendar.CalEvent;
 import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
+import com.u2d.list.CompositeList;
 import org.wings.SInternalFrame;
 import org.wings.SContainer;
 import org.wings.SComponent;
@@ -262,7 +261,7 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ComplexEView getAssociationView(Association association)
    {
-      return null;
+      return new AssociationView(association);
    }
 
    /* the understanding here is that choices are also CEOs */
@@ -472,7 +471,7 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ListEView getListViewMinimized(AbstractListEO leo)
    {
-      return null;
+      return new com.u2d.view.wings.list.ListItemView(leo);
    }
 
    public ListEView getPaginableView(ListEView leview)
@@ -482,12 +481,25 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ListEView getEditableListView(AbstractListEO leo)
    {
-      return null;
+      if (leo instanceof CompositeList)
+      {
+         //return new CompositeTableView((CompositeList) leo);
+         throw new RuntimeException("TBD..implementation of an editable list view for composites for web");
+      }
+      else if (leo instanceof RelationalList)
+      {
+         return new EditableListView((RelationalList) leo);
+      }
+      else
+      {
+         throw new RuntimeException("getEditableListView at the moment works only in the context" +
+               " of a compositelist or a relationallist");
+      }
    }
 
    public ListEView getExpandableListView(RelationalList leo)
    {
-      return null;
+      return new com.u2d.view.wings.list.ExpandableView(leo);
    }
 
    public ListEView getMultiChoiceView(AbstractListEO leo)
