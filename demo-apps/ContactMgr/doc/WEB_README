@@ -52,7 +52,6 @@ Basic Steps to Run JMatter App Either as a Web App
 What's not yet implemented
 -----------
 
- - UI support for Associations (big one)
  - UI support for query features
  - UI support for wizards
  - Alternative views (tableview, omniview, etc..)
