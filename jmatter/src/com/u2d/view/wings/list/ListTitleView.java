@@ -55,9 +55,6 @@ public class ListTitleView extends SLabel implements ListEView
       setText(_leo.toString());
    }
 
-   private Insets _insets = new Insets(2, 5, 6, 8);
-   public Insets getInsets() { return _insets; }
-
    public EObject getEObject() { return _leo; }
 
    public void detach()
