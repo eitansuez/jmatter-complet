@@ -9,5 +9,5 @@ package com.u2d.restrict;
 public interface Restrictable
 {
    public void applyRestriction(Restriction restriction);
-   public void liftRestriction(Restriction restriction);
+   public void liftRestriction();
 }

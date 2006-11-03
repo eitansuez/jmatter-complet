@@ -90,9 +90,9 @@ public abstract class CompositeField extends Field
       if (_parent instanceof CompositeField)
       {
          CompositeField parentField = (CompositeField) _parent;
-         return _readOnly || parentField.isReadOnly() || _restrictEdit;
+         return _readOnly || parentField.isReadOnly() || restrictReadOnly();
       }
-      return _readOnly || _restrictEdit;
+      return _readOnly || restrictReadOnly();
    }
 
 }

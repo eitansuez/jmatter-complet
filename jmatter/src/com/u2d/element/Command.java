@@ -41,25 +41,31 @@ public abstract class Command extends Member
 
    /* authorization-related */
 
-   private boolean _forbidden = false;
-   public void forbid() { _forbidden = true; }
-   public void allow() { _forbidden = false; }
-   public boolean isForbidden() { return _forbidden; }
+   protected CommandRestriction _restriction = null;
 
    public void applyRestriction(Restriction restriction)
    {
-      if (!(restriction instanceof CommandRestriction))
+      if ((restriction != null) && !(restriction instanceof CommandRestriction))
          throw new IllegalArgumentException("Restriction must be a command restriction");
 
-      forbid();
+      _restriction = (CommandRestriction) restriction;
    }
-   public void liftRestriction(Restriction restriction)
+   public CommandRestriction getRestriction() { return _restriction; }
+   public void setRestriction(CommandRestriction restriction)
    {
-      if (!(restriction instanceof CommandRestriction))
-         throw new IllegalArgumentException("Restriction must be a command restriction");
-
-      allow();
+      Restriction oldValue = _restriction;
+      applyRestriction(restriction);
+      firePropertyChange("restriction", oldValue, restriction);
    }
+   
+   public void liftRestriction() { _restriction = null; }
+   
+   public boolean isForbidden()
+   {
+      return (_restriction != null) && (_restriction.forbidden());
+   }
+
+   
    
    private Field _ownerField = null;
    public void setOwner(Field ownerField)

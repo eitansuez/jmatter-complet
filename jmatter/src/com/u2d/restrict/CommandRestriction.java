@@ -11,8 +11,7 @@ import com.u2d.element.EOCommand;
  */
 public class CommandRestriction extends Restriction
 {
-   public static String roleInverseFieldName = "cmdRestrictions";
-   private EOCommand _element;
+   public static String roleInverseFieldName = "restrictions";
 
    public static String[] fieldOrder = {"role", "element"};
    
@@ -20,18 +19,8 @@ public class CommandRestriction extends Restriction
    
    public CommandRestriction(Role role, EOCommand element)
    {
-      _role = role;
-      _element = element;
+      super(role,  element);
    }
 
-   public EOCommand getElement() { return _element; }
-   public void setElement(EOCommand element)
-   {
-      EOCommand oldElement = _element;
-      _element = element;
-      firePropertyChange("element", oldElement, _element);
-   }
-   
-   public Restrictable element() { return _element; }
-
+   public boolean forbidden() { return true; }
 }

@@ -31,10 +31,7 @@ public class NullComplexEObject extends AbstractComplexEObject
       {
          command = (Command) itr.next();
          typeCommand = _type.command(command.name());
-         if (typeCommand.isForbidden())
-            command.forbid();
-         else
-            command.allow();
+         command.applyRestriction(typeCommand.getRestriction());
       }
    }
 

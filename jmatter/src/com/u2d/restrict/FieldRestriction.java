@@ -11,8 +11,7 @@ import com.u2d.element.Field;
  */
 public class FieldRestriction extends Restriction
 {
-   public static String roleInverseFieldName = "fldRestrictions";
-   private Field _element;
+   public static String roleInverseFieldName = "restrictions";
    
    public static final String NONE = "None";
    public static final String READ_ONLY = "ReadOnly";
@@ -23,24 +22,13 @@ public class FieldRestriction extends Restriction
    public static String[] fieldOrder = { "role", "element", "restrictionType" };
    
    public FieldRestriction() {}
-   
    public FieldRestriction(Role role, Field element)
    {
-      _role = role;
-      _element = element;
+      super(role, element);
    }
 
-   public Field getElement() { return _element; }
-   public void setElement(Field element)
-   {
-      Field oldElement = _element;
-      _element = element;
-      firePropertyChange("element", oldElement, _element);
-   }
-   
    public FieldRestrictionType getRestrictionType() { return _type; }
    
-   // conveniences..
    public boolean readOnly()
    {
       return READ_ONLY.equals(_type.code());
@@ -50,6 +38,4 @@ public class FieldRestriction extends Restriction
       return HIDDEN.equals(_type.code());
    }
    
-   public Restrictable element() { return _element; }
-
 }

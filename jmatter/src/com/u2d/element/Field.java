@@ -355,37 +355,27 @@ public abstract class Field extends Member
 
 
    // Restriction-related..
-   // comment:  this doesn't look right.  field should be able to pull
-   //  restriction information instead of being pushed it at a specific point
-   //  in time.
    private boolean _hidden = false;
-   public boolean isHidden() { return _hidden; }
+   public boolean isHidden()
+   {
+       return _hidden || restrictHidden();
+   }
    public void setHidden(boolean hidden) { _hidden = hidden; }
-
-   protected boolean _restrictEdit = false;
+   
+   
+   protected FieldRestriction _restriction = null;
    public void applyRestriction(Restriction restriction)
    {
       if (!(restriction instanceof FieldRestriction))
          throw new IllegalArgumentException("Restriction must be a field restriction");
 
-      FieldRestriction fr = (FieldRestriction) restriction;
-      if (fr.readOnly())
-         _restrictEdit = true;
-      else
-         _hidden = true;
+      _restriction = (FieldRestriction) restriction;
    }
-   public void liftRestriction(Restriction restriction)
-   {
-      if (!(restriction instanceof FieldRestriction))
-         throw new IllegalArgumentException("Restriction must be a field restriction");
-
-      FieldRestriction fr = (FieldRestriction) restriction;
-      if (fr.readOnly())
-         _restrictEdit = false;
-      else
-         _hidden = false;
-   }
-
+   public void liftRestriction() { _restriction = null; }
+   
+   public boolean restrictHidden() { return (_restriction != null) && (_restriction.hidden()); }
+   public boolean restrictReadOnly() { return (_restriction != null) && (_restriction.readOnly()); }
+   
    public int hashCode()
    {
       return getFullPath().hashCode();
