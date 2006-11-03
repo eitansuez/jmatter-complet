@@ -4,18 +4,16 @@
 package com.u2d.field;
 
 import java.beans.*;
-
 import com.u2d.element.Field;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.FieldParent;
 import com.u2d.model.Harvester;
-import com.u2d.restrict.Restrictable;
 
 /**
  * @author Eitan Suez
  */
-public abstract class CompositeField extends Field implements Restrictable
+public abstract class CompositeField extends Field
 {
    public CompositeField(FieldParent parent, PropertyDescriptor descriptor) 
    {
