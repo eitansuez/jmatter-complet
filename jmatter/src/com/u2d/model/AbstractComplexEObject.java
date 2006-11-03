@@ -989,6 +989,9 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    
    public void refresh()
    {
+      // typically programming elements are not persisted entities..so noop for them
+      if (this instanceof ProgrammingElement)
+        return;
       hbmPersistor().getSession().refresh(this);
    }
    
