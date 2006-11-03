@@ -22,7 +22,7 @@ import com.u2d.reflection.FieldAt;
  * @author Eitan Suez
  */
 public abstract class Field extends Member
-         implements java.io.Serializable, Restrictable
+         implements java.io.Serializable
 {
    protected Class _clazz;
    protected ComplexType _type;

@@ -20,7 +20,7 @@ import com.u2d.view.*;
 public class AggregateField extends CompositeField implements FieldParent
 {
    private List _fields;
-   private Map _fieldsMap;  // key is field name for fast retrieval of child
+   private Map<String, Field> _fieldsMap;  // key is field name for fast retrieval of child
       // field by name
 
    protected final BooleanEO _flattenIntoParent = new BooleanEO(false);
@@ -50,20 +50,23 @@ public class AggregateField extends CompositeField implements FieldParent
    }
    
    public List fields() { return _fields; }
-   public Field field(String propname)
+   public Field field(String propName)
    {
-      //return (Field) Member.member(propname, fields());
-      return (Field) _fieldsMap.get(propname);
+      Field field = (Field) _fieldsMap.get(propName);
+      if (field == null && !type().equals(this))
+      {
+         field = type().field(propName);
+      }
+      return field;
    }
    
    // note: was package private, forced to make public after package
    // restructuring
-   public static Map makeFieldMap(Collection fields)
+   public static Map<String, Field> makeFieldMap(Collection fields)
    {
-      Map fieldMap = new HashMap();
-      Iterator itr = fields.iterator();
+      Map<String, Field> fieldMap = new HashMap<String, Field>();
       Field field = null;
-      while (itr.hasNext())
+      for (Iterator itr = fields.iterator(); itr.hasNext(); )
       {
          field = (Field) itr.next();
          fieldMap.put(field.name(), field);

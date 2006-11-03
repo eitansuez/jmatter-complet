@@ -8,6 +8,7 @@ import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.restrict.CommandRestriction;
 import com.u2d.restrict.FieldRestriction;
+import com.u2d.restrict.Restriction;
 import com.u2d.type.atom.*;
 
 /**
@@ -20,15 +21,11 @@ public class Role extends AbstractComplexEObject
    public static Class usersType = User.class;
    public static String usersInverseFieldName = "role";
    
-   private final RelationalList _cmdRestrictions = new RelationalList(CommandRestriction.class);
-   public static Class cmdRestrictionsType = CommandRestriction.class;
-   public static String cmdRestrictionsInverseFieldName = "role";
+   private final RelationalList _restrictions = new RelationalList(Restriction.class);
+   public static Class restrictionsType = Restriction.class;
+   public static String restrictionsInverseFieldName = "role";
    
-   private final RelationalList _fldRestrictions = new RelationalList(FieldRestriction.class);
-   public static Class fldRestrictionsType = FieldRestriction.class;
-   public static String fldRestrictionsInverseFieldName = "role";
-
-   public static String[] fieldOrder = {"name", "users", "cmdRestrictions", "fldRestrictions"};
+   public static String[] fieldOrder = {"name", "users", "restrictions"};
    public static String[] identities = {"name"};
 
    public Role() {}
@@ -40,9 +37,7 @@ public class Role extends AbstractComplexEObject
    
    public StringEO getName() { return _name; }
    public RelationalList getUsers() { return _users; }
-   public RelationalList getCmdRestrictions() { return _cmdRestrictions; }
-   public RelationalList getFldRestrictions() { return _fldRestrictions; }
-   
+   public RelationalList getRestrictions() { return _restrictions; }
    
    public Title title() { return _name.title(); }
 

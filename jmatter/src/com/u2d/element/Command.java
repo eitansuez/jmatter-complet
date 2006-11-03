@@ -4,23 +4,19 @@
 package com.u2d.element;
 
 import com.u2d.restrict.CommandRestriction;
-import com.u2d.restrict.Restrictable;
 import com.u2d.restrict.Restriction;
 import com.u2d.view.*;
 import com.u2d.app.User;
 import com.u2d.app.Tracing;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
-import com.u2d.model.ComplexType;
 import com.u2d.model.Localized;
-
 import java.util.Arrays;
 
 /**
  * @author Eitan Suez
  */
 public abstract class Command extends Member 
-      implements Restrictable
 {
    public abstract void execute(Object value, EView source)
             throws java.lang.reflect.InvocationTargetException;

@@ -68,16 +68,14 @@ public class AppSession implements AuthManager, AppEventNotifier
    {
       if (user == null && hbmpersistence())
       {
-         liftRestrictions(_user.getRole().getCmdRestrictions().getItems());
-         liftRestrictions(_user.getRole().getFldRestrictions().getItems());
+         liftRestrictions(_user.getRole().getRestrictions().getItems());
       }
 
       _user = user;
 
       if (_user!=null && hbmpersistence())
       {
-         applyRestrictions(_user.getRole().getCmdRestrictions().getItems());
-         applyRestrictions(_user.getRole().getFldRestrictions().getItems());
+         applyRestrictions(_user.getRole().getRestrictions().getItems());
       }
    }
 

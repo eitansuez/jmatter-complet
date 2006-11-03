@@ -6,11 +6,12 @@ package com.u2d.element;
 import java.util.*;
 
 import com.u2d.model.FieldParent;
+import com.u2d.restrict.Restrictable;
 
 /**
  * @author Eitan Suez
  */
-public abstract class Member extends ProgrammingElement
+public abstract class Member extends ProgrammingElement implements Restrictable
 {
    protected FieldParent _parent;
    

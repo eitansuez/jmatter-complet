@@ -39,6 +39,7 @@ public class FieldRestriction extends Restriction
    }
    
    public FieldRestrictionType getRestrictionType() { return _type; }
+   
    // conveniences..
    public boolean readOnly()
    {
