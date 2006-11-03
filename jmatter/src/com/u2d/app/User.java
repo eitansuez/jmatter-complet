@@ -30,7 +30,7 @@ public class User extends AbstractComplexEObject
 
    public static String[] fieldOrder = {"username", "password", "locked", "name",
          "photo", "role", "desktop"};
-   public static String[] identities = {"username", "password"};
+   public static String[] identities = {"username"};
      // design decision to not make password field editable after first creation.
      // must go through changepwd cmd 
    public static String[] readOnly = {"locked", "desktop"};

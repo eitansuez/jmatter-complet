@@ -28,8 +28,7 @@ public class Role extends AbstractComplexEObject
    public static Class fldRestrictionsType = FieldRestriction.class;
    public static String fldRestrictionsInverseFieldName = "role";
 
-   public static String[] fieldOrder = {"name", "users", 
-         "cmdRestrictions", "fldRestrictions"};
+   public static String[] fieldOrder = {"name", "users", "cmdRestrictions", "fldRestrictions"};
    public static String[] identities = {"name"};
 
    public Role() {}
