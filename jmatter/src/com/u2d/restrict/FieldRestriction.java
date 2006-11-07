@@ -5,12 +5,15 @@ package com.u2d.restrict;
 
 import com.u2d.app.Role;
 import com.u2d.element.Field;
+import com.u2d.element.Member;
 
 /**
  * @author Eitan Suez
  */
 public class FieldRestriction extends Restriction
 {
+   protected Field _element;
+
    public static String roleInverseFieldName = "restrictions";
    
    public static final String NONE = "None";
@@ -24,8 +27,21 @@ public class FieldRestriction extends Restriction
    public FieldRestriction() {}
    public FieldRestriction(Role role, Field element)
    {
-      super(role, element);
+      super(role);
+      _element = element;
    }
+   
+   
+   public Field getElement() { return _element; }
+   public void setElement(Field element)
+   {
+      Field oldElement = _element;
+      _element = element;
+      firePropertyChange("element", oldElement, _element);
+   }
+
+   public Member element() { return _element; }
+   
 
    public FieldRestrictionType getRestrictionType() { return _type; }
    

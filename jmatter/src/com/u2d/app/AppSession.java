@@ -95,9 +95,9 @@ public class AppSession implements AuthManager, AppEventNotifier
       {
          restriction = (Restriction) itr.next();
          if (apply)
-            restriction.getElement().applyRestriction(restriction);
+            restriction.element().applyRestriction(restriction);
          else
-            restriction.getElement().liftRestriction();
+            restriction.element().liftRestriction();
       }
    }
 
