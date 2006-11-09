@@ -161,28 +161,4 @@ public class EOCommand extends Command
       return _method.hashCode() + 31*_parent.hashCode();
    }
 
-   public String getFullPath()
-   {
-      return _parent.getJavaClass().getName() + "#" + _name;
-   }
-   public static EOCommand forPath(String path)
-   {
-      if (path == null) return null;
-
-      try
-      {
-         String[] parts = path.split("#");  // split on fullpath's # separator
-         Class cls = Class.forName(parts[0]);
-         ComplexType type = ComplexType.forClass(cls);
-         String commandName = parts[1];
-         
-         return (EOCommand) type.findCommand(commandName);
-      }
-      catch (ClassNotFoundException ex)
-      {
-         System.err.println("ClassNotFoundException: "+ex.getMessage());
-         ex.printStackTrace();
-      }
-      return null;
-   }
 }

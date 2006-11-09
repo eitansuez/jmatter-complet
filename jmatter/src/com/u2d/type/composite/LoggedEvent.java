@@ -7,7 +7,7 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TextEO;
 import com.u2d.type.LogEventType;
 import com.u2d.app.User;
-import com.u2d.element.EOCommand;
+import com.u2d.element.Command;
 
 /**
  * Date: Jun 9, 2005
@@ -15,12 +15,12 @@ import com.u2d.element.EOCommand;
  *
  * @author Eitan Suez
  */
-public class  LoggedEvent extends AbstractComplexEObject
+public class LoggedEvent extends AbstractComplexEObject
 {
    private final StringEO _msg = new StringEO();
    private final TextEO _longMsg = new TextEO();
    private User _user;
-   private EOCommand _command;
+   private Command _command;
    private ComplexEObject _object;
    private final LogEventType _type = new LogEventType(INFO);
 
@@ -38,7 +38,7 @@ public class  LoggedEvent extends AbstractComplexEObject
    {
    }
 
-   public LoggedEvent(LogEventType type, ComplexEObject targetObject, EOCommand command,
+   public LoggedEvent(LogEventType type, ComplexEObject targetObject, Command command,
                       String msg)
    {
       _type.setValue(type);
@@ -75,10 +75,10 @@ public class  LoggedEvent extends AbstractComplexEObject
       firePropertyChange("user", oldUser, user);
    }
 
-   public EOCommand getCommand() { return _command; }
-   public void setCommand(EOCommand command)
+   public Command getCommand() { return _command; }
+   public void setCommand(Command command)
    {
-      EOCommand oldCmd = _command;
+      Command oldCmd = _command;
       _command = command;
       firePropertyChange("command", oldCmd, _command);
    }

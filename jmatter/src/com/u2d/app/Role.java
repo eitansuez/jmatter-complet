@@ -7,9 +7,11 @@ import com.u2d.list.RelationalList;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.model.EObject;
+import com.u2d.model.ComplexType;
 import com.u2d.restrict.Restriction;
 import com.u2d.restrict.CommandRestriction;
 import com.u2d.type.atom.*;
+import com.u2d.type.composite.LoggedEvent;
 import java.util.Iterator;
 
 /**
@@ -50,7 +52,7 @@ public class Role extends AbstractComplexEObject
 
    public void applyRestrictions()
    {
-      initDefaultRole();
+      initializePermissions();
       
       System.out.println("Role "+_name+": applying restrictions..("+_restrictions.getSize()+")");
       for (Iterator itr = _restrictions.iterator(); itr.hasNext(); )
@@ -86,25 +88,81 @@ public class Role extends AbstractComplexEObject
       return "Default".equals(_name.stringValue());
    }
    
-   public void initDefaultRole()
+   public void initializePermissions()
    {
-      if (!defaultRole()) return;
-      
-      class UserRestriction extends CommandRestriction
-         {
-            public boolean forbidden(EObject target)
+      if (defaultRole())
+      {
+         class UserRestriction extends CommandRestriction
             {
-               tracer().fine("Checking if command: "+member()+" is forbidden for user "+currentUser()+" on target object "+target);
-               User user = (User) target;
-               return (!user.equals(currentUser()));
+               public boolean forbidden(EObject target)
+               {
+                  tracer().fine("Checking if command: "+member()+" is forbidden for user "+currentUser()+" on target object "+target);
+                  User user = (User) target;
+                  return (!user.equals(currentUser()));
+               }
+            };
+      
+         User prototype = new User();
+         addCmdRestriction(new UserRestriction()).on(prototype.command("ChangePassword"));
+         addCmdRestriction(new UserRestriction()).on(prototype.command("Lock"));
+         addCmdRestriction(new UserRestriction()).on(prototype.command("Edit"));
+         addCmdRestriction(new UserRestriction()).on(prototype.command("Delete"));
+      
+         // todo:  add here a litany of other restrictions
+         //  - on the manipulation of existing roles
+         //  - on the manipulation of existing restrictions
+         //  - on the manipulation of log information
+         
+         //  - on the manipulation of metadata (once revise jmatter to
+         //     store metadata in the db)
+         
+         // another issue:  on the visibility of types and instances
+         
+         // notes:  destruction:  controlled without adding new concepts:
+         //    restrictions on command: delete
+         
+         //   creation:  controlled without adding new concepts:
+         //     restrictions on type's New command (and other constructor
+         //     commands)
+         
+         //  - on the creation and destruction of roles
+         //  - on the creation and destruction of restrictions
+         //  - on the creation and destruction of users
+         //  - on the creation and destruction of logs
+         class CreationRestriction extends CommandRestriction
+         {
+            ComplexType _type;
+
+            public CreationRestriction(ComplexType type)
+            {
+               _type = type;
+               _member = _type.command("New");
             }
          };
+         
+         addCmdRestriction(new CreationRestriction(ComplexType.forClass(Role.class)));
+         addCmdRestriction(new CreationRestriction(ComplexType.forClass(Restriction.class)));
+         addCmdRestriction(new CreationRestriction(ComplexType.forClass(User.class)));
+         addCmdRestriction(new CreationRestriction(ComplexType.forClass(LoggedEvent.class)));
+
+         // bug:  unlike with the previous case where we had to override
+         // forbidden(), in this case, should be able to persist this
+         // restriction and source it from the db instead of special-casing
+         // it in code like in the above.  revise this accordingly: create
+         // restrictions and save them to database and remove them from here.
+         // possibly do this even in xml.
+         
+         // bug: classbar and contextmenus for types are constructed once.
+         // so if login as admin and then as another user, the contextmenu
+         // will show restricted New commands.  todo: fix.
+         
+         //  thought:  would be nice if commands were rich enough where
+         //    i could ask it:  isMutator? (does it change the state of the
+         //    underlying object in question).  this way, i could do something
+         //    like:  for each mutating command on given type: forbid.
+
+      }
       
-      User prototype = new User();
-      addCmdRestriction(new UserRestriction()).on(prototype.command("ChangePassword"));
-      addCmdRestriction(new UserRestriction()).on(prototype.command("Lock"));
-      addCmdRestriction(new UserRestriction()).on(prototype.command("Edit"));
-      addCmdRestriction(new UserRestriction()).on(prototype.command("Delete"));
    }
    
 }

@@ -10,6 +10,8 @@ import com.u2d.app.User;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.Localized;
+import com.u2d.model.ComplexType;
+import com.u2d.persist.type.CommandUserType;
 import java.util.Arrays;
 
 /**
@@ -109,7 +111,9 @@ public abstract class Command extends Member
    {
       if (obj == null) return false;
       if (!(obj instanceof Command)) return false;
+      if (obj == this) return true;
       Command cmd = (Command) obj;
+      if (_parent == null) return false;
       return name().equals(cmd.name()) &&
             _parent.equals(cmd.parent());
    }
@@ -183,4 +187,33 @@ public abstract class Command extends Member
       return false;
    }
 
+   public String getFullPath()
+   {
+      return _parent.getJavaClass().getName() + "#" + _name;
+   }
+   public static Command forPath(String path)
+   {
+      if (path == null) return null;
+
+      try
+      {
+         String[] parts = path.split("#");  // split on fullpath's # separator
+         Class cls = Class.forName(parts[0]);
+         ComplexType type = ComplexType.forClass(cls);
+         String commandName = parts[1];
+         
+         return (Command) type.findCommand(commandName);
+      }
+      catch (ClassNotFoundException ex)
+      {
+         System.err.println("ClassNotFoundException: "+ex.getMessage());
+         ex.printStackTrace();
+      }
+      return null;
+   }
+
+   public static Class getCustomTypeImplementorClass()
+   {
+      return CommandUserType.class;
+   }
 }

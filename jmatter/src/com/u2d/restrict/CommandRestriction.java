@@ -4,7 +4,6 @@
 package com.u2d.restrict;
 
 import com.u2d.app.Role;
-import com.u2d.element.EOCommand;
 import com.u2d.element.Member;
 import com.u2d.element.Command;
 import com.u2d.model.EObject;
@@ -14,7 +13,7 @@ import com.u2d.model.EObject;
  */
 public class CommandRestriction extends Restriction
 {
-   protected EOCommand _member;
+   protected Command _member;
 
    public static String roleInverseFieldName = "restrictions";
 
@@ -27,20 +26,16 @@ public class CommandRestriction extends Restriction
       super(role);
    }
    
-   public CommandRestriction(Role role, EOCommand cmd)
+   public CommandRestriction(Role role, Command cmd)
    {
       super(role);
       _member = cmd;
    }
 
-   public void on(Command cmd)
-   {
-      // TODO: fix this type mismatch thing..
-      _member = (EOCommand) cmd;
-   }
+   public void on(Command cmd) { _member = (Command) cmd; }
 
-   public EOCommand getMember() { return _member; }
-   public void setMember(EOCommand member)
+   public Command getMember() { return _member; }
+   public void setMember(Command member)
    {
       Member oldMember = _member;
       _member = member;

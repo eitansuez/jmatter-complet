@@ -50,6 +50,20 @@ public abstract class Restriction extends AbstractComplexEObject
       }
       return new Title("");
    }
-   
-   
+
+
+   public boolean equals(Object obj)
+   {
+      if (obj == null) return false;
+      if (!(obj instanceof Restriction)) return false;
+      if (obj == this) return true;
+      Restriction r = (Restriction) obj;
+      // state not yet set..assume false..
+      if (_role == null || member() == null)
+      {
+         return false;
+      }
+      return _role.equals(r.getRole()) && member().equals(r.member());
+   }
+
 }

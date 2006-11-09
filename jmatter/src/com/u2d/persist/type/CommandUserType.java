@@ -1,11 +1,9 @@
 package com.u2d.persist.type;
 
 import com.u2d.element.EOCommand;
-import com.u2d.model.ComplexType;
 import org.hibernate.HibernateException;
 import org.hibernate.Hibernate;
 import org.hibernate.usertype.UserType;
-
 import java.io.Serializable;
 
 /**
@@ -14,7 +12,8 @@ import java.io.Serializable;
  *
  * @author Eitan Suez
  */
-public class EOCommandUserType implements UserType
+public class CommandUserType
+      implements UserType
 {
    /* Implementation of Hibernate UserType */
 
