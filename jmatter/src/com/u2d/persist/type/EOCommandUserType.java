@@ -34,23 +34,8 @@ public class EOCommandUserType implements UserType
    public Object nullSafeGet(java.sql.ResultSet rs, String[] names, Object owner)
       throws HibernateException, java.sql.SQLException
    {
-      String className = (String) Hibernate.STRING.nullSafeGet(rs, names[0]);
-      String commandName = (String) Hibernate.STRING.nullSafeGet(rs, names[1]);
-
-      if ((className == null) || (commandName == null)) return null;
-
-      try
-      {
-         Class cls = Class.forName(className);
-         ComplexType type = ComplexType.forClass(cls);
-         return (EOCommand) type.findCommand(commandName);
-      }
-      catch (ClassNotFoundException ex)
-      {
-         System.err.println("ClassNotFoundException: "+ex.getMessage());
-         ex.printStackTrace();
-      }
-      return null;
+      String commandPath = (String) Hibernate.STRING.nullSafeGet(rs, names[0]);
+      return EOCommand.forPath(commandPath);
    }
 
    public void nullSafeSet(java.sql.PreparedStatement pstmt, Object value, int index)
@@ -60,20 +45,18 @@ public class EOCommandUserType implements UserType
       if (cmd == null)
       {
          Hibernate.STRING.nullSafeSet(pstmt, null, index);
-         Hibernate.STRING.nullSafeSet(pstmt, null, index+1);
          return;
       }
-      String commandName = cmd.name();
-      String className = cmd.parent().getJavaClass().getName();
-      Hibernate.STRING.nullSafeSet(pstmt, className, index);
-      Hibernate.STRING.nullSafeSet(pstmt, commandName, index+1);
+      Hibernate.STRING.nullSafeSet(pstmt, cmd.getFullPath(), index);
    }
 
    public boolean isMutable() { return false; }
    public Class returnedClass() { return EOCommand.class; }
 
-   private static final int[] TYPES = { java.sql.Types.VARCHAR, java.sql.Types.VARCHAR };
+   private static final int[] TYPES = { java.sql.Types.VARCHAR };
    public int[] sqlTypes() { return TYPES; }
+
+   public static String[] COLUMNNAMES = {"commandPath"};
 
    public int hashCode(Object x) throws HibernateException
    {
@@ -94,7 +77,5 @@ public class EOCommandUserType implements UserType
    {
       return original;
    }
-
-   public static String[] COLUMNNAMES = {"className", "commandName"};
 
 }
