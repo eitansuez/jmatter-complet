@@ -105,6 +105,8 @@ public class CommandsButtonView extends JPanel implements ListEView
          ((ButtonStackBuilder) builder).addRelatedGap();
       }
 
+      // TODO:  produce another onion that is filtered and reduced
+      //  and then bind to that.
       new OnionPeeler(new Processor()
          {
             int index = 0;

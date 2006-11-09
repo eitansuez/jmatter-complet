@@ -68,9 +68,11 @@ public class Application
             Transaction tx = session.beginTransaction();
             message("Creating Admin User..");
             Role adminRole = new Role("Administrator");
+            Role defaultRole = new Role("Default");
             User adminUser = new User("admin", "admin", adminRole);
             session.save(adminUser);
             session.save(adminRole);
+            session.save(defaultRole);
             tx.commit();
          }
          
@@ -131,7 +133,7 @@ public class Application
       
       AppSession session = (AppSession) context.getBean("app-session");
       session.launch();
-
+      
       Splash splash = (Splash) context.getBean("splash");
       splash.dispose();
    }

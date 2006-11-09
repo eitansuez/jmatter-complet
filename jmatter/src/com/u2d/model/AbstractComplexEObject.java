@@ -267,7 +267,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public Command command(String commandName)
    {
-      return command(commandName, _readState);
+      return command(commandName, startState());
    }
    public Command command(String commandName, State state)
    {

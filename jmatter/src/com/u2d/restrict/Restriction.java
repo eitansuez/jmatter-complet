@@ -9,7 +9,7 @@ import com.u2d.model.Title;
 import com.u2d.element.Member;
 
 /**
- * Discussion: The reason that a restriction's "element" is not
+ * Discussion: The reason that a restriction's "member" is not
  * refactored into the base class (here) is due to differences in
  * the way that Fields and EOCommands are persisted.  Polymorphic
  * implementation also implies polymorphic data model which doesn't
@@ -40,13 +40,13 @@ public abstract class Restriction extends AbstractComplexEObject
       firePropertyChange("role", oldRole, _role);
    }
    
-   public abstract Member element();
+   public abstract Member member();
    
    public Title title()
    {
-      if (element() != null && _role != null)
+      if (member() != null && _role != null)
       {
-         return new Title(element()).append(" for", _role);
+         return new Title(member()).append(" for", _role);
       }
       return new Title("");
    }

@@ -164,6 +164,9 @@ public class User extends AbstractComplexEObject
    {
       return _username.hashCode();
    }
+   
+   public void applyRestrictions() { getRole().applyRestrictions(); }
+   public void liftRestrictions() { getRole().liftRestrictions(); }
 
 
 }

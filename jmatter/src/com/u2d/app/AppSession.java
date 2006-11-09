@@ -3,14 +3,13 @@ package com.u2d.app;
 import com.u2d.pubsub.AppEventNotifier;
 import com.u2d.pubsub.AppEventSupport;
 import com.u2d.pubsub.AppEventListener;
-import com.u2d.restrict.Restriction;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.type.composite.Folder;
 import com.u2d.element.EOCommand;
-import java.util.Collection;
-import java.util.Iterator;
+import com.u2d.persist.HibernatePersistor;
+
 import java.util.Map;
 import java.util.HashMap;
 import org.hibernate.Session;
@@ -68,39 +67,17 @@ public class AppSession implements AuthManager, AppEventNotifier
    {
       if (user == null && hbmpersistence())
       {
-         liftRestrictions(_user.getRole().getRestrictions().getItems());
+         _user.liftRestrictions();
       }
 
       _user = user;
 
       if (_user!=null && hbmpersistence())
       {
-         applyRestrictions(_user.getRole().getRestrictions().getItems());
+         _user.applyRestrictions();
       }
    }
-
-   private void applyRestrictions(Collection restrictions)
-   {
-      doRestrictions(restrictions, true);
-   }
-   private void liftRestrictions(Collection restrictions)
-   {
-      doRestrictions(restrictions, false);
-   }
-   private void doRestrictions(Collection restrictions, boolean apply)
-   {
-      Iterator itr = restrictions.iterator();
-      Restriction restriction = null;
-      while (itr.hasNext())
-      {
-         restriction = (Restriction) itr.next();
-         if (apply)
-            restriction.element().applyRestriction(restriction);
-         else
-            restriction.element().liftRestriction();
-      }
-   }
-
+   
    public Folder getClassesFolder() { return _classesFolder; }
 
    //
@@ -122,6 +99,7 @@ public class AppSession implements AuthManager, AppEventNotifier
       if (hbmpersistence())
       {
          HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) pmech();
+         
          Session session = hbm.getSession();
          try
          {

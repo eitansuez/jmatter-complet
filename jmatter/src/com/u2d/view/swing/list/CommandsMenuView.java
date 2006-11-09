@@ -8,8 +8,6 @@ import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
 import com.u2d.element.Command;
-import com.u2d.app.Tracing;
-
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import java.util.Map;
@@ -60,17 +58,9 @@ public class CommandsMenuView extends JMenu implements ListEView
             {
                Command cmd = (Command) obj;
                if (cmd.isOpenInNonMinimizedContext(_source)) return;
-               if (cmd.isForbidden())
-               {
-                  Tracing.tracer().info("command "+cmd+" is forbidden;  skipping");
-                  return;
-               }
 
-               if (_eo.field() != null &&
-                   _eo.field().isAggregate() &&
-                   "delete".equalsIgnoreCase(cmd.name()))
-                  return;
-
+               if (cmd.filter(_eo)) return;
+               
                add(new CommandAdapter(cmd, _eo, _source));
                _indexMap.put(new Integer(index),
                              new Integer(getComponentCount()-1));

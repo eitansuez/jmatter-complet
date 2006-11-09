@@ -12,7 +12,7 @@ import com.u2d.element.Member;
  */
 public class FieldRestriction extends Restriction
 {
-   protected Field _element;
+   protected Field _member;
 
    public static String roleInverseFieldName = "restrictions";
    
@@ -22,25 +22,25 @@ public class FieldRestriction extends Restriction
 
    private final FieldRestrictionType _type = new FieldRestrictionType(READ_ONLY);
 
-   public static String[] fieldOrder = { "role", "element", "restrictionType" };
+   public static String[] fieldOrder = { "role", "member", "restrictionType" };
    
    public FieldRestriction() {}
    public FieldRestriction(Role role, Field element)
    {
       super(role);
-      _element = element;
+      _member = element;
    }
    
    
-   public Field getElement() { return _element; }
-   public void setElement(Field element)
+   public Field getMember() { return _member; }
+   public void setMember(Field member)
    {
-      Field oldElement = _element;
-      _element = element;
-      firePropertyChange("element", oldElement, _element);
+      Field oldMember = _member;
+      _member = member;
+      firePropertyChange("member", oldMember, _member);
    }
 
-   public Member element() { return _element; }
+   public Member member() { return _member; }
    
 
    public FieldRestrictionType getRestrictionType() { return _type; }

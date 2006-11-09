@@ -60,9 +60,11 @@ public abstract class Command extends Member
    
    public void liftRestriction() { _restriction = null; }
    
-   public boolean isForbidden()
+   public boolean isForbidden(EObject target)
    {
-      return (_restriction != null) && (_restriction.forbidden());
+      System.out.println("Checking if command "+this+" is forbidden.."+
+         "(restriction is: "+_restriction+")");
+      return (_restriction != null) && (_restriction.forbidden(target));
    }
 
    
@@ -156,9 +158,10 @@ public abstract class Command extends Member
    
    public boolean filter(EObject eo)
    {
-      if (isForbidden())
+      if (isForbidden(eo))
       {
-         Tracing.tracer().info("command "+this+" is forbidden;  skipping");
+         Tracing.tracer().info("command "+this+" is forbidden for " +
+               "user "+currentUser()+" on target "+eo+" (skipping)");
          return true;
       }
             
