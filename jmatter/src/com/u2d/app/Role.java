@@ -94,7 +94,7 @@ public class Role extends AbstractComplexEObject
          {
             public boolean forbidden(EObject target)
             {
-               System.out.println("checking if command: "+member()+" is forbidden for user "+currentUser()+" on target object "+target);
+               tracer().fine("Checking if command: "+member()+" is forbidden for user "+currentUser()+" on target object "+target);
                User user = (User) target;
                return (!user.equals(currentUser()));
             }

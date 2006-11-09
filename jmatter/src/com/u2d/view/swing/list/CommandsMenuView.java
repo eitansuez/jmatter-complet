@@ -50,10 +50,12 @@ public class CommandsMenuView extends JMenu implements ListEView
       if (_eo == null) return;
 
       _commands = _eo.commands();
-
+      
       new OnionPeeler(new Processor()
          {
             int index = 0;
+            int subindex = 0;
+         
             public void process(Object obj)
             {
                Command cmd = (Command) obj;
@@ -65,10 +67,12 @@ public class CommandsMenuView extends JMenu implements ListEView
                _indexMap.put(new Integer(index),
                              new Integer(getComponentCount()-1));
                index++;
+               subindex++;
             }
             public void pause()
             {
-               addSeparator();
+               if (subindex > 0) addSeparator();
+               subindex = 0;
             }
             public void done() {}
          }).peel(_commands);

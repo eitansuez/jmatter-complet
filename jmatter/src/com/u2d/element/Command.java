@@ -7,7 +7,6 @@ import com.u2d.restrict.CommandRestriction;
 import com.u2d.restrict.Restriction;
 import com.u2d.view.*;
 import com.u2d.app.User;
-import com.u2d.app.Tracing;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.Localized;
@@ -62,7 +61,7 @@ public abstract class Command extends Member
    
    public boolean isForbidden(EObject target)
    {
-      System.out.println("Checking if command "+this+" is forbidden.."+
+      tracer().fine("Checking if command "+this+" is forbidden.."+
          "(restriction is: "+_restriction+")");
       return (_restriction != null) && (_restriction.forbidden(target));
    }
@@ -160,7 +159,7 @@ public abstract class Command extends Member
    {
       if (isForbidden(eo))
       {
-         Tracing.tracer().info("command "+this+" is forbidden for " +
+         tracer().info("command "+this+" is forbidden for " +
                "user "+currentUser()+" on target "+eo+" (skipping)");
          return true;
       }

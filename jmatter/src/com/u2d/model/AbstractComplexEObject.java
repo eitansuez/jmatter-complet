@@ -4,6 +4,7 @@
 package com.u2d.model;
 
 import java.util.*;
+import java.util.logging.Logger;
 import javax.swing.event.*;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -25,6 +26,7 @@ import com.u2d.reflection.CommandAt;
 import com.u2d.reflection.ParamAt;
 import com.u2d.json.JSON;
 import com.u2d.list.CompositeList;
+import com.u2d.app.Tracing;
 
 /**
  * @author Eitan Suez
@@ -985,6 +987,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       app().log(typeString, cmd, msg);
    }
+   public Logger tracer() { return Tracing.tracer(); }
    
    
    public void refresh()
