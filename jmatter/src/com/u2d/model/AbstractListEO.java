@@ -89,6 +89,14 @@ public abstract class AbstractListEO extends AbstractEObject
    public String toString() { return title().toString(); }
 
    public List getItems() { return _items; }
+   
+   // convenience..
+   public void setItems(Set items)
+   {
+      List list = new ArrayList();
+      list.addAll(items);
+      setItems(list);
+   }
    public void setItems(List items)
    {
       if (_items == items) return;

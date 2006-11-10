@@ -202,7 +202,14 @@ public abstract class Command extends Member
          ComplexType type = ComplexType.forClass(cls);
          String commandName = parts[1];
          
-         return (Command) type.findCommand(commandName);
+         // this obviously needs work.  there shouldn't be two command lookup methods (!)
+         Command cmd = type.findCommand(commandName);
+//         Command cmd = type.command(commandName);
+         if (cmd == null)
+         {
+            System.err.println("Can't find command: "+commandName+" on type: "+type);
+         }
+         return cmd;
       }
       catch (ClassNotFoundException ex)
       {

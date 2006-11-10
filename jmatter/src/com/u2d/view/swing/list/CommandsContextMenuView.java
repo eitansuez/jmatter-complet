@@ -4,10 +4,15 @@ import com.u2d.view.ListEView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.CommandAdapter;
 import com.u2d.model.EObject;
+import com.u2d.model.ComplexEObject;
 import com.u2d.element.Command;
 import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
+import com.u2d.app.Context;
+import com.u2d.app.AppSession;
+import com.u2d.pubsub.AppEventListener;
+import com.u2d.pubsub.AppEvent;
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import java.awt.event.MouseAdapter;
@@ -31,22 +36,45 @@ public class CommandsContextMenuView
    private EView _target;
    private Map _indexMap = new HashMap();
    private ContextMouseListener _listener = new ContextMouseListener();
+   private AppEventListener _ael;
 
    public CommandsContextMenuView() {}
 
-   public void bind(EObject eo, EView target, EView source)
+   public void bind(final EObject eo, final EView target, final EView source)
    {
       _eo = eo;
       _eo.addChangeListener(this);
-
       _source = source;
-
       _target = target;
       ((JComponent) _target).addMouseListener(_listener);
-
       setup();
+      
+      if ( (_eo instanceof ComplexEObject) && ((ComplexEObject) _eo).isMeta() )
+      {
+         // this code basically makes sure that 
+         // when someone logs back in, that the context menu
+         // for the classbar is updated to reflect the new user's
+         // role's permissions (restrictions).
+         AppSession appSession = Context.getInstance().getAppSession();
+         _ael = new AppEventListener()
+            {
+               public void onEvent(AppEvent evt)
+               {
+                  SwingUtilities.invokeLater(new Runnable()
+                  {
+                     public void run()
+                     {
+                        detach();
+                        bind(eo, target, source);
+                     }
+                  });
+               }
+            };
+         appSession.addAppEventListener("LOGIN", _ael);
+      }
+      
    }
-
+   
    public void bind(EObject eo, EView source)
    {
       bind(eo, source, source);
@@ -68,6 +96,9 @@ public class CommandsContextMenuView
       _indexMap.clear();
       _source = null;
       _target = null;
+      
+      AppSession appSession = Context.getInstance().getAppSession();
+      appSession.removeAppEventListener("LOGIN", _ael);
    }
 
    private void detachCmds()

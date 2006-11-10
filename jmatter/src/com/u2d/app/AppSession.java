@@ -8,8 +8,6 @@ import com.u2d.type.atom.BooleanEO;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.type.composite.Folder;
 import com.u2d.element.EOCommand;
-import com.u2d.persist.HibernatePersistor;
-
 import java.util.Map;
 import java.util.HashMap;
 import org.hibernate.Session;

@@ -138,10 +138,6 @@ public class Role extends AbstractComplexEObject
          
          // another issue:  on the visibility of types and instances
          
-         // bug: classbar and contextmenus for types are constructed once.
-         // so if login as admin and then as another user, the contextmenu
-         // will show restricted New commands.  todo: fix.
-         
          //  thought:  would be nice if commands were rich enough where
          //    i could ask it:  isMutator? (does it change the state of the
          //    underlying object in question).  this way, i could do something

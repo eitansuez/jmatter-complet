@@ -19,7 +19,7 @@ import com.u2d.reflection.Reflector;
 public class Harvester
 {
 
-   public static Map harvestCommands(Class clazz, ComplexType parent)
+   public static Map<Class, Onion> harvestCommands(Class clazz, ComplexType parent)
    {
       Onion commands = simpleHarvestCommands(clazz, new Onion(), false, parent);
 

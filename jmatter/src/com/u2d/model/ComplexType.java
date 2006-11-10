@@ -104,7 +104,7 @@ public class ComplexType extends AbstractComplexEObject
 
    private String _className, _shortName, _naturalName, _pluralName;
    private Class _clazz;
-   private transient Map _commands = new HashMap();
+   private transient Map<Class, Onion> _commands = new HashMap<Class, Onion>();
    private transient Onion _typeCommands = new Onion();
    private transient Onion _staticTypeCmds;
    private List _fields = new ArrayList();
@@ -366,7 +366,25 @@ public class ComplexType extends AbstractComplexEObject
    {
       Onion commands = commands();
       SimpleFinder finder = Command.finder(commandName);
-      return (Command) commands.find(finder);
+      Command cmd = (Command) commands.find(finder);
+      return cmd;
+
+      // q:  why is this implementation only looking in _typeCommands ?
+      // why not look exhaustively, like this:
+//      if (cmd == null)
+//      {
+//         for (Class stateClass : _commands.keySet())
+//         {
+//            commands = _commands.get(stateClass);
+//            finder = Command.finder(commandName);
+//            cmd = (Command) commands.find(finder);
+//            if (cmd != null) break;
+//         }
+//      }
+//      return cmd;
+      
+      // q: don't you need to disambiguate between different commands 
+      //   with the same name but that exist in different states??
    }
 
    /**
@@ -375,11 +393,9 @@ public class ComplexType extends AbstractComplexEObject
     */
    public Command findCommand(String commandName)
    {
-      Iterator itr = _commandsList.iterator();
-      Command cmd = null;
-      while (itr.hasNext())
+      for (Iterator itr = _commandsList.iterator(); itr.hasNext(); )
       {
-         cmd = (Command) itr.next();
+         Command cmd = (Command) itr.next();
          if (cmd.name().equals(commandName))
             return cmd;
       }
@@ -890,32 +906,27 @@ public class ComplexType extends AbstractComplexEObject
 
    private void populateCommandsList()
    {
-      List cmds = populateCommands(_commands);
+      Set cmds = populateCommands(_commands);
       cmds.addAll(populateCommands(commands()));
       _commandsList.setItems(cmds);
    }
-   private List populateCommands(Map cmdMap)
+   private Set populateCommands(Map cmdMap)
    {
-      List cmds = new ArrayList();
-      Iterator itr = cmdMap.keySet().iterator();
-      Class key = null;
-      Onion stateCmds = null;
-      while (itr.hasNext())
+      Set cmdSet = new HashSet();
+      for (Iterator itr=cmdMap.keySet().iterator(); itr.hasNext(); )
       {
-         key = (Class) itr.next();
-         stateCmds = (Onion) cmdMap.get(key);
-         cmds.addAll(populateCommands(stateCmds));
+         Class key = (Class) itr.next();
+         Onion stateCmds = (Onion) cmdMap.get(key);
+         cmdSet.addAll(populateCommands(stateCmds));
       }
-      return cmds;
+      return cmdSet;
    }
    private Set populateCommands(Onion cmdOnion)
    {
       Set cmdSet = new HashSet();
-      Command cmd = null;
-      Iterator itr = cmdOnion.deepIterator();
-      while (itr.hasNext())
+      for (Iterator itr=cmdOnion.deepIterator(); itr.hasNext(); )
       {
-         cmd = (Command) itr.next();
+         Command cmd = (Command) itr.next();
          if (MINORCOMMANDS.contains(cmd.name())) continue;
          cmdSet.add(cmd);
       }
