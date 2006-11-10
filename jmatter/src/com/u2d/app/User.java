@@ -12,6 +12,7 @@ import com.u2d.model.Title;
 import com.u2d.pattern.*;
 import com.u2d.reflection.ParamAt;
 import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.FieldAt;
 
 /**
  * @author Eitan Suez
@@ -59,6 +60,7 @@ public class User extends AbstractComplexEObject
       _role.getUsers().add(this);
    }
 
+   @FieldAt(mnemonic='u')
    public StringEO getUsername() { return _username; }
    public Password getPassword() { return _password; }
    public BooleanEO getLocked() { return _locked; }

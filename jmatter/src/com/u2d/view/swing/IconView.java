@@ -23,7 +23,7 @@ import java.awt.event.MouseListener;
 public class IconView extends Caption implements ComplexEView
 {
    protected ComplexEObject _ceo;
-   private transient CommandsContextMenuView _cmdsView;
+   private transient CommandsContextMenuView _cmdsView = new CommandsContextMenuView();
    private MouseListener _defaultActionListener;
 
    public IconView()
@@ -42,7 +42,6 @@ public class IconView extends Caption implements ComplexEView
       Font font = getFont().deriveFont(Font.PLAIN, 10.0f);
       setFont(font);
 
-      _cmdsView = new CommandsContextMenuView();
    }
 
    public void bind(ComplexEObject ceo)

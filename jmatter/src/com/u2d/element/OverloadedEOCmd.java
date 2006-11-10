@@ -53,4 +53,6 @@ public class OverloadedEOCmd extends Command
 
    public String localizedLabel(Localized l) { return _cmd.localizedLabel(l); }
 
+   public String getFullPath() { return _cmd.getFullPath(); }
+
 }

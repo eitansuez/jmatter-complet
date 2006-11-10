@@ -1,6 +1,7 @@
 package com.u2d.persist.type;
 
 import com.u2d.element.EOCommand;
+import com.u2d.element.Command;
 import org.hibernate.HibernateException;
 import org.hibernate.Hibernate;
 import org.hibernate.usertype.UserType;
@@ -40,7 +41,7 @@ public class CommandUserType
    public void nullSafeSet(java.sql.PreparedStatement pstmt, Object value, int index)
       throws HibernateException, java.sql.SQLException
    {
-      EOCommand cmd = (EOCommand) value;
+      Command cmd = (Command) value;
       if (cmd == null)
       {
          Hibernate.STRING.nullSafeSet(pstmt, null, index);

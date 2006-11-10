@@ -6,13 +6,16 @@ package com.u2d.app;
 import com.u2d.list.RelationalList;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
-import com.u2d.model.EObject;
 import com.u2d.model.ComplexType;
 import com.u2d.restrict.Restriction;
 import com.u2d.restrict.CommandRestriction;
+import com.u2d.restrict.UserRestriction;
+import com.u2d.restrict.CreationRestriction;
 import com.u2d.type.atom.*;
 import com.u2d.type.composite.LoggedEvent;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * @author Eitan Suez
@@ -45,6 +48,7 @@ public class Role extends AbstractComplexEObject
    public CommandRestriction addCmdRestriction(CommandRestriction restriction)
    {
       _restrictions.add(restriction);
+      restriction.setRole(this);
       return restriction;
    }
    
@@ -54,7 +58,7 @@ public class Role extends AbstractComplexEObject
    {
       initializePermissions();
       
-      System.out.println("Role "+_name+": applying restrictions..("+_restrictions.getSize()+")");
+      tracer().info("Role "+_name+": applying restrictions..("+_restrictions.getSize()+")");
       for (Iterator itr = _restrictions.iterator(); itr.hasNext(); )
       {
          Restriction restriction = (Restriction) itr.next();
@@ -92,21 +96,37 @@ public class Role extends AbstractComplexEObject
    {
       if (defaultRole())
       {
-         class UserRestriction extends CommandRestriction
-            {
-               public boolean forbidden(EObject target)
-               {
-                  tracer().fine("Checking if command: "+member()+" is forbidden for user "+currentUser()+" on target object "+target);
-                  User user = (User) target;
-                  return (!user.equals(currentUser()));
-               }
-            };
       
-         User prototype = new User();
-         addCmdRestriction(new UserRestriction()).on(prototype.command("ChangePassword"));
-         addCmdRestriction(new UserRestriction()).on(prototype.command("Lock"));
-         addCmdRestriction(new UserRestriction()).on(prototype.command("Edit"));
-         addCmdRestriction(new UserRestriction()).on(prototype.command("Delete"));
+         if (_restrictions.isEmpty())
+         {
+            User prototype = new User();
+            addCmdRestriction(new UserRestriction()).on(prototype.command("ChangePassword"));
+            addCmdRestriction(new UserRestriction()).on(prototype.command("Lock"));
+            addCmdRestriction(new UserRestriction()).on(prototype.command("Edit"));
+            addCmdRestriction(new UserRestriction()).on(prototype.command("Delete"));
+            
+            addCmdRestriction(new CreationRestriction(ComplexType.forClass(Role.class)));
+            addCmdRestriction(new CreationRestriction(ComplexType.forClass(Restriction.class)));
+            addCmdRestriction(new CreationRestriction(ComplexType.forClass(User.class)));
+            addCmdRestriction(new CreationRestriction(ComplexType.forClass(LoggedEvent.class)));
+            
+            // 1. disable destruction of logs
+            LoggedEvent evtProto = new LoggedEvent();
+            addCmdRestriction(new CommandRestriction(this, evtProto.command("Delete")));
+            // 2. disable destruction of roles
+            CommandRestriction roleDeletionRestriction = 
+                  new CommandRestriction(this, this.command("Delete"));
+            // 3. disable destruction of command restrictions
+            addCmdRestriction(roleDeletionRestriction);
+            addCmdRestriction(new CommandRestriction(this, 
+                                                     roleDeletionRestriction.command("Delete")));
+            // TODO: how to specify a restriction on a command across a type hierarchy?
+            
+            Set items = new HashSet();
+            items.addAll(_restrictions.getItems());
+            items.add(this);
+            hbmPersistor().saveMany(items);
+         }
       
          // todo:  add here a litany of other restrictions
          //  - on the manipulation of existing roles
@@ -118,40 +138,6 @@ public class Role extends AbstractComplexEObject
          
          // another issue:  on the visibility of types and instances
          
-         // notes:  destruction:  controlled without adding new concepts:
-         //    restrictions on command: delete
-         
-         //   creation:  controlled without adding new concepts:
-         //     restrictions on type's New command (and other constructor
-         //     commands)
-         
-         //  - on the creation and destruction of roles
-         //  - on the creation and destruction of restrictions
-         //  - on the creation and destruction of users
-         //  - on the creation and destruction of logs
-         class CreationRestriction extends CommandRestriction
-         {
-            ComplexType _type;
-
-            public CreationRestriction(ComplexType type)
-            {
-               _type = type;
-               _member = _type.command("New");
-            }
-         };
-         
-         addCmdRestriction(new CreationRestriction(ComplexType.forClass(Role.class)));
-         addCmdRestriction(new CreationRestriction(ComplexType.forClass(Restriction.class)));
-         addCmdRestriction(new CreationRestriction(ComplexType.forClass(User.class)));
-         addCmdRestriction(new CreationRestriction(ComplexType.forClass(LoggedEvent.class)));
-
-         // bug:  unlike with the previous case where we had to override
-         // forbidden(), in this case, should be able to persist this
-         // restriction and source it from the db instead of special-casing
-         // it in code like in the above.  revise this accordingly: create
-         // restrictions and save them to database and remove them from here.
-         // possibly do this even in xml.
-         
          // bug: classbar and contextmenus for types are constructed once.
          // so if login as admin and then as another user, the contextmenu
          // will show restricted New commands.  todo: fix.
@@ -160,6 +146,8 @@ public class Role extends AbstractComplexEObject
          //    i could ask it:  isMutator? (does it change the state of the
          //    underlying object in question).  this way, i could do something
          //    like:  for each mutating command on given type: forbid.
+         // in ruby, assuming convention can be trusted, can infer from
+         //  command name ending with "!"
 
       }
       
