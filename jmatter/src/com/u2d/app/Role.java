@@ -122,21 +122,33 @@ public class Role extends AbstractComplexEObject
                                                      roleDeletionRestriction.command("Delete")));
             // TODO: how to specify a restriction on a command across a type hierarchy?
             
+            // disable editing logged events
+            addCmdRestriction(new CommandRestriction(this, evtProto.command("Edit")));
+            // disable editing roles
+            addCmdRestriction(new CommandRestriction(this, this.command("Edit")));
+            // disable editing restrictions
+            addCmdRestriction(new CommandRestriction(this, 
+                                                     roleDeletionRestriction.command("Edit")));
+            
             Set items = new HashSet();
             items.addAll(_restrictions.getItems());
             items.add(this);
             hbmPersistor().saveMany(items);
          }
       
-         // todo:  add here a litany of other restrictions
-         //  - on the manipulation of existing roles
-         //  - on the manipulation of existing restrictions
-         //  - on the manipulation of log information
-         
+         // todo:  add other restrictions
          //  - on the manipulation of metadata (once revise jmatter to
          //     store metadata in the db)
          
          // another issue:  on the visibility of types and instances
+         
+         // another issue:  won't the editing of associations leak?
+         //  the ability to right-click associate for example, or to dnd-associate
+         //  does not require entering edit mode.  so even if disable "edit"
+         //   need to ensure that other parts of code that go around this:  editing
+         //   associations (namely) is vetoed as well.  that is, add code to 
+         //   just check for the presence of Edit restritions on the association's
+         //   parent.
          
          //  thought:  would be nice if commands were rich enough where
          //    i could ask it:  isMutator? (does it change the state of the

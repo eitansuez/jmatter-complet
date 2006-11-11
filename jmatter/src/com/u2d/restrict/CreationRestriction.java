@@ -18,5 +18,7 @@ public class CreationRestriction extends CommandRestriction
    {
       _type = type;
       _member = _type.command("New");
+      // TODO: this is not enough.  List.command("New") must also be
+      //  restricted
    }
 }
