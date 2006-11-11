@@ -62,6 +62,7 @@ public class User extends AbstractComplexEObject
 
    @FieldAt(mnemonic='u')
    public StringEO getUsername() { return _username; }
+   @FieldAt(description = "Password.  Minimum 5 characters.")
    public Password getPassword() { return _password; }
    public BooleanEO getLocked() { return _locked; }
    public Name getName() { return _name; }

@@ -15,8 +15,29 @@ import java.lang.annotation.ElementType;
 @Target(ElementType.METHOD)
 public @interface FieldAt
 {
+   /**
+    * @return optional mnemonic (for the gui)
+    */
    public char mnemonic() default '\0';
+
+   /**
+    * @return a way to override the caption/label for a field.  i prefer natural labels, 
+    *   derived from the field name. 
+    */
    public String label() default "";
+
+   /**
+    * @return a way to control the size of the corresponding database table field
+    */
    public int colsize() default 0;
+
+   /**
+    * @return a way to control the size of the text field used for editing the field in the ui
+    */
    public int displaysize() default 0;
+
+   /**
+    * @return field description.  possibly use as text for tool tips..
+    */
+   public String description() default "";
 }

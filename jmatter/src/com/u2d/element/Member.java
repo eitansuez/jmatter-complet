@@ -7,6 +7,7 @@ import java.util.*;
 
 import com.u2d.model.FieldParent;
 import com.u2d.restrict.Restrictable;
+import com.u2d.type.atom.StringEO;
 
 /**
  * @author Eitan Suez
@@ -14,6 +15,7 @@ import com.u2d.restrict.Restrictable;
 public abstract class Member extends ProgrammingElement implements Restrictable
 {
    protected FieldParent _parent;
+   protected final StringEO _description = new StringEO();
    
    public FieldParent parent() { return _parent; }
 
@@ -99,5 +101,12 @@ public abstract class Member extends ProgrammingElement implements Restrictable
    {
       _mnemonic = Character.toUpperCase(mnemonic);
    }
+
+   /*
+    * consider moving descrption up to base class (ProgrammingElement).
+    * will do here for now.
+    */
+   public StringEO getDescription() { return _description; }
+   public String description() { return _description.stringValue(); }
    
 }

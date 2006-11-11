@@ -26,6 +26,9 @@ public class FieldCaption extends com.u2d.ui.Caption
       setText(field.label()+appender);
       setLabelFor(comp);
       
+      if (!field.getDescription().isEmpty())
+         setToolTipText(field.description());
+      
       if (field.hasMnemonic())
       {
          String text = field.label();

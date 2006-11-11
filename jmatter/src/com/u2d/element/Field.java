@@ -429,6 +429,9 @@ public abstract class Field extends Member
          if (fat.label() != null && fat.label().length() > 0)
             getLabel().setValue(fat.label());
          
+         if (fat.description() != null && fat.description().length() > 0)
+            getDescription().setValue(fat.description());
+         
          if (fat.colsize() > 0)
             getColsize().setValue(fat.colsize());
          
