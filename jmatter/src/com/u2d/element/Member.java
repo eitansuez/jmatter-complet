@@ -8,6 +8,7 @@ import java.util.*;
 import com.u2d.model.FieldParent;
 import com.u2d.restrict.Restrictable;
 import com.u2d.type.atom.StringEO;
+import com.u2d.type.atom.CharEO;
 
 /**
  * @author Eitan Suez
@@ -81,11 +82,12 @@ public abstract class Member extends ProgrammingElement implements Restrictable
       public String[] getInfo() { return _memberOrder; }
    }
 
-   protected char _mnemonic;
-   public char getMnemonic() { return _mnemonic; }
-   public boolean hasMnemonic() { return _mnemonic != '\0'; }
-
-   /**
+   protected final CharEO _mnemonic = new CharEO();
+   public CharEO getMnemonic() { return _mnemonic; }
+   public boolean hasMnemonic() { return !_mnemonic.isEmpty(); }
+   public char mnemonic() { return _mnemonic.charValue(); }
+   
+   /*
     * Note: when dealing with Swing: JButtons bound to swing Action's
     * Then the mnemonic is set via a call to putValue() which takes
     * as an argument, the Integer value of the mnemonic character.
@@ -97,9 +99,9 @@ public abstract class Member extends ProgrammingElement implements Restrictable
     * 
     * This should explain the implementation below: 
     */
-   public void setMnemonic(char mnemonic)
+   public void updateMnemonic(char newValue)
    {
-      _mnemonic = Character.toUpperCase(mnemonic);
+      _mnemonic.setValue(Character.toUpperCase(newValue));
    }
 
    /*

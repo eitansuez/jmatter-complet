@@ -31,7 +31,7 @@ public class CommandTest
       String fullPath = "com.u2d.type.composite.Folder#Edit";
       assertEquals(fullPath, editCmd.getFullPath());
       
-      EOCommand cmd = EOCommand.forPath(fullPath);
+      Command cmd = Command.forPath(fullPath);
       assertEquals(cmd, editCmd);
    }
 }

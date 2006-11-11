@@ -50,7 +50,7 @@ public class CharEO extends AbstractAtomicEO
    }
    public static boolean isEmpty(char value)
    {
-      return Character.isWhitespace(value);
+      return (((int) value) == 0) || Character.isWhitespace(value);
    }
    
    public boolean equals(Object obj)

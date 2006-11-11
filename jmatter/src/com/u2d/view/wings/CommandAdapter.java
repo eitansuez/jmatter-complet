@@ -27,7 +27,7 @@ public class CommandAdapter extends AbstractAction
 
       putValue(Action.NAME, _command.label());
       putValue(Action.ACTION_COMMAND_KEY, _command.name());
-      putValue(Action.MNEMONIC_KEY, new Integer(_command.getMnemonic()));
+      putValue(Action.MNEMONIC_KEY, new Integer(_command.mnemonic()));
    }
 
    public CommandAdapter(Command command, Object value, EView source)

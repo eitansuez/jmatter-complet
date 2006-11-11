@@ -30,7 +30,7 @@ public class EOCommand extends Command
    public EOCommand(Method method, ComplexType parent, char mnemonic)
    {
       this(method, parent);
-      setMnemonic(mnemonic);
+      updateMnemonic(mnemonic);
    }
 
    public EOCommand(Method method, ComplexType parent,
@@ -144,7 +144,8 @@ public class EOCommand extends Command
 
    public EOCommand copy()
    {
-      return new EOCommand(_method, (ComplexType) _parent, _mnemonic, _params, _sensitive);
+      return new EOCommand(_method, (ComplexType) _parent, 
+                           _mnemonic.charValue(), _params, _sensitive);
    }
 
    public boolean equals(Object obj)

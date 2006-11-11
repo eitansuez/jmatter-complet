@@ -81,11 +81,11 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
       {
          String text = _field.label();
          
-         char mnemonic = Character.toLowerCase(_field.getMnemonic());
+         char mnemonic = Character.toLowerCase(_field.mnemonic());
          int index = text.indexOf(mnemonic);
          if (index < 0)
          {
-            mnemonic = Character.toUpperCase(_field.getMnemonic());
+            mnemonic = Character.toUpperCase(_field.mnemonic());
             index = text.indexOf(mnemonic);
          }
          

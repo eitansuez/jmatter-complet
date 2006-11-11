@@ -29,11 +29,11 @@ public class FieldCaption extends SLabel
       if (field.hasMnemonic())
       {
          String text = field.label();
-         char mnemonic = Character.toLowerCase(field.getMnemonic());
+         char mnemonic = Character.toLowerCase(field.mnemonic());
          int index = text.indexOf(mnemonic);
          if (index < 0)
          {
-            mnemonic = Character.toUpperCase(field.getMnemonic());
+            mnemonic = Character.toUpperCase(field.mnemonic());
             index = text.indexOf(mnemonic);
          }
 

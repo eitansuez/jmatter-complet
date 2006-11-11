@@ -12,7 +12,6 @@ import com.u2d.model.ComplexType;
 import com.u2d.model.Editor;
 import com.u2d.view.*;
 import com.u2d.view.swing.CommandAdapter;
-import com.u2d.view.swing.SwingViewMechanism;
 import java.awt.*;
 import java.awt.event.*;
 import com.u2d.ui.*;
@@ -111,8 +110,11 @@ public class FindView2 extends JSplitPane implements View
             });
 
          }
-         { _name.setValue("Save Query"); }
-         public char getMnemonic() { return 's'; }
+
+         {
+            _name.setValue("Save Query");
+            updateMnemonic('s');
+         }
       };
       Action action = new CommandAdapter(cmd, null, null);
       return new NormalButton(action);
@@ -169,10 +171,10 @@ public class FindView2 extends JSplitPane implements View
 
          {
             _name.setValue("Find");
+            updateMnemonic('f');
          }
 //         public String getName() { return "Find"; }
 //         public String getLabel() { return "Find"; }
-         public char getMnemonic() { return 'f'; }
        };
 
       CommandAdapter cmdAdapter = new CommandAdapter(findCmd, null, null);
