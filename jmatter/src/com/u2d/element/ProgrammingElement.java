@@ -5,7 +5,6 @@ package com.u2d.element;
 
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
-import com.u2d.model.ComplexType;
 import com.u2d.model.Localized;
 import com.u2d.type.atom.*;
 

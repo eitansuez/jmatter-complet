@@ -464,15 +464,7 @@ public class ComplexType extends AbstractComplexEObject
                {
                   if ( field instanceof AtomicField )
                   {
-                     try
-                     {
-                        AtomicEObject defaultValue = ((AtomicField) field).parseValue(stringValue);
-                        ((AtomicField) field).setDefaultValue(defaultValue);
-                     }
-                     catch (java.text.ParseException ex)
-                     {
-                        System.err.println("Failed to parse field default value for field " + field);
-                     }
+                     ((AtomicField) field).getDefaultValue().setValue(stringValue);
                   }
                   else if (field instanceof AssociationField)
                   {

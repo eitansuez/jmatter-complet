@@ -15,6 +15,8 @@ import com.u2d.model.Harvester;
  */
 public abstract class CompositeField extends Field
 {
+   public CompositeField() {}
+   
    public CompositeField(FieldParent parent, PropertyDescriptor descriptor) 
    {
       super(parent, descriptor);

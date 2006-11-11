@@ -32,8 +32,10 @@ public abstract class Field extends Member
 
    protected transient Method _getter, _setter;
 
-   public static String[] fieldOrder = {"name", "label", "required",
-     "defaultValue", "mnemonic"};
+   public static String[] fieldOrder = {"name", "label", "required", "mnemonic", 
+      "description"};
+   public static String[] readOnly = {"name"};
+   
 
    public Field() {}
 

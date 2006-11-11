@@ -4,18 +4,26 @@
 package com.u2d.field;
 
 import java.beans.*;
+import java.text.ParseException;
 
 import com.u2d.model.*;
 import com.u2d.pattern.*;
 import com.u2d.validation.Required;
 import com.u2d.view.*;
+import com.u2d.type.atom.StringEO;
 
 /**
  * @author Eitan Suez
  */
 public class AtomicField extends CompositeField
 {
-   protected AtomicEObject _defaultValue;
+   public static String[] fieldOrder = {"name", "label", "required", "defaultValue", 
+         "mnemonic", "description"};
+   public static String[] readOnly = {"name"};
+
+   protected final StringEO _defaultValue = new StringEO();
+   
+   public AtomicField() {}
 
    public AtomicField(FieldParent parent, PropertyDescriptor descriptor)
    {
@@ -33,19 +41,8 @@ public class AtomicField extends CompositeField
       return value.getView();
    }
    
-   public AtomicEObject getDefaultValue()
-   {
-      if (_defaultValue == null) _defaultValue = newInstance();
-      return _defaultValue;
-   }
-   public void setDefaultValue(AtomicEObject value)
-   {
-      if (!getJavaClass().isAssignableFrom(value.getClass()))
-         throw new IllegalArgumentException( "Default value for field " + getPath() + 
-               " of invalid type (should be " + getJavaClass().getName() + ")" );
-      _defaultValue = value;
-   }
-   
+   public StringEO getDefaultValue() { return _defaultValue; }
+
    public AtomicEObject parseValue(String stringValue) throws java.text.ParseException
    {
       AtomicEObject aeo = newInstance();
@@ -78,9 +75,19 @@ public class AtomicField extends CompositeField
       if (parent.isTransientState())
       {
          AtomicEObject aeo = ((AtomicEObject) value);
-         AtomicEObject defaultValue = getDefaultValue();
-         if (aeo.isEmpty() && !defaultValue.isEmpty())
-            aeo.setValue(defaultValue);
+         if (aeo.isEmpty() && !_defaultValue.isEmpty())
+         {
+            try
+            {
+               aeo.parseValue(_defaultValue.stringValue());
+            }
+            catch (ParseException e)
+            {
+               System.err.println("Failed to parse default value " +
+                     "(" + _defaultValue + ") for field (" + this + ")");
+               e.printStackTrace();
+            }
+         }
       }
       value.fireStateChanged();
    }

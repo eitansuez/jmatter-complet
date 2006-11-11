@@ -43,7 +43,7 @@ public abstract class Member extends ProgrammingElement implements Restrictable
    private static class NameComparator implements java.util.Comparator
    {
       private String[] _memberOrder;
-      private Map _inverted = new HashMap();
+      private Map<String, Integer> _inverted = new HashMap<String, Integer>();
       
       NameComparator(String[] memberOrder)
       {
@@ -109,6 +109,7 @@ public abstract class Member extends ProgrammingElement implements Restrictable
     * will do here for now.
     */
    public StringEO getDescription() { return _description; }
+   // convenience..
    public String description() { return _description.stringValue(); }
    
 }
