@@ -48,7 +48,7 @@ public class FieldTest extends TestCase
    {
       try
       {
-         _nameField.setDefaultValue(new IntEO(3));
+         _nameField.getDefaultValue().setValue(new IntEO(3));
          fail("Should have disallowed default value of the wrong type");
       }
       catch (IllegalArgumentException expected)
@@ -61,7 +61,7 @@ public class FieldTest extends TestCase
    {
       try
       {
-         _nameField.setDefaultValue(new StringEO("Mr. hmm"));
+         _nameField.getDefaultValue().setValue(new StringEO("Mr. hmm"));
       }
       catch (IllegalArgumentException ex)
       {

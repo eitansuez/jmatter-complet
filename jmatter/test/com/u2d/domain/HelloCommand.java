@@ -15,7 +15,7 @@ public class HelloCommand extends Command
    {
       _name.setValue("Hello");
       _label.setValue("Say Hello");
-      updateMnemonic('h');
+      _mnemonic.setValue('h');
    }
    
    public void execute(Object value, EView source)

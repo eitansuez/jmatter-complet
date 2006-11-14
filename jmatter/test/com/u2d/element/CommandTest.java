@@ -34,4 +34,11 @@ public class CommandTest
       Command cmd = Command.forPath(fullPath);
       assertEquals(cmd, editCmd);
    }
+   
+   public void testCopy()
+   {
+      Command copy = (Command) editCmd.makeCopy();
+      assertTrue(copy instanceof EOCommand);
+      assertEquals(editCmd.name(), copy.name());
+   }
 }
