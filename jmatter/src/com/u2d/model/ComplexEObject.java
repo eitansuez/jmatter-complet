@@ -76,6 +76,7 @@ public interface ComplexEObject
    public TreeModel treeModel();
 
    public Long getID();
+   public void setID(Long id);
    public Long getVersion();
 
    public DateTime getCreatedOn();

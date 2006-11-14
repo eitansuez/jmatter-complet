@@ -16,21 +16,20 @@ public class EOCommand extends Command
 {
    private Method _method;
    private ParameterInfo[] _params;
+   
+   public EOCommand() {}
 
    public EOCommand(Method method, ComplexType parent)
    {
       _method = method;
       String name = ComplexType.reflector().commandName(method);
-      getName().setValue(name);
-      _parent = parent;
-
-//      setState(_readState, true);
+      init(parent, name);
    }
 
    public EOCommand(Method method, ComplexType parent, char mnemonic)
    {
       this(method, parent);
-      updateMnemonic(mnemonic);
+      _mnemonic.setValue(mnemonic);
    }
 
    public EOCommand(Method method, ComplexType parent,

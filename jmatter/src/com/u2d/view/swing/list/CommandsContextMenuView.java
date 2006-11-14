@@ -33,20 +33,20 @@ public class CommandsContextMenuView
    private EObject _eo;
    private Onion _commands;
    private EView _source;
-   private EView _target;
+   private JComponent _target;
    private Map _indexMap = new HashMap();
    private ContextMouseListener _listener = new ContextMouseListener();
    private AppEventListener _ael;
 
    public CommandsContextMenuView() {}
 
-   public void bind(final EObject eo, final EView target, final EView source)
+   public void bind(final EObject eo, final JComponent target, final EView source)
    {
       _eo = eo;
       _eo.addChangeListener(this);
       _source = source;
       _target = target;
-      ((JComponent) _target).addMouseListener(_listener);
+      _target.addMouseListener(_listener);
       setup();
       
       if ( (_eo instanceof ComplexEObject) && ((ComplexEObject) _eo).isMeta() )
@@ -77,7 +77,7 @@ public class CommandsContextMenuView
    
    public void bind(EObject eo, EView source)
    {
-      bind(eo, source, source);
+      bind(eo, (JComponent) source, source);
    }
    
    public void detach()
@@ -91,7 +91,7 @@ public class CommandsContextMenuView
 
       if (_target != null)
       {
-         ((JComponent) _target).removeMouseListener(_listener);
+         _target.removeMouseListener(_listener);
       }
       _indexMap.clear();
       _source = null;

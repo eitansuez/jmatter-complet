@@ -112,7 +112,7 @@ public class FindView extends JPanel implements View
          
          {
             _name.setValue("Find");
-            updateMnemonic('f');
+            _mnemonic.setValue('f');
          }
 //         public String getName() { return "Find"; }
 //         public String getLabel() { return "Find"; }

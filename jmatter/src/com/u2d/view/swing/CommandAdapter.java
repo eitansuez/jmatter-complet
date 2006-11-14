@@ -29,11 +29,42 @@ public class CommandAdapter extends AbstractAction
       _command = command;
       _source = source;
 
-      putValue(Action.NAME, _command.label());
+      updateCaption();
       putValue(Action.ACTION_COMMAND_KEY, _command.name());
-      putValue(Action.MNEMONIC_KEY, new Integer(_command.mnemonic()));
+      updateMnemonic();
+      updateDescription();
    }
-
+   
+   public void updateCaption()
+   {
+      putValue(Action.NAME, _command.label());
+   }
+   public void updateMnemonic()
+   {
+      char mnemonic = Character.toUpperCase(_command.mnemonic());  // (*)
+      putValue(Action.MNEMONIC_KEY, new Integer(mnemonic));
+   }
+   public void updateDescription()
+   {
+      putValue(Action.SHORT_DESCRIPTION, _command.description());
+   }
+   
+   
+   /*  (*)
+    * Note: when dealing with Swing: JButtons bound to swing Action's
+    * 
+    * Then the mnemonic is set via a call to putValue() which takes
+    * as an argument, the Integer value of the mnemonic character.
+    * 
+    * I have verified that there's a bug in java where the integer value
+    * must be the integer code of the upper case version of the mnemonic.
+    * Otherwise, invoking the mnemonic won't work (although it will display
+    * correctly).
+    * 
+    * This should explain the referenced implementation. 
+    */
+   
+   
    public CommandAdapter(Command command, Object value, EView source)
    {
       this(command, source);

@@ -7,10 +7,7 @@ import com.u2d.restrict.CommandRestriction;
 import com.u2d.restrict.Restriction;
 import com.u2d.view.*;
 import com.u2d.app.User;
-import com.u2d.model.ComplexEObject;
-import com.u2d.model.EObject;
-import com.u2d.model.Localized;
-import com.u2d.model.ComplexType;
+import com.u2d.model.*;
 import com.u2d.type.atom.StringEO;
 import java.util.Arrays;
 
@@ -20,10 +17,39 @@ import java.util.Arrays;
 public abstract class Command extends Member 
 {
    private final StringEO _fullPath = new StringEO();
+
+   public static String[] fieldOrder = {"name", "fullPath", "label", "mnemonic", "description"};
+   public static String[] readOnly = {"name", "fullPath"};
+   public static String[] identities = {"fullPath"};
+
+   public Command() {}
    
+   protected void init(FieldParent parent, String name)
+   {
+      _parent = parent;
+      getName().setValue(name);
+      
+      computePath();
+      
+      setState(_readState, true);
+   }
+   
+   private void computePath()
+   {
+      if (_parent == null)
+      {
+         // currently the case for commands set on non-complex types
+         // such as list types and atomic types.  this will be fixed shortly.
+         _fullPath.setValue("#" + _name);
+         return;
+      }
+      
+      String fullPath = _parent.getJavaClass().getName() + "#" + _name;
+      _fullPath.setValue(fullPath);
+   }
+
    public abstract void execute(Object value, EView source)
             throws java.lang.reflect.InvocationTargetException;
-
 
    /**
     * A sensitive command is one that should be guarded against
@@ -53,13 +79,7 @@ public abstract class Command extends Member
 
       _restriction = (CommandRestriction) restriction;
    }
-   public CommandRestriction getRestriction() { return _restriction; }
-   public void setRestriction(CommandRestriction restriction)
-   {
-      Restriction oldValue = _restriction;
-      applyRestriction(restriction);
-      firePropertyChange("restriction", oldValue, restriction);
-   }
+   public CommandRestriction restriction() { return _restriction; }
    
    public void liftRestriction() { _restriction = null; }
    
@@ -128,7 +148,7 @@ public abstract class Command extends Member
    }
 
 
-   /**
+   /*
     * basically a guard against grafting the "Open" command
     * on maximized views
     */
@@ -189,17 +209,8 @@ public abstract class Command extends Member
       return false;
    }
 
-   public StringEO getFullPath()
-   {
-      if (_fullPath.isEmpty())
-      {
-         String fullPath = _parent.getJavaClass().getName() + "#" + _name;
-         _fullPath.setValue(fullPath);
-      }
-      return _fullPath;
-   }
-
-   public String fullPath() { return getFullPath().stringValue(); }
+   public StringEO getFullPath() { return _fullPath; }
+   public String fullPath() { return _fullPath.stringValue(); }
 
    public static Command forPath(String path)
    {

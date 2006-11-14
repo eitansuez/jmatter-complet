@@ -763,7 +763,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    // Part of contract with persistence mechanism (should be formalized via an interface):
    private Long _id;
    public Long getID() { return _id; }
-   protected void setID(Long id) { _id = id; }
+   public void setID(Long id) { _id = id; }
    
    // Hibernate version field, for Optimistic Locking
    private Long _version;

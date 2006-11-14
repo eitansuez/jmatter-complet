@@ -113,7 +113,7 @@ public class FindView2 extends JSplitPane implements View
 
          {
             _name.setValue("Save Query");
-            updateMnemonic('s');
+            _mnemonic.setValue('s');
          }
       };
       Action action = new CommandAdapter(cmd, null, null);
@@ -171,7 +171,7 @@ public class FindView2 extends JSplitPane implements View
 
          {
             _name.setValue("Find");
-            updateMnemonic('f');
+            _mnemonic.setValue('f');
          }
 //         public String getName() { return "Find"; }
 //         public String getLabel() { return "Find"; }

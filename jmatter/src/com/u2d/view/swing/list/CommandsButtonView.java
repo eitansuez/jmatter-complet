@@ -4,13 +4,11 @@ import com.u2d.model.EObject;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
 import com.u2d.view.swing.CommandAdapter;
+import com.u2d.view.swing.CommandButton;
 import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
 import com.u2d.element.Command;
-import com.u2d.ui.LockedButton;
-import com.u2d.ui.DefaultButton;
-import com.u2d.ui.NormalButton;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.PanelBuilder;
@@ -117,26 +115,9 @@ public class CommandsButtonView extends JPanel implements ListEView
                
                if (cmd.filter(_eo)) return;
 
-               CommandAdapter cmdAdapter = new CommandAdapter(cmd, _eo, _source);
-               JButton btn;
-               if (cmd.isSensitive())
-               {
-                  btn = new LockedButton(cmdAdapter);
-                  firstPass = false;
-               }
-               else
-               {
-                  if (firstPass)
-                  {
-                     btn = new DefaultButton(cmdAdapter);
-                     firstPass = false;
-                  }
-                  else
-                  {
-                     btn = new NormalButton(cmdAdapter);
-                  }
-               }
-
+               CommandButton btn = new CommandButton(cmd, _eo, _source, firstPass);
+               firstPass = false;
+               
                if (_horizontalLayout)
                {
                   ((ButtonBarBuilder) builder).addFixedNarrow(btn);
@@ -153,18 +134,20 @@ public class CommandsButtonView extends JPanel implements ListEView
                index++;
             }
 
-         public void pause()
-         {
-            if (_horizontalLayout)
+            public void pause()
             {
-               ((ButtonBarBuilder) builder).addUnrelatedGap();
+               if (_horizontalLayout)
+               {
+                  ((ButtonBarBuilder) builder).addUnrelatedGap();
+               }
+               else
+               {
+                  ((ButtonStackBuilder) builder).addUnrelatedGap();
+               }
             }
-            else
-            {
-               ((ButtonStackBuilder) builder).addUnrelatedGap();
-            }
-         }
+         
             public void done() {}
+         
          }).peel(_eo.commands());
 
       //System.out.println("buttons grafted, source set on cmdAdapter: "+_source);

@@ -88,23 +88,6 @@ public abstract class Member extends ProgrammingElement implements Restrictable
    public char mnemonic() { return _mnemonic.charValue(); }
    
    /*
-    * Note: when dealing with Swing: JButtons bound to swing Action's
-    * Then the mnemonic is set via a call to putValue() which takes
-    * as an argument, the Integer value of the mnemonic character.
-    * 
-    * I have verified that there's a bug in java where the integer value
-    * must be the integer code of the upper case version of the mnemonic.
-    * Otherwise, invoking the mnemonic won't work (although it will display
-    * correctly).
-    * 
-    * This should explain the implementation below: 
-    */
-   public void updateMnemonic(char newValue)
-   {
-      _mnemonic.setValue(Character.toUpperCase(newValue));
-   }
-
-   /*
     * consider moving descrption up to base class (ProgrammingElement).
     * will do here for now.
     */
