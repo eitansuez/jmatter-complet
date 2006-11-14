@@ -18,22 +18,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/element/EOCommand.java" afterPath="$PROJECT_DIR$/src/com/u2d/element/EOCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/element/Member.java" afterPath="$PROJECT_DIR$/src/com/u2d/element/Member.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/com/u2d/element/CommandTest.java" afterPath="$PROJECT_DIR$/test/com/u2d/element/CommandTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/CommandAdapter.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/CommandAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/NullComplexEObject.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/NullComplexEObject.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/element/Field.java" afterPath="$PROJECT_DIR$/src/com/u2d/element/Field.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/find/FindView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/find/FindView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/list/CommandsContextMenuView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/list/CommandsContextMenuView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/com/u2d/core/FieldTest.java" afterPath="$PROJECT_DIR$/test/com/u2d/core/FieldTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/element/Command.java" afterPath="$PROJECT_DIR$/src/com/u2d/element/Command.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/element/Member.java" afterPath="$PROJECT_DIR$/src/com/u2d/element/Member.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/find/FindView2.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/find/FindView2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/com/u2d/domain/HelloCommand.java" afterPath="$PROJECT_DIR$/test/com/u2d/domain/HelloCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/list/CommandsButtonView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/list/CommandsButtonView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/ComplexEObject.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/ComplexEObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/ComplexType.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/ComplexType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/pattern/FieldRecurser.java" afterPath="$PROJECT_DIR$/src/com/u2d/pattern/FieldRecurser.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -314,6 +303,20 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="com.u2d.reflection" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.pattern" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -863,23 +866,9 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexEObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="18" selection-start="1668" selection-end="1668" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="67" column="0" selection-start="1676" selection-end="1676" vertical-scroll-proportion="0.15957446">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="877" column="0" selection-start="25899" selection-end="25899" vertical-scroll-proportion="0.15463917">
           <folding />
         </state>
       </provider>
@@ -898,37 +887,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Command.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="22" selection-start="326" selection-end="326" vertical-scroll-proportion="0.22780569">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/com/u2d/domain/HelloCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="0" selection-start="322" selection-end="322" vertical-scroll-proportion="0.47692308">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/EOCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="4" selection-start="689" selection-end="689" vertical-scroll-proportion="0.37692308">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Field.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="429" column="27" selection-start="11624" selection-end="11624" vertical-scroll-proportion="0.288">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Member.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="0" selection-start="2487" selection-end="2487" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
@@ -966,6 +927,48 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/CommandAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="48" column="65" selection-start="1235" selection-end="1235" vertical-scroll-proportion="0.5670103">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="39" selection-start="595" selection-end="595" vertical-scroll-proportion="0.23367697">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/pattern/FieldRecurser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="350" selection-end="350" vertical-scroll-proportion="0.34170854">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Member.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="106" column="0" selection-start="3049" selection-end="3049" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="582" column="32" selection-start="17456" selection-end="17456" vertical-scroll-proportion="0.6254296">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Command.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="407" selection-end="616" vertical-scroll-proportion="0.42713568">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/EOCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="335" selection-end="335" vertical-scroll-proportion="0.34170854">
           <folding />
         </state>
       </provider>

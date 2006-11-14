@@ -9,6 +9,8 @@ import com.u2d.model.FieldParent;
 import com.u2d.restrict.Restrictable;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.CharEO;
+import org.hibernate.Session;
+import org.hibernate.Query;
 
 /**
  * @author Eitan Suez
@@ -97,4 +99,30 @@ public abstract class Member extends ProgrammingElement implements Restrictable
    
    public abstract StringEO getFullPath();
    
+   /**
+    * Check if field metadata exists in db.  If so, load
+    * that information into self and replace loaded object
+    * with self (session.evict followed by session.update)
+    */
+   public void applyDbMetadata()
+   {
+      String hql = "from Member m where m.fullPath = :fullPath";
+      Session session = hbmPersistor().getSession();
+      Query query = session.createQuery(hql);
+      query.setParameter("fullPath", getFullPath());
+      Member member = (Member) query.uniqueResult();
+      if (member != null)
+      {
+         tracer().info("Merging member: "+member+" with member object: "+this);
+         transferCopy(this, member, true);
+         setID(member.getID());
+         setVersion(member.getVersion());
+         session.evict(member);
+         session.update(this);
+         tracer().info("Merged: "+this);
+      }
+   }
+
+
+
 }

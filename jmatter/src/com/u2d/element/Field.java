@@ -444,29 +444,6 @@ public abstract class Field extends Member
       }
    }
 
-   /**
-    * Check if field metadata exists in db.  If so, load
-    * that information into self and replace loaded object
-    * with self (session.evict followed by session.update)
-    */
-   public void applyDbMetadata()
-   {
-      String hql = "from Field f where f.fullPath = :fullPath";
-      Session session = hbmPersistor().getSession();
-      Query query = session.createQuery(hql);
-      query.setParameter("fullPath", getFullPath());
-      Field field = (Field) query.uniqueResult();
-      if (field != null)
-      {
-         transferCopy(this, field, true);
-         setID(field.getID());
-         setVersion(field.getVersion());
-         session.evict(field);
-         session.update(this);
-      }
-   }
-
-
 //   public static Class getCustomTypeImplementorClass()
 //   {
 //      return FieldUserType.class;

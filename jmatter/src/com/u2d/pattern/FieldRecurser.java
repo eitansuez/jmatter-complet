@@ -22,11 +22,9 @@ public class FieldRecurser
    
    public static void recurseFields(List fields, FieldProcessor processor)
    {
-      Iterator itr = fields.iterator();
-      Field field = null;
-      while (itr.hasNext())
+      for (Iterator itr = fields.iterator(); itr.hasNext(); )
       {
-         field = (Field) itr.next();
+         Field field = (Field) itr.next();
          processor.processField(field);
          if (field.isAggregate())
          {

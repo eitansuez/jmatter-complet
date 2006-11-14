@@ -161,6 +161,7 @@ public class ComplexType extends AbstractComplexEObject
          _fields = Harvester.harvestFields(this);
 
          loadFieldMetaData();
+         applyCommandDbMetadata();
       }
       catch (IntrospectionException ex)
       {
@@ -558,6 +559,30 @@ public class ComplexType extends AbstractComplexEObject
       {
          Command cmd = (Command) oitr.next();
          cmd.localize(this);
+      }
+   }
+   private void applyCommandDbMetadata()
+   {
+      for (Iterator itr = _commands.values().iterator(); itr.hasNext(); )
+      {
+         Onion cmds = (Onion) itr.next();
+         applyCommandDbMetadata(cmds);
+      }
+      applyCommandDbMetadata(_typeCommands);
+   }
+   private void applyCommandDbMetadata(Onion cmds)
+   {
+      for (Iterator oitr = cmds.deepIterator(); oitr.hasNext(); )
+      {
+         final Command cmd = (Command) oitr.next();
+         Context.getInstance().addAppEventListener("APP_READY", 
+               new AppEventListener()
+               {
+                  public void onEvent(AppEvent evt)
+                  {
+                     cmd.applyDbMetadata();
+                  }
+               });
       }
    }
    
