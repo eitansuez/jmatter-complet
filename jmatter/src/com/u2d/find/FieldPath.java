@@ -50,12 +50,12 @@ public class FieldPath extends AbstractAtomicEO
             Field field = ((ComplexType.AssociationSearchNode) item).getField();
             if (first) first = false;
             else buf.append("|");
-            buf.append(field.getFullPath());
+            buf.append(field.fullPath());
          }
       }
       Field field = (Field) _pathList.getLast();
       if (!first) buf.append("|");
-      buf.append(field.getFullPath());
+      buf.append(field.fullPath());
       
       _pathString = buf.toString();
    }

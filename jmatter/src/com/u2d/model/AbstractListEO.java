@@ -85,6 +85,7 @@ public abstract class AbstractListEO extends AbstractEObject
 
    
    public abstract ComplexType type();
+   public abstract Class getJavaClass();
 
    public String toString() { return title().toString(); }
 
@@ -516,7 +517,7 @@ public abstract class AbstractListEO extends AbstractEObject
       if (! (obj instanceof AbstractListEO)) return false;
 
       AbstractListEO list = (AbstractListEO) obj;
-      if (list.type() != type()) return false;
+      if (!list.getJavaClass().equals(getJavaClass())) return false;
 
       return _items.equals(list.getItems());
    }

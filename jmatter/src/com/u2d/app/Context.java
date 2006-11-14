@@ -4,6 +4,10 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationContext;
 import org.springframework.beans.BeansException;
 import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.pubsub.AppEventSupport;
+import com.u2d.pubsub.AppEventNotifier;
+import com.u2d.pubsub.AppEventListener;
+import com.u2d.pubsub.AppEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,7 +17,7 @@ import com.u2d.view.swing.SwingViewMechanism;
  * 
  * Wrapper for Spring's applicationContext..
  */
-public class Context implements ApplicationContextAware
+public class Context implements ApplicationContextAware, AppEventNotifier
 {
    private static Context _context = new Context();
    public static Context getInstance() { return _context; }
@@ -22,13 +26,15 @@ public class Context implements ApplicationContextAware
    public Context() { }
 
    private ApplicationContext _applicationContext;
+   private AppEventSupport _support = new AppEventSupport(this);
 
    public void setApplicationContext(ApplicationContext applicationContext)
          throws BeansException
    {
       _applicationContext = applicationContext;
+      fireAppEventNotification("APP_READY");
    }
-   
+
 
    public AppSession getAppSession()
    {
@@ -58,4 +64,30 @@ public class Context implements ApplicationContextAware
    {
       return (HBMPersistenceMechanism) getPersistenceMechanism();
    }
+
+   // ---
+
+   public void addAppEventListener(String evtType, AppEventListener l)
+   {
+      if (_applicationContext == null)
+      {
+         _support.addAppEventListener(evtType, l);
+      }
+      else
+      {
+         // immediately message.  event already occurred..
+         l.onEvent(new AppEvent(this, evtType));
+      }
+   }
+
+   public void removeAppEventListener(String evtType, AppEventListener l)
+   {
+      _support.removeAppEventListener(evtType, l);
+   }
+
+   public void fireAppEventNotification(String evtType)
+   {
+      _support.fireAppEventNotification(evtType);
+   }
+
 }

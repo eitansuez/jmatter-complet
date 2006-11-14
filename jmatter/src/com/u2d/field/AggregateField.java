@@ -27,6 +27,7 @@ public class AggregateField extends CompositeField implements FieldParent
    public BooleanEO getFlattenIntoParent() { return _flattenIntoParent; }
    public boolean flattenIntoParent() { return _flattenIntoParent.booleanValue(); }
    
+   public AggregateField() {}
    
    public AggregateField(FieldParent parent, PropertyDescriptor descriptor)
 			throws IntrospectionException

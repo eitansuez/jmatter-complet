@@ -120,7 +120,15 @@ public class Application
       //LoggedEvent event = new LoggedEvent(type, this, cmd, msg);
       // still thinking this through..
       LogEventType type = new LogEventType(typeString);
-      LoggedEvent event = new LoggedEvent(type, null, cmd, msg);
+//      LoggedEvent event = new LoggedEvent(type, null, cmd, msg);
+      /* temporarily not saving the command.  commands and fields
+         are in a process of transition from being custom user types
+         to being Entities in their own right.
+         To go back to the line above, i would have to make sure
+         i save the command otherwise i'll get a transient object
+         exception from hibernate.
+       */
+      LoggedEvent event = new LoggedEvent(type, null, null, msg);
       event.setTransientState();
       event.save();
    }

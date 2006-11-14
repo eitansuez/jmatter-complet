@@ -198,7 +198,7 @@ public class Harvester
          }
 
          field.applyMetadata();
-            
+         
          try
          {
             String requiredMethodName = field.getName()+"Required";

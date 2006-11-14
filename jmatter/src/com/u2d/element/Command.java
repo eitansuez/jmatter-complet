@@ -11,7 +11,7 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.Localized;
 import com.u2d.model.ComplexType;
-import com.u2d.persist.type.CommandUserType;
+import com.u2d.type.atom.StringEO;
 import java.util.Arrays;
 
 /**
@@ -19,6 +19,8 @@ import java.util.Arrays;
  */
 public abstract class Command extends Member 
 {
+   private final StringEO _fullPath = new StringEO();
+   
    public abstract void execute(Object value, EView source)
             throws java.lang.reflect.InvocationTargetException;
 
@@ -187,10 +189,18 @@ public abstract class Command extends Member
       return false;
    }
 
-   public String getFullPath()
+   public StringEO getFullPath()
    {
-      return _parent.getJavaClass().getName() + "#" + _name;
+      if (_fullPath.isEmpty())
+      {
+         String fullPath = _parent.getJavaClass().getName() + "#" + _name;
+         _fullPath.setValue(fullPath);
+      }
+      return _fullPath;
    }
+
+   public String fullPath() { return getFullPath().stringValue(); }
+
    public static Command forPath(String path)
    {
       if (path == null) return null;
@@ -219,8 +229,8 @@ public abstract class Command extends Member
       return null;
    }
 
-   public static Class getCustomTypeImplementorClass()
-   {
-      return CommandUserType.class;
-   }
+//   public static Class getCustomTypeImplementorClass()
+//   {
+//      return CommandUserType.class;
+//   }
 }

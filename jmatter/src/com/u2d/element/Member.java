@@ -112,4 +112,6 @@ public abstract class Member extends ProgrammingElement implements Restrictable
    // convenience..
    public String description() { return _description.stringValue(); }
    
+   public abstract StringEO getFullPath();
+   
 }

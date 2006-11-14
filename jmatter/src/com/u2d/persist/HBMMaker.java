@@ -100,8 +100,11 @@ public class HBMMaker
             continue;
          }
          
-         if ( ProgrammingElement.class.isAssignableFrom(field.getJavaClass()) ||
-              ComplexType.class.isAssignableFrom(field.getJavaClass()) || 
+//         if ( ProgrammingElement.class.isAssignableFrom(field.getJavaClass()) ||
+//              ComplexType.class.isAssignableFrom(field.getJavaClass()) || 
+//              EObject.class.equals(field.getJavaClass()) ||
+//              Inequality.class.equals(field.getJavaClass()) )
+         if ( ComplexType.class.isAssignableFrom(field.getJavaClass()) || 
               EObject.class.equals(field.getJavaClass()) ||
               Inequality.class.equals(field.getJavaClass()) )
          {

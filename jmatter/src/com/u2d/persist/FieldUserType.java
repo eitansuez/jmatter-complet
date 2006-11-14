@@ -60,7 +60,7 @@ public class FieldUserType implements UserType
          Hibernate.STRING.nullSafeSet(pstmt, null, index);
          return;
       }
-      String fieldPath = field.getFullPath();
+      String fieldPath = field.fullPath();
       Hibernate.STRING.nullSafeSet(pstmt, fieldPath, index);
    }
    

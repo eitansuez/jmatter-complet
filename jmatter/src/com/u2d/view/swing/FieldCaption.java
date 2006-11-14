@@ -35,17 +35,21 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
    {
       _field = field;
 
-      _field.addPropertyChangeListener(this);
       _cmdsView.bind(_field, this);
       
       _font = getFont();
       _foreground = getForeground();
 
-      setupLabelAppender();
+      setupLabel();
       setLabelFor(comp);
       setupTooltip();
       setupMnemonic();
       styleIfRequired();
+      
+      _field.getMnemonic().addChangeListener(this);
+      _field.getRequired().addChangeListener(this);
+      _field.getDescription().addChangeListener(this);
+      _field.getLabel().addChangeListener(this);
    }
 
    private void styleIfRequired()
@@ -62,7 +66,7 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
       }
    }
 
-   private void setupLabelAppender()
+   private void setupLabel()
    {
       Class cls = _field.getJavaClass();
       String appender = (cls.equals(BooleanEO.class)) ? "?" : ":";
@@ -99,30 +103,44 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
 
    public EObject getEObject() { return _field; }
 
-   public void propertyChange(PropertyChangeEvent evt)
+   public void propertyChange(final PropertyChangeEvent evt)
    {
-      if ("mnemonic".equals(evt.getPropertyName()))
-      {
-         setupMnemonic();
-      }
-      if ("required".equals(evt.getPropertyName()))
-      {
-         styleIfRequired();
-      }
-      if ("description".equals(evt.getPropertyName()))
-      {
-         setupTooltip();
-      }
    }
    
-   public void stateChanged(ChangeEvent e)
+   public void stateChanged(final ChangeEvent evt)
    {
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            if (evt.getSource().equals(_field.getMnemonic()))
+            {
+               setupMnemonic();
+            }
+            else if (evt.getSource().equals(_field.getRequired()))
+            {
+               styleIfRequired();
+            }
+            else if (evt.getSource().equals(_field.getDescription()))
+            {
+               setupTooltip();
+            }
+            else if (evt.getSource().equals(_field.getLabel()))
+            {
+               setupLabel();
+            }
+            revalidate(); repaint();
+         }
+      });
    }
 
    public boolean isMinimized() { return true; }
 
    public void detach()
    {
-      _field.removePropertyChangeListener(this);
+      _field.getMnemonic().removeChangeListener(this);
+      _field.getRequired().removeChangeListener(this);
+      _field.getDescription().removeChangeListener(this);
+      _field.getLabel().removeChangeListener(this);
    }
 }

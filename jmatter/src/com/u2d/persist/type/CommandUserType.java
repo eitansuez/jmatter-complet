@@ -47,7 +47,7 @@ public class CommandUserType
          Hibernate.STRING.nullSafeSet(pstmt, null, index);
          return;
       }
-      Hibernate.STRING.nullSafeSet(pstmt, cmd.getFullPath(), index);
+      Hibernate.STRING.nullSafeSet(pstmt, cmd.fullPath(), index);
    }
 
    public boolean isMutable() { return false; }

@@ -157,7 +157,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       if (_closeYourEyes) return;
       
       _value.setValue(_tf.getText());
-      FieldPath fp = new FieldPath(_searchByField.getFullPath());
+      FieldPath fp = new FieldPath(_searchByField.fullPath());
 
       if (_leo == null)
       {

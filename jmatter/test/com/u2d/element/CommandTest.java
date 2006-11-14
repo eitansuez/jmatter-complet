@@ -29,7 +29,7 @@ public class CommandTest
       assertEquals("Edit", editCmd.name());
       assertEquals("Folder.Edit", editCmd.qualifiedName());
       String fullPath = "com.u2d.type.composite.Folder#Edit";
-      assertEquals(fullPath, editCmd.getFullPath());
+      assertEquals(fullPath, editCmd.fullPath());
       
       Command cmd = Command.forPath(fullPath);
       assertEquals(cmd, editCmd);

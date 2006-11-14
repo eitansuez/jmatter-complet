@@ -22,34 +22,51 @@ public class PropertyAccessorAdapter implements PropertyAccessor
    public Getter getGetter(Class clazz, String propertyName)
          throws PropertyNotFoundException
    {
-      ComplexType type = ComplexType.forClass(clazz);
-      Field field = type.field(propertyName);
-      if (field == null)
-         throw new PropertyNotFoundException("No such field: " + propertyName +
-               " on class "+clazz.getName());
-      return new GetterAdapter(field);
+      return new GetterAdapter(clazz, propertyName);
    }
 
    public Setter getSetter(Class clazz, String propertyName)
          throws PropertyNotFoundException
    {
-      ComplexType type = ComplexType.forClass(clazz);
-      Field field = type.field(propertyName);
-      if (field == null)
-         throw new PropertyNotFoundException("No such field: " + propertyName +
-               " on class "+clazz.getName());
-      return new SetterAdapter(field);
+      return new SetterAdapter(clazz, propertyName);
+   }
+   
+   abstract class PropertyAdapter
+   {
+      private Class _clazz;
+      private String _propertyName;
+      private Field _field;
+      
+      protected Field field()
+      {
+         if (_field == null)
+         {
+            ComplexType type = ComplexType.forClass(_clazz);
+            Field field = type.field(_propertyName);
+            if (field == null)
+               throw new PropertyNotFoundException("No such field: " + _propertyName +
+                     " on class "+_clazz.getName());
+            _field = field;
+         }
+         return _field;
+      }
+
+      PropertyAdapter(Class clazz, String propertyName)
+      {
+         _clazz = clazz;  _propertyName = propertyName;
+      }
    }
 
-   class GetterAdapter implements Getter
+   class GetterAdapter extends PropertyAdapter implements Getter
    {
-      Field _field;
-
-      GetterAdapter(Field field) { _field = field; }
+      GetterAdapter(Class clazz, String propertyName)
+      {
+         super(clazz, propertyName);
+      }
 
       public Object get(Object target) throws HibernateException
       {
-         Object value = _field.get((ComplexEObject) target);
+         Object value = field().get((ComplexEObject) target);
 
          // technically i should have a NullField type so that
          // when i do a .get() on it it will automatically return
@@ -68,9 +85,9 @@ public class PropertyAccessorAdapter implements PropertyAccessor
       public String getMethodName() { return null; }
       public Class getReturnType()
       {
-         if (_field.isIndexed())
+         if (field().isIndexed())
             return Collection.class;
-         return _field.getJavaClass();
+         return field().getJavaClass();
       }
 
       public Object getForInsert(Object owner,
@@ -81,19 +98,20 @@ public class PropertyAccessorAdapter implements PropertyAccessor
       }
    }
 
-   class SetterAdapter implements Setter
+   class SetterAdapter extends PropertyAdapter implements Setter
    {
-      Field _field;
-
-      SetterAdapter(Field field) { _field = field; }
+      SetterAdapter(Class clazz, String propertyName)
+      {
+         super(clazz, propertyName);
+      }
 
       public Method getMethod() { return null; }
       public String getMethodName() { return null; }
 
       public void set(Object target, Object value, SessionFactoryImplementor factory) throws HibernateException
       {
-         _field.restore((ComplexEObject) target, value);
+         field().restore((ComplexEObject) target, value);
       }
    }
-
+   
 }

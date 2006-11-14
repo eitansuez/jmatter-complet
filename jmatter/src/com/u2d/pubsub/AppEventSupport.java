@@ -48,12 +48,10 @@ public class AppEventSupport implements AppEventNotifier
       {
          HashSet set = (HashSet) listeners.get(evtType);
          Set targets = (Set) set.clone();
-         AppEventListener listener = null;
          AppEvent evt = new AppEvent(_source, evtType, target);
-         Iterator itr = targets.iterator();
-         while (itr.hasNext())
+         for (Iterator itr = targets.iterator(); itr.hasNext(); )
          {
-            listener = (AppEventListener) itr.next();
+            AppEventListener listener = (AppEventListener) itr.next();
             listener.onEvent(evt);
          }
       }

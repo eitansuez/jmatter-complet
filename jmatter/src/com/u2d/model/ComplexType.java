@@ -33,6 +33,8 @@ import com.u2d.reflection.*;
 import com.u2d.type.Choice;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.type.atom.StringEO;
+import com.u2d.pubsub.AppEventListener;
+import com.u2d.pubsub.AppEvent;
 
 /**
  * @author Eitan Suez
@@ -167,7 +169,7 @@ public class ComplexType extends AbstractComplexEObject
          System.exit(1);
       }
    }
-
+   
    private void updateConcreteTypeMap()
    {
       if (isAbstract(_clazz) && CONCRETE_TYPE_MAP.get(_clazz) == null)
@@ -481,6 +483,22 @@ public class ComplexType extends AbstractComplexEObject
 
             }
          });
+
+      FieldRecurser.recurseFields(_fields, new FieldProcessor()
+         {
+            public void processField(final Field field)
+            {
+               Context.getInstance().addAppEventListener("APP_READY", 
+                     new AppEventListener()
+                     {
+                        public void onEvent(AppEvent evt)
+                        {
+                           field.applyDbMetadata();
+                        }
+                     });
+            }
+         });
+
    }
 
    public String localeLookup(String key)

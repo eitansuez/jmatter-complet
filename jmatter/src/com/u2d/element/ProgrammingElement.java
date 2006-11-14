@@ -22,7 +22,8 @@ public abstract class ProgrammingElement extends AbstractComplexEObject
          {
             public void stateChanged(javax.swing.event.ChangeEvent evt)
             {
-               deriveLabel();
+               if (_label.isEmpty())
+                  deriveLabel();
             }
          });
    }

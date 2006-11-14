@@ -166,6 +166,7 @@ public class CriteriaListEO extends AbstractListEO implements Paginable
 
 
    public ComplexType type() { return _query.getQueryType(); }
+   public Class getJavaClass() { return type().getJavaClass(); }
 
    public EObject makeCopy()
    {

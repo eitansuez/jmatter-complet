@@ -27,6 +27,8 @@ public class AssociationField extends Field implements Bidi, Associable
    
    protected transient Method _associator, _dissociator;
    
+   public AssociationField() {}
+   
    public AssociationField(FieldParent parent, String name) 
       throws IntrospectionException
    {
@@ -204,6 +206,12 @@ public class AssociationField extends Field implements Bidi, Associable
          _defaultValue = type().getDefaultValue();
 */      
       return _defaultValue;
+   }
+   public void setDefaultValue(ComplexEObject defaultValue)
+   {
+      ComplexEObject oldValue = _defaultValue;
+      _defaultValue = defaultValue;
+      firePropertyChange("defaultValue", oldValue, _defaultValue);
    }
    public void setDefaultSpec(String spec)
    {

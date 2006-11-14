@@ -9,14 +9,16 @@ import com.u2d.field.*;
 import com.u2d.find.Searchable;
 import com.u2d.model.*;
 import com.u2d.pattern.*;
-import com.u2d.persist.FieldUserType;
 import com.u2d.restrict.*;
 import com.u2d.type.Choice;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.type.atom.IntEO;
+import com.u2d.type.atom.StringEO;
 import com.u2d.validation.Required;
 import com.u2d.view.*;
 import com.u2d.reflection.FieldAt;
+import org.hibernate.Session;
+import org.hibernate.Query;
 
 /**
  * @author Eitan Suez
@@ -27,14 +29,16 @@ public abstract class Field extends Member
    protected Class _clazz;
    protected ComplexType _type;
    private String _cleanPath, _path, _naturalPath;
-   private String _fullPath;
+   private final StringEO _fullPath = new StringEO();
    private Title _title;
 
    protected transient Method _getter, _setter;
 
-   public static String[] fieldOrder = {"name", "label", "required", "mnemonic", 
+   public static String[] fieldOrder = {"name", "fullPath", "label", "required", "mnemonic", 
       "description"};
-   public static String[] readOnly = {"name"};
+   public static String[] readOnly = {"name", "fullPath"};
+   public static String[] identities = {"fullPath"};
+   
    
 
    public Field() {}
@@ -224,8 +228,10 @@ public abstract class Field extends Member
    public String getCleanPath() { return _cleanPath; }
    public String getNaturalPath() { return _naturalPath; }
    // sample fullPath:  com.u2d.clinic.Patient#name.first
-   public String getFullPath() { return _fullPath; }
+   public String fullPath() { return _fullPath.stringValue(); }
 
+
+   public StringEO getFullPath() { return _fullPath; }
 
    private void computeFieldPaths()
    {
@@ -241,8 +247,9 @@ public abstract class Field extends Member
 
       _path = parent.name() + "." + path.toString();
 
-      _fullPath = root.getQualifiedName() + "#" + path.toString(); // full path
+      String fullPath = root.getQualifiedName() + "#" + path.toString(); // full path
             // is necessary for Field's implementation of UserType!
+      _fullPath.setValue(fullPath);
 
       _cleanPath = path.toString();
 
@@ -347,11 +354,6 @@ public abstract class Field extends Member
 
    // ==
 
-   public static Class getCustomTypeImplementorClass()
-   {
-      return FieldUserType.class;
-   }
-
    public Title title() { return _title; }
 
 
@@ -380,7 +382,7 @@ public abstract class Field extends Member
    
    public int hashCode()
    {
-      return getFullPath().hashCode();
+      return fullPath().hashCode();
    }
 
 
@@ -441,5 +443,34 @@ public abstract class Field extends Member
             getDisplaysize().setValue(fat.displaysize());
       }
    }
+
+   /**
+    * Check if field metadata exists in db.  If so, load
+    * that information into self and replace loaded object
+    * with self (session.evict followed by session.update)
+    */
+   public void applyDbMetadata()
+   {
+      String hql = "from Field f where f.fullPath = :fullPath";
+      Session session = hbmPersistor().getSession();
+      Query query = session.createQuery(hql);
+      query.setParameter("fullPath", getFullPath());
+      Field field = (Field) query.uniqueResult();
+      if (field != null)
+      {
+         transferCopy(this, field, true);
+         setID(field.getID());
+         setVersion(field.getVersion());
+         session.evict(field);
+         session.update(this);
+      }
+   }
+
+
+//   public static Class getCustomTypeImplementorClass()
+//   {
+//      return FieldUserType.class;
+//   }
+//
 
 }
