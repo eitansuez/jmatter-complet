@@ -5,6 +5,7 @@ package com.u2d.persist;
 
 import com.u2d.element.Field;
 import com.u2d.element.ProgrammingElement;
+import com.u2d.element.Member;
 import com.u2d.field.AggregateField;
 import com.u2d.field.AssociationField;
 import com.u2d.field.AtomicField;
@@ -100,10 +101,6 @@ public class HBMMaker
             continue;
          }
          
-//         if ( ProgrammingElement.class.isAssignableFrom(field.getJavaClass()) ||
-//              ComplexType.class.isAssignableFrom(field.getJavaClass()) || 
-//              EObject.class.equals(field.getJavaClass()) ||
-//              Inequality.class.equals(field.getJavaClass()) )
          if ( ComplexType.class.isAssignableFrom(field.getJavaClass()) || 
               EObject.class.equals(field.getJavaClass()) ||
               Inequality.class.equals(field.getJavaClass()) )
@@ -281,6 +278,12 @@ public class HBMMaker
    {
       Element elem = parentElem.addElement("many-to-one");
       elem.addAttribute("name", field.name());
+      
+      // hack:
+      if (Member.class.isAssignableFrom(field.getJavaClass()))
+      {
+         elem.addAttribute("cascade", "save-update");
+      }
 
       if (prefix == null)
       {
@@ -296,9 +299,6 @@ public class HBMMaker
       return elem;
    }
 
-   /**
-    * examples:  com.u2d.element.Field, com.u2d.model.ComplexType
-    */
    private Element produceCustomProperty(Element parentElem, Field field, String prefix)
    {
       Element propElem = parentElem.addElement("property");

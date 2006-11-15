@@ -105,10 +105,10 @@ public class Role extends AbstractComplexEObject
             addCmdRestriction(new UserRestriction()).on(prototype.command("Edit"));
             addCmdRestriction(new UserRestriction()).on(prototype.command("Delete"));
             
-            addCmdRestriction(new CreationRestriction(ComplexType.forClass(Role.class)));
-            addCmdRestriction(new CreationRestriction(ComplexType.forClass(Restriction.class)));
-            addCmdRestriction(new CreationRestriction(ComplexType.forClass(User.class)));
-            addCmdRestriction(new CreationRestriction(ComplexType.forClass(LoggedEvent.class)));
+//            addCmdRestriction(new CreationRestriction(ComplexType.forClass(Role.class)));
+//            addCmdRestriction(new CreationRestriction(ComplexType.forClass(Restriction.class)));
+//            addCmdRestriction(new CreationRestriction(ComplexType.forClass(User.class)));
+//            addCmdRestriction(new CreationRestriction(ComplexType.forClass(LoggedEvent.class)));
             
             // 1. disable destruction of logs
             LoggedEvent evtProto = new LoggedEvent();
