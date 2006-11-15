@@ -40,7 +40,7 @@ public class FloatEditor extends SFormattedTextField
       decformat.applyPattern("##0.00");
       decformat.setMaximumIntegerDigits(3);
       decformat.setMaximumFractionDigits(2);
-      formatter.setNumberFormat(decformat);
+      formatter.setFormat(decformat);
       setFormatter(formatter);
    }
 
