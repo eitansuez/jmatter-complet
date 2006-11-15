@@ -158,7 +158,7 @@ public class EOCommand extends Command
 
    public int hashCode()
    {
-      return _method.hashCode() + 31*_parent.hashCode();
+      return _method.hashCode() * 31 + _parent.hashCode();
    }
 
 }

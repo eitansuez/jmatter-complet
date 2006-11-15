@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 public abstract class Command extends Member 
 {
-   private final StringEO _fullPath = new StringEO();
+   protected final StringEO _fullPath = new StringEO();
 
    public static String[] fieldOrder = {"name", "fullPath", "label", "mnemonic", "description"};
    public static String[] readOnly = {"name", "fullPath"};
@@ -34,7 +34,7 @@ public abstract class Command extends Member
       setState(_readState, true);
    }
    
-   private void computePath()
+   protected void computePath()
    {
       if (_parent == null)
       {
@@ -143,7 +143,7 @@ public abstract class Command extends Member
    public int hashCode()
    {
       if (_parent == null)
-         return name().hashCode();
+         return name().hashCode() * 31;
       return name().hashCode() * 31 + _parent.hashCode();
    }
 

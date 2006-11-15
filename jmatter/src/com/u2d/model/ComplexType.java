@@ -78,7 +78,7 @@ public class ComplexType extends AbstractComplexEObject
    }
    
    
-   private static transient Map _typeCache = new HashMap();
+   private static transient Map<Class, ComplexType> _typeCache = new HashMap<Class, ComplexType>();
    public static String[] commandOrder = {"Browse", "New", "Find"};
 
    private static Color DEFAULT_COLOR = new Color(215, 211, 140);
@@ -314,7 +314,7 @@ public class ComplexType extends AbstractComplexEObject
          Command openCmd =
             _reflector.reflectCommand(method,
                                       AbstractComplexEObject.ReadState.class, this);
-         openCmd.getName().setValue("Inspect Type");
+//         openCmd.getName().setValue("Inspect Type");
          base.add(openCmd);
 
          base = new Onion(base);
@@ -561,6 +561,7 @@ public class ComplexType extends AbstractComplexEObject
          cmd.localize(this);
       }
    }
+
    private void applyCommandDbMetadata()
    {
       for (Iterator itr = _commands.values().iterator(); itr.hasNext(); )
@@ -760,7 +761,7 @@ public class ComplexType extends AbstractComplexEObject
       return _className.equals(ct.getQualifiedName());
    }
 
-   public int hashCode() { return _clazz.hashCode(); }
+   public int hashCode() { return 31 * _clazz.hashCode(); }
 
 
    public boolean isSingleton()
@@ -897,8 +898,6 @@ public class ComplexType extends AbstractComplexEObject
       public String toString() { return _field.toString(); }
    }
 
-
-   // naked fields..(fieldslist and commandslist) .. and now queries
 
    private final RelationalList _fieldsList = new RelationalList(Field.class);
    public static Class fieldsListType = Field.class;

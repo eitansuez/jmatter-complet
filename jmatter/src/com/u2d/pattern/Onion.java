@@ -242,4 +242,35 @@ public class Onion implements ListChangeNotifier
       }
    }
 
+
+   public boolean equals(Object obj)
+   {
+      if (obj == this) return true;
+      if (!(obj instanceof Onion)) return false;
+
+      Onion onion = (Onion) obj;
+      Iterator itr1 = deepIterator();
+      Iterator itr2 = onion.deepIterator();
+      while (itr1.hasNext() && itr2.hasNext())
+      {
+          Object o1 = itr1.next();
+          Object o2 = itr2.next();
+          if (!(o1==null ? o2==null : o1.equals(o2)))
+         return false;
+      }
+      return !(itr1.hasNext() || itr2.hasNext());
+   }
+
+   public int hashCode()
+   {
+      int hashCode = 1;
+      Iterator i = deepIterator();
+      while (i.hasNext())
+      {
+         Object obj = i.next();
+         hashCode = 31 * hashCode + (obj == null ? 0 : obj.hashCode());
+      }
+      return hashCode;
+   }
+
 }

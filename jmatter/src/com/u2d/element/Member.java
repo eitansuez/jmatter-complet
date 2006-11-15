@@ -119,10 +119,14 @@ public abstract class Member extends ProgrammingElement implements Restrictable
          setVersion(member.getVersion());
          session.evict(member);
          session.update(this);
-         tracer().info("Merged: "+this);
       }
    }
 
 
-
+   @Override
+   public void refresh()
+   {
+      if (getID() != null)
+         super.refresh();
+   }
 }

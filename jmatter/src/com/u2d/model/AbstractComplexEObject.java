@@ -37,7 +37,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    protected ComplexType _type = null;
 
    protected transient State _transientState, _editState, _readState, _nullState;
-   protected transient Map _stateMap = new HashMap();
+   protected transient Map<String, State> _stateMap = new HashMap<String, State>();
    {
       _transientState = new TransientState();
       _stateMap.put(_transientState.getName(), _transientState);
@@ -199,7 +199,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          field.setState(this, state);
       }
    }
-   private Stack _stateStack = new Stack();
+   private Stack<State> _stateStack = new Stack<State>();
    protected void pushState(State state)
    {
       _stateStack.push(_currentState);
@@ -245,7 +245,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
 
 
-   protected Map _associations = new HashMap();
+   protected Map<String, Association> _associations = new HashMap<String, Association>();
    public Association association(String propName)
    {
       Field field = field(propName);
@@ -992,9 +992,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    
    public void refresh()
    {
-      // typically programming elements are not persisted entities..so noop for them
-      if (this instanceof ProgrammingElement)
-        return;
       hbmPersistor().getSession().refresh(this);
    }
    

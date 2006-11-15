@@ -4,6 +4,8 @@ import com.u2d.element.EOCommand;
 import com.u2d.element.ParameterInfo;
 import com.u2d.model.ComplexType;
 import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,7 +24,14 @@ public class AnnotationsReflector implements Reflector
    {
       return method.isAnnotationPresent(CommandAt.class);
    }
+   
+   private static transient Map<EOCommand, EOCommand> _commandCache = 
+         new HashMap<EOCommand, EOCommand>();
 
+   /*
+    * this logic ensures that the same command object is returned
+    * instead of multiple copies, albeit equal().
+    */
    public EOCommand reflectCommand(Method method, Class klass, ComplexType parent)
    {
       CommandAt at = method.getAnnotation(CommandAt.class);
@@ -32,7 +41,15 @@ public class AnnotationsReflector implements Reflector
                                     parameterInfo(method),
                                     at.isSensitive());
       cmd.setPositioningHint(at.viewPosition());
-      return cmd;
+      
+      if (parent == null)  // hack for lists..(temporary)
+         return cmd;
+      
+      if (!_commandCache.containsKey(cmd))
+      {
+         _commandCache.put(cmd, cmd);
+      }
+      return _commandCache.get(cmd);
    }
 
    private ParameterInfo[] parameterInfo(Method method)
