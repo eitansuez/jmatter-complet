@@ -9,7 +9,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -126,10 +125,10 @@ public class ComplexType extends AbstractComplexEObject
       updateConcreteTypeMap();
       updateAbstractTypeMap();
 
-      _iconLg = IconLoader.icon(this, "32", DEFAULTICON_LG);
-      _iconSm = IconLoader.icon(this, "16", DEFAULTICON_SM);
-      _iconsLg = IconLoader.icons(this, "32", LISTICON_LG);
-      _iconsSm = IconLoader.icons(this, "16", LISTICON_SM);
+      _iconLg = IconLoader.typeIcon(this, "32");
+      _iconSm = IconLoader.typeIcon(this, "16");
+      _iconsLg = IconLoader.pluralIcon(this, "32");
+      _iconsSm = IconLoader.pluralIcon(this, "16");
 
       harvest();
 
@@ -595,24 +594,6 @@ public class ComplexType extends AbstractComplexEObject
    public Icon iconsSm() { return _iconsSm; }
    public Icon iconsLg() { return _iconsLg; }
 
-   public static Icon DEFAULTICON_SM, DEFAULTICON_LG;
-   public static Icon LISTICON_SM, LISTICON_LG;
-   static
-   {
-      ClassLoader loader = ComplexType.class.getClassLoader();
-      java.net.URL imgURL = null;
-      imgURL= loader.getResource("images/list16.png");
-      LISTICON_SM = new ImageIcon(imgURL);
-      imgURL = loader.getResource("images/list32.png");
-      LISTICON_LG = new ImageIcon(imgURL);
-      imgURL = loader.getResource("images/Objects32.png");
-      DEFAULTICON_LG = new ImageIcon(imgURL);
-      imgURL = loader.getResource("images/Objects16.png");
-      DEFAULTICON_SM = new ImageIcon(imgURL);
-   }
-
-
-
    public Title title() { return new Title(_pluralName); }
    public Color colorCode() { return _colorCode; }
    public String sortBy() { return _sortBy; }  // a property name
@@ -1076,6 +1057,18 @@ public class ComplexType extends AbstractComplexEObject
       {
          abstractTypes[i].fireAppEventNotification(evtType, target);
       }
+   }
+   
+   public ComplexType superType()
+   {
+      Class superClass = _clazz.getSuperclass();
+      if ( superClass == null ||
+           !(ComplexEObject.class.isAssignableFrom(superClass)) )
+      {
+         return null;
+      }
+      
+      return ComplexType.forClass(superClass);
    }
 
 }

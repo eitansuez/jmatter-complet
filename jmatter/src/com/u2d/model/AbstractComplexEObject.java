@@ -302,12 +302,12 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public javax.swing.Icon iconSm()
    {
-      return IconLoader.instanceIcon(this, "16", ComplexType.DEFAULTICON_SM);
+      return IconLoader.stateIcon(this, "16");
    }
 
    public javax.swing.Icon iconLg()
    {
-      return IconLoader.instanceIcon(this, "32", ComplexType.DEFAULTICON_LG);
+      return IconLoader.stateIcon(this, "32");
    }
 
    public abstract Title title();

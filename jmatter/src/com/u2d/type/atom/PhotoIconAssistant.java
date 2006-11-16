@@ -43,7 +43,7 @@ public class PhotoIconAssistant
       {
          _iconSm = _iconLg = null;
          // ideally need to do this:  return _parent.super.iconLg();
-         return IconLoader.instanceIcon(_parent, "32", ComplexType.DEFAULTICON_LG);
+         return IconLoader.stateIcon(_parent, "32");
       }
       if (_iconLg == null)
       {
@@ -58,7 +58,7 @@ public class PhotoIconAssistant
       {
          _iconSm = _iconLg = null;
          // ideally need to do this:  return _parent.super.iconLg();
-         return IconLoader.instanceIcon(_parent, "16", ComplexType.DEFAULTICON_LG);
+         return IconLoader.stateIcon(_parent, "16");
       }
       if (_iconSm == null)
       {
