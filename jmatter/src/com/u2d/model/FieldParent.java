@@ -9,7 +9,7 @@ import com.u2d.element.Field;
 /**
  * @author Eitan Suez
  */
-public interface FieldParent
+public interface FieldParent extends EObject
 {
    public String name();
    public Class getJavaClass();

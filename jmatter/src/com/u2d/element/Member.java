@@ -6,6 +6,7 @@ package com.u2d.element;
 import java.util.*;
 
 import com.u2d.model.FieldParent;
+import com.u2d.model.Title;
 import com.u2d.restrict.Restrictable;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.CharEO;
@@ -122,6 +123,8 @@ public abstract class Member extends ProgrammingElement implements Restrictable
       }
    }
 
+
+   public Title title() { return getFullPath().title(); }
 
    @Override
    public void refresh()

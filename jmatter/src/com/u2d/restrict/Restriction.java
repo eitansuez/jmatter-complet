@@ -46,7 +46,7 @@ public abstract class Restriction extends AbstractComplexEObject
    {
       if (member() != null && _role != null)
       {
-         return new Title(member()).append(" for", _role);
+         return new Title(member()).appendParens(_role.toString()+" role");
       }
       return new Title("");
    }

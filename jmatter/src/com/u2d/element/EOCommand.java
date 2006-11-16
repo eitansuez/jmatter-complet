@@ -43,7 +43,7 @@ public class EOCommand extends Command
                     char mnemonic, ParameterInfo[] params, boolean sensitive)
    {
       this(method, parent, mnemonic, params);
-      setSensitive(sensitive);
+      _sensitive.setValue(sensitive);
    }
    
    public EOCommand(Method method, ComplexType parent,
@@ -138,12 +138,6 @@ public class EOCommand extends Command
    }
 
 
-   public Title title()
-   {
-//      return ((ComplexType) _parent).title().append(" ", _name);
-      return new Title(label());
-   }
-   
    public String qualifiedName()
    {
       return _parent.name() + "." + _name;
@@ -152,7 +146,7 @@ public class EOCommand extends Command
    public EOCommand copy()
    {
       return new EOCommand(_method, (ComplexType) _parent, 
-                           _mnemonic.charValue(), _params, _sensitive);
+                           _mnemonic.charValue(), _params, sensitive());
    }
 
    public boolean equals(Object obj)
@@ -172,7 +166,7 @@ public class EOCommand extends Command
    public OverloadedEOCmd overload(EOCommand secondCmd)
    {
       return new OverloadedEOCmd(_method, (ComplexType) _parent, _mnemonic.charValue(),
-            _params, _sensitive, _positioningHint, secondCmd);
+            _params, sensitive(), _positioningHint, secondCmd);
    }
 
 }

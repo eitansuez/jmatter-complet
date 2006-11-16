@@ -9,6 +9,8 @@ import com.u2d.view.*;
 import com.u2d.app.User;
 import com.u2d.model.*;
 import com.u2d.type.atom.StringEO;
+import com.u2d.type.atom.BooleanEO;
+
 import java.util.Arrays;
 
 /**
@@ -18,7 +20,7 @@ public abstract class Command extends Member
 {
    protected final StringEO _fullPath = new StringEO();
 
-   public static String[] fieldOrder = {"name", "fullPath", "label", "mnemonic", "description"};
+   public static String[] fieldOrder = {"name", "fullPath", "label", "mnemonic", "description", "sensitive"};
    public static String[] readOnly = {"name", "fullPath"};
    public static String[] identities = {"fullPath"};
 
@@ -56,12 +58,10 @@ public abstract class Command extends Member
     * inadvertant invocation.  Its cost is high and undoing is 
     * difficult.  A ui is advised to make it difficult for an 
     * end user to inadvertantly invoke the command.
-    * 
-    * TODO: promote as persistable:  BooleanEO
     */
-   protected boolean _sensitive;
-   public boolean isSensitive() { return _sensitive; }
-   public void setSensitive(boolean sensitive) { _sensitive = sensitive; }
+   protected final BooleanEO _sensitive = new BooleanEO();
+   public BooleanEO getSensitive() { return _sensitive; }
+   public boolean sensitive() { return _sensitive.booleanValue(); }
 
 
    public String localizedLabel(Localized l)
@@ -242,8 +242,13 @@ public abstract class Command extends Member
       return null;
    }
 
-//   public static Class getCustomTypeImplementorClass()
-//   {
-//      return CommandUserType.class;
-//   }
+   
+   public Title title()
+   {
+      if (_parent == null) return super.title();
+      // TODO: refactor as naturalName property, similar to how field does it.
+      return(_name.title().append(((ComplexType) _parent).getPluralName()));
+   }
+   
+   
 }

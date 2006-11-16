@@ -25,20 +25,32 @@ public class CommandButton extends JPanel
    private Command _cmd;
    private transient CommandsContextMenuView _cmdsView = new CommandsContextMenuView();
    private transient CommandAdapter _cmdAdapter;
+   private transient boolean _isDefault;
    
    public CommandButton(Command cmd, EObject eo, EView source, boolean defaultBtn)
    {
       _cmd = cmd;
+      _isDefault = defaultBtn;
       
       setLayout(new BorderLayout());
       
       _cmdAdapter = new CommandAdapter(cmd, eo, source);
+      setupBtn();
+      
+      _cmd.getMnemonic().addChangeListener(this);
+      _cmd.getDescription().addChangeListener(this);
+      _cmd.getLabel().addChangeListener(this);
+      _cmd.getSensitive().addChangeListener(this);
+   }
+   
+   private void setupBtn()
+   {
       JButton btn;
-      if (cmd.isSensitive())
+      if (_cmd.sensitive())
       {
          btn = new LockedButton(_cmdAdapter);
       }
-      else if (defaultBtn)
+      else if (_isDefault)
       {
          btn = new DefaultButton(_cmdAdapter);
       }
@@ -47,12 +59,9 @@ public class CommandButton extends JPanel
          btn = new NormalButton(_cmdAdapter);
       }
       
+      _cmdsView.detach();
       _cmdsView.bind(_cmd, btn, this);
       add(btn, BorderLayout.CENTER);
-      
-      _cmd.getMnemonic().addChangeListener(this);
-      _cmd.getDescription().addChangeListener(this);
-      _cmd.getLabel().addChangeListener(this);
    }
 
    public EObject getEObject() { return _cmd; }
@@ -82,6 +91,11 @@ public class CommandButton extends JPanel
             else if (e.getSource().equals(_cmd.getLabel()))
             {
                _cmdAdapter.updateCaption();
+            }
+            else if (e.getSource().equals(_cmd.getSensitive()))
+            {
+               remove(0);  // replace button..
+               setupBtn();
             }
             revalidate(); repaint();
          }
