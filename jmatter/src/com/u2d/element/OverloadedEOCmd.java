@@ -4,6 +4,7 @@ import com.u2d.view.EView;
 import com.u2d.model.Typed;
 import com.u2d.model.ComplexType;
 import com.u2d.model.Localized;
+import com.u2d.type.atom.StringEO;
 
 import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
@@ -53,6 +54,7 @@ public class OverloadedEOCmd extends Command
    }
 
    public String localizedLabel(Localized l) { return _cmd.localizedLabel(l); }
+   public StringEO getFullPath() { return _cmd.getFullPath(); }
    public String fullPath() { return _cmd.fullPath(); }
    public Icon iconSm() { return _cmd.iconSm(); }
    public Icon iconLg() { return _cmd.iconLg(); }

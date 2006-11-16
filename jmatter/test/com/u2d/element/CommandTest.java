@@ -16,6 +16,9 @@ import com.u2d.app.User;
 
 import java.util.Iterator;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class CommandTest
       extends TestCase
 {
@@ -118,6 +121,13 @@ public class CommandTest
       User user = (User) userType.instance();
       Command defaultCmd = user.defaultCommand();
       assertNotNull(defaultCmd);
+   }
+   
+   public void testOverloadedCmd()
+   {
+      Command newCmd = folderType.command("New");
+      assertNotNull(newCmd);
+      assertTrue(newCmd instanceof OverloadedEOCmd);
    }
 
 
