@@ -265,7 +265,7 @@
 
 
  <!-- not yet fully working:  for deploying as a web application using WingS -->
- <property name="build.web.dir" location="${build.dir}/web" />
+ <property name="build.web.dir" location="jetty/ContactMgr" />
  <target name="init-web">
     <mkdir dir="${build.web.dir}" />
     <mkdir dir="${build.web.dir}/WEB-INF" />
