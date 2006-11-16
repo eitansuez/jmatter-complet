@@ -19,7 +19,6 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ContactMgr.iws" afterPath="$PROJECT_DIR$/ContactMgr.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/com/u2d/contactmgr/CommandTest.java" afterPath="$PROJECT_DIR$/test/com/u2d/contactmgr/CommandTest.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
