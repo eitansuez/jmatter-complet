@@ -4,10 +4,13 @@ import com.u2d.view.EView;
 import com.u2d.model.Typed;
 import com.u2d.model.ComplexType;
 import com.u2d.model.Localized;
+import com.u2d.model.FieldParent;
 import com.u2d.type.atom.StringEO;
+import com.u2d.ui.desktop.Positioning;
 
 import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Date: Jun 14, 2005
@@ -15,29 +18,33 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author Eitan Suez
  */
-public class OverloadedEOCmd extends Command
+public class OverloadedEOCmd extends EOCommand
 {
-   EOCommand _cmd, _overloadedCmd;
+   EOCommand _overloadedCmd, _secondCmd;
 
-   public OverloadedEOCmd(EOCommand first, EOCommand second)
+   public OverloadedEOCmd() {}
+   
+   public OverloadedEOCmd(Method method, ComplexType parent, char mnemonic,
+                          ParameterInfo[] paramInfo, boolean sensitive, 
+                          Positioning positioning, EOCommand secondCmd)
    {
-      if (first.paramInfo().length > second.paramInfo().length)
+      super(method, parent, mnemonic, paramInfo, sensitive, positioning);       
+      _secondCmd = secondCmd;
+      
+      if (paramInfo().length > secondCmd.paramInfo().length)
       {
-         _cmd = second; _overloadedCmd = first;
+         _overloadedCmd = this;
       }
       else
       {
-         _cmd = first;  _overloadedCmd = second;
+         _overloadedCmd = _secondCmd;
       }
-
-      _name.setValue(_cmd.getName());
-      _label.setValue(_cmd.label());
    }
 
    public void execute(Object value, EView source) throws InvocationTargetException
    {
-      EOCommand cmd = _cmd;
-
+      Command cmd = this;
+      
       if (value instanceof ComplexType)
       {
          ComplexType type = (ComplexType) value;
@@ -50,13 +57,14 @@ public class OverloadedEOCmd extends Command
             cmd = _overloadedCmd;
       }
 
-      cmd.execute(value, source);
+      if (cmd == this)
+      {
+         super.execute(value, source);
+      }
+      else
+      {
+         cmd.execute(value, source);
+      }
    }
 
-   public String localizedLabel(Localized l) { return _cmd.localizedLabel(l); }
-   public StringEO getFullPath() { return _cmd.getFullPath(); }
-   public String fullPath() { return _cmd.fullPath(); }
-   public Icon iconSm() { return _cmd.iconSm(); }
-   public Icon iconLg() { return _cmd.iconLg(); }
-   
 }

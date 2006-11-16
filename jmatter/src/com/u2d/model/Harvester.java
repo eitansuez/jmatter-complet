@@ -88,8 +88,7 @@ public class Harvester
                else  // if list has a command with same name
                {
                   EOCommand firstCmd = (EOCommand) cmdMap.get(cmd.name());
-                  OverloadedEOCmd overloaded = new OverloadedEOCmd(cmd, firstCmd);
-                  cmdMap.put(cmd.name(), overloaded);
+                  cmdMap.put(cmd.name(), firstCmd.overload(cmd));
                }
             }
          }

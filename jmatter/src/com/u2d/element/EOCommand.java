@@ -45,6 +45,14 @@ public class EOCommand extends Command
       this(method, parent, mnemonic, params);
       setSensitive(sensitive);
    }
+   
+   public EOCommand(Method method, ComplexType parent,
+                    char mnemonic, ParameterInfo[] params, boolean sensitive,
+                    Positioning viewPosition)
+   {
+      this(method, parent, mnemonic, params, sensitive);
+      setPositioningHint(viewPosition);
+   }
 
    private Positioning _positioningHint = Positioning.NEARMOUSE;
    public Positioning getPositioningHint() { return _positioningHint; }
@@ -159,6 +167,12 @@ public class EOCommand extends Command
    public int hashCode()
    {
       return _method.hashCode() * 31 + _parent.hashCode();
+   }
+   
+   public OverloadedEOCmd overload(EOCommand secondCmd)
+   {
+      return new OverloadedEOCmd(_method, (ComplexType) _parent, _mnemonic.charValue(),
+            _params, _sensitive, _positioningHint, secondCmd);
    }
 
 }

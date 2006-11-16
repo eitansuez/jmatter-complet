@@ -56,6 +56,8 @@ public abstract class Command extends Member
     * inadvertant invocation.  Its cost is high and undoing is 
     * difficult.  A ui is advised to make it difficult for an 
     * end user to inadvertantly invoke the command.
+    * 
+    * TODO: promote as persistable:  BooleanEO
     */
    protected boolean _sensitive;
    public boolean isSensitive() { return _sensitive; }

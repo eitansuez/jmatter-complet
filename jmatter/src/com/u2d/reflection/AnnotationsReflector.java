@@ -39,8 +39,8 @@ public class AnnotationsReflector implements Reflector
                                     parent,
                                     at.mnemonic(),
                                     parameterInfo(method),
-                                    at.isSensitive());
-      cmd.setPositioningHint(at.viewPosition());
+                                    at.isSensitive(),
+                                    at.viewPosition());
       
       if (parent == null)  // hack for lists..(temporary)
          return cmd;
