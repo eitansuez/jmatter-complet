@@ -17,19 +17,28 @@ import com.u2d.type.composite.Person;
 public class CommandTest
       extends TestCase
 {
-   
-   public void testPersistOverloaded()
+   public void testFullPath()
    {
-//      ApplicationContext context = 
-//            new ClassPathXmlApplicationContext("applicationContext.xml");
-      
       ComplexType personType = ComplexType.forClass(Person.class);
       Command newCmd = personType.command("New");
       assertTrue(newCmd instanceof OverloadedEOCmd);
-      
       assertEquals("com.u2d.type.composite.Person#New", newCmd.fullPath());
-      
-//      newCmd.save();
+   }
+   public void testPersistOverloaded()
+   {
+      ApplicationContext context = 
+            new ClassPathXmlApplicationContext("applicationContext.xml");
+      ComplexType personType = ComplexType.forClass(Person.class);
+      Command newCmd = personType.command("New");
+      newCmd.save();
+   }
+   public void testLoadOverloadedCmd()
+   {
+      ApplicationContext context = 
+            new ClassPathXmlApplicationContext("applicationContext.xml");
+      ComplexType personType = ComplexType.forClass(Person.class);
+      Command newCmd = personType.command("New");
+      assertNotNull(newCmd.getID());
    }
    
 }
