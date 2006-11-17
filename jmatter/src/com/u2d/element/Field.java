@@ -17,8 +17,6 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.validation.Required;
 import com.u2d.view.*;
 import com.u2d.reflection.FieldAt;
-import org.hibernate.Session;
-import org.hibernate.Query;
 
 /**
  * @author Eitan Suez

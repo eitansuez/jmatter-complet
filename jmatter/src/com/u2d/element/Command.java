@@ -7,9 +7,12 @@ import com.u2d.restrict.CommandRestriction;
 import com.u2d.restrict.Restriction;
 import com.u2d.view.*;
 import com.u2d.app.User;
+import com.u2d.app.Role;
 import com.u2d.model.*;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
+import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.ParamAt;
 
 import java.util.Arrays;
 
@@ -249,6 +252,15 @@ public abstract class Command extends Member
       // TODO: refactor as naturalName property, similar to how field does it.
       return(_name.title().append(((ComplexType) _parent).getPluralName()));
    }
+   
+   @CommandAt(mnemonic='f')
+   public void ForbidForRole(CommandInfo cmdInfo, @ParamAt("Role") Role role)
+   {
+      CommandRestriction restriction = new CommandRestriction(role, this);
+      role.addCmdRestriction(restriction);
+      persistor().updateAssociation(restriction, role);
+   }
+   
    
    
 }

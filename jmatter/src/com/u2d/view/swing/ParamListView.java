@@ -14,6 +14,9 @@ import com.u2d.validation.ValidationNotifier;
 import com.u2d.view.*;
 import com.u2d.view.swing.atom.TypePicker;
 import com.u2d.ui.Caption;
+import com.u2d.field.Association;
+import com.u2d.field.DynaAssociationStrategy;
+import com.u2d.app.Context;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -84,9 +87,12 @@ public class ParamListView extends JPanel implements View
             }
             else if (ComplexEObject.class.isAssignableFrom(paramInfo[i].type()))
             {
-               ComplexType itype = ComplexType.forClass(paramInfo[i].type());
-               eo = itype.instance();
-               view = eo.getView();
+               ComplexType type = ComplexType.forClass(paramInfo[i].type());
+               DynaAssociationStrategy das = new DynaAssociationStrategy(type);
+               Association association = new Association(das);
+               SwingViewMechanism vmech = Context.getInstance().swingvmech();
+               view = vmech.getAssociationView(association);
+               eo = das;
             }
             else
             {
@@ -165,12 +171,15 @@ public class ParamListView extends JPanel implements View
             {
                view = (EView) _views.get(i);
 
-               transferErrorCount += ((Editor) view).transferValue();
-
-               if (transferErrorCount > 0)
+               if (view instanceof Editor)
                {
-                  haveAllParms = false;
-                  continue;
+                  transferErrorCount += ((Editor) view).transferValue();
+
+                  if (transferErrorCount > 0)
+                  {
+                     haveAllParms = false;
+                     continue;
+                  }
                }
 
                eo = view.getEObject();

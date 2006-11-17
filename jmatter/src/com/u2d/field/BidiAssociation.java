@@ -33,7 +33,7 @@ public class BidiAssociation extends Association
    {
       if (value != null && value.isTransientState())
       {
-         _otherSide.set(value, _parent);
+         _otherSide.set(value, _as.parent());
 
          value.addAppEventListener("ONCREATE", new AppEventListener()
             {
@@ -43,9 +43,9 @@ public class BidiAssociation extends Association
                }
             });
       }
-      else if (_parent.isTransientState())
+      else if (_as.parent().isTransientState())
       {
-         _parent.addAppEventListener("ONCREATE", new AppEventListener()
+         _as.parent().addAppEventListener("ONCREATE", new AppEventListener()
             {
                public void onEvent(AppEvent evt)
                {
@@ -54,7 +54,7 @@ public class BidiAssociation extends Association
                   //  prior to clicking 'save')
                   if (get() == value)
                   {
-                     _otherSide.set(value, _parent);
+                     _otherSide.set(value, _as.parent());
                   }
                }
             });
@@ -62,7 +62,7 @@ public class BidiAssociation extends Association
       }
       else
       {
-         _otherSide.set(value, _parent);
+         _otherSide.set(value, _as.parent());
          super.set(value);
       }
    }
@@ -73,10 +73,10 @@ public class BidiAssociation extends Association
       for (int i=0; i<value.size(); i++)
       {
          item = (ComplexEObject) value.get(i);
-         _otherSide.set(item, _parent);
+         _otherSide.set(item, _as.parent());
       }
-      _field.set(_parent, value);
-      if (!_parent.isEditableState()) _parent.save();
+      _as.field().set(_as.parent(), value);
+      if (!_as.parent().isEditableState()) _as.parent().save();
    }
 
    public void dissociate()
@@ -97,11 +97,11 @@ public class BidiAssociation extends Association
    // lots of work to do here to deal with 1-many relationships
    public void dissociateItem(ComplexEObject eo)
    {
-      AbstractListEO list = (AbstractListEO) _field.get(_parent);
+      AbstractListEO list = (AbstractListEO) _as.field().get(_as.parent());
       list.remove(eo);
       _otherSide.set(eo, null);
       Context.getInstance().getPersistenceMechanism().
-            updateAssociation(eo, _parent);
+            updateAssociation(eo, _as.parent());
    }
 
 }

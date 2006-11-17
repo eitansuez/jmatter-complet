@@ -1,139 +1,88 @@
-/*
- * Created on Feb 17, 2004
- */
 package com.u2d.field;
 
-import java.awt.datatransfer.*;
-import javax.swing.event.*;
-import java.beans.*;
-import java.util.List;
-import com.u2d.app.*;
-import com.u2d.element.Field;
-import com.u2d.model.ComplexEObject;
-import com.u2d.model.ComplexType;
-import com.u2d.model.Title;
-import com.u2d.model.AbstractListEO;
-import com.u2d.pubsub.*;
+import com.u2d.validation.ValidationNotifier;
 import com.u2d.validation.ValidationEvent;
 import com.u2d.validation.ValidationListener;
-import com.u2d.validation.ValidationNotifier;
+import com.u2d.element.Field;
+import com.u2d.model.*;
+
+import javax.swing.event.ChangeListener;
+import javax.swing.event.EventListenerList;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.util.List;
+import java.beans.PropertyChangeListener;
 
 /**
  * @author Eitan Suez
  */
-public class Association implements Transferable, java.io.Serializable, ValidationNotifier
+public class Association
+      implements Transferable, java.io.Serializable, ValidationNotifier
 {
-   protected Field _field;
-   protected ComplexEObject _parent;
+   protected AssociationStrategy _as;
    
    public Association(Field field, ComplexEObject parent)
    {
-      _field = field;
-      _parent = parent;
+     this(new BasicAssociationStrategy(field, parent));
    }
-   
-   public Title title()
-   {
-      return _parent.title().append(_field.getLabel());
-   }
+   public Association(AssociationStrategy as) { _as = as; }
+
+   public Title title() { return _as.title(); }
    public String toString() { return title().toString(); }
-   
-   // conveniences..
-   
+
    public ComplexEObject get()
    {
-      return (ComplexEObject) _field.get(_parent);
-   }
-   // obviously this class needs a lot of work..
-   // what is needed: two types of associations: tomany and toone, with polymorphic get
-   public AbstractListEO getAsList()
-   {
-      return (AbstractListEO) _field.get(_parent);
-   }
-   
-   public void set(final ComplexEObject value)
-   {
-      //speaks for itself, but in prose:  if transient delay set until after save
-      if (value != null && value.isTransientState())
+      ComplexEObject eo = _as.get();
+      if (eo == null)
       {
-         value.addAppEventListener("ONCREATE", new AppEventListener()
-            {
-               public void onEvent(AppEvent evt)
-               {
-                  _field.set(_parent, value);
-               }
-            });
+         return new NullAssociation(this);
       }
       else
       {
-         _field.set(_parent, value);
+         return eo;
       }
    }
-   
-   public void associateList(final List value)
-   {
-      _field.set(_parent, value);
-      if (!_parent.isEditableState()) _parent.save();
-   }
-   
-   public void associate(ComplexEObject value)
-   {
-      set(value);
-      if (!_parent.isEditableState()) _parent.save();
-   }
-   
-   public void dissociate()
-   {
-      ComplexEObject oldValue = get();
-      
-      set(null);
 
-      if (!_parent.isEditableState())
-      {
-         Context.getInstance().getPersistenceMechanism().updateAssociation(_parent, oldValue);
-      }
-   }
+   public AbstractListEO getAsList() { return _as.getAsList(); }
+
+   public void set(final ComplexEObject value) { _as.set(value); }
    
-   public void dissociateItem(ComplexEObject eo)
-   {
-      AbstractListEO list = (AbstractListEO) _field.get(_parent);
-      list.remove(eo);
-      if (!_parent.isEditableState())
-      {
-         _parent.save();
-      }
-   }
+   public void associateList(final List value) { _as.associateList(value); }
+   public void associate(ComplexEObject value) { _as.associate(value); }
    
-   public Field field() { return _field; }
-   public ComplexEObject parent() { return _parent; }
+   public void dissociate() { _as.dissociate(); }
    
-   public javax.swing.Icon iconSm() { return _field.fieldtype().iconSm(); }
-   public boolean isEmpty() { return _field.isEmpty(_parent); }
-   public ComplexType type() { return _field.fieldtype(); }
+   public void dissociateItem(ComplexEObject eo) { _as.dissociateItem(eo); }
+   
+   public Field field() { return _as.field(); }
+   public ComplexEObject parent() { return _as.parent(); }
+   
+   public javax.swing.Icon iconSm() { return _as.iconSm(); }
+   public boolean isEmpty() { return _as.isEmpty(); }
+   public ComplexType type() { return _as.type(); }
    
    public void addPropertyChangeListener(PropertyChangeListener listener)
    {
-      _parent.addPropertyChangeListener(listener);
+      parent().addPropertyChangeListener(listener);
    }
    public void removePropertyChangeListener(PropertyChangeListener listener)
    {
-      _parent.removePropertyChangeListener(listener);
+      parent().removePropertyChangeListener(listener);
    }
    public void addChangeListener(ChangeListener l)
    {
-      _parent.addChangeListener(l);
+      parent().addChangeListener(l);
    }
    public void removeChangeListener(ChangeListener l)
    {
-      _parent.removeChangeListener(l);
+      parent().removeChangeListener(l);
    }
    
-   public boolean isEditableState()
-   {
-      return _parent.isEditableState();
-   }
    
-   public String getName() { return _field.name(); }
+   public boolean isEditableState() { return _as.isEditableState(); }
+
+   public String getName() { return _as.getName(); }
    
    
    // ========== implementation of Transferrable Interface  ===============
@@ -148,7 +97,7 @@ public class Association implements Transferable, java.io.Serializable, Validati
    public DataFlavor[] getTransferDataFlavors()
    {
       DataFlavor typeFlavor = makeFlavor(type().getJavaClass());
-      return new DataFlavor[] { FLAVOR, typeFlavor };
+      return new DataFlavor[] {FLAVOR, typeFlavor };
    }
    
    public boolean isDataFlavorSupported(DataFlavor f)
