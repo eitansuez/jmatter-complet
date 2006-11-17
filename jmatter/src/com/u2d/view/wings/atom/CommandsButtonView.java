@@ -109,7 +109,7 @@ public class CommandsButtonView extends SPanel implements ListEView
 
                CommandAdapter cmdAdapter = new CommandAdapter(cmd, _eo, _source);
                SButton btn;
-               if (cmd.isSensitive())
+               if (cmd.sensitive())
                {
                   btn = new LockedButton(cmdAdapter);
                   firstPass = false;
