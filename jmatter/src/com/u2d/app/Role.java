@@ -56,7 +56,7 @@ public class Role extends AbstractComplexEObject
 
    public void applyRestrictions()
    {
-      initializePermissions();
+      initializePermissions(hbmPersistor());
       
       tracer().info("Role "+_name+": applying restrictions..("+_restrictions.getSize()+")");
       for (Iterator itr = _restrictions.iterator(); itr.hasNext(); )
@@ -92,7 +92,7 @@ public class Role extends AbstractComplexEObject
       return "Default".equals(_name.stringValue());
    }
    
-   public void initializePermissions()
+   public void initializePermissions(HBMPersistenceMechanism hbmPersistor)
    {
       if (defaultRole())
       {
@@ -133,7 +133,7 @@ public class Role extends AbstractComplexEObject
             Set items = new HashSet();
             items.addAll(_restrictions.getItems());
             items.add(this);
-            hbmPersistor().saveMany(items);
+            hbmPersistor.saveMany(items);
          }
       
          // todo:  add other restrictions

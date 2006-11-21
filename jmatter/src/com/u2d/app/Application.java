@@ -18,6 +18,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.InputStream;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * @author Eitan Suez
@@ -65,15 +67,17 @@ public class Application
          int count = ((Long) session.createQuery(hql).iterate().next()).intValue();
          if (count == 0)
          {
-            Transaction tx = session.beginTransaction();
             message("Creating Admin User..");
             Role adminRole = new Role("Administrator");
             Role defaultRole = new Role("Default");
             User adminUser = new User("admin", "admin", adminRole);
-            session.save(adminUser);
-            session.save(adminRole);
-            session.save(defaultRole);
-            tx.commit();
+            Set items = new HashSet();
+            items.add(adminUser);
+            items.add(adminRole);
+            items.add(defaultRole);
+            hbm.saveMany(items);
+            
+            defaultRole.initializePermissions(hbm);
          }
          
          CodesList.populateCodes(_pmech, hbm.getClasses());
