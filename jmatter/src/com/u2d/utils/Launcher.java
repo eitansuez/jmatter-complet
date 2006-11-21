@@ -1,9 +1,9 @@
 package com.u2d.utils;
 
 import com.lowagie.tools.Executable;
-
 import java.util.LinkedList;
 import java.io.IOException;
+import java.io.File;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,33 +11,47 @@ import java.io.IOException;
  * Date: Sep 12, 2006
  * Time: 10:38:53 PM
  */
-public class BrowserLauncher
+public class Launcher
 {
+   public static void openFile(File file)
+   {
+      openFile(file.getAbsolutePath());
+   }
+
+   public static void openFile(String fileName)
+   {
+      launch(execCmds(fileName));
+   }
+
    public static void openInBrowser(String url)
    {
       launch(browserCmds(url));
    }
 
-   public static LinkedList<String> browserCmds(String url)
+   public static LinkedList<String> browserCmds(String url) { return cmds(url, false); }
+   public static LinkedList<String> execCmds(String url) { return cmds(url, true); }
+
+   public static LinkedList<String> cmds(String fileName, boolean exec)
    {
       LinkedList<String> cmds = new LinkedList<String>();
-
+      
       if (Executable.isLinux())
       {
-         cmds.add(String.format("gnome-open %s", url));
-         cmds.add(String.format("kfmclient openURL %s", url));
+         cmds.add(String.format("gnome-open %s", fileName));
+         String subCmd = (exec) ? "exec" : "openURL";
+         cmds.add(String.format("kfmclient "+subCmd+" %s", fileName));
       }
       else if (Executable.isMac())
       {
-         cmds.add(String.format("open %s", url));
+         cmds.add(String.format("open %s", fileName));
       }
       else if (Executable.isWindows() && Executable.isWindows9X())
       {
-         cmds.add(String.format("command.com /C start %s", url));
+         cmds.add(String.format("command.com /C start %s", fileName));
       }
       else if (Executable.isWindows())
       {
-         cmds.add(String.format("cmd /c start %s", url));
+         cmds.add(String.format("cmd /c start %s", fileName));
       }
       return cmds;
    }
@@ -57,7 +71,7 @@ public class BrowserLauncher
       }
       catch (IOException ex)
       {
-         if (cmds.size() > 0)
+         if (!cmds.isEmpty())
          {
             launch(cmds);
          }

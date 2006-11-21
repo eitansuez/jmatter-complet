@@ -2,7 +2,7 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicRenderer;
-import com.u2d.utils.BrowserLauncher;
+import com.u2d.utils.Launcher;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -27,7 +27,7 @@ public class URIRenderer extends JLabel implements AtomicRenderer
       {
          public void mouseClicked(MouseEvent evt)
          {
-            BrowserLauncher.openInBrowser(getText());
+            Launcher.openInBrowser(getText());
          }
       });
    }

@@ -16,7 +16,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.io.File;
 import java.io.IOException;
-import com.lowagie.tools.Executable;  // TODO: replace with Mustang Desktop API
+import com.lowagie.tools.Executable;
+import com.u2d.utils.Launcher;  // TODO: replace with Mustang Desktop API
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,7 +31,6 @@ public class ReportingInterface
    {
       LogConfiguration.setLogLevel("warn");
       Log.getInstance().init();
-      Executable.acroread = "/usr/bin/acroread";
       JFreeReportBoot.getInstance().start();
    }
    
@@ -104,7 +104,14 @@ public class ReportingInterface
                {
                   try
                   {
-                     Executable.openDocument(reportFile);
+                     if (Executable.isLinux())
+                     {
+                        Launcher.openFile(reportFile);
+                     }
+                     else
+                     {
+                        Executable.openDocument(reportFile);
+                     }
                   }
                   catch (IOException ex)
                   {

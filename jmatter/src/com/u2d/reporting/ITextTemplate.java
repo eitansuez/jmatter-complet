@@ -6,6 +6,7 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.rtf.RtfWriter2;
 import com.lowagie.tools.Executable;
+import com.u2d.utils.Launcher;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -61,11 +62,15 @@ public class ITextTemplate
       {
          doc.close();
       }
+      
       if (Executable.isLinux())
       {
-         Executable.acroread = "/usr/bin/acroread";
+         Launcher.openFile(reportFile);
       }
-      Executable.openDocument(reportFile);
+      else
+      {
+         Executable.openDocument(reportFile);
+      }
    }
 
    /*

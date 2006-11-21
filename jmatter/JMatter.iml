@@ -171,7 +171,9 @@
           <root url="jar://$MODULE_DIR$/lib/src/iText.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../thirdparty/iText" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
