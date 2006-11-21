@@ -37,8 +37,7 @@ public class GenericFrame extends CloseableJInternalFrame
          GenericTitleView titleView = new GenericTitleView(_view);
          contentPane.add((JComponent) titleView, BorderLayout.NORTH);
       }
-      JScrollPane scrollPane = new JScrollPane((JComponent) _view);
-      contentPane.add(scrollPane, BorderLayout.CENTER);
+      contentPane.add((JComponent) _view, BorderLayout.CENTER);
       
       setResizable(true); setMaximizable(true); setIconifiable(true); setClosable(true);
       pack();
