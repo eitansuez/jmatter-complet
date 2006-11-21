@@ -66,7 +66,12 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
          }
       }
 
-      _tf = new JTextField(10);
+      _tf = new JTextField(6);
+      if (field.displaysize() > 0)
+      {
+         _tf.setColumns(field.displaysize());
+      }
+      
       _tf.getDocument().addDocumentListener(this);
 
       final IconButton iconButton = new IconButton(PICK_ICON, PICK_ROLLOVER);
