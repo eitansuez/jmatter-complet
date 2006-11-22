@@ -141,7 +141,9 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
 
    public EObject getEObject() { return _folder; }
 
-   public void detach() { }
+   public void detach()
+   {
+   }
 
    public boolean isMinimized() { return false; }
 

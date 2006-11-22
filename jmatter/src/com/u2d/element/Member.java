@@ -25,13 +25,11 @@ public abstract class Member extends ProgrammingElement implements Restrictable
 
    public static Member member(String memberName, List members)
    {
-      Iterator itr = members.iterator();
-      Member member = null;
-      while (itr.hasNext())
+      for (Iterator itr = members.iterator(); itr.hasNext(); )
       {
-         member = (Member) itr.next();
+         Member member = (Member) itr.next();
          if (member.name().equals(memberName))
-            return member;
+               return member;
       }
       return null;
    }
@@ -42,7 +40,20 @@ public abstract class Member extends ProgrammingElement implements Restrictable
       return  new NameComparator(memberOrder);
    }
 
-   
+   public static Member forMember(Member member)
+   {
+      if (member instanceof Field)
+      {
+         return Field.forPath(member.getFullPath().stringValue());
+      }
+      else if (member instanceof Command)
+      {
+         return Command.forPath(member.getFullPath().stringValue());
+      }
+      throw new RuntimeException("What Kind of Member is this?");
+   }
+
+
    private static class NameComparator implements java.util.Comparator
    {
       private String[] _memberOrder;
@@ -101,6 +112,9 @@ public abstract class Member extends ProgrammingElement implements Restrictable
    public abstract StringEO getFullPath();
    
    /**
+    * This is wrong.  Instead, should override how members are 
+    * "constructed" in mapping file.  how?
+    * 
     * Check if field metadata exists in db.  If so, load
     * that information into self and replace loaded object
     * with self (session.evict followed by session.update)

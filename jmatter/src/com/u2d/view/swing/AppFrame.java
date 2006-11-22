@@ -40,7 +40,7 @@ public class AppFrame extends JFrame
    private JMenu _userMenu;
    private JPanel _centerPane;
    private LookAndFeelSupport _lfSupport;
-   private JComponent _classesView;
+   private OutlookFolderView _classesView;
    private EODesktopPane _desktopPane;
    private MessagePanel _msgPnl;
 
@@ -206,6 +206,10 @@ public class AppFrame extends JFrame
    //===
    private void makeClassBar()
    {
+      if (_classesView != null)
+      {
+         _classesView.detach();
+      }
       Folder classesFolder = _appSession.getClassesFolder();
       _classesView = new OutlookFolderView(classesFolder);
    }
@@ -215,10 +219,9 @@ public class AppFrame extends JFrame
          {
             public void run()
             {
-               if (_classesView == null)
-               {
-                  makeClassBar();
-               }
+               // make a new class bar each time.  will ensure also
+               // that view and its commands will reflect current user's restrictions
+               makeClassBar();
                _centerPane.add(_classesView, BorderLayout.WEST);
                _centerPane.revalidate(); _centerPane.repaint();
             }

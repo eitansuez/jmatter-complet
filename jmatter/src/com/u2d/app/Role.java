@@ -13,6 +13,10 @@ import com.u2d.restrict.UserRestriction;
 import com.u2d.restrict.CreationRestriction;
 import com.u2d.type.atom.*;
 import com.u2d.type.composite.LoggedEvent;
+import com.u2d.element.Member;
+import com.u2d.element.Command;
+import com.u2d.element.Field;
+
 import java.util.Iterator;
 import java.util.Set;
 import java.util.HashSet;
@@ -56,13 +60,16 @@ public class Role extends AbstractComplexEObject
 
    public void applyRestrictions()
    {
-      initializePermissions(hbmPersistor());
-      
       tracer().info("Role "+_name+": applying restrictions..("+_restrictions.getSize()+")");
       for (Iterator itr = _restrictions.iterator(); itr.hasNext(); )
       {
          Restriction restriction = (Restriction) itr.next();
-         restriction.member().applyRestriction(restriction);
+         // even though Member "merges" retrieved objects with one constructed
+         // in memory through introspection, associations are not updated.
+         // i cannot seem to find a way to plug into hibernate a mechanism
+         // for resolving retrieved objects instead of having it use the no-arg
+         // constructor..
+         Member.forMember(restriction.member()).applyRestriction(restriction);
       }
    }
    public void liftRestrictions()

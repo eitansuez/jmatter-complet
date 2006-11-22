@@ -90,7 +90,7 @@ public abstract class Command extends Member
    
    public boolean isForbidden(EObject target)
    {
-      tracer().fine("Checking if command "+this+" is forbidden.."+
+      tracer().fine("Checking if command "+this.getFullPath()+" is forbidden.."+
          "(restriction is: "+_restriction+")");
       return (_restriction != null) && (_restriction.forbidden(target));
    }

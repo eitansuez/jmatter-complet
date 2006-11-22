@@ -34,7 +34,7 @@ public class CommandsButtonView extends JPanel implements ListEView
    private Onion _commands;
    private JComponent _parent;
    private EView _source;
-   private Map _indexMap = new HashMap();
+   private Map<Integer, Integer> _indexMap = new HashMap<Integer, Integer>();
    private boolean _horizontalLayout;
 
    public CommandsButtonView()
