@@ -155,6 +155,8 @@
    <mkdir dir="${build.classes.dir}/com/u2d/reporting" />
    <mkdir dir="${build.classes.dir}/com/u2d/calendar" />
    <mkdir dir="${build.classes.dir}/com/u2d/model" />
+   <mkdir dir="${build.classes.dir}/com/u2d/element" />
+   <mkdir dir="${build.classes.dir}/com/u2d/field" />
    <java classpathref="class.path" dir="${build.classes.dir}"
          fork="true" classname="com.u2d.persist.HBMGenerator" />
  </target>
