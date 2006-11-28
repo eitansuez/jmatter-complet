@@ -12,6 +12,8 @@ import com.u2d.element.Field;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.beans.PropertyChangeEvent;
 
 /**
@@ -42,6 +44,27 @@ public class TopLevelFormView extends JPanel
       _cmdsView.bind(_ceo, this, BorderLayout.EAST, this);
 
       add(statusPanel(), BorderLayout.SOUTH);
+   }
+
+
+   public void addNotify()
+   {
+      super.addNotify();
+      // this sucks but it works (turns out to be known bug, posted
+      //  against java1.4.2)
+      new Thread()
+      {
+         public void run()
+         {
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               public void run()
+               {
+                  _formView.focusFirstEditableField();
+               }
+            });
+         }
+      }.start();
    }
 
    private JPanel statusPanel()

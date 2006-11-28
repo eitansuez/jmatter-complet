@@ -405,6 +405,7 @@ public class FormView extends JPanel implements ComplexEView, Editor
          if (c instanceof JTextComponent)
          {
             JTextComponent textC = (JTextComponent) c;
+//            System.out.println("Requesting focus for: "+textC.getClass().getName());
             textC.requestFocusInWindow();
             textC.selectAll();
             return true;
