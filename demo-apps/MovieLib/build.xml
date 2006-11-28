@@ -147,18 +147,9 @@
    
    
  <target name="genhbm" depends="bind" description="generate hbm.xml files">
-   <mkdir dir="${build.classes.dir}/com/u2d/app" />
-   <mkdir dir="${build.classes.dir}/com/u2d/type" />
-   <mkdir dir="${build.classes.dir}/com/u2d/restrict" />
-   <mkdir dir="${build.classes.dir}/com/u2d/type/composite" />
-   <mkdir dir="${build.classes.dir}/com/u2d/find" />
-   <mkdir dir="${build.classes.dir}/com/u2d/reporting" />
-   <mkdir dir="${build.classes.dir}/com/u2d/calendar" />
-   <mkdir dir="${build.classes.dir}/com/u2d/model" />
    <java classpathref="class.path" dir="${build.classes.dir}"
          fork="true" classname="com.u2d.persist.HBMGenerator" />
  </target>
-
 
  <!-- JiBX - related -->
 
@@ -264,7 +255,7 @@
 
 
  <!-- not yet fully working:  for deploying as a web application using WingS -->
- <property name="build.web.dir" location="${build.dir}/web" />
+ <property name="build.web.dir" location="jetty/MovieLib" />
  <target name="init-web">
     <mkdir dir="${build.web.dir}" />
     <mkdir dir="${build.web.dir}/WEB-INF" />
