@@ -83,6 +83,10 @@ public class CommandsContextMenuView
       if (_eo == null) return;
 
       _commands = _eo.commands();
+      if (_commands == null)
+      {
+         throw new RuntimeException("Null commands onion for eobject: "+_eo);
+      }
       new OnionPeeler(new Processor()
          {
             int index = 0;

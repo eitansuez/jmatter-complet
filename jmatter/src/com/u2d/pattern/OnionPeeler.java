@@ -33,12 +33,9 @@ public class OnionPeeler
    
    public void peel(Onion onion)
    {
-      Iterator itr = onion.iterator();
-      Object obj;
-      while (itr.hasNext())
+      for (Iterator itr = onion.iterator(); itr.hasNext(); )
       {
-         obj = itr.next();
-         _processor.process(obj);
+         _processor.process(itr.next());
       }
       if (onion.hasMoreLayers())
       {

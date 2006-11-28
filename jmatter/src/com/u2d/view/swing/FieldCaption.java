@@ -13,6 +13,7 @@ import com.u2d.type.atom.BooleanEO;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import com.u2d.model.EObject;
+import com.u2d.field.IndexedField;
 
 /**
  * @author Eitan Suez
@@ -35,7 +36,12 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
    {
       _field = field;
 
-      _cmdsView.bind(_field, this);
+      // hack for now.. not sure what the issue is with list fields
+      // throwing an exception
+      if (!_field.isIndexed())
+      {
+         _cmdsView.bind(_field, this);
+      }
       
       _font = getFont();
       _foreground = getForeground();
