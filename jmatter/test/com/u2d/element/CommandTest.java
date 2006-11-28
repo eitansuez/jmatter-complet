@@ -13,11 +13,7 @@ import com.u2d.type.composite.Folder;
 import com.u2d.pattern.Onion;
 import com.u2d.list.RelationalList;
 import com.u2d.app.User;
-
 import java.util.Iterator;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class CommandTest
       extends TestCase
