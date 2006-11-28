@@ -8,6 +8,9 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.text.JTextComponent;
 import java.util.*;
 import java.util.List;
 import java.beans.*;
@@ -230,7 +233,30 @@ public class FormView extends JPanel implements ComplexEView, Editor
    private JTabbedPane tabbedPane()
    {
       if (_tabbedPane == null)
+      {
          _tabbedPane = new CustomTabbedPane();
+         _tabbedPane.addChangeListener(new ChangeListener()
+         {
+            public void stateChanged(ChangeEvent e)
+            {
+               // this sucks but it works (turns out to be known bug, posted
+               //  against java1.4.2)
+               new Thread()
+               {
+                  public void run()
+                  {
+                     SwingUtilities.invokeLater(new Runnable()
+                     {
+                        public void run()
+                        {
+                           focusFirstEditableField();
+                        }
+                     });
+                  }
+               }.start();
+            }
+         });
+      }
       return _tabbedPane;
    }
 
@@ -367,4 +393,34 @@ public class FormView extends JPanel implements ComplexEView, Editor
 
    public boolean isMinimized() { return false; }
 
+   public void focusFirstEditableField()
+   {
+      focusFirstEditableField(FormView.this);
+   }
+   private boolean focusFirstEditableField(Container container)
+   {
+      for (int i=0; i<container.getComponentCount(); i++)
+      {
+         Component c = container.getComponent(i);
+         if (c instanceof JTextComponent)
+         {
+            JTextComponent textC = (JTextComponent) c;
+            textC.requestFocusInWindow();
+            textC.selectAll();
+            return true;
+         }
+         else if (c instanceof JTabbedPane)
+         {
+            JTabbedPane tp = (JTabbedPane) c;
+            Container tabContents = (Container) tp.getSelectedComponent();
+            return focusFirstEditableField(tabContents);
+         }
+         else if (c instanceof Container)
+         {
+            boolean done = focusFirstEditableField((Container) c);
+            if (done) return done;
+         }
+      }
+      return false;
+   }
 }

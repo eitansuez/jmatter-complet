@@ -66,7 +66,22 @@ public class TopLevelFormView extends JPanel
    }
 
    public int transferValue() { return _formView.transferValue(); }
-   public void setEditable(boolean editable) { _formView.setEditable(editable); }
+
+   public void setEditable(boolean editable)
+   {
+      _formView.setEditable(editable);
+      if (_ceo.isEditableState())
+      {
+         SwingUtilities.invokeLater(new Runnable()
+         {
+            public void run()
+            {
+               _formView.focusFirstEditableField();
+            }
+         });
+      }
+   }
+
    public boolean isEditable() { return _formView.isEditable(); }
 
    public void stateChanged(ChangeEvent e) { }
