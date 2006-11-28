@@ -29,7 +29,7 @@ public class CommandTest
          throws Exception
    {
       folderType = ComplexType.forClass(Folder.class);
-      editCmd = (EOCommand) folderType.instance().command("Edit");
+      editCmd = (EOCommand) folderType.instanceCommand("Edit");
    }
    
    public void testQualifiedName()

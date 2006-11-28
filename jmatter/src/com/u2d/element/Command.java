@@ -92,7 +92,58 @@ public abstract class Command extends Member
    {
       tracer().fine("Checking if command "+this.getFullPath()+" is forbidden.."+
          "(restriction is: "+_restriction+")");
-      return (_restriction != null) && (_restriction.forbidden(target));
+      if (_restriction != null)
+      {
+         return _restriction.forbidden(target);
+      }
+      
+      Command superCmd = superCmd(target);
+      if (superCmd != null && superCmd != this)
+      {
+         return superCmd.isForbidden(target);
+      }
+
+      return false;
+   }
+   
+   public Command superCmd(EObject target)
+   {
+      if (target instanceof ComplexEObject)
+      {
+         ComplexEObject targetCeo = (ComplexEObject) target;
+         if (targetCeo instanceof ComplexType)
+         {
+            if (_parent == null)
+            {
+               return null;
+            }
+            ComplexType type = ComplexType.forClass(_parent.getJavaClass());
+            ComplexType superType = type.superType();
+            if (superType != null)
+            {
+               return superType.command(name());
+            }
+         }
+         else
+         {
+            ComplexType type = targetCeo.type();
+            ComplexType superType = type.superType();
+            if (superType != null)
+            {
+               return superType.instanceCommand(name());
+            }
+         }
+      }
+      else if (target instanceof AbstractListEO)
+      {
+         // e.g. A list view will sport its type's commands
+         AbstractListEO leo = (AbstractListEO) target;
+         ComplexType type = leo.type();
+         return type.command(name());
+         // problem:  the list of commands is constructed once.
+         // TODO: fix.
+      }
+      return null;
    }
 
    
@@ -229,8 +280,8 @@ public abstract class Command extends Member
          String commandName = parts[1];
          
          // this obviously needs work.  there shouldn't be two command lookup methods (!)
+//         Command cmd = type.findCommand(commandName);
          Command cmd = type.findCommand(commandName);
-//         Command cmd = type.command(commandName);
          if (cmd == null)
          {
             System.err.println("Can't find command: "+commandName+" on type: "+type);

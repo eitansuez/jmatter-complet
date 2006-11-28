@@ -4,7 +4,6 @@
 package com.u2d.element;
 
 import java.util.*;
-
 import com.u2d.model.FieldParent;
 import com.u2d.model.Title;
 import com.u2d.restrict.Restrictable;

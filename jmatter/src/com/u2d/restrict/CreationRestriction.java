@@ -10,14 +10,11 @@ import com.u2d.model.ComplexType;
  */
 public class CreationRestriction extends CommandRestriction
 {
-   private ComplexType _type;
-   
    public CreationRestriction() {}
 
    public CreationRestriction(ComplexType type)
    {
-      _type = type;
-      _member = _type.command("New");
+      _member = type.command("New");
       // TODO: this is not enough.  List.command("New") must also be
       //  restricted
    }

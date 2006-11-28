@@ -14,9 +14,6 @@ import com.u2d.restrict.CreationRestriction;
 import com.u2d.type.atom.*;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.element.Member;
-import com.u2d.element.Command;
-import com.u2d.element.Field;
-
 import java.util.Iterator;
 import java.util.Set;
 import java.util.HashSet;
@@ -54,6 +51,11 @@ public class Role extends AbstractComplexEObject
       _restrictions.add(restriction);
       restriction.setRole(this);
       return restriction;
+   }
+   
+   public CommandRestriction addCmdRestriction()
+   {
+      return addCmdRestriction(new CommandRestriction(this));
    }
    
    public Title title() { return _name.title(); }
@@ -106,37 +108,35 @@ public class Role extends AbstractComplexEObject
       
          if (_restrictions.isEmpty())
          {
-            User prototype = new User();
-            addCmdRestriction(new UserRestriction()).on(prototype.command("ChangePassword"));
-            addCmdRestriction(new UserRestriction()).on(prototype.command("Lock"));
-            addCmdRestriction(new UserRestriction()).on(prototype.command("Edit"));
-            addCmdRestriction(new UserRestriction()).on(prototype.command("Delete"));
+            ComplexType userType = ComplexType.forClass(User.class);
+            ComplexType logType = ComplexType.forClass(LoggedEvent.class);
+            ComplexType roleType = ComplexType.forClass(Role.class);
+            ComplexType restrictionType = ComplexType.forClass(Restriction.class);
             
-            addCmdRestriction(new CreationRestriction(ComplexType.forClass(Role.class)));
-            addCmdRestriction(new CreationRestriction(ComplexType.forClass(Restriction.class)));
-            addCmdRestriction(new CreationRestriction(ComplexType.forClass(User.class)));
-            addCmdRestriction(new CreationRestriction(ComplexType.forClass(LoggedEvent.class)));
+            addCmdRestriction(new UserRestriction()).on(userType.instanceCommand("ChangePassword"));
+            addCmdRestriction(new UserRestriction()).on(userType.instanceCommand("Lock"));
+            addCmdRestriction(new UserRestriction()).on(userType.instanceCommand("Edit"));
+            addCmdRestriction(new UserRestriction()).on(userType.instanceCommand("Delete"));
+            
+            addCmdRestriction(new CreationRestriction(roleType));
+            addCmdRestriction(new CreationRestriction(restrictionType));
+            addCmdRestriction(new CreationRestriction(userType));
+            addCmdRestriction(new CreationRestriction(logType));
             
             // 1. disable destruction of logs
-            LoggedEvent evtProto = new LoggedEvent();
-            addCmdRestriction(new CommandRestriction(this, evtProto.command("Delete")));
+            addCmdRestriction().on(logType.instanceCommand("Delete"));
             // 2. disable destruction of roles
-            CommandRestriction roleDeletionRestriction = 
-                  new CommandRestriction(this, this.command("Delete"));
+            addCmdRestriction().on(roleType.instanceCommand("Delete"));
             // 3. disable destruction of command restrictions
-            addCmdRestriction(roleDeletionRestriction);
-            addCmdRestriction(new CommandRestriction(this, 
-                                                     roleDeletionRestriction.command("Delete")));
-            // TODO: how to specify a restriction on a command across a type hierarchy?
+            addCmdRestriction().on(restrictionType.instanceCommand("Delete"));
             
             // disable editing logged events
-            addCmdRestriction(new CommandRestriction(this, evtProto.command("Edit")));
+            addCmdRestriction().on(logType.instanceCommand("Edit"));
             // disable editing roles
-            addCmdRestriction(new CommandRestriction(this, this.command("Edit")));
+            addCmdRestriction().on(roleType.instanceCommand("Edit"));
             // disable editing restrictions
-            addCmdRestriction(new CommandRestriction(this, 
-                                                     roleDeletionRestriction.command("Edit")));
-            
+            addCmdRestriction().on(restrictionType.instanceCommand("Edit"));
+
             Set items = new HashSet();
             items.addAll(_restrictions.getItems());
             items.add(this);
@@ -144,8 +144,7 @@ public class Role extends AbstractComplexEObject
          }
       
          // todo:  add other restrictions
-         //  - on the manipulation of metadata (once revise jmatter to
-         //     store metadata in the db)
+         //  - on the manipulation of metadata
          
          // another issue:  on the visibility of types and instances
          

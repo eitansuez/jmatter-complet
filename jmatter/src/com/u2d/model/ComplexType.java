@@ -370,39 +370,46 @@ public class ComplexType extends AbstractComplexEObject
       SimpleFinder finder = Command.finder(commandName);
       Command cmd = (Command) commands.find(finder);
       return cmd;
-
-      // q:  why is this implementation only looking in _typeCommands ?
-      // why not look exhaustively, like this:
-//      if (cmd == null)
-//      {
-//         for (Class stateClass : _commands.keySet())
-//         {
-//            commands = _commands.get(stateClass);
-//            finder = Command.finder(commandName);
-//            cmd = (Command) commands.find(finder);
-//            if (cmd != null) break;
-//         }
-//      }
-//      return cmd;
-      
       // q: don't you need to disambiguate between different commands 
       //   with the same name but that exist in different states??
+   }
+   public Command instanceCommand(String commandName)
+   {
+      Command cmd = command(commandName);
+      for (Class stateClass : _commands.keySet())
+      {
+         Onion commands = _commands.get(stateClass);
+         SimpleFinder finder = Command.finder(commandName);
+         cmd = (Command) commands.find(finder);
+         if (cmd != null) break;
+      }
+      return cmd;
+   }
+   
+   public Command findCommand(String commandName)
+   {
+      Command cmd = command(commandName);
+      if (cmd == null)
+      {
+         cmd = instanceCommand(commandName);
+      }
+      return cmd;
    }
 
    /**
     * note it tries to locate a command from the commandslist
     * used only for restoring a command that was saved to persistencemechanism
     */
-   public Command findCommand(String commandName)
-   {
-      for (Iterator itr = _commandsList.iterator(); itr.hasNext(); )
-      {
-         Command cmd = (Command) itr.next();
-         if (cmd.name().equals(commandName))
-            return cmd;
-      }
-      return null;
-   }
+//   public Command findCommand(String commandName)
+//   {
+//      for (Iterator itr = _commandsList.iterator(); itr.hasNext(); )
+//      {
+//         Command cmd = (Command) itr.next();
+//         if (cmd.name().equals(commandName))
+//            return cmd;
+//      }
+//      return null;
+//   }
 
    public String defaultCommandName() { return "Browse"; }
 
