@@ -140,6 +140,7 @@ public class Application
    public static void main(String[] args)
    {
       SwingViewMechanism.setupAntiAliasing();
+      Logger.getLogger("org.springframework").setLevel(Level.WARNING);
       ApplicationContext context = 
             new ClassPathXmlApplicationContext("applicationContext.xml");
       

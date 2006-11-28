@@ -6,6 +6,8 @@ package com.u2d.persist;
 import com.u2d.app.Tracing;
 import com.u2d.app.HBMPersistenceMechanism;
 import java.util.Set;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import java.io.File;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -63,6 +65,7 @@ public class HBMGenerator
 
    public static void main(String[] args)
    {
+      Logger.getLogger("org.springframework").setLevel(Level.WARNING);
       ApplicationContext context =
             new ClassPathXmlApplicationContext("hbmGeneratorContext.xml");
       HBMGenerator generator = (HBMGenerator) context.getBean("hbm-generator");
