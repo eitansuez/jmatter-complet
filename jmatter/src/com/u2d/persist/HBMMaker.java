@@ -68,6 +68,7 @@ public class HBMMaker
    
    public void writeDocToFile(String filename) throws IOException
    {
+      new File(filename).getParentFile().mkdirs();
       OutputFormat pretty = OutputFormat.createPrettyPrint();
       XMLWriter writer = new XMLWriter(new FileWriter(filename), pretty);
       writer.write(_doc);

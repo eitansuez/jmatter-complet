@@ -147,16 +147,6 @@
    
    
  <target name="genhbm" depends="bind" description="generate hbm.xml files">
-   <mkdir dir="${build.classes.dir}/com/u2d/app" />
-   <mkdir dir="${build.classes.dir}/com/u2d/type" />
-   <mkdir dir="${build.classes.dir}/com/u2d/restrict" />
-   <mkdir dir="${build.classes.dir}/com/u2d/type/composite" />
-   <mkdir dir="${build.classes.dir}/com/u2d/find" />
-   <mkdir dir="${build.classes.dir}/com/u2d/reporting" />
-   <mkdir dir="${build.classes.dir}/com/u2d/calendar" />
-   <mkdir dir="${build.classes.dir}/com/u2d/model" />
-   <mkdir dir="${build.classes.dir}/com/u2d/element" />
-   <mkdir dir="${build.classes.dir}/com/u2d/field" />
    <java classpathref="class.path" dir="${build.classes.dir}"
          fork="true" classname="com.u2d.persist.HBMGenerator" />
  </target>
