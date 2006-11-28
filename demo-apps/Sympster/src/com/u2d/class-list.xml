@@ -18,6 +18,7 @@
          <name>Admin</name>
          <items>
            <type>com.u2d.app.User</type>
+           <type>com.u2d.app.Role</type>
            <type>com.u2d.type.composite.LoggedEvent</type>
            <type>com.u2d.model.ComplexType</type>
          </items>

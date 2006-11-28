@@ -9,7 +9,7 @@ import com.u2d.type.atom.PhotoIconAssistant;
 import com.u2d.type.composite.Contact;
 import com.u2d.list.RelationalList;
 import com.u2d.element.CommandInfo;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 import com.u2d.reflection.FieldAt;
 import javax.swing.Icon;
 import java.awt.Color;
@@ -51,7 +51,7 @@ public class Speaker extends AbstractComplexEObject
 
    public Title title() { return name.title(); }
    
-   @CommandAt(mnemonic='a')
+   @Cmd(mnemonic='a')
    public Talk AddTalk(CommandInfo cmdInfo)
    {
       Talk talk = (Talk) createInstance(Talk.class);
