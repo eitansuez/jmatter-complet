@@ -26,7 +26,6 @@
   <property name="test.classes.dir" location="${build.dir}/classes" />
   <property name="test.lib.dir" location="${lib.dir}/test" />
   <property name="test.reports.dir" location="${build.dir}/reports" />
-  <property name="test.resource.dir" location="test/resources" />
 
   <path id="test.classpath">
     <path refid="class.path" />
@@ -107,8 +106,6 @@
            classpathref="test.classpath"
            destdir="${test.classes.dir}" srcdir="${test.src.dir}" />
     <copy todir="${build.classes.dir}">
-      <fileset dir="${test.resource.dir}" includes="**/*.properties" />
-      <fileset dir="${test.resource.dir}" includes="images/*.gif" />
       <!-- <fileset dir="${test.src.dir}" includes="**/*.hbm.xml" /> -->
       <fileset dir="${test.src.dir}" includes="**/*.xml" /> <!-- jfree report templates -->
     </copy>
