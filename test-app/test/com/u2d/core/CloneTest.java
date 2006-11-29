@@ -7,13 +7,15 @@ import junit.framework.TestCase;
 import com.u2d.type.atom.*;
 import com.u2d.type.composite.*;
 import com.u2d.domain.*;
+import com.u2d.app.AppSession;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ApplicationContext;
 
 /**
  * @author Eitan Suez
  */
 public class CloneTest extends TestCase
 {
-   
    public void testCopySimpleString()
    {
       StringEO me = new StringEO("Eitan");

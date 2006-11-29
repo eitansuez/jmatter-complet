@@ -8,6 +8,7 @@ import java.util.*;
 import com.u2d.domain.*;
 import com.u2d.element.Field;
 import com.u2d.type.composite.*;
+import com.u2d.app.Application;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -16,9 +17,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class ValidationTest extends TestCase
 {
    Shipment _shipment;
-   {
-      new ClassPathXmlApplicationContext("applicationContext.xml");
-   }
 
    protected void setUp() throws Exception
    {

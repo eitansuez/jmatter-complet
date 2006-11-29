@@ -8,7 +8,8 @@
 
    <import resource="persistClasses.xml" />
    
-   <bean id="persistor" class="com.u2d.persist.InMemoryPersistor">
+   <bean id="persistor" class="com.u2d.persist.HBMSingleSession">
+      <property name="classes" ref="persist-classes" />
    </bean>
    
 </beans>
