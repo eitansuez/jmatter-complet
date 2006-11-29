@@ -9,7 +9,7 @@ import com.u2d.find.inequalities.TextualInequalities;
 import com.u2d.model.AtomicRenderer;
 import com.u2d.model.AtomicEditor;
 import com.u2d.model.*;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 import java.util.*;
 
@@ -69,19 +69,19 @@ public class StringEO extends AbstractAtomicEO implements Searchable
 
    /* ** Commands ** */
    
-   @CommandAt
+   @Cmd
    public void Capitalize(CommandInfo cmdInfo)
    {
       _value = _value.toUpperCase();
       fireStateChanged();
    }
-   @CommandAt
+   @Cmd
    public void Lowercase(CommandInfo cmdInfo)
    {
       _value = _value.toLowerCase();
       fireStateChanged();
    }
-   @CommandAt
+   @Cmd
    public void TitleCase(CommandInfo cmdInfo)
    {
       StringTokenizer tokenizer = new StringTokenizer(_value.toLowerCase(), 

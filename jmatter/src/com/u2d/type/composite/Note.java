@@ -8,7 +8,7 @@ import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.type.atom.*;
 import com.u2d.app.User;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 import java.util.*;
 import java.awt.*;
 import java.awt.print.*;
@@ -50,7 +50,7 @@ public class Note extends AbstractComplexEObject implements Printable
    }
    
    
-   @CommandAt
+   @Cmd
    public void Print(CommandInfo cmdInfo) throws PrinterException
    {
       PrinterJob job = PrinterJob.getPrinterJob();

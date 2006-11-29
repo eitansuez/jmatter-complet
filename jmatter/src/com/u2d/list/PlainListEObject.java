@@ -12,7 +12,7 @@ import com.u2d.pubsub.*;
 import java.util.*;
 import javax.swing.event.ListDataListener;
 import com.u2d.pattern.*;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 /**
  * A list object that is not related to a model.  used for lists of eobjects
@@ -60,7 +60,7 @@ public class PlainListEObject extends SimpleListEO
       return _itemType;
    }
 
-   @CommandAt
+   @Cmd
    public ComplexEObject New(CommandInfo cmdInfo)
    {
       return type().New(cmdInfo);

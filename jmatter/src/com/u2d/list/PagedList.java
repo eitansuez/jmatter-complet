@@ -12,7 +12,7 @@ import com.u2d.model.ComplexType;
 import com.u2d.pubsub.*;
 import com.u2d.pattern.*;
 import com.u2d.find.Query;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 /**
  * @author Eitan Suez
@@ -35,12 +35,12 @@ public class PagedList extends CriteriaListEO
    }
 
    // See NullAssociation for comments
-   @CommandAt
+   @Cmd
    public ComplexEObject New(CommandInfo cmdInfo)
    {
       return New(cmdInfo, type());
    }
-   @CommandAt
+   @Cmd
    public ComplexEObject New(CommandInfo cmdInfo, ComplexType type)
    {
       return type.New(cmdInfo);

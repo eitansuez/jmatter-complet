@@ -9,8 +9,8 @@ import com.u2d.model.Harvester;
 import com.u2d.type.atom.*;
 import com.u2d.view.*;
 import com.u2d.element.CommandInfo;
-import com.u2d.reflection.CommandAt;
-import com.u2d.reflection.ParamAt;
+import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Arg;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -73,9 +73,9 @@ public abstract class CalEvent extends AbstractComplexEObject
    }
 
    public static long DEFAULT_DURATION = TimeSpan.ONEHOUR;
-   @CommandAt
+   @Cmd
    public static void SetDefaultDurationHrs(CommandInfo cmdInfo,
-                                @ParamAt("Duration (Hrs)") FloatEO durationHrs)
+                                @Arg("Duration (Hrs)") FloatEO durationHrs)
    {
       DEFAULT_DURATION = (long) ( durationHrs.doubleValue() * 3600 * 1000 );
    }

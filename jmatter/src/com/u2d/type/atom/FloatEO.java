@@ -8,7 +8,7 @@ import com.u2d.find.Searchable;
 import com.u2d.find.inequalities.NumericalInequalities;
 import com.u2d.model.AtomicRenderer;
 import com.u2d.model.*;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -70,7 +70,7 @@ public class FloatEO extends AbstractAtomicEO
    public AtomicRenderer getRenderer() { return vmech().getFloatRenderer(); }
    public AtomicEditor getEditor() { return vmech().getFloatEditor(); }
 
-   @CommandAt
+   @Cmd
    public void Double(CommandInfo cmdInfo)
    {
       _value *= 2;

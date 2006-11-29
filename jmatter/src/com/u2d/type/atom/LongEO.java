@@ -11,7 +11,7 @@ import com.u2d.model.EObject;
 import com.u2d.model.Title;
 import com.u2d.model.AtomicRenderer;
 import com.u2d.model.AtomicEditor;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 /**
  * @author Eitan Suez
@@ -58,7 +58,7 @@ public class LongEO extends AbstractAtomicEO implements NumericEO, Searchable
    public AtomicRenderer getRenderer() { return vmech().getLongRenderer(); }
    public AtomicEditor getEditor() { return vmech().getLongEditor(); }
 
-   @CommandAt
+   @Cmd
    public void Double(CommandInfo cmdInfo)
    {
       _value *= 2;

@@ -6,7 +6,7 @@ import com.u2d.list.CriteriaListEO;
 import com.u2d.list.RelationalList;
 import com.u2d.element.Field;
 import com.u2d.element.CommandInfo;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 import com.u2d.find.Query;
 import com.u2d.view.swing.list.TableView;
 
@@ -38,7 +38,7 @@ public class SimpleReport extends AbstractComplexEObject
    }
    public RelationalList getFields() { return _fields; }
    
-   @CommandAt(mnemonic='x')
+   @Cmd(mnemonic='x')
    public TableView Execute(CommandInfo cmdInfo)
    {
       CriteriaListEO leo = _query.execute();

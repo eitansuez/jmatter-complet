@@ -10,8 +10,8 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.view.EView;
 import com.u2d.element.CommandInfo;
 import com.u2d.persist.HibernatePersistor;
-import com.u2d.reflection.CommandAt;
-import com.u2d.reflection.ParamAt;
+import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Arg;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.event.TreeModelListener;
@@ -36,9 +36,9 @@ public class Folder extends AbstractComplexEObject
    public Folder() {}
 
 
-   @CommandAt
+   @Cmd
    public static Folder NewWithName(CommandInfo cmdInfo, 
-                                    @ParamAt("Folder name:") StringEO name)
+                                    @Arg("Folder name:") StringEO name)
    {
       ComplexType folderType = ComplexType.forClass(Folder.class);
       Folder folder = (Folder) folderType.New(cmdInfo);

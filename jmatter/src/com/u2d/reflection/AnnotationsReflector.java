@@ -22,7 +22,7 @@ public class AnnotationsReflector implements Reflector
 
    public boolean isCommand(Method method)
    {
-      return method.isAnnotationPresent(CommandAt.class);
+      return method.isAnnotationPresent(Cmd.class);
    }
    
    private static transient Map<EOCommand, EOCommand> _commandCache = 
@@ -34,7 +34,7 @@ public class AnnotationsReflector implements Reflector
     */
    public EOCommand reflectCommand(Method method, Class klass, ComplexType parent)
    {
-      CommandAt at = method.getAnnotation(CommandAt.class);
+      Cmd at = method.getAnnotation(Cmd.class);
       EOCommand cmd = new EOCommand(method,
                                     parent,
                                     at.mnemonic(),
@@ -60,7 +60,7 @@ public class AnnotationsReflector implements Reflector
       {
          if (method.getParameterAnnotations()[i].length > 0)
          {
-            ParamAt pat = (ParamAt) method.getParameterAnnotations()[i][0];
+            Arg pat = (Arg) method.getParameterAnnotations()[i][0];
             paramInfo[i] = new ParameterInfo(method.getParameterTypes()[i], pat.value());
          }
          else

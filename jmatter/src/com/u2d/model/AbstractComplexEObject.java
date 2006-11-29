@@ -22,8 +22,8 @@ import com.u2d.type.atom.DateTime;
 import com.u2d.type.atom.FileWEO;
 import com.u2d.view.*;
 import com.u2d.xml.XMLExport;
-import com.u2d.reflection.CommandAt;
-import com.u2d.reflection.ParamAt;
+import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Arg;
 import com.u2d.json.JSON;
 import com.u2d.list.CompositeList;
 import com.u2d.app.Tracing;
@@ -563,7 +563,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public class TransientState extends EditableState
    {
-      @CommandAt(mnemonic='s')
+      @Cmd(mnemonic='s')
       public String Save(CommandInfo cmdInfo)
       {
 //         System.out.println("Transient.save");
@@ -585,19 +585,19 @@ public abstract class AbstractComplexEObject extends AbstractEObject
             return null;
          }
       }
-      @CommandAt(mnemonic='c')
+      @Cmd(mnemonic='c')
       public void Cancel(CommandInfo cmdInfo)
       {
 //         System.out.println("Transient.cancel");
          setNullState();
       }
-      @CommandAt
+      @Cmd
       public void Copy(CommandInfo cmdInfo)
       {
          ComplexEObject copy = (ComplexEObject) makeCopy();
          type().bufferCopy(copy);
       }
-      @CommandAt
+      @Cmd
       public void Paste(CommandInfo cmdInfo)
       {
          ComplexEObject copy = type().bufferCopy();
@@ -607,7 +607,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          }
          transferCopy(AbstractComplexEObject.this, copy, true);
       }
-      @CommandAt(mnemonic='l')
+      @Cmd(mnemonic='l')
       public void SaveAndClose(CommandInfo cmdInfo)
       {
          if (doSave())
@@ -627,21 +627,21 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public class ReadState extends State
    {
-      @CommandAt
+      @Cmd
       public ComplexEObject Open(CommandInfo cmdInfo)
       {
          refresh();
          return AbstractComplexEObject.this;
       }
       
-      @CommandAt
+      @Cmd
       public void Copy(CommandInfo cmdInfo)
       {
          ComplexEObject copy = (ComplexEObject) makeCopy();
          type().bufferCopy(copy);
       }
 
-      @CommandAt(mnemonic='e')
+      @Cmd(mnemonic='e')
       public ComplexEObject Edit(CommandInfo cmdInfo)
       {
 //         System.out.println("Read.edit");
@@ -658,7 +658,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          return AbstractComplexEObject.this;
       }
 
-      @CommandAt(isSensitive = true)
+      @Cmd(isSensitive = true)
       public String Delete(CommandInfo cmdInfo)
       {
 //         System.out.println("Read.delete");
@@ -674,19 +674,19 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          }
       }
 
-      @CommandAt
+      @Cmd
       public void ExportToXML(CommandInfo cmdInfo) throws Exception
       {
          XMLExport.export(cmdInfo, AbstractComplexEObject.this);
       }
-      @CommandAt
-      public String ExportToJSON(CommandInfo cmdInfo, @ParamAt("Save to:") FileWEO file) throws Exception
+      @Cmd
+      public String ExportToJSON(CommandInfo cmdInfo, @Arg("Save to:") FileWEO file) throws Exception
       {
          JSON.writeJson(file.fileValue(), AbstractComplexEObject.this);
          return file.fileValue().getName() + " created.";
       }
       
-      @CommandAt(mnemonic='r')
+      @Cmd(mnemonic='r')
       public void Refresh(CommandInfo cmdInfo)
       {
          refresh();
@@ -705,7 +705,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public class EditState extends EditableState
    {
-      @CommandAt(mnemonic='s')
+      @Cmd(mnemonic='s')
       public String Save(CommandInfo cmdInfo)
       {
 //         System.out.println("Edit.save");
@@ -726,27 +726,27 @@ public abstract class AbstractComplexEObject extends AbstractEObject
             return null;
          }
       }
-      @CommandAt(mnemonic='c')
+      @Cmd(mnemonic='c')
       public void Cancel(CommandInfo cmdInfo)
       {
 //         System.out.println("Edit.cancel");
          restoreCopy();
          popState();
       }
-      @CommandAt
+      @Cmd
       public void Copy(CommandInfo cmdInfo)
       {
          ComplexEObject copy = (ComplexEObject) makeCopy();
          type().bufferCopy(copy);
       }
-      @CommandAt
+      @Cmd
       public void Paste(CommandInfo cmdInfo)
       {
          ComplexEObject copy = type().bufferCopy();
          if (copy == null) return;
          transferCopy(AbstractComplexEObject.this, copy, true);
       }
-      @CommandAt(mnemonic='l')
+      @Cmd(mnemonic='l')
       public void SaveAndClose(CommandInfo cmdInfo)
       {
          if (doSave())

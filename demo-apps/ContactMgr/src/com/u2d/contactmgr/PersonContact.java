@@ -6,19 +6,19 @@ import com.u2d.element.CommandInfo;
 import com.u2d.reporting.Reportable;
 import com.u2d.reporting.ReportFormat;
 import com.u2d.model.ComplexType;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 import javax.swing.table.TableModel;
 import java.util.Properties;
 
 public class PersonContact extends Person
 {
-   @CommandAt
+   @Cmd
    public static Wizard NewPersonWizard(CommandInfo cmdInfo)
    {
       return new Wizard(new NewPersonWizard());
    }
 
-   @CommandAt
+   @Cmd
    public static Reportable Report(CommandInfo cmdInfo)
    {
       return new Reportable()

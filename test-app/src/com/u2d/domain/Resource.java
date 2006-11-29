@@ -8,12 +8,8 @@ import com.u2d.element.CommandInfo;
 import com.u2d.type.atom.*;
 import com.u2d.list.RelationalList;
 import com.u2d.model.AbstractComplexEObject;
-import com.u2d.model.ComplexType;
 import com.u2d.model.Title;
-import com.u2d.pubsub.*;
-import com.u2d.reflection.CommandAt;
-
-import java.util.*;
+import com.u2d.reflection.Cmd;
 
 /**
  * @author Eitan Suez
@@ -34,7 +30,7 @@ public class Resource extends AbstractComplexEObject implements Schedulable
    public RelationalList getMeetings() { return _meetings; }
 
    
-   @CommandAt
+   @Cmd
    public Schedule ShowSchedule(CommandInfo cmdInfo)
    {
       return schedule();

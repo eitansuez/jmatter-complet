@@ -8,7 +8,7 @@ import com.u2d.find.Searchable;
 import com.u2d.find.inequalities.TimeSpanInequalities;
 import com.u2d.model.AtomicRenderer;
 import com.u2d.model.*;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 import java.util.*;
 import java.text.*;
@@ -288,7 +288,7 @@ public class TimeSpan extends AbstractAtomicEO
       assign(start, end);
    }
    
-   @CommandAt
+   @Cmd
    public void PostponeOneHour(CommandInfo cmdInfo)
    {
       _startCal.add(Calendar.HOUR, 1);

@@ -7,7 +7,6 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import com.u2d.app.HBMPersistenceMechanism;
-import com.u2d.app.Application;
 import com.u2d.app.Context;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.CompositeList;
@@ -20,8 +19,8 @@ import com.u2d.model.AbstractListEO;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TextEO;
 import com.u2d.view.EView;
-import com.u2d.reflection.CommandAt;
-import com.u2d.reflection.ParamAt;
+import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Arg;
 
 /**
  * @author Eitan Suez
@@ -83,9 +82,9 @@ public class CompositeQuery extends AbstractComplexEObject
    /**
     * overload command new..
     */
-   @CommandAt
+   @Cmd
    public static CompositeQuery New(CommandInfo cmdInfo,
-                                    @ParamAt("Query Type") ComplexType querytype)
+                                    @Arg("Query Type") ComplexType querytype)
    {
       ComplexType type = ComplexType.forClass(CompositeQuery.class);
       CompositeQuery query = (CompositeQuery) type.New(cmdInfo);
@@ -93,7 +92,7 @@ public class CompositeQuery extends AbstractComplexEObject
       return query;
    }
 
-   @CommandAt(mnemonic='x')
+   @Cmd(mnemonic='x')
    public CriteriaListEO Execute(CommandInfo cmdInfo)
    {
       return new PagedList(this);
@@ -133,9 +132,9 @@ public class CompositeQuery extends AbstractComplexEObject
       _queryType.removeQuery(this);
    }
 
-   @CommandAt
+   @Cmd
    public static AbstractListEO HQLQuery(CommandInfo cmdInfo,
-                                         @ParamAt("HQL Text") TextEO hqlText)
+                                         @Arg("HQL Text") TextEO hqlText)
    {
       String hql = hqlText.stringValue();
       HBMPersistenceMechanism hbm = Context.getInstance().hbmpersitor();

@@ -2,7 +2,7 @@ package com.u2d.calendar;
 
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.element.CommandInfo;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,7 +22,7 @@ public abstract class CalendarEO extends AbstractComplexEObject
       return _calendar;
    }
 
-   @CommandAt
+   @Cmd
    public Calendrier ShowCalendar(CommandInfo cmdInfo)
    {
       return calendar();

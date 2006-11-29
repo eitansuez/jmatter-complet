@@ -7,7 +7,7 @@ import com.u2d.find.Searchable;
 import com.u2d.find.inequalities.TextualInequalities;
 import com.u2d.model.AtomicRenderer;
 import com.u2d.model.*;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
 
 /**
@@ -98,7 +98,7 @@ public class TextEO extends AbstractAtomicEO implements Searchable
 
    /* ** Commands ** */
 
-   @CommandAt
+   @Cmd
    public void ToggleWrapping(CommandInfo cmdInfo)
    {
       _wraps = !_wraps;

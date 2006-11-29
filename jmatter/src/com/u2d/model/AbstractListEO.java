@@ -20,8 +20,8 @@ import com.u2d.pubsub.*;
 import com.u2d.reporting.Reportable;
 import com.u2d.reporting.ReportFormat;
 import com.u2d.view.ListEView;
-import com.u2d.reflection.CommandAt;
-import com.u2d.reflection.ParamAt;
+import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Arg;
 import com.u2d.json.JSON;
 import com.u2d.type.atom.FileWEO;
 import javax.swing.table.*;
@@ -424,18 +424,18 @@ public abstract class AbstractListEO extends AbstractEObject
    public ListEView getPickView() { return vmech().getPickView(this); }
    
    
-   @CommandAt
+   @Cmd
    public void ExportToCSV(CommandInfo cmdInfo)
    {
       CSVExport.export(cmdInfo, this);
    }
-   @CommandAt
-   public String ExportToJSON(CommandInfo cmdInfo, @ParamAt("Save to:") FileWEO file) throws Exception
+   @Cmd
+   public String ExportToJSON(CommandInfo cmdInfo, @Arg("Save to:") FileWEO file) throws Exception
    {
       JSON.writeJson(file.fileValue(), this);
       return file.fileValue().getName() + " created.";
    }
-   @CommandAt
+   @Cmd
    public AbstractListEO Open(CommandInfo cmdInfo)
    {
       return this;

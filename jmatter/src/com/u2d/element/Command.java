@@ -11,8 +11,8 @@ import com.u2d.app.Role;
 import com.u2d.model.*;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
-import com.u2d.reflection.CommandAt;
-import com.u2d.reflection.ParamAt;
+import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Arg;
 
 import java.util.Arrays;
 
@@ -304,8 +304,8 @@ public abstract class Command extends Member
       return(_name.title().append(((ComplexType) _parent).getPluralName()));
    }
    
-   @CommandAt(mnemonic='f')
-   public void ForbidForRole(CommandInfo cmdInfo, @ParamAt("Role") Role role)
+   @Cmd(mnemonic='f')
+   public void ForbidForRole(CommandInfo cmdInfo, @Arg("Role") Role role)
    {
       CommandRestriction restriction = new CommandRestriction(role, this);
       role.addCmdRestriction(restriction);

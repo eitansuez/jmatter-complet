@@ -617,7 +617,7 @@ public class ComplexType extends AbstractComplexEObject
 
 
    // type commands:
-   @CommandAt
+   @Cmd
    public AbstractListEO Browse(CommandInfo cmdInfo)
    {
       if (_clazz.equals(ComplexType.class))
@@ -651,7 +651,7 @@ public class ComplexType extends AbstractComplexEObject
       return persistor().list(_clazz);
    }
 
-   @CommandAt
+   @Cmd
    public ComplexEObject New(CommandInfo cmdInfo)
    {
       try
@@ -673,9 +673,9 @@ public class ComplexType extends AbstractComplexEObject
       }
       return null;  // TODO: consider throwing instead of catching both exceptions 
    }
-   @CommandAt
+   @Cmd
    public ComplexEObject New(CommandInfo cmdInfo,
-                             @ParamAt("Type") ComplexType type)
+                             @Arg("Type") ComplexType type)
    {
       return type.New(cmdInfo);
    }
@@ -686,12 +686,12 @@ public class ComplexType extends AbstractComplexEObject
       return null;
    }
 
-   @CommandAt
+   @Cmd
    public View Find(CommandInfo cmdInfo)
    {
       return vmech().getFindView2(this);
    }
-   @CommandAt
+   @Cmd
    public CompositeQuery SmartList(CommandInfo cmdInfo)
    {
       CompositeQuery query = new CompositeQuery(this);
@@ -699,7 +699,7 @@ public class ComplexType extends AbstractComplexEObject
       return query;
    }
 
-   @CommandAt
+   @Cmd
    public /* ComplexEObject */ String ImportFromXML(CommandInfo info)
    {
       // a. pick xml file to import from

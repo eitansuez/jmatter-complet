@@ -11,7 +11,7 @@ import com.u2d.pattern.Onion;
 import com.u2d.view.View;
 import com.u2d.view.swing.find.FindView2;
 import com.u2d.list.RelationalList;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 /**
  * @author Eitan Suez
@@ -55,13 +55,13 @@ public class NullAssociation extends NullComplexEObject
 //   public boolean isEmpty() { return _association.isEmpty(); }
 
    // override commandNew to also do the binding/association
-   @CommandAt
+   @Cmd
    public ComplexEObject New(CommandInfo cmdInfo)
    {
       return New(cmdInfo, _type);
    }
 
-   @CommandAt
+   @Cmd
    public ComplexEObject New(CommandInfo cmdInfo, ComplexType type)
    {
       final ComplexEObject ceo = type.New(cmdInfo);
@@ -85,7 +85,7 @@ public class NullAssociation extends NullComplexEObject
 
 
 
-   @CommandAt
+   @Cmd
    public Object Browse(CommandInfo cmdInfo)
    {
       if (_association.field().isIndexed())
@@ -104,7 +104,7 @@ public class NullAssociation extends NullComplexEObject
          return leo;
       }
    }
-   @CommandAt
+   @Cmd
    public View Find(CommandInfo cmdInfo)
    {
       View findView = _type.Find(cmdInfo);
@@ -113,8 +113,8 @@ public class NullAssociation extends NullComplexEObject
       return findView;
    }
 
-   //    @CommandAt
-   //   public void Association(CommandAt cmdInfo)
+   //    @Cmd
+   //   public void Association(Cmd cmdInfo)
 //   {
 //      type().Paste(cmdInfo);
 //   }

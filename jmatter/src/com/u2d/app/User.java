@@ -10,8 +10,8 @@ import com.u2d.type.composite.*;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.pattern.*;
-import com.u2d.reflection.ParamAt;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Arg;
+import com.u2d.reflection.Cmd;
 import com.u2d.reflection.FieldAt;
 
 /**
@@ -86,9 +86,9 @@ public class User extends AbstractComplexEObject
       return _name.title().appendParens(_username);
    }
 
-   @CommandAt(mnemonic='p')
+   @Cmd(mnemonic='p')
    public String ChangePassword(CommandInfo cmdInfo,
-                                @ParamAt("New Password") Password password)
+                                @Arg("New Password") Password password)
    {
       _password.setValue(password);
       save();
@@ -102,7 +102,7 @@ public class User extends AbstractComplexEObject
    public class LockedState extends ReadState
    {
       public String getName() { return LOCKED; }
-      @CommandAt
+      @Cmd
       public void Unlock(CommandInfo cmdInfo)
       {
          switchState(_unlockedState);
@@ -112,7 +112,7 @@ public class User extends AbstractComplexEObject
    public class UnlockedState extends ReadState
    {
       public String getName() { return UNLOCKED; }
-      @CommandAt
+      @Cmd
       public void Lock(CommandInfo cmdInfo)
       {
          switchState(_lockedState);

@@ -14,7 +14,7 @@ import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.ComplexType;
 import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 /**
  * @author Eitan Suez
@@ -50,7 +50,7 @@ public class SimpleQuery extends AbstractComplexEObject
 
    public QuerySpecification getQuerySpecification() { return _querySpecification; }
 
-   @CommandAt(mnemonic='x')
+   @Cmd(mnemonic='x')
    public CriteriaListEO Execute(CommandInfo cmdInfo)
    {
       return new CriteriaListEO(this);

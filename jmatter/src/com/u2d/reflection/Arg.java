@@ -7,7 +7,7 @@ import java.lang.annotation.ElementType;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface ParamAt
+public @interface Arg
 {
    public String value();
 }

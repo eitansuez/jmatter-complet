@@ -8,7 +8,7 @@ import java.lang.annotation.ElementType;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface CommandAt
+public @interface Cmd
 {
    public char mnemonic() default '\0';
    public boolean isSensitive() default false;

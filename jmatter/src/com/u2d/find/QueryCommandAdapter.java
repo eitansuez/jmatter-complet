@@ -30,7 +30,7 @@ public class QueryCommandAdapter extends Command
    {
       CriteriaListEO leo =
          _query.Execute(new CommandInfo(null, source));
-      // TODO: resolve issue of CommandAt constructor requiring an EOCommand
+      // TODO: resolve issue of Cmd constructor requiring an EOCommand
 
       vmech().displayViewFor(leo, source, Positioning.NEARMOUSE);
    }

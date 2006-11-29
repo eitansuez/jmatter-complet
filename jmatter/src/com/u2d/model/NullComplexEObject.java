@@ -9,7 +9,7 @@ import com.u2d.element.Command;
 import com.u2d.element.CommandInfo;
 import com.u2d.pattern.Onion;
 import com.u2d.view.*;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 /**
  * @author Eitan Suez
@@ -63,17 +63,17 @@ public class NullComplexEObject extends AbstractComplexEObject
    }
 
 
-   @CommandAt
+   @Cmd
    public ComplexEObject New(CommandInfo cmdInfo)
    {
       return _type.New(cmdInfo);
    }
-   @CommandAt
+   @Cmd
    public Object Browse(CommandInfo cmdInfo)
    {
       return _type.Browse(cmdInfo);
    }
-   @CommandAt
+   @Cmd
    public View Find(CommandInfo cmdInfo)
    {
       return _type.Find(cmdInfo);
