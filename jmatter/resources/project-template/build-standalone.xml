@@ -79,7 +79,10 @@
  <target name="run" description="run app" depends="genhbm">
    <java classname="${main.class}" classpathref="class.path" 
          fork="true" maxmemory="192m">
+    <!-- if you're on linux and if you love beryl, you'll need
+       to uncomment this..
      <jvmarg value="-Dawt.toolkit=sun.awt.motif.MToolkit" />
+      -->
     <!-- to test localization, uncomment this..
      <sysproperty key="user.language" value="fr" />
       -->
@@ -138,14 +141,6 @@
    
    
  <target name="genhbm" depends="bind" description="generate hbm.xml files">
-   <mkdir dir="${build.classes.dir}/com/u2d/app" />
-   <mkdir dir="${build.classes.dir}/com/u2d/type" />
-   <mkdir dir="${build.classes.dir}/com/u2d/restrict" />
-   <mkdir dir="${build.classes.dir}/com/u2d/type/composite" />
-   <mkdir dir="${build.classes.dir}/com/u2d/find" />
-   <mkdir dir="${build.classes.dir}/com/u2d/reporting" />
-   <mkdir dir="${build.classes.dir}/com/u2d/calendar" />
-   <mkdir dir="${build.classes.dir}/com/u2d/model" />
    <java classpathref="class.path" dir="${build.classes.dir}"
          fork="true" classname="com.u2d.persist.HBMGenerator" />
  </target>
