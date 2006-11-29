@@ -79,7 +79,7 @@ public class HBMSingleSession extends HibernatePersistor
    {
       try
       {
-         ComplexEObject ceo = (ComplexEObject) _session.createQuery(hql).iterate().next();
+         ComplexEObject ceo = (ComplexEObject) _session.createQuery(hql).uniqueResult();
          if (ceo == null) return null;
          ceo.onLoad();
          return ceo;
