@@ -99,7 +99,7 @@
 
  <taskdef name="script-maker" classname="com.u2d.tools.ShellScriptMaker" 
           classpath="${lib.tools.dir}/jnlp-maker.jar:${lib.tools.dir}/velocity-dep-1.4.jar" />
- <target name="shellscript" description="produce runnable shell script">
+ <target name="shellscript" description="produce runnable shell script" depends="genhbm">
     <script-maker classname="${main.class}"
                   classpathref="class.path"
                   maxmemory="192m" 
