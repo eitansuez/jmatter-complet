@@ -7,10 +7,9 @@ import com.u2d.type.atom.TimeEO;
 import com.u2d.type.atom.FileEO;
 import com.u2d.element.CommandInfo;
 import com.u2d.persist.HBMSingleSession;
-import com.u2d.reflection.CommandAt;
-import com.u2d.reflection.ParamAt;
+import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Arg;
 import com.u2d.app.Context;
-
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.net.MalformedURLException;
@@ -70,7 +69,7 @@ public class Song extends AbstractComplexEObject
 
    private AudioClip _clip;
 
-   @CommandAt(mnemonic='p')
+   @Cmd(mnemonic='p')
    public Object Play(CommandInfo cmdInfo)
    {
       try
@@ -86,15 +85,15 @@ public class Song extends AbstractComplexEObject
       return null;
    }
 
-   @CommandAt
+   @Cmd
    public void Pause(CommandInfo cmdInfo)
    {
       if (_clip != null) _clip.stop();
    }
 
-   @CommandAt
+   @Cmd
    public static Object ScanFromBasePath(CommandInfo cmdInfo, 
-                                         @ParamAt("Base Path") FileEO basePath)
+                                         @Arg("Base Path") FileEO basePath)
    {
       if (!basePath.fileValue().isDirectory())
          return "You must specify a directory as the base path";
