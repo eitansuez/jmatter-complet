@@ -16,6 +16,7 @@ import com.u2d.field.CompositeField;
 import com.u2d.list.CSVExport;
 import com.u2d.pattern.ListChangeNotifier;
 import com.u2d.pattern.Onion;
+import com.u2d.pattern.Block;
 import com.u2d.pubsub.*;
 import com.u2d.reporting.Reportable;
 import com.u2d.reporting.ReportFormat;
@@ -48,11 +49,9 @@ public abstract class AbstractListEO extends AbstractEObject
    public int validate()
    {
       int count = 0;
-      Iterator itr = _items.iterator();
-      EObject item;
-      while (itr.hasNext())
+      for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
-         item = (EObject) itr.next();
+         EObject item = (EObject) itr.next();
          count += item.validate();
       }
       return count;
@@ -136,6 +135,16 @@ public abstract class AbstractListEO extends AbstractEObject
    }
    
    public Iterator iterator() { return _items.iterator(); }
+
+   public void forEach(Block block)
+   {
+      for (Iterator itr = _items.iterator(); itr.hasNext(); )
+      {
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         block.each(ceo);
+      }
+   }
+
    
    public void add(ComplexEObject item)
    {

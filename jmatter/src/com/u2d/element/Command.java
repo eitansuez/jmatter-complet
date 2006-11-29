@@ -124,6 +124,19 @@ public abstract class Command extends Member
                return superType.command(name());
             }
          }
+         else if (targetCeo instanceof Member)
+         {
+            if (_parent == null)
+            {
+               return null;
+            }
+            ComplexType type = ComplexType.forClass(_parent.getJavaClass());
+            ComplexType superType = type.superType();
+            if (superType != null)
+            {
+               return superType.instanceCommand(name());
+            }
+         }
          else
          {
             ComplexType type = targetCeo.type();
@@ -302,11 +315,11 @@ public abstract class Command extends Member
          
          if (cmd.isForbidden(_target))
          {
-            cmd.tracer().info("command "+cmd+" is forbidden for " +
-                  "user "+cmd.currentUser()+" on target "+_target+" (skipping)");
+//            cmd.tracer().info("command "+cmd+" is forbidden for " +
+//                  "user "+cmd.currentUser()+" on target "+_target+" (skipping)");
             return true;
          }
-            
+         
          if (_target instanceof ComplexEObject)
          {
             User owner = cmd.getOwner((ComplexEObject) _target);

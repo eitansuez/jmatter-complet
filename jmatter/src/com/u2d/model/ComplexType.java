@@ -564,45 +564,46 @@ public class ComplexType extends AbstractComplexEObject
    }
    private void localizeCommands()
    {
+      allCommands(new Block()
+      {
+         public void each(ComplexEObject ceo)
+         {
+            ((Command) ceo).localize(ComplexType.this);
+         }
+      });
+   }
+   public void instanceCommands(Block block)
+   {
       for (Iterator itr = _commands.values().iterator(); itr.hasNext(); )
       {
          Onion cmds = (Onion) itr.next();
-         localizeCommands(cmds);
+         cmds.forEach(block);
       }
-      localizeCommands(_typeCommands);
    }
-   private void localizeCommands(Onion cmds)
+   public void allCommands(Block block)
    {
-      for (Iterator oitr = cmds.deepIterator(); oitr.hasNext(); )
-      {
-         Command cmd = (Command) oitr.next();
-         cmd.localize(this);
-      }
+      instanceCommands(block);
+      _typeCommands.forEach(block);
    }
+   
 
    private void applyCommandDbMetadata()
    {
-      for (Iterator itr = _commands.values().iterator(); itr.hasNext(); )
+      allCommands(new Block()
       {
-         Onion cmds = (Onion) itr.next();
-         applyCommandDbMetadata(cmds);
-      }
-      applyCommandDbMetadata(_typeCommands);
-   }
-   private void applyCommandDbMetadata(Onion cmds)
-   {
-      for (Iterator oitr = cmds.deepIterator(); oitr.hasNext(); )
-      {
-         final Command cmd = (Command) oitr.next();
-         Context.getInstance().addAppEventListener("APP_READY", 
-               new AppEventListener()
-               {
-                  public void onEvent(AppEvent evt)
+         public void each(ComplexEObject ceo)
+         {
+            final Command cmd = (Command) ceo;
+            Context.getInstance().addAppEventListener("APP_READY", 
+                  new AppEventListener()
                   {
-                     cmd.applyDbMetadata();
-                  }
-               });
-      }
+                     public void onEvent(AppEvent evt)
+                     {
+                        cmd.applyDbMetadata();
+                     }
+                  });
+         }
+      });
    }
    
    // *** icon stuff ***

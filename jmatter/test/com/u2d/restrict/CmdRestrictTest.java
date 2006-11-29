@@ -8,13 +8,28 @@ package com.u2d.restrict;
 
 import junit.framework.TestCase;
 import com.u2d.app.Role;
+import com.u2d.app.User;
 import com.u2d.model.ComplexType;
+import com.u2d.model.AbstractComplexEObject;
+import com.u2d.model.ComplexEObject;
 import com.u2d.element.Command;
+import com.u2d.element.Member;
+import com.u2d.element.Field;
 import com.u2d.type.composite.LoggedEvent;
+import com.u2d.pattern.Block;
+import com.u2d.pattern.Onion;
 
 public class CmdRestrictTest
       extends TestCase
 {
+   Role myRole;
+
+   protected void setUp()
+         throws Exception
+   {
+      myRole = new Role("A Role");
+   }
+
    public void testSuperCmd()
    {
       ComplexType creationRestrictionType = ComplexType.forClass(CreationRestriction.class);
@@ -30,8 +45,6 @@ public class CmdRestrictTest
 
    public void testCmdRestrictionOnTypeHierarchy()
    {
-      Role myRole = new Role("A Role");
-      
       // 1. apply a restriction:  cannot create restrictions
       ComplexType restrictionType = ComplexType.forClass(Restriction.class);
       Command createCmd = restrictionType.command("New");
@@ -52,8 +65,6 @@ public class CmdRestrictTest
    
    public void testCmdRestrictionOnTypeHierarchy2()
    {
-      Role myRole = new Role("A Role");
-
       // 1. forbid the editing of any kind of restriction
       CommandRestriction restriction = new CommandRestriction(myRole);
       Command editRestrictions = restriction.command("Edit");
@@ -79,6 +90,32 @@ public class CmdRestrictTest
       CreationRestriction creationRestriction = new CreationRestriction(ComplexType.forClass(LoggedEvent.class));
       editCmd = creationRestriction.command("Edit");
       assertTrue(editCmd.isForbidden(creationRestriction));
+   }
+   
+   public void testCmdRestrictionsOnMembers()
+   {
+      // 1. forbid invocation of commands on members:
+      // i.e. ability to manipulate metadata:  open/edit/etc.. fields, commands..
+      ComplexType.forClass(Member.class).commands(AbstractComplexEObject.ReadState.class).forEach(
+            new Block()
+            {
+               public void each(ComplexEObject ceo)
+               {
+                  myRole.addCmdRestriction().on((Command) ceo);
+               }
+            }
+      );
+      myRole.applyRestrictions();
+      
+      // now, take a field or a command..
+      Field field = ComplexType.forClass(User.class).field("username");
+
+      Onion filteredCommands = field.filteredCommands();
+      assertEquals(0, filteredCommands.size());
+
+      assertTrue(field.command("Open").isForbidden(field));
+      assertTrue(field.command("Edit").isForbidden(field));
+
    }
    
 }

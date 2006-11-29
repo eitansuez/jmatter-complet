@@ -4,7 +4,6 @@
 package com.u2d.persist;
 
 import com.u2d.app.Tracing;
-import com.u2d.app.HBMPersistenceMechanism;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.logging.Level;

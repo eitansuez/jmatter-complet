@@ -7,6 +7,7 @@ import com.u2d.list.RelationalList;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.model.ComplexType;
+import com.u2d.model.ComplexEObject;
 import com.u2d.restrict.Restriction;
 import com.u2d.restrict.CommandRestriction;
 import com.u2d.restrict.UserRestriction;
@@ -14,9 +15,9 @@ import com.u2d.restrict.CreationRestriction;
 import com.u2d.type.atom.*;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.element.Member;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.HashSet;
+import com.u2d.element.Command;
+import com.u2d.pattern.Block;
+import java.util.*;
 
 /**
  * @author Eitan Suez
@@ -136,16 +137,28 @@ public class Role extends AbstractComplexEObject
             addCmdRestriction().on(roleType.instanceCommand("Edit"));
             // disable editing restrictions
             addCmdRestriction().on(restrictionType.instanceCommand("Edit"));
-
+            
+            // disallow manipulation of metadata:  restrict commands on Fields
+            ComplexType.forClass(Member.class).commands(ReadState.class).forEach(
+                  new Block()
+                  {
+                     public void each(ComplexEObject ceo)
+                     {
+                        addCmdRestriction().on((Command) ceo);
+                     }
+                  }
+            );
+            // i don't like this..
+            Command forbidForRole = 
+                  ComplexType.forClass(Command.class).instanceCommand("ForbidForRole");
+            addCmdRestriction().on(forbidForRole);
+            
             Set items = new HashSet();
             items.addAll(_restrictions.getItems());
             items.add(this);
             hbmPersistor.saveMany(items);
          }
       
-         // todo:  add other restrictions
-         //  - on the manipulation of metadata
-         
          // another issue:  on the visibility of types and instances
          
          // another issue:  won't the editing of associations leak?

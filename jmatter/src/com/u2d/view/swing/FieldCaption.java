@@ -7,13 +7,11 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
-
 import com.u2d.element.Field;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import com.u2d.model.EObject;
-import com.u2d.field.IndexedField;
 
 /**
  * @author Eitan Suez

@@ -18,38 +18,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/type/atom/TextEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/type/atom/TextEO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/reflection/AnnotationsReflector.java" afterPath="$PROJECT_DIR$/src/com/u2d/reflection/AnnotationsReflector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/User.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/calendar/ScheduleEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/calendar/ScheduleEO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/type/composite/Name.java" afterPath="$PROJECT_DIR$/src/com/u2d/type/composite/Name.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/type/atom/StringEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/type/atom/StringEO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/persist/HBMGenerator.java" afterPath="$PROJECT_DIR$/src/com/u2d/persist/HBMGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/Role.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/Role.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iml" afterPath="$PROJECT_DIR$/JMatter.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/element/Command.java" afterPath="$PROJECT_DIR$/src/com/u2d/element/Command.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/find/SimpleQuery.java" afterPath="$PROJECT_DIR$/src/com/u2d/find/SimpleQuery.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/find/QueryCommandAdapter.java" afterPath="$PROJECT_DIR$/src/com/u2d/find/QueryCommandAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/list/PlainListEObject.java" afterPath="$PROJECT_DIR$/src/com/u2d/list/PlainListEObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/NullAssociation.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/NullAssociation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/type/atom/LongEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/type/atom/LongEO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/type/atom/TimeSpan.java" afterPath="$PROJECT_DIR$/src/com/u2d/type/atom/TimeSpan.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/ComplexType.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/ComplexType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/reporting/SimpleReport.java" afterPath="$PROJECT_DIR$/src/com/u2d/reporting/SimpleReport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/type/composite/Folder.java" afterPath="$PROJECT_DIR$/src/com/u2d/type/composite/Folder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/u2d/reflection/Arg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/project-template/build-standalone.xml" afterPath="$PROJECT_DIR$/resources/project-template/build-standalone.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/type/atom/FloatEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/type/atom/FloatEO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/list/PagedList.java" afterPath="$PROJECT_DIR$/src/com/u2d/list/PagedList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/NullComplexEObject.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/NullComplexEObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/u2d/reflection/Cmd.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/find/CompositeQuery.java" afterPath="$PROJECT_DIR$/src/com/u2d/find/CompositeQuery.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/type/atom/IntEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/type/atom/IntEO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/calendar/CalendarEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/calendar/CalendarEO.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/u2d/reflection/CommandAt.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/ComplexType.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/ComplexType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/FieldCaption.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/FieldCaption.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/list/CompositeList.java" afterPath="$PROJECT_DIR$/src/com/u2d/list/CompositeList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/com/u2d/restrict/CmdRestrictTest.java" afterPath="$PROJECT_DIR$/test/com/u2d/restrict/CmdRestrictTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/type/composite/Note.java" afterPath="$PROJECT_DIR$/src/com/u2d/type/composite/Note.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/calendar/CalEvent.java" afterPath="$PROJECT_DIR$/src/com/u2d/calendar/CalEvent.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/u2d/reflection/ParamAt.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/pattern/Onion.java" afterPath="$PROJECT_DIR$/src/com/u2d/pattern/Onion.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -186,7 +165,19 @@
     <option name="myCurrentFavoritesList" value="JMatter" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Role.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Role.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="156" column="12" selection-start="5761" selection-end="5761" vertical-scroll-proportion="0.33217993">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -301,21 +292,7 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.reflection" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.persist" />
+          <option name="myItemId" value="com.u2d.pattern" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -343,7 +320,21 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.basic" />
+          <option name="myItemId" value="com.u2d.element" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.app" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -461,14 +452,14 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="0.5" version="1" splitterProportion="0.5">
+    <navigator currentView="PackagesPane" proportions="0.5" version="1" splitterProportion="0.5">
       <flattenPackages PackagesPane="true" />
       <showMembers />
       <showModules />
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
+      <showStructure Favorites="false" PackagesPane="false" Scope="false" ProjectPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -501,14 +492,14 @@
     </key>
   </component>
   <component name="RestoreUpdateTree" />
-  <component name="RunManager" selected="JUnit.CommandTest">
-    <tempConfiguration default="false" name="CommandTest" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <pattern value="com.u2d.element.*" />
+  <component name="RunManager" selected="JUnit.CmdRestrictTest">
+    <tempConfiguration default="false" name="CmdRestrictTest" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+      <pattern value="com.u2d.restrict.*" />
       <module name="JMatter" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.u2d.element" />
-      <option name="MAIN_CLASS_NAME" value="com.u2d.element.CommandTest" />
+      <option name="PACKAGE_NAME" value="com.u2d.restrict" />
+      <option name="MAIN_CLASS_NAME" value="com.u2d.restrict.CmdRestrictTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
@@ -653,15 +644,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1280" height="751" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="24" width="1280" height="751" extended-state="1" />
+    <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26208025" order="0" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31410256" order="1" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26208025" order="0" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46314102" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26699427" order="3" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32051283" order="8" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39872408" order="6" />
@@ -670,7 +661,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="5" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979524" order="1" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" order="8" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34935898" order="2" x="25" y="300" width="1232" height="206" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43269232" order="2" x="25" y="300" width="1232" height="206" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24857838" order="2" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4823718" order="4" />
@@ -788,122 +779,124 @@
   <component name="com.intellij.ide.util.scopeChooser.ScopeChooserConfigurable" proportions="0.16666667" version="1">
     <option name="myLastEditedConfigurable" value="Local Scopes" />
   </component>
-  <component name="com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectRootMasterDetailsConfigurable" proportions="0.29012346,0.5" version="1">
+  <component name="com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectRootMasterDetailsConfigurable" proportions="0.29012346" version="1">
     <option name="myPlainMode" value="false" />
-    <option name="myLastEditedConfigurable" value="JMatter" />
+    <option name="myLastEditedConfigurable" value="spring-beans.jar" />
   </component>
   <component name="com.intellij.profile.ui.ErrorOptionsConfigurable" proportions="" version="1">
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/build.xml">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/persist/HBMGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="57" selection-start="194" selection-end="194" vertical-scroll-proportion="0.14705883">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/pattern/PatternSuite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="456" selection-end="456" vertical-scroll-proportion="0.6020236">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/element/ElemenSuite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="36" selection-start="434" selection-end="434" vertical-scroll-proportion="0.51602024">
+        <state line="6" column="0" selection-start="88" selection-end="88" vertical-scroll-proportion="0.11467116">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/element/CommandTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="13" selection-start="401" selection-end="401" vertical-scroll-proportion="0.29411766">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/restrict/CmdRestrictTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="302" selection-end="302" vertical-scroll-proportion="0.29411766">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/restrict/RestrictSuite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="91" selection-end="91" vertical-scroll-proportion="0.14333895">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/basic/PanelColorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="170" selection-end="170" vertical-scroll-proportion="0.13996628">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/basic/StringTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="13" selection-start="135" selection-end="135" vertical-scroll-proportion="0.22934233">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/basic/CharTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="13" selection-start="165" selection-end="165" vertical-scroll-proportion="0.2866779">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/persist/HibernatePersistor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="57" selection-start="818" selection-end="818" vertical-scroll-proportion="0.34401348">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/basic/BasicSuite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="87" selection-end="87" vertical-scroll-proportion="0.11467116">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reflection/Cmd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="21" selection-start="312" selection-end="315" vertical-scroll-proportion="0.17200674">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reflection/Arg.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="21" selection-start="276" selection-end="279" vertical-scroll-proportion="0.17200674">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="426" column="7" selection-start="12251" selection-end="12255" vertical-scroll-proportion="0.33217993">
+        <state line="33" column="22" selection-start="839" selection-end="839" vertical-scroll-proportion="0.2647059">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/CommandsContextMenuView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="16" selection-start="1839" selection-end="1839" vertical-scroll-proportion="-0.011804384">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FieldCaption.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="0" selection-start="1985" selection-end="1985" vertical-scroll-proportion="0.3153457">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="13" selection-start="417" selection-end="417" vertical-scroll-proportion="0.33152175">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/pattern/OnionPeeler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="40" selection-start="698" selection-end="698" vertical-scroll-proportion="0.42664418">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/pattern/Onion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="161" column="7" selection-start="3910" selection-end="3910" vertical-scroll-proportion="0.4367622">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="163" column="31" selection-start="4281" selection-end="4281" vertical-scroll-proportion="0.33217993">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="341" column="0" selection-start="10149" selection-end="10149" vertical-scroll-proportion="0.15">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/restrict/CommandRestriction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="0" selection-start="1267" selection-end="1267" vertical-scroll-proportion="1.0295652">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/ProgrammingElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="0" selection-start="819" selection-end="819" vertical-scroll-proportion="0.15008432">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="22" selection-start="848" selection-end="848" vertical-scroll-proportion="0.23529412">
+        <state line="271" column="0" selection-start="7524" selection-end="7524" vertical-scroll-proportion="0.14532872">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/com/u2d/restrict/CmdRestrictTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="116" column="20" selection-start="4330" selection-end="4330" vertical-scroll-proportion="0.7058824">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Command.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="293" column="4" selection-start="8387" selection-end="8387" vertical-scroll-proportion="0.39100346">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Role.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="156" column="12" selection-start="5761" selection-end="5761" vertical-scroll-proportion="0.33217993">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

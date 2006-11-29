@@ -105,15 +105,6 @@ public class CompositeList extends SimpleListEO
       });
    }
 
-   public void forEach(Block block)
-   {
-      for (Iterator itr = _items.iterator(); itr.hasNext(); )
-      {
-         ComplexEObject ceo = (ComplexEObject) itr.next();
-         block.each(ceo);
-      }
-   }
-
    public ComplexEObject addNew()
    {
       ComplexEObject instance = type().instance();

@@ -386,7 +386,9 @@
           <root url="jar://$MODULE_DIR$/lib/src/spring/spring-context.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../thirdparty/spring-framework-2.0/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -395,7 +397,9 @@
           <root url="jar://$MODULE_DIR$/lib/src/spring/spring-beans.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../thirdparty/spring-framework-2.0/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -413,7 +417,9 @@
           <root url="jar://$MODULE_DIR$/lib/src/spring/spring-core.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../thirdparty/spring-framework-2.0/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">

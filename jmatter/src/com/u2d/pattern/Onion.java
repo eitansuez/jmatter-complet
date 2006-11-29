@@ -3,6 +3,7 @@
  */
 package com.u2d.pattern;
 
+import com.u2d.model.ComplexEObject;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.EventListenerList;
 import javax.swing.event.ListDataEvent;
@@ -311,6 +312,16 @@ public class Onion implements ListChangeNotifier
          hashCode = 31 * hashCode + (obj == null ? 0 : obj.hashCode());
       }
       return hashCode;
+   }
+   
+   public void forEach(Block block)
+   {
+      for (Iterator oitr = deepIterator(); oitr.hasNext(); )
+      {
+         // interface should now require argument to be of type complexeobject!
+         // TODO: fix;
+         block.each((ComplexEObject) oitr.next());
+      }
    }
 
 }
