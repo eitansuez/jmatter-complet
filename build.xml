@@ -1,4 +1,4 @@
-<project name="jmatter-parent" default="make-distro">
+<project name="jmatter-uberbuilfile" default="make-binary-distro">
 
   <description>jMatter uber build file</description>
 
@@ -65,7 +65,7 @@
 
   <!-- MAIN COURSE -->
   
-  <target name="make-distro" 
+  <target name="make-binary-distro" 
           description="create jMatter binary distributions" 
           depends="preliminaries">
           
@@ -127,7 +127,9 @@
    <exec dir="${jmatter.dir}/doc" executable="markdown" output="${build.target.dir}/doc/jMatter-License.html">
      <arg line="jMatter-License" />
    </exec>
-   <copy todir="${build.target.dir}/doc" file="${jmatter.dir}/doc/Changes" />
+   <copy todir="${build.target.dir}">
+     <fileset dir="${jmatter.dir}/doc" includes="Changes,Credits" />
+   </copy>
 
    <copy todir="${build.target.dir}">
     <fileset dir="${jmatter.dir}" includes="build.xml" />
