@@ -10,7 +10,7 @@ import com.u2d.find.FieldPath;
 import com.u2d.find.QuerySpecification;
 import com.u2d.find.SimpleQuery;
 import com.u2d.find.inequalities.IdentityInequality;
-import com.u2d.reflection.CommandAt;
+import com.u2d.reflection.Cmd;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +28,7 @@ public class IssueCategory extends AbstractComplexEObject
 
    public StringEO getName() { return _name; }
 
-   @CommandAt
+   @Cmd
    public Object Issues(CommandInfo cmdInfo)
    {
       ComplexType type = ComplexType.forClass(Issue.class);

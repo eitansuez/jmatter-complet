@@ -25,7 +25,6 @@
  <property name="test.lib.dir" location="${lib.basedir}/test" />
  <property name="test.reports.dir" location="${build.dir}/reports" />
 	
- <!-- TODO: specify main class here -->
  <property name="main.class" value="com.u2d.app.Application" />
  
  <property name="hbprops" value="hibernate" />
@@ -94,12 +93,12 @@
    </java>
  </target>
 
- <taskdef name="script-maker" classname="com.u2d.tools.ShellScriptMaker" 
+ <taskdef name="script-maker" classname="com.u2d.tools.ShellScriptMaker"
           classpath="${lib.tools.dir}/jnlp-maker.jar:${lib.tools.dir}/velocity-dep-1.4.jar" />
  <target name="shellscript" description="produce runnable shell script">
     <script-maker classname="${main.class}"
                   classpathref="class.path"
-                  maxmemory="192m" 
+                  maxmemory="192m"
                   outputFile="run.sh" />
  </target>
 
@@ -113,6 +112,7 @@
      <fileset dir="${framework.classes.dir}" includes="**/*" />
    </jar>
  </target>
+
 
  <target name="schema-export" description="export schema to db">
     <antcall target="schema-x">
@@ -147,14 +147,6 @@
    
    
  <target name="genhbm" depends="bind" description="generate hbm.xml files">
-   <mkdir dir="${build.classes.dir}/com/u2d/app" />
-   <mkdir dir="${build.classes.dir}/com/u2d/type" />
-   <mkdir dir="${build.classes.dir}/com/u2d/restrict" />
-   <mkdir dir="${build.classes.dir}/com/u2d/type/composite" />
-   <mkdir dir="${build.classes.dir}/com/u2d/find" />
-   <mkdir dir="${build.classes.dir}/com/u2d/reporting" />
-   <mkdir dir="${build.classes.dir}/com/u2d/calendar" />
-   <mkdir dir="${build.classes.dir}/com/u2d/model" />
    <java classpathref="class.path" dir="${build.classes.dir}"
          fork="true" classname="com.u2d.persist.HBMGenerator" />
  </target>

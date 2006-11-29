@@ -14,8 +14,8 @@ import com.u2d.element.CommandInfo;
 import com.u2d.pattern.State;
 import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
-import com.u2d.reflection.CommandAt;
-import com.u2d.reflection.ParamAt;
+import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Arg;
 
 /**
  * Created by IntelliJ IDEA.
@@ -167,7 +167,7 @@ public class Issue extends AbstractComplexEObject
 
    public class AssignedState extends ReadState
    {
-      @CommandAt(mnemonic='a')
+      @Cmd(mnemonic='a')
       public void Accept(CommandInfo cmdInfo)
       {
          transition(_acceptedState, makeLog("Issue accepted by developer"));
@@ -176,25 +176,25 @@ public class Issue extends AbstractComplexEObject
 
    public class AcceptedState extends ReadState
    {
-      @CommandAt
+      @Cmd
       public void Fix(CommandInfo cmdInfo,
-                      @ParamAt("Fix") StringEO fix, 
-                      @ParamAt("Description") TextEO description)
+                      @Arg("Fix") StringEO fix, 
+                      @Arg("Description") TextEO description)
       {
          transition(_fixedState, makeLog("Fix: "+fix.stringValue(), description));
       }
    }
    public class FixedState extends ReadState
    {
-      @CommandAt
+      @Cmd
       public void RejectFix(CommandInfo cmdInfo, 
-                            @ParamAt("Explanation") TextEO explanation)
+                            @Arg("Explanation") TextEO explanation)
       {
          transition(_acceptedState, makeLog("Fix rejected", explanation));
       }
-      @CommandAt
+      @Cmd
       public void Close(CommandInfo cmdInfo, 
-                        @ParamAt("Explanation") TextEO explanation)
+                        @Arg("Explanation") TextEO explanation)
       {
          transition(_closedState, makeLog("Issue Closed", explanation));
       }
