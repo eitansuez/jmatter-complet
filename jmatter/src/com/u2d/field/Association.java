@@ -18,7 +18,7 @@ import java.beans.PropertyChangeListener;
  * @author Eitan Suez
  */
 public class Association
-      implements Transferable, java.io.Serializable, ValidationNotifier
+      implements Transferable, java.io.Serializable, ValidationNotifier, Dissociable
 {
    protected AssociationStrategy _as;
    

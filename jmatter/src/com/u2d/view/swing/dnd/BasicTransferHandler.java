@@ -5,26 +5,26 @@ package com.u2d.view.swing.dnd;
 
 import java.awt.datatransfer.*;
 import javax.swing.*;
-import com.u2d.field.Association;
 import com.u2d.ui.DragAdapter;
 import com.u2d.view.*;
 
 /**
  * @author Eitan Suez
  */
-public class AssociationTransferHandler extends TransferHandler
+public class BasicTransferHandler
+      extends TransferHandler
 {
-   private Association _association;
+   private Transferable _ball;
    
-   public AssociationTransferHandler(EView view, Association association)
+   public BasicTransferHandler(EView view, Transferable ball)
    {
-      _association = association;
+      _ball = ball;
       ((JComponent) view).addMouseMotionListener(new DragAdapter(TransferHandler.COPY));
    }
    
 	protected Transferable createTransferable(JComponent source)
 	{
-		return _association;
+		return _ball;
 	}
 
 	protected void exportDone(JComponent c, Transferable t, int action)

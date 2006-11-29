@@ -2,10 +2,13 @@ package com.u2d.view.swing;
 
 import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
+import com.u2d.view.swing.dnd.BasicTransferHandler;
 import com.u2d.type.composite.Folder;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
+import com.u2d.field.ListItemAssociation;
+import com.u2d.field.Association;
 import com.l2fprod.common.swing.JOutlookBar;
 import com.l2fprod.common.swing.PercentLayout;
 import javax.swing.*;
@@ -27,7 +30,7 @@ import java.util.List;
 public class OutlookFolderView extends JOutlookBar implements ComplexEView
 {
    private Folder _folder;
-   private List _tabs = new ArrayList();
+   private List<VerticalFolderPane> _tabs = new ArrayList<VerticalFolderPane>();
 
    public OutlookFolderView(Folder folder)
    {
@@ -40,7 +43,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
          if (item instanceof Folder)
          {
             Folder subfolder = (Folder) item;
-            JPanel pnl = new VerticalFolderPane(subfolder);
+            VerticalFolderPane pnl = new VerticalFolderPane(subfolder);
             addTab(subfolder.getName().stringValue(),
                    folder.iconSm(),
                    makeScrollPane((JComponent) pnl));
@@ -52,8 +55,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
       {
          public synchronized void drop(DropTargetDropEvent dtde)
          {
-            VerticalFolderPane vfp = (VerticalFolderPane) 
-                  _tabs.get(getSelectedIndex());
+            VerticalFolderPane vfp = _tabs.get(getSelectedIndex());
             vfp.getDropTarget().drop(dtde);
          }
       });
@@ -73,10 +75,21 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
          for (int i=0; i<folder.size(); i++)
          {
             item = (ComplexEObject) folder.get(i);
-            add((JComponent) item.getIconView());
+            add(getViewForItem(folder, item));
          }
       }
-
+      
+      private JComponent getViewForItem(Folder folder, ComplexEObject item)
+      {
+         EView view = item.getIconView();
+         Association association = folder.association("items");
+         ListItemAssociation liassociation = new ListItemAssociation(association, item);
+         TransferHandler transferHandler = new BasicTransferHandler(view, liassociation);
+         JComponent comp = (JComponent) view;
+         comp.setTransferHandler(transferHandler);
+         return comp;
+      }
+      
       public void intervalAdded(final ListDataEvent e)
       {
          SwingUtilities.invokeLater(new Runnable()
@@ -88,7 +101,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
                for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
                {
                   eo = (ComplexEObject) source.getElementAt(i);
-                  add((JComponent) eo.getIconView(), i);
+                  add(getViewForItem(_folder, eo), i);
                }
 
                revalidate(); repaint();
@@ -129,7 +142,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
                for (int i=0; i<source.getSize(); i++)
                {
                   eo = (ComplexEObject) source.getElementAt(i);
-                  add((JComponent) eo.getIconView());
+                  add(getViewForItem(_folder, eo));
                }
 
                revalidate(); repaint();

@@ -6,6 +6,8 @@ package com.u2d.view.swing.dnd;
 import java.awt.datatransfer.*;
 import javax.swing.*;
 import com.u2d.field.Association;
+import com.u2d.field.ListItemAssociation;
+import com.u2d.field.Dissociable;
 import com.u2d.app.Tracing;
 
 /**
@@ -34,30 +36,41 @@ public class EODesktopPane extends com.u2d.ui.desktop.EnhDesktopPane
       {
          if ( canImport(c, t.getTransferDataFlavors()) )
          {
-            try
+            boolean success = tryToImport(t, Association.FLAVOR);
+            if (!success)
             {
-               final Association association = (Association) t.getTransferData(Association.FLAVOR);
-               new Thread()
-               {
-                  public void run()
-                  {
-                     association.dissociate();
-                  }
-               }.start();
-               return true;
+               success = tryToImport(t, ListItemAssociation.FLAVOR);
             }
-            catch (UnsupportedFlavorException ufe)
-            {
-               Tracing.tracer().info("importData: unsupported data flavor");
-               return false;
-            }
-            catch (java.io.IOException ioe)
-            {
-               System.err.println("importData: I/O exception");
-               return false;
-            }
+            return success;
          }
          Tracing.tracer().fine("VacantDropHandler.importData() failed");
+         return false;
+      }
+      
+      private boolean tryToImport(Transferable t, DataFlavor flavor)
+      {
+         try
+         {
+            final Dissociable d = (Dissociable) t.getTransferData(flavor);
+               
+            new Thread()
+            {
+               public void run()
+               {
+                  d.dissociate();
+               }
+            }.start();
+            return true;
+         }
+         catch (UnsupportedFlavorException ufe)
+         {
+            // wrong message..
+//            Tracing.tracer().info("importData: unsupported data flavor");
+         }
+         catch (java.io.IOException ioe)
+         {
+            System.err.println("importData: I/O exception");
+         }
          return false;
       }
 
@@ -66,8 +79,8 @@ public class EODesktopPane extends com.u2d.ui.desktop.EnhDesktopPane
          for (int i = 0; i < df.length; i++)
          {
             if (df[i].equals(Association.FLAVOR)) return true;
+            if (df[i].equals(ListItemAssociation.FLAVOR)) return true;
          }
-         //System.out.println("VacantDropHandler.canImport() returns false");
          return false;
       }
 

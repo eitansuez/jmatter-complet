@@ -130,7 +130,7 @@ public class AssociationView extends CardPanel implements ComplexEView
          itemPnl.addItem(view);
 
          // TODO:
-//         TransferHandler transferHandler = new AssociationTransferHandler(view, _association);
+//         TransferHandler transferHandler = new BasicTransferHandler(view, _association);
 //         ((SComponent) view).setTransferHandler(transferHandler);
       }
 

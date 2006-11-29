@@ -86,7 +86,7 @@ public class AssociationView extends JPanel
       }
       else
       {
-         TransferHandler transferHandler = new AssociationTransferHandler(_view, _association);
+         TransferHandler transferHandler = new BasicTransferHandler(_view, _association);
          comp.setTransferHandler(transferHandler);
       }
    }

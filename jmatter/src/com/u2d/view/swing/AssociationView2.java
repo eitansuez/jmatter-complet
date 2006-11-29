@@ -7,7 +7,7 @@ import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.dnd.DropTargetHandler;
-import com.u2d.view.swing.dnd.AssociationTransferHandler;
+import com.u2d.view.swing.dnd.BasicTransferHandler;
 import com.u2d.field.Association;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
@@ -152,7 +152,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          view = value.getListItemView();
          itemPnl.addItem(view);
 
-         TransferHandler transferHandler = new AssociationTransferHandler(view, _association);
+         TransferHandler transferHandler = new BasicTransferHandler(view, _association);
          ((JComponent) view).setTransferHandler(transferHandler);
 
          revalidate(); repaint();
