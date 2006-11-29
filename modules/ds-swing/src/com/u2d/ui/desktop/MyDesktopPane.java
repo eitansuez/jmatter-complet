@@ -16,7 +16,7 @@ import java.beans.PropertyVetoException;
  */
 public class MyDesktopPane extends JDesktopPane
 {
-   private LinkedList jifs = new LinkedList();
+   private LinkedList<JInternalFrame> jifs = new LinkedList<JInternalFrame>();
 
    public MyDesktopPane()
    {
