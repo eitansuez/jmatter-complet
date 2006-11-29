@@ -1,16 +1,15 @@
-<project name="jmatter-uberbuilfile" default="make-binary-distro">
+<project name="jmatter-distributor" default="make-distro-and-checksums">
 
-  <description>jMatter uber build file</description>
+  <description>This build file produces official JMatter distributions</description>
 
   <property name="build.dir" location="build" />
   <property name="dist.dir" location="dist" />
-
+  <property name="build.target.dir" location="${build.dir}/jmatter" />
+  
   <property name="jmatter.dir" location="${basedir}/jmatter" />
   <property name="demo.dir" location="${basedir}/demo-apps" />
   <property name="modules.dir" location="${basedir}/modules" />
 
-  <property name="build.target.dir" location="${build.dir}/jmatter" />
-  
   <!-- TARGETS -->
 
   <target name="init">
@@ -63,96 +62,35 @@
   <target name="preliminaries" 
           depends="clean, init, update-modules, clean-subprojects, makedoc-pdf" />
 
-  <!-- MAIN COURSE -->
-  
-  <target name="make-binary-distro" 
-          description="create jMatter binary distributions" 
-          depends="preliminaries">
-          
-   <ant antfile="${jmatter.dir}/build.xml" inheritAll="false" target="jar" />
-
-   <mkdir dir="${build.target.dir}/doc" />
-   <copy todir="${build.target.dir}/doc" file="${jmatter.dir}/doc/guide.pdf" />
-   <mkdir dir="${build.target.dir}/lib" />
-   <copy todir="${build.target.dir}/lib">
-    <fileset dir="${jmatter.dir}/lib" includes="src/**/*.jar" />
-    <fileset dir="${jmatter.dir}/lib" includes="tools/**/*.jar" />
-    <fileset dir="${jmatter.dir}/lib" includes="test/**/*.jar" />
-    <fileset dir="${jmatter.dir}/lib" includes="web/**/*.jar" />
-    <fileset dir="${jmatter.dir}/dist" includes="jmatter.jar" />
-   </copy>
-   <copy todir="${build.target.dir}" file="${jmatter.dir}/doc/jMatter-License" />
-   <exec dir="${jmatter.dir}/doc" executable="markdown" output="${build.target.dir}/jMatter-License.html">
-     <arg line="jMatter-License" />
-   </exec>
-   <copy todir="${build.target.dir}">
-     <fileset dir="${jmatter.dir}/doc" includes="Changes,Credits" />
-   </copy>
-   <copy todir="${build.target.dir}" file="${jmatter.dir}/resources/distro-prototype/build.xml" />
-   <copy todir="${build.target.dir}">
-    <fileset dir="${jmatter.dir}/resources" includes="project-template/**/*" />
-   </copy> 
-   <copy todir="${build.target.dir}">
-     <fileset dir="." includes="demo-apps/**/*" />
-   </copy>
-   <antcall target="demoapp-buildfile"> <param name="demoapp.name" value="ContactMgr" /> </antcall>
-   <antcall target="demoapp-buildfile"> <param name="demoapp.name" value="IssueMgr" /> </antcall>
-   <antcall target="demoapp-buildfile"> <param name="demoapp.name" value="Sympster" /> </antcall>
-   <antcall target="demoapp-buildfile"> <param name="demoapp.name" value="MovieLib" /> </antcall>
-   <antcall target="demoapp-buildfile"> <param name="demoapp.name" value="MyTunes" /> </antcall>
-   <antcall target="demoapp-buildfile"> <param name="demoapp.name" value="CustomUI" /> </antcall>
-
-   <zip basedir="${build.dir}" destfile="${dist.dir}/jmatter-bin-${DSTAMP}.zip" />
-   <tar basedir="${build.dir}" destfile="${dist.dir}/jmatter-bin-${DSTAMP}.tgz" compression="gzip" />
-
-  </target>
-
-  <target name="demoapp-buildfile">
-    <copy tofile="${build.target.dir}/demo-apps/${demoapp.name}/build.xml" 
-          file="${jmatter.dir}/resources/distro-prototype/demoapp-build.xml" 
-          filtering="true" overwrite="true">
-      <filterset>
-        <filter token="PROJECTNAME" value="${demoapp.name}" />
-      </filterset>
-    </copy>
-  </target>
-   
-  <target name="make-source-distro" 
+  <target name="make-distribution" 
           description="Produce source distribution" 
           depends="preliminaries">
 
-   <mkdir dir="${build.target.dir}/doc" />
-   <copy todir="${build.target.dir}/doc" file="${jmatter.dir}/doc/guide.pdf" />
-   <copy todir="${build.target.dir}/doc" file="${jmatter.dir}/doc/jMatter-License" />
+   <copy todir="${build.target.dir}" >
+     <fileset dir="${jmatter.dir}" includes="doc/Changes,doc/Credits,doc/guide.pdf,doc/jMatter-license" />
+     <fileset dir="${jmatter.dir}" includes="build.xml" />
+     <fileset dir="${jmatter.dir}" includes="src/**/*" />
+     <fileset dir="${jmatter.dir}" includes="test/**/*" />
+     <fileset dir="${jmatter.dir}" includes="lib/**/*.jar" />
+     <fileset dir="${jmatter.dir}" includes="resources/**/*" />
+   </copy>
+   
    <exec dir="${jmatter.dir}/doc" executable="markdown" output="${build.target.dir}/doc/jMatter-License.html">
      <arg line="jMatter-License" />
    </exec>
-   <copy todir="${build.target.dir}">
-     <fileset dir="${jmatter.dir}/doc" includes="Changes,Credits" />
-   </copy>
-
-   <copy todir="${build.target.dir}">
-    <fileset dir="${jmatter.dir}" includes="build.xml" />
-    <fileset dir="${jmatter.dir}" includes="src/**/*" />
-    <fileset dir="${jmatter.dir}" includes="test/**/*" />
-    <fileset dir="${jmatter.dir}" includes="lib/**/*.jar" />
-   </copy>
-   
-   <mkdir dir="${build.target.dir}/resources" />
-   <copy todir="${build.target.dir}/resources">
-    <fileset dir="${jmatter.dir}/resources" includes="binding.xml" />
-    <fileset dir="${jmatter.dir}/resources" includes="data/**/*" />
-    <fileset dir="${jmatter.dir}/resources" includes="images/**/*" />
-    <fileset dir="${jmatter.dir}/resources" includes="jfreereport.properties" />
-    <fileset dir="${jmatter.dir}/resources" includes="project-template/**/*" />
-   </copy>
 
    <copy todir="${build.dir}">
      <fileset dir="." includes="demo-apps/**/*" />
    </copy>
 
-   <zip basedir="${build.dir}" destfile="${dist.dir}/jmatter-src-${DSTAMP}.zip" />
-   <tar basedir="${build.dir}" destfile="${dist.dir}/jmatter-src-${DSTAMP}.tgz" compression="gzip" />
+   <!-- how can i create a property whose 
+        name is dynamically computed based on ${DSTAMP}? -->
+   <mkdir dir="${build.dir}/jmatter-${DSTAMP}" />
+   <move todir="${build.dir}/jmatter-${DSTAMP}">
+      <fileset dir="${build.dir}" excludes="jmatter-${DSTAMP}" />
+   </move>
+   <zip basedir="${build.dir}" destfile="${dist.dir}/jmatter-${DSTAMP}.zip" />
+   <tar basedir="${build.dir}" destfile="${dist.dir}/jmatter-${DSTAMP}.tgz" compression="gzip" />
 
   </target>
 
@@ -171,6 +109,9 @@
       <fileset dir="${dist.dir}" includes="*.tgz, *.zip" />
     </checksum>
   </target>
+  
+  <target name="make-distro-and-checksums" depends="make-distribution,checksum-all" 
+     description="construct jmatter distributions and corresponding checksums" />
 
 </project>
 

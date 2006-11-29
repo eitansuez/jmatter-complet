@@ -6,6 +6,7 @@ to extend my thanks to the following individuals for their
 contributions to JMatter, though this list is not exhaustive.
 
  1. Ryan Ramage
+
       Ryan is the author of UltraViolet, a JMatter UML
       design tool.  He also wrote UMLC, a JMatter uml
       compiler.  See:
@@ -32,5 +33,5 @@ contributions to JMatter, though this list is not exhaustive.
 
  5. I would also like to thank all the bloggers who have written about
     JMatter.  These include John Reynolds, Glenn Vanderburg, Neal
-    Ford, Jared Richardson, and many others.
+    Ford, Jared Richardson, Venkat Subramaniam, and many others.
 

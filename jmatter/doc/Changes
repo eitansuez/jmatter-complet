@@ -15,10 +15,6 @@ Briefly:
  - ultraviolet is now integrated into jmatter.
    don't have to set the jmatter base directory.
 
- - [not yet implemented, but expect to:] jmatter will now autodetect
-   look and feels in the classpath.  just drop in a jar for your 
-   favorite look and feel and select it from the menu.
-
  - [todo:  list all issues fixed from trac]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
