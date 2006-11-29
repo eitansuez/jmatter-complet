@@ -40,9 +40,15 @@
    </copy>
   </target>
 
-
-  <target name="preliminaries" 
-          depends="clean, init, update-modules, clean-subs, makedoc-pdf" />
+  <target name="clean-subprojects" description="invoke clean target on jmatter and demo apps">
+      <ant antfile="${jmatter.dir}/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="${demo.dir}/ContactMgr/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="${demo.dir}/IssueMgr/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="${demo.dir}/Sympster/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="${demo.dir}/MovieLib/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="${demo.dir}/MyTunes/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="${demo.dir}/CustomUI/build.xml" inheritAll="false" target="clean" />
+  </target>
 
   <target name="makedoc-pdf" unless="pdfdoc-exists"
           description="produce pdf documentation (if necessary)">
@@ -54,6 +60,11 @@
     </exec>
   </target>
 
+  <target name="preliminaries" 
+          depends="clean, init, update-modules, clean-subprojects, makedoc-pdf" />
+
+  <!-- MAIN COURSE -->
+  
   <target name="make-distro" 
           description="create jMatter binary distributions" 
           depends="preliminaries">
@@ -141,16 +152,6 @@
    <zip basedir="${build.dir}" destfile="${dist.dir}/jmatter-src-${DSTAMP}.zip" />
    <tar basedir="${build.dir}" destfile="${dist.dir}/jmatter-src-${DSTAMP}.tgz" compression="gzip" />
 
-  </target>
-
-  
-  <target name="clean-subs" description="invoke clean target on jmatter and demo apps">
-      <ant antfile="${jmatter.dir}/build.xml" inheritAll="false" target="clean" />
-      <ant antfile="${demo.dir}/ContactMgr/build.xml" inheritAll="false" target="clean" />
-      <ant antfile="${demo.dir}/IssueMgr/build.xml" inheritAll="false" target="clean" />
-      <ant antfile="${demo.dir}/Sympster/build.xml" inheritAll="false" target="clean" />
-      <ant antfile="${demo.dir}/MovieLib/build.xml" inheritAll="false" target="clean" />
-      <ant antfile="${demo.dir}/MyTunes/build.xml" inheritAll="false" target="clean" />
   </target>
 
 
