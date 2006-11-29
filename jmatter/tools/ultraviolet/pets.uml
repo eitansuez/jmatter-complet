@@ -2,7 +2,7 @@ package com.u2d.generated;
 
 
 class Person  
-[search="" no_class_list="false" color="0x99ccff" icon32="/home/eitan/projects/u2d/other-apps/NFJSMgr/resources/images/Speaker32.png" plural="People" icon16="/home/eitan/projects/u2d/other-apps/NFJSMgr/resources/images/Speaker16.png" dx="120.0" dy="70.0" ]
+[color="0x99ccff" plural="People" dx="120.0" dy="70.0" ]
 {
     name Name [flatten="true" ]; 
     address USAddress [tab="true" ]; 
