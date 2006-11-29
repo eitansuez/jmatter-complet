@@ -340,16 +340,28 @@ public class ComplexType extends AbstractComplexEObject
    }
 
    public Onion commands() { return _typeCommands; }
+
+   public Onion filteredCommands()
+   {
+      return commands().filter(Command.commandFilter(this));
+   }
+
    public Onion staticCommands() { return _staticTypeCmds; }
 
    public Onion commands(State state)
    {
       if (state == null) throw new IllegalArgumentException("Cannot request commands for a null state");
-      return (Onion) _commands.get(state.getClass());
+      return commands(state.getClass());
    }
    public Onion commands(Class stateClass)
    {
       return (Onion) _commands.get(stateClass);
+   }
+   
+   public Onion filteredCommands(EObject target, Class stateClass)
+   {
+      Onion commands = commands(stateClass);
+      return commands.filter(Command.commandFilter(target));
    }
 
    public Command command(String commandName, Class stateClass)

@@ -21,6 +21,7 @@ public interface EObject
    public javax.swing.Icon iconLg();
 
    public Onion commands();
+   public Onion filteredCommands();
    public void setField(Field field, ComplexEObject parent);
    public Field field();
    

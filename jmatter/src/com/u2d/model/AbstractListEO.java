@@ -69,6 +69,12 @@ public abstract class AbstractListEO extends AbstractEObject
             false, null);  // TODO: FLAG: what parameter to pass in for parent?
    }
    public Onion commands() { return _commands; }
+
+   public Onion filteredCommands()
+   {
+      return commands();  // for now.. TODO: fix.
+   }
+
    public Command command(String commandName)
    {
       return (Command) _commands.find(Command.finder(commandName));

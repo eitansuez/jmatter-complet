@@ -105,8 +105,6 @@ public class CommandsButtonView extends SPanel implements ListEView
                if (cmd.isOpenInNonMinimizedContext(_source)) return;
                if (cmd.isMinorCommand(_source)) return;
 
-               if (cmd.filter(_eo)) return;
-
                CommandAdapter cmdAdapter = new CommandAdapter(cmd, _eo, _source);
                SButton btn;
                if (cmd.sensitive())
@@ -137,7 +135,7 @@ public class CommandsButtonView extends SPanel implements ListEView
          public void pause() { }
 
          public void done() {}
-         }).peel(_eo.commands());
+         }).peel(_eo.filteredCommands());
 
       //System.out.println("buttons grafted, source set on cmdAdapter: "+_source);
 

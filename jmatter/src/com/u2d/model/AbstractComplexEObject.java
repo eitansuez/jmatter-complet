@@ -280,6 +280,12 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       return type().commands(_currentState);
    }
+   public Onion filteredCommands()
+   {
+      return type().filteredCommands(this, _currentState.getClass());
+   }
+   
+   
    public String defaultCommandName() { return "Open"; }
    public Command defaultCommand() { return command(defaultCommandName()); }
 

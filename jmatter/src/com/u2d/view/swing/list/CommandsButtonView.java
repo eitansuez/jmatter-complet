@@ -113,8 +113,6 @@ public class CommandsButtonView extends JPanel implements ListEView
                if (cmd.isOpenInNonMinimizedContext(_source)) return;
                if (cmd.isMinorCommand(_source)) return;
                
-               if (cmd.filter(_eo)) return;
-
                CommandButton btn = new CommandButton(cmd, _eo, _source, firstPass);
                firstPass = false;
                
@@ -148,7 +146,7 @@ public class CommandsButtonView extends JPanel implements ListEView
          
             public void done() {}
          
-         }).peel(_eo.commands());
+         }).peel(_eo.filteredCommands());
 
       //System.out.println("buttons grafted, source set on cmdAdapter: "+_source);
       JPanel buttonPnl = builder.getPanel();

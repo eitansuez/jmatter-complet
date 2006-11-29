@@ -61,6 +61,8 @@ public abstract class AbstractInequality extends AbstractEObject
    public void setValue(EObject value) {}
 
    public Onion commands() { return null; }
+   public Onion filteredCommands() { return commands(); }
+
    public int validate() { return 0; }
 
 

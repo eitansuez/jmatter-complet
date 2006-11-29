@@ -90,7 +90,7 @@ public class CommandsContextMenuView
       detachCmds();
       if (_eo == null) return;
 
-      _commands = _eo.commands();
+      _commands = _eo.filteredCommands();
       new OnionPeeler(new Processor()
          {
             int index = 0;
@@ -98,8 +98,6 @@ public class CommandsContextMenuView
             {
                Command cmd = (Command) obj;
                if (cmd.isOpenInNonMinimizedContext(_source)) return;
-
-               if (cmd.filter(_eo)) return;
 
                Action commandAdapter = new CommandAdapter(cmd, _eo, _source);
                add(new SMenuItem(commandAdapter));

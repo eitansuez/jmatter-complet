@@ -127,14 +127,54 @@ public class Onion implements ListChangeNotifier
    }
    
    public Object find(SimpleFinder finder) { return find(finder, this); }
+   
+   public Onion filter(Filter filter)
+   {
+      OnionProcessor proc = new OnionProcessor(filter);
+      new OnionPeeler(proc).peel(this);
+      return proc.getResult();
+   }
+   
+   class OnionProcessor implements Processor
+   {
+      private Onion currentOnion = new Onion();
+      private Onion onion = currentOnion;
+      private Filter filter;
+      
+      OnionProcessor(Filter filter)
+      {
+         this.filter = filter;
+      }
+
+      public void process(Object item)
+      {
+         if (filter.exclude(item)) return;
+         currentOnion.add(item);
+      }
+
+      public void pause()
+      {
+         // need to be careful not to invert layers..
+         Onion temp = currentOnion;
+         currentOnion = new Onion();
+         temp.mergeIn(currentOnion);
+      }
+
+      public void done()
+      {
+      }
+      
+      public Onion getResult()
+      {
+         return onion;
+      }
+   }
 
    public static Object find(SimpleFinder finder, Onion onion)
    {
-      Iterator itr = onion.iterator();
-      Object item = null;
-      while (itr.hasNext())
+      for (Iterator itr = onion.iterator(); itr.hasNext(); )
       {
-         item = itr.next();
+         Object item = itr.next();
          if (finder.found(item))
             return item;
       }

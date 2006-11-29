@@ -52,7 +52,7 @@ public abstract class AbstractEObject
       }
       return (HBMPersistenceMechanism) persistor();
    }
-   protected User currentUser() { return appSession().getUser(); }
+   public User currentUser() { return appSession().getUser(); }
 
 
    /* ** State Change Support Code ** */

@@ -16,6 +16,12 @@ public abstract class AbstractAtomicEO extends AbstractEObject
    public int validate() { return 0; }
 
    public Onion commands() { return type().commands(); }
+
+   public Onion filteredCommands()
+   {
+      return commands();  // for now..
+   }
+
    public AtomicType type() { return AtomicType.forObject(this); }
 
    public EView getView() { return vmech().getAtomicView(this); }

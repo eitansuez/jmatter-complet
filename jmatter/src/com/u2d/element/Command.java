@@ -13,7 +13,7 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
-
+import com.u2d.pattern.Filter;
 import java.util.Arrays;
 
 /**
@@ -237,34 +237,6 @@ public abstract class Command extends Member
    }
    
    
-   public boolean filter(EObject eo)
-   {
-      if (isForbidden(eo))
-      {
-         tracer().info("command "+this+" is forbidden for " +
-               "user "+currentUser()+" on target "+eo+" (skipping)");
-         return true;
-      }
-            
-      if (eo instanceof ComplexEObject)
-      {
-         User owner = getOwner((ComplexEObject) eo);
-         if (owner != null && !owner.equals(currentUser()))
-         {
-            return true;
-         }
-      }
-         
-      if (eo.field() != null &&
-          eo.field().isAggregate() &&
-          "delete".equalsIgnoreCase(name()))
-      {
-         return true;
-      }
-
-      return false;
-   }
-
    public StringEO getFullPath() { return _fullPath; }
    public String fullPath() { return _fullPath.stringValue(); }
 
@@ -313,5 +285,51 @@ public abstract class Command extends Member
    }
    
    
+   
+   static class CommandFilter implements Filter
+   {
+      EObject _target;
+      CommandFilter(EObject target)
+      {
+         _target = target;
+      }
+      public boolean exclude(Object item)
+      {
+         if (!(item instanceof Command))
+            return true;
+         
+         Command cmd = (Command) item;
+         
+         if (cmd.isForbidden(_target))
+         {
+            cmd.tracer().info("command "+cmd+" is forbidden for " +
+                  "user "+cmd.currentUser()+" on target "+_target+" (skipping)");
+            return true;
+         }
+            
+         if (_target instanceof ComplexEObject)
+         {
+            User owner = cmd.getOwner((ComplexEObject) _target);
+            if (owner != null && !owner.equals(cmd.currentUser()))
+            {
+               return true;
+            }
+         }
+         
+         if (_target.field() != null &&
+             _target.field().isAggregate() &&
+             "delete".equalsIgnoreCase(cmd.name()))
+         {
+            return true;
+         }
+
+         return false;
+      }
+   }
+   
+   public static Filter commandFilter(EObject target)
+   {
+      return new CommandFilter(target);
+   }
    
 }

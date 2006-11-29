@@ -82,32 +82,27 @@ public class CommandsContextMenuView
       detachCmds();
       if (_eo == null) return;
 
-      _commands = _eo.commands();
-      if (_commands == null)
-      {
-         throw new RuntimeException("Null commands onion for eobject: "+_eo);
-      }
+      _commands = _eo.filteredCommands();
       new OnionPeeler(new Processor()
          {
             int index = 0;
-            int subindex = 0;
+//            int subindex = 0;
             public void process(Object obj)
             {
                Command cmd = (Command) obj;
                if (cmd.isOpenInNonMinimizedContext(_source)) return;
 
-               if (cmd.filter(_eo)) return;
-
                add(new CommandAdapter(cmd, _eo, _source));
                _indexMap.put(new Integer(index),
                              new Integer(getComponentCount()-1));
                index++;
-               subindex++;
+//               subindex++;
             }
             public void pause()
             {
-               if (subindex > 0) addSeparator();
-               subindex = 0;
+               addSeparator();
+//               if (subindex > 0) addSeparator();
+//               subindex = 0;
             }
             public void done() {}
          }).peel(_commands);
