@@ -44,7 +44,6 @@
  
   <target name="clean">
     <delete dir="${build.dir}" />
-    <delete dir="${dist.dir}" />
   </target>
 
   <property name="smc.jar" location="${gen.lib.dir}/Smc.jar" />
@@ -91,6 +90,7 @@
   </target>
 
   <target name="jar" description="jar jmatter framework" depends="bind, just-jar" />
+  <target name="cleanjar" description="clean first, then jar" depends="clean,jar" />
 
  <!-- targets pertaining to junit testing -->
 
