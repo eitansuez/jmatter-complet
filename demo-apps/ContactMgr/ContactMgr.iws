@@ -18,10 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/contactmgr/PersonContact.java" afterPath="$PROJECT_DIR$/src/com/u2d/contactmgr/PersonContact.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ContactMgr.ipr" afterPath="$PROJECT_DIR$/ContactMgr.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ContactMgr.iws" afterPath="$PROJECT_DIR$/ContactMgr.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ContactMgr.iml" afterPath="$PROJECT_DIR$/ContactMgr.iml" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -526,7 +523,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1280" height="751" extended-state="1" />
+    <frame x="0" y="24" width="1280" height="751" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
