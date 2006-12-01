@@ -31,7 +31,7 @@ public class ShellScriptMaker extends Java
       try
       {
          String cmd = getCommandLine().toString();
-         FileWriter writer = new FileWriter(_file);
+         FileWriter writer = new FileWriter(platformQualifySuffix(_file));
          writer.write(cmd);
          writer.close();
       }
@@ -41,4 +41,25 @@ public class ShellScriptMaker extends Java
          throw new BuildException("SheellScriptMaker failed to write run script to: "+_file.toString(), e);
       }
    }
+   
+   private File platformQualifySuffix(File file)
+   {
+      String path = file.getAbsolutePath();
+      String name = file.getName();
+      if (name.indexOf(".") != -1)
+      {
+         return file; // no change
+      }
+      
+      String os = System.getProperty("os.name").toLowerCase();
+      if (os.indexOf("windows") != -1 || os.indexOf("nt") != -1)
+      {
+         return new File(path+".bat");
+      }
+      else
+      {
+         return new File(path+".sh");
+      }
+   }
+   
 }
