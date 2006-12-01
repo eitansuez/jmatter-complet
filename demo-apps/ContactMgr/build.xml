@@ -98,7 +98,7 @@
     <script-maker classname="${main.class}"
                   classpathref="class.path"
                   maxmemory="192m"
-                  outputFile="run.sh" />
+                  outputFile="run" />
  </target>
 
  <target name="jar" description="jar it" depends="clean,genhbm">
