@@ -4,11 +4,19 @@
 package com.u2d.element;
 
 import java.util.*;
+import java.util.logging.Logger;
+
 import com.u2d.model.FieldParent;
 import com.u2d.model.Title;
+import com.u2d.model.ComplexEObject;
 import com.u2d.restrict.Restrictable;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.CharEO;
+import com.u2d.app.Context;
+import com.u2d.app.HBMPersistenceMechanism;
+import com.u2d.app.Tracing;
+import com.u2d.persist.HibernatePersistor;
+import com.u2d.pattern.Block;
 import org.hibernate.Session;
 import org.hibernate.Query;
 
@@ -118,22 +126,29 @@ public abstract class Member extends ProgrammingElement implements Restrictable
     * that information into self and replace loaded object
     * with self (session.evict followed by session.update)
     */
-   public void applyDbMetadata()
+   public static void mergeInDbMetadata()
    {
-      String hql = "from Member m where m.fullPath = :fullPath";
-      Session session = hbmPersistor().getSession();
-      Query query = session.createQuery(hql);
-      query.setParameter("fullPath", getFullPath());
-      Member member = (Member) query.uniqueResult();
-      if (member != null)
+      Context context = Context.getInstance();
+      final HBMPersistenceMechanism hbm = context.hbmpersitor();
+      hbm.list(Member.class).forEach(new Block()
       {
-         tracer().info("Merging member: "+member+" with member object: "+this);
-         transferCopy(this, member, true);
-         setID(member.getID());
-         setVersion(member.getVersion());
-         session.evict(member);
-         session.update(this);
-      }
+         public void each(ComplexEObject ceo)
+         {
+            Member member = (Member) ceo;
+            merge(member, hbm.getSession());
+         }
+      });
+   }
+   
+   private static void merge(Member member, Session session)
+   {
+      Member harvested = Member.forMember(member);
+      Tracing.tracer().info("Merging member: "+member+" with member object: "+harvested);
+      harvested.transferCopy(harvested, member, true);
+      harvested.setID(member.getID());
+      harvested.setVersion(member.getVersion());
+      session.evict(member);
+      session.update(harvested);
    }
 
 

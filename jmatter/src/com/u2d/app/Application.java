@@ -10,6 +10,7 @@ import com.u2d.type.LogEventType;
 import com.u2d.ui.Splash;
 import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.element.EOCommand;
+import com.u2d.element.Member;
 import com.u2d.xml.CodesList;
 import org.hibernate.*;
 import org.jibx.runtime.*;
@@ -77,7 +78,8 @@ public class Application
             items.add(defaultRole);
             hbm.saveMany(items);
             
-            defaultRole.initializePermissions(hbm);
+            // skip this for now..
+//            defaultRole.initializePermissions(hbm);
          }
          
          CodesList.populateCodes(_pmech, hbm.getClasses());
@@ -146,6 +148,8 @@ public class Application
       
       AppSession session = (AppSession) context.getBean("app-session");
       session.launch();
+      
+      Member.mergeInDbMetadata();
       
       Splash splash = (Splash) context.getBean("splash");
       splash.dispose();

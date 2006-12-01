@@ -160,7 +160,6 @@ public class ComplexType extends AbstractComplexEObject
          _fields = Harvester.harvestFields(this);
 
          loadFieldMetaData();
-         applyCommandDbMetadata();
       }
       catch (IntrospectionException ex)
       {
@@ -503,21 +502,6 @@ public class ComplexType extends AbstractComplexEObject
             }
          });
 
-      FieldRecurser.recurseFields(_fields, new FieldProcessor()
-         {
-            public void processField(final Field field)
-            {
-               Context.getInstance().addAppEventListener("APP_READY", 
-                     new AppEventListener()
-                     {
-                        public void onEvent(AppEvent evt)
-                        {
-                           field.applyDbMetadata();
-                        }
-                     });
-            }
-         });
-
    }
 
    public String localeLookup(String key)
@@ -587,25 +571,6 @@ public class ComplexType extends AbstractComplexEObject
    }
    
 
-   private void applyCommandDbMetadata()
-   {
-      allCommands(new Block()
-      {
-         public void each(ComplexEObject ceo)
-         {
-            final Command cmd = (Command) ceo;
-            Context.getInstance().addAppEventListener("APP_READY", 
-                  new AppEventListener()
-                  {
-                     public void onEvent(AppEvent evt)
-                     {
-                        cmd.applyDbMetadata();
-                     }
-                  });
-         }
-      });
-   }
-   
    // *** icon stuff ***
 
    protected Icon _iconSm, _iconLg, _iconsSm, _iconsLg;

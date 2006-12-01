@@ -127,6 +127,9 @@ public abstract class AbstractListEO extends AbstractEObject
       for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
          ceo = (ComplexEObject) itr.next();
+         
+         if (ceo.isMeta()) continue;
+         
          if (clear)
             ceo.removeAppEventListener("ONDELETE", this);
          else
