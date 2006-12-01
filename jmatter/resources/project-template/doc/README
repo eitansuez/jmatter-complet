@@ -13,7 +13,7 @@ Getting Started
   create a model class, conforming to the conventions
    described in the file named "Cliche" in this directory.
 
-  add type to src/com/u2d/app-config.xml
+  add type to src/persistClasses.xml
        and to src/com/u2d/class-list.xml
 
   then:
