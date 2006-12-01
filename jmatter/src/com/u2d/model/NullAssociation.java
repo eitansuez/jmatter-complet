@@ -137,6 +137,11 @@ public class NullAssociation extends NullComplexEObject
       copy.mergeIn(cmds2);
       return copy;
    }
+    // TODO: work on this.
+   public Onion filteredCommands()
+   {
+      return commands();
+   }
 
    static Onion cmds2;
    static

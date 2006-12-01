@@ -134,8 +134,7 @@ public abstract class Member extends ProgrammingElement implements Restrictable
       {
          public void each(ComplexEObject ceo)
          {
-            Member member = (Member) ceo;
-            merge(member, hbm.getSession());
+            merge((Member) ceo, hbm.getSession());
          }
       });
    }
@@ -143,7 +142,7 @@ public abstract class Member extends ProgrammingElement implements Restrictable
    private static void merge(Member member, Session session)
    {
       Member harvested = Member.forMember(member);
-      Tracing.tracer().info("Merging member: "+member+" with member object: "+harvested);
+      Tracing.tracer().fine("Merging member: "+member+" with member object: "+harvested);
       harvested.transferCopy(harvested, member, true);
       harvested.setID(member.getID());
       harvested.setVersion(member.getVersion());
