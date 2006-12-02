@@ -6,11 +6,14 @@ package com.u2d.persist;
 import com.u2d.app.*;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
+import com.u2d.model.AbstractListEO;
+import com.u2d.list.PlainListEObject;
 import org.hibernate.cfg.*;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -138,4 +141,38 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
    }
 
 
+   public AbstractListEO hqlQuery(Query query)
+   {
+      try
+      {
+         java.util.List results = query.list();
+
+         if (results.isEmpty())
+         {
+            return null;
+         }
+         else
+         {
+            for (int i = 0; i < results.size(); i++)
+            {
+               ((ComplexEObject) results.get(i)).onLoad();
+            }
+
+            /* this is not correct all the time.
+              the right way to do this is to use the hibernate
+              hql parser and ask it for the cls
+            */
+            Class cls = ((ComplexEObject) results.get(0)).type().getJavaClass();
+            return new PlainListEObject(cls, results);
+         }
+      }
+      catch (HibernateException ex)
+      {
+         System.err.println("hbm query failed: " + ex.getMessage());
+         System.err.println("Query was: " + query.getQueryString());
+         newSession();
+         ex.printStackTrace();
+      }
+      return null;
+   }
 }

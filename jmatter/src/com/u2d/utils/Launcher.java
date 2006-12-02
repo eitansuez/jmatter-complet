@@ -1,6 +1,8 @@
 package com.u2d.utils;
 
 import com.lowagie.tools.Executable;
+import com.u2d.type.composite.EmailMessage;
+
 import java.util.LinkedList;
 import java.io.IOException;
 import java.io.File;
@@ -26,6 +28,19 @@ public class Launcher
    public static void openInBrowser(String url)
    {
       launch(browserCmds(url));
+   }
+   
+   public static void openInEmailApp(EmailMessage msg)
+   {
+      openInEmailApp(msg.mailtoURL());
+   }
+   public static void openInEmailApp(String mailtoURL)
+   {
+      if (mailtoURL == null || !mailtoURL.startsWith("mailto:"))
+      {
+         throw new IllegalArgumentException("openInEmailApp() requires a mailto url");
+      }
+      launch(browserCmds(mailtoURL));
    }
 
    public static LinkedList<String> browserCmds(String url) { return cmds(url, false); }

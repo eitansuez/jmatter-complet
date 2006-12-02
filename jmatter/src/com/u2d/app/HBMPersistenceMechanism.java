@@ -4,9 +4,9 @@
 package com.u2d.app;
 
 import org.hibernate.Session;
+import org.hibernate.Query;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
-
 import java.util.Set;
 
 /**
@@ -18,5 +18,6 @@ public interface HBMPersistenceMechanism extends PersistenceMechanism
    public Session getSession();
    public ComplexEObject fetch(String query);
    public AbstractListEO hql(String query);
+   public AbstractListEO hqlQuery(Query query);
    public void saveMany(java.util.Set ceos);
 }

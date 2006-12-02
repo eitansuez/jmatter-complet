@@ -11,7 +11,7 @@ import com.u2d.type.atom.*;
 /**
  * @author Eitan Suez
  */
-public class Contact extends AbstractComplexEObject
+public class Contact extends AbstractComplexEObject implements Emailable
 {
 	private final USPhone _homePhone = new USPhone();
    private final USPhone _workPhone = new USPhone();
@@ -44,7 +44,8 @@ public class Contact extends AbstractComplexEObject
       _address.setValue(address);
 	}
 	
-	public Title title()
+   
+   public Title title()
 	{
       String fieldName = _preferredContactMethod.code();
       EObject value = field(fieldName).get(this);
@@ -52,7 +53,9 @@ public class Contact extends AbstractComplexEObject
 	}
 
    public Email getEmail() { return _email; }
-	public USPhone getHomePhone() { return _homePhone; }
+   public String emailAddress() { return _email.stringValue(); }
+
+   public USPhone getHomePhone() { return _homePhone; }
 	public USPhone getWorkPhone() { return _workPhone; }
 	public USPhone getMobilePhone() { return _mobilePhone; }
    public USAddress getAddress() { return _address; }

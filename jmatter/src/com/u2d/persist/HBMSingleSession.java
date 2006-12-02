@@ -98,40 +98,6 @@ public class HBMSingleSession extends HibernatePersistor
    {
       return hqlQuery(_session.createQuery(hql));
    }
-   public AbstractListEO hqlQuery(Query query)
-   {
-      try
-      {
-         java.util.List results = query.list();
-
-         if (results.isEmpty())
-         {
-            return null;
-         }
-         else
-         {
-            for (int i = 0; i < results.size(); i++)
-            {
-               ((ComplexEObject) results.get(i)).onLoad();
-            }
-
-            /* this is not correct all the time.
-              the right way to do this is to use the hibernate
-              hql parser and ask it for the cls
-            */
-            Class cls = ((ComplexEObject) results.get(0)).type().getJavaClass();
-            return new PlainListEObject(cls, results);
-         }
-      }
-      catch (HibernateException ex)
-      {
-         System.err.println("hbm query failed: " + ex.getMessage());
-         System.err.println("Query was: " + query.getQueryString());
-         newSession();
-         ex.printStackTrace();
-      }
-      return null;
-   }
 
    public ComplexEObject fetchSingle(Class clazz)
    {

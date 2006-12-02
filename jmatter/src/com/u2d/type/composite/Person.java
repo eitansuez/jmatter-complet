@@ -5,11 +5,15 @@ package com.u2d.type.composite;
 
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
+import com.u2d.element.CommandInfo;
+import com.u2d.reflection.Cmd;
+import com.u2d.utils.Launcher;
+import com.u2d.type.atom.StringEO;
 
 /**
  * @author Eitan Suez
  */
-public class Person extends AbstractComplexEObject
+public class Person extends AbstractComplexEObject implements Emailable
 {
    protected final Name _name = new Name();
    protected final Contact _contact = new Contact();
@@ -40,7 +44,9 @@ public class Person extends AbstractComplexEObject
 
    public Name getName() { return _name; }
    public Contact getContact() { return _contact; }
+   public String emailAddress() { return _contact.emailAddress(); }
 
+   
    public Title title()
    {
       return _name.title().append(",", _contact);
@@ -66,7 +72,12 @@ public class Person extends AbstractComplexEObject
    {
       return _name.hashCode() + 31 * _contact.hashCode();
    }
-
-
-
+   
+   @Cmd(mnemonic='a')
+   public void Email(CommandInfo cmdInfo)
+   {
+      EmailMessage msg = new EmailMessage(this, new StringEO());
+      msg.OpenInEmailApp(null);
+   }
+   
 }
