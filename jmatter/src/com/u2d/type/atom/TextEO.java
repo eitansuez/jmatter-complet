@@ -48,6 +48,11 @@ public class TextEO extends AbstractAtomicEO implements Searchable
    }
    public void setValue(EObject value)
    {
+      if (value == null)
+      {
+         setValue("");
+         return;
+      }
       if (!(value instanceof TextEO))
          throw new IllegalArgumentException("Invalid type on set;  must be TextEO");
       setValue(((TextEO) value).stringValue());

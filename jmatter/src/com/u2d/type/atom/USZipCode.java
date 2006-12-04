@@ -37,8 +37,13 @@ public class USZipCode extends AbstractAtomicEO implements Searchable
    }
    public void setValue(EObject value)
    {
+      if (value == null)
+      {
+         setValue("");
+         return;
+      }
       if (!(value instanceof USZipCode))
-         throw new IllegalArgumentException("Invalid type on set;  must be USPhone");
+         throw new IllegalArgumentException("Invalid type on set;  must be USZipCode");
       setValue(((USZipCode) value).stringValue());
    }
    

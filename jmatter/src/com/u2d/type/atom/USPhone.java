@@ -37,6 +37,11 @@ public class USPhone extends AbstractAtomicEO implements Searchable
    }
    public void setValue(EObject value)
    {
+      if (value == null)
+      {
+         setValue("");
+         return;
+      }
       if (!(value instanceof USPhone))
          throw new IllegalArgumentException("Invalid type on set;  must be USPhone");
       setValue(((USPhone) value).stringValue());

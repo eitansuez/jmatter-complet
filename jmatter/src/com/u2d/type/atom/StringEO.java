@@ -37,6 +37,11 @@ public class StringEO extends AbstractAtomicEO implements Searchable
    }
    public void setValue(EObject value)
    {
+      if (value == null)
+      {
+         setValue("");
+         return;
+      }
       if (!(value instanceof StringEO))
          throw new IllegalArgumentException("Invalid type on set;  must be StringEO");
       setValue(((StringEO) value).stringValue());

@@ -34,6 +34,11 @@ public class Email extends AbstractAtomicEO implements Searchable
    }
    public void setValue(EObject value)
    {
+      if (value == null)
+      {
+         setValue("");
+         return;
+      }
       if (!(value instanceof Email))
          throw new IllegalArgumentException("Invalid type on set;  must be Email");
       setValue(((Email) value).stringValue());

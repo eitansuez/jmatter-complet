@@ -29,6 +29,11 @@ public class URI extends AbstractAtomicEO implements Searchable
    }
    public void setValue(EObject value)
    {
+      if (value == null)
+      {
+         setValue("");
+         return;
+      }
       if (!(value instanceof URI))
          throw new IllegalArgumentException("Invalid type on set;  must be URI");
       setValue(((URI) value).stringValue());
