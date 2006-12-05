@@ -1,4 +1,4 @@
-#LyX 1.4.2 created this file. For more info see http://www.lyx.org/
+#LyX 1.4.3 created this file. For more info see http://www.lyx.org/
 \lyxformat 245
 \begin_document
 \begin_header
@@ -3699,7 +3699,7 @@ Funky types: name is a StringEO, bio is a TextEO
 That's right.
  JMatter gives you a whole slew of atomic types to choose from, including
  types for phone numbers, social security numbers, time durations, images,
- email addresses, and much more.
+ email addresses, colors, and much more.
  It's quite easy to adapt a String as a StringEO and vice versa
 \begin_inset Foot
 status collapsed
@@ -4169,14 +4169,6 @@ public class Song extends AbstractComplexEObject
 \end_layout
 
 \begin_layout LyX-Code
-   static { TimeEO.setFormat("m:ss"); }
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
    public static String[] fieldOrder = 
 \end_layout
 
@@ -4198,6 +4190,10 @@ public class Song extends AbstractComplexEObject
 
 \begin_layout LyX-Code
    public StringEO getTitle() { return _title; }
+\end_layout
+
+\begin_layout LyX-Code
+   @FieldAt(format="m:ss")
 \end_layout
 
 \begin_layout LyX-Code
@@ -4324,13 +4320,12 @@ TimeEO
 \begin_layout Enumerate
 
 \emph on
-static { TimeEO.setFormat("m:ss"); }
+@FieldAt(format="m:ss")
 \emph default
 
 \newline
-This static code block is a small code wrinkle in the framework: we're specifyin
-g that in this application we're going to want to format durations using
- minutes and seconds.
+We're specifying through a field annotation parameter that in this application
+ we're going to want to format durations using minutes and seconds.
  The format string complies with the contract specified by 
 \emph on
 java.text.SimpleDateFormat
