@@ -525,6 +525,9 @@ public class SwingViewMechanism implements ViewMechanism
    public AtomicRenderer getSSNRenderer() { return new StringRenderer(); }
    public AtomicEditor getSSNEditor() { return new SSNEditor(); }
 
+   public AtomicRenderer getColorRenderer() { return new ColorPicker(false); }
+   public AtomicEditor getColorEditor() { return new ColorPicker(); }
+
    public AtomicRenderer getDateRenderer() { return new DateRenderer(); }
    public AtomicEditor getDateEditor() { return new DateEditor(); }
 
@@ -546,14 +549,8 @@ public class SwingViewMechanism implements ViewMechanism
    public AtomicRenderer getTermsRenderer() { return new BooleanRenderer(); }
    public AtomicEditor getTermsEditor() { return new TermsEditor(); }
 
-   public AtomicRenderer getImageRenderer() { return new ImagePicker(); }
-   public AtomicEditor getImageEditor()
-   {
-      ImagePicker imgPicker = 
-            new ImagePicker();
-      imgPicker.putInEditMode();
-      return imgPicker;
-   }
+   public AtomicRenderer getImageRenderer() { return new ImagePicker(false); }
+   public AtomicEditor getImageEditor() { return new ImagePicker(); }
 
    public AtomicRenderer getFileRenderer() { return new FilePicker(); }
    public AtomicEditor getFileEditor() { return new FilePicker().putInEditMode(); }

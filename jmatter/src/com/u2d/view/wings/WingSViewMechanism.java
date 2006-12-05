@@ -374,6 +374,11 @@ public class WingSViewMechanism implements ViewMechanism
    public AtomicRenderer getSSNRenderer() { return getStringRenderer(); }
    public AtomicEditor getSSNEditor() { return new SSNEditor(); }
 
+
+   // TODO: implement
+   public AtomicRenderer getColorRenderer() { return null; }
+   public AtomicEditor getColorEditor() { return null; }
+
    public AtomicRenderer getDateRenderer() { return new DateRenderer(); }
    public AtomicEditor getDateEditor() { return new DateEditor(); }
 

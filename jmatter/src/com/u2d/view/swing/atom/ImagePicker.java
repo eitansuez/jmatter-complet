@@ -29,18 +29,22 @@ public class ImagePicker extends JPanel implements AtomicEditor
    
    public ImagePicker()
    {
+      this(true);
+   }
+   
+   public ImagePicker(boolean editMode)
+   {
       setLayout(new PercentLayout(PercentLayout.VERTICAL, 1));
       _labelPnl.setOpaque(false);
       _imgLabel.setBorder(BorderFactory.createLineBorder(Color.black));
       _labelPnl.add(_imgLabel);
       add(_labelPnl);
       add(_slider);
-   }
-
-   public void putInEditMode()
-   {
-      _labelPnl.add(pickBtn());
-      _slider.setVisible(false);
+      if (editMode)
+      {
+         _labelPnl.add(pickBtn());
+         _slider.setVisible(false);
+      }
    }
 
    class MySlider extends JSlider

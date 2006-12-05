@@ -14,7 +14,6 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListDataEvent;
 import java.awt.*;
 import java.awt.event.*;
-import com.u2d.ui.*;
 import com.u2d.view.*;
 import com.u2d.app.Context;
 import com.jgoodies.forms.builder.ButtonStackBuilder;
@@ -165,7 +164,7 @@ public class CalendarView extends JPanel implements ComplexEView
          super(schedule.title().toString());
          _schedule = schedule;
          
-         setBackground(UIUtils.lighten(schedule.getColor()));
+         setBackground(schedule.getColor());
          setSelected(true);
       }
       public Schedule getSchedule() { return _schedule; }

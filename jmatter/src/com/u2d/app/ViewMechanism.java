@@ -124,6 +124,9 @@ public interface ViewMechanism
 
    public AtomicRenderer getSSNRenderer();
    public AtomicEditor getSSNEditor();
+   
+   public AtomicRenderer getColorRenderer();
+   public AtomicEditor getColorEditor();
 
    public AtomicRenderer getDateRenderer();
    public AtomicEditor getDateEditor();

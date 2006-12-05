@@ -100,7 +100,9 @@ public class NullViewMechanism implements ViewMechanism
    public AtomicRenderer getUSPhoneRenderer() { return null; } 
    public AtomicEditor getUSPhoneEditor() { return null; } 
    public AtomicRenderer getSSNRenderer() { return null; } 
-   public AtomicEditor getSSNEditor() { return null; } 
+   public AtomicEditor getSSNEditor() { return null; }
+   public AtomicRenderer getColorRenderer() { return null; }
+   public AtomicEditor getColorEditor() { return null; }
    public AtomicRenderer getDateRenderer() { return null; } 
    public AtomicEditor getDateEditor() { return null; } 
    public AtomicRenderer getDateWithAgeRenderer() { return null; } 

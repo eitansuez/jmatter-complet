@@ -8,6 +8,9 @@ import com.u2d.model.*;
 import com.u2d.pubsub.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.*;
+import com.u2d.element.Field;
+import com.u2d.ui.UIUtils;
+
 import java.util.*;
 import java.awt.Color;
 import org.hibernate.*;
@@ -24,13 +27,18 @@ public class Schedule extends AbstractComplexEObject implements EventMaker
          Color.cyan, Color.magenta, Color.yellow };
    private static int COLOR_IDX = 0;
    
-   private Color _color = COLORS[COLOR_IDX++ % COLORS.length];
+   private Color _color = UIUtils.lighten(COLORS[COLOR_IDX++ % COLORS.length]);
+   private Field _colorField;
 
    public Schedule() {}
    
    public Schedule(Schedulable schedulable)
    {
       _schedulable = schedulable;
+      if (_schedulable.type().hasFieldOfType(ColorEO.class))
+      {
+         _colorField = _schedulable.type().firstFieldOfType(ColorEO.class);
+      }
       
       Class eventClass = _schedulable.eventType();
       ComplexType eventType = ComplexType.forClass(eventClass);
@@ -128,9 +136,17 @@ public class Schedule extends AbstractComplexEObject implements EventMaker
    }
    
    public Title title() { return _schedulable.title(); }
-   
-   public Color getColor() { return _color; }
-   
+
+   public Color getColor()
+   {
+      if (_colorField != null)
+      {
+         ColorEO colorEO = (ColorEO) _colorField.get(_schedulable);
+         return colorEO.colorValue();
+      }
+      return _color;
+   }
+
    public CalEvent newEvent(TimeSpan span)
    {
       Class eventClass = _schedulable.eventType();

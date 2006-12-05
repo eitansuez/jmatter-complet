@@ -32,6 +32,7 @@ import com.u2d.reflection.*;
 import com.u2d.type.Choice;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.type.atom.StringEO;
+import com.u2d.type.atom.ColorEO;
 import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
 
@@ -110,7 +111,7 @@ public class ComplexType extends AbstractComplexEObject
    private transient Onion _staticTypeCmds;
    private List _fields = new ArrayList();
    private Map _fieldsMap = new HashMap();
-   private Color _colorCode;
+   private final ColorEO _colorCode = new ColorEO();
    private String _sortBy;
 
    private static Map CONCRETE_TYPE_MAP = new HashMap();
@@ -143,7 +144,8 @@ public class ComplexType extends AbstractComplexEObject
 
    private void harvest()
    {
-      _colorCode = (Color) Harvester.introspectField(_clazz, "colorCode", DEFAULT_COLOR);
+      Color code = (Color) Harvester.introspectField(_clazz, "colorCode", DEFAULT_COLOR);
+      _colorCode.setValue(code);
       _sortBy = (String) Harvester.introspectField(_clazz, "sortBy");
       
       String searchPath = (String) Harvester.introspectField(_clazz, "defaultSearchPath");
@@ -267,16 +269,20 @@ public class ComplexType extends AbstractComplexEObject
 
    public boolean hasFieldOfType(Class cls)
    {
+      return firstFieldOfType(cls) != null;
+   }
+   public Field firstFieldOfType(Class cls)
+   {
       Field fld;
       for (int i=0; i<_fields.size(); i++)
       {
          fld = (Field) _fields.get(i);
          if (fld.getJavaClass().equals(cls))
          {
-            return true;
+            return fld;
          }
       }
-      return false;
+      return null;
    }
    public boolean isCalendarable()
    {
@@ -580,7 +586,8 @@ public class ComplexType extends AbstractComplexEObject
    public Icon iconsLg() { return _iconsLg; }
 
    public Title title() { return new Title(_pluralName); }
-   public Color colorCode() { return _colorCode; }
+   public ColorEO getColorCode() { return _colorCode; }
+   public Color colorCode() { return _colorCode.colorValue(); }
    public String sortBy() { return _sortBy; }  // a property name
    public Field sortField() { return field(_sortBy); }
 
