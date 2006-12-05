@@ -11,6 +11,7 @@ public abstract class Venue extends AbstractComplexEObject
    protected final StringEO name = new StringEO();
    protected final RelationalList rooms = new RelationalList(Room.class);
    public static Class roomsType = Room.class;
+   public static String defaultSearchPath = "name";
    
    public StringEO getName() { return name; }
    public RelationalList getRooms() { return rooms; }
