@@ -6,6 +6,7 @@ import com.u2d.type.atom.TimeEO;
 import javax.swing.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Date: Jun 7, 2005
@@ -15,20 +16,30 @@ import java.util.Date;
  */
 public class TimeSpinnerEditor extends JSpinner implements AtomicEditor
 {
+   boolean _formatterSet = false;
+   
    public TimeSpinnerEditor()
    {
       SpinnerModel model =
             new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE);
       setModel(model);
-      String pattern = TimeEO.DISPLAY_FORMAT.toPattern();
-      JComponent editor = new JSpinner.DateEditor(this, pattern);
-      setEditor(editor);
    }
 
    public void render(AtomicEObject value)
    {
       TimeEO eo = (TimeEO) value;
       /*spinner.*/setValue(eo.dateValue());
+      initFormat(eo.formatter());
+   }
+   
+   private void initFormat(SimpleDateFormat formatter)
+   {
+      if (!_formatterSet)
+      {
+         _formatterSet = true;
+         JComponent editor = new JSpinner.DateEditor(this, formatter.toPattern());
+         setEditor(editor);
+      }
    }
 
    public int bind(AtomicEObject value)

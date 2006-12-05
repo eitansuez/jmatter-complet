@@ -91,10 +91,31 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    
    public boolean isEmpty() { return _value == null; }
    
+   public SimpleDateFormat formatter()
+   {
+      SimpleDateFormat formatter = STANDARD;
+      if (field() != null && !StringEO.isEmpty(field().format()))
+      {
+         formatter = fieldFormatter();
+      }
+      return formatter;
+   }
+   public SimpleDateFormat fieldFormatter()
+   {
+      if (field() == null || StringEO.isEmpty(field().format()))
+      {
+         return null;
+      }
+      else
+      {
+         return new SimpleDateFormat(field().format());
+      }
+   }
+   
    public Title title()
    {
       if (_value == null) return new Title("");
-      String formattedString = STANDARD.format(_value);
+      String formattedString = formatter().format(_value);
       return new Title(formattedString);
    }
    public String toString() { return title().toString(); }
@@ -117,7 +138,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    public AtomicRenderer getRenderer() { return vmech().getDateRenderer(); }
    public AtomicEditor getEditor() { return vmech().getDateEditor(); }
 
-   private static DateFormat NODELIMITERS, STANDARD, TWODIGITYEAR, NOYEAR;
+   private static SimpleDateFormat NODELIMITERS, STANDARD, TWODIGITYEAR, NOYEAR;
    static
    {
       NODELIMITERS = new SimpleDateFormat("MMddyyyy");
@@ -147,92 +168,89 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
          setValue((Date) null);
          return;
       }
-      for (int i=0; i<strategyFallbackHierarchy.length; i++)
-         if (strategyFallbackHierarchy[i].parse(stringValue)) return;
-      
-      throw new ParseException("Failed to parse date value: "+stringValue, 0);
+      DateFormat fieldFormatter = fieldFormatter();
+      if (fieldFormatter == null)
+      {
+         for (int i=0; i<strategyFallbackHierarchy.length; i++)
+            if (strategyFallbackHierarchy[i].parse(stringValue)) return;
+         throw new ParseException("Failed to parse date value: "+stringValue, 0);
+      }
+      else
+      {
+         Date value = fieldFormatter.parse(stringValue);
+         Calendar cal = Calendar.getInstance();
+         cal.setTime(value);
+         setValue(value);
+      }
    }
    
    interface DateFormatStrategy
    {
       public boolean parse(String stringValue);
    }
-   class StandardStrategy implements DateFormatStrategy
+   abstract class BaseDateFormatStrategy implements DateFormatStrategy
    {
       public boolean parse(String stringValue)
       {
          try
          {
-            Date value = STANDARD.parse(stringValue);
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(value);
-            if (cal.get(Calendar.YEAR) < 100)  // a 2-digit year was entered
-            {
-               return false;
-            }
-            setValue(value);
-            return true;
+            return tryParse(stringValue);
          }
          catch (ParseException ex)
          {
             return false;
          }
       }
+      protected abstract boolean tryParse(String stringValue) throws ParseException;
    }
-   class SimpleDateFormatStrategy implements DateFormatStrategy
+   class StandardStrategy extends BaseDateFormatStrategy
+   {
+      public boolean tryParse(String stringValue) throws ParseException
+      {
+         Date value = STANDARD.parse(stringValue);
+         Calendar cal = Calendar.getInstance();
+         cal.setTime(value);
+         if (cal.get(Calendar.YEAR) < 100)  // a 2-digit year was entered
+         {
+            return false;
+         }
+         setValue(value);
+         return true;
+      }
+   }
+   class SimpleDateFormatStrategy extends BaseDateFormatStrategy
    {
       DateFormat _fmt;
       SimpleDateFormatStrategy(DateFormat fmt) { _fmt = fmt; }
       
-      public boolean parse(String stringValue)
+      public boolean tryParse(String stringValue) throws ParseException
       {
-         try
-         {
-            setValue(_fmt.parse(stringValue));
-            return true;
-         }
-         catch (ParseException ex)
-         {
-            return false;
-         }
+         setValue(_fmt.parse(stringValue));
+         return true;
       }
    }
-   class NoYearStrategy implements DateFormatStrategy
+   class NoYearStrategy extends BaseDateFormatStrategy
    {
-      public boolean parse(String stringValue)
+      public boolean tryParse(String stringValue) throws ParseException
       {
-         try
-         {
-            Date value = NOYEAR.parse(stringValue);
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(value);
-            cal.set(Calendar.YEAR, CURRENT_YEAR);  // default current year (w/o this code uses epoch)
-            setValue(cal.getTime());
-            return true;
-         }
-         catch (ParseException ex)
-         {
-            return false;
-         }
+         Date value = NOYEAR.parse(stringValue);
+         Calendar cal = Calendar.getInstance();
+         cal.setTime(value);
+         cal.set(Calendar.YEAR, CURRENT_YEAR);  // default current year (w/o this code uses epoch)
+         setValue(cal.getTime());
+         return true;
       }
    }
-   class NoDelimsStrategy implements DateFormatStrategy
+   class NoDelimsStrategy extends BaseDateFormatStrategy
    {
-      public boolean parse(String stringValue)
+      public boolean tryParse(String stringValue) throws ParseException
       {
-         try
-         {
-            if (stringValue.length() == 7)  // zero-padding for parse
-               stringValue = "0" + stringValue;
-            
-            Date value = NODELIMITERS.parse(stringValue);
-            setValue(value);
-            return true;
-         }
-         catch (ParseException ex)
-         {
-            return false;
-         }
+         if (stringValue.length() == 7)  // zero-padding for parse
+            stringValue = "0" + stringValue;
+         
+         Date value = NODELIMITERS.parse(stringValue);
+         setValue(value);
+         return true;
       }
    }
    

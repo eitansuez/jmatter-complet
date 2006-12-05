@@ -14,6 +14,8 @@ import java.awt.*;
 import java.net.URL;
 import java.util.Date;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
+
 import com.holub.ui.*;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -26,7 +28,6 @@ public class DateEditor extends JPanel
 {
    private JTextField _tf;
    private JButton _calendarBtn;
-   private final static String INPUT_TIP = "[mm/dd/yyyy or mm/dd/yy]";
 
    private Date_selector_dialog _chooser;
    private Date_selector_panel _date_selector_panel;
@@ -45,7 +46,6 @@ public class DateEditor extends JPanel
    public DateEditor()
    {
       _tf = new JTextField(9);
-      _tf.setToolTipText(INPUT_TIP);
       _tf.setHorizontalAlignment(JTextField.RIGHT);
 
       _calendarBtn = new IconButton(CAL_ICON, CAL_ROLLOVER_ICON);
@@ -71,7 +71,7 @@ public class DateEditor extends JPanel
             {
                DateEO eo = new DateEO();
                eo.setValue(date);
-               _tf.setText(eo.toString());
+               _tf.setText(_format.format(eo.dateValue()));
             }
          }
       });
@@ -140,9 +140,17 @@ public class DateEditor extends JPanel
    }
 
 
+   private SimpleDateFormat _format = null;
    public void render(AtomicEObject value)
    {
       _tf.setText(value.toString());
+      if (_format == null)
+      {
+         DateEO eo = (DateEO) value;
+         _format = eo.formatter();
+         String tooltip = "[" + _format.toPattern() + "]";
+         _tf.setToolTipText(tooltip);
+      }
    }
 
    public int bind(AtomicEObject value)

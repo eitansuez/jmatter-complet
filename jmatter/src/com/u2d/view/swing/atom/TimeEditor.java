@@ -5,6 +5,7 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
+import com.u2d.type.atom.TimeEO;
 
 import javax.swing.*;
 
@@ -13,18 +14,24 @@ import javax.swing.*;
  */
 public class TimeEditor extends JTextField implements AtomicEditor
 {
-   private final String INPUT_TIP = "[hh:mm]";
+   private boolean _formatSet = false;
 
    public TimeEditor()
    {
       setColumns(6);
-      setToolTipText(INPUT_TIP);
       setHorizontalAlignment(JTextField.RIGHT);
    }
 
    public void render(AtomicEObject value)
    {
       setText(value.toString());
+      if (!_formatSet)
+      {
+         TimeEO eo = (TimeEO) value;
+         eo.formatter().toPattern();
+         setToolTipText("["+eo.formatter().toPattern()+"]");
+         _formatSet = true;
+      }
    }
 
    public int bind(AtomicEObject value)

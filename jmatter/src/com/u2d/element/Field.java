@@ -395,6 +395,10 @@ public abstract class Field extends Member
    private final IntEO _displaysize = new IntEO();
    public IntEO getDisplaysize() { return _displaysize; }
    public int displaysize() { return _displaysize.intValue(); }
+   
+   private final StringEO _format = new StringEO();
+   public StringEO getFormat() { return _format; }
+   public String format() { return _format.stringValue(); }
 
    private transient Method _requiredMethod;
    public void setRequiredMethod(Method method) { _requiredMethod = method; }
@@ -428,10 +432,10 @@ public abstract class Field extends Member
          FieldAt fat = (FieldAt) _getter.getAnnotation(FieldAt.class);
          _mnemonic.setValue(fat.mnemonic());
          
-         if (fat.label() != null && fat.label().length() > 0)
+         if (!StringEO.isEmpty(fat.label()))
             getLabel().setValue(fat.label());
          
-         if (fat.description() != null && fat.description().length() > 0)
+         if (!StringEO.isEmpty(fat.description()))
             getDescription().setValue(fat.description());
          
          if (fat.colsize() > 0)
@@ -439,6 +443,9 @@ public abstract class Field extends Member
          
          if (fat.displaysize() > 0)
             getDisplaysize().setValue(fat.displaysize());
+         
+         if (!StringEO.isEmpty(fat.format()))
+            getFormat().setValue(fat.format());
       }
    }
 

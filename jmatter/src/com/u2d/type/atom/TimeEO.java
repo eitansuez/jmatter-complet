@@ -45,12 +45,22 @@ public class TimeEO extends AbstractAtomicEO
    
    public boolean isEmpty() { return _cal == null; }
    
-   public void parseValue(String stringValue) throws ParseException
+   public SimpleDateFormat formatter()
    {
-      parse(DISPLAY_FORMAT, stringValue);
+      SimpleDateFormat formatter = DISPLAY_FORMAT;
+      if (field() != null && !StringEO.isEmpty(field().format()))
+      {
+         formatter = new SimpleDateFormat(field().format());
+      }
+      return formatter;
    }
    
-   private void parse(SimpleDateFormat format, String value) throws ParseException
+   public void parseValue(String stringValue) throws ParseException
+   {
+      parse(formatter(), stringValue);
+   }
+   
+   private void parse(DateFormat format, String value) throws ParseException
    {
       try
       {
@@ -119,7 +129,8 @@ public class TimeEO extends AbstractAtomicEO
    public Title title()
    {
       if (_cal == null) return new Title("");
-      String formattedString = DISPLAY_FORMAT.format(_cal.getTime());
+      
+      String formattedString = formatter().format(_cal.getTime());
       return new Title(formattedString);
    }
    public String toString() { return title().toString(); }
@@ -167,10 +178,4 @@ public class TimeEO extends AbstractAtomicEO
       return millis;
    }
    
-   public static void setFormat(String format)
-   {
-      DISPLAY_FORMAT.applyPattern(format);
-      PARSE_FORMAT.applyPattern(format);
-   }
-
 }

@@ -37,6 +37,12 @@ public @interface FieldAt
    public int displaysize() default 0;
 
    /**
+    * @return applicable to TimeEO and DateEO.  Specified as a simpledateformat.
+    *   Goveners both how times and dates are displayed and parsed.
+    */
+   public String format() default "";
+
+   /**
     * @return field description.  possibly use as text for tool tips..
     */
    public String description() default "";
