@@ -15,6 +15,14 @@ Briefly:
  - ultraviolet is now integrated into jmatter.
    don't have to set the jmatter base directory.
 
+ - Added ColorEO atomic type for fields of type color
+   (JColorChooser editor).
+
+ - Added first-pass implementation of ability to specify
+   the format to use for displaying and parsing DateEO's
+   and TimeEO's using annotations (see MyTunes demo app
+   for an example)
+
  - [todo:  list all issues fixed from trac]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
