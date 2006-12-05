@@ -9,6 +9,7 @@ import com.u2d.element.CommandInfo;
 import com.u2d.persist.HBMSingleSession;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
+import com.u2d.reflection.FieldAt;
 import com.u2d.app.Context;
 import java.applet.Applet;
 import java.applet.AudioClip;
@@ -31,8 +32,6 @@ public class Song extends AbstractComplexEObject
    private final Genre _genre = new Genre();
    private Artist _artist;
 
-   static { TimeEO.setFormat("m:ss"); }
-
    public static String[] fieldOrder = {"title", "duration", "artist", "album", "genre", "path"};
 
    public Song() {}
@@ -43,6 +42,8 @@ public class Song extends AbstractComplexEObject
    }
 
    public StringEO getTitle() { return _title; }
+
+   @FieldAt(format="m:ss")
    public TimeEO getDuration() { return _duration; }
 
    public Album getAlbum() { return _album; }
