@@ -23,6 +23,13 @@ Briefly:
    and TimeEO's using annotations (see MyTunes demo app
    for an example)
 
+ - Fixed compatibility issue with Oracle
+
+ - Added H2 database support
+
+ - UI Enhancement:  Forms now default-focus on their first 
+   editable text field
+
  - [todo:  list all issues fixed from trac]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
