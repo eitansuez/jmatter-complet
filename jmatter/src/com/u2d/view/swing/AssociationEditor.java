@@ -4,6 +4,7 @@ import com.u2d.view.ListEView;
 import com.u2d.view.ActionNotifier;
 import com.u2d.view.swing.list.PaginableView;
 import com.u2d.field.Association;
+import com.u2d.field.AggregateField;
 import com.u2d.find.QuerySpecification;
 import com.u2d.find.FieldPath;
 import com.u2d.find.Inequality;
@@ -57,13 +58,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       }
       else
       {
-         if (_type.fields().size() > 0)
-         {
-            Field afield = (Field) _type.fields().get(0);
-            while (afield.isAggregate())
-               afield = (Field) afield.childFields().get(0);
-            _searchByField = afield;
-         }
+         _searchByField = _type.firstFieldOfType(StringEO.class, true);
       }
 
       _tf = new JTextField(6);

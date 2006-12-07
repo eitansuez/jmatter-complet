@@ -129,4 +129,23 @@ public class AggregateField extends CompositeField implements FieldParent
    public ComplexType fieldtype() { return ComplexType.forClass(_clazz); }
 
 
+   
+   public boolean hasFieldOfType(Class cls)
+   {
+      return firstFieldOfType(cls) != null;
+   }
+   public Field firstFieldOfType(Class cls)
+   {
+      Field fld;
+      for (int i=0; i<_fields.size(); i++)
+      {
+         fld = (Field) _fields.get(i);
+         if (fld.getJavaClass().equals(cls))
+         {
+            return fld;
+         }
+      }
+      return null;
+   }
+   
 }

@@ -17,4 +17,6 @@ public interface FieldParent extends EObject
    public List fields();
    public Field field(String name);
    public boolean isAbstract();
+   public boolean hasFieldOfType(Class cls);
+   public Field firstFieldOfType(Class cls);
 }

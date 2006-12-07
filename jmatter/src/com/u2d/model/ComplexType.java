@@ -273,7 +273,11 @@ public class ComplexType extends AbstractComplexEObject
    }
    public Field firstFieldOfType(Class cls)
    {
-      Field fld;
+      return firstFieldOfType(cls, false);  // should the default be false?
+   }
+   public Field firstFieldOfType(Class cls, boolean deep)
+   {
+      Field fld = null;
       for (int i=0; i<_fields.size(); i++)
       {
          fld = (Field) _fields.get(i);
@@ -282,7 +286,21 @@ public class ComplexType extends AbstractComplexEObject
             return fld;
          }
       }
-      return null;
+      if (!deep) return fld;
+      
+      // recurse to children of aggregate fields..
+      for (int i=0; i<_type.fields().size(); i++)
+      {
+         Field childField = (Field) _type.fields().get(i);
+         if (childField.isAggregate())
+         {
+            fld = ((AggregateField) childField).firstFieldOfType(StringEO.class);
+            if (fld != null)
+               break;
+         }
+      }
+      
+      return fld;
    }
    public boolean isCalendarable()
    {
