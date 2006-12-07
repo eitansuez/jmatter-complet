@@ -91,10 +91,17 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       for (int i=0; i<childFields().size(); i++)
       {
          child = (Field) childFields().get(i);
-         if (child.isComposite() && child.isIndexed())
+         if (child.isComposite())
          {
-            CompositeList list = (CompositeList) child.get(this);
-            list.onLoad();
+            EObject eo = child.get(this);
+            if (eo instanceof AbstractComplexEObject)
+            {
+               ((AbstractComplexEObject) eo).onLoad();
+            }
+            else if (eo instanceof CompositeList)
+            {
+               ((CompositeList) eo).onLoad();
+            }
          }
       }
    }
@@ -148,7 +155,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public void restoreState()
    {
       setReadState();
-      setState(restoredState(), false);
+      setState(restoredState(), true /* shallow */);
    }
 
    // subclasses should override this:
@@ -190,7 +197,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       fireStateChanged();
 
       if (!isEditableState()) clearEditor();
-
+      
       if (shallow) return;
 
       for (Iterator itr = childFields().iterator(); itr.hasNext(); )
@@ -198,6 +205,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          Field field = (Field) itr.next();
          field.setState(this, state);
       }
+
    }
    private Stack<State> _stateStack = new Stack<State>();
    protected void pushState(State state)
