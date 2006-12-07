@@ -5810,6 +5810,16 @@ Revise our model to define the notion of a current playlist, add a command
 \end_layout
 
 \begin_layout Standard
+It turns out that if we discard the Java Sound API and the MP3 provider
+ interface we downloaded, and instead use the JLayer library and its API,
+ we get beautiful mp3 streaming for free in Java.
+ The MyTunes demo application in the JMatter distribution was revised to
+ use JLayer directly and mp3 files of all sizes play immediately without
+ consuming gobs of memory.
+ I leave the study of the final application as an exercise.
+\end_layout
+
+\begin_layout Standard
 The point here is that JMatter frees you to work on the important things,
  like properly importing or playing a song.
  You don't have to worry about infrastructure services such as persistence,
@@ -13454,7 +13464,7 @@ Keyboard Shortcuts
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="8" columns="2">
+<lyxtabular version="3" rows="9" columns="2">
 <features>
 <column alignment="center" valignment="top" leftline="true" width="0">
 <column alignment="block" valignment="top" leftline="true" rightline="true" width="3.5in">
@@ -13636,6 +13646,29 @@ pin
 \begin_inset Text
 
 \begin_layout Standard
+Shift-Command
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+When invoking a command that generates a view, holding down the Shift key
+ at the same time will prompt how you'd like the new view generated: in
+ a new window, a new tab, or in place (i.e.
+ replacing current view).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
 Ctrl-q
 \end_layout
 
@@ -13656,6 +13689,143 @@ Quit the application
 \end_inset
 
 
+\end_layout
+
+\begin_layout Chapter
+Working from the Subversion Repository
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Credits: this appendix is an adaptation of a document written and volunteered
+ by JMatter user 
+\begin_inset Quotes eld
+\end_inset
+
+pyramid
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Checking out the code
+\end_layout
+
+\begin_layout Standard
+The JMatter subversion repository is located at http://svn.jmatter.org/
+\end_layout
+
+\begin_layout Standard
+Checking out the code from the HEAD of the repository:
+\end_layout
+
+\begin_layout LyX-Code
+svn checkout http://svn.jmatter.org/jmatter-complet/trunk jmatter-complet
+\end_layout
+
+\begin_layout Standard
+To check out a specific release, look for the specific release tag name
+ at:
+\end_layout
+
+\begin_layout LyX-Code
+http://svn.jmatter.org/jmatter-complet/tags/
+\end_layout
+
+\begin_layout Standard
+Then issue the checkout command, as illustrated by this example:
+\end_layout
+
+\begin_layout LyX-Code
+svn checkout http://svn.jmater.org/jmatter-complet/tags/Release-20060825 jm_200608
+25release
+\end_layout
+
+\begin_layout Section
+Directory Structure, Compiling, Running demo applications
+\end_layout
+
+\begin_layout Standard
+The base directory is divided into two principal sections: the framework
+ itself (located in directory 
+\emph on
+jmatter
+\emph default
+) and the demo applications (located in 
+\emph on
+demo-apps
+\emph default
+): ContactMgr, MyTunes, Sympster, MovieLib, and IssueMgr.
+\end_layout
+
+\begin_layout Standard
+To build the framework jar file 
+\emph on
+dist/jmatter.jar
+\emph default
+, invoke:
+\end_layout
+
+\begin_layout LyX-Code
+cd jmatter
+\end_layout
+
+\begin_layout LyX-Code
+ant
+\end_layout
+
+\begin_layout Standard
+To run a demo application, say the 
+\emph on
+ContactMgr
+\emph default
+ demo application:
+\end_layout
+
+\begin_layout LyX-Code
+cd demo-apps/ContactMgr
+\end_layout
+
+\begin_layout LyX-Code
+and schema-export
+\end_layout
+
+\begin_layout LyX-Code
+ant run
+\end_layout
+
+\begin_layout Standard
+Every demo application isbuilt and run this way.
+ These instructions are in accordance with the way any JMatter project is
+ compiled and run.
+\end_layout
+
+\begin_layout Standard
+All the demo applications should be preconfigured to use a local, file-based
+ H2 database.
+ If per chance it is not, then simply edit the file 
+\emph on
+resources/hibernate.properties
+\emph default
+.
+ This file lists sample connection information for a variety of databases,
+ including hsql, H2, postgresql, MySQL, and OracleXE.
+ Uncomment the one you want and make sure the jdbc url and credentials are
+ valid and you're ready to go.
+\end_layout
+
+\begin_layout Standard
+To automate the manual step of exporting your schema, add this hibernate
+ property:
+\end_layout
+
+\begin_layout LyX-Code
+hibernate.hbm2ddl.auto=create
 \end_layout
 
 \begin_layout Chapter
