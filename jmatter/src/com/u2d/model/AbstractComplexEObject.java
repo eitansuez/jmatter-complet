@@ -54,7 +54,8 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    protected transient State _currentState;
 
-   public static String[] readOnly = {"createdOn", "deleted", "deletedOn"};
+//   public static String[] readOnly = {"createdOn", "deleted", "deletedOn"};
+   public static String[] readOnly = {"createdOn"};
 
 
    public AbstractComplexEObject()
@@ -788,11 +789,16 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    protected final DateTime _createdOn = new DateTime(new Date());
    public DateTime getCreatedOn() { return _createdOn; }
 
-   private final BooleanEO _deleted = new BooleanEO(false);
-   public BooleanEO getDeleted() { return _deleted; }
-
-   private final DateTime _deletedOn = new DateTime(new Date());
-   public DateTime getDeletedOn() { return _deletedOn; }
+   // removing these for now as the feature I plan to introduce
+   // which relies on them is not yet constructed
+   // (the idea is not to actually delete the records, but to
+   // mark them as deleted so can provide an undelete feature):
+   
+//   private final BooleanEO _deleted = new BooleanEO(false);
+//   public BooleanEO getDeleted() { return _deleted; }
+//
+//   private final DateTime _deletedOn = new DateTime(new Date());
+//   public DateTime getDeletedOn() { return _deletedOn; }
 
    //  Deleted Data Storage Feature:
    //  =============================
