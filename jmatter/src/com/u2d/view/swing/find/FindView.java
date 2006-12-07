@@ -105,7 +105,7 @@ public class FindView extends JPanel implements View
             }
             else
             {
-               vmech.displayView(cleo.getView());
+               vmech.displayView(cleo.getView(), null);
             }
             
          } // end execute method

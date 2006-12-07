@@ -102,12 +102,12 @@ public class WingSViewMechanism implements ViewMechanism
          }
 
          _tracer.fine("displayViewFor:: displaying view: "+view);
-         displayView(view);
+         displayView(view, source);
       }
       else if (value instanceof EView)
       {
          _tracer.fine("displayViewFor:: view is an EView");
-         displayView((EView) value);
+         displayView((EView) value, source);
       }
       else if (value instanceof View)
       {
@@ -133,7 +133,7 @@ public class WingSViewMechanism implements ViewMechanism
       }
    }
 
-   public void displayView(EView view)
+   public void displayView(EView view, EView source)
    {
       _tracer.fine("in displayview(EView)..");
 

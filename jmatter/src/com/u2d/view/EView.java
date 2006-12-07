@@ -4,7 +4,6 @@
 package com.u2d.view;
 
 import com.u2d.model.EObject;
-import com.u2d.app.ViewMechanism;
 
 /**
  * @author Eitan Suez
@@ -17,5 +16,4 @@ public interface EView extends javax.swing.event.ChangeListener
 
    public EObject getEObject();
    public void detach();
-   
 }

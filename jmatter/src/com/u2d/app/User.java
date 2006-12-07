@@ -9,10 +9,13 @@ import com.u2d.type.atom.*;
 import com.u2d.type.composite.*;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
+import com.u2d.model.ComplexType;
 import com.u2d.pattern.*;
 import com.u2d.reflection.Arg;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.FieldAt;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Eitan Suez
@@ -25,12 +28,13 @@ public class User extends AbstractComplexEObject
    private final Name _name = new Name();
    private final TextEO _desktop = new TextEO();
    private final Photo _photo = new Photo();
+   private final UserPreferences _preferences = new UserPreferences();
 
    private Role _role;
    public static String roleInverseFieldName = "users";
 
    public static String[] fieldOrder = {"username", "password", "locked", "name",
-         "photo", "role", "desktop"};
+         "photo", "role", "preferences", "desktop"};
    public static String[] identities = {"username"};
      // design decision to not make password field editable after first creation.
      // must go through changepwd cmd 
@@ -68,6 +72,8 @@ public class User extends AbstractComplexEObject
    public Name getName() { return _name; }
 
    public Photo getPhoto() { return _photo; }
+   
+   public UserPreferences getPreferences() { return _preferences; }
 
    public TextEO getDesktop() { return _desktop; }
 
@@ -95,7 +101,25 @@ public class User extends AbstractComplexEObject
       log(LoggedEvent.INFO, cmdInfo.getCommand(), "User changed password");
       return "Password has been changed";
    }
-
+   
+   @Cmd
+   public void EditPreferences(CommandInfo info)
+   {
+      try
+      {
+         _preferences.command("Edit").execute(_preferences, info.getSource());
+      }
+      catch (InvocationTargetException e)
+      {
+         e.printStackTrace();
+      }
+   }
+   
+   @Cmd
+   public void LogOut(CommandInfo cmdInfo)
+   {
+      appSession().onLogout();
+   }
 
    // ===
 

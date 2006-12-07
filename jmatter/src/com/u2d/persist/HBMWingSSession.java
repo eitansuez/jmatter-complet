@@ -13,8 +13,6 @@ import org.hibernate.*;
 import org.hibernate.Session;
 import org.hibernate.criterion.Expression;
 import org.wings.session.*;
-import org.wings.event.SRequestEvent;
-import org.wings.event.SRequestListener;
 import java.util.*;
 
 /**
@@ -248,21 +246,6 @@ public class HBMWingSSession extends HibernatePersistor
          newSession();
          throw ex;
       }
-   }
-
-   private ComplexEObject selfOrParentIfAggregate(ComplexEObject ceo)
-   {
-      ComplexEObject parent = ceo;
-      Field field = parent.field();
-      while ( (field != null) &&
-              ( field.isAggregate() ||
-                (field.isIndexed() && field.isComposite()) )
-            )
-      {
-         parent = parent.parentObject();
-         field = parent.field();
-      }
-      return parent;
    }
 
    public void updateAssociation(ComplexEObject one, ComplexEObject two)

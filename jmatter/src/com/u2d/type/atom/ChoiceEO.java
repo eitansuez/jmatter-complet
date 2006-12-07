@@ -87,6 +87,12 @@ public abstract class ChoiceEO extends AbstractAtomicEO
       String code = ((ChoiceEO) value).code();
       setValue(code);
    }
+   
+   // convenience..
+   public boolean is(String code)
+   {
+      return code().equals(code);
+   }
 
    // ===
 

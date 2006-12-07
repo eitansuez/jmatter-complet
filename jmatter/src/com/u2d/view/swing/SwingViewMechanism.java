@@ -25,16 +25,12 @@ import com.u2d.wizard.details.Wizard;
 import com.u2d.type.AbstractChoiceEO;
 import com.u2d.type.composite.Folder;
 import java.awt.*;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import javax.swing.*;
 import com.u2d.list.RelationalList;
 import com.u2d.list.CompositeList;
 import com.u2d.model.*;
 import com.u2d.reporting.*;
-//import org.apache.commons.pool.impl.GenericKeyedObjectPool;
-//import org.apache.commons.pool.impl.GenericKeyedObjectPoolFactory;
-//import org.apache.commons.pool.*;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -48,8 +44,26 @@ public class SwingViewMechanism implements ViewMechanism
 
    private AppSession _appSession;
    private String _lfname;
+
+   public SwingViewMechanism()
+   {
+      setupAntiAliasing();
+      Toolkit.getDefaultToolkit().addAWTEventListener(_inputTracker, AWTEvent.MOUSE_EVENT_MASK);
+   }
    
-   public SwingViewMechanism() { setupAntiAliasing(); }
+   InputTracker _inputTracker = new InputTracker();
+   boolean _isShiftDown = false;
+   
+   class InputTracker implements AWTEventListener
+   {
+      public void eventDispatched(AWTEvent event)
+      {
+         if ((event.getID() == MouseEvent.MOUSE_PRESSED || event.getID() == KeyEvent.KEY_PRESSED))
+         {
+            _isShiftDown = ((InputEvent) event).isShiftDown();
+         }
+      }
+   }
 
    public static void setupAntiAliasing()
    {
@@ -154,11 +168,11 @@ public class SwingViewMechanism implements ViewMechanism
             }
          }
 
-         displayView(view);
+         displayView(view, source);
       }
       else if (value instanceof EView)
       {
-         displayView((EView) value);
+         displayView((EView) value, source);
       }
       else if (value instanceof View)
       {
@@ -181,29 +195,119 @@ public class SwingViewMechanism implements ViewMechanism
 
 
 
-   public void displayView(final EView view)
+   public void displayView(final EView view, final EView source)
    {
       SwingUtilities.invokeLater(new Runnable()
             {
                public void run()
                {
-                  _appFrame.addFrame(frameFor(view));
+                  if (source == null)
+                  {
+                     _appFrame.addFrame(frameFor(view));
+                     return;
+                  }
+                  
+                  JComponent srcComp = (JComponent) source;
+                  final FlexiFrame existingFrame = 
+                        (FlexiFrame) SwingUtilities.getAncestorOfClass(FlexiFrame.class, srcComp);
+
+                  User currentUser = Context.getInstance().getAppSession().getUser();
+                  ViewOpenChoice choice = currentUser.getPreferences().getOpenNewViews();
+                  
+                  /* pseudo code..
+                   check if shift is down on last mouse event..
+                   if so..
+                   popup a contextmenu view displaying each of the choices
+                   on choice selection..
+                   */
+                  if (_isShiftDown)
+                  {
+                     JPopupMenu menu = new JPopupMenu();
+                     ActionListener listener = new ActionListener()
+                     {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                           String choice = e.getActionCommand();
+                           SwingViewMechanism.this.displayView(view, existingFrame, choice);
+                        }
+                     };
+                     addDisplayChoiceItem(menu, ViewOpenChoice.IN_NEWWINDOW, listener);
+                     addDisplayChoiceItem(menu, ViewOpenChoice.IN_NEWTAB, listener);
+                     addDisplayChoiceItem(menu, ViewOpenChoice.IN_PLACE, listener);
+                     _appFrame.popup(menu);
+                  }
+                  else
+                  {
+                     SwingViewMechanism.this.displayView(view, existingFrame, choice.code());
+                  }
                }
-            });
+      });
+   }
+
+   private void addDisplayChoiceItem(JPopupMenu menu, String optionText, ActionListener listener)
+   {
+      JMenuItem item = new JMenuItem(optionText);
+      item.setActionCommand(optionText);
+      item.addActionListener(listener);
+      menu.add(item);
+   }
+   
+   private void displayView(EView view, FlexiFrame targetFrame, String choice)
+   {
+      if (ViewOpenChoice.IN_NEWWINDOW.equals(choice) || targetFrame == null)
+      {
+         _appFrame.addFrame(frameFor(view));
+      }
+      else if (ViewOpenChoice.IN_NEWTAB.equals(choice))
+      {
+         targetFrame.addView(wrapView(view));
+      }
+      else if (ViewOpenChoice.IN_PLACE.equals(choice))
+      {
+         targetFrame.replaceView(wrapView(view));
+      }
+   }
+
+   private JComponent wrapView(EView view)
+   {
+      if (view instanceof ListEView)
+      {
+         return new ListEOPanel(view);
+      }
+      else if (view instanceof ComplexEView)
+      {
+         return new EOPanel(view);
+      }
+      else  // don't wrap it..
+      {
+         return (JComponent) view;
+      }
    }
    
    private JInternalFrame frameFor(EView view)
    {
       if (view instanceof JInternalFrame)
+      {
          return (JInternalFrame) view;
+      }
       if (view instanceof ListEView)
-         return new ListEOFrame((ListEView) view);
+      {
+         return new FlexiFrame(new ListEOPanel((ListEView) view));
+//         return new ListEOFrame((ListEView) view);
+      }
       else if (view instanceof CalendarView)
+      {
          return new CalendarFrame((CalendarView) view);
+      }
       else if (view instanceof ScheduleView)
+      {
          return new CalendarFrame((ScheduleView) view);
+      }
       else if (view instanceof ComplexEView)
-         return new EOFrame((ComplexEView) view);
+      {
+//         return new EOFrame((ComplexEView) view);
+         return new FlexiFrame(new EOPanel((ComplexEView) view));
+      }
 
       throw new IllegalArgumentException(
             "Don't know how to make a frame for view: "+view);
@@ -215,15 +319,16 @@ public class SwingViewMechanism implements ViewMechanism
       {
          public void run()
          {
+            JInternalFrame frame;
             if (view instanceof JInternalFrame)
             {
-               _appFrame.addFrame((JInternalFrame) view, positioning);
+               frame = (JInternalFrame) view;
             }
             else
             {
-               GenericFrame frame = new GenericFrame(view);
-               _appFrame.addFrame(frame, positioning);
+               frame = new GenericFrame(view);
             }
+            _appFrame.addFrame(frame, positioning);
          }
       });
    }
@@ -234,11 +339,10 @@ public class SwingViewMechanism implements ViewMechanism
       {
          public void run()
          {
-            JInternalFrame frame = new CloseableJInternalFrame(wizard.title(),
+            JInternalFrame frame = new CloseableJInternalFrame(wizard.compositeTitle(),
                                      true, true, true, true);
             WizardPane wizPane = new WizardPane(wizard);
-            frame.getContentPane().add(wizPane);
-            frame.setTitle(wizard.compositeTitle());
+            frame.setContentPane(wizPane);
             frame.pack();
             _appFrame.addFrame(frame);
          }

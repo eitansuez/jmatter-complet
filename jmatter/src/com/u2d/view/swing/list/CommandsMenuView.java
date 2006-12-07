@@ -7,6 +7,7 @@ import com.u2d.model.EObject;
 import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
+import com.u2d.pattern.Filter;
 import com.u2d.element.Command;
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
@@ -26,13 +27,20 @@ public class CommandsMenuView extends JMenu implements ListEView
    private EView _source;
    private JComponent _parent;
    private Map _indexMap = new HashMap();
+   
+   private Filter _customFilter;
 
    public CommandsMenuView()
    {
-      super("Commands");
-      setMnemonic('c');
+      super();
    }
-
+   
+   public CommandsMenuView(Filter filter)
+   {
+      this();
+      _customFilter = filter;
+   }
+   
    public void bind(EObject eo, JComponent parent, EView source)
    {
       _eo = eo;
@@ -51,10 +59,13 @@ public class CommandsMenuView extends JMenu implements ListEView
 
       _commands = _eo.filteredCommands();
       
+      if (_customFilter != null)
+         _commands = _commands.filter(_customFilter);
+      
       new OnionPeeler(new Processor()
          {
             int index = 0;
-//            int subindex = 0;
+            int subindex;
          
             public void process(Object obj)
             {
@@ -65,18 +76,21 @@ public class CommandsMenuView extends JMenu implements ListEView
                _indexMap.put(new Integer(index),
                              new Integer(getComponentCount()-1));
                index++;
-//               subindex++;
+               subindex++;
             }
             public void pause()
             {
-               addSeparator();
-//               if (subindex > 0) addSeparator();
-//               subindex = 0;
+               if (subindex > 0)
+                  addSeparator();
+               subindex = 0;
             }
             public void done() {}
          }).peel(_commands);
 
       _commands.addListDataListener(this);
+      String title = _eo.toString();
+      setText(title);
+      setMnemonic(title.charAt(0));
       _parent.add(this);
    }
 

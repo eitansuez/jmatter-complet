@@ -8,6 +8,7 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
 import com.u2d.model.AbstractListEO;
 import com.u2d.list.PlainListEObject;
+import com.u2d.element.Field;
 import org.hibernate.cfg.*;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
@@ -175,4 +176,26 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       }
       return null;
    }
+
+
+   public void refresh(ComplexEObject eo)
+   {
+      getSession().refresh(selfOrParentIfAggregate(eo));
+   }
+
+   protected ComplexEObject selfOrParentIfAggregate(ComplexEObject ceo)
+   {
+      ComplexEObject parent = ceo;
+      Field field = parent.field();
+      while ( (field != null) && 
+              ( field.isAggregate() || 
+                (field.isIndexed() && field.isComposite()) )
+            )
+      {
+         parent = parent.parentObject();
+         field = parent.field();
+      }
+      return parent;
+   }
+   
 }

@@ -35,7 +35,7 @@ public class NullViewMechanism implements ViewMechanism
    public void initReporting() { }
    public void displayViewFor(Object value, EView source, Positioning positioningHint) { }
    public void displayView(View view, Positioning positioning) { }
-   public void displayView(EView view) { }
+   public void displayView(EView view, EView source) { }
    public void displayWizard(Wizard wizard) { }
    public void displayReport(Reportable reportable) { }
    public void dismiss(EView eview) { }

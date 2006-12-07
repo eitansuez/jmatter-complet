@@ -11,10 +11,12 @@ import com.u2d.app.Role;
 import com.u2d.model.*;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
+import com.u2d.type.composite.Person;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.pattern.Filter;
 import java.util.Arrays;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Eitan Suez
@@ -52,6 +54,20 @@ public abstract class Command extends Member
       String fullPath = _parent.getJavaClass().getName() + "#" + _name;
       _fullPath.setValue(fullPath);
    }
+
+   // under construction..
+//   @Cmd
+//   public void Execute(CommandInfo cmdInfo, @Arg("Target") ComplexEObject target)
+//   {
+//      try
+//      {
+//         execute(target, cmdInfo.getSource());
+//      }
+//      catch (InvocationTargetException ex)
+//      {
+//         ex.printStackTrace();
+//      }
+//   }
 
    public abstract void execute(Object value, EView source)
             throws java.lang.reflect.InvocationTargetException;

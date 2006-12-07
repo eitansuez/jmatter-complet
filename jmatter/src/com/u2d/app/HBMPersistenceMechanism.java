@@ -20,4 +20,5 @@ public interface HBMPersistenceMechanism extends PersistenceMechanism
    public AbstractListEO hql(String query);
    public AbstractListEO hqlQuery(Query query);
    public void saveMany(java.util.Set ceos);
+   public void refresh(ComplexEObject eo);
 }

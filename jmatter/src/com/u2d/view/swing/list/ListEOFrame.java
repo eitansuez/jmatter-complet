@@ -33,7 +33,6 @@ public class ListEOFrame extends CloseableJInternalFrame
       _view = view;
       _leo = (AbstractListEO) _view.getEObject();
       _leo.addListDataListener(this);
-      _leo.addChangeListener(this);
       
       setTitle(_leo.title().toString());
       setFrameIcon(_leo.iconSm());
@@ -109,18 +108,14 @@ public class ListEOFrame extends CloseableJInternalFrame
    public void dispose()
    {
       super.dispose();
-      _leo.removeListDataListener(this);
-      _leo.removeChangeListener(this);
       detach();
    }
    
    public void detach()
    {
+      _leo.removeListDataListener(this);
       _titleBarView.detach();
       _view.detach();
-      _titleBarView = null;
-      _view = null;
-      _leo = null;
    }
    
    public boolean isMinimized() { return false; }

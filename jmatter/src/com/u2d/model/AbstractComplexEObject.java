@@ -148,7 +148,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public void restoreState()
    {
       setReadState();
-      setState(restoredState(), true /* shallow */);
+      setState(restoredState(), false);
    }
 
    // subclasses should override this:
@@ -998,7 +998,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    
    public void refresh()
    {
-      hbmPersistor().getSession().refresh(this);
+      hbmPersistor().refresh(this);
    }
    
 

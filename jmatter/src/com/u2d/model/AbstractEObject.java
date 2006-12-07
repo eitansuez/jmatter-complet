@@ -39,7 +39,7 @@ public abstract class AbstractEObject
    public abstract void setValue(EObject value);
 
    
-   private AppSession appSession() { return Context.getInstance().getAppSession(); }
+   protected AppSession appSession() { return Context.getInstance().getAppSession(); }
    protected Application app() { return Context.getInstance().getApplication(); } 
    protected ViewMechanism vmech() { return Context.getInstance().getViewMechanism(); } 
    protected PersistenceMechanism persistor() { return Context.getInstance().getPersistenceMechanism(); }

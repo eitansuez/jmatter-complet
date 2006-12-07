@@ -3,7 +3,6 @@
  */
 package com.u2d.persist;
 
-import com.u2d.app.*;
 import com.u2d.list.PagedList;
 import com.u2d.list.PlainListEObject;
 import com.u2d.model.AbstractListEO;
@@ -16,7 +15,6 @@ import com.u2d.element.Field;
 import org.hibernate.*;
 import org.hibernate.criterion.Expression;
 import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * @author Eitan Suez
@@ -208,21 +206,6 @@ public class HBMSingleSession extends HibernatePersistor
       }
    }
 
-   private ComplexEObject selfOrParentIfAggregate(ComplexEObject ceo)
-   {
-      ComplexEObject parent = ceo;
-      Field field = parent.field();
-      while ( (field != null) && 
-              ( field.isAggregate() || 
-                (field.isIndexed() && field.isComposite()) )
-            )
-      {
-         parent = parent.parentObject();
-         field = parent.field();
-      }
-      return parent;
-   }
-   
    public void updateAssociation(ComplexEObject one, ComplexEObject two)
    {
       _tracer.fine("Updating association between " + one + " and " + two);

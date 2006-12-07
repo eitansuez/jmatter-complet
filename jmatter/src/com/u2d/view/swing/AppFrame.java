@@ -16,6 +16,7 @@ import com.u2d.view.*;
 import com.u2d.view.swing.dnd.*;
 import com.u2d.view.swing.find.FindView;
 import com.u2d.view.swing.list.ListEOFrame;
+import com.u2d.view.swing.list.CommandsMenuView;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
@@ -24,9 +25,10 @@ import com.u2d.app.*;
 import com.u2d.pubsub.*;
 import com.u2d.view.swing.calendar.*;
 import com.u2d.calendar.*;
-import com.u2d.element.Command;
 import com.u2d.type.composite.Folder;
 import com.u2d.persist.HBMSingleSession;
+import com.u2d.pattern.Filter;
+import com.u2d.element.Command;
 
 /**
  * @author Eitan Suez
@@ -35,9 +37,22 @@ public class AppFrame extends JFrame
 {
    private AppSession _appSession;
    private Application _app;
-   
    private JMenuBar _menuBar;
-   private JMenu _userMenu;
+   private CommandsMenuView _userMenu = new CommandsMenuView(new Filter()
+   {
+      String[] validCmds = {"EditPreferences", "LogOut", "ChangePassword", "Open", "Edit"};
+      public boolean exclude(Object item)
+      {
+         Command cmd = (Command) item;
+         for (String validCmd : validCmds)
+         {
+            if (validCmd.equals(cmd.name()))
+               return false;
+         }
+         return true;
+      }
+   });
+   
    private JPanel _centerPane;
    private LookAndFeelSupport _lfSupport;
    private OutlookFolderView _classesView;
@@ -72,7 +87,6 @@ public class AppFrame extends JFrame
       UIUtils.centerOnScreen(this);
       setupQuitHooks();
 
-      makeUserMenu();
       listenForUserEvents();
 
 //      _lfSupport.addLFChangeListener(
@@ -202,6 +216,11 @@ public class AppFrame extends JFrame
    public void centerFrame(JInternalFrame frame) { _desktopPane.positionFrame(frame, Positioning.CENTERED); }
    public JInternalFrame getSelectedFrame() { return _desktopPane.getSelectedFrame(); }
 
+   
+   public void popup(JPopupMenu menu)
+   {
+      _desktopPane.popup(menu);
+   }
 
    //===
    private void makeClassBar()
@@ -239,57 +258,12 @@ public class AppFrame extends JFrame
          });
    }
    //===
-      private static String USERMENUGENERICLABEL = "User";
-
-      private void makeUserMenu()
-      {
-         _userMenu = new JMenu(USERMENUGENERICLABEL);
-
-         Action logoutAction = new AbstractAction("Logout")
-         {
-            {
-               putValue(MNEMONIC_KEY, new Integer(KeyEvent.VK_G));
-            }
-            public void actionPerformed(ActionEvent evt)
-            {
-               new Thread()
-               {
-                  public void run()
-                  {
-                     _appSession.onLogout();
-                  }
-               }.start();
-            }
-         };
-
-         Action chgPassAction = new AbstractAction("Change Password")
-         {
-            public void actionPerformed(ActionEvent evt)
-            {
-               User currentUser = _appSession.getUser();
-               Command cmd = currentUser.command("ChangePassword");
-               try
-               {
-                  cmd.execute(currentUser, null);
-               }
-               catch (java.lang.reflect.InvocationTargetException ex)
-               {
-                  System.err.println("InvocationTargetException: "+ex.getMessage());
-                  ex.printStackTrace();
-               }
-            }
-         };
-
-         JMenuItem item = new JMenuItem(chgPassAction);
-         _userMenu.add(item);
-         item = new JMenuItem(logoutAction);
-         _userMenu.add(item);
-      }
 
       private void showUserMenu()
       {
          User currentUser = _appSession.getUser();
-         _userMenu.setText(currentUser.toString());
+         _userMenu.bind(currentUser, _menuBar, null);
+         
          _menuBar.add(_userMenu);
          _menuBar.revalidate(); _menuBar.repaint();
       }
@@ -300,7 +274,7 @@ public class AppFrame extends JFrame
          {
             public void run()
             {
-               _menuBar.remove(_userMenu);
+               _userMenu.detach();
                _menuBar.revalidate(); _menuBar.repaint();
             }
          });

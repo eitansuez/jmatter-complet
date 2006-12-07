@@ -50,7 +50,7 @@ public class ScheduleView extends JPanel implements ComplexEView
                if (calEvt.isEditableState() && calView instanceof Editor)
                   calEvt.setEditor((Editor) calView);
                
-               Context.getInstance().swingvmech().displayView(calView);
+               Context.getInstance().swingvmech().displayView(calView, null);
             }
          });
 

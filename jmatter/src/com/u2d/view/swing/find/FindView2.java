@@ -105,7 +105,7 @@ public class FindView2 extends JSplitPane implements View
                   EView view = query.getMainView();
                   query.setEditor((Editor) view);
                   Context.getInstance().swingvmech().
-                        displayView(view);
+                        displayView(view, null);
                }
             });
 

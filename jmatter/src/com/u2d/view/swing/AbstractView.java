@@ -7,7 +7,6 @@ import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
@@ -18,17 +17,16 @@ import com.u2d.ui.CardPanel;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.atom.TypePicker;
-import com.u2d.app.ViewMechanism;
 
 public class AbstractView extends JPanel
                           implements ComplexEView, Editor, ItemListener
 {
-   Field _field;
-   ComplexEObject _parent;
-   TypePicker _picker;
-   CardPanel _card;
-   boolean _editable;
-   Map _typeViewMap = new HashMap();
+   private Field _field;
+   private ComplexEObject _parent;
+   private TypePicker _picker;
+   private CardPanel _card;
+   private boolean _editable;
+   private Map _typeViewMap = new HashMap();
    
    public AbstractView(Field field, ComplexEObject parent)
    {
