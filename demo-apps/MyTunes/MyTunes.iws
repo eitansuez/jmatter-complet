@@ -18,8 +18,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MyTunes.iml" afterPath="$PROJECT_DIR$/MyTunes.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/JID3.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/mytunes/Song.java" afterPath="$PROJECT_DIR$/src/com/u2d/mytunes/Song.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MyTunes.iml" afterPath="$PROJECT_DIR$/MyTunes.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MyTunes.iws" afterPath="$PROJECT_DIR$/MyTunes.iws" />
     </list>
   </component>
@@ -295,7 +296,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
+      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -318,6 +319,28 @@
   <component name="RecentsManager" />
   <component name="RestoreUpdateTree" />
   <component name="RunManager" selected="Application.MyTunes">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <module name="" />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -333,28 +356,6 @@
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="wholeProject" />
       </option>
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <module name="" />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
@@ -585,27 +586,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/mytunes/Album.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="216" selection-end="216" vertical-scroll-proportion="0.11467116">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/mytunes/Artist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="181" selection-end="181" vertical-scroll-proportion="0.11467116">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/mytunes/Genre.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="147" selection-end="147" vertical-scroll-proportion="0.11467116">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.08/src.zip!/java/io/FileFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="17" selection-start="471" selection-end="471" vertical-scroll-proportion="0.40134907">
@@ -669,10 +649,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/mytunes/Album.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="216" selection-end="216" vertical-scroll-proportion="0.11486486">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/mytunes/Artist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="181" selection-end="181" vertical-scroll-proportion="0.11486486">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/mytunes/Genre.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="13" selection-start="147" selection-end="147" vertical-scroll-proportion="0.11486486">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/mytunes/Song.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="0" selection-start="3318" selection-end="3318" vertical-scroll-proportion="0.44117647">
-          <folding />
+        <state line="259" column="9" selection-start="7500" selection-end="7500" vertical-scroll-proportion="0.33275563">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
