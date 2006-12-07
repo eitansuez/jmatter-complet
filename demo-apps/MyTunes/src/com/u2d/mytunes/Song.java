@@ -14,11 +14,18 @@ import com.u2d.app.Context;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.net.MalformedURLException;
-import java.io.FileFilter;
-import java.io.File;
+import java.io.*;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
+
+import javazoom.jl.player.Player;
+import javazoom.jl.player.AudioDevice;
+import javazoom.jl.player.FactoryRegistry;
+import javazoom.jl.player.advanced.AdvancedPlayer;
+import javazoom.jl.player.advanced.PlaybackListener;
+import javazoom.jl.player.advanced.PlaybackEvent;
+import javazoom.jl.decoder.JavaLayerException;
 
 public class Song extends AbstractComplexEObject
 {
@@ -68,28 +75,64 @@ public class Song extends AbstractComplexEObject
 
    public Title title() { return _title.title().appendBracket(_duration); }
 
-   private AudioClip _clip;
-
+   
+   AdvancedPlayer player;
+   AudioDevice device;
+   int position = 0;
+   
+   /**
+    * JLayer Streams!
+    */
    @Cmd(mnemonic='p')
-   public Object Play(CommandInfo cmdInfo)
+   public void Play(CommandInfo cmdInfo)
    {
       try
       {
-         _clip = Applet.newAudioClip(_path.fileValue().toURL());
+         InputStream is = new BufferedInputStream(new FileInputStream(_path.fileValue()));
+
+         FactoryRegistry r = FactoryRegistry.systemRegistry();
+         device = r.createAudioDevice();
+         player = new AdvancedPlayer(is, device);
+         player.setPlayBackListener(new PlaybackListener()
+         {
+            public void playbackStarted(PlaybackEvent playbackEvent)
+            {
+               vmech().onMessage("Playback started..");
+            }
+
+            public void playbackFinished(PlaybackEvent playbackEvent)
+            {
+               vmech().onMessage("Playback finished..");
+            }
+         });
+         
+         player.play(position, Integer.MAX_VALUE);
          vmech().onMessage("Playing song.."+this);
-         _clip.play();
       }
-      catch (MalformedURLException ex)
+      catch (JavaLayerException e)
       {
-         System.err.println(ex);
+         e.printStackTrace();
       }
-      return null;
+      catch (FileNotFoundException e)
+      {
+         e.printStackTrace();
+      }
    }
 
    @Cmd
    public void Pause(CommandInfo cmdInfo)
    {
-      if (_clip != null) _clip.stop();
+      int positionInMillis = device.getPosition();
+      position = positionInMillis / 26;  // a frame is roughly 26 ms;  this is not very precise.
+      player.stop();
+      
+      // why don't they just support pause/play directly in the api??
+   }
+   
+   @Cmd
+   public void ResetPosition(CommandInfo cmdInfo)
+   {
+      position = 0;
    }
 
    @Cmd
@@ -103,7 +146,6 @@ public class Song extends AbstractComplexEObject
       Set songs = new HashSet();
       for (int i=0; i<songFiles.size(); i++)
       {
-         
          songs.add(new Song((File) songFiles.get(i)));
       }
 
