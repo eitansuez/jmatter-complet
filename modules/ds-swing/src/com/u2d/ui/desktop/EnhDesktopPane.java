@@ -185,6 +185,13 @@ public class EnhDesktopPane extends MyDesktopPane
       }
       return p;
    }
+   
+   
+   public void popup(JPopupMenu menu)
+   {
+      menu.show(this, _mouseTracker.lastMouseClickLocation.x,  
+                _mouseTracker.lastMouseClickLocation.y);
+   }
 
 
    public void setCursor(Cursor cursor)

@@ -35,13 +35,13 @@ public class CloseableJInternalFrame extends JInternalFrame
          init();
    }
 
-   static String MAP_KEY = "close-window";
+   static String CLOSEWINDOW_MAP_KEY = "CLOSE_WINDOW";
    static KeyStroke COMMAND_W = KeyStroke.getKeyStroke(KeyEvent.VK_W, Platform.mask());
 
    private void init()
    {
-      getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(COMMAND_W, MAP_KEY);
-      getActionMap().put(MAP_KEY, new AbstractAction()
+      getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(COMMAND_W, CLOSEWINDOW_MAP_KEY);
+      getActionMap().put(CLOSEWINDOW_MAP_KEY, new AbstractAction()
       {
          public void actionPerformed(ActionEvent evt)
          {
@@ -55,7 +55,7 @@ public class CloseableJInternalFrame extends JInternalFrame
    public void removeNotify()
    {
       super.removeNotify();
-      getActionMap().remove(MAP_KEY);
+      getActionMap().remove(CLOSEWINDOW_MAP_KEY);
    }
 
    public static void closeFrame(JInternalFrame jif)
