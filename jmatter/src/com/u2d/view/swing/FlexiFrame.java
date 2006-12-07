@@ -7,7 +7,6 @@ import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
 import com.u2d.app.Context;
-
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -70,10 +69,10 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          _views.add(view);
          _tabPane.addTab(view);
       }
+
       revalidate(); repaint();
    }
-
-
+   
    public void stateChanged(final ChangeEvent e)
    {
       SwingUtilities.invokeLater(new Runnable()

@@ -92,6 +92,7 @@ public class EOPanel extends JPanel
       _ceo.removeValidationListener(_statusPanel);
       _titleView.detach();
       _view.detach();
+      _ceo.removePostChangeListener(_sizeUpdater);
       // keyboardfocusmanager will hold a reference to eoframe preventing it from
       // begin garbage-collected, thus:
       KeyboardFocusManager.getCurrentKeyboardFocusManager().setGlobalCurrentFocusCycleRoot(null);
