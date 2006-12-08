@@ -13369,10 +13369,6 @@ The ability to specify the field captions, defaults, whether a field is
 \end_layout
 
 \begin_layout Enumerate
-Per-User Class Bar
-\end_layout
-
-\begin_layout Enumerate
 More powerful UI widgets: an editable table to edit multiple objects together;
  a double-list widget to add items to a list more quickly; a 
 \emph on

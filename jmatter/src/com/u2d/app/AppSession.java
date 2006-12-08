@@ -6,7 +6,6 @@ import com.u2d.pubsub.AppEventListener;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.type.composite.LoggedEvent;
-import com.u2d.type.composite.Folder;
 import com.u2d.element.EOCommand;
 import java.util.Map;
 import java.util.HashMap;
@@ -25,17 +24,14 @@ public class AppSession implements AuthManager, AppEventNotifier
 {
    protected Application _app;
    protected ViewMechanism _vmech;
-   
    protected AppSessionContext _fsm;
    protected User _user;
-   protected Folder _classesFolder;
 
    public AppSession() {}
 
    public void initialize()
    {
       _fsm = new AppSessionContext(this);
-      _classesFolder = Folder.fetchFolderByName(pmech(), "Class List");
    }
    
    public void launch()
@@ -76,8 +72,6 @@ public class AppSession implements AuthManager, AppEventNotifier
       }
    }
    
-   public Folder getClassesFolder() { return _classesFolder; }
-
    //
    // == authentication-related methods ===
    // see related AppSession.sm

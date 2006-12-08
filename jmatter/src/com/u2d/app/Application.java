@@ -31,6 +31,7 @@ public class Application
    protected int _pagesize;
    protected PersistenceMechanism _pmech;
    protected Splash _splash; 
+   private Folder _classBar;
 
    public Application() {}
    
@@ -57,43 +58,48 @@ public class Application
 
       String launchingMsg = String.format("Launching %s", _name);
       message(launchingMsg);
-      
-      // create admin user
-      if (_pmech instanceof HBMPersistenceMechanism)
-      {
-         HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) _pmech;
-         Session session = hbm.getSession();
+   }
+   
+   private static final String TEMPLATE_CLASSBAR = "Template Class Bar";
+   public void postInitialize()
+   {
+      makeClassBar();
 
-         String hql = "select count(*) from com.u2d.app.User u where u.username='admin'";
-         int count = ((Long) session.createQuery(hql).iterate().next()).intValue();
-         if (count == 0)
-         {
-            message("Creating Admin User..");
-            Role adminRole = new Role("Administrator");
-            Role defaultRole = new Role("Default");
-            User adminUser = new User("admin", "admin", adminRole);
-            Set items = new HashSet();
-            items.add(adminUser);
-            items.add(adminRole);
-            items.add(defaultRole);
-            hbm.saveMany(items);
-            
-            // skip this for now..
-//            defaultRole.initializePermissions(hbm);
-         }
+      HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) _pmech;
+      Session session = hbm.getSession();
+
+      String hql = "select count(*) from com.u2d.app.User u where u.username='admin'";
+      int count = ((Long) session.createQuery(hql).iterate().next()).intValue();
+      if (count == 0)
+      {
+         message("Creating Admin User and base roles..");
+         Role adminRole = new Role("Administrator");
+         Role defaultRole = new Role("Default");
+         User adminUser = new User("admin", "admin", adminRole);
+         Set items = new HashSet();
+         items.add(adminUser);
+         items.add(adminRole);
+         items.add(defaultRole);
+         hbm.saveMany(items);
          
+         // skip this for now..
+//            defaultRole.initializePermissions(hbm);
          CodesList.populateCodes(_pmech, hbm.getClasses());
-      }
-
-      Folder classesFolder = Folder.fetchFolderByName(_pmech, "Class List");
-      if (classesFolder == null)
-      {
-         classesFolder = loadXMLClassList();
-         ((HBMPersistenceMechanism) _pmech).saveMany(classesFolder.getSelfAndNestedFolders());
       }
 
       ComplexType.associateQueries(_pmech);
    }
+   
+   private void makeClassBar()
+   {
+      _classBar = Folder.fetchFolderByName(_pmech, TEMPLATE_CLASSBAR);
+      if (_classBar == null)
+      {
+         _classBar = loadXMLClassList();
+         ((HBMPersistenceMechanism) _pmech).saveMany(_classBar.getSelfAndNestedFolders());
+      }
+   }
+   public Folder getClassBar() { return _classBar; }
 
    private Folder loadXMLClassList()
    {
@@ -103,7 +109,9 @@ public class Application
          IUnmarshallingContext context = bfact.createUnmarshallingContext();
 
          InputStream stream = getClass().getResourceAsStream("/com/u2d/class-list.xml");
-         return (Folder) context.unmarshalDocument(stream, null);
+         Folder templateFolder = (Folder) context.unmarshalDocument(stream, null);
+         templateFolder.getName().setValue(TEMPLATE_CLASSBAR);
+         return templateFolder;
       }
       catch (JiBXException ex)
       {
@@ -145,6 +153,9 @@ public class Application
       Logger.getLogger("org.springframework").setLevel(Level.WARNING);
       ApplicationContext context = 
             new ClassPathXmlApplicationContext("applicationContext.xml");
+      
+      Application app = (Application) context.getBean("application");
+      app.postInitialize();
       
       AppSession session = (AppSession) context.getBean("app-session");
       session.launch();

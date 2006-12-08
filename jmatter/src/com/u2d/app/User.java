@@ -9,13 +9,14 @@ import com.u2d.type.atom.*;
 import com.u2d.type.composite.*;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
-import com.u2d.model.ComplexType;
+import com.u2d.model.ComplexEObject;
 import com.u2d.pattern.*;
 import com.u2d.reflection.Arg;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.FieldAt;
-
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Eitan Suez
@@ -29,6 +30,7 @@ public class User extends AbstractComplexEObject
    private final TextEO _desktop = new TextEO();
    private final Photo _photo = new Photo();
    private final UserPreferences _preferences = new UserPreferences();
+   private final Folder _classBar = new Folder();
 
    private Role _role;
    public static String roleInverseFieldName = "users";
@@ -48,6 +50,7 @@ public class User extends AbstractComplexEObject
    public User(String username)
    {
       this();
+      setTransientState();
       _username.setValue(username);
    }
 
@@ -64,6 +67,49 @@ public class User extends AbstractComplexEObject
       _role.getUsers().add(this);
    }
 
+   public void onBeforeCreate()
+   {
+      copyClassBarFromAppTemplate();
+   }
+
+   private void copyClassBarFromAppTemplate()
+   {
+      Folder templateClassBar = app().getClassBar();
+      _classBar.getName().setValue("Class Bar");
+      templateClassBar.getItems().forEach(new Block()
+      {
+         public void each(ComplexEObject ceo)
+         {
+            Folder subFolder = (Folder) ceo;
+            final Folder mySubfolder = new Folder();
+            mySubfolder.getName().setValue(subFolder.getName());
+            hbmPersistor().getSession().save(mySubfolder);
+            _classBar.addItem(mySubfolder);
+            subFolder.getItems().forEach(new Block()
+            {
+               public void each(ComplexEObject ceo)
+               {
+                  mySubfolder.addItem(ceo);
+               }
+            });
+         }
+      });
+   }
+   private void deleteClassBarFolders()
+   {
+      final Set itemsToDelete = new HashSet();
+      _classBar.getItems().forEach(new Block()
+      {
+         public void each(ComplexEObject ceo)
+         {
+            Folder subFolder = (Folder) ceo;
+            subFolder.clearItems();
+            itemsToDelete.add(subFolder);
+         }
+      });
+      hbmPersistor().deleteMany(itemsToDelete);
+   }
+
    @FieldAt(mnemonic='u')
    public StringEO getUsername() { return _username; }
    @FieldAt(description = "Password.  Minimum 5 characters.")
@@ -74,6 +120,7 @@ public class User extends AbstractComplexEObject
    public Photo getPhoto() { return _photo; }
    
    public UserPreferences getPreferences() { return _preferences; }
+   public Folder getClassBar() { return _classBar; }
 
    public TextEO getDesktop() { return _desktop; }
 
@@ -114,6 +161,14 @@ public class User extends AbstractComplexEObject
          e.printStackTrace();
       }
    }
+   
+//   @Cmd(isSensitive = true)
+//   public void ResetClassBar(CommandInfo info)
+//   {
+//      deleteClassBarFolders();
+//      copyClassBarFromAppTemplate();
+//      save();
+//   }
    
    @Cmd
    public void LogOut(CommandInfo cmdInfo)

@@ -15,6 +15,7 @@ import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -60,24 +61,21 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
          Transaction tx = null;
          try
          {
-            tx = getSession().beginTransaction();
+            Session session = getSession();
+            tx = session.beginTransaction();
 
-            Iterator itr = ceos.iterator();
-            ComplexEObject ceo = null;
-            while (itr.hasNext())
+            for (Iterator itr = ceos.iterator(); itr.hasNext(); )
             {
-               ceo = (ComplexEObject) itr.next();
+               ComplexEObject ceo = (ComplexEObject) itr.next();
                if (ceo.isTransientState()) ceo.onBeforeCreate();
                ceo.onBeforeSave();
-               getSession().save(ceo);
+               session.save(ceo);
             }
             tx.commit();
 
-            itr = ceos.iterator();
-            ceo = null;
-            while (itr.hasNext())
+            for (Iterator itr = ceos.iterator(); itr.hasNext(); )
             {
-               ceo = (ComplexEObject) itr.next();
+               ComplexEObject ceo = (ComplexEObject) itr.next();
                if (ceo.isTransientState()) ceo.onCreate();
                else ceo.onSave();
             }
@@ -96,6 +94,43 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       }
    }
    
+   public void deleteMany(java.util.Set ceos)
+   {
+      try
+      {
+         Transaction tx = null;
+         try
+         {
+            Session session = getSession();
+            tx = session.beginTransaction();
+
+            for (Iterator itr = ceos.iterator(); itr.hasNext(); )
+            {
+               ComplexEObject ceo = (ComplexEObject) itr.next();
+               session.delete(ceo);
+            }
+            tx.commit();
+
+            for (Iterator itr = ceos.iterator(); itr.hasNext(); )
+            {
+               ComplexEObject ceo = (ComplexEObject) itr.next();
+               ceo.onDelete();
+            }
+         }
+         catch (HibernateException ex)
+         {
+            if (tx != null) tx.rollback();
+            throw ex;
+         }
+      }
+      catch (HibernateException ex)
+      {
+         ex.printStackTrace();
+         newSession();
+         throw ex;
+      }
+   }
+
    public abstract void newSession();
 
    private String outputFilePath(String path)

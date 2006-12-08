@@ -162,7 +162,7 @@ public class AppFrame extends SFrame
 
    private void makeClassBar()
    {
-      Folder classesFolder = _appSession.getClassesFolder();
+      Folder classesFolder = _appSession.getUser().getClassBar();
       _classesView = new OutlookFolderView(classesFolder);
    }
    private void showClassBar()

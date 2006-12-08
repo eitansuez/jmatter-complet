@@ -25,7 +25,6 @@ import com.u2d.app.*;
 import com.u2d.pubsub.*;
 import com.u2d.view.swing.calendar.*;
 import com.u2d.calendar.*;
-import com.u2d.type.composite.Folder;
 import com.u2d.persist.HBMSingleSession;
 import com.u2d.pattern.Filter;
 import com.u2d.element.Command;
@@ -40,7 +39,8 @@ public class AppFrame extends JFrame
    private JMenuBar _menuBar;
    private CommandsMenuView _userMenu = new CommandsMenuView(new Filter()
    {
-      String[] validCmds = {"EditPreferences", "LogOut", "ChangePassword", "Open", "Edit"};
+      String[] validCmds = {"ResetClassBar", "EditPreferences", "LogOut", 
+                            "ChangePassword", "Open", "Edit"};
       public boolean exclude(Object item)
       {
          Command cmd = (Command) item;
@@ -55,7 +55,8 @@ public class AppFrame extends JFrame
    
    private JPanel _centerPane;
    private LookAndFeelSupport _lfSupport;
-   private OutlookFolderView _classesView;
+   private OutlookFolderView _classBar = new OutlookFolderView();
+
    private EODesktopPane _desktopPane;
    private MessagePanel _msgPnl;
 
@@ -223,25 +224,19 @@ public class AppFrame extends JFrame
    }
 
    //===
-   private void makeClassBar()
-   {
-      if (_classesView != null)
-      {
-         _classesView.detach();
-      }
-      Folder classesFolder = _appSession.getClassesFolder();
-      _classesView = new OutlookFolderView(classesFolder);
-   }
    private void showClassBar()
    {
       SwingUtilities.invokeLater( new Runnable()
          {
             public void run()
             {
-               // make a new class bar each time.  will ensure also
-               // that view and its commands will reflect current user's restrictions
-               makeClassBar();
-               _centerPane.add(_classesView, BorderLayout.WEST);
+               User currentUser = _appSession.getUser();
+               // some kind of bug in l2fprod when try to reuse
+               // folderview after having removed all tabs
+//               _classBar.bind(currentUser.getClassBar());
+               _classBar = new OutlookFolderView(currentUser.getClassBar());
+               
+               _centerPane.add(_classBar, BorderLayout.WEST);
                _centerPane.revalidate(); _centerPane.repaint();
             }
          });
@@ -252,7 +247,8 @@ public class AppFrame extends JFrame
          {
             public void run()
             {
-               _centerPane.remove(_classesView);
+               _classBar.detach();
+               _centerPane.remove(_classBar);
                _centerPane.revalidate(); _centerPane.repaint();
             }
          });

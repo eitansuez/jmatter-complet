@@ -175,6 +175,11 @@ public class Folder extends AbstractComplexEObject
       }
       return folders;
    }
+   
+   public void clearItems()
+   {
+      _items.clear();
+   }
 
 
 

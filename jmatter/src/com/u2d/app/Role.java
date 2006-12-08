@@ -40,6 +40,7 @@ public class Role extends AbstractComplexEObject
 
    public Role(String name)
    {
+      setTransientState();
       _name.setValue(name);
    }
 

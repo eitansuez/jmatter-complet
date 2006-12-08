@@ -173,6 +173,21 @@ public abstract class AbstractListEO extends AbstractEObject
          fireIntervalRemoved(this, index, index);
       }
    }
+
+   /**
+    * Remove all items from list.
+    */
+   public void clear()
+   {
+      int size = _items.size();
+      for (Object item : _items)
+      {
+         ComplexEObject ceo = (ComplexEObject) item;
+         ceo.removeAppEventListener("ONDELETE", this);
+         _items.remove(ceo);
+      }
+      fireIntervalRemoved(this, 0, size);
+   }
    
    public boolean contains(Object item)
    {

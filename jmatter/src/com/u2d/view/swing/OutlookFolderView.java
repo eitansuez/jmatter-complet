@@ -32,20 +32,27 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
    private Folder _folder;
    private List<VerticalFolderPane> _tabs = new ArrayList<VerticalFolderPane>();
 
+   public OutlookFolderView() {}
    public OutlookFolderView(Folder folder)
+   {
+      this();
+      bind(folder);
+   }
+   
+   public void bind(Folder folder)
    {
       _folder = folder;
 
       ComplexEObject item;
-      for (int i=0; i<folder.size(); i++)
+      for (int i=0; i<_folder.size(); i++)
       {
-         item = (ComplexEObject) folder.get(i);
+         item = (ComplexEObject) _folder.get(i);
          if (item instanceof Folder)
          {
             Folder subfolder = (Folder) item;
             VerticalFolderPane pnl = new VerticalFolderPane(subfolder);
             addTab(subfolder.getName().stringValue(),
-                   folder.iconSm(),
+                   _folder.iconSm(),
                    makeScrollPane((JComponent) pnl));
             _tabs.add(pnl);
          }
@@ -60,6 +67,17 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
          }
       });
    }
+
+   public void detach()
+   {
+      for (VerticalFolderPane v : _tabs)
+      {
+         v.detach();
+      }
+      _tabs.clear();
+      removeAll();
+   }
+
 
    class VerticalFolderPane extends FolderPanel
                             implements ListDataListener
@@ -88,6 +106,16 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
          JComponent comp = (JComponent) view;
          comp.setTransferHandler(transferHandler);
          return comp;
+      }
+      
+      public void detach()
+      {
+         _folder.getItems().removeListDataListener(this);
+         for (int i=0; i<getComponentCount(); i++)
+         {
+            ((EView) getComponent(i)).detach();
+         }
+         removeAll();
       }
       
       public void intervalAdded(final ListDataEvent e)
@@ -153,11 +181,6 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
    }
 
    public EObject getEObject() { return _folder; }
-
-   public void detach()
-   {
-   }
-
    public boolean isMinimized() { return false; }
 
    public void propertyChange(PropertyChangeEvent evt) {}
