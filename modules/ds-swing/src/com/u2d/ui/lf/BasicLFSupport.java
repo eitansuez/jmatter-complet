@@ -3,6 +3,9 @@
  */
 package com.u2d.ui.lf;
 
+import com.l2fprod.common.swing.plaf.LookAndFeelAddons;
+import com.l2fprod.common.swing.plaf.metal.MetalLookAndFeelAddons;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -111,6 +114,8 @@ public class BasicLFSupport implements LookAndFeelSupport
       {
          _mainFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
          UIManager.setLookAndFeel(lf);
+         LookAndFeelAddons.setAddon(MetalLookAndFeelAddons.class);
+         
          _currentLF = lf;
          selectRadioForLF();
 
