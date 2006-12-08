@@ -51,6 +51,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
             ((EView) view).getEObject().addChangeListener(this);
          }
          setContentPane(view);
+         setDecorations();
       }
       else if (_views.size() == 1)
       {
@@ -89,9 +90,31 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
                   dispose();
                }
             }
+            
+            setDecorations();
          }
       });
    }
+   
+   private void setDecorations()
+   {
+      if (_views.size() == 1)
+      {
+         if (_views.get(0) instanceof EView)
+         {
+            EView view = (EView) _views.get(0);
+            setFrameIcon(view.getEObject().iconSm());
+            setTitle(view.getEObject().toString());
+         }
+         else if (_views.get(0) instanceof View)
+         {
+            View view = (View) _views.get(0);
+            setFrameIcon(view.iconSm());
+            setTitle(view.getTitle());
+         }
+      }
+   }
+   
 
    public void removeView(JComponent view)
    {
@@ -109,6 +132,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          _tabPane.removeTab(_views.get(0));
          remove(_tabPane);
          setContentPane(_views.get(0));
+         setDecorations();
          requestFocusInWindow();
       }
       else
