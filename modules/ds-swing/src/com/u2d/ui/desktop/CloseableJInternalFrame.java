@@ -66,7 +66,7 @@ public class CloseableJInternalFrame extends JInternalFrame
          // System.err.println("CloseableJInternalFrame::closeFrame: jinternalframe's desktop pane is not set");
          return;
       }
-
+   
       desktopPane.getDesktopManager().closeFrame(jif);
       // even though dpmgr.closeFrame closes and hides the frame,
       // the isClosed and isVisible properties are not set! (macosx)
@@ -144,13 +144,9 @@ public class CloseableJInternalFrame extends JInternalFrame
                    {
                       public void dragEnter(DropTargetDragEvent evt)
                       {
-                         try
-                         {
+                         try {
                             CloseableJInternalFrame.this.setSelected(true);
-                         }
-                         catch (PropertyVetoException ex)
-                         {
-                         }
+                         } catch (PropertyVetoException ex) { }
                       }
                       public void drop(DropTargetDropEvent dtde)
                       {
@@ -166,7 +162,5 @@ public class CloseableJInternalFrame extends JInternalFrame
         ex.printStackTrace();
       }
    }
-
-
-
+   
 }

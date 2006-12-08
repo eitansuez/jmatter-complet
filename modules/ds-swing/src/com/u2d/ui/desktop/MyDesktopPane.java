@@ -138,20 +138,33 @@ public class MyDesktopPane extends JDesktopPane
 
       private void activateNextFrame()
       {
-         if (noNextFrame())
+         // delay activation slightly;  usually helps when requesting focus prematurely
+         new Thread()
          {
-            MyDesktopPane.this.requestFocusInWindow();
-            return;
-         }
-         JInternalFrame f = (JInternalFrame) jifs.getFirst();
-         while (!f.isVisible())
-         {
-            rotateLeft();
-            f = (JInternalFrame) jifs.getFirst();
-         }
-         try {
-            f.setSelected(true);
-         } catch (PropertyVetoException e2) {}
+            public void run()
+            {
+               SwingUtilities.invokeLater(new Runnable()
+               {
+                  public void run()
+                  {
+                     if (noNextFrame())
+                     {
+                        MyDesktopPane.this.requestFocusInWindow();
+                        return;
+                     }
+                     JInternalFrame f = (JInternalFrame) jifs.getFirst();
+                     while (!f.isVisible())
+                     {
+                        rotateLeft();
+                        f = (JInternalFrame) jifs.getFirst();
+                     }
+                     try {
+                        f.setSelected(true);
+                     } catch (PropertyVetoException e2) {}
+                  }
+               });
+            }
+         }.start();
       }
       
       private boolean noNextFrame()
