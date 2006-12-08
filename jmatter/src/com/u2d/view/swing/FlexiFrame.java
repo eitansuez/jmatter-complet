@@ -26,6 +26,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
 {
    private List<JComponent> _views = new ArrayList<JComponent>();
    private TabContainer _tabPane = new TabContainer();
+   private static TabFocusListener _tabFocusListener = new TabFocusListener();
    
    public FlexiFrame()
    {
@@ -70,7 +71,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          _tabPane.addTab(view);
       }
 
-      revalidate(); repaint();
+      updateSize();
    }
    
    public void stateChanged(final ChangeEvent e)
@@ -108,6 +109,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          _tabPane.removeTab(_views.get(0));
          remove(_tabPane);
          setContentPane(_views.get(0));
+         requestFocusInWindow();
       }
       else
       {
@@ -308,7 +310,8 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          detach(index);
          View aView = viewFor(view);
          super.insertTab(aView.getTitle(), aView.iconSm(), view, null, index);
-         setSelectedIndex(index);
+         setSelectedComponent(view);
+         requestFocusInWindow(view);
          if (view instanceof EView)
          {
             ((EView) view).getEObject().addChangeListener(this);
@@ -320,6 +323,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          View aView = viewFor(comp);
          super.addTab(aView.getTitle(), aView.iconSm(), comp);
          setSelectedComponent(comp);
+         requestFocusInWindow(comp);
          setupKeyBindingForTabIndex(getTabCount()-1);
          if (comp instanceof EView)
          {
@@ -372,7 +376,15 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          }
       }
       
-   }
+      private void requestFocusInWindow(JComponent comp)
+      {
+         // delay request to get around problem with getting focus..
+         comp.addComponentListener(_tabFocusListener);
+      }
+   
+
+   }  // end class TabContainer
+   
    
    class ViewAdapter implements View
    {
@@ -415,5 +427,23 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       public Icon iconLg() { return null; }
       public boolean withTitlePane() { return false; }
    }
+   
+   static class TabFocusListener extends ComponentAdapter
+   {
+      public void componentShown(ComponentEvent e)
+      {
+         Component c = e.getComponent();
+         Container parent = c.getParent();
+         if (parent instanceof JTabbedPane)
+         {
+            JTabbedPane tp = (JTabbedPane) parent;
+            if (tp.getSelectedComponent() == c)
+            {
+               c.requestFocusInWindow();
+            }
+         }
+      }
+   }
+   
 }
 
