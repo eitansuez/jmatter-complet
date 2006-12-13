@@ -60,15 +60,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/flexdock-0.4.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/src/jibx-extras.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -189,15 +180,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/src/jdnc/jlfgr-1_0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/l2fprod-common-all.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -435,6 +417,24 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/test/junit.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/src/l2fprod-common-outlookbar.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/src/swingx-2006_10_27.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

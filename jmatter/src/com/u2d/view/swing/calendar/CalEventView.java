@@ -13,11 +13,13 @@ import com.u2d.model.EObject;
 import com.u2d.ui.*;
 import com.u2d.view.*;
 import com.u2d.view.swing.list.CommandsContextMenuView;
+import org.jdesktop.swingx.JXPanel;
 
 /**
  * @author Eitan Suez
  */
-public class CalEventView extends JPanel implements ComplexEView
+public class CalEventView extends JXPanel
+      implements ComplexEView
 {
    private CalEvent _event;
    private transient CommandsContextMenuView _cmdsView;
@@ -39,13 +41,9 @@ public class CalEventView extends JPanel implements ComplexEView
       setLayout(new BorderLayout());
       _header = new Header();
       _body = new FancyLabel();
-
-      if (schedule != null)
-      {
-         _header.setBackground(schedule.getColor());
-         _body.setupColor(schedule.getColor());
-      }
-
+      
+      setupColor(schedule);
+      
       add(_header, BorderLayout.NORTH);
       add(_body, BorderLayout.CENTER);
 
@@ -55,6 +53,14 @@ public class CalEventView extends JPanel implements ComplexEView
       setTransferHandler(new EOTransferHandler(this));
 
       stateChanged(null);
+   }
+   
+   // an attempt (not yet working) to give the caleventview rounded corners
+   private void setupColor(Schedule schedule)
+   {
+      if (schedule == null) return;
+      _header.setBackground(schedule.getColor());
+      _body.setupColor(schedule.getColor());
    }
 
    public void propertyChange(final PropertyChangeEvent evt)
@@ -77,12 +83,8 @@ public class CalEventView extends JPanel implements ComplexEView
                _header.setFont(_body.getFont());
 
                Schedule schedule = _event.schedulable().schedule();
-                if (schedule != null)
-                {
-                  _header.setBackground(schedule.getColor());
-                  _body.setupColor(schedule.getColor());
-                }
-                revalidate(); repaint();  // picks up timespan changes
+               setupColor(schedule);
+               revalidate(); repaint();  // picks up timespan changes
             }
          });
    }
