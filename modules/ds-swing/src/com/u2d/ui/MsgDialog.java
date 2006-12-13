@@ -3,6 +3,8 @@
  */
 package com.u2d.ui;
 
+import org.jdesktop.swingx.JXPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,14 +17,13 @@ public class MsgDialog extends JWindow
 
    MsgDialog(Container parent, String msg, String title)
    {
-      JPanel content = (JPanel) getContentPane();
-      content.setOpaque(false);
+      JXPanel content = new JXPanel(new BorderLayout());
+      content.setAlpha(0.8f);
+      setContentPane(content);
 
       JPanel msgPnl = new JPanel();
-      msgPnl.setOpaque(false);
       msgPnl.setBorder(BorderFactory.createEmptyBorder(20,30,20,30));
       JLabel msgLabel = new JLabel(msg);
-      msgLabel.setOpaque(false);
       msgPnl.add(msgLabel);
       content.add(msgPnl, BorderLayout.CENTER);
 
