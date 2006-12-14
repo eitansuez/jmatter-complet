@@ -87,10 +87,6 @@
  <target name="run" description="run app" depends="genhbm">
    <java classname="${main.class}" classpathref="class.path" 
          fork="true" maxmemory="192m">
-    <!-- if you're on linux and if you love beryl, you'll need
-       to uncomment this..
-     <jvmarg value="-Dawt.toolkit=sun.awt.motif.MToolkit" />
-      -->
     <!-- to test localization, uncomment this..
      <sysproperty key="user.language" value="fr" />
       -->
