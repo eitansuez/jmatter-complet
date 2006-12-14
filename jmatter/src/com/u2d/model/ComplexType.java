@@ -286,7 +286,7 @@ public class ComplexType extends AbstractComplexEObject
             return fld;
          }
       }
-      if (!deep) return fld;
+      if (!deep) return null;
       
       // recurse to children of aggregate fields..
       for (int i=0; i<_type.fields().size(); i++)
