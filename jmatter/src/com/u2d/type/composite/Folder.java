@@ -16,8 +16,12 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.event.TreeModelListener;
 import org.hibernate.Session;
+import org.hibernate.NonUniqueResultException;
+
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Eitan Suez
@@ -130,20 +134,37 @@ public class Folder extends AbstractComplexEObject
 
    public static Folder fetchFolderByName(PersistenceMechanism pmech, String name)
    {
+      List folders = fetchFoldersByName(pmech, name);
+      if (folders.isEmpty())
+      {
+         return null;
+      }
+      else if (folders.size() > 1)
+      {
+         throw new NonUniqueResultException(folders.size());
+      }
+      return (Folder) folders.get(0);
+   }
+   public static List fetchFoldersByName(PersistenceMechanism pmech, String name)
+   {
       if (pmech instanceof HibernatePersistor)
       {
          HibernatePersistor hbp = (HibernatePersistor) pmech; 
          Session s = hbp.getSession();
-         Folder folder = (Folder) s.createQuery("from Folder where name = :name")
+         List folders = s.createQuery("from Folder where name = :name")
                .setParameter("name", name)
-               .uniqueResult();
-         if (folder != null)
-            folder.setReadState();
-         return folder;
+               .list();
+         for (int i=0; i<folders.size(); i++)
+         {
+            ((Folder) folders.get(i)).setReadState();
+         }
+         return folders;
       }
       else
       {
-         return new Folder();
+         List list = new ArrayList();
+         list.add(new Folder());
+         return list;
       }
    }
 
