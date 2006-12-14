@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templateSet group="jmatter">
+  <template name="aco" value="AbstractComplexEObject" description="AbstractComplexEObject" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="assist" value="private transient PhotoIconAssistant assistant = new PhotoIconAssistant(this, $FIELD_NAME$);&#10;public Icon iconLg() { return assistant.iconLg(); }&#10;public Icon iconSm() { return assistant.iconSm(); }&#10;" description="add photo icon assistant for a given property" toReformat="false" toShortenFQNames="true">
+    <variable name="FIELD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="bprop" value="public $FIELD_TYPE$ get$FN_CAP$() { return $FIELD_NAME$; }&#10;public void set$FN_CAP$($FIELD_TYPE$ $FIELD_NAME$)&#10;{&#10;   $FIELD_TYPE$ old$FN_CAP$ = this.$FIELD_NAME$;&#10;   this.$FIELD_NAME$ = $FIELD_NAME$;&#10;   firePropertyChange(&quot;$FIELD_NAME$&quot;, old$FN_CAP$, this.$FIELD_NAME$);&#10;}" description="bound property" toReformat="false" toShortenFQNames="true">
+    <variable name="FIELD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="FIELD_TYPE" expression="expectedType()" defaultValue="" alwaysStopAt="true" />
+    <variable name="FN_CAP" expression="capitalize(FIELD_NAME)" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="cc" value="public static Color colorCode = new Color($COLOR_CODE$);&#10;" description="color code" toReformat="false" toShortenFQNames="true">
+    <variable name="COLOR_CODE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="cmd" value="@Cmd(mnemonic='a')&#10;public $RETURNTYPE$ $CMD_NAME$(CommandInfo cmdInfo)&#10;{&#10;   $END$&#10;}&#10;" description="command method" toReformat="false" toShortenFQNames="true">
+    <variable name="CMD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="RETURNTYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="cri" value="$FTYPE$ $FNAME$ = ($FTYPE$) createInstance($FTYPE$.class);&#10;" description="create instance" toReformat="false" toShortenFQNames="true">
+    <variable name="FNAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="FTYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="eventmeta" value="public static String timespanFieldname = &quot;$TSFN$&quot;;&#10;public static String schedulableFieldname = &quot;$SCHEDFN$&quot;;&#10;" description="calevent metainfo" toReformat="false" toShortenFQNames="true">
+    <variable name="TSFN" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="SCHEDFN" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="flat" value="public static final String[] flattenIntoParent = {&quot;$FLD$&quot;};" description="flatten fields into parent" toReformat="false" toShortenFQNames="true">
+    <variable name="FLD" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="fo" value="public static String[] fieldOrder = {&quot;$FIELD1$&quot;, &quot;$FIELD2$&quot;$END$};&#10;" description="field order" toReformat="false" toShortenFQNames="true">
+    <variable name="FIELD1" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="FIELD2" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="ident" value="public static String[] identities = {&quot;$FLDNAME$&quot;};&#10;" description="identities metafield" toReformat="false" toShortenFQNames="true">
+    <variable name="FLDNAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="listprop" value="private final RelationalList $FIELD_NAME$ = new RelationalList($FIELD_TYPE$);&#10;public static Class $FIELD_NAME$Type = $FIELD_TYPE$;&#10;public static String $FIELD_NAME$InverseFieldName = &quot;$INV_FNAME$&quot;;&#10;public RelationalList get$FN_CAP$() { return $FIELD_NAME$; }&#10;" description="relational list one-many property" toReformat="false" toShortenFQNames="true">
+    <variable name="FIELD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="FIELD_TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="INV_FNAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="FN_CAP" expression="capitalize(FIELD_NAME)" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="mone" value="private $TYPE$ $FLD$;&#10;public static String $FLD$InverseFieldName = &quot;$INVERSE$&quot;;&#10;" description="many to one" toReformat="false" toShortenFQNames="true">
+    <variable name="FLD" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="INVERSE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="plu" value="public static String pluralName() { return &quot;$NAME$&quot;; }&#10;" description="pluralname" toReformat="false" toShortenFQNames="true">
+    <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="prop" value="private final $TYPE$ $FNAME$ = new $TYPE$();&#10;public $TYPE$ get$FN_CAP$() { return $FNAME$; }&#10;" description="basic property with getter.." toReformat="false" toShortenFQNames="true">
+    <variable name="FNAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="FN_CAP" expression="capitalize(FNAME)" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="search" value="public static String defaultSearchPath = &quot;$END$&quot;;" description="template for default search field specification" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="tv" value="public static String[] tabViews = {&quot;$FLDNAME$&quot;};&#10;" description="tab views" toReformat="false" toShortenFQNames="true">
+    <variable name="FLDNAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+</templateSet>
+

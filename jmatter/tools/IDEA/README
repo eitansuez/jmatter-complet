@@ -1,0 +1,47 @@
+August 2006
+
+JMatter IntelliJ IDEA Templates
+-------------------------------
+
+This tool thus far consists of one basic file template and a number
+of live templates that can significantly assist the development of
+JMatter applications within IDEA.
+
+Installation
+------------
+
+  1. Locate the base directory of your IntelliJ IDEA preferences directory.
+     On my disk it's ~/.IntelliJIdea60
+
+  2. Copy the file ACO.java to config/fileTemplates
+
+  3. Copy the file jmatter.xml to config/templates
+
+
+In IDEA
+-------
+
+After creating a Java project, you can create basic JMatter model
+objects in a manner similar to the creation of new classes:
+
+  Select a package in the side bar
+  Righ-click "New->ACO"
+  Specify the class name
+
+In the IDEA project settings, enter the "Live Templates" section.
+You can inspect the various live templates defined for jmatter
+under the "jmatter" tree node.
+
+Some examples include:
+
+       fo      -> expands to the metadata specification for fieldOrder
+       flat    -> expands to the 'flattenIntoParent' metadata specification
+       bprop   -> will write the bound property getter and setter methods for you
+       tv      -> tabViews..
+       plu     -> will write the pluralName() method to override the pluralname for a type
+
+
+Sincerely,
+  Eitan Suez
+  JMatter
+
