@@ -60,6 +60,17 @@ public class CompositeQuery extends AbstractComplexEObject
    public CompositeList getQuerySpecifications() { return _querySpecifications; }
 
 
+   public int validate()
+   {
+      int errCount = super.validate();
+      if (_querySpecifications.isEmpty())
+      {
+         _querySpecifications.fireValidationException("No query criteria specified.");
+         errCount++;
+      }
+      return errCount;
+   }
+
    public Criteria getCriteria()
    {
       HBMPersistenceMechanism p = hbmPersistor();
