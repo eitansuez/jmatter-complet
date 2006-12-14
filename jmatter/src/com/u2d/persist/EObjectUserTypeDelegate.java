@@ -6,6 +6,8 @@ package com.u2d.persist;
 import com.u2d.app.PersistenceMechanism;
 import com.u2d.app.Context;
 import com.u2d.model.*;
+import com.u2d.type.Choice;
+import com.u2d.type.AbstractChoiceEO;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.usertype.UserType;
@@ -61,6 +63,14 @@ public class EObjectUserTypeDelegate implements UserType
                }
             }
          }
+         else if (AbstractChoiceEO.class.isAssignableFrom(clazz))
+         {
+            if (value != null)
+            {
+               AbstractChoiceEO choice = (AbstractChoiceEO) clazz.newInstance();
+               eo = choice.get(value);
+            }
+         }
          else
          {
             long id = Long.parseLong(value);
@@ -94,6 +104,10 @@ public class EObjectUserTypeDelegate implements UserType
       if (value instanceof AtomicEObject)
       {
          stringValue = (value==null) ? "" : ((AtomicEObject) value).toString();
+      }
+      else if (value instanceof Choice)
+      {
+         stringValue = (value==null) ? "" : ((Choice) value).code();
       }
       else
       {
