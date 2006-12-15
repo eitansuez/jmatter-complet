@@ -46,4 +46,10 @@ public @interface Fld
     * @return field description.  possibly use as text for tool tips..
     */
    public String description() default "";
+
+   /**
+    * @return whether field should be persisted.  most of the time this is true.
+    *  for derived/calculated fields, this should be false.
+    */
+   public boolean persist() default true;
 }

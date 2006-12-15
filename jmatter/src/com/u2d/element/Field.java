@@ -29,7 +29,7 @@ public abstract class Field extends Member
    private String _cleanPath, _path, _naturalPath;
    private final StringEO _fullPath = new StringEO();
    private Title _title;
-
+   
    protected transient Method _getter, _setter;
 
    public static String[] fieldOrder = {"name", "fullPath", "label", "required", "mnemonic", 
@@ -400,6 +400,10 @@ public abstract class Field extends Member
    public StringEO getFormat() { return _format; }
    public String format() { return _format.stringValue(); }
 
+   private final BooleanEO _persist = new BooleanEO(true);
+   public BooleanEO getPersist() { return _persist; }
+   public boolean persist() { return _persist.booleanValue(); }
+
    private transient Method _requiredMethod;
    public void setRequiredMethod(Method method) { _requiredMethod = method; }
 
@@ -431,6 +435,7 @@ public abstract class Field extends Member
       {
          Fld fat = (Fld) _getter.getAnnotation(Fld.class);
          _mnemonic.setValue(fat.mnemonic());
+         _persist.setValue(fat.persist());
          
          if (!StringEO.isEmpty(fat.label()))
             getLabel().setValue(fat.label());

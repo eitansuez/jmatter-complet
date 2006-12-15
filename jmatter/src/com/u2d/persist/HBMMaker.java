@@ -102,6 +102,9 @@ public class HBMMaker
             continue;
          }
          
+         if (!field.persist())  // derived fields should be marked as such
+            continue;
+         
          if ( ComplexType.class.isAssignableFrom(field.getJavaClass()) || 
               EObject.class.equals(field.getJavaClass()) ||
               Inequality.class.equals(field.getJavaClass()) )
