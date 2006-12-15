@@ -16,7 +16,7 @@ import com.u2d.type.atom.IntEO;
 import com.u2d.type.atom.StringEO;
 import com.u2d.validation.Required;
 import com.u2d.view.*;
-import com.u2d.reflection.FieldAt;
+import com.u2d.reflection.Fld;
 
 /**
  * @author Eitan Suez
@@ -427,9 +427,9 @@ public abstract class Field extends Member
    
    public void applyMetadata()
    {
-      if (_getter.isAnnotationPresent(FieldAt.class))
+      if (_getter.isAnnotationPresent(Fld.class))
       {
-         FieldAt fat = (FieldAt) _getter.getAnnotation(FieldAt.class);
+         Fld fat = (Fld) _getter.getAnnotation(Fld.class);
          _mnemonic.setValue(fat.mnemonic());
          
          if (!StringEO.isEmpty(fat.label()))

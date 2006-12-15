@@ -18,12 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/class-list.xml" afterPath="$PROJECT_DIR$/src/com/u2d/class-list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/persistClasses.xml" afterPath="$PROJECT_DIR$/src/persistClasses.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovieLib.iws" afterPath="$PROJECT_DIR$/MovieLib.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovieLib.iml" afterPath="$PROJECT_DIR$/MovieLib.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovieLib.ipr" afterPath="$PROJECT_DIR$/MovieLib.ipr" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />

@@ -13,7 +13,7 @@ import java.lang.annotation.ElementType;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface FieldAt
+public @interface Fld
 {
    /**
     * @return optional mnemonic (for the gui)

@@ -9,7 +9,7 @@ import com.u2d.element.CommandInfo;
 import com.u2d.persist.HBMSingleSession;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
-import com.u2d.reflection.FieldAt;
+import com.u2d.reflection.Fld;
 import com.u2d.app.Context;
 import java.io.*;
 import java.util.List;
@@ -160,7 +160,7 @@ public class Song extends AbstractComplexEObject
 
    public StringEO getTitle() { return _title; }
 
-   @FieldAt(format="m:ss")
+   @Fld(format="m:ss")
    public TimeEO getDuration() { return _duration; }
 
    public Album getAlbum() { return _album; }

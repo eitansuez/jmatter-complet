@@ -8,7 +8,7 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.*;
 import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
-import com.u2d.reflection.FieldAt;
+import com.u2d.reflection.Fld;
 
 /**
  * @author Eitan Suez
@@ -43,7 +43,7 @@ public class Name extends AbstractComplexEObject
    }
 
    public StringEO getSalutation() { return _salutation; }
-   @FieldAt(mnemonic='f')
+   @Fld(mnemonic='f')
    public StringEO getFirst() { return _first; }
    public CharEO getMiddleInitial() { return _middleInitial; }
    public StringEO getLast() { return _last; }

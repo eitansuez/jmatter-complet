@@ -10,7 +10,7 @@ import com.u2d.type.composite.Contact;
 import com.u2d.list.RelationalList;
 import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
-import com.u2d.reflection.FieldAt;
+import com.u2d.reflection.Fld;
 import javax.swing.Icon;
 import java.awt.Color;
 
@@ -35,9 +35,9 @@ public class Speaker extends AbstractComplexEObject
 
    public Speaker() {}
 
-   @FieldAt(displaysize=12)
+   @Fld(displaysize=12)
    public StringEO getName() { return name; }
-   @FieldAt(displaysize=30)
+   @Fld(displaysize=30)
    public StringEO getTitle() { return title; }
    public TextEO getBio() { return bio; }
    public ImgEO getPhoto() { return photo; }

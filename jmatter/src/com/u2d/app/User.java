@@ -13,7 +13,7 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.pattern.*;
 import com.u2d.reflection.Arg;
 import com.u2d.reflection.Cmd;
-import com.u2d.reflection.FieldAt;
+import com.u2d.reflection.Fld;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
@@ -110,9 +110,9 @@ public class User extends AbstractComplexEObject
       hbmPersistor().deleteMany(itemsToDelete);
    }
 
-   @FieldAt(mnemonic='u')
+   @Fld(mnemonic='u')
    public StringEO getUsername() { return _username; }
-   @FieldAt(description = "Password.  Minimum 5 characters.")
+   @Fld(description = "Password.  Minimum 5 characters.")
    public Password getPassword() { return _password; }
    public BooleanEO getLocked() { return _locked; }
    public Name getName() { return _name; }
