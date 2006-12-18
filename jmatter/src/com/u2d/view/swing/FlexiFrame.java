@@ -159,7 +159,21 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       }
       updateSize();
    }
-   
+
+   public void close()
+   {
+      if (_tabPane.getTabCount() > 1 &&
+            _tabPane.getSelectedComponent() != null)
+      {
+         JComponent view = (JComponent) _tabPane.getSelectedComponent();
+         removeView(view);
+      }
+      else
+      {
+         super.close();
+      }
+   }
+
    public void dispose()
    {
       super.dispose();

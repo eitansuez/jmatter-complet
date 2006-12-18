@@ -78,7 +78,14 @@ public class CloseableJInternalFrame extends JInternalFrame
    {
       JInternalFrame jif = (JInternalFrame) SwingUtilities.getAncestorOfClass(JInternalFrame.class, comp);
       if (jif == null) return;
-      closeFrame(jif);
+      if (jif instanceof CloseableJInternalFrame)
+      {
+         ((CloseableJInternalFrame) jif).close();
+      }
+      else
+      {
+         closeFrame(jif);
+      }
    }
 
    public static void updateSize(Component comp)
