@@ -10,7 +10,6 @@ import com.u2d.view.ListEView;
 import com.u2d.pattern.State;
 import com.u2d.pattern.Block;
 import com.u2d.app.Tracing;
-import java.util.Iterator;
 import java.util.logging.Logger;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
@@ -136,7 +135,7 @@ public class CompositeList extends SimpleListEO
       });
    }
 
-   private void setParent(ComplexEObject ceo)
+   public void setParent(ComplexEObject ceo)
    {
       if (_setterMethod != null && _parent != null)
       {

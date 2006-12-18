@@ -47,4 +47,18 @@ public class CompositeIndexedField extends IndexedField
       count += get(parent).validate();
       return count;
    }
+
+
+   public void restore(ComplexEObject parent, Object value)
+   {
+      super.restore(parent, value);
+      final CompositeList list = (CompositeList) super.get(parent);
+      list.forEach(new Block()
+      {
+         public void each(ComplexEObject ceo)
+         {
+            list.setParent(ceo);
+         }
+      });
+   }
 }
