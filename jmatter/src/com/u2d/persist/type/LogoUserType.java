@@ -4,6 +4,8 @@ import com.u2d.type.atom.Logo;
 import com.u2d.type.atom.ImgEO;
 import org.hibernate.HibernateException;
 import org.hibernate.Hibernate;
+import org.hibernate.dialect.Dialect;
+import org.hibernate.dialect.H2Dialect;
 
 import javax.swing.*;
 
@@ -13,7 +15,7 @@ import javax.swing.*;
  *
  * @author Eitan Suez
  */
-public class LogoUserType extends BaseUserType
+public class LogoUserType extends ImgEOUserType
 {
    public boolean equals(Object x, Object y)
    {
@@ -28,22 +30,6 @@ public class LogoUserType extends BaseUserType
       return (value==null) ? new Logo() : new Logo(value);
    }
 
-   public void nullSafeSet(java.sql.PreparedStatement pstmt, Object value, int index)
-      throws HibernateException, java.sql.SQLException
-   {
-      ImageIcon imgValue = null;
-      if (value != null)
-      {
-         ImgEO eo = (ImgEO) value;
-         if (!eo.isEmpty())
-            imgValue = eo.imageValue();
-      }
-      Hibernate.SERIALIZABLE.nullSafeSet(pstmt, imgValue, index);
-   }
-
    public Class returnedClass() { return Logo.class; }
-
-   private static final int[] TYPES = { java.sql.Types.VARBINARY };
-   public int[] sqlTypes() { return TYPES; }
 
 }
