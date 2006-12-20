@@ -3,6 +3,8 @@ package com.u2d.persist.type;
 import com.u2d.type.atom.ImgEO;
 import org.hibernate.HibernateException;
 import org.hibernate.Hibernate;
+import org.hibernate.dialect.Dialect;
+import org.hibernate.dialect.H2Dialect;
 
 import javax.swing.*;
 
@@ -42,7 +44,15 @@ public class ImgEOUserType extends BaseUserType
 
    public Class returnedClass() { return ImgEO.class; }
 
-   private static final int[] TYPES = { java.sql.Types.VARBINARY };
-   public int[] sqlTypes() { return TYPES; }
+   private static int[] TYPES = { java.sql.Types.VARBINARY };
+   // h2 defaults to producing a varbinary(255) which is too small;  longvarbinary on 
+   // the other hand works fine.  on the other hand, postgres fails (doesn't support type -4)
+   // with longvarbinary so..
+   private static int[] H2_TYPES = { java.sql.Types.LONGVARBINARY };
+   
+   public int[] sqlTypes()
+   {
+      return (Dialect.getDialect() instanceof H2Dialect) ? H2_TYPES : TYPES;
+   }
 
 }
