@@ -400,6 +400,9 @@ public abstract class AbstractListEO extends AbstractEObject
             ((ListDataListener)listeners[i+1]).contentsChanged(e);
          }
       }
+      
+      // should trigger a change event as well:
+      fireStateChanged();
 
       if (_tableModel != null)
          _tableModel.fireTableChanged(new TableModelEvent(tableModel()));
@@ -419,6 +422,9 @@ public abstract class AbstractListEO extends AbstractEObject
          }         
       }
 
+      // should trigger a change event as well:
+      fireStateChanged();
+
       if (_tableModel != null)
          _tableModel.fireTableRowsInserted(index0, index1);
    }
@@ -436,6 +442,9 @@ public abstract class AbstractListEO extends AbstractEObject
             ((ListDataListener)listeners[i+1]).intervalRemoved(e);
          }
       }
+
+      // should trigger a change event as well:
+      fireStateChanged();
 
       if (_tableModel != null)
          _tableModel.fireTableRowsDeleted(index0, index1);
