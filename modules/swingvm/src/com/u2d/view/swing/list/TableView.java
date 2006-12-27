@@ -10,12 +10,12 @@ import javax.swing.table.*;
 import javax.swing.event.*;
 import java.util.*;
 import com.u2d.view.*;
+import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.model.*;
 import com.u2d.ui.*;
 import com.u2d.ui.sorttable.TableSortSupport;
 import com.u2d.ui.sorttable.SortTableModel;
 import com.u2d.field.Association;
-import com.u2d.app.Context;
 
 /**
  * @author Eitan Suez
@@ -186,7 +186,7 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
          if (comp == null)
          {
             ComplexEObject ceo = (ComplexEObject) value;
-            comp = (JComponent) Context.getInstance().swingvmech().getListItemViewAdapter(ceo);
+            comp = (JComponent) SwingViewMechanism.getInstance().getListItemViewAdapter(ceo);
             comp.setOpaque(true);
             _components.put(value, comp);
          }
@@ -205,7 +205,7 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
          {
             Association a = (Association) value;
             ComplexEObject ceo = a.get();
-            comp = (JComponent) Context.getInstance().swingvmech().getListItemViewAdapter(ceo);
+            comp = (JComponent) SwingViewMechanism.getInstance().getListItemViewAdapter(ceo);
             comp.setOpaque(true);
             _components.put(value, comp);
          }

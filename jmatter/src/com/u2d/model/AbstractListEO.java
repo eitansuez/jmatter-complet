@@ -209,12 +209,16 @@ public abstract class AbstractListEO extends AbstractEObject
    //  because it "provides default implementations for most of the methods 
    //  in the TableModel interface."
    
-   protected AbstractTableModel _tableModel = null;
+   protected TableModel _tableModel = null;
    public TableModel tableModel()
    {
       if (_tableModel == null)
          _tableModel = new LEOTableModel();
       return _tableModel;
+   }
+   public void useTableModel(TableModel model)
+   {
+      _tableModel = model;
    }
    
    public TableModel tableModel(final String[] fieldNames)
@@ -404,8 +408,8 @@ public abstract class AbstractListEO extends AbstractEObject
       // should trigger a change event as well:
       fireStateChanged();
 
-      if (_tableModel != null)
-         _tableModel.fireTableChanged(new TableModelEvent(tableModel()));
+      if (_tableModel != null && _tableModel instanceof AbstractTableModel)
+         ((AbstractTableModel) _tableModel).fireTableChanged(new TableModelEvent(tableModel()));
    }
 
    public void fireIntervalAdded(Object source, int index0, int index1)
@@ -425,8 +429,8 @@ public abstract class AbstractListEO extends AbstractEObject
       // should trigger a change event as well:
       fireStateChanged();
 
-      if (_tableModel != null)
-         _tableModel.fireTableRowsInserted(index0, index1);
+      if (_tableModel != null && _tableModel instanceof AbstractTableModel)
+         ((AbstractTableModel) _tableModel).fireTableRowsInserted(index0, index1);
    }
 
    public void fireIntervalRemoved(Object source, int index0, int index1)
@@ -446,8 +450,8 @@ public abstract class AbstractListEO extends AbstractEObject
       // should trigger a change event as well:
       fireStateChanged();
 
-      if (_tableModel != null)
-         _tableModel.fireTableRowsDeleted(index0, index1);
+      if (_tableModel != null && _tableModel instanceof AbstractTableModel)
+         ((AbstractTableModel) _tableModel).fireTableRowsDeleted(index0, index1);
    }
    
    public void jibxAdd(Object obj)

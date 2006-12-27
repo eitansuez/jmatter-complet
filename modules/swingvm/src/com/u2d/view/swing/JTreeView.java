@@ -17,7 +17,6 @@ import com.u2d.ui.SeeThruTree;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.Selectable;
 import com.u2d.view.EView;
-import com.u2d.app.Context;
 
 /**
  * @author Eitan Suez
@@ -57,8 +56,7 @@ public class JTreeView extends SeeThruTree implements ComplexEView, TreeCellRend
       if (eo instanceof ComplexEObject)
       {
          ComplexEObject ceo = (ComplexEObject) node;
-         comp = (JComponent) Context.getInstance().swingvmech().
-               getListItemViewAdapter(ceo);
+         comp = (JComponent) SwingViewMechanism.getInstance().getListItemViewAdapter(ceo);
       }
       else if (eo instanceof AbstractListEO)
       {

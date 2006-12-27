@@ -9,6 +9,7 @@ import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
 import com.u2d.find.Query;
 import com.u2d.view.swing.list.TableView;
+import com.u2d.view.ListEView;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,10 +40,12 @@ public class SimpleReport extends AbstractComplexEObject
    public RelationalList getFields() { return _fields; }
    
    @Cmd(mnemonic='x')
-   public TableView Execute(CommandInfo cmdInfo)
+   public ListEView Execute(CommandInfo cmdInfo)
    {
       CriteriaListEO leo = _query.execute();
-      return new TableView(leo, leo.tableModel(_fields.getItems()));
+      leo.useTableModel(leo.tableModel(_fields.getItems()));
+      return vmech().getListViewAsTable(leo);
+//      return new TableView(leo, leo.tableModel(_fields.getItems()));
    }
    
    public Title title() { return _name.title(); }

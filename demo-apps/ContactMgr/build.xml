@@ -12,7 +12,6 @@
 
  <property name="lib.dir" location="${lib.basedir}/src" />
  <property name="lib.tools.dir" location="${lib.basedir}/tools" />
- <property name="lib.web.dir" location="${lib.basedir}/web" />
 
  <property name="jws-dist.dir" location="jws-dist" />
  <property name="dist.dir" location="dist" />
@@ -33,7 +32,6 @@
    <fileset dir="${lib.dir}" includes="**/*.jar" />
    <pathelement location="${build.classes.dir}" />
    <pathelement location="${framework.classes.dir}" />
-   <fileset dir="${lib.web.dir}" includes="**/*.jar" />
  </path>
 
  <target name="init">
@@ -190,7 +188,7 @@
 
    <mkdir dir="${jws-dist.dir}/lib" />
    <copy todir="${jws-dist.dir}/lib">
-     <fileset dir="${lib.dir}" includes="**/*.jar" />
+     <fileset dir="${lib.dir}" includes="**/*.jar" excludes="wingsvm.jar,wingsvm/*.jar" />
    </copy>
 
    <make-jnlp template="resources/jws/dynamic/project-jnlp.vm" 
@@ -269,12 +267,11 @@
 
     <copy file="resources/web/WEB-INF/classes/commons-logging.properties" todir="${build.web.dir}/WEB-INF/classes" />
     <copy todir="${build.web.dir}/WEB-INF/classes">
-       <fileset dir="${build.classes.dir}" includes="**/*" />
+       <fileset dir="${build.classes.dir}" includes="**/*" excludes="*.xml" />
        <fileset dir="${framework.classes.dir}" includes="**/*" />
     </copy>
     <copy todir="${build.web.dir}/WEB-INF/lib" flatten="true">
-       <fileset dir="${lib.dir}" includes="**/*.jar" />
-       <fileset dir="${lib.web.dir}" includes="**/*.jar" />
+       <fileset dir="${lib.dir}" includes="**/*.jar" excludes="servlet-api-*.jar,swingvm.jar,swingvm/*.jar" />
     </copy>
     <copy todir="${build.web.dir}">
       <fileset dir="resources/web" excludes="*.xml" />
@@ -286,8 +283,7 @@
       <war destfile="build/nfjsmgr.war"
            webxml="resources/wings-web.xml">
          <classes dir="${build.classes.dir}" />
-         <lib dir="${lib.dir}" includes="**/*.jar" />
-         <lib dir="${lib.web.dir}" includes="**/*.jar" />
+         <lib dir="${lib.dir}" includes="**/*.jar" excludes="servlet-api-*.jar,swingvm.jar,swingvm/*.jar" />
       </war>
    </target>
 

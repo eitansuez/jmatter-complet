@@ -3,7 +3,6 @@ package com.u2d.app;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationContext;
 import org.springframework.beans.BeansException;
-import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.pubsub.AppEventSupport;
 import com.u2d.pubsub.AppEventNotifier;
 import com.u2d.pubsub.AppEventListener;
@@ -56,10 +55,6 @@ public class Context implements ApplicationContextAware, AppEventNotifier
 
    // ---
    
-   public SwingViewMechanism swingvmech()
-   {
-      return (SwingViewMechanism) getViewMechanism();
-   }
    public HBMPersistenceMechanism hbmpersitor()
    {
       return (HBMPersistenceMechanism) getPersistenceMechanism();

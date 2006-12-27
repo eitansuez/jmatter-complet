@@ -12,8 +12,6 @@ import com.u2d.model.EObject;
 import com.u2d.ui.*;
 import com.u2d.view.*;
 import com.u2d.view.swing.SwingViewMechanism;
-import com.u2d.app.Context;
-
 import java.awt.*;
 import java.awt.datatransfer.Transferable;
 
@@ -91,13 +89,11 @@ public class JListView extends SeeThruList
          EView view = null;
          if (_asIcons)
          {
-            view = Context.getInstance().swingvmech().
-                  getIconViewAdapter(ceo);
+            view = SwingViewMechanism.getInstance().getIconViewAdapter(ceo);
          }
          else
          {
-            view = Context.getInstance().swingvmech().
-                  getListItemViewAdapter(ceo);
+            view = SwingViewMechanism.getInstance().getListItemViewAdapter(ceo);
 
             // ensure that if a change takes place in an item in the list,
             // that the list gets repainted: 

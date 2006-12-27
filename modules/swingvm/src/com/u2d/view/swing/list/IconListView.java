@@ -10,8 +10,6 @@ import com.u2d.ui.FlexibleListCellRenderer;
 import com.u2d.ui.IconList;
 import com.u2d.view.*;
 import com.u2d.view.swing.SwingViewMechanism;
-import com.u2d.app.Context;
-
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.border.Border;
@@ -24,7 +22,7 @@ public class IconListView extends IconList
                           implements ListEView, FlexibleListCellRenderer
 {
    protected AbstractListEO _leo;
-   private SwingViewMechanism vmech = Context.getInstance().swingvmech();
+   private SwingViewMechanism vmech = SwingViewMechanism.getInstance();
    
    public IconListView(AbstractListEO leo)
    {

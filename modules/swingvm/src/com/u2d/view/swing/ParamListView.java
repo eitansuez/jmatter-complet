@@ -16,7 +16,6 @@ import com.u2d.view.swing.atom.TypePicker;
 import com.u2d.ui.Caption;
 import com.u2d.field.Association;
 import com.u2d.field.DynaAssociationStrategy;
-import com.u2d.app.Context;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -90,8 +89,7 @@ public class ParamListView extends JPanel implements View
                ComplexType type = ComplexType.forClass(paramInfo[i].type());
                DynaAssociationStrategy das = new DynaAssociationStrategy(type);
                Association association = new Association(das);
-               SwingViewMechanism vmech = Context.getInstance().swingvmech();
-               view = vmech.getAssociationView(association);
+               view = SwingViewMechanism.getInstance().getAssociationView(association);
                eo = das;
             }
             else

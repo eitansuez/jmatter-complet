@@ -782,7 +782,7 @@ public class SwingViewMechanism implements ViewMechanism
                   ComplexEObject selected = component.selectedEO();
                   if (selected == null)
                   {
-                     Context.getInstance().swingvmech().onMessage("No items selected");
+                     getInstance().onMessage("No items selected");
                      return;
                   }
                   try
@@ -832,6 +832,16 @@ public class SwingViewMechanism implements ViewMechanism
             }
          });
       }
+   }
+   
+   public static SwingViewMechanism getInstance()
+   {
+      ViewMechanism vmech = Context.getInstance().getViewMechanism();
+      if (! (vmech instanceof SwingViewMechanism) )
+      {
+         throw new RuntimeException("Application is not configured to run with Swing View Mechanism");
+      }
+      return (SwingViewMechanism) vmech;
    }
 
 }

@@ -15,7 +15,7 @@ import javax.swing.event.ListDataEvent;
 import java.awt.*;
 import java.awt.event.*;
 import com.u2d.view.*;
-import com.u2d.app.Context;
+import com.u2d.view.swing.SwingViewMechanism;
 import com.jgoodies.forms.builder.ButtonStackBuilder;
 import java.util.*;
 
@@ -60,7 +60,7 @@ public class CalendarView extends JPanel implements ComplexEView
                if (calEvt.isEditableState() && calView instanceof Editor)
                   calEvt.setEditor((Editor) calView);
 
-               Context.getInstance().swingvmech().displayView(calView, null);
+               SwingViewMechanism.getInstance().displayView(calView, null);
             }
          });
       

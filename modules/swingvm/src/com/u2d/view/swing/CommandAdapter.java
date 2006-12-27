@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 import com.u2d.element.Command;
 import com.u2d.view.*;
-import com.u2d.app.Context;
 
 /**
  * Adapter for javax.swing.Action
@@ -78,7 +77,7 @@ public class CommandAdapter extends AbstractAction
 
    public void actionPerformed(ActionEvent evt)
    {
-      Context.getInstance().swingvmech().setCursor(WAITCURSOR);
+      SwingViewMechanism.getInstance().setCursor(WAITCURSOR);
 
       new Thread()
       {
@@ -91,7 +90,7 @@ public class CommandAdapter extends AbstractAction
             }
             catch (java.lang.reflect.InvocationTargetException ex)
             {
-               Context.getInstance().swingvmech().displayFrame(new ExceptionFrame(ex));
+               SwingViewMechanism.getInstance().displayFrame(new ExceptionFrame(ex));
             }
             finally
             {
@@ -99,7 +98,7 @@ public class CommandAdapter extends AbstractAction
                {
                   public void run()
                   {
-                     Context.getInstance().swingvmech().setCursor(Cursor.getDefaultCursor());
+                     SwingViewMechanism.getInstance().setCursor(Cursor.getDefaultCursor());
                   }
                });
             }

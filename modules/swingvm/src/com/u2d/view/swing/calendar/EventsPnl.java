@@ -10,7 +10,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.util.*;
 import com.u2d.calendar.*;
-import com.u2d.app.Context;
 
 /**
  * @author Eitan Suez
@@ -54,7 +53,7 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ChangeListe
    {
       removeAll();
 
-      Context.getInstance().swingvmech().setCursor(
+      SwingViewMechanism.getInstance().setCursor(
               Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
       try
@@ -72,7 +71,7 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ChangeListe
       }
       finally
       {
-         Context.getInstance().swingvmech().setCursor(Cursor.getDefaultCursor());
+         SwingViewMechanism.getInstance().setCursor(Cursor.getDefaultCursor());
       }
    }
 

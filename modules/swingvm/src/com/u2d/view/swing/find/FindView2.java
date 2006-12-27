@@ -11,12 +11,12 @@ import com.u2d.model.ComplexType;
 import com.u2d.model.Editor;
 import com.u2d.view.*;
 import com.u2d.view.swing.CommandAdapter;
+import com.u2d.view.swing.SwingViewMechanism;
 import java.awt.*;
 import java.awt.event.*;
 import com.u2d.ui.*;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.find.CompositeQuery;
-import com.u2d.app.Context;
 import com.jgoodies.forms.builder.ButtonBarBuilder;
 
 
@@ -103,8 +103,7 @@ public class FindView2 extends JSplitPane implements View
                {
                   EView view = query.getMainView();
                   query.setEditor((Editor) view);
-                  Context.getInstance().swingvmech().
-                        displayView(view, null);
+                  SwingViewMechanism.getInstance().displayView(view, null);
                }
             });
 
@@ -138,7 +137,7 @@ public class FindView2 extends JSplitPane implements View
                   SwingUtilities.getAncestorOfClass(JInternalFrame.class, FindView2.this);
                MsgDialog.showMsgDlg(jif, "No (0) matching search results", "No match found");
                // put a message in the status bar as well..
-               Context.getInstance().swingvmech().onMessage("No matching search results");
+               SwingViewMechanism.getInstance().onMessage("No matching search results");
             }
 //            else if (cleo.getSize() == 1)
 //            {
