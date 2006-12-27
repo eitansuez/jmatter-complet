@@ -2,7 +2,6 @@ package com.u2d.view.wings;
 
 import com.u2d.view.View;
 import com.u2d.view.EView;
-import com.u2d.view.swing.atom.TypePicker;
 import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.ParameterInfo;
