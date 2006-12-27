@@ -18,15 +18,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/find/FindView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/find/FindView.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/HBMPracticeTool.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/AssociationEditor.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/AssociationEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/project-template/build.xml" afterPath="$PROJECT_DIR$/resources/project-template/build.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/swingvm/swingx-2006_10_27.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/swingvm/AppleJavaExtensions.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/swingvm/ds-swing.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jexplose.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/mysql-connector-java-5.0.0-beta-bin.jar" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/jdbc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/swingvm/forms-1.0.7.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/swingvm/Date_selector.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/swingvm/l2fprod-common-outlookbar.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/swingvm/jexplose.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hsqldb.jar" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/wingsvm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/jdbc/h2.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/swingvm/animation.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/h2.jar" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/jdbc/postgresql-8.1-407.jdbc3.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/jdbc/mysql-connector-java-5.0.0-beta-bin.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/postgresql-8.1-407.jdbc3.jar" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/swingvm" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/l2fprod-common-outlookbar.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/forms-1.0.7.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/Date_selector.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/ds-swing.jar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/find/FindView2.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/find/FindView2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/list/CriteriaListEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/list/CriteriaListEO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/project-template/build-standalone.xml" afterPath="$PROJECT_DIR$/resources/project-template/build-standalone.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/find/FindForm.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/find/FindForm.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/animation.jar" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/jdbc/hsqldb.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingx-2006_10_27.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/AppleJavaExtensions.jar" afterPath="" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -252,34 +271,6 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="JMatter" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.view.swing.find" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.view.swing" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
       <PATH>
@@ -742,7 +733,7 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FlexiFrame.java">
+    <entry file="file://FlexiFrame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
@@ -786,21 +777,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/wings/OutlookFolderView.java">
+    <entry file="file://OutlookFolderView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="52" column="27" selection-start="1397" selection-end="1397" vertical-scroll-proportion="0.33222038">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/wings/AppFrame.java">
+    <entry file="file://AppFrame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="165" column="36" selection-start="4579" selection-end="4579" vertical-scroll-proportion="0.33222038">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -818,30 +805,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/find/FindForm.java">
+    <entry file="file://FindForm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="65" column="6" selection-start="1725" selection-end="1725" vertical-scroll-proportion="0.33222038">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/find/FindView2.java">
+    <entry file="file://FindView2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="135" column="13" selection-start="3663" selection-end="3663" vertical-scroll-proportion="0.38230383">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/find/FindView.java">
+    <entry file="file://FindView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="47" column="0" selection-start="1157" selection-end="1157" vertical-scroll-proportion="0.15025042">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -852,12 +833,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AssociationEditor.java">
+    <entry file="file://AssociationEditor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="198" column="22" selection-start="5554" selection-end="5562" vertical-scroll-proportion="0.33222038">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
