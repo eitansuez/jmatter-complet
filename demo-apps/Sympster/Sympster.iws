@@ -18,8 +18,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Talk.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Talk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Speaker.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Speaker.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sympster.iws" afterPath="$PROJECT_DIR$/Sympster.iws" />
     </list>
   </component>
