@@ -18,32 +18,74 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/web/spring-web.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/src/swingvm.jar" afterPath="$PROJECT_DIR$/lib/src/swingvm.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/wingsvm/spring-web.jar" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/web/wings.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/web/servlet-api-2.5-6.0.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/web/commons-httpclient-2.0-beta1.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/Context.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/Context.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/wingsvm/servlet-api-2.5-6.0.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/wingsvm/kdeclassic-lfgr.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/ds-swing.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/wingsvm/css.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/wingsvm/dwr.jar" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingvm/ds-swing.jar" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/wingsvm/wings.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iml" afterPath="$PROJECT_DIR$/JMatter.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/reporting/SimpleReport.java" afterPath="$PROJECT_DIR$/src/com/u2d/reporting/SimpleReport.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/web/dwr.jar" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/wingsvm/commons-httpclient-2.0-beta1.jar" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/web/bsh-core.jar" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/wingsvm/jdom.jar" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/web/css.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/web/jdom.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jdbc/mysql-connector-java-5.0.0-beta-bin.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm/wings.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingvm/l2fprod-common-outlookbar.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/ds-wizard.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/spring" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jibx-extras.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/commons-collections-2.1.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/spring/spring-core.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm/kdeclassic-lfgr.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/spring/spring-beans.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jfree/poi-3.0-alpha1-20050704.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/ehcache-1.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/spring/aopalliance.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/cglib-2.1.3.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/asm.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jfree/bsh-1.3.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jfree" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/antlr-2.7.6.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingvm.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/iText.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/commons-pool-1.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingvm/swingx-2006_10_27.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/statemap.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/asm-attrs.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jfree/libfonts-0.1.4.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm/spring-web.jar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/web/kdeclassic-lfgr.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/src/wingsvm/bsh-core.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/jta.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm/jdom.jar" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/runtime" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jfree/pixie-0.8.4.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingvm/AppleJavaExtensions.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jibx-run.jar" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/project-template/build.xml" afterPath="$PROJECT_DIR$/resources/project-template/build.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/spring/spring-context.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/json.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingvm/forms-1.0.7.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm/commons-httpclient-2.0-beta1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingvm/Date_selector.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm/css.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/commons-logging-1.0.4.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jdbc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hibernate3.jar" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jfree/jcommon-xml-1.0.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm/servlet-api-2.5-6.0.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jfree/bsf-2.3.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/dom4j-1.6.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingvm/jexplose.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/spring/spring-aop.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jfree/jcommon-1.0.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingvm/animation.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/jaxen-1.1-beta-7.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jdbc/h2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/swingvm" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/project-template/build-standalone.xml" afterPath="$PROJECT_DIR$/resources/project-template/build-standalone.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jdbc/hsqldb.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/hb/jdbc2_0-stdext.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/ds-swing.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jfreereport-0.8.7.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/xpp3.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm/dwr.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/jdbc/postgresql-8.1-407.jdbc3.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/src/wingsvm/bsh-core.jar" afterPath="" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -290,24 +332,6 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-1.5.0-sun-1.5.0.08/jre/lib/rt.jar!/javax/swing/table" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/lib/src/swingvm.jar!/com/u2d/view/swing/list" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>

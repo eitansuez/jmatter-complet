@@ -11,13 +11,13 @@
   <property name="lib.dir" location="lib" />
   <property name="resource.dir" location="resources" />
   
-  <property name="src.lib.dir" location="${lib.dir}/src" />
+  <property name="runtime.lib.dir" location="${lib.dir}/runtime" />
   <property name="tools.lib.dir" location="${lib.dir}/tools" />
   <property name="gen.lib.dir" location="${lib.dir}/gen" />
   <property name="web.lib.dir" location="${lib.dir}/web" />
 
   <path id="class.path">
-    <fileset dir="${src.lib.dir}" includes="**/*.jar" />
+    <fileset dir="${runtime.lib.dir}" includes="**/*.jar" />
     <fileset dir="${web.lib.dir}" includes="**/*.jar" />
     <pathelement location="${build.classes.dir}" />
   </path>
@@ -148,8 +148,8 @@
      <classpath>
        <pathelement location="${tools.lib.dir}/bcel.jar" />
        <pathelement location="${tools.lib.dir}/jibx-bind.jar" />
-       <pathelement location="${src.lib.dir}/jibx-run.jar" />
-       <pathelement location="${src.lib.dir}/xpp3.jar" />
+       <pathelement location="${runtime.lib.dir}/jibx-run.jar" />
+       <pathelement location="${runtime.lib.dir}/xpp3.jar" />
      </classpath>
    </taskdef>
 
@@ -157,7 +157,7 @@
    <target name="bind" depends="compile" description="run JiBX binding compiler">
      <bind binding="${resource.dir}/binding.xml">
        <classpathset dir="${build.classes.dir}" />
-       <classpathset dir="${src.lib.dir}/jibx-run.jar" />
+       <classpathset dir="${runtime.lib.dir}/jibx-run.jar" />
      </bind>
    </target>
    
@@ -192,7 +192,7 @@
         <fileset dir="${lib.dir}" excludes="gen/**" />
       </copy>
       <copy file="${dist.dir}/${ant.project.name}.jar"
-            todir="${np.basedir}/lib/src" />
+            todir="${np.basedir}/lib/runtime" />
       <move file="${np.basedir}/build-standalone.xml" tofile="${np.basedir}/build.xml" />
    </target>
 

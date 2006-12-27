@@ -10,7 +10,7 @@
  <property name="framework.classes.dir" location="${framework.dir}/build/classes" />
  <property name="lib.basedir" location="${framework.dir}/lib" />
 
- <property name="lib.dir" location="${lib.basedir}/src" />
+ <property name="lib.dir" location="${lib.basedir}/runtime" />
  <property name="lib.tools.dir" location="${lib.basedir}/tools" />
 
  <property name="jws-dist.dir" location="jws-dist" />
