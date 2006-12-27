@@ -6,7 +6,6 @@ package com.u2d.view.swing.find;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import org.hibernate.HibernateException;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -132,7 +131,7 @@ public class FindForm extends JPanel
       return query;
    }
    
-   public CriteriaListEO doFind() throws HibernateException
+   public CriteriaListEO doFind()
    {
       return query().Execute(null);
    }

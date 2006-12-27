@@ -4,7 +4,6 @@
 package com.u2d.view.swing.find;
 
 import javax.swing.*;
-import org.hibernate.HibernateException;
 import java.awt.*;
 import java.awt.event.*;
 import com.u2d.element.Command;
@@ -80,17 +79,7 @@ public class FindView extends JPanel implements View
        {
          public void execute(Object value, EView source)
          {
-            CriteriaListEO cleo = null;
-            try
-            {
-               cleo = _findForm.doFind();
-            }
-            catch (HibernateException ex)
-            {
-               System.err.println("HibernateException: "+ex.getMessage());
-               ex.printStackTrace();
-               return;
-            }
+            CriteriaListEO cleo = _findForm.doFind();
             
             ViewMechanism vmech = Context.getInstance().getViewMechanism();
             if (cleo.isEmpty())

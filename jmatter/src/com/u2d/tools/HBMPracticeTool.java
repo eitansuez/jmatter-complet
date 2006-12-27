@@ -1,7 +1,7 @@
 /*
  * Created on Sep 7, 2004
  */
-package com.u2d.view.swing;
+package com.u2d.tools;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -11,6 +11,8 @@ import com.u2d.ui.MyTextArea;
 import com.u2d.view.*;
 import com.u2d.view.swing.dnd.*;
 import com.u2d.view.swing.list.ListEOFrame;
+import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.view.swing.EOFrame;
 import com.u2d.app.*;
 import com.u2d.list.PlainListEObject;
 import com.u2d.model.ComplexEObject;

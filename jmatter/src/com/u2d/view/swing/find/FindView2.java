@@ -4,7 +4,6 @@
 package com.u2d.view.swing.find;
 
 import javax.swing.*;
-import org.hibernate.HibernateException;
 import com.u2d.element.Command;
 import com.u2d.field.Association;
 import com.u2d.list.CriteriaListEO;
@@ -130,20 +129,8 @@ public class FindView2 extends JSplitPane implements View
        {
          public void execute(Object value, EView source)
          {
-            CriteriaListEO cleo = null;
-
-            try
-            {
-               cleo = _findForm.doFind();
-               cleo.setPickState(_association);
-            }
-            catch (HibernateException ex)
-            {
-               System.err.println("HibernateException: "+ex.getMessage());
-               ex.printStackTrace();
-               return;
-            }
-
+            CriteriaListEO cleo = _findForm.doFind();
+            cleo.setPickState(_association);
 
             if (cleo.isEmpty())
             {

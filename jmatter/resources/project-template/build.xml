@@ -176,7 +176,7 @@
  </target>
 
  <target name="hbm-practice" description="run hbm practice tool" depends="genhbm">
-   <java classname="com.u2d.view.swing.HBMPracticeTool" classpathref="class.path"
+   <java classname="com.u2d.tools.HBMPracticeTool" classpathref="class.path"
          fork="true" maxmemory="128m" />
  </target>
 

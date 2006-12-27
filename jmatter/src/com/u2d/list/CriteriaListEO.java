@@ -40,7 +40,7 @@ public class CriteriaListEO extends AbstractListEO implements Paginable
    }
 
 
-   public void setQuery(Query query) throws HibernateException
+   public void setQuery(Query query)
    {
       _query = query;
       Field sortField = _query.getQueryType().sortField();
