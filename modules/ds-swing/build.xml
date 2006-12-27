@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <project name="ds-swing" default="jar">
-   <description>DSAllergy Swing Classes and Extras</description>
+   <description>JMatter Swing Classes and Utilities</description>
    
    <property name="srcdir" location="src" />
    <property name="builddir" location="build" />

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <project name="ds-wizard" default="jar">
-   <description>DSAllergy Wizard Infrastructure</description>
+   <description>JMatter Wizard Infrastructure</description>
    
    <property name="srcdir" location="src" />
    <property name="builddir" location="build" />
