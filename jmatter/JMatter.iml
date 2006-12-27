@@ -15,7 +15,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/asm-attrs.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/swingvm.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -24,7 +24,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/commons-logging-1.0.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/json.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -33,7 +33,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/cglib-2.1.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jibx-extras.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -42,7 +42,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/asm.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/commons-pool-1.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -51,7 +51,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jibx-extras.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jibx-run.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -60,7 +60,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/xpp3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -69,7 +69,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/jdbc2_0-stdext.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jfreereport-0.8.7.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -78,7 +78,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jibx-run.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/iText.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -87,7 +87,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/jta.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/ds-swing.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -96,7 +96,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/commons-pool-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/ds-wizard.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -105,7 +105,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/jaxen-1.1-beta-7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/hibernate3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -114,7 +114,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jfree/bsh-1.3.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/xpp3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -123,7 +123,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/statemap.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/statemap.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -132,18 +132,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/iText.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../thirdparty/iText" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jfree/pixie-0.8.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/kdeclassic-lfgr.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -152,18 +141,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hibernate3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../thirdparty/hibernate-3.2/src" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/dom4j-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/spring-web.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -172,7 +150,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/commons-collections-2.1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/commons-httpclient-2.0-beta1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -181,7 +159,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jfreereport-0.8.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/servlet-api-2.5-6.0.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -190,7 +168,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jfree/poi-3.0-alpha1-20050704.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/jdom.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -199,7 +177,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jfree/jcommon-xml-1.0.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/wings.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -208,7 +186,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jfree/jcommon-1.0.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/dwr.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -217,7 +195,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/json.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/bsh-core.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -226,18 +204,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/ds-wizard.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../modules/ds-wizard/src" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/antlr-2.7.6.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/css.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -246,7 +213,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/hb/ehcache-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/swingvm/AppleJavaExtensions.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -255,29 +222,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/spring/spring-context.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../thirdparty/spring-framework-2.0/src" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/spring/spring-beans.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../thirdparty/spring-framework-2.0/src" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/spring/spring-aop.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/swingvm/l2fprod-common-outlookbar.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -286,18 +231,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/spring/spring-core.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../thirdparty/spring-framework-2.0/src" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/spring/aopalliance.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/swingvm/Date_selector.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -306,7 +240,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/test/junit.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/swingvm/animation.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -315,7 +249,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/swingvm.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/swingvm/swingx-2006_10_27.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -324,7 +258,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/wingsvm.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/swingvm/jexplose.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -333,7 +267,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/swingvm/jexplose.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/swingvm/forms-1.0.7.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -342,7 +276,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/swingvm/swingx-2006_10_27.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/spring/spring-beans.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -351,7 +285,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/swingvm/ds-swing.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/spring/spring-aop.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -360,7 +294,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/swingvm/AppleJavaExtensions.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/spring/aopalliance.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -369,7 +303,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/swingvm/Date_selector.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/spring/spring-core.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -378,7 +312,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/swingvm/l2fprod-common-outlookbar.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/spring/spring-context.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -387,7 +321,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/swingvm/animation.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jfree/poi-3.0-alpha1-20050704.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -396,7 +330,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/swingvm/forms-1.0.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jfree/jcommon-1.0.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -405,7 +339,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/wingsvm/jdom.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jfree/pixie-0.8.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -414,7 +348,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/wingsvm/bsh-core.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jfree/jcommon-xml-1.0.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -423,7 +357,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/wingsvm/wings.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jfree/bsh-1.3.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -432,7 +366,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/wingsvm/css.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jfree/libfonts-0.1.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -441,7 +375,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/wingsvm/commons-httpclient-2.0-beta1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jfree/bsf-2.3.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -450,7 +384,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/wingsvm/servlet-api-2.5-6.0.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jdbc/postgresql-8.1-407.jdbc3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -459,7 +393,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/wingsvm/spring-web.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jdbc/h2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -468,7 +402,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/wingsvm/kdeclassic-lfgr.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jdbc/mysql-connector-java-5.0.0-beta-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -477,7 +411,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/wingsvm/dwr.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jdbc/hsqldb.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -486,7 +420,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jdbc/hsqldb.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/jta.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -495,7 +429,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jdbc/postgresql-8.1-407.jdbc3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/ehcache-1.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -504,7 +438,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jdbc/mysql-connector-java-5.0.0-beta-bin.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/asm-attrs.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -513,7 +447,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jdbc/h2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/antlr-2.7.6.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -522,7 +456,61 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jdbc/ojdbc14.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/jdbc2_0-stdext.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/dom4j-1.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/cglib-2.1.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/jaxen-1.1-beta-7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/commons-collections-2.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/asm.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/runtime/hb/commons-logging-1.0.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

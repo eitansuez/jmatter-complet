@@ -65,7 +65,7 @@
     </java>
   </target>
 
-  <target name="compile" description="compile code" depends="gen">
+  <target name="compile" description="compile code" depends="gen, compile-modules">
     <javac debug="on" deprecation="on" 
            classpathref="class.path"
            destdir="${build.classes.dir}">
@@ -80,8 +80,29 @@
       <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- wizard fsm -->
     </copy>
   </target>
+   
+  <target name="compile-modules">
+     <antcall target="compile-module">
+        <param name="module.name" value="ds-swing" />
+     </antcall>
+     <antcall target="compile-module">
+        <param name="module.name" value="ds-wizard" />
+     </antcall>
+     <antcall target="compile-module">
+        <param name="module.name" value="swingvm" />
+     </antcall>
+     <antcall target="compile-module">
+        <param name="module.name" value="wingsvm" />
+     </antcall>
+  </target>
+   
+  <target name="compile-module">
+    <ant antfile="../modules/${module.name}/build.xml" inheritAll="false" target="jar" />
+    <copy file="../modules/${module.name}/dist/${module.name}.jar" todir="${runtime.lib.dir}" />
+  </target>
+   
  
-   <target name="just-jar" description="just jar jmatter framework (assume compiled)">
+  <target name="just-jar" description="just jar jmatter framework (assume compiled)">
     <jar basedir="${build.classes.dir}" file="${dist.dir}/${ant.project.name}.jar">
       <manifest>
         <attribute name="Created-By" value="Eitan Suez" />
@@ -200,12 +221,11 @@
       <delete file="${np.basedir}/build-standalone.xml" />
    </target>
 
-
-
    <target name="ultraviolet" description="Launch UltraViolet design tool" depends="bind">
       <ant antfile="tools/ultraviolet/run.xml" inheritAll="false" />
    </target> 
 
+   
    <target name="javadoc" description="produce jmatter javadocs">
      <javadoc sourcepath="${src.dir}"
               destdir="${build.dir}/javadocs"
