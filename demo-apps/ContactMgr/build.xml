@@ -68,6 +68,7 @@
       <fileset dir="resources" includes="images/*.gif,images/*.png,**/*.jpg" />
       <fileset dir="resources" includes="model-metadata.properties" />
       <fileset dir="resources" includes="locale-metadata*.properties" />
+      <fileset dir="resources/data" includes="*.xml,*.json" /> <!-- codes files -->
       <!-- <fileset dir="resources" includes="log4j.properties" /> -->
       <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- jfree report xmls -->
       <fileset dir="${src.dir}" includes="**/*.gif,**/*.png" />  <!-- any images referenced by jfree report xmls -->
@@ -89,12 +90,12 @@
    </java>
  </target>
 
- <taskdef name="script-maker" classname="com.u2d.tools.ShellScriptMaker"
+ <taskdef name="script-maker" classname="com.u2d.tools.ShellScriptMaker" 
           classpath="${lib.tools.dir}/jnlp-maker.jar:${lib.tools.dir}/velocity-dep-1.4.jar" />
  <target name="shellscript" description="produce runnable shell script" depends="genhbm">
     <script-maker classname="${main.class}"
                   classpathref="class.path"
-                  maxmemory="192m"
+                  maxmemory="192m" 
                   outputFile="run" />
  </target>
 
@@ -108,7 +109,6 @@
      <fileset dir="${framework.classes.dir}" includes="**/*" />
    </jar>
  </target>
-
 
  <target name="schema-export" description="export schema to db">
     <antcall target="schema-x">
@@ -173,7 +173,7 @@
  </target>
 
  <target name="hbm-practice" description="run hbm practice tool" depends="genhbm">
-   <java classname="com.u2d.view.swing.HBMPracticeTool" classpathref="class.path"
+   <java classname="com.u2d.tools.HBMPracticeTool" classpathref="class.path"
          fork="true" maxmemory="128m" />
  </target>
 
