@@ -14,11 +14,9 @@
   <property name="runtime.lib.dir" location="${lib.dir}/runtime" />
   <property name="tools.lib.dir" location="${lib.dir}/tools" />
   <property name="gen.lib.dir" location="${lib.dir}/gen" />
-  <property name="web.lib.dir" location="${lib.dir}/web" />
 
   <path id="class.path">
     <fileset dir="${runtime.lib.dir}" includes="**/*.jar" />
-    <fileset dir="${web.lib.dir}" includes="**/*.jar" />
     <pathelement location="${build.classes.dir}" />
   </path>
 
