@@ -183,7 +183,7 @@
  <target name="jws-dist" description="create java webstart distribution" 
          depends="jar, keystore">
    <copy todir="${jws-dist.dir}">
-     <fileset dir="resources/jws" includes="*" excludes="dynamic" />
+     <fileset dir="resources/jws/static" includes="*" />
    </copy>
 
    <antcall target="copylibs">
@@ -201,7 +201,7 @@
      <fileset dir="${jws-dist.dir}" includes="**/*.jar" />
    </signjar>
 
-   <war destfile="${war.file}" webxml="resources/web.xml"
+   <war destfile="${war.file}" webxml="resources/jws/web.xml"
    	    basedir="${jws-dist.dir}" />
  </target>
    
