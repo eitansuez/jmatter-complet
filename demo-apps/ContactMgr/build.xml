@@ -186,10 +186,10 @@
      <fileset dir="resources/jws" includes="*" excludes="dynamic" />
    </copy>
 
-   <mkdir dir="${jws-dist.dir}/lib" />
-   <copy todir="${jws-dist.dir}/lib">
-     <fileset dir="${lib.dir}" includes="**/*.jar" excludes="wingsvm.jar,wingsvm/*.jar" />
-   </copy>
+   <antcall target="copylibs">
+      <param name="target.dir" location="${jws-dist.dir}/lib" />
+      <param name="vmname" value="swingvm" />
+   </antcall>
 
    <make-jnlp template="resources/jws/dynamic/project-jnlp.vm" 
               props="resources/jws/dynamic/project.properties"
@@ -203,7 +203,24 @@
 
    <war destfile="${war.file}" webxml="resources/web.xml"
    	    basedir="${jws-dist.dir}" />
-
+ </target>
+   
+   <target name="find-drvname">
+      <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
+         classpathref="class.path" />
+      <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
+      <echo message="jdbcdrivername is ${jdbcdrivername}" />
+   </target>
+   
+ <target name="copylibs" depends="find-drvname">
+    <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
+    <mkdir dir="${target.dir}" />
+    <copy todir="${target.dir}" flatten="true">
+       <fileset dir="${lib.dir}"
+                includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,${vmname}.jar,${vmname}/*.jar" />
+       <fileset dir="${lib.dir}"
+                includes="jdbc/${jdbcdrivername}" />
+    </copy>
  </target>
 
  <!-- targets pertaining to junit testing -->
@@ -256,7 +273,6 @@
  <target name="init-web">
     <mkdir dir="${build.web.dir}" />
     <mkdir dir="${build.web.dir}/WEB-INF" />
-    <mkdir dir="${build.web.dir}/WEB-INF/lib" />
     <mkdir dir="${build.web.dir}/WEB-INF/classes" />
  </target>
  <target name="web-app" depends="genhbm, init-web">
@@ -270,21 +286,15 @@
        <fileset dir="${build.classes.dir}" includes="**/*" excludes="*.xml" />
        <fileset dir="${framework.classes.dir}" includes="**/*" />
     </copy>
-    <copy todir="${build.web.dir}/WEB-INF/lib" flatten="true">
-       <fileset dir="${lib.dir}" includes="**/*.jar" excludes="servlet-api-*.jar,swingvm.jar,swingvm/*.jar" />
-    </copy>
+
+    <antcall target="copylibs">
+       <param name="target.dir" location="${build.web.dir}/WEB-INF/lib" />
+       <param name="vmname" value="wingsvm" />
+    </antcall>
+
     <copy todir="${build.web.dir}">
       <fileset dir="resources/web" excludes="*.xml" />
     </copy>
  </target>
-
-
-   <target name="wings-war" depends="compile">
-      <war destfile="build/nfjsmgr.war"
-           webxml="resources/wings-web.xml">
-         <classes dir="${build.classes.dir}" />
-         <lib dir="${lib.dir}" includes="**/*.jar" excludes="servlet-api-*.jar,swingvm.jar,swingvm/*.jar" />
-      </war>
-   </target>
 
 </project>
