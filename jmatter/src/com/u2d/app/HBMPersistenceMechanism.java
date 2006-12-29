@@ -14,10 +14,11 @@ import java.util.Set;
  */
 public interface HBMPersistenceMechanism extends PersistenceMechanism
 {
-   public Set<Class> getClasses();
    public Session getSession();
    public ComplexEObject fetch(String query);
    public AbstractListEO hql(String query);
+
+   public Set<Class> getClasses();
    public AbstractListEO hqlQuery(Query query);
    public void saveMany(Set ceos);
    public void deleteMany(Set ceos);

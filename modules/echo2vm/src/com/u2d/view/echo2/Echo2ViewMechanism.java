@@ -1,6 +1,8 @@
 package com.u2d.view.echo2;
 
 import com.u2d.app.ViewMechanism;
+import com.u2d.app.AppSession;
+import com.u2d.app.Tracing;
 import com.u2d.view.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.wizard.details.Wizard;
@@ -15,6 +17,7 @@ import com.u2d.calendar.CalEvent;
 import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,9 +27,19 @@ import com.u2d.list.RelationalList;
  */
 public class Echo2ViewMechanism implements ViewMechanism
 {
+   private AppSession _appSession;
+   private AppFrame _appFrame;
+   private transient Logger _tracer = Tracing.tracer();
+   
+   public Echo2ViewMechanism() {}
+
+   public void setAppSession(AppSession appSession) { _appSession = appSession; }
+
+   public AppFrame getAppFrame() { return _appFrame; }
 
    public void launch()
    {
+      _appFrame = new AppFrame(_appSession);
    }
 
    public void showLogin()

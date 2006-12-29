@@ -275,13 +275,29 @@
     <mkdir dir="${build.web.dir}/WEB-INF" />
     <mkdir dir="${build.web.dir}/WEB-INF/classes" />
  </target>
+
+ <target name="wings-app" depends="genhbm, init-web" description="build wings-based web application">
+   <antcall target="web-app">
+     <param name="vmname" value="wings" />
+   </antcall>
+ </target>
+
+ <target name="echo2-app" depends="genhbm, init-web" description="build echo2-based web application">
+    <antcall target="web-app">
+      <param name="vmname" value="echo2" />
+    </antcall>
+ </target>
+
  <target name="web-app" depends="genhbm, init-web">
     <copy todir="${build.web.dir}/WEB-INF">
-      <fileset dir="resources/web/WEB-INF" includes="web*.xml" />
+      <fileset dir="resources/${vmname}/WEB-INF" includes="web*.xml" />
       <fileset dir="${src.dir}" includes="persistClasses.xml" />
     </copy>
 
-    <copy file="resources/web/WEB-INF/classes/commons-logging.properties" todir="${build.web.dir}/WEB-INF/classes" />
+    <copy todir="${build.web.dir}/WEB-INF/classes">
+      <fileset dir="resources/${vmname}/WEB-INF/classes" includes="*.properties" />
+    </copy>
+
     <copy todir="${build.web.dir}/WEB-INF/classes">
        <fileset dir="${build.classes.dir}" includes="**/*" excludes="*.xml" />
        <fileset dir="${framework.classes.dir}" includes="**/*" />
@@ -289,12 +305,13 @@
 
     <antcall target="copylibs">
        <param name="target.dir" location="${build.web.dir}/WEB-INF/lib" />
-       <param name="vmname" value="wingsvm" />
+       <param name="vmname" value="${vmname}vm" />
     </antcall>
 
     <copy todir="${build.web.dir}">
-      <fileset dir="resources/web" excludes="*.xml" />
+      <fileset dir="resources/${vmname}" excludes="WEB-INF" />
     </copy>
  </target>
+
 
 </project>
