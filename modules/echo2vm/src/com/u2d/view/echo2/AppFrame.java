@@ -1,10 +1,13 @@
 package com.u2d.view.echo2;
 
-import nextapp.echo2.app.Window;
-import nextapp.echo2.app.ContentPane;
-import nextapp.echo2.app.Label;
+import nextapp.echo2.app.*;
 import com.u2d.app.AppSession;
 import com.u2d.app.Application;
+import com.u2d.app.PersistenceMechanism;
+import com.u2d.app.User;
+import com.u2d.pubsub.AppEventListener;
+import com.u2d.persist.HibernatePersistor;
+import com.u2d.ui.desktop.Positioning;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +19,28 @@ public class AppFrame extends Window
 {
    private AppSession _appSession;
    private Application _app;
+   private DesktopPane _desktopPane;
+   private SplitPane _split;
+   private ContentPane _placeHolder = new ContentPane();
    
+//   private CommandsMenuView _userMenu = new CommandsMenuView(new Filter()
+//   {
+//      String[] validCmds = {"ResetClassBar", "EditPreferences", "LogOut", 
+//                            "ChangePassword", "Open", "Edit"};
+//      public boolean exclude(Object item)
+//      {
+//         Command cmd = (Command) item;
+//         for (String validCmd : validCmds)
+//         {
+//            if (validCmd.equals(cmd.name()))
+//               return false;
+//         }
+//         return true;
+//      }
+//   });
+
+   private OutlookFolderView _classBar = new OutlookFolderView();
+
    public AppFrame(AppSession appSession)
    {
       super();
@@ -24,41 +48,94 @@ public class AppFrame extends Window
       _app = _appSession.getApp();
 
       setTitle(_app.getName());
-//         setAppIcon();
 
       ContentPane contentPane = new ContentPane();
       setContent(contentPane);
+      
+      _desktopPane = new DesktopPane();
+//      _desktopPane.setEnabled(false);
+      
+      _split = new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEADING_TRAILING);
+      _split.add(_placeHolder);
+      _split.add(_desktopPane);
+      contentPane.add(_split);
+      
       /*
-         _centerPane = new JPanel(new BorderLayout());
-
          _desktopPane = new EODesktopPane();
          _desktopPane.getContextMenu().addSeparator();
          _desktopPane.getContextMenu().add(new QuitAction());
-         _desktopPane.setEnabled(false);
-         _centerPane.add(_desktopPane, BorderLayout.CENTER);
          setupMenu();
 
          _msgPnl = new MessagePanel();
          contentPane.add(_msgPnl, BorderLayout.SOUTH);
 
-         contentPane.add(_centerPane, BorderLayout.CENTER);
-
-         setSize(800, 600);
-         UIUtils.centerOnScreen(this);
          setupQuitHooks();
-
-         listenForUserEvents();
       */
 
+      listenForUserEvents();
    }
    
-   private void forNow()
+   private void listenForUserEvents()
    {
-      setTitle("Hello, world!");
+      _appSession.addAppEventListener("LOGIN", new AppEventListener()
+      {
+         public void onEvent(com.u2d.pubsub.AppEvent evt)
+         {
+            showClassBar();
+//            showUserMenu();
+//            _desktopPane.setEnabled(true); // enable context menu
+         }
+      });
+      _appSession.addAppEventListener("LOGOUT", new AppEventListener()
+      {
+         public void onEvent(com.u2d.pubsub.AppEvent evt)
+         {
+            _desktopPane.removeAll();
+            hideClassBar();
+//            hideUserMenu();
+//            _desktopPane.setEnabled(false); // disable context menu
 
-      ContentPane contentPane = new ContentPane();
-      setContent(contentPane);
-
-      contentPane.add(new Label("Hello, world!"));
+            PersistenceMechanism pmech = _app.getPersistenceMechanism();
+            if (pmech instanceof HibernatePersistor)
+            {
+               ((HibernatePersistor) pmech).newSession();
+            }
+         }
+      });
    }
+   
+   private void showClassBar()
+   {
+      User currentUser = _appSession.getUser();
+      _classBar.bind(currentUser.getClassBar());
+      
+      _split.remove(0);
+      _split.add(_classBar, 0);
+   }
+   private void hideClassBar()
+   {
+      _classBar.detach();
+      _split.remove(_classBar);
+      _split.add(_placeHolder, 0);
+   }
+   
+   
+   public WindowPane addLoginDialog(LoginDialog loginDialog)
+   {
+      addFrame(loginDialog, Positioning.CENTERED);
+      loginDialog.setModal(true);
+      return loginDialog;
+   }
+   public WindowPane addFrame(WindowPane frame)
+   {
+      _desktopPane.addFrame(frame);
+      return frame;
+   }
+   public WindowPane addFrame(WindowPane frame, Positioning positioning)
+   {
+      _desktopPane.addFrame(frame, positioning);
+      return frame;
+   }
+   public void centerFrame(WindowPane frame) { _desktopPane.positionFrame(frame, Positioning.CENTERED); }
+   
 }

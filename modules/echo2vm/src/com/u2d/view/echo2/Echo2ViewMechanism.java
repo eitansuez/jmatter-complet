@@ -19,6 +19,11 @@ import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
 import java.util.logging.Logger;
 
+import nextapp.echo2.app.ImageReference;
+import nextapp.echo2.app.AwtImageReference;
+
+import javax.swing.*;
+
 /**
  * Created by IntelliJ IDEA.
  * User: eitan
@@ -29,6 +34,7 @@ public class Echo2ViewMechanism implements ViewMechanism
 {
    private AppSession _appSession;
    private AppFrame _appFrame;
+   private LoginDialog _loginDialog;
    private transient Logger _tracer = Tracing.tracer();
    
    public Echo2ViewMechanism() {}
@@ -44,18 +50,29 @@ public class Echo2ViewMechanism implements ViewMechanism
 
    public void showLogin()
    {
+      if (_loginDialog == null)
+      {
+         _loginDialog = new LoginDialog(_appSession);
+         _appFrame.addLoginDialog(_loginDialog);
+      }
+
+      _appFrame.centerFrame(_loginDialog);
+      _loginDialog.clear();
    }
 
    public void dismissLogin()
    {
+      _loginDialog.setVisible(false);
    }
 
    public void loginInvalid()
    {
+      _loginDialog.loginInvalid();
    }
 
    public void userLocked()
    {
+      _loginDialog.userLocked();
    }
 
    public void initReporting()
@@ -102,9 +119,12 @@ public class Echo2ViewMechanism implements ViewMechanism
    {
    }
 
-   public ComplexEView getIconView(ComplexEObject complexEObject)
+   public ComplexEView getIconView(ComplexEObject ceo)
    {
-      return null;
+      checkState(ceo);
+      IconView view = new IconView();
+      view.bind(ceo);
+      return view;
    }
 
    public ComplexEView getCollapsedView(ComplexEObject complexEObject)
@@ -539,5 +559,19 @@ public class Echo2ViewMechanism implements ViewMechanism
 
    public void setEditable(Editor editor, boolean b)
    {
+   }
+   
+   private void checkState(ComplexEObject ceo)
+   {
+      if (ceo.isNullState())
+      {
+         ceo.restoreState();
+      }
+   }
+   
+   
+   public static ImageReference imageFor(Icon icon)
+   {
+      return new AwtImageReference(((ImageIcon) icon).getImage());
    }
 }
