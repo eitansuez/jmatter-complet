@@ -80,7 +80,7 @@ public class AssociationField extends Field implements Bidi, Associable
    {
       if (_inverse == null)
          return new Association(this, parent);
-      return new BidiAssociation(this, parent, _inverse);
+      return new Association(this, parent, _inverse);
    }
    
    public EObject get(ComplexEObject parent)

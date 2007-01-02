@@ -26,6 +26,11 @@ public class Association
    {
      this(new BasicAssociationStrategy(field, parent));
    }
+   public Association(Field field, ComplexEObject parent, Field otherSide)
+   {
+      this(new BidiAssociationStrategy(field, parent, otherSide));
+   }
+   
    public Association(AssociationStrategy as) { _as = as; }
 
    public Title title() { return _as.title(); }

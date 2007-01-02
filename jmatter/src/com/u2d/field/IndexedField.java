@@ -77,7 +77,7 @@ public class IndexedField extends Field implements Bidi, Associable
       }
       else
       {
-         return new BidiAssociation(this, ceo, inverseField());
+         return new Association(this, ceo, inverseField());
       }
    }
 
