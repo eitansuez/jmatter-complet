@@ -3,12 +3,7 @@ package com.u2d.element;
 import com.u2d.view.EView;
 import com.u2d.model.Typed;
 import com.u2d.model.ComplexType;
-import com.u2d.model.Localized;
-import com.u2d.model.FieldParent;
-import com.u2d.type.atom.StringEO;
 import com.u2d.ui.desktop.Positioning;
-
-import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -43,7 +38,7 @@ public class OverloadedEOCmd extends EOCommand
 
    public void execute(Object value, EView source) throws InvocationTargetException
    {
-      Command cmd = this;
+      Command cmd = (_overloadedCmd == this) ? _secondCmd : this;
       
       if (value instanceof ComplexType)
       {
@@ -57,14 +52,11 @@ public class OverloadedEOCmd extends EOCommand
             cmd = _overloadedCmd;
       }
 
+      // to avoid recursion to self..
       if (cmd == this)
-      {
          super.execute(value, source);
-      }
       else
-      {
          cmd.execute(value, source);
-      }
    }
 
 }
