@@ -73,7 +73,6 @@ public class EOFrame extends CloseableJInternalFrame
       centerPane.add((JComponent) _view, BorderLayout.CENTER);
       contentPane.add(centerPane, BorderLayout.CENTER);
       
-      setupToFocusOnDragEnter();
       pack();
    }
    

@@ -10,9 +10,8 @@ import com.u2d.ui.MessagePanel;
 import com.u2d.ui.MyTextArea;
 import com.u2d.view.*;
 import com.u2d.view.swing.dnd.*;
-import com.u2d.view.swing.list.ListEOFrame;
 import com.u2d.view.swing.SwingViewMechanism;
-import com.u2d.view.swing.EOFrame;
+import com.u2d.view.swing.FlexiFrame;
 import com.u2d.app.*;
 import com.u2d.list.PlainListEObject;
 import com.u2d.model.ComplexEObject;
@@ -99,21 +98,20 @@ public class HBMPracticeTool extends JFrame
                else
                {
                   Object first = results.iterator().next();
+                  EView view = null;
                   if (results.size() == 1)
                   {
                      ComplexEObject result = (ComplexEObject) results.get(0);
                      result.onLoad();
-                     EView view = result.getFormView();
-                     EOFrame eoframe = new EOFrame(view);
-                     _desktopPane.addFrame(eoframe);
+                     view = result.getFormView();
                   }
                   else
                   {
                      PlainListEObject leo = new PlainListEObject(first.getClass(), results);
-                     ListEView view = leo.getTableView();
-                     ListEOFrame leoframe = new ListEOFrame(view);
-                     _desktopPane.addFrame(leoframe);
+                     view = leo.getTableView();
                   }
+                  FlexiFrame frame = new FlexiFrame((JComponent) view);
+                  _desktopPane.addFrame(frame);
                }
             }
                         });

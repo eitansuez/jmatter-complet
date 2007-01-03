@@ -23,7 +23,7 @@ public class Tracing
       Logger tracer = Logger.getLogger(JMATTER_LOGGER_NAME);
       tracer.setUseParentHandlers(false);
 
-      tracer.setLevel(Level.INFO);
+      tracer.setLevel(Level.FINE);
       Handler handler = new ConsoleHandler();
       handler.setFormatter(new ShortFormatter());
       tracer.addHandler(handler);

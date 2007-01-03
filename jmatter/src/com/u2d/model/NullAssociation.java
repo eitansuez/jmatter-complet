@@ -123,6 +123,10 @@ public class NullAssociation extends NullComplexEObject
    {
       _association.set(ceo);
    }
+   public void associate(ComplexEObject ceo)
+   {
+      _association.associate(ceo);
+   }
 
    public ComplexType type() { return _association.type(); }
 

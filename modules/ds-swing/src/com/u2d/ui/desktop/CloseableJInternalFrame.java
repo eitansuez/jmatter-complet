@@ -31,8 +31,7 @@ public class CloseableJInternalFrame extends JInternalFrame
    public CloseableJInternalFrame(String title, boolean resizable, boolean closeable, boolean maximizable, boolean iconifiable)
    {
       super(title, resizable, closeable, maximizable, iconifiable);
-      if (closeable)
-         init();
+      init();
    }
 
    static String CLOSEWINDOW_MAP_KEY = "CLOSE_WINDOW";
@@ -48,6 +47,7 @@ public class CloseableJInternalFrame extends JInternalFrame
             close();
          }
       });
+      setupToFocusOnDragEnter();
    }
 
    public void close()    { closeFrame(this); }

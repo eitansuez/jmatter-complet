@@ -39,7 +39,6 @@ public class CalendarFrame extends CloseableJInternalFrame implements ComplexEVi
       contentPane.add((JComponent) _view, BorderLayout.CENTER);
       
       setResizable(true); setMaximizable(true); setIconifiable(true); setClosable(true);
-      setupToFocusOnDragEnter();
       pack();
    }
    

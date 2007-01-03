@@ -18,7 +18,9 @@
           <root url="jar://$MODULE_DIR$/lib/runtime/swingvm.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../modules/swingvm/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -90,7 +92,9 @@
           <root url="jar://$MODULE_DIR$/lib/runtime/ds-swing.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../modules/ds-swing/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -151,15 +155,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/commons-httpclient-2.0-beta1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/runtime/wingsvm/servlet-api-2.5-6.0.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

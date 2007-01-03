@@ -31,7 +31,6 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
    {
       super();
       setResizable(true); setMaximizable(true); setIconifiable(true); setClosable(true);
-      setupToFocusOnDragEnter();
    }
    public FlexiFrame(JComponent view)
    {

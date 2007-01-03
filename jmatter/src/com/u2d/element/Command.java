@@ -55,19 +55,18 @@ public abstract class Command extends Member
       _fullPath.setValue(fullPath);
    }
 
-   // under construction..
-//   @Cmd
-//   public void Execute(CommandInfo cmdInfo, @Arg("Target") ComplexEObject target)
-//   {
-//      try
-//      {
-//         execute(target, cmdInfo.getSource());
-//      }
-//      catch (InvocationTargetException ex)
-//      {
-//         ex.printStackTrace();
-//      }
-//   }
+   @Cmd
+   public void Execute(CommandInfo cmdInfo, @Arg("Target") ComplexEObject target)
+   {
+      try
+      {
+         execute(target, cmdInfo.getSource());
+      }
+      catch (InvocationTargetException ex)
+      {
+         ex.printStackTrace();
+      }
+   }
 
    public abstract void execute(Object value, EView source)
             throws java.lang.reflect.InvocationTargetException;

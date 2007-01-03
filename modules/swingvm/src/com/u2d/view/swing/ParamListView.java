@@ -78,12 +78,6 @@ public class ParamListView extends JPanel implements View
 //                  ex.printStackTrace();
                }
             }
-            else if (ComplexType.isAbstract(paramInfo[i].type()))
-            {
-               ComplexType itype = ComplexType.forClass(paramInfo[i].type());
-               eo = itype;
-               view = new TypePicker(itype);
-            }
             else if (ComplexEObject.class.isAssignableFrom(paramInfo[i].type()))
             {
                ComplexType type = ComplexType.forClass(paramInfo[i].type());
@@ -91,6 +85,12 @@ public class ParamListView extends JPanel implements View
                Association association = new Association(das);
                view = SwingViewMechanism.getInstance().getAssociationView(association);
                eo = das;
+            }
+            else if (ComplexType.isAbstract(paramInfo[i].type()))
+            {
+               ComplexType itype = ComplexType.forClass(paramInfo[i].type());
+               eo = itype;
+               view = new TypePicker(itype);
             }
             else
             {

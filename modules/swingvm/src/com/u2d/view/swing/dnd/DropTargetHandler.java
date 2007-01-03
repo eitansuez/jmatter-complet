@@ -4,15 +4,16 @@
 package com.u2d.view.swing.dnd;
 
 import java.awt.datatransfer.*;
+import java.util.logging.Logger;
 import javax.swing.*;
 import com.u2d.app.*;
-import com.u2d.element.Field;
 import com.u2d.field.Association;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.model.AbstractListEO;
 import com.u2d.view.EView;
+import com.u2d.model.NullAssociation;
 
 /**
  * handles associations - dropping a complexeobject on a null field
@@ -21,14 +22,17 @@ import com.u2d.view.EView;
  */
 public class DropTargetHandler extends TransferHandler
 {
+   Logger _tracer = Tracing.tracer();
+   
    public boolean importData(JComponent c, Transferable t)
    {
       if ( canImport(c, t.getTransferDataFlavors()) )
       {
-         final EObject target = ((EView) c).getEObject();
+         final NullAssociation target = (NullAssociation) ((EView) c).getEObject();
+
          if (target instanceof ComplexEObject)
          {
-            Tracing.tracer().fine("Target is " + target + "; its state is " +
+            _tracer.fine("Target is " + target + "; its state is " +
                   ((ComplexEObject) target).getState().getName());
          }
 
@@ -46,7 +50,7 @@ public class DropTargetHandler extends TransferHandler
                        ((Association) transferObject).get() :
                        (ComplexEObject) transferObject;
 
-            Tracing.tracer().fine("property is "+ceo+"; its state is "+ceo.getState().getName());
+            _tracer.fine("property is "+ceo+"; its state is "+ceo.getState().getName());
 
             // do not allow association with objects that have not been saved
             if (ceo.isTransientState())
@@ -56,22 +60,14 @@ public class DropTargetHandler extends TransferHandler
             {
                public void run()
                {
-                  Field field = target.field();
-                  ComplexEObject parent = target.parentObject();
-                  Association association = parent.association(field.name());
-                  association.set(ceo);
-
-                  if (!parent.isEditableState())
-                  {
-                     Context.getInstance().getPersistenceMechanism().updateAssociation(parent, ceo);
-                  }
+                  target.associate(ceo);
                }
             }.start();
             return true;
          }
          catch (UnsupportedFlavorException ufe)
          {
-            Tracing.tracer().info("importData: unsupported data flavor");
+            _tracer.info("importData: unsupported data flavor");
             return false;
          }
          catch (java.io.IOException ioe)
@@ -80,7 +76,7 @@ public class DropTargetHandler extends TransferHandler
             return false;
          }
       }
-      Tracing.tracer().fine("DropTargetHandler.importData() failed");
+      _tracer.fine("DropTargetHandler.importData() failed");
       return false;
    }
 
@@ -109,7 +105,7 @@ public class DropTargetHandler extends TransferHandler
             return true;
          }
       }
-      Tracing.tracer().finer("DropTargetHandler.canImport() returns false");
+      _tracer.finer("DropTargetHandler.canImport() returns false");
       return false;
    }
 
