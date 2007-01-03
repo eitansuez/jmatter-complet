@@ -17,10 +17,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo2vm.iws" afterPath="$PROJECT_DIR$/echo2vm.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo2vm.iml" afterPath="$PROJECT_DIR$/echo2vm.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/IconView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/IconView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/DesktopPane.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/DesktopPane.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -144,19 +143,7 @@
     </subPane>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AppFrame.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="119" column="4" selection-start="3327" selection-end="3327" vertical-scroll-proportion="0.32387313">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -660,9 +647,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="19" selection-start="1460" selection-end="1460" vertical-scroll-proportion="0.33222038">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="119" column="4" selection-start="3327" selection-end="3327" vertical-scroll-proportion="0.32387313">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/IconView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="0" selection-start="1449" selection-end="1449" vertical-scroll-proportion="0.3572621">
+        <state line="31" column="28" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.24874792">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -671,30 +674,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/DesktopPane.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="12" selection-start="710" selection-end="710" vertical-scroll-proportion="0.84974957">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="19" selection-start="1460" selection-end="1460" vertical-scroll-proportion="0.33222038">
+        <state line="21" column="0" selection-start="414" selection-end="414" vertical-scroll-proportion="0.45075125">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/LoginDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="29" selection-start="315" selection-end="315" vertical-scroll-proportion="0.22537562">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="4" selection-start="3327" selection-end="3327" vertical-scroll-proportion="0.32387313">
+        <state line="66" column="0" selection-start="1660" selection-end="1660" vertical-scroll-proportion="0.43238732">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

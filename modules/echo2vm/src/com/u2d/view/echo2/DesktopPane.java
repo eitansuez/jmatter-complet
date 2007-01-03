@@ -17,7 +17,7 @@ public class DesktopPane
    public DesktopPane()
    {
       super();
-      setBackground(Color.BLUE);
+      setBackground(new Color(0x806ecf));
    }
 
 

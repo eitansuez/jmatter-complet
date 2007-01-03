@@ -3,6 +3,7 @@ package com.u2d.view.echo2;
 import nextapp.echo2.app.Label;
 import nextapp.echo2.app.AwtImageReference;
 import nextapp.echo2.app.ImageReference;
+import nextapp.echo2.app.Alignment;
 import com.u2d.view.ComplexEView;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
@@ -27,6 +28,7 @@ public class IconView extends Label implements ComplexEView
 //      setVerticalAlignment(SwingConstants.TOP);
 //      setHorizontalTextPosition(SwingConstants.CENTER);
 //      setVerticalTextPosition(SwingConstants.BOTTOM);
+      setTextPosition(new Alignment(Alignment.DEFAULT, Alignment.BOTTOM));
 //      setAlignmentX(0.5f);
 //      setAlignmentY(0.5f);
 //      setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
