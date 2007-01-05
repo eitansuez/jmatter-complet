@@ -63,7 +63,7 @@
     </java>
   </target>
 
-  <target name="compile" description="compile code" depends="compile-modules, raw-compile" />
+  <target name="compile" description="compile code" depends="raw-compile, compile-modules" />
   <target name="raw-compile" description="compile code" depends="gen">
     <javac debug="on" deprecation="on" 
            classpathref="class.path"
