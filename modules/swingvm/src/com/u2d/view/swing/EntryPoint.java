@@ -20,22 +20,27 @@ public class EntryPoint
    {
       SwingViewMechanism.setupAntiAliasing();
       Splash splash = new Splash();
+
+      try
+      {
+         Logger.getLogger("org.springframework").setLevel(Level.WARNING);
+         ApplicationContext context = 
+               new ClassPathXmlApplicationContext("applicationContext.xml");
       
-      Logger.getLogger("org.springframework").setLevel(Level.WARNING);
-      ApplicationContext context = 
-            new ClassPathXmlApplicationContext("applicationContext.xml");
+         Application app = (Application) context.getBean("application");
+         app.addAppEventListener("MESSAGE", splash);
       
-      Application app = (Application) context.getBean("application");
-      app.addAppEventListener("MESSAGE", splash);
+         app.postInitialize();
       
-      app.postInitialize();
+         AppSession session = (AppSession) context.getBean("app-session");
+         session.launch();
       
-      AppSession session = (AppSession) context.getBean("app-session");
-      session.launch();
-      
-      Member.mergeInDbMetadata();
-      
-      splash.dispose();
+         Member.mergeInDbMetadata();
+      }
+      finally
+      {
+         splash.dispose();
+      }
    }
 
 }
