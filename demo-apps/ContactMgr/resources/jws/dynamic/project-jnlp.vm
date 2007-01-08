@@ -27,7 +27,7 @@
    #end
  </resources>
 
- <application-desc main-class="com.u2d.app.Application">
+ <application-desc main-class="com.u2d.view.swing.EntryPoint">
    <argument>-Xdock:name=ContactMgr</argument>
    <argument>-Xdock:icon=icons.icns</argument>
  </application-desc>

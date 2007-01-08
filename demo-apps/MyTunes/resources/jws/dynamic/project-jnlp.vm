@@ -20,7 +20,7 @@
  </security>
 
  <resources>
-   <j2se version="1.4+" />
+   <j2se version="1.5+" />
    <jar href="MyTunes.jar" main="true" />
    #foreach( $jarpath in $jarpathlist )
    <jar href="$jarpath" />
@@ -28,7 +28,7 @@
  </resources>
 
  <!-- TODO: plug in main class name here -->
- <application-desc main-class="com.u2d.domain.App">
+ <application-desc main-class="com.u2d.view.swing.EntryPoint">
    <argument>-Xdock:name=MyTunes</argument>
    <argument>-Xdock:icon=icons.icns</argument>
  </application-desc>
