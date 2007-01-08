@@ -7,6 +7,9 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.view.*;
+import com.u2d.calendar.Calendrier;
+import com.u2d.calendar.Calendarable;
+
 import java.awt.*;
 import javax.swing.*;
 import java.beans.*;
@@ -98,5 +101,14 @@ public class CalendarFrame extends CloseableJInternalFrame implements ComplexEVi
       _ceo.removeChangeListener(this);
       _view.detach();
    }
+   
+//   public void serialize(XMLEncoder enc)
+//   {
+//      Calendrier calendar = (Calendrier) _ceo;
+//      Calendarable calable = calendar.calendarable();
+//      enc.writeObject(CalendarFrame.class);
+//      enc.writeObject(calable.type().getJavaClass());
+//      enc.writeObject(calable.getID());
+//   }
 
 }

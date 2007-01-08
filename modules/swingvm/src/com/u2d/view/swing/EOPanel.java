@@ -8,6 +8,8 @@ import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.validation.ValidationEvent;
 import com.u2d.validation.ValidationListener;
 import com.u2d.view.*;
+import com.u2d.app.PersistenceMechanism;
+import com.u2d.app.Context;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -189,4 +191,32 @@ public class EOPanel extends JPanel
       return null;
    }
    
+   public void serialize(XMLEncoder enc)
+   {
+      if (_ceo.isTransientState()) return;
+      enc.writeObject(EOPanel.class);
+      enc.writeObject(_ceo.type().getJavaClass());
+      enc.writeObject(_ceo.getID());
+   }
+   
+   public static void deserialize(final XMLDecoder dec, final FlexiFrame f)
+   {
+      final Class ceoType = (Class) dec.readObject();
+      final Long id = (Long) dec.readObject();
+      new Thread()
+      {
+         public void run()
+         {
+            PersistenceMechanism pmech = Context.getInstance().getPersistenceMechanism();
+            final ComplexEObject ceo = pmech.load(ceoType, id);
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               public void run()
+               {
+                  f.addView(new EOPanel(ceo.getMainView()));
+               }
+            });
+         }
+      }.start();
+   }
 }

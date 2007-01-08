@@ -231,4 +231,13 @@ public class EOFrame extends CloseableJInternalFrame
       return null;
    }
 
+
+   public void serialize(XMLEncoder enc)
+   {
+      if (_ceo.isTransientState()) return;
+      enc.writeObject(EOFrame.class.getName());
+      super.serialize(enc);
+      enc.writeObject(_ceo.type().getJavaClass().getName());
+      enc.writeObject(_ceo.getID());
+   }
 }

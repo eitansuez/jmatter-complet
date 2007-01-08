@@ -36,17 +36,27 @@ public class CriteriaListEO extends AbstractListEO implements Paginable
 
    public CriteriaListEO(Query query)
    {
-      setQuery(query);
+      this(query, 1);
+   }
+   public CriteriaListEO(Query query, int pageNum)
+   {
+      setQuery(query, pageNum);
+   }
+   
+   public Query getQuery() { return _query; }
+   
+   public void setQuery(Query query)
+   {
+      setQuery(query, 1);
    }
 
-
-   public void setQuery(Query query)
+   public void setQuery(Query query, int pageNum)
    {
       _query = query;
       Field sortField = _query.getQueryType().sortField();
       if (sortField == null)
       {
-         setCriteria(_query.getCriteria());
+         setCriteria(_query.getCriteria(), pageNum);
       }
       else
       {
@@ -56,11 +66,15 @@ public class CriteriaListEO extends AbstractListEO implements Paginable
 
    private synchronized void setCriteria(Criteria criteria)
    {
+      setCriteria(criteria, 1);
+   }
+   private synchronized void setCriteria(Criteria criteria, int pageNum)
+   {
       _criteria = criteria;
       _criteria.setMaxResults(PAGE_SIZE);
 
       setCount();
-      fetchPage(1);  // get first page
+      fetchPage(pageNum);
    }
 
    private void setCount()

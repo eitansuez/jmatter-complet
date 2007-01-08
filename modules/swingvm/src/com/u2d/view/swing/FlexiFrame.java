@@ -3,6 +3,7 @@ package com.u2d.view.swing;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.Platform;
 import com.u2d.view.*;
+import com.u2d.view.swing.list.ListEOPanel;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
@@ -13,6 +14,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.awt.event.*;
 import java.awt.*;
+import java.beans.XMLEncoder;
+import java.beans.XMLDecoder;
 
 /**
  * Created by IntelliJ IDEA.
@@ -199,7 +202,60 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          ((EView) view).detach();
       }
    }
+
+
+   public void serialize(XMLEncoder enc)
+   {
+      enc.writeObject(FlexiFrame.class);
+      super.serialize(enc);
+      
+      int numViews = 0;
+      for (JComponent view : _views)
+      {
+         if ( (view instanceof EOPanel) &&
+              ( ((ComplexEObject) ((EOPanel) view).getEObject()).isTransientState() ) )
+         {
+            continue;
+         }
+         numViews++;
+      }
+      
+      enc.writeObject(numViews);
+      for (JComponent view : _views)
+      {
+         if (view instanceof EOPanel)
+         {
+            ((EOPanel) view).serialize(enc);
+         }
+         else if (view instanceof ListEOPanel)
+         {
+            ((ListEOPanel) view).serialize(enc);
+         }
+      }
+   }
    
+   public void deserialize(XMLDecoder dec)
+   {
+      super.deserialize(dec);
+      
+      int numViews = (Integer) dec.readObject();
+      
+      for (int i=0; i<numViews; i++)
+      {
+         Class viewType = (Class) dec.readObject();
+         if (EOPanel.class.isAssignableFrom(viewType))
+         {
+            EOPanel.deserialize(dec, this);
+         }
+         else if (ListEOPanel.class.isAssignableFrom(viewType))
+         {
+            ListEOPanel.deserialize(dec, this);
+         }
+      }
+   }
+   
+   
+
    static String CLOSETAB_MAP_KEY = "CLOSE_TAB";
    static KeyStroke COMMAND_W = KeyStroke.getKeyStroke(KeyEvent.VK_W, Platform.mask());
    

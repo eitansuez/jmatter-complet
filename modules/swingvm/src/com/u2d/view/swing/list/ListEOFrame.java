@@ -12,6 +12,7 @@ import com.u2d.view.swing.CommandAdapter;
 import com.u2d.element.Command;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.beans.XMLEncoder;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -120,4 +121,11 @@ public class ListEOFrame extends CloseableJInternalFrame
    
    public boolean isMinimized() { return false; }
 
+
+   public void serialize(XMLEncoder enc)
+   {
+      enc.writeObject(ListEOFrame.class.getName());
+      super.serialize(enc);
+      enc.writeObject(_leo.type().getJavaClass().getName());
+   }
 }

@@ -4,15 +4,22 @@ import com.u2d.view.CompositeView;
 import com.u2d.view.ListEView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.CommandAdapter;
+import com.u2d.view.swing.FlexiFrame;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.EObject;
+import com.u2d.model.ComplexType;
 import com.u2d.ui.Platform;
 import com.u2d.element.Command;
+import com.u2d.list.Paginable;
+import com.u2d.list.PagedList;
+import com.u2d.find.SimpleQuery;
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.beans.XMLEncoder;
+import java.beans.XMLDecoder;
 
 /**
  * Created by IntelliJ IDEA.
@@ -91,4 +98,32 @@ public class ListEOPanel  extends JPanel
    
    public boolean isMinimized() { return false; }
 
+   public void serialize(XMLEncoder enc)
+   {
+      enc.writeObject(ListEOPanel.class);
+      enc.writeObject(_leo.type().getJavaClass());
+      Paginable p = (Paginable) _leo;
+      enc.writeObject(p.pageNum());
+   }
+   
+   public static void deserialize(final XMLDecoder dec, final FlexiFrame f)
+   {
+      final Class listItemType = (Class) dec.readObject();
+      final int pageNum = (Integer) dec.readObject();
+      new Thread()
+      {
+         public void run()
+         {
+            SimpleQuery query = new SimpleQuery(ComplexType.forClass(listItemType));
+            final PagedList leo = new PagedList(query, pageNum);
+            SwingUtilities.invokeLater(new Runnable()
+               {
+                  public void run()
+                  {
+                     f.addView(new ListEOPanel(leo.getMainView()));
+                  }
+               });
+         }
+      }.start();
+   }
 }

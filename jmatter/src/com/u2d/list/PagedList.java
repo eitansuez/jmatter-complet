@@ -30,10 +30,14 @@ public class PagedList extends CriteriaListEO
 
    public PagedList(Query query)
    {
-      super(query);
+      this(query, 1);
+   }
+   public PagedList(Query query, int pageNum)
+   {
+      super(query, pageNum);
       type().addAppEventListener("ONCREATE", _addListener);
    }
-
+   
    // See NullAssociation for comments
    @Cmd
    public ComplexEObject New(CommandInfo cmdInfo)

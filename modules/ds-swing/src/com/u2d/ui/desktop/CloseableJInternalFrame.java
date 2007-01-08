@@ -170,4 +170,14 @@ public class CloseableJInternalFrame extends JInternalFrame
       }
    }
    
+   public void serialize(XMLEncoder enc)
+   {
+      enc.writeObject(getBounds());
+   }
+   public void deserialize(XMLDecoder dec)
+   {
+      Rectangle bounds = (Rectangle) dec.readObject();
+      setBounds(bounds);
+   }
+   
 }

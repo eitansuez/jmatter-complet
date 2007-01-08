@@ -9,22 +9,16 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
+
 import com.u2d.ui.*;
 import com.u2d.ui.desktop.Positioning;
+import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.lf.*;
-import com.u2d.view.*;
 import com.u2d.view.swing.dnd.*;
-import com.u2d.view.swing.find.FindView;
-import com.u2d.view.swing.list.ListEOFrame;
 import com.u2d.view.swing.list.CommandsMenuView;
-import com.u2d.model.AbstractListEO;
-import com.u2d.model.ComplexEObject;
-import com.u2d.model.ComplexType;
-import com.u2d.model.EObject;
 import com.u2d.app.*;
 import com.u2d.pubsub.*;
-import com.u2d.view.swing.calendar.*;
-import com.u2d.calendar.*;
 import com.u2d.persist.HBMSingleSession;
 import com.u2d.pattern.Filter;
 import com.u2d.element.Command;
@@ -89,22 +83,6 @@ public class AppFrame extends JFrame
       setupQuitHooks();
 
       listenForUserEvents();
-
-//      _lfSupport.addLFChangeListener(
-//            new LFChangeListener()
-//            {
-//               public void LFChanged(LFChangeEvent evt)
-//               {
-//                  Component[] items = _classBar.getComponents();
-//                  for (int i=0; i<items.length; i++)
-//                  {
-//                     // how do i get from the component to its context menu???
-//                     // SwingUtilities.updateComponentTreeUI(contextMenu);
-//                  }
-//               }
-//            }
-//            );
-
    }
 
    private void listenForUserEvents()
@@ -120,13 +98,7 @@ public class AppFrame extends JFrame
                   showClassBar();
                   showUserMenu();
                   _desktopPane.setEnabled(true); // enable context menu
-                  new Thread()
-                  {
-                     public void run()
-                     {
-                        restoreUserDesktop();
-                     }
-                  }.start();
+                  restoreUserDesktop();
                }
             });
          }
@@ -350,130 +322,22 @@ public class AppFrame extends JFrame
       _desktopPane.setCursor(cursor);
    }
 
-
-   /*
-   * methods related to saving and restoring the user desktop follow..
-   */
+   /* ======
+    *
+    * methods related to saving and restoring the user desktop follow..
+    * 
+    * ------
+    */
 
    private void saveUserDesktop()
    {
       ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
       XMLEncoder enc = new XMLEncoder(baos);
-      enc.writeObject(getBounds());  // 1. save main frame bounds
-      enc.writeObject(_lfSupport.getCurrentLFName());  // 2. save look and feel
-//      enc.writeObject(toolbarLocation());
-
-      // ---
-
-      JInternalFrame[] frames = _desktopPane.getAllFrames();
-      java.util.List<FrameInfo> frameInfo = new java.util.ArrayList<FrameInfo>();
-      for (int i=0; i<frames.length; i++)
-      {
-         if (!frames[i].isVisible() || frames[i].isIcon()) continue;
-         if (frames[i] instanceof EOFrame)
-         {
-            EObject eo = ((EOFrame) frames[i]).getEObject();
-            if (eo instanceof ComplexEObject)
-            {
-               ComplexEObject ceo = (ComplexEObject) eo;
-               
-               if (ceo.isTransientState()) continue;
-               
-               frameInfo.add(new FrameInfo("ceo", ceo.getID(),
-                                           ceo.type().getJavaClass().getName(), frames[i].getBounds()));
-            }
-         }
-         else if (frames[i] instanceof CalendarFrame)
-         {
-            Calendrier calendar = (Calendrier) ((EView) frames[i]).getEObject();
-            Calendarable calable = calendar.calendarable();
-            frameInfo.add(new FrameInfo("Calendar", calable.getID(),
-                                        calable.type().getJavaClass().getName(), frames[i].getBounds()));
-         }
-         else if (frames[i] instanceof ListEOFrame)
-         {
-            EObject eo = ((ListEOFrame) frames[i]).getEObject();
-            AbstractListEO leo = (AbstractListEO) eo;
-            frameInfo.add(
-              new FrameInfo("List", new Long(0), leo.type().getJavaClass().getName(),
-                            frames[i].getBounds())
-                    );
-         }
-         else if (frames[i] instanceof GenericFrame)
-         {
-            View view = ((GenericFrame) frames[i]).getView();
-            if (view instanceof FindView)
-            {
-               ComplexType type = ((FindView) view).getType();
-               frameInfo.add(new FrameInfo("Find", new Long(0),
-                                           type.getJavaClass().getName(), frames[i].getBounds()));
-            }
-         }
-      }
-      enc.writeObject(new Integer(frameInfo.size()));
-      for (FrameInfo finfo : frameInfo)
-      {
-         enc.writeObject(finfo.type);
-         enc.writeObject(finfo.id);
-         enc.writeObject(finfo.classname);
-         enc.writeObject(finfo.bounds);
-      }
-
-      // ---
-
+      serialize(enc);
       enc.close();
       User currentUser = _appSession.getUser();
       currentUser.getDesktop().setValue(baos.toString());
       currentUser.save();
-
-   }
-
-   class FrameInfo
-   {
-      String type;
-      Long id;  String classname;  Rectangle bounds;
-      EObject _eo;
-
-      FrameInfo(String type, Long id, String classname, Rectangle bounds)
-      {
-         this.type = type; this.id = id;
-         this.classname = classname; this.bounds = bounds;
-      }
-      FrameInfo(String type, Long id, String classname, Rectangle bounds, boolean resolveNow)
-      {
-         this(type, id, classname, bounds);
-         if (resolveNow)
-         {
-            try
-            {
-               PersistenceMechanism pmech = _app.getPersistenceMechanism();
-               if ("Find".equals(type))
-               {
-                  _eo = ComplexType.forClass(ceoClass());
-               }
-               else if ("Calendar".equals(type))
-               {
-                  // needs to be fixed.. (disable for now)
-                  ComplexEObject ceo = pmech.load(ceoClass(), id);
-                  _eo = ((Calendarable) ceo).calendar();
-               }
-               else if ("List".equals(type))
-               {
-                  _eo = pmech.browse(ceoClass());
-               }
-               else if ("ceo".equals(type))
-               {
-                  _eo = pmech.load(ceoClass(), id);
-               }
-            }
-            catch (ClassNotFoundException ex) {}
-         }
-      }
-      EObject getEO() { return _eo; }
-      Class ceoClass() throws ClassNotFoundException
-      {
-         return Class.forName(classname);
-      }
    }
 
    private void restoreUserDesktop()
@@ -481,90 +345,65 @@ public class AppFrame extends JFrame
       String desktop = _appSession.getUser().getDesktop().stringValue();
       if (desktop == null || desktop.length() <= 0) return;  // nothing saved
       XMLDecoder dec = new XMLDecoder(new ByteArrayInputStream(desktop.getBytes()));
-      final Rectangle bounds = (Rectangle) dec.readObject();
-      final String userLF = (String) dec.readObject();
-//      final String toolbarLocation = (String) dec.readObject();
-
-      int numframes = ((Integer) dec.readObject()).intValue();
-      final java.util.List<FrameInfo> finfos = new java.util.ArrayList<FrameInfo>();
-      for (int i=0; i<numframes; i++)
-      {
-         FrameInfo finfo = new FrameInfo((String) dec.readObject(),
-                                         (Long) dec.readObject(), (String) dec.readObject(),
-                                         (Rectangle) dec.readObject(), true);
-         finfos.add(finfo);
-      }
-
-      dec.close();
-      SwingUtilities.invokeLater( new Runnable()
-            {
-               public void run()
-               {
-                  if (bounds != null) setBounds(bounds);
-                  if (userLF != null) _lfSupport.setLF(userLF);
-//                  if (toolbarLocation != null) setToolbarLocation(toolbarLocation);
-
-                  FrameInfo finfo = null;
-                  for (int i=0; i<finfos.size(); i++)
-                  {
-                     finfo = (FrameInfo) finfos.get(i);
-                     JInternalFrame f = null;
-                     EObject eo = finfo.getEO();
-                     if ("Find".equals(finfo.type))
-                     {
-                        f = new GenericFrame(new FindView((ComplexType) eo));
-                     }
-                     else if ("Calendar".equals(finfo.type))
-                     {
-                        f = new CalendarFrame(eo.getMainView());
-                     }
-                     else if ("List".equals(finfo.type))
-                     {
-                        f = new ListEOFrame(eo.getMainView());
-                     }
-                     else if ("ceo".equals(finfo.type))
-                     {
-                        f = new EOFrame(eo.getMainView());
-                     }
-                     addFrame(f, Positioning.NONE);
-                     f.setBounds(finfo.bounds);
-                  }
-
-               }
-            });
+      deserialize(dec);
    }
+   
+   private void serialize(XMLEncoder enc)
+   {
+      enc.writeObject(getBounds());
+      enc.writeObject(_lfSupport.getCurrentLFName());
 
-//   private String toolbarLocation()
-//   {
-//      Rectangle window = getBounds();
-//      Point point = _classBar.getLocation();
-//      if (_classBar.getOrientation() == SwingConstants.VERTICAL)
-//      {
-//         int distleft = Math.abs(window.x - point.x);
-//         int distright = Math.abs(window.x + window.width - point.x);
-//         return (distleft > distright) ? BorderLayout.EAST : BorderLayout.WEST;
-//      }
-//      else
-//      {
-//         int disttop = Math.abs(window.y - point.y);
-//         int distbottom = Math.abs(window.y + window.height - point.y);
-//         return (disttop > distbottom) ? BorderLayout.SOUTH : BorderLayout.NORTH;
-//      }
-//   }
-//   private void setToolbarLocation(String constraints)
-//   {
-//      _centerPane.remove(_classBar);
-//      _centerPane.add(_classBar, constraints);
-//      // braindead jtoolbar..
-//      if (BorderLayout.NORTH.equals(constraints) || BorderLayout.SOUTH.equals(constraints))
-//      {
-//         _classBar.setOrientation(SwingConstants.HORIZONTAL);
-//      }
-//      else
-//      {
-//         _classBar.setOrientation(SwingConstants.VERTICAL);
-//      }
-//      _centerPane.revalidate(); _centerPane.repaint();
-//   }
+      JInternalFrame[] frames = _desktopPane.getAllFrames();
+      java.util.List<CloseableJInternalFrame> framesToSave = new ArrayList<CloseableJInternalFrame>();
+      
+      for (JInternalFrame f : frames)
+      {
+         if (!f.isVisible() || f.isIcon()) continue;
+         if (!(f instanceof CloseableJInternalFrame)) continue;
+         CloseableJInternalFrame cjif = (CloseableJInternalFrame) f;
+         framesToSave.add(cjif);
+      }
+      
+      enc.writeObject(framesToSave.size());
+      for (CloseableJInternalFrame f : framesToSave)
+      {
+         f.serialize(enc);
+      }
+      
+/*
+         else if (frames[i] instanceof GenericFrame)
+         {
+            View view = ((GenericFrame) frames[i]).getView();
+            if (view instanceof FindView)
+            {
+               ComplexType type = ((FindView) view).getType();
+               frameInfo.add(new FrameInfo(FrameInfo.FIND, new Long(0),
+                                           type.getJavaClass().getName()));
+            }
+         }
+      }
+      */
+   }
+   private void deserialize(XMLDecoder dec)
+   {
+      Rectangle bounds = (Rectangle) dec.readObject();
+      String userLF = (String) dec.readObject();
+      if (bounds != null) setBounds(bounds);
+      if (userLF != null) _lfSupport.setLF(userLF);
 
+      int numFrames = (Integer) dec.readObject();
+      for (int i=0; i<numFrames; i++)
+      {
+         Class viewType = (Class) dec.readObject();
+         try
+         {
+            CloseableJInternalFrame f = (CloseableJInternalFrame) viewType.newInstance();
+            addFrame(f, Positioning.NONE);
+            f.deserialize(dec);
+         }
+         catch (InstantiationException ex) { ex.printStackTrace(); }
+         catch (IllegalAccessException ex) { ex.printStackTrace(); }
+      }
+   }
+   
 }
