@@ -18,12 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iml" afterPath="$PROJECT_DIR$/JMatter.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/list/CriteriaListEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/list/CriteriaListEO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/swingvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/swingvm.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" afterPath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/list/PagedList.java" afterPath="$PROJECT_DIR$/src/com/u2d/list/PagedList.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -833,12 +828,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/find/SerializeQueryTest.java">
+    <entry file="file://SerializeQueryTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="27" selection-start="810" selection-end="810" vertical-scroll-proportion="0.5759599">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>

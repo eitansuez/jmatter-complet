@@ -59,10 +59,12 @@ public class ParamListView extends JPanel implements View
             {
                try
                {
+                  Class[] parameterTypes = new Class[0];
                   Method itypeMethod =
-                        _value.getClass().getMethod("abstractType", null);
+                        _value.getClass().getMethod("abstractType", parameterTypes);
+                  Object[] args = new Object[0];
                   ComplexType itype =
-                        (ComplexType) itypeMethod.invoke(_value, null);
+                        (ComplexType) itypeMethod.invoke(_value, args);
                   eo = itype;
                   view = new TypePicker(itype);
                   label.setText(itype.getNaturalName() + " Type: ");
