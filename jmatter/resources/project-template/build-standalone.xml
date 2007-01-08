@@ -22,7 +22,7 @@
  <property name="test.lib.dir" location="${lib.basedir}/test" />
  <property name="test.reports.dir" location="${build.dir}/reports" />
 	
- <property name="main.class" value="com.u2d.app.Application" />
+ <property name="main.class" value="com.u2d.view.swing.EntryPoint" />
  
  <property name="hbprops" value="hibernate" />
 

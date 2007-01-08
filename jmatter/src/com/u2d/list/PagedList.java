@@ -24,7 +24,7 @@ public class PagedList extends CriteriaListEO
        {
           public void onEvent(AppEvent evt)
           {
-             add((ComplexEObject) evt.getTarget());
+             add((ComplexEObject) evt.getEventInfo());
           }
        };
 

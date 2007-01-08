@@ -11,21 +11,21 @@ import java.util.EventObject;
 public class AppEvent extends EventObject
 {
    private String _type;
-   private Object _target;
-   
-   public AppEvent(Object source, String type, Object target)
-   {
-      this(source, type);
-      _target = target;
-   }
+   private Object _eventInfo;
    
    public AppEvent(Object source, String type)
    {
       super(source);
       _type = type;
    }
+
+   public AppEvent(Object source, String type, Object eventInfo)
+   {
+      this(source, type);
+      _eventInfo = eventInfo;
+   }
    
    public String getType() { return _type; }
-   public Object getTarget() { return _target; }
+   public Object getEventInfo() { return _eventInfo; }
    
 }

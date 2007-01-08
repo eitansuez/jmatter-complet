@@ -4,18 +4,17 @@
 package com.u2d.app;
 
 import com.u2d.model.ComplexType;
+import com.u2d.model.EObject;
 import com.u2d.type.composite.Folder;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.type.LogEventType;
-import com.u2d.ui.Splash;
-import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.element.EOCommand;
-import com.u2d.element.Member;
 import com.u2d.xml.CodesList;
+import com.u2d.pubsub.AppEventNotifier;
+import com.u2d.pubsub.AppEventSupport;
+import com.u2d.pubsub.AppEventListener;
 import org.hibernate.*;
 import org.jibx.runtime.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.InputStream;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -25,12 +24,11 @@ import java.util.HashSet;
 /**
  * @author Eitan Suez
  */
-public class Application
+public class Application implements AppEventNotifier
 {
    protected String _name;
    protected int _pagesize;
    protected PersistenceMechanism _pmech;
-   protected Splash _splash; 
    private Folder _classBar;
 
    public Application() {}
@@ -47,8 +45,6 @@ public class Application
       _pmech = pmech;
    }
    
-   public void setSplash(Splash splash) { _splash = splash; }
-
    public void initialize()
    {
       Logger.getLogger("org.springframework").setLevel(Level.WARNING);
@@ -76,7 +72,7 @@ public class Application
          Role adminRole = new Role("Administrator");
          Role defaultRole = new Role("Default");
          User adminUser = new User("admin", "admin", adminRole);
-         Set items = new HashSet();
+         Set<EObject> items = new HashSet<EObject>();
          items.add(adminUser);
          items.add(adminRole);
          items.add(defaultRole);
@@ -125,8 +121,7 @@ public class Application
    private void message(String msg)
    {
       Tracing.tracer().info(msg);
-      if (_splash != null)
-         _splash.message(msg);
+      fireAppEventNotification("MESSAGE", msg);
    }
 
    public void log(String typeString, EOCommand cmd, String msg)
@@ -147,23 +142,24 @@ public class Application
       event.save();
    }
 
-   public static void main(String[] args)
+   // == app event notifier ..
+
+   private transient AppEventSupport support = new AppEventSupport(this);
+   public void addAppEventListener(String evtType, AppEventListener l)
    {
-      SwingViewMechanism.setupAntiAliasing();
-      Logger.getLogger("org.springframework").setLevel(Level.WARNING);
-      ApplicationContext context = 
-            new ClassPathXmlApplicationContext("applicationContext.xml");
-      
-      Application app = (Application) context.getBean("application");
-      app.postInitialize();
-      
-      AppSession session = (AppSession) context.getBean("app-session");
-      session.launch();
-      
-      Member.mergeInDbMetadata();
-      
-      Splash splash = (Splash) context.getBean("splash");
-      splash.dispose();
+      support.addAppEventListener(evtType, l);
+   }
+   public void removeAppEventListener(String evtType, AppEventListener l)
+   {
+      support.removeAppEventListener(evtType, l);
+   }
+   public void fireAppEventNotification(String evtType)
+   {
+      support.fireAppEventNotification(evtType);
+   }
+   public void fireAppEventNotification(String evtType, Object target)
+   {
+      support.fireAppEventNotification(evtType, target);
    }
 
 }

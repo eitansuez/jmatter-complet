@@ -1,5 +1,8 @@
-package com.u2d.ui;
+package com.u2d.view.swing;
 
+import com.u2d.pubsub.AppEventListener;
+import com.u2d.pubsub.AppEvent;
+import com.u2d.ui.UIUtils;
 import javax.swing.*;
 import java.net.URL;
 import java.awt.*;
@@ -13,9 +16,9 @@ import java.awt.event.*;
  *
  * @author Eitan Suez
  */
-public class Splash extends JWindow
+public class Splash extends JWindow implements AppEventListener
 {
-   private static String WAIT_MSG = "Launching Application";
+   private static final String WAIT_MSG = "Launching Application";
 
    private int fromX, fromY;
    private Timer timer;
@@ -23,52 +26,36 @@ public class Splash extends JWindow
    private boolean forward = true;
    private int position = 0;
 
-   private JPanel _p = new JPanel(new BorderLayout())
-   {
-      {
-         setBackground(Color.white);
-         setOpaque(true);
-         setBorder(BorderFactory.createLineBorder(Color.BLACK));
-      }
-   };
-
-   private JLabel _messageLabel = new JLabel(WAIT_MSG)
-   {
-      {
-         setFont(new Font("SansSerif", Font.ITALIC, 12));
-         setOpaque(false);
-      }
-
-      public Insets getInsets(Insets insets)
-      {
-         return new Insets(15, 15, 15, 15);
-      }
-   };
+   private JLabel _messageLabel;
+   private URL _imgURL = resolveSplashURL();
 
    public Splash()
    {
+      super();
       SwingUtilities.invokeLater(new Runnable()
       {
-         public void run() { begin(); }
+         public void run() { layMeOut(); }
       });
    }
    
-   private void begin()
+   private void layMeOut()
    {
-      URL imgURL = resolveSplashURL();
-      if (imgURL == null)
+      JPanel contentPane = new ContentPane();
+      _messageLabel = new MessageLabel();
+      
+      if (_imgURL == null)
       {
          System.err.println("hint: if you place a file called 'splash.[png|gif|jpg] "
            + "in resources/images then it will automatically be used as a splash image");
       }
       else
       {
-         JLabel imgLabel = new JLabel(new ImageIcon(imgURL));
+         JLabel imgLabel = new JLabel(new ImageIcon(_imgURL));
          imgLabel.setOpaque(false);
-         _p.add(imgLabel, BorderLayout.CENTER);
+         contentPane.add(imgLabel, BorderLayout.CENTER);
       }
-      _p.add(_messageLabel, BorderLayout.SOUTH);
-      getContentPane().add(_p, BorderLayout.CENTER);
+      contentPane.add(_messageLabel, BorderLayout.SOUTH);
+      setContentPane(contentPane);
 
       timer = new Timer(500, new ActionListener()
       {
@@ -108,7 +95,7 @@ public class Splash extends JWindow
                         getLocation().y + e.getY() - fromY);
          }
       });
-
+      
       pack();
       setSize(getWidth()+100, getHeight());
       UIUtils.centerOnScreen(this);
@@ -136,7 +123,14 @@ public class Splash extends JWindow
          });
       }
    }
-   
+
+
+   public void onEvent(AppEvent evt)
+   {
+      String text = (String) evt.getEventInfo();
+      message(text);
+   }
+
    private URL resolveSplashURL()
    {
       String[] suffixes = {"png", "jpg", "gif"};
@@ -160,4 +154,28 @@ public class Splash extends JWindow
          }
       });
    }
+   
+   
+   static class ContentPane extends JPanel
+   {
+      public ContentPane()
+      {
+         super(new BorderLayout());
+         setBackground(Color.white);
+         setOpaque(true);
+         setBorder(BorderFactory.createLineBorder(Color.BLACK));
+      }
+   }
+   static class MessageLabel extends JLabel
+   {
+      Insets _insets = new Insets(15, 15, 15, 15);
+      public MessageLabel()
+      {
+         super(WAIT_MSG);
+         setFont(new Font("SansSerif", Font.ITALIC, 12));
+         setOpaque(false);
+      }
+      public Insets getInsets(Insets insets) { return _insets; }
+   }
+   
 }

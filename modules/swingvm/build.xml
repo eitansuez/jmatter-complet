@@ -20,6 +20,7 @@
       <pathelement location="${buildclassesdir}" />
       <pathelement location="../../jmatter/build/classes" />
       <fileset dir="../../jmatter/lib/runtime/" includes="jibx-run.jar" />
+      <fileset dir="../../jmatter/lib/runtime/spring" includes="*.jar" />
       <pathelement location="../ds-swing/build/classes" />
       <pathelement location="../ds-wizard/build/classes" />
    </path>

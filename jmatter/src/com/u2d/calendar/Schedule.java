@@ -46,7 +46,7 @@ public class Schedule extends AbstractComplexEObject implements EventMaker
          {
             public void onEvent(AppEvent appEvt)
             {
-               CalEvent event = (CalEvent) appEvt.getTarget();
+               CalEvent event = (CalEvent) appEvt.getEventInfo();
                if (inCalendarContext())
                {
                   _calendrier.addEvent(event, Schedule.this);

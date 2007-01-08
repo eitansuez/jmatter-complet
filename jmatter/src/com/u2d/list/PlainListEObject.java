@@ -28,7 +28,7 @@ public class PlainListEObject extends SimpleListEO
         {
            public void onEvent(AppEvent evt)
            {
-              add((ComplexEObject) evt.getTarget());
+              add((ComplexEObject) evt.getEventInfo());
            }
         };
 

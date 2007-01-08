@@ -8,8 +8,6 @@
 
    <import resource="persistorContext.xml" />
 
-   <bean id="splash" class="com.u2d.ui.Splash" />
-
    <bean id="app-session" class="com.u2d.app.AppSession">
       <property name="app" ref="application" />
       <property name="viewMechanism" ref="view-mechanism" />
@@ -27,7 +25,6 @@
       <property name="name" value="@PROJECTNAME@" /> <!-- TODO: Customize App Name Here -->
       <property name="pagesize" value="15" />
       <property name="persistenceMechanism" ref="persistor" />
-      <property name="splash" ref="splash" />
    </bean>
    
 </beans>

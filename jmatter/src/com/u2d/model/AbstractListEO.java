@@ -160,7 +160,7 @@ public abstract class AbstractListEO extends AbstractEObject
    
    public void onEvent(AppEvent evt)
    {
-      remove((ComplexEObject) evt.getTarget());
+      remove((ComplexEObject) evt.getEventInfo());
    }
 
    public void remove(ComplexEObject item)
