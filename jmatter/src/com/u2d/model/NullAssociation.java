@@ -73,13 +73,9 @@ public class NullAssociation extends NullComplexEObject
    // one parameter is of type complextype, then you must provide
    // this accompanying method, which is invoked reflectively by
    // paramslistview
-   public ComplexType abstractType()
+   public ComplexType baseType()
    {
-      if (field().isAbstract())
-      {
-         return field().fieldtype();
-      }
-      return null;
+      return field().fieldtype().baseType();
    }
    public boolean isAbstract() { return field().isAbstract(); }
 

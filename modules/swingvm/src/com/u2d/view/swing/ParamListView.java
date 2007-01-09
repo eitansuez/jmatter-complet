@@ -61,7 +61,7 @@ public class ParamListView extends JPanel implements View
                {
                   Class[] parameterTypes = new Class[0];
                   Method itypeMethod =
-                        _value.getClass().getMethod("abstractType", parameterTypes);
+                        _value.getClass().getMethod("baseType", parameterTypes);
                   Object[] args = new Object[0];
                   ComplexType itype =
                         (ComplexType) itypeMethod.invoke(_value, args);
@@ -71,7 +71,7 @@ public class ParamListView extends JPanel implements View
                }
                catch (Exception ex)
                {
-                  System.err.println("No specific abstractType so go with complexeobject..");
+                  System.err.println("No specific baseType so go with complexeobject..");
                   ComplexType itype = ComplexType.forClass(ComplexEObject.class);
                   eo = itype;
                   view = new TypePicker(itype);

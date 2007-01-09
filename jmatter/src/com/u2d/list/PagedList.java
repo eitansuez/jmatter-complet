@@ -49,11 +49,9 @@ public class PagedList extends CriteriaListEO
    {
       return type.New(cmdInfo);
    }
-   public ComplexType abstractType()
+   public ComplexType baseType()
    {
-      if (type().isAbstract())
-         return type();
-      return null;
+      return type().baseType();
    }
 
 

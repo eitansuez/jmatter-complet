@@ -173,32 +173,35 @@ public class ComplexType extends AbstractComplexEObject
    
    private void updateConcreteTypeMap()
    {
-      if (isAbstract(_clazz) && CONCRETE_TYPE_MAP.get(_clazz) == null)
+      if (CONCRETE_TYPE_MAP.get(_clazz) == null)
       {
          CONCRETE_TYPE_MAP.put(_clazz, new PlainListEObject(ComplexType.class));
       }
-      else
+      
+      Class[] interfaces = _clazz.getInterfaces();
+      for (int i=0; i<interfaces.length; i++)
       {
-         Class[] interfaces = _clazz.getInterfaces();
-         for (int i=0; i<interfaces.length; i++)
+         if (ComplexEObject.class.isAssignableFrom(interfaces[i]))
          {
-            if (ComplexEObject.class.isAssignableFrom(interfaces[i]))
-            {
-               concreteTypes(interfaces[i]).add(this);
-            }
+            concreteTypes(interfaces[i]).add(this);
          }
-         Class superclass = _clazz.getSuperclass();
-         if (superclass!=null && isAbstract(superclass))
-         {
-            if (ComplexEObject.class.isAssignableFrom(superclass))
-            {
-               concreteTypes(superclass).add(this);
-            }
-         }
-         // special:
-         concreteTypes(ComplexEObject.class).add(this);  // by default all concrete types are 
-                                                         // assignable to complexeobject
       }
+      Class superclass = _clazz.getSuperclass();
+      if (superclass!=null)
+      {
+         if (ComplexEObject.class.isAssignableFrom(superclass))
+         {
+            concreteTypes(superclass).add(this);
+         }
+      }
+      
+      if (!isAbstract(_clazz))
+      {
+         concreteTypes(_clazz).add(this);
+      }
+      
+      // special:
+      concreteTypes(ComplexEObject.class).add(this);  // by default all concrete types are 
    }
    private AbstractListEO concreteTypes(Class cls)
    {
@@ -251,6 +254,10 @@ public class ComplexType extends AbstractComplexEObject
    public AbstractListEO concreteTypes()
    {
       return (AbstractListEO) CONCRETE_TYPE_MAP.get(_clazz);
+   }
+   public boolean hasConcreteSubTyptes()
+   {
+      return (concreteTypes().getSize() > 1);
    }
    public ComplexType[] getAbstractTypes()
    {
@@ -682,9 +689,9 @@ public class ComplexType extends AbstractComplexEObject
    {
       return type.New(cmdInfo);
    }
-   public ComplexType abstractType()
+   public ComplexType baseType()
    {
-      if (isAbstract())
+      if (hasConcreteSubTyptes())
          return this;
       return null;
    }
@@ -766,8 +773,8 @@ public class ComplexType extends AbstractComplexEObject
 
       try
       {
-         Method getInstance = _clazz.getMethod("getInstance", null);
-         return (ComplexEObject) getInstance.invoke(null, null);
+         Method getInstance = _clazz.getMethod("getInstance");
+         return (ComplexEObject) getInstance.invoke(null);
       }
       catch (Exception ex)
       {

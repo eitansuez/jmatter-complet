@@ -159,7 +159,7 @@
       <file leaf-file-name="Speaker.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/Speaker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="0" selection-start="762" selection-end="762" vertical-scroll-proportion="0.30050084">
+            <state line="24" column="0" selection-start="762" selection-end="762" vertical-scroll-proportion="0.02529511">
               <folding />
             </state>
           </provider>
@@ -168,7 +168,7 @@
       <file leaf-file-name="Talk.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/Talk.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="481" selection-end="481" vertical-scroll-proportion="0.25041735">
+            <state line="15" column="0" selection-start="481" selection-end="481" vertical-scroll-proportion="0.2529511">
               <folding />
             </state>
           </provider>
@@ -312,7 +312,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
+      <showStructure Favorites="false" PackagesPane="false" Scope="false" ProjectPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -335,6 +335,18 @@
   <component name="RecentsManager" />
   <component name="RestoreUpdateTree" />
   <component name="RunManager" selected="Application.Sympster">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -360,18 +372,6 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <module name="" />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
@@ -477,14 +477,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1284" height="758" extended-state="0" />
+    <frame x="0" y="24" width="1280" height="751" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32897958" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32841933" order="0" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905295" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3253205" order="8" />
@@ -667,14 +667,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/Talk.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="481" selection-end="481" vertical-scroll-proportion="0.25041735">
+        <state line="15" column="0" selection-start="481" selection-end="481" vertical-scroll-proportion="0.2529511">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/Speaker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="762" selection-end="762" vertical-scroll-proportion="0.30050084">
+        <state line="24" column="0" selection-start="762" selection-end="762" vertical-scroll-proportion="0.02529511">
           <folding />
         </state>
       </provider>
