@@ -1,0 +1,43 @@
+<project name="jmatter tools" default="jar">
+
+ <description>jmatter tools</description>
+
+ <property name="src.dir" location="." />
+ <property name="build.dir" location="build" />
+ <property name="build.classes.dir" location="${build.dir}/classes" />
+ <property name="lib.dir" location="lib" />
+ <property name="dist.dir" location="dist" />
+
+ <path id="class.path">
+   <fileset dir="${lib.dir}" includes="**/*.jar" />
+   <pathelement location="${build.classes.dir}" />
+ </path>
+
+ <target name="init">
+   <tstamp />
+   <mkdir dir="${build.classes.dir}" />
+   <mkdir dir="${dist.dir}" />
+ </target>
+
+ <target name="clean">
+   <delete dir="${build.dir}" />
+   <delete dir="${dist.dir}" />
+ </target>
+
+ <target name="compile" description="compile tools code" depends="init">
+   <javac debug="on" deprecation="on" 
+          classpathref="class.path" destdir="${build.classes.dir}">
+     <src path="${src.dir}" />
+   </javac>
+ </target>
+ 
+ <target name="jar" description="jar it" depends="clean,compile">
+   <jar basedir="${build.classes.dir}" file="${dist.dir}/jmatter-tools.jar">
+     <manifest>
+       <attribute name="Created-By" value="Eitan Suez" />
+     </manifest>
+   </jar>
+ </target>
+
+</project>
+
