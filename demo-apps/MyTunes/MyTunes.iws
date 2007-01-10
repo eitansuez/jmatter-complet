@@ -17,17 +17,7 @@
     <option name="USER" value="" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/mytunes/Album.java" afterPath="$PROJECT_DIR$/src/com/u2d/mytunes/Album.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/mytunes/Artist.java" afterPath="$PROJECT_DIR$/src/com/u2d/mytunes/Artist.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistClasses.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/mytunes/Song.java" afterPath="$PROJECT_DIR$/src/com/u2d/mytunes/Song.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/mytunes/Genre.java" afterPath="$PROJECT_DIR$/src/com/u2d/mytunes/Genre.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/mytunes/Application.java" afterPath="$PROJECT_DIR$/src/com/u2d/mytunes/Application.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/persistClasses.vm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MyTunes.iws" afterPath="$PROJECT_DIR$/MyTunes.iws" />
-    </list>
+    <list default="true" name="Default" comment="" />
   </component>
   <component name="ChangeListSynchronizer" />
   <component name="ChangesViewManager" flattened_view="true" />
@@ -301,7 +291,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
+      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -346,6 +336,9 @@
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="wholeProject" />
       </option>
+      <method>
+        <option name="Make" value="true" />
+      </method>
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -577,13 +570,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.08/src.zip!/java/io/FileFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="17" selection-start="471" selection-end="471" vertical-scroll-proportion="0.40134907">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/element/Field.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="400" column="24" selection-start="10845" selection-end="10852" vertical-scroll-proportion="0.33217993">
@@ -678,6 +664,13 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/mytunes/Application.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="0" selection-start="416" selection-end="416" vertical-scroll-proportion="0.4560811">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Testing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="189" selection-end="189" vertical-scroll-proportion="0.1266892">
           <folding />
         </state>
       </provider>
