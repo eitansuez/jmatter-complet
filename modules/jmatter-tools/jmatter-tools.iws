@@ -18,15 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/jnlp-maker.ipr" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/u2d/tools/PersistClassesMaker.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/jnlp-maker.iml" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jmatter-tools.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/u2d/tools/AntPersistClassesMaker.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/jnlp-maker.iws" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jmatter-tools.ipr" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jmatter-tools.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter-tools.iws" afterPath="$PROJECT_DIR$/jmatter-tools.iws" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />

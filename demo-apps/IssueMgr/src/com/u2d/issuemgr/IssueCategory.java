@@ -11,6 +11,7 @@ import com.u2d.find.QuerySpecification;
 import com.u2d.find.SimpleQuery;
 import com.u2d.find.inequalities.IdentityInequality;
 import com.u2d.reflection.Cmd;
+import com.u2d.persist.Persist;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,6 +19,7 @@ import com.u2d.reflection.Cmd;
  * Date: Nov 24, 2005
  * Time: 6:17:21 PM
  */
+@Persist
 public class IssueCategory extends AbstractComplexEObject
 {
    private final StringEO _name = new StringEO();

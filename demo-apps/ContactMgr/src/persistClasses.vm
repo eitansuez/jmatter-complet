@@ -7,7 +7,11 @@
       default-init-method="initialize">
 
    <util:set id="persist-classes">
-      <value>com.u2d.customui.Contact</value>
+#foreach( $classname in $classnames )
+      <value>$classname</value>
+#end
+      <value>com.u2d.type.composite.Person</value>
+      <value>com.u2d.type.composite.Business</value>
       <value>com.u2d.type.USState</value>
       <value>com.u2d.type.composite.ContactMethod</value>
       <value>com.u2d.type.composite.Folder</value>

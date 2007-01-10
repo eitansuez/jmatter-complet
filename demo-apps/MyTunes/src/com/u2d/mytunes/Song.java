@@ -7,6 +7,7 @@ import com.u2d.type.atom.TimeEO;
 import com.u2d.type.atom.FileEO;
 import com.u2d.element.CommandInfo;
 import com.u2d.persist.HBMSingleSession;
+import com.u2d.persist.Persist;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.reflection.Fld;
@@ -28,6 +29,7 @@ import org.blinkenlights.jid3.v1.ID3V1Tag;
 import org.hibernate.Session;
 import org.hibernate.Query;
 
+@Persist
 public class Song extends AbstractComplexEObject
 {
    private final StringEO _title = new StringEO();

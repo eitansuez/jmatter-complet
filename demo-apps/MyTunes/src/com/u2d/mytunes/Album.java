@@ -5,7 +5,9 @@ import com.u2d.type.atom.ImgEO;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.list.RelationalList;
+import com.u2d.persist.Persist;
 
+@Persist
 public class Album extends AbstractComplexEObject
 {
    private final StringEO _name = new StringEO();

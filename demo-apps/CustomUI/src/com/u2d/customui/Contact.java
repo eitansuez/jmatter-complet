@@ -3,6 +3,7 @@ package com.u2d.customui;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.type.composite.Name;
+import com.u2d.persist.Persist;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,6 +11,7 @@ import com.u2d.type.composite.Name;
  * Date: Jun 23, 2006
  * Time: 2:10:02 PM
  */
+@Persist
 public class Contact extends AbstractComplexEObject
 {
    private final Name name = new Name();

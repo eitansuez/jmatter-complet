@@ -7,9 +7,10 @@
       default-init-method="initialize">
 
    <util:set id="persist-classes">
-      <value>com.u2d.movielib.Movie</value>
-      <value>com.u2d.movielib.Actor</value>
-      <value>com.u2d.movielib.Genre</value>
+#foreach( $classname in $classnames )
+      <value>$classname</value>
+#end
+      <value>com.u2d.type.composite.ContactMethod</value>
       <value>com.u2d.type.composite.Folder</value>
       <value>com.u2d.find.CompositeQuery</value>
       <value>com.u2d.type.composite.LoggedEvent</value>

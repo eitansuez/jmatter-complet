@@ -17,7 +17,6 @@ import com.u2d.pattern.*;
 import com.u2d.pubsub.*;
 import com.u2d.type.Choice;
 import com.u2d.type.composite.LoggedEvent;
-import com.u2d.type.atom.BooleanEO;
 import com.u2d.type.atom.DateTime;
 import com.u2d.type.atom.FileWEO;
 import com.u2d.view.*;

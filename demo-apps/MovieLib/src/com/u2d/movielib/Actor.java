@@ -5,6 +5,8 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.*;
 import com.u2d.list.RelationalList;
 import com.u2d.app.PersistenceMechanism;
+import com.u2d.persist.Persist;
+
 import javax.swing.*;
 
 /**
@@ -13,6 +15,7 @@ import javax.swing.*;
  * Date: Nov 23, 2005
  * Time: 4:40:22 PM
  */
+@Persist
 public class Actor extends AbstractComplexEObject
 {
    private final StringEO _name = new StringEO();

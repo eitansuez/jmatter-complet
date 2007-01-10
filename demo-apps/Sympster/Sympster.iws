@@ -18,21 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Talk.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Talk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Symposium.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Symposium.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Campus.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Campus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Room.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Room.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistClasses.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Event.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Event.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Session.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Session.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/persistClasses.vm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/BOF.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/BOF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Speaker.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Speaker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Venue.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Venue.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sympster.iws" afterPath="$PROJECT_DIR$/Sympster.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Hotel.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Hotel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/ConferenceCenter.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/ConferenceCenter.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />

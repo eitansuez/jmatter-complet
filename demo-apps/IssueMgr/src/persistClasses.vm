@@ -7,8 +7,9 @@
       default-init-method="initialize">
 
    <util:set id="persist-classes">
-      <value>com.u2d.issuemgr.IssueCategory</value>
-      <value>com.u2d.issuemgr.Issue</value>
+#foreach( $classname in $classnames )
+      <value>$classname</value>
+#end
       <value>com.u2d.type.composite.Note</value>
       <value>com.u2d.type.composite.Folder</value>
       <value>com.u2d.find.CompositeQuery</value>

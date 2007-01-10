@@ -7,9 +7,11 @@ import com.u2d.reporting.Reportable;
 import com.u2d.reporting.ReportFormat;
 import com.u2d.model.ComplexType;
 import com.u2d.reflection.Cmd;
+import com.u2d.persist.Persist;
 import javax.swing.table.TableModel;
 import java.util.Properties;
 
+@Persist
 public class PersonContact extends Person
 {
    @Cmd

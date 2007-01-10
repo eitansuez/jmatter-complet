@@ -18,7 +18,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistClasses.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/movielib/Genre.java" afterPath="$PROJECT_DIR$/src/com/u2d/movielib/Genre.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovieLib.iws" afterPath="$PROJECT_DIR$/MovieLib.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/movielib/Actor.java" afterPath="$PROJECT_DIR$/src/com/u2d/movielib/Actor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/persistClasses.vm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/movielib/Movie.java" afterPath="$PROJECT_DIR$/src/com/u2d/movielib/Movie.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -131,7 +137,16 @@
   <component name="FavoritesManager">
     <favorites_list name="MovieLib" />
   </component>
-  <component name="FavoritesProjectViewPane" />
+  <component name="FavoritesProjectViewPane">
+    <subPane subId="MovieLib">
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" />
+          <option name="myItemType" value="com.intellij.ide.favoritesTreeView.FavoritesTreeNodeDescriptor" />
+        </PATH_ELEMENT>
+      </PATH>
+    </subPane>
+  </component>
   <component name="FavoritesViewImpl">
     <favorites_list name="MovieLib">
       <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -270,7 +285,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure PackagesPane="false" ProjectPane="false" />
+      <showStructure Favorites="false" PackagesPane="false" ProjectPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -290,6 +305,13 @@
   <component name="RecentsManager" />
   <component name="RestoreUpdateTree" />
   <component name="RunManager">
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -317,13 +339,6 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
@@ -515,21 +530,21 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/u2d/movielib/Actor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="13" selection-start="335" selection-end="335" vertical-scroll-proportion="0.2866779">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/movielib/Genre.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="243" selection-end="243" vertical-scroll-proportion="0.2866779">
+        <state line="17" column="8" selection-start="363" selection-end="363" vertical-scroll-proportion="0.2533784">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/movielib/Movie.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="313" selection-end="313" vertical-scroll-proportion="0.2866779">
+        <state line="15" column="8" selection-start="340" selection-end="340" vertical-scroll-proportion="0.2533784">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/movielib/Genre.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="1" selection-start="322" selection-end="322" vertical-scroll-proportion="0.30405405">
           <folding />
         </state>
       </provider>

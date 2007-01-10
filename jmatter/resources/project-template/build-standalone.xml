@@ -30,6 +30,10 @@
    <fileset dir="${lib.dir}" includes="**/*.jar" />
    <pathelement location="${build.classes.dir}" />
  </path>
+ <path id="libtools.path">
+   <fileset dir="${lib.tools.dir}" includes="*.jar" />
+ </path>
+
 
  <target name="init">
    <tstamp />
@@ -58,9 +62,20 @@
  </target>
  
 
- <target name="compile" description="compile code" depends="init">
-   <javac debug="on" deprecation="on" 
-          classpathref="class.path" destdir="${build.classes.dir}" srcdir="${src.dir}" />
+ <taskdef name="make-persistclasses" classname="com.u2d.tools.AntPersistClassesMaker" classpathref="libtools.path" />
+
+ <target name="compile" description="compile code" depends="init,compile-framework">
+   <javac srcdir="${src.dir}"
+          destdir="${build.classes.dir}"
+          classpathref="class.path"
+          listfiles="true"
+          debug="on" deprecation="on" />
+   <make-persistclasses template="${src.dir}/persistClasses.vm"
+        target="${build.classes.dir}/persistClasses.xml"
+        classpathref="class.path">
+     <fileset dir="${src.dir}" includes="**/*.java" />
+   </make-persistclasses>
+
    <copy todir="${build.classes.dir}">
       <fileset dir="resources" includes="images/*.gif,images/*.png,**/*.jpg" />
       <fileset dir="resources" includes="model-metadata.properties" />
@@ -82,8 +97,7 @@
    </java>
  </target>
 
- <taskdef name="script-maker" classname="com.u2d.tools.ShellScriptMaker" 
-          classpath="${lib.tools.dir}/jmatter-tools.jar:${lib.tools.dir}/velocity-dep-1.4.jar" />
+ <taskdef name="script-maker" classname="com.u2d.tools.ShellScriptMaker" classpathref="libtools.path" />
  <target name="shellscript" description="produce runnable shell script" depends="genhbm">
     <script-maker classname="${main.class}"
                   classpathref="class.path"
@@ -130,8 +144,7 @@
      <arg value="${class.file}" />
    </java>
  </target>
-   
-   
+ 
  <target name="genhbm" depends="bind" description="generate hbm.xml files">
    <java classpathref="class.path" dir="${build.classes.dir}"
          fork="true" classname="com.u2d.persist.HBMGenerator" />
@@ -167,8 +180,7 @@
          fork="true" maxmemory="128m" />
  </target>
 
- <taskdef name="make-jnlp" classname="com.u2d.tools.JnlpMaker" 
-          classpath="${lib.tools.dir}/jmatter-tools.jar:${lib.tools.dir}/velocity-dep-1.4.jar" />
+ <taskdef name="make-jnlp" classname="com.u2d.tools.JnlpMaker" classpathref="libtools.path" />
 
  <target name="jws-dist" description="create java webstart distribution" 
          depends="jar, keystore">
