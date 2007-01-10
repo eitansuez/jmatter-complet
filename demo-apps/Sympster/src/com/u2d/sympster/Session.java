@@ -3,8 +3,11 @@ package com.u2d.sympster;
 import com.u2d.model.Title;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.calendar.CalEvent;
+import com.u2d.persist.Persist;
+
 import java.awt.Color;
 
+@Persist
 public class Session extends CalEvent
 {
    private final TimeSpan time = new TimeSpan();

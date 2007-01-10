@@ -2,11 +2,13 @@ package com.u2d.sympster;
 
 import com.u2d.model.Title;
 import com.u2d.model.AbstractListEO;
-import com.u2d.model.ComplexType;
 import com.u2d.type.atom.StringEO;
 import com.u2d.calendar.CalendarEO;
+import com.u2d.persist.Persist;
+
 import java.awt.Color;
 
+@Persist
 public class Symposium extends CalendarEO
 {
    private final StringEO name = new StringEO();

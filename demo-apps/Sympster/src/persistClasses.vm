@@ -7,19 +7,11 @@
       default-init-method="initialize">
 
    <util:set id="persist-classes">
+#foreach( $classname in $classnames )
+      <value>$classname</value>
+#end
       <value>com.u2d.type.USState</value>
       <value>com.u2d.type.composite.ContactMethod</value>
-      <value>com.u2d.sympster.Room</value>
-      <value>com.u2d.sympster.Session</value>
-      <value>com.u2d.sympster.Speaker</value>
-      <value>com.u2d.sympster.Symposium</value>
-      <value>com.u2d.sympster.Talk</value>
-      <value>com.u2d.sympster.BOF</value>
-      <value>com.u2d.sympster.Event</value>
-      <value>com.u2d.sympster.Venue</value>
-      <value>com.u2d.sympster.Hotel</value>
-      <value>com.u2d.sympster.Campus</value>
-      <value>com.u2d.sympster.ConferenceCenter</value>
       <value>com.u2d.type.composite.Folder</value>
       <value>com.u2d.find.CompositeQuery</value>
       <value>com.u2d.type.composite.LoggedEvent</value>

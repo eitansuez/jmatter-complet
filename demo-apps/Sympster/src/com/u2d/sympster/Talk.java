@@ -5,8 +5,10 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TextEO;
 import com.u2d.reflection.Fld;
+import com.u2d.persist.Persist;
 import java.awt.Color;
 
+@Persist
 public class Talk extends AbstractComplexEObject implements Event
 {
    private final StringEO title = new StringEO();

@@ -4,8 +4,10 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.ColorEO;
 import com.u2d.calendar.ScheduleEO;
+import com.u2d.persist.Persist;
 import java.awt.Color;
 
+@Persist
 public class Room extends ScheduleEO
 {
    private final StringEO name = new StringEO();

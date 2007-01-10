@@ -11,9 +11,11 @@ import com.u2d.list.RelationalList;
 import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Fld;
+import com.u2d.persist.Persist;
 import javax.swing.Icon;
 import java.awt.Color;
 
+@Persist
 public class Speaker extends AbstractComplexEObject
 {
    private final StringEO name = new StringEO();
