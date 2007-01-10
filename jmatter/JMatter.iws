@@ -18,12 +18,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/element/OverloadedEOCmd.java" afterPath="$PROJECT_DIR$/src/com/u2d/element/OverloadedEOCmd.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/echo2vm.jar" afterPath="$PROJECT_DIR$/lib/runtime/echo2vm.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/project-template/build.xml" afterPath="$PROJECT_DIR$/resources/project-template/build.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/ComplexType.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/ComplexType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/u2d/persist/Persist.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/swingvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/swingvm.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/NullAssociation.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/NullAssociation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/list/PagedList.java" afterPath="$PROJECT_DIR$/src/com/u2d/list/PagedList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/wingsvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/wingsvm.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/ds-wizard.jar" afterPath="$PROJECT_DIR$/lib/runtime/ds-wizard.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/project-template/build-standalone.xml" afterPath="$PROJECT_DIR$/resources/project-template/build-standalone.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tools/jmatter-tools.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/tools/jnlp-maker.jar" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" afterPath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -250,76 +255,6 @@
           <option name="myItemId" value="JMatter" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.model" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.list" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.element" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.app" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
       </PATH>
     </subPane>
   </component>
@@ -468,7 +403,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure ProjectPane="false" PackagesPane="false" Scope="false" Favorites="false" />
+      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
       <autoscrollToSource PackagesPane="true" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -498,6 +433,7 @@
       <recent name="com.u2d.view.wings.atom" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.u2d.persist" />
       <recent name="com.u2d.tools" />
       <recent name="com.u2d.type.composite" />
       <recent name="com.u2d.view.wings.atom" />
@@ -527,6 +463,13 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -546,6 +489,18 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
@@ -558,25 +513,6 @@
       <method>
         <option name="Make" value="true" />
       </method>
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
   </component>
   <component name="ScopeViewComponent">
@@ -793,54 +729,12 @@
   </component>
   <component name="com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectRootMasterDetailsConfigurable" proportions="0.29012346" version="1">
     <option name="myPlainMode" value="false" />
-    <option name="myLastEditedConfigurable" value="hibernate3.jar" />
+    <option name="myLastEditedConfigurable" value="wingsvm.jar" />
   </component>
   <component name="com.intellij.profile.ui.ErrorOptionsConfigurable" proportions="" version="1">
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/calendar/Schedule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="18" selection-start="1556" selection-end="1556" vertical-scroll-proportion="0.33222038">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/pubsub/AppEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="3" selection-start="456" selection-end="456" vertical-scroll-proportion="0.6010017">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/pubsub/AppEventSupport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="32" selection-start="1222" selection-end="1222" vertical-scroll-proportion="0.6761269">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/pubsub/AppEventNotifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="1" selection-start="330" selection-end="330" vertical-scroll-proportion="0.2754591">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/AppSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="224" column="0" selection-start="5925" selection-end="6547" vertical-scroll-proportion="0.82020545">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Tracing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="59" selection-start="889" selection-end="889" vertical-scroll-proportion="0.43238732">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/project-template/src/applicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="0" selection-start="579" selection-end="579" vertical-scroll-proportion="0.23116438">
@@ -904,6 +798,48 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="695" column="0" selection-start="20197" selection-end="20197" vertical-scroll-proportion="0.43338954">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/persist/PersistenceException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="102" selection-end="102" vertical-scroll-proportion="0.15177065">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/reflection/Fld.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="371" selection-end="371" vertical-scroll-proportion="0.3288364">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="433" column="37" selection-start="11851" selection-end="11858" vertical-scroll-proportion="0.33217993">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/DriverPropertySetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="19" selection-start="302" selection-end="302" vertical-scroll-proportion="0.20236088">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/com/u2d/tools/PropertySetterTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="387" selection-end="387" vertical-scroll-proportion="0.4814189">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/persist/Persist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="373" selection-end="373" vertical-scroll-proportion="0.38006756">
           <folding />
         </state>
       </provider>

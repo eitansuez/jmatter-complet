@@ -83,7 +83,7 @@
  </target>
 
  <taskdef name="script-maker" classname="com.u2d.tools.ShellScriptMaker" 
-          classpath="${lib.tools.dir}/jnlp-maker.jar:${lib.tools.dir}/velocity-dep-1.4.jar" />
+          classpath="${lib.tools.dir}/jmatter-tools.jar:${lib.tools.dir}/velocity-dep-1.4.jar" />
  <target name="shellscript" description="produce runnable shell script" depends="genhbm">
     <script-maker classname="${main.class}"
                   classpathref="class.path"
@@ -168,7 +168,7 @@
  </target>
 
  <taskdef name="make-jnlp" classname="com.u2d.tools.JnlpMaker" 
-          classpath="${lib.tools.dir}/jnlp-maker.jar:${lib.tools.dir}/velocity-dep-1.4.jar" />
+          classpath="${lib.tools.dir}/jmatter-tools.jar:${lib.tools.dir}/velocity-dep-1.4.jar" />
 
  <target name="jws-dist" description="create java webstart distribution" 
          depends="jar, keystore">
