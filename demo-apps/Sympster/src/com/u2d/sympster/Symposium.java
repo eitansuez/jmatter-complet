@@ -5,6 +5,8 @@ import com.u2d.model.AbstractListEO;
 import com.u2d.type.atom.StringEO;
 import com.u2d.calendar.CalendarEO;
 import com.u2d.persist.Persist;
+import com.u2d.reflection.Cmd;
+import com.u2d.element.CommandInfo;
 
 import java.awt.Color;
 
@@ -33,10 +35,23 @@ public class Symposium extends CalendarEO
    
    public AbstractListEO schedulables()
    {
+      if (venue == null)
+      {
+         return null;
+      }
 //      return ComplexType.forClass(Room.class).list();
       return venue.getRooms();
    }
 
    public Class defaultCalEventType() { return Session.class; }
 
+   @Cmd
+   public Object ShowCalendar(CommandInfo cmdInfo)
+   {
+      if (schedulables() == null || schedulables().isEmpty())
+      {
+         return "You must first specify a venue with rooms for this symposium";
+      }
+      return calendar();
+   }
 }

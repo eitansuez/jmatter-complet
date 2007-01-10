@@ -201,6 +201,10 @@ public class Calendrier extends AbstractComplexEObject
    private AbstractListEO loadSchedules()
    {
       AbstractListEO schedulables = _cal.schedulables();
+      if (schedulables == null)
+      {
+         return new PlainListEObject(Schedulable.class);
+      }
 
       // ensure that list of schedules is in sync with list of resources
       // (e.g. rooms, providers)

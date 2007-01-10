@@ -23,8 +23,12 @@ public abstract class CalendarEO extends AbstractComplexEObject
    }
 
    @Cmd
-   public Calendrier ShowCalendar(CommandInfo cmdInfo)
+   public Object ShowCalendar(CommandInfo cmdInfo)
    {
+      if (schedulables() == null || schedulables().isEmpty())
+      {
+         return "Calendar has no schedulable items";
+      }
       return calendar();
    }
 
