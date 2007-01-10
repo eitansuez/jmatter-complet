@@ -27,14 +27,14 @@ public class Harvester
 //      System.out.println("harvesting classes for "+clazz.getName()+" ("+stateClasses.size()+")");
       if (stateClasses.isEmpty())
       { // in other words, if class is simple, i.e. not stateful)
-         Map commandMap = new HashMap();
+         Map<Class, Onion> commandMap = new HashMap<Class, Onion>();
          commandMap.put(clazz, commands);
          return commandMap;
       }
       // else..
       Class stateClass = null;
       Onion stateCommands = null;
-      Map commandMap = new HashMap();
+      Map<Class, Onion> commandMap = new HashMap<Class, Onion>();
       for (Iterator itr = stateClasses.iterator(); itr.hasNext(); )
       {
          stateClass = (Class) itr.next();
@@ -71,7 +71,7 @@ public class Harvester
       Reflector reflector = ComplexType.reflector();
       Method[] methods = clazz.getDeclaredMethods();
 
-      Map cmdMap = new HashMap();
+      Map<String, Command> cmdMap = new HashMap<String, Command>();
       for (int i=0; i<methods.length; i++)
       {
          if (reflector.isCommand(methods[i]))
@@ -81,19 +81,16 @@ public class Harvester
             EOCommand cmd = reflector.reflectCommand(methods[i], clazz, parent);
             if (wantStaticMethods == methodIsStatic)
             {
-               if (cmdMap.get(cmd.name()) == null)
-               {
-                  cmdMap.put(cmd.name(), cmd);
-               }
-               else  // if list has a command with same name
+               if (cmdMap.containsKey(cmd.name()))
                {
                   EOCommand firstCmd = (EOCommand) cmdMap.get(cmd.name());
-                  cmdMap.put(cmd.name(), firstCmd.overload(cmd));
+                  cmd = firstCmd.overload(cmd);
                }
+               cmdMap.put(cmd.name(), cmd);
             }
          }
       }
-      List cmdList = new ArrayList(cmdMap.values());
+      List<Command> cmdList = new ArrayList<Command>(cmdMap.values());
       commands.addAll(sort(cmdList, clazz, "commandOrder"));
 
       commands = commands.reduce();  // don't add an extraneous layer..
@@ -117,7 +114,7 @@ public class Harvester
    {
       Class[] classes = clazz.getClasses();
       //System.out.println("Number of classes in class "+clazz.getName()+" is "+classes.length);
-      Set states = new HashSet();
+      Set<Class> states = new HashSet<Class>();
       for (int i=0; i<classes.length; i++)
       {
          //System.out.println("Class Name is: "+classes[i]);
@@ -145,7 +142,7 @@ public class Harvester
       PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
       //System.out.println("Number of descriptors for class "+clazz.getName()+" is "+descriptors.length);
 
-      List fields = new ArrayList();
+      List<com.u2d.element.Field> fields = new ArrayList<com.u2d.element.Field>();
       com.u2d.element.Field field = null;
       for (int i=0; i<descriptors.length; i++)
       {
@@ -201,7 +198,8 @@ public class Harvester
          try
          {
             String requiredMethodName = field.getName()+"Required";
-            Method requiredMethod = clazz.getMethod(requiredMethodName, null);
+            Class[] paramTypes = new Class[0];
+            Method requiredMethod = clazz.getMethod(requiredMethodName, paramTypes);
             field.setRequiredMethod(requiredMethod);
          }
          catch (NoSuchMethodException ex) {}

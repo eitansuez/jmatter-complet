@@ -47,6 +47,19 @@ public class Onion implements ListChangeNotifier
          _innerLayer.remove(obj);
       }
    }
+   
+   public boolean contains(Object obj)
+   {
+      if (_list.contains(obj))
+      {
+         return true;
+      }
+      else if (_innerLayer != null)
+      {
+         return _innerLayer.contains(obj);
+      }
+      return false;
+   }
 
    public Iterator iterator() { return _list.iterator(); }
    public int size()
