@@ -223,6 +223,11 @@ public abstract class Command extends Member
       return name().equals(cmd.name()) &&
             _parent.equals(cmd.parent());
    }
+   
+   public boolean overrides(Command cmd)
+   {
+      return name().equals(cmd.name());
+   }
 
    public int hashCode()
    {

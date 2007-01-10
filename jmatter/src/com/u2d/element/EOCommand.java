@@ -168,5 +168,32 @@ public class EOCommand extends Command
       return new OverloadedEOCmd(_method, (ComplexType) _parent, _mnemonic.charValue(),
             _params, sensitive(), _positioningHint, secondCmd);
    }
+   
+//   public boolean overrides(Command cmd)
+//   {
+//      if (!cmd.name().equals(name()))
+//         return false;
+//      
+//      if (!(cmd instanceof EOCommand))
+//         return false;
+//      
+//      EOCommand eocmd = (EOCommand) cmd;
+//      
+//      if (_params.length != eocmd.paramInfo().length)
+//         return false;
+//      
+//      ParameterInfo info = null, cmdinfo = null;
+//      for (int i=0; i<_params.length; i++)
+//      {
+//         info = _params[i];
+//         cmdinfo = eocmd.paramInfo()[i];
+//         if (!info.type().equals(cmdinfo.type()))
+//         {
+//            return false;
+//         }
+//      }
+//      
+//      return true;
+//   }
 
 }

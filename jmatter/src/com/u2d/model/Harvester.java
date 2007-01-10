@@ -78,15 +78,35 @@ public class Harvester
          {
             boolean methodIsStatic = Modifier.isStatic(methods[i].getModifiers());
 
-            EOCommand cmd = reflector.reflectCommand(methods[i], clazz, parent);
+            final EOCommand cmd = reflector.reflectCommand(methods[i], clazz, parent);
             if (wantStaticMethods == methodIsStatic)
             {
+               // if onion contains a command that
+               //  overrides the one i'm about to add, then don't add
+               //  the command to the onion (since building onion starting with
+               //  leaf types and moving back to supertypes, then the one already
+               //  contained is the overriding command:  overriden one shouldn't
+               //  be added).
+               if (commands.contains(new SimpleFinder() {
+                  public boolean found(Object candidate)
+                     {
+                        return ((Command) candidate).overrides(cmd);
+                     }
+                  }))
+               {
+                  continue;
+               }
+               
                if (cmdMap.containsKey(cmd.name()))
                {
                   EOCommand firstCmd = (EOCommand) cmdMap.get(cmd.name());
-                  cmd = firstCmd.overload(cmd);
+                  EOCommand overloadedCmd = firstCmd.overload(cmd);
+                  cmdMap.put(cmd.name(), overloadedCmd);
                }
-               cmdMap.put(cmd.name(), cmd);
+               else
+               {
+                  cmdMap.put(cmd.name(), cmd);
+               }
             }
          }
       }
@@ -100,6 +120,12 @@ public class Harvester
       if (shallow || clazz.isInterface() ||
             superClass.isAssignableFrom(Object.class) )
       {
+         if (wantStaticMethods)  // add ComplexType instance commands..
+         {
+            Onion outerLayer = new Onion(commands);
+            return simpleHarvestCommands(ComplexType.class, outerLayer, false, parent);
+         }
+         
          return commands;
       }
       else

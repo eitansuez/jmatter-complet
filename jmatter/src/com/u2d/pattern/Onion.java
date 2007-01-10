@@ -60,6 +60,11 @@ public class Onion implements ListChangeNotifier
       }
       return false;
    }
+   
+   public boolean contains(SimpleFinder finder)
+   {
+      return (find(finder) != null);
+   }
 
    public Iterator iterator() { return _list.iterator(); }
    public int size()

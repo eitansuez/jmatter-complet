@@ -48,8 +48,7 @@ public class ParamListView extends JPanel implements View
       {
          ParameterInfo[] paramInfo = cmd.paramInfo();
 
-         // skip first parameter (commandInfo)
-         for (int i=1; i<paramInfo.length; i++)
+         for (int i=0; i<paramInfo.length; i++)
          {
             JLabel label = new Caption(paramInfo[i].caption());
 
@@ -67,7 +66,6 @@ public class ParamListView extends JPanel implements View
                         (ComplexType) itypeMethod.invoke(_value, args);
                   eo = itype;
                   view = new TypePicker(itype);
-                  label.setText(itype.getNaturalName() + " Type: ");
                }
                catch (Exception ex)
                {
@@ -75,7 +73,6 @@ public class ParamListView extends JPanel implements View
                   ComplexType itype = ComplexType.forClass(ComplexEObject.class);
                   eo = itype;
                   view = new TypePicker(itype);
-                  label.setText("Type: ");
 //                  System.err.println("Exception: "+ex);
 //                  ex.printStackTrace();
                }
@@ -159,7 +156,7 @@ public class ParamListView extends JPanel implements View
             // if all fields ok, then new thread().start(_cmd.execute(value, params);
             // how to construct params?
             // walk eviews:  eview.getEObject --> add to list
-            final java.util.List parms = new ArrayList();
+            final java.util.List<Object> parms = new ArrayList<Object>();
             parms.add(_cmdInfo);
             
             EObject eo;
@@ -195,7 +192,7 @@ public class ParamListView extends JPanel implements View
                }
 
                if (eo instanceof ComplexType &&
-                     ComplexType.isAbstract(_cmd.paramInfo()[i+1].type()))
+                     ComplexType.isAbstract(_cmd.paramInfo()[i].type()))
                {
                   // now that user has picked the concrete type,
                   // go ahead and create the instance

@@ -126,18 +126,9 @@ public class NullAssociation extends NullComplexEObject
 
    public ComplexType type() { return _association.type(); }
 
-   public Onion commands()
-   {
-      Onion staticTypeCmds = _association.type().staticCommands();
+   public Onion commands() { return cmds2; }
 
-      if (staticTypeCmds.isEmpty())
-         return cmds2;
-
-      Onion copy = staticTypeCmds.deepCopy();
-      copy.mergeIn(cmds2);
-      return copy;
-   }
-    // TODO: work on this.
+   // TODO: work on this.
    public Onion filteredCommands()
    {
       return commands();

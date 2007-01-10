@@ -95,7 +95,7 @@ public class CompositeQuery extends AbstractComplexEObject
     */
    @Cmd
    public static CompositeQuery New(CommandInfo cmdInfo,
-                                    @Arg("Query Type") ComplexType querytype)
+                                    @Arg("Query Type:") ComplexType querytype)
    {
       ComplexType type = ComplexType.forClass(CompositeQuery.class);
       CompositeQuery query = (CompositeQuery) type.New(cmdInfo);

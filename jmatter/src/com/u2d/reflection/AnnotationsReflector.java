@@ -55,17 +55,17 @@ public class AnnotationsReflector implements Reflector
    private ParameterInfo[] parameterInfo(Method method)
    {
       int length = method.getParameterTypes().length;
-      ParameterInfo[] paramInfo = new ParameterInfo[length];
+      ParameterInfo[] paramInfo = new ParameterInfo[length-1];
       for (int i=1; i<length; i++)
       {
          if (method.getParameterAnnotations()[i].length > 0)
          {
             Arg pat = (Arg) method.getParameterAnnotations()[i][0];
-            paramInfo[i] = new ParameterInfo(method.getParameterTypes()[i], pat.value());
+            paramInfo[i-1] = new ParameterInfo(method.getParameterTypes()[i], pat.value());
          }
          else
          {
-            paramInfo[i] = new ParameterInfo(method.getParameterTypes()[i]);
+            paramInfo[i-1] = new ParameterInfo(method.getParameterTypes()[i]);
          }
       }
       return paramInfo;

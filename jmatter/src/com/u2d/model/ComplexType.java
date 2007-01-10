@@ -108,7 +108,6 @@ public class ComplexType extends AbstractComplexEObject
    private Class _clazz;
    private transient Map<Class, Onion> _commands = new HashMap<Class, Onion>();
    private transient Onion _typeCommands = new Onion();
-   private transient Onion _staticTypeCmds;
    private List _fields = new ArrayList();
    private Map _fieldsMap = new HashMap();
    private final ColorEO _colorCode = new ColorEO();
@@ -345,28 +344,14 @@ public class ComplexType extends AbstractComplexEObject
                                       AbstractComplexEObject.ReadState.class, this);
 //         openCmd.getName().setValue("Inspect Type");
          base.add(openCmd);
-
-         base = new Onion(base);
       }
       catch (NoSuchMethodException ex)
       {
          System.err.println("No Such Method: "+ex.getMessage());
          ex.printStackTrace();
       }
-
-      // 2. add browse/new/find
-      Onion typeCmds =
-         Harvester.simpleHarvestCommands(ComplexType.class, base, false, this);
-      // 3. add static methods from instance class
-      _staticTypeCmds = Harvester.simpleHarvestCommands(_clazz,
-                                                        new Onion(), true, this);
-
-      if (_staticTypeCmds.isEmpty())
-         return typeCmds;
-
-      Onion cmds = _staticTypeCmds.deepCopy();
-      cmds.mergeIn(typeCmds);
-      return cmds;
+      
+      return Harvester.simpleHarvestCommands(_clazz, new Onion(base), true, this);
    }
 
    public Onion commands() { return _typeCommands; }
@@ -375,8 +360,6 @@ public class ComplexType extends AbstractComplexEObject
    {
       return commands().filter(Command.commandFilter(this));
    }
-
-   public Onion staticCommands() { return _staticTypeCmds; }
 
    public Onion commands(State state)
    {
