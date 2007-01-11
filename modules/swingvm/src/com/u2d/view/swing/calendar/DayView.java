@@ -10,6 +10,7 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -19,6 +20,7 @@ import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.ui.CustomLabel;
 import com.u2d.model.ComplexEObject;
+import com.u2d.app.Tracing;
 
 /**
  * @author Eitan Suez
@@ -45,6 +47,9 @@ public class DayView extends JPanel implements TimeIntervalView
 
    private DateEO _eo;
    private JLabel _label = new CustomLabel(16.0f, JLabel.CENTER);
+
+   private static Logger _log = Tracing.tracer();
+
 
    public DayView(DateEO eo)
    {
@@ -269,14 +274,15 @@ public class DayView extends JPanel implements TimeIntervalView
    public Rectangle getBounds(CalEvent event)
    {
       TimeSpan span = event.timeSpan();
-      Date startDate = _daySpan.startDate();
-      TimeSpan daySpan = new TimeSpan(startDate, span.startDate());
-      double distance = daySpan.distance(_cellRes);
-      distance %= _model._distance;
+
+      Calendar startOfDayCal = span.startCal();
+      startOfDayCal.set(Calendar.HOUR_OF_DAY, _daySpan.startCal().get(Calendar.HOUR_OF_DAY));
+      TimeSpan distanceSpan = new TimeSpan(startOfDayCal.getTime(), span.startDate());
+      double distance = distanceSpan.distance(_cellRes);
 
       int rowHeight = _table.getRowHeight();
       int yPos = (int) (distance * rowHeight) + _table.getTableHeader().getHeight();
-      //System.out.println("yPos: "+yPos+"; distance: "+distance);
+      _log.fine("yPos: "+yPos+"; distance: "+distance);
 
       int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / _cellRes.getMilis() );
       eventHeight = Math.max(eventHeight, rowHeight);
@@ -323,7 +329,7 @@ public class DayView extends JPanel implements TimeIntervalView
    }
 
 
-   private java.util.List _schedules = new ArrayList();
+   private java.util.List<Schedule> _schedules = new ArrayList<Schedule>();
    public void addSchedule(Schedule schedule)
    {
       _schedules.add(schedule);
@@ -354,7 +360,7 @@ public class DayView extends JPanel implements TimeIntervalView
       _schedules.clear();
    }
 
-   private Map _colMap = new HashMap();
+   private Map<Schedulable, TableColumn> _colMap = new HashMap<Schedulable, TableColumn>();
    public void setScheduleVisible(Schedule schedule, boolean visible)
    {
       if (visible)
@@ -373,7 +379,6 @@ public class DayView extends JPanel implements TimeIntervalView
    class DayTableModel extends AbstractTableModel
    {
       private int _numCellsInDay;
-      private double _distance;
       private TimeEO[] _times;
 
       DayTableModel()
@@ -384,7 +389,6 @@ public class DayView extends JPanel implements TimeIntervalView
       private void updateCellRes()
       {
          _numCellsInDay = _daySpan.numIntervals(_cellRes);
-         _distance = _daySpan.distance(_cellRes);
          _times = new TimeEO[_numCellsInDay];
 
          Iterator itr = _daySpan.iterator(_cellRes);
@@ -439,7 +443,8 @@ public class DayView extends JPanel implements TimeIntervalView
       subscribers = AWTEventMulticaster.add(subscribers, l);
     }
 
-   /** Remove a listener.
+   /**
+    * Remove a listener.
     *  @see com.holub.ui.Date_selector
     */
     public synchronized void removeActionListener(ActionListener l)
@@ -447,7 +452,8 @@ public class DayView extends JPanel implements TimeIntervalView
       subscribers = AWTEventMulticaster.remove(subscribers, l);
     }
 
-   /** Notify the listeners of a scroll or select
+   /**
+    * Notify the listeners of a scroll or select
     */
    private void fireActionEvent( Date date, Schedulable schedulable )
    {

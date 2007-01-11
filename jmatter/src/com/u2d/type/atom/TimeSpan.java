@@ -22,6 +22,7 @@ public class TimeSpan extends AbstractAtomicEO
    private Calendar _startCal;
    private Calendar _endCal;
    private transient TimeInterval _duration;
+   private int _direction = 1;
    private transient boolean _sameDay;
    
    private static SimpleDateFormat _dayFmt = new SimpleDateFormat("MM/dd/yyyy");
@@ -67,7 +68,6 @@ public class TimeSpan extends AbstractAtomicEO
       assign(start, end);
    }
 
-   
    private void assign(Calendar start, Calendar end)
    {
       if (end.before(start))  // swap them
@@ -75,6 +75,8 @@ public class TimeSpan extends AbstractAtomicEO
          Calendar tmp = start;
          start = end;
          end = tmp;
+         
+         _direction = -1;
       }
       
       _startCal = start;
@@ -103,6 +105,7 @@ public class TimeSpan extends AbstractAtomicEO
       
    public Date startDate() { return _startCal.getTime(); }
    public Date endDate() { return _endCal.getTime(); }
+   
    public void startDate(Date startDate)
    {
       Calendar cal = Calendar.getInstance();
@@ -114,6 +117,14 @@ public class TimeSpan extends AbstractAtomicEO
       Calendar cal = Calendar.getInstance();
       cal.setTime(endDate);
       assign(_startCal, cal);
+   }
+   
+   // convenience..
+   public Calendar startCal()
+   {
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(_startCal.getTime());
+      return cal;
    }
    
    
@@ -195,7 +206,7 @@ public class TimeSpan extends AbstractAtomicEO
    
    public double distance(TimeInterval interval)
    {
-      return  ((double) duration().getMilis()) / interval.getMilis();
+      return _direction * ((double) duration().getMilis()) / interval.getMilis();
    }
    
    public Iterator iterator(TimeInterval ti) { return new TimeIterator(ti); }

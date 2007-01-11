@@ -11,6 +11,7 @@ import java.awt.dnd.DropTargetAdapter;
 import java.io.IOException;
 import java.text.*;
 import java.util.*;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
@@ -20,6 +21,7 @@ import com.u2d.calendar.CalEvent;
 import com.u2d.type.atom.*;
 import com.u2d.ui.CustomLabel;
 import com.u2d.model.ComplexEObject;
+import com.u2d.app.Tracing;
 
 /**
  * @author Eitan Suez
@@ -51,7 +53,10 @@ public class WeekView extends JPanel implements TimeIntervalView
 
    private DateEO _eo;
    private JLabel _label = new CustomLabel(16.0f, JLabel.CENTER);
+   
+   private static Logger _log = Tracing.tracer();
 
+   
    public WeekView(DateEO eo)
    {
       _eo = eo;
@@ -294,20 +299,25 @@ public class WeekView extends JPanel implements TimeIntervalView
    public Rectangle getBounds(CalEvent event)
    {
       TimeSpan span = event.timeSpan();
-      Date startDate = _daySpan.startDate();
-      TimeSpan daySpan = new TimeSpan(startDate, span.startDate());
-      double distance = daySpan.distance(_cellRes);
-      distance %= _model._distance;
+      
+      /*
+        start with vertical distance:
+          want the distance from 7am on the day to start of event
+          produce a time span and get its distance():
+       */
+      Calendar startOfDayCal = span.startCal();
+      startOfDayCal.set(Calendar.HOUR_OF_DAY, _daySpan.startCal().get(Calendar.HOUR_OF_DAY));
+      TimeSpan distanceSpan = new TimeSpan(startOfDayCal.getTime(), span.startDate());
+      double distance = distanceSpan.distance(_cellRes);
 
       int rowHeight = _table.getRowHeight();
       int yPos = (int) (distance * rowHeight) + _table.getTableHeader().getHeight();
-      //System.out.println("yPos: "+yPos+"; distance: "+distance);
+      _log.fine("yPos: "+yPos+"; distance: "+distance);
 
       int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / _cellRes.getMilis() );
       eventHeight = Math.max(eventHeight, rowHeight);
 
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(span.startDate());
+      Calendar cal = span.startCal();
       int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
 
       int currentFirstColWidth = _table.getColumn("times").getWidth();
@@ -320,7 +330,7 @@ public class WeekView extends JPanel implements TimeIntervalView
       }
 
       Rectangle bounds = new Rectangle(xPos, yPos, eventWidth, eventHeight);
-      //System.out.println("bounds: "+bounds);
+      _log.fine("bounds: "+bounds);
 
       Point offset = _scrollPane.getViewport().getViewPosition();
       bounds.x -= offset.x - 1;
@@ -339,7 +349,6 @@ public class WeekView extends JPanel implements TimeIntervalView
    class WeekViewModel extends AbstractTableModel
    {
       private int _numCellsInDay;
-      private double _distance;
       private TimeEO[] _times;
 
       WeekViewModel()
@@ -350,7 +359,6 @@ public class WeekView extends JPanel implements TimeIntervalView
       private void updateCellRes()
       {
          _numCellsInDay = _daySpan.numIntervals(_cellRes);
-         _distance = _daySpan.distance(_cellRes);
          _times = new TimeEO[_numCellsInDay];
 
          Iterator itr = _daySpan.iterator(_cellRes);
