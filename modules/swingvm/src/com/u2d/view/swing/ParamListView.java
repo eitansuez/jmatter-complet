@@ -65,6 +65,12 @@ public class ParamListView extends JPanel implements View
                   ComplexType itype =
                         (ComplexType) itypeMethod.invoke(_value, args);
                   eo = itype;
+
+                  if ("Type: ".equals(label.getText()))
+                  {
+                     label.setText(itype.getNaturalName() + " Type: ");
+                  }
+
                   view = new TypePicker(itype);
                }
                catch (Exception ex)
