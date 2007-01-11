@@ -33,8 +33,6 @@ import com.u2d.type.Choice;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.ColorEO;
-import com.u2d.pubsub.AppEventListener;
-import com.u2d.pubsub.AppEvent;
 
 /**
  * @author Eitan Suez
@@ -158,6 +156,11 @@ public class ComplexType extends AbstractComplexEObject
       {
          _commands = Harvester.harvestCommands(_clazz, this);
          _typeCommands = harvestTypeCommands();
+         if (_clazz == ComplexType.class)  // no support for dynamic type creation!  we're in javaland afterall..
+         {
+            Command newCmd = command("New");
+            _typeCommands.remove(newCmd);
+         }
          _fields = Harvester.harvestFields(this);
 
          loadFieldMetaData();
@@ -938,7 +941,7 @@ public class ComplexType extends AbstractComplexEObject
    }
    private Set populateCommands(Onion cmdOnion)
    {
-      Set cmdSet = new HashSet();
+      Set<Command> cmdSet = new HashSet<Command>();
       for (Iterator itr=cmdOnion.deepIterator(); itr.hasNext(); )
       {
          Command cmd = (Command) itr.next();
