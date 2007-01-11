@@ -671,7 +671,7 @@ public class ComplexType extends AbstractComplexEObject
    }
    @Cmd
    public ComplexEObject New(CommandInfo cmdInfo,
-                             @Arg("Type") ComplexType type)
+                             ComplexType type)
    {
       return type.New(cmdInfo);
    }

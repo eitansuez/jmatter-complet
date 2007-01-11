@@ -18,17 +18,7 @@ public class ParameterInfo
       this.paramType = paramType;
       if (caption == null)
       {
-         if (paramType.equals(ComplexType.class))
-         {
-            ComplexType ct = ComplexType.forClass(paramType);
-            this.caption = ct.getNaturalName() + " Type: ";
-         }
-         else
-         {
-            this.caption = paramType.getName();
-            // not sure whether the above is the best default candidate for the caption;
-            // could possibly be:  "Type: "
-         }
+         deriveCaption();
       }
       else
       {
@@ -38,9 +28,11 @@ public class ParameterInfo
    public ParameterInfo(Class paramType)
    {
       this.paramType = paramType;
-      this.caption = paramType.getName();
+      deriveCaption();
    }
    
+   private void deriveCaption() { this.caption = "Type: "; }
+
    public String caption() { return caption; }
    public Class type() { return paramType; }
    
