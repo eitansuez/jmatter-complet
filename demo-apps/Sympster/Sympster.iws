@@ -188,19 +188,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="EOCommand.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/element/EOCommand.java">
+      <file leaf-file-name="NullComplexEObject.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/NullComplexEObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="162" column="0" selection-start="4459" selection-end="4459" vertical-scroll-proportion="0.18991597">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Onion.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/pattern/Onion.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="198" column="7" selection-start="4609" selection-end="4609" vertical-scroll-proportion="0.36638656">
+            <state line="32" column="110" selection-start="901" selection-end="901" vertical-scroll-proportion="0.53535354">
               <folding />
             </state>
           </provider>
@@ -708,13 +699,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="17" selection-start="216" selection-end="216" vertical-scroll-proportion="0.2782462">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/Harvester.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="78" column="0" selection-start="2502" selection-end="2502" vertical-scroll-proportion="0.33235294">
@@ -780,13 +764,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/pattern/Onion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="7" selection-start="4609" selection-end="4609" vertical-scroll-proportion="0.36638656">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/AbstractChoiceEO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="22" selection-start="468" selection-end="468" vertical-scroll-proportion="0.3313783">
@@ -813,6 +790,20 @@
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/element/EOCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="162" column="0" selection-start="4459" selection-end="4459" vertical-scroll-proportion="0.18991597">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/pattern/Onion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="198" column="7" selection-start="4609" selection-end="4609" vertical-scroll-proportion="0.36638656">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/NullComplexEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="110" selection-start="901" selection-end="901" vertical-scroll-proportion="0.53535354">
           <folding />
         </state>
       </provider>

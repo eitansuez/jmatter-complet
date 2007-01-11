@@ -24,14 +24,16 @@ public class NullComplexEObject extends AbstractComplexEObject
       _iconSm = disabledIcon(type.iconSm());
       _iconLg = disabledIcon(type.iconLg());
 
-      Iterator itr = _commands.deepIterator();
       Command command = null;
       Command typeCommand = null;
-      while (itr.hasNext())
+      for (Iterator itr = _commands.deepIterator(); itr.hasNext(); )
       {
          command = (Command) itr.next();
          typeCommand = _type.command(command.name());
-         command.applyRestriction(typeCommand.restriction());
+         if (typeCommand != null)  // TODO:  revisit  // related to removing typecommand New from ComplexType.
+         {
+            command.applyRestriction(typeCommand.restriction());
+         }
       }
    }
 
