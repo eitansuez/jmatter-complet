@@ -193,8 +193,7 @@ public class BasicGridListUI
       InputMap inputMap = getInputMap(JComponent.WHEN_FOCUSED);
 
       SwingUtilities.replaceUIInputMap(list, JComponent.WHEN_FOCUSED, inputMap);
-      
-      LazyActionMap.installLazyActionMap(list, BasicGridListUI.class, "List.actionMap");
+      LazyActionMap.installLazyActionMap(list, BasicGridListUI.class, "GridList.actionMap");
    }
 
    InputMap getInputMap(int condition)
@@ -512,8 +511,7 @@ public class BasicGridListUI
       {
          String name = getName();
          JList list = (JList) e.getSource();
-         BasicGridListUI ui = (BasicGridListUI) getUIOfType(
-               list.getUI(), BasicGridListUI.class);
+         BasicGridListUI ui = (BasicGridListUI) getUIOfType(list.getUI(), BasicGridListUI.class);
 
          if (name == SELECT_PREVIOUS_COLUMN)
          {

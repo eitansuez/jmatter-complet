@@ -28,6 +28,7 @@ public class ListItemView extends JLabel implements ComplexEView
       setHorizontalAlignment(JLabel.LEFT);
       setVerticalAlignment(JLabel.CENTER);
       setHorizontalTextPosition(JLabel.RIGHT);
+      setOpaque(false);
 
       setTransferHandler(new EOTransferHandler(this));  // set up as drag source
       
@@ -39,8 +40,6 @@ public class ListItemView extends JLabel implements ComplexEView
       _ceo = ceo;
       setText(_ceo.title().toString());
       setIcon(_ceo.iconSm());
-
-      setOpaque(false);
 
       _cmdsView.bind(ceo, this);
 

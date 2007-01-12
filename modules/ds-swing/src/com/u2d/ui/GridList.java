@@ -17,27 +17,14 @@ public class GridList extends JList
       UIManager.getDefaults().put(uiClassID, BasicGridListUI.class.getName());
    }
    
-   public GridList()
-   {
-   }
-   
-   public GridList(Object[] listdata)
-   {
-      super(listdata);
-   }
+   public GridList() { }
+   public GridList(Object[] listdata) { super(listdata); }
+   public String getUIClassID() { return uiClassID; }
 
 
-   public String getUIClassID() {
-       return uiClassID;
-   }
-   
-   
    // in order to make a jlist work with the IconLayout layer manager, 
    // a jlist needs to behave like a container:
-   public int getComponentCount()
-   {
-      return getModel().getSize();
-   }
+   public int getComponentCount() { return getModel().getSize(); }
    public Component getComponent(int index)
    {
       Object value = getModel().getElementAt(index);
@@ -48,10 +35,9 @@ public class GridList extends JList
    
    
    
-   
-   // =======
+   // =======  ============
    // scrollable interface:
-   //               =======
+   // ===========  =======
    
    private GridListLayout gridlistlayout()
    {

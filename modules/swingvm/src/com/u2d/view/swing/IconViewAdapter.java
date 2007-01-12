@@ -16,6 +16,7 @@ public class IconViewAdapter extends IconView
    public IconViewAdapter()
    {
       super();
+      setOpaque(true);
    }
    
    public void validate() {}

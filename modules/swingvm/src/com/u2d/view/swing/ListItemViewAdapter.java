@@ -3,8 +3,6 @@
  */
 package com.u2d.view.swing;
 
-import com.u2d.model.ComplexEObject;
-
 import java.awt.*;
 
 /**
@@ -17,11 +15,6 @@ public class ListItemViewAdapter extends ListItemView
    public ListItemViewAdapter()
    {
       super();
-   }
-
-   public void bind(ComplexEObject ceo)
-   {
-      super.bind(ceo);
       setOpaque(true);
    }
 

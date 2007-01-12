@@ -15,7 +15,7 @@ import javax.swing.event.ListDataEvent;
  * in the model layer, as in:
  *   invokelater:  model.addItem
  * 
- * so, i have no choic but to wrap my model object
+ * so, i have no choice but to wrap my model object
  * in a ui-specific model object so i can intercept
  * the calls and get back on the edt..
  * 

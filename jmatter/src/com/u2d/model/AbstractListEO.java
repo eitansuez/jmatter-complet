@@ -34,7 +34,7 @@ import javax.swing.table.*;
 public abstract class AbstractListEO extends AbstractEObject
    implements ListChangeNotifier, ListModel, AppEventListener, Typed
 {
-   protected List _items = new ArrayList();
+   protected List<EObject> _items = new ArrayList<EObject>();
    
    // EObject interface:
    // ============================================
@@ -94,16 +94,16 @@ public abstract class AbstractListEO extends AbstractEObject
 
    public String toString() { return title().toString(); }
 
-   public List getItems() { return _items; }
+   public List<EObject> getItems() { return _items; }
    
    // convenience..
-   public void setItems(Set items)
+   public void setItems(Set<EObject> items)
    {
-      List list = new ArrayList();
+      List<EObject> list = new ArrayList<EObject>();
       list.addAll(items);
       setItems(list);
    }
-   public void setItems(List items)
+   public void setItems(List<EObject> items)
    {
       if (_items == items) return;
 
@@ -112,7 +112,7 @@ public abstract class AbstractListEO extends AbstractEObject
       addDeleteListeners();
       fireContentsChanged(this, 0, _items.size());
    }
-   public void restoreItems(List items)
+   public void restoreItems(List<EObject> items)
    {
       if (_items == items) return;
       _items = items;
@@ -197,8 +197,9 @@ public abstract class AbstractListEO extends AbstractEObject
    /* ** ===== ListModel implementation ===== ** */
    
    public Object getElementAt(int index) { return _items.get(index); }
-   public Object first() { return _items.get(0); }
-   public Object last() { return _items.get(_items.size()-1); }
+   public EObject first() { return _items.get(0); }
+   public EObject get(int i) { return _items.get(i); }
+   public EObject last() { return _items.get(_items.size()-1); }
    
    public abstract int getSize();
    public abstract int getTotal();
@@ -223,7 +224,7 @@ public abstract class AbstractListEO extends AbstractEObject
    
    public TableModel tableModel(final String[] fieldNames)
    {
-      List fields = new ArrayList();
+      List<Field> fields = new ArrayList<Field>();
       for (int i=0; i<fieldNames.length; i++)
       {
          fields.add(type().field(fieldNames[i]));
@@ -279,7 +280,7 @@ public abstract class AbstractListEO extends AbstractEObject
        * slight customization here.  fields containing long text (TextEO)
        * are excluded from the tablemodel.
        */
-      protected List _tableFields = new ArrayList();
+      protected List<Field> _tableFields = new ArrayList<Field>();
       
       public LEOTableModel()
       {
