@@ -13,7 +13,7 @@ import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.model.AbstractListEO;
 import com.u2d.view.EView;
-import com.u2d.model.NullAssociation;
+import com.u2d.element.Field;
 
 /**
  * handles associations - dropping a complexeobject on a null field
@@ -28,7 +28,7 @@ public class DropTargetHandler extends TransferHandler
    {
       if ( canImport(c, t.getTransferDataFlavors()) )
       {
-         final NullAssociation target = (NullAssociation) ((EView) c).getEObject();
+         final EObject target = ((EView) c).getEObject();
 
          if (target instanceof ComplexEObject)
          {
@@ -60,7 +60,10 @@ public class DropTargetHandler extends TransferHandler
             {
                public void run()
                {
-                  target.associate(ceo);
+                  Field field = target.field();
+                  ComplexEObject parent = target.parentObject();
+                  Association association = parent.association(field.name());
+                  association.associate(ceo);
                }
             }.start();
             return true;
