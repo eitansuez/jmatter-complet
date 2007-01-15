@@ -64,7 +64,8 @@ public class GridListLayout implements LayoutManager
 	 */
 	private Dimension computeLayoutSize(Container parent, boolean proportional)
 	{
-		int count = parent.getComponentCount();
+      GridList list = (GridList) parent;
+      int count = list.getModel().getSize();
 		if (count == 0)
 			return parent.getSize();
 		
@@ -77,7 +78,8 @@ public class GridListLayout implements LayoutManager
 	
 	public void layoutContainer(Container parent)
 	{
-		int count = parent.getComponentCount();
+      GridList list = (GridList) parent;
+      int count = list.getModel().getSize();
 		if (count == 0) return;
 		
 		_grid = deriveSizesFromParent(parent);
@@ -94,7 +96,7 @@ public class GridListLayout implements LayoutManager
 			{
 				index = row*_grid.ncols + col;
 				if (index >= count) break;
-				comp = parent.getComponent(index);
+				comp = list.renderedComponent(index);
 				
 				x = insets.left + col * (_grid.compWidth + _hgap);
 				y = insets.top + row * (_grid.compHeight + _vgap);
@@ -109,17 +111,19 @@ public class GridListLayout implements LayoutManager
 	}
 	private Grid calculateSizes(Container parent, boolean proportional)
 	{
-		Component comp = parent.getComponent(0);
+      GridList list = (GridList) parent;
+      Component comp = list.renderedComponent(0);
 		Dimension compSize = comp.getPreferredSize();
 		if (compSize.width == 0) compSize.width = _defaultWidth;
 		if (compSize.height == 0) compSize.height = _defaultHeight;
 		
-		int count = parent.getComponentCount();
+		int count = list.getModel().getSize();
 		
 		for (int i=0; i<count; i++)
 		{
-         compSize.width = Math.max(compSize.width, parent.getComponent(i).getPreferredSize().width);
-         compSize.height = Math.max(compSize.height, parent.getComponent(i).getPreferredSize().height);
+         comp = list.renderedComponent(i);
+         compSize.width = Math.max(compSize.width, comp.getPreferredSize().width);
+         compSize.height = Math.max(compSize.height, comp.getPreferredSize().height);
 		}
 		
 		int ncols = parent.getWidth() / ( compSize.width + _hgap );

@@ -22,10 +22,7 @@ public class GridList extends JList
    public String getUIClassID() { return uiClassID; }
 
 
-   // in order to make a jlist work with the IconLayout layer manager, 
-   // a jlist needs to behave like a container:
-   public int getComponentCount() { return getModel().getSize(); }
-   public Component getComponent(int index)
+   public Component renderedComponent(int index)
    {
       Object value = getModel().getElementAt(index);
       return getCellRenderer().getListCellRendererComponent(this, value, index, false, false);
@@ -46,13 +43,13 @@ public class GridList extends JList
    
    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction)
    {
-      int count = getComponentCount();
+      int count = getModel().getSize();
       if (count == 0)
          return gridlistlayout().getDefaultHeight();
 			
       // never scrolls horizontally, so don't need to inspect orientation
       // q: why direction?
-      Component comp = getComponent(0);
+      Component comp = renderedComponent(0);
       return comp.getHeight() + gridlistlayout().getVgap();
    }
 	
@@ -92,7 +89,7 @@ public class GridList extends JList
    }
    public Dimension getMinimumSize()
    {
-      Component comp = getComponent(0);
+      Component comp = renderedComponent(0);
       if (comp == null)
          return new Dimension(32, 32);
       return comp.getSize();
