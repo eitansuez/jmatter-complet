@@ -6,14 +6,12 @@ package com.u2d.view.swing.dnd;
 import java.awt.datatransfer.*;
 import java.util.logging.Logger;
 import javax.swing.*;
-import com.u2d.app.*;
 import com.u2d.field.Association;
-import com.u2d.model.ComplexEObject;
-import com.u2d.model.ComplexType;
-import com.u2d.model.EObject;
-import com.u2d.model.AbstractListEO;
+import com.u2d.field.Associable;
+import com.u2d.model.*;
 import com.u2d.view.EView;
-import com.u2d.element.Field;
+import com.u2d.app.Tracing;
+import com.u2d.list.RelationalList;
 
 /**
  * handles associations - dropping a complexeobject on a null field
@@ -60,10 +58,19 @@ public class DropTargetHandler extends TransferHandler
             {
                public void run()
                {
-                  Field field = target.field();
-                  ComplexEObject parent = target.parentObject();
-                  Association association = parent.association(field.name());
-                  association.associate(ceo);
+                  if (target instanceof RelationalList)
+                  {
+                     ((RelationalList) target).association().associate(ceo);
+                  }
+                  else if (target instanceof NullAssociation)
+                  {
+                     ((NullAssociation) target).associate(ceo);
+                  }
+                  else
+                  {
+                     System.out.println("Target is: "+target);
+                     System.out.println("target type: "+target.getClass().getName());
+                  }
                }
             }.start();
             return true;

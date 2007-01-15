@@ -34,7 +34,7 @@ import javax.swing.table.*;
 public abstract class AbstractListEO extends AbstractEObject
    implements ListChangeNotifier, ListModel, AppEventListener, Typed
 {
-   protected List<EObject> _items = new ArrayList<EObject>();
+   protected List _items = new ArrayList<EObject>();
    
    // EObject interface:
    // ============================================
@@ -197,9 +197,9 @@ public abstract class AbstractListEO extends AbstractEObject
    /* ** ===== ListModel implementation ===== ** */
    
    public Object getElementAt(int index) { return _items.get(index); }
-   public EObject first() { return _items.get(0); }
-   public EObject get(int i) { return _items.get(i); }
-   public EObject last() { return _items.get(_items.size()-1); }
+   public EObject first() { return (EObject) _items.get(0); }
+   public EObject get(int i) { return (EObject) _items.get(i); }
+   public EObject last() { return (EObject) _items.get(_items.size()-1); }
    
    public abstract int getSize();
    public abstract int getTotal();

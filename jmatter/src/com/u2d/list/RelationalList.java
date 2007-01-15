@@ -27,7 +27,7 @@ public class RelationalList extends SimpleListEO
    public ListEView getListView() { return vmech().getEditableListView(this); }
 
 
-   private Association association()
+   public Association association()
    {
       return parentObject().association(field().name());
    }
