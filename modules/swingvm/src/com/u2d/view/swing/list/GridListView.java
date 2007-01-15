@@ -194,8 +194,7 @@ public class GridListView
    {
       int index = locationToIndex(new Point(evt.getX(), evt.getY()));
       if (index < 0) return;
-      getComponent(index).dispatchEvent(evt);
+      renderedComponent(index).dispatchEvent(evt);
    }
    
-
 }
