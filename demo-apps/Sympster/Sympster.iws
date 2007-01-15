@@ -405,7 +405,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
+      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -428,13 +428,6 @@
   <component name="RecentsManager" />
   <component name="RestoreUpdateTree" />
   <component name="RunManager" selected="Application.Sympster">
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -463,6 +456,13 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <module name="" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -672,7 +672,9 @@
       <option name="ANSWER_NEGATIVELY" value="false" />
       <option name="ANSWER_POSITIVELY" value="false" />
       <option name="RECURSIVE" value="false" />
+      <option name="VERSION" />
     </GetOptions>
+    <VssConfigurableExcludedFilesTag />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -689,62 +691,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/pattern/Onion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="7" selection-start="4609" selection-end="4609" vertical-scroll-proportion="0.36638656">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/NullComplexEObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="110" selection-start="901" selection-end="901" vertical-scroll-proportion="0.53535354">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="17" selection-start="216" selection-end="216" vertical-scroll-proportion="0.2782462">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/atom/TimeSpan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="211" column="9" selection-start="5485" selection-end="5485" vertical-scroll-proportion="0.45868465">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/calendar/WeekView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="315" column="0" selection-start="10513" selection-end="10986" vertical-scroll-proportion="0.80449826">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/calendar/DayView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="277" column="0" selection-start="9046" selection-end="9046" vertical-scroll-proportion="0.2802768">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/view/Selectable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="17" selection-start="141" selection-end="141" vertical-scroll-proportion="0.20236088">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractListEO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="199" column="18" selection-start="5148" selection-end="5148" vertical-scroll-proportion="0.3322091">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.08/src.zip!/java/awt/Component.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2798" column="16" selection-start="94544" selection-end="94544" vertical-scroll-proportion="0.25432527">
@@ -791,6 +737,66 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="284" column="22" selection-start="10255" selection-end="10255" vertical-scroll-proportion="0.9494098">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/view/ViewInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="164" column="3" selection-start="5101" selection-end="5101" vertical-scroll-proportion="0.79763913">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/SwingViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="742" column="0" selection-start="21952" selection-end="21952" vertical-scroll-proportion="0.1905565">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.08/src.zip!/java/awt/dnd/DropTarget.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="292" column="29" selection-start="9444" selection-end="9444" vertical-scroll-proportion="0.33217993">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/AlternateListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="130" column="0" selection-start="3414" selection-end="3414" vertical-scroll-proportion="0.1905565">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/FolderPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="7" selection-start="1498" selection-end="1498" vertical-scroll-proportion="0.9494098">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/FolderView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="20" selection-start="808" selection-end="808" vertical-scroll-proportion="0.4940978">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/dnd/EODesktopPane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="26" selection-start="731" selection-end="748" vertical-scroll-proportion="0.33389544">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/GridListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="0" selection-start="3878" selection-end="3878" vertical-scroll-proportion="0.35413152">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

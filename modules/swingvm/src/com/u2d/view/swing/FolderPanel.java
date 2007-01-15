@@ -33,13 +33,13 @@ public class FolderPanel extends JPanel
       _folder = folder;
       setOpaque(true);
       setBackground(Color.white);
-      setupToAddItemOnDrop();
+      setupToAddItemOnDrop(this);
    }
 
    public EObject getEObject() { return _folder; }
    public boolean isMinimized() { return false; }
 
-   private void setupToAddItemOnDrop()
+   protected void setupToAddItemOnDrop(JComponent target)
    {
       DropTarget dropTarget = new DropTarget();
       try
@@ -79,7 +79,7 @@ public class FolderPanel extends JPanel
                }
             }
          });
-         setDropTarget(dropTarget);
+         target.setDropTarget(dropTarget);
       }
       catch (TooManyListenersException ex)
       {
