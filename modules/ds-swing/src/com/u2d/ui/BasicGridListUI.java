@@ -485,7 +485,7 @@ public class BasicGridListUI
    protected void installDefaults()
    {
       list.setLayout(_layout);
-
+      
       LookAndFeel.installBorder(list, "List.border");
 
       LookAndFeel.installColorsAndFont(list, "List.background", "List.foreground", "List.font");
@@ -1603,8 +1603,8 @@ public class BasicGridListUI
             {
                Object obj = values[i];
                String val = ((obj == null) ? "" : obj.toString());
-               plainBuf.append(val + "\n");
-               htmlBuf.append("  <li>" + val + "\n");
+               plainBuf.append(val).append("\n");
+               htmlBuf.append("  <li>").append(val).append("\n");
             }
 
             plainBuf.deleteCharAt(plainBuf.length() - 1);
@@ -1865,8 +1865,7 @@ class BasicDragGestureRecognizer
       Object src = e.getSource();
       if (src instanceof JComponent)
       {
-         JComponent c = (JComponent) src;
-         return c;
+         return (JComponent) src;
       }
       return null;
    }
@@ -1906,7 +1905,7 @@ class BasicDropTargetListener
    {
       // compute the outer
       Rectangle visible = c.getVisibleRect();
-      outer.reshape(visible.x, visible.y, visible.width, visible.height);
+      outer.setBounds(visible.x, visible.y, visible.width, visible.height);
 
       // compute the insets
       Insets i = new Insets(0, 0, 0, 0);
@@ -1926,7 +1925,7 @@ class BasicDropTargetListener
       }
 
       // set the inner from the insets
-      inner.reshape(visible.x + i.left,
+      inner.setBounds(visible.x + i.left,
                     visible.y + i.top,
                     visible.width - (i.left + i.right),
                     visible.height - (i.top + i.bottom));
@@ -2350,7 +2349,6 @@ class BasicTransferable
    public Object getTransferData(DataFlavor flavor)
          throws UnsupportedFlavorException, IOException
    {
-      DataFlavor[] richerFlavors = getRicherFlavors();
       if (isRicherFlavor(flavor))
       {
          return getRicherData(flavor);
