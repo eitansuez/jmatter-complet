@@ -36,9 +36,9 @@ public class GridList extends JList
    // scrollable interface:
    // ===========  =======
    
-   private GridListLayout gridlistlayout()
+   private BasicGridListUI.GridListLayout gridlistlayout()
    {
-      return (GridListLayout) getLayout();
+      return (BasicGridListUI.GridListLayout) getLayout();
    }
    
    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction)
