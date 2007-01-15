@@ -48,9 +48,8 @@ public class GridList extends JList
          return gridlistlayout().getDefaultHeight();
 			
       // never scrolls horizontally, so don't need to inspect orientation
-      // q: why direction?
       Component comp = renderedComponent(0);
-      return comp.getHeight() + gridlistlayout().getVgap();
+      return comp.getPreferredSize().height + gridlistlayout().getVgap();
    }
 	
    public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction)
