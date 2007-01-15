@@ -63,12 +63,11 @@ public class GridListTest
          }
       };
       list.setCellRenderer(renderer);
+      list.setSize(200,200);
 
 
       JScrollPane sp = new JScrollPane(list);
       add(sp, BorderLayout.CENTER);
-
-      System.out.println("list component count: "+list.getComponentCount());
    }
    public static void main(String[] args)
    {
