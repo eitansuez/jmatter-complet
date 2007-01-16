@@ -665,7 +665,6 @@ public class SwingViewMechanism implements ViewMechanism
 
    public ListEView getListView(AbstractListEO leo) { return new JListView(leo); }
    public ListEView getListViewAsTable(AbstractListEO leo) { return new TableView(leo); }
-//   public ListEView getListViewAsIcons(AbstractListEO leo) { return new IconListView(leo); }
    public ListEView getListViewAsIcons(AbstractListEO leo) { return new GridListView(leo); }
    public ListEView getListViewAsTree(AbstractListEO leo) { return new MyListTreeView(leo); }
    public ListEView getOmniListView(AbstractListEO leo) { return new OmniListView(leo); }

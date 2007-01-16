@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import com.u2d.type.composite.Folder;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.swing.list.AlternateListView;
+import com.u2d.view.swing.list.GridListView;
 
 /**
  * @author Eitan Suez
@@ -17,26 +18,21 @@ public class FolderView extends FolderPanel implements ComplexEView
 {
    // basically an iconlistview of the folder items..
    
-   private AlternateListView _innerView;
+   private GridListView _iconListView;
    
    public FolderView(Folder folder)
    {
-      // problem:  droptargethandler doesn't work because
-      // most of view is covered by a jlistview or gridlistview
-      // that already has a transfer handler set on it..
       super(folder);
       
-      _innerView =  new AlternateListView(_folder.getItems(), 
-            new String[] {"listiconsview", "listview"});  // view as list or icons
-
       setLayout(new BorderLayout());
-      add(_innerView, BorderLayout.CENTER);
+      _iconListView = new GridListView(_folder.getItems());
+      setupToAddItemOnDrop(_iconListView);
+      add(_iconListView, BorderLayout.CENTER);
    }
-   
    
    public void detach()
    {
-      _innerView.detach();
+      _iconListView.detach();
    }
 
    public void propertyChange(PropertyChangeEvent evt) {}

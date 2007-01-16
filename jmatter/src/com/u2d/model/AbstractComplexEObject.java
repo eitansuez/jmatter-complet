@@ -363,7 +363,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       if (obj == this) return true;
       if (!(obj instanceof AbstractComplexEObject))
          return false;
-      if (!obj.getClass().equals(getClass()))
+      if (!clsNamesSameExceptCGILibEnhancer(obj))
       {
            return false;
       }

@@ -2,10 +2,10 @@ package com.u2d.view.swing.list;
 
 import com.u2d.ui.RenderHelper;
 import com.u2d.ui.GridList;
-import com.u2d.view.ListEView;
-import com.u2d.view.Selectable;
 import com.u2d.view.EView;
+import com.u2d.view.SelectableListView;
 import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.view.swing.dnd.SimpleListTransferHandler;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
@@ -20,14 +20,13 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.datatransfer.Transferable;
 
 /**
  * @author Eitan Suez
  */
 public class GridListView
       extends GridList
-      implements ListEView, ListCellRenderer, Selectable
+      implements SelectableListView, ListCellRenderer
 {
    protected AbstractListEO _leo;
    protected ProxyListModel _leoProxy;
@@ -58,8 +57,7 @@ public class GridListView
       setModel(_leoProxy);
       setCellRenderer(this);
       
-      setDragEnabled(true);
-      setTransferHandler(new GridListView.SimpleListTransferHandler());
+      setupTransferHandler();
       
       _leo.addListDataListener(this);
       
@@ -133,17 +131,10 @@ public class GridListView
       _views.clear();
    }
    
-   class SimpleListTransferHandler extends TransferHandler
+   public void setupTransferHandler()
    {
-      protected Transferable createTransferable(JComponent source)
-      {
-         return (ComplexEObject) getSelectedValue();
-      }
-      public int getSourceActions(JComponent c) { return COPY_OR_MOVE; }
-      protected void exportDone(JComponent c, Transferable t, int action)
-      {
-         // noop
-      }
+      setDragEnabled(true);
+      setTransferHandler(new SimpleListTransferHandler(this));
    }
    
    public Dimension getPreferredScrollableViewportSize()
