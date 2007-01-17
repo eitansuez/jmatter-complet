@@ -66,6 +66,12 @@ public class Song extends AbstractComplexEObject
       lookupOrCreateGenre(tag.getGenre());
    }
 
+
+   public void initialize()
+   {
+      _genre.setValue(_genre.list().get(0));
+   }
+
    private void lookupOrCreateArtist(String name)
    {
       Session session = hbmPersistor().getSession();

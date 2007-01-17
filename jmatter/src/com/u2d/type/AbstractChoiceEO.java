@@ -31,7 +31,6 @@ public abstract class AbstractChoiceEO extends AbstractComplexEObject
 
    public EView getView() { return vmech().getChoiceView(this); }
 
-   
    public boolean equals(Object obj)
    {
       if (obj == null) return false;
@@ -73,10 +72,17 @@ public abstract class AbstractChoiceEO extends AbstractComplexEObject
    }
    
    // ----
+
+   public Object getSelectedItem()
+   {
+      return selectedItem;
+   }
    
-   public Object getSelectedItem() { return this; }
+   Object selectedItem = this;
+   
    public void setSelectedItem(Object anItem)
    {
+      selectedItem = anItem;
       AbstractChoiceEO choice = (AbstractChoiceEO) anItem;
       setValue(choice);
    }

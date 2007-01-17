@@ -5,8 +5,6 @@ import com.u2d.model.Editor;
 import com.u2d.type.AbstractChoiceEO;
 import com.u2d.view.*;
 import com.u2d.ui.CardPanel;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.beans.PropertyChangeEvent;
@@ -31,14 +29,7 @@ public class ChoiceView extends CardPanel implements ComplexEView, Editor
       _choice.addChangeListener(this);
       stateChanged(null);  // initialize the label text..
       
-      // ensures desired alignment of component
-      JPanel cbPanel = new JPanel();
-      cbPanel.setOpaque(false);
-      cbPanel.setLayout(new FormLayout("pref", "pref"));
-      CellConstraints cc = new CellConstraints();
-      cbPanel.add(_cb, cc.xy(1,1));
-
-      add(cbPanel, "edit");
+      add(_cb, "edit");
       add(_label, "view");
 
       setEditable(false); // start out read-only by default
@@ -61,7 +52,12 @@ public class ChoiceView extends CardPanel implements ComplexEView, Editor
    }
    public void propertyChange(PropertyChangeEvent evt) {}
 
-   public int transferValue() { return 0; }
+   public int transferValue()
+   {
+      _choice.setValue((EObject) _cb.getSelectedItem());
+      stateChanged(null);
+      return 0;
+   }
 
    public void setEditable(boolean editable)
    {
@@ -75,20 +71,16 @@ public class ChoiceView extends CardPanel implements ComplexEView, Editor
    
    class ChoiceComboBox extends JComboBox
    {
-      ChoiceComboBox() { init(); }
-      ChoiceComboBox(ComboBoxModel model)
+      ChoiceComboBox()
       {
-         super(model);
-         init();
-      }
-      private void init()
-      {
-         UIDefaults defaults = UIManager.getDefaults();
-         defaults.put("ComboBox.disabledBackground", defaults.get("ComboBox.background"));
-         defaults.put("ComboBox.disabledForeground", defaults.get("ComboBox.foreground"));
          setOpaque(false);
       }
 
+      ChoiceComboBox(ComboBoxModel model)
+      {
+         super(model);
+         setOpaque(false);
+      }
 
       public void contentsChanged(final ListDataEvent e)
       {
