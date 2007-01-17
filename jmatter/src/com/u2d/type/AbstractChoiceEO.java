@@ -3,9 +3,7 @@
  */
 package com.u2d.type;
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
 import com.u2d.model.AbstractComplexEObject;
@@ -48,34 +46,24 @@ public abstract class AbstractChoiceEO extends AbstractComplexEObject
    {
       return 31 * getClass().hashCode() + code().hashCode();
    }
-
-
-   private static Map _map = new HashMap();
+   
+   private AbstractListEO _list;
    
    public AbstractListEO list()
    {
-      ComplexType type = choiceType();
-      if (_map.get(type.getJavaClass()) == null)
+      if (_list == null)
       {
-         AbstractListEO leo = type.list();
-         _map.put(type.getJavaClass(), leo);
+         _list = choiceType().list();
       }
-      return (AbstractListEO) _map.get(type.getJavaClass());
+      return _list;
    }
-   
-   public AbstractChoiceEO first()
-   {
-      if (list().getSize() > 0)
-         return (AbstractChoiceEO) list().getItems().get(0);
-      return null;
-   }
-   
+
+   public AbstractChoiceEO first() { return (AbstractChoiceEO) list().first(); }
+
    public AbstractChoiceEO get(String code)
    {
-      AbstractListEO leo = list();
-      Iterator itr = leo.iterator();
       AbstractChoiceEO eo;
-      while (itr.hasNext())
+      for (Iterator itr = list().iterator(); itr.hasNext(); )
       {
          eo = (AbstractChoiceEO) itr.next();
          if (eo.code().equals(code))
@@ -94,6 +82,14 @@ public abstract class AbstractChoiceEO extends AbstractComplexEObject
    }
    public Object getElementAt(int index) { return list().getElementAt(index); }
    public int getSize() { return list().getSize(); }
-   public void addListDataListener(ListDataListener l) { list().addListDataListener(l); }
-   public void removeListDataListener(ListDataListener l) { list().removeListDataListener(l); }
+
+   public void addListDataListener(ListDataListener l)
+   {
+      list().addListDataListener(l);
+   }
+
+   public void removeListDataListener(ListDataListener l)
+   {
+      list().removeListDataListener(l);
+   }
 }

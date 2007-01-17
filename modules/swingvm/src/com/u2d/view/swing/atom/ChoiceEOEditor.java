@@ -26,8 +26,7 @@ public class ChoiceEOEditor extends JComboBox implements AtomicEditor
 
    private void initialize(ChoiceEO eo)
    {
-      Iterator itr = eo.entries().iterator();
-      while (itr.hasNext())
+      for (Iterator itr = eo.entries().iterator(); itr.hasNext(); )
          addItem(itr.next());
    }
 

@@ -12,16 +12,12 @@ import javax.swing.event.*;
 import java.beans.PropertyChangeEvent;
 
 /**
- * The reason this class does not extend JComboBox directly
- * is because of a namespace conflict between JComboBox and
- * my Editor interface (editable property)
- * 
  * @author Eitan Suez
  */
 public class ChoiceView extends CardPanel implements ComplexEView, Editor
 {
    private AbstractChoiceEO _choice;
-   private JComboBox _cb;
+   private ChoiceComboBox _cb;
    private JLabel _label = new JLabel();
    {
       _label.setOpaque(false);
@@ -30,11 +26,11 @@ public class ChoiceView extends CardPanel implements ComplexEView, Editor
    public ChoiceView(AbstractChoiceEO choice)
    {
       _choice = choice;
-      _cb = new SlightlyCustomizedComboBox(_choice);
+      _cb = new ChoiceComboBox(_choice);
 
       _choice.addChangeListener(this);
       stateChanged(null);  // initialize the label text..
-
+      
       // ensures desired alignment of component
       JPanel cbPanel = new JPanel();
       cbPanel.setOpaque(false);
@@ -48,9 +44,20 @@ public class ChoiceView extends CardPanel implements ComplexEView, Editor
       setEditable(false); // start out read-only by default
    }
    
+   public void detach()
+   {
+      _choice.removeChangeListener(this);
+   }
+   
    public void stateChanged(ChangeEvent evt)
    {
-      _label.setText(_choice.title().toString());
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            _label.setText(_choice.title().toString());
+         }
+      });
    }
    public void propertyChange(PropertyChangeEvent evt) {}
 
@@ -66,13 +73,10 @@ public class ChoiceView extends CardPanel implements ComplexEView, Editor
    public EObject getEObject() { return _choice; }
    public boolean isMinimized() { return false; }
    
-   class SlightlyCustomizedComboBox extends JComboBox
+   class ChoiceComboBox extends JComboBox
    {
-      SlightlyCustomizedComboBox()
-      {
-         init();
-      }
-      SlightlyCustomizedComboBox(ComboBoxModel model)
+      ChoiceComboBox() { init(); }
+      ChoiceComboBox(ComboBoxModel model)
       {
          super(model);
          init();
@@ -84,11 +88,40 @@ public class ChoiceView extends CardPanel implements ComplexEView, Editor
          defaults.put("ComboBox.disabledForeground", defaults.get("ComboBox.foreground"));
          setOpaque(false);
       }
-   }
-   
-   public void detach()
-   {
-      _choice.removeChangeListener(this);
+
+
+      public void contentsChanged(final ListDataEvent e)
+      {
+         SwingUtilities.invokeLater(new Runnable()
+         {
+            public void run()
+            {
+               ChoiceComboBox.super.contentsChanged(e);
+            }
+         });
+      }
+
+      public void intervalAdded(final ListDataEvent e)
+      {
+         SwingUtilities.invokeLater(new Runnable()
+         {
+            public void run()
+            {
+               ChoiceComboBox.super.intervalAdded(e);
+            }
+         });
+      }
+
+      public void intervalRemoved(final ListDataEvent e)
+      {
+         SwingUtilities.invokeLater(new Runnable()
+         {
+            public void run()
+            {
+               ChoiceComboBox.super.intervalRemoved(e);
+            }
+         });
+      }
    }
    
 }

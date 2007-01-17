@@ -48,6 +48,9 @@ public class PlainListEObject extends SimpleListEO
    {
       super(clazz);
    }
+   
+   // call to ensure/force that type is resolved and appeventlistener added
+   public void resolveType() { type(); }
 
    // lazy derivation of type
    public ComplexType type()
@@ -75,9 +78,8 @@ public class PlainListEObject extends SimpleListEO
         _addListener = null;
 
         // remove ondelete listener from items
-        Iterator itr = _items.iterator();
         ComplexEObject ceo = null;
-        while (itr.hasNext())
+        for (Iterator itr = _items.iterator(); itr.hasNext(); )
         {
            ceo = (ComplexEObject) itr.next();
            ceo.removeAppEventListener("ONDELETE", this);

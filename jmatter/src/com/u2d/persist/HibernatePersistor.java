@@ -251,7 +251,9 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 
    public PlainListEObject list(ComplexType type)
    {
-      return list(type.getJavaClass());
+      PlainListEObject list = list(type.getJavaClass());
+      list.resolveType();
+      return list;
    }
 
    public boolean authenticate(String username, String password)

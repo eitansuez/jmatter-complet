@@ -644,7 +644,7 @@ public class ComplexType extends AbstractComplexEObject
    // USStates or any other Choice type.
    public AbstractListEO list()
    {
-      return persistor().list(_clazz);
+      return persistor().list(this);
    }
 
    @Cmd
