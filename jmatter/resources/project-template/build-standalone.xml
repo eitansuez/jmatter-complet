@@ -293,7 +293,7 @@
  <target name="web-app" depends="genhbm, init-web">
     <copy todir="${build.web.dir}/WEB-INF">
       <fileset dir="resources/${vmname}/WEB-INF" includes="web*.xml" />
-      <fileset dir="${src.dir}" includes="persistClasses.xml" />
+      <fileset dir="${build.classes.dir}" includes="persistClasses.xml" />
     </copy>
 
     <copy todir="${build.web.dir}/WEB-INF/classes">
