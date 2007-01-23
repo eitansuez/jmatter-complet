@@ -76,7 +76,7 @@ public class EditableListView extends JPanel
 
    private JPanel northPanel()
    {
-      _northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+      _northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
       _northPanel.setOpaque(false);
       _northPanel.add(addBtn());
       _northPanel.add(removeBtn());
@@ -133,7 +133,7 @@ public class EditableListView extends JPanel
       return new JMenuItem(action);
    }
 
-   Insets _insets = new Insets(10,5,5,5);
+   Insets _insets = new Insets(20, 5, 5, 5);
    public Insets getInsets() { return _insets; }
 
    public EObject getEObject() { return _leo; }
