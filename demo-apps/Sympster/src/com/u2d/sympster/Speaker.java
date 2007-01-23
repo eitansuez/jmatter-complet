@@ -57,8 +57,7 @@ public class Speaker extends AbstractComplexEObject
    public Talk AddTalk(CommandInfo cmdInfo)
    {
       Talk talk = (Talk) createInstance(Talk.class);
-      talk.setSpeaker(this);
-      getTalks().add(talk);
+      talk.association("speaker").set(this);
       return talk;
    }
 
