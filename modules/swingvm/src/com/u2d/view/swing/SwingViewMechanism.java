@@ -48,6 +48,7 @@ public class SwingViewMechanism implements ViewMechanism
    public SwingViewMechanism()
    {
       setupAntiAliasing();
+      Styles.initialize();
       Toolkit.getDefaultToolkit().addAWTEventListener(_inputTracker, AWTEvent.MOUSE_EVENT_MASK);
    }
    

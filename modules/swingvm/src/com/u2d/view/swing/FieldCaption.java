@@ -18,18 +18,11 @@ import com.u2d.model.EObject;
  */
 public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
 {
-   private static Font BOLD_FONT;
-   static
-   {
-      BOLD_FONT = UIManager.getFont("Label.font").deriveFont(Font.BOLD);
-   }
-   
    private Field _field;
    private transient CommandsContextMenuView _cmdsView = new CommandsContextMenuView();
    private transient Font _font;
    private transient Color _foreground;
    
-
    public FieldCaption(Field field, JComponent comp)
    {
       _field = field;
@@ -60,8 +53,9 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
    {
       if (_field.required())
       {
-         setFont(BOLD_FONT);
-         setForeground(Color.BLUE);
+         UIDefaults defaults = UIManager.getDefaults();
+         setFont(defaults.getFont("FieldCaption.required.font"));
+         setForeground(defaults.getColor("FieldCaption.required.foreground"));
       }
       else
       {
