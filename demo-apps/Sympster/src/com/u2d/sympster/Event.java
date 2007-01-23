@@ -2,6 +2,7 @@ package com.u2d.sympster;
 
 import com.u2d.model.ComplexEObject;
 import com.u2d.persist.Persist;
+import com.u2d.type.atom.StringEO;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,4 +13,5 @@ import com.u2d.persist.Persist;
 @Persist
 public interface Event extends ComplexEObject
 {
+   public StringEO getTitle();
 }
