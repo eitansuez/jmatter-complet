@@ -36,18 +36,21 @@ public class EditableListView extends JPanel
    private JListView _listView;
    private JButton _removeBtn;
    private NullAssociation _association = null;
+   private JPanel _northPanel;
 
    public EditableListView(RelationalList leo)
    {
       _leo = leo;
       _association = new NullAssociation(_leo);
       _listView = new JListView(_leo);
-
+      
       setLayout(new BorderLayout());
       setOpaque(false);
 
       add(northPanel(), BorderLayout.NORTH);
-
+//      _leo.parentObject().addChangeListener(this);
+//      setEditable(_leo.parentObject().isEditableState());
+      
       JScrollPane scrollPane = new JScrollPane(_listView);
       add(scrollPane, BorderLayout.CENTER);
 
@@ -73,11 +76,11 @@ public class EditableListView extends JPanel
 
    private JPanel northPanel()
    {
-      JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-      northPanel.setOpaque(false);
-      northPanel.add(addBtn());
-      northPanel.add(removeBtn());
-      return northPanel;
+      _northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+      _northPanel.setOpaque(false);
+      _northPanel.add(addBtn());
+      _northPanel.add(removeBtn());
+      return _northPanel;
    }
 
    private JButton removeBtn()
@@ -130,20 +133,33 @@ public class EditableListView extends JPanel
       return new JMenuItem(action);
    }
 
-   public Insets getInsets()
-   {
-      return new Insets(10, 10, 10, 10);
-   }
+   Insets _insets = new Insets(10,5,5,5);
+   public Insets getInsets() { return _insets; }
 
    public EObject getEObject() { return _leo; }
 
    public void detach()
    {
+//      _leo.parentObject().removeChangeListener(this);
       _listView.removeListSelectionListener(this);
       _listView.detach();
    }
 
-   public void stateChanged(ChangeEvent e) { }
+   public void stateChanged(ChangeEvent e)
+   {
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            setEditable(_leo.parentObject().isEditableState());
+         }
+      });
+   }
+   
+   private void setEditable(boolean editable)
+   {
+      _northPanel.setVisible(editable);
+   }
 
    public void intervalAdded(ListDataEvent e) { }
    public void intervalRemoved(ListDataEvent e) { }
