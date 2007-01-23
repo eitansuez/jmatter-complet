@@ -17,11 +17,7 @@
     <option name="USER" value="" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/mytunes/Song.java" afterPath="$PROJECT_DIR$/src/com/u2d/mytunes/Song.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/mytunes/Genre.java" afterPath="$PROJECT_DIR$/src/com/u2d/mytunes/Genre.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MyTunes.iws" afterPath="$PROJECT_DIR$/MyTunes.iws" />
-    </list>
+    <list default="true" name="Default" comment="" />
   </component>
   <component name="ChangeListSynchronizer" />
   <component name="ChangesViewManager" flattened_view="true" />

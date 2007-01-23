@@ -100,7 +100,18 @@ public class BidiAssociationStrategy
    {
       AbstractListEO list = (AbstractListEO) field().get(parent());
       list.remove(eo);
-      _otherSide.set(eo, null);
+      
+      if (_otherSide instanceof IndexedField)
+      {  // many to many situation
+         IndexedField otherListField = (IndexedField) _otherSide;
+         AbstractListEO otherList = (AbstractListEO) otherListField.get(eo);
+         otherList.remove(parent());
+      }
+      else
+      {
+         _otherSide.set(eo, null);
+      }
+
       Context.getInstance().getPersistenceMechanism().
             updateAssociation(eo, parent());
    }

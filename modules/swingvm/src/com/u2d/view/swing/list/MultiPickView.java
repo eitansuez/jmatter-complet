@@ -1,7 +1,6 @@
 package com.u2d.view.swing.list;
 
 import com.u2d.view.ListEView;
-import com.u2d.view.EView;
 import com.u2d.view.View;
 import com.u2d.view.swing.calendar.NavPanel;
 import com.u2d.view.swing.find.FindPanel;
@@ -60,12 +59,9 @@ public class MultiPickView extends JPanel implements View
                list.add(objects[i]);
             }
 
-            if (list != null)
-            {
-               list.addAll(_leo.getItems());
-               Association association = _leo.parentObject().association(_leo.field().name());
-               association.associateList(list);
-            }
+            list.addAll(_leo.getItems());
+            Association association = _leo.parentObject().association(_leo.field().name());
+            association.associateList(list);
          }
       });
 

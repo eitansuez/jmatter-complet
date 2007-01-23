@@ -103,10 +103,15 @@ public abstract class AbstractListEO extends AbstractEObject
       list.addAll(items);
       setItems(list);
    }
+   private List filterDuplicates(List list)
+   {
+      return new ArrayList(new HashSet(list));
+   }
    public void setItems(List<EObject> items)
    {
       if (_items == items) return;
 
+      items = filterDuplicates(items);
       removeDeleteListeners();
       _items = items;
       addDeleteListeners();

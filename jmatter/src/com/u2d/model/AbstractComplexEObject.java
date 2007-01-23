@@ -363,7 +363,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       if (obj == this) return true;
       if (!(obj instanceof AbstractComplexEObject))
          return false;
-      if (!clsNamesSameExceptCGILibEnhancer(obj))
+      if (!sameClassOrProxy(obj))
       {
            return false;
       }
@@ -382,7 +382,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       return true;
    }
 
-   private boolean clsNamesSameExceptCGILibEnhancer(Object obj)
+   private boolean sameClassOrProxy(Object obj)
    {
       String clsName1 = cleanCGILibEnhancer(obj);
       String clsName2 = cleanCGILibEnhancer(this);

@@ -18,13 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistClasses.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/movielib/Genre.java" afterPath="$PROJECT_DIR$/src/com/u2d/movielib/Genre.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovieLib.iws" afterPath="$PROJECT_DIR$/MovieLib.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/movielib/Actor.java" afterPath="$PROJECT_DIR$/src/com/u2d/movielib/Actor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/persistClasses.vm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/movielib/Movie.java" afterPath="$PROJECT_DIR$/src/com/u2d/movielib/Movie.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovieLib.ipr" afterPath="$PROJECT_DIR$/MovieLib.ipr" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -272,20 +267,34 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
         </PATH_ELEMENT>
       </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="MovieLib.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="MovieLib" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
     </subPane>
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="PackagesPane" proportions="0.16666667" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="0.16666667" version="1" splitterProportion="0.5">
       <flattenPackages PackagesPane="true" />
       <showMembers />
       <showModules />
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Favorites="false" PackagesPane="false" ProjectPane="false" />
+      <showStructure ProjectPane="false" PackagesPane="false" Favorites="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -296,21 +305,28 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
   </component>
   <component name="ReadonlyStatusHandler">
     <option name="SHOW_DIALOG" value="true" />
   </component>
   <component name="RecentsManager" />
   <component name="RestoreUpdateTree" />
-  <component name="RunManager">
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
+  <component name="RunManager" selected="Application.Run as Swing App">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
@@ -328,18 +344,6 @@
         <value defaultName="wholeProject" />
       </option>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
@@ -349,6 +353,33 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <module name="" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="false" name="Run as Swing App" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <module name="MovieLib" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="33009" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
+      <method>
+        <option name="Make" value="true" />
+        <option name="Run ant target" value="true" />
+      </method>
     </configuration>
   </component>
   <component name="ScopeViewComponent" />
@@ -427,17 +458,17 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25962326" order="0" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" order="8" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979524" order="1" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="4" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3984" order="4" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
@@ -511,18 +542,57 @@
       <option name="ANSWER_NEGATIVELY" value="false" />
       <option name="ANSWER_POSITIVELY" value="false" />
       <option name="RECURSIVE" value="false" />
+      <option name="VERSION" />
     </GetOptions>
+    <VssConfigurableExcludedFilesTag />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
+    <buildFile url="file://$PROJECT_DIR$/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="false" />
+      <targetFilters>
+        <filter targetName="bind" isVisible="true" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="compile" isVisible="true" />
+        <filter targetName="compile-framework" isVisible="false" />
+        <filter targetName="compile-tests" isVisible="true" />
+        <filter targetName="copylibs" isVisible="false" />
+        <filter targetName="echo2-app" isVisible="true" />
+        <filter targetName="find-drvname" isVisible="false" />
+        <filter targetName="genhbm" isVisible="true" />
+        <filter targetName="hbm-practice" isVisible="true" />
+        <filter targetName="hbmxml" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="init-web" isVisible="false" />
+        <filter targetName="jar" isVisible="true" />
+        <filter targetName="jws-dist" isVisible="true" />
+        <filter targetName="keystore" isVisible="false" />
+        <filter targetName="run" isVisible="true" />
+        <filter targetName="run-a-test" isVisible="true" />
+        <filter targetName="run-test" isVisible="true" />
+        <filter targetName="run-tests" isVisible="true" />
+        <filter targetName="schema-export" isVisible="true" />
+        <filter targetName="schema-update" isVisible="true" />
+        <filter targetName="schema-x" isVisible="false" />
+        <filter targetName="shellscript" isVisible="true" />
+        <filter targetName="test-init" isVisible="false" />
+        <filter targetName="test-report" isVisible="true" />
+        <filter targetName="web-app" isVisible="false" />
+        <filter targetName="wings-app" isVisible="true" />
+      </targetFilters>
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
   </component>
   <component name="com.intellij.ide.util.scopeChooser.ScopeChooserConfigurable" proportions="" version="1">
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectRootMasterDetailsConfigurable" proportions="0.16666667" version="1">
     <option name="myPlainMode" value="false" />
-    <option name="myLastEditedConfigurable" value="MovieLib" />
+    <option name="myLastEditedConfigurable" value="1.5" />
   </component>
   <component name="com.intellij.profile.ui.ErrorOptionsConfigurable" proportions="" version="1">
     <option name="myLastEditedConfigurable" />
@@ -545,6 +615,41 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/movielib/Genre.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="1" selection-start="322" selection-end="322" vertical-scroll-proportion="0.30405405">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/field/BasicAssociationStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="25" selection-start="2445" selection-end="2445" vertical-scroll-proportion="1.8149467">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/field/BidiAssociationStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="104" column="0" selection-start="2896" selection-end="2896" vertical-scroll-proportion="0.5966387">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/field/IndexedField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="214" column="0" selection-start="6108" selection-end="6108" vertical-scroll-proportion="1.1671827">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractListEO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="153" column="0" selection-start="3998" selection-end="3998" vertical-scroll-proportion="0.33136094">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/thirdparty/hibernate-3.2/src/org/hibernate/collection/PersistentBag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="239" column="0" selection-start="7459" selection-end="7459" vertical-scroll-proportion="0.33436534">
           <folding />
         </state>
       </provider>
