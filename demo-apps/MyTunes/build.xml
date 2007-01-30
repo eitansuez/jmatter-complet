@@ -84,6 +84,7 @@
       <fileset dir="resources" includes="images/*.gif,images/*.png,**/*.jpg" />
       <fileset dir="resources" includes="model-metadata.properties" />
       <fileset dir="resources" includes="locale-metadata*.properties" />
+      <fileset dir="resources" includes="styles.css" />
       <fileset dir="resources/data" includes="*.xml,*.json" /> <!-- codes files -->
       <!-- <fileset dir="resources" includes="log4j.properties" /> -->
       <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- jfree report xmls -->
