@@ -53,9 +53,7 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
    {
       if (_field.required())
       {
-         UIDefaults defaults = UIManager.getDefaults();
-         setFont(defaults.getFont("FieldCaption.required.font"));
-         setForeground(defaults.getColor("FieldCaption.required.foreground"));
+         putClientProperty("css-class", "required");
       }
       else
       {
