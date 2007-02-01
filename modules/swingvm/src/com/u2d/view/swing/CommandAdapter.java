@@ -78,7 +78,12 @@ public class CommandAdapter extends AbstractAction
    public void actionPerformed(ActionEvent evt)
    {
       SwingViewMechanism.getInstance().setCursor(WAITCURSOR);
-
+      
+      if (_command.blocks())
+      {
+         ((JComponent) _source).setEnabled(false);
+      }
+      
       new Thread()
       {
          public void run()
@@ -99,6 +104,10 @@ public class CommandAdapter extends AbstractAction
                   public void run()
                   {
                      SwingViewMechanism.getInstance().setCursor(Cursor.getDefaultCursor());
+                     if (_command.blocks())
+                     {
+                        ((JComponent) _source).setEnabled(true);
+                     }
                   }
                });
             }

@@ -11,7 +11,6 @@ import com.u2d.app.Role;
 import com.u2d.model.*;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
-import com.u2d.type.composite.Person;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.pattern.Filter;
@@ -71,16 +70,23 @@ public abstract class Command extends Member
    public abstract void execute(Object value, EView source)
             throws java.lang.reflect.InvocationTargetException;
 
+   protected final BooleanEO _sensitive = new BooleanEO();
    /**
     * A sensitive command is one that should be guarded against
     * inadvertant invocation.  Its cost is high and undoing is 
     * difficult.  A ui is advised to make it difficult for an 
     * end user to inadvertantly invoke the command.
     */
-   protected final BooleanEO _sensitive = new BooleanEO();
    public BooleanEO getSensitive() { return _sensitive; }
    public boolean sensitive() { return _sensitive.booleanValue(); }
 
+   private boolean _blocks;
+   /**
+    * @see Cmd
+    */
+   public boolean blocks() { return _blocks; }
+   public void blocks(boolean blocks) { _blocks = blocks; }
+   
 
    public String localizedLabel(Localized l)
    {

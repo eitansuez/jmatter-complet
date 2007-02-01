@@ -41,6 +41,7 @@ public class AnnotationsReflector implements Reflector
                                     parameterInfo(method),
                                     at.isSensitive(),
                                     at.viewPosition());
+      cmd.blocks(at.blocks());
       
       if (parent == null)  // hack for lists..(temporary)
          return cmd;

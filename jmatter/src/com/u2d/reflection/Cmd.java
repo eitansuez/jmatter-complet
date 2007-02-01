@@ -13,4 +13,9 @@ public @interface Cmd
    public char mnemonic() default '\0';
    public boolean isSensitive() default false;
    public Positioning viewPosition() default Positioning.NEARMOUSE;
+
+   /**
+    * @return whether to disable the command's view through the duration of invocation
+    */
+   public boolean blocks() default false;
 }

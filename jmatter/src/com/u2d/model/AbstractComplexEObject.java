@@ -577,7 +577,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public class TransientState extends EditableState
    {
-      @Cmd(mnemonic='s')
+      @Cmd(mnemonic='s', blocks=true)
       public String Save(CommandInfo cmdInfo)
       {
 //         System.out.println("Transient.save");
@@ -719,7 +719,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public class EditState extends EditableState
    {
-      @Cmd(mnemonic='s')
+      @Cmd(mnemonic='s', blocks=true)
       public String Save(CommandInfo cmdInfo)
       {
 //         System.out.println("Edit.save");
