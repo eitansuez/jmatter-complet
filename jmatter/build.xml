@@ -67,7 +67,7 @@
   <target name="raw-compile" description="compile code" depends="gen">
     <javac debug="on" deprecation="on" 
            classpathref="class.path"
-           listfiles="true"
+           listfiles="false"
            destdir="${build.classes.dir}">
       <compilerarg line="-Xmaxwarns 0" />
       <src path="${src.dir}" />

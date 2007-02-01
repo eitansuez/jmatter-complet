@@ -3,13 +3,8 @@
  */
 package com.u2d.view.swing;
 
-import java.awt.Color;
-import java.awt.Font;
-
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 import com.u2d.model.ComplexEObject;
 import com.u2d.validation.ValidationEvent;
 import com.u2d.validation.ValidationListener;
@@ -20,12 +15,6 @@ import com.u2d.validation.ValidationNotifier;
  */
 public class ValidationNoticePanel extends JLabel implements ValidationListener
 {
-   public static Font ITALIC_FONT;
-   static
-   {
-      ITALIC_FONT = UIManager.getFont("Label.font").deriveFont(Font.ITALIC);
-   }
-   
    ValidationNotifier _target;
    
    ValidationNoticePanel(ValidationNotifier target, boolean startListening)
@@ -33,8 +22,7 @@ public class ValidationNoticePanel extends JLabel implements ValidationListener
       _target = target;
       
       setText("");
-      setFont(ITALIC_FONT);
-      setForeground(Color.RED);
+      putClientProperty("css-class", "validation-msg");
       
       if (startListening)
          startListening();

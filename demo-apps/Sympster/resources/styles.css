@@ -4,3 +4,8 @@
    color: blue;
    font-weight: bold;
 }
+.validation-msg
+{
+   color: red;
+   font-style: italic;
+}

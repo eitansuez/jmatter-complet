@@ -31,8 +31,7 @@ import com.u2d.list.RelationalList;
 import com.u2d.list.CompositeList;
 import com.u2d.model.*;
 import com.u2d.reporting.*;
-import com.u2d.css4swing.CSSStyleEngine;
-
+import com.u2d.css4swing.CSSEngine;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -50,7 +49,7 @@ public class SwingViewMechanism implements ViewMechanism
    public SwingViewMechanism()
    {
       setupAntiAliasing();
-      new CSSStyleEngine();
+      CSSEngine.initialize();
       Toolkit.getDefaultToolkit().addAWTEventListener(_inputTracker, AWTEvent.MOUSE_EVENT_MASK);
    }
    

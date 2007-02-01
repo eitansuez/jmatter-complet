@@ -126,8 +126,7 @@ public class EOPanel extends JPanel
       private JLabel msgLabel()
       {
          JLabel label = new JLabel("");
-         label.setFont(ValidationNoticePanel.ITALIC_FONT);
-         label.setForeground(Color.RED);
+         label.putClientProperty("css-class", "validation-msg");
          return label;
       }
       
