@@ -47,8 +47,7 @@ public class AssociationField extends Field implements Bidi, Associable
       try
       {
          String methodName = "associate" + Harvester.capitalize(name());
-         _associator = _parent.getJavaClass().getMethod(methodName, 
-              new Class[] { _clazz } );
+         _associator = _parent.getJavaClass().getMethod(methodName, _clazz);
       }
       catch (NoSuchMethodException ex)
       {
@@ -139,7 +138,7 @@ public class AssociationField extends Field implements Bidi, Associable
             throw new IllegalArgumentException("Invalid parent type: "+parent.getClass()+"; expected: "+parentClass);
          }
          
-         method.invoke(parent, new Object[] { value } );
+         method.invoke(parent, value);
       }
       catch (IllegalAccessException ex)
       {
