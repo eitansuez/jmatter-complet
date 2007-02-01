@@ -13,6 +13,8 @@ import com.u2d.ui.*;
 import com.u2d.view.*;
 import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.view.swing.dnd.SimpleListTransferHandler;
+import com.u2d.app.Tracing;
+
 import java.awt.*;
 
 /**
@@ -119,9 +121,10 @@ public class JListView extends SeeThruList
    // JList UI Delegate already ties a listener onto model
    public void contentsChanged(ListDataEvent e)
    {
-      detachItems();  // dec 7 2005: ??? why did i do this?
+      Tracing.tracer().info("contents changed..index0: "+e.getIndex0()
+                         + "; index1: "+e.getIndex1());
+      detachItems();
    }
-
    public void intervalAdded(ListDataEvent e) { }
    public void intervalRemoved(ListDataEvent e) { }
    
