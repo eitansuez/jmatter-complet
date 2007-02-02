@@ -28,7 +28,6 @@
           description="Produce jmatter distribution">
      
    <copy todir="${build.target.dir}">
-     <fileset dir="${basedir}" includes="Release_notes" />
      <fileset dir="${jmatter.dir}" includes="doc/Changes*,doc/Credits,doc/guide.pdf,doc/jMatter-license" />
      <fileset dir="${jmatter.dir}" includes="build.xml" />
      <fileset dir="${jmatter.dir}" includes="src/**/*" />
@@ -38,10 +37,14 @@
      <fileset dir="${jmatter.dir}" includes="tools/**/*" />
      <fileset dir="${jmatter.dir}" includes="dist/**/*" /> <!-- precompiled binary -->
    </copy>
-
+     
    <exec dir="${jmatter.dir}/doc" executable="markdown" output="${build.target.dir}/doc/jMatter-License.html">
      <arg line="jMatter-License" />
    </exec>
+
+   <copy todir="${build.dir}">
+     <fileset dir="${basedir}" includes="Release_notes" />
+   </copy>
    <exec dir="${basedir}" executable="markdown" output="${build.dir}/Release_notes.html">
      <arg line="Release_notes" />
    </exec>
