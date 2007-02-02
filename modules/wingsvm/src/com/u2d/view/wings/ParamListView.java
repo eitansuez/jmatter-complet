@@ -58,9 +58,9 @@ public class ParamListView
                try
                {
                   Method itypeMethod =
-                        _value.getClass().getMethod("abstractType", null);
+                        _value.getClass().getMethod("abstractType");
                   ComplexType itype =
-                        (ComplexType) itypeMethod.invoke(_value, null);
+                        (ComplexType) itypeMethod.invoke(_value);
                   eo = itype;
                   view = new TypePicker(itype);
                   label.setText(itype.getNaturalName() + " Type: ");
