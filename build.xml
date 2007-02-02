@@ -23,29 +23,42 @@
     <delete dir="${build.dir}" />
   </target>
 
-  <target name="update-modules" 
-          description="rebuild/update modules code (copies jars to framework lib dir)">
-   <ant antfile="${modules.dir}/ds-swing/build.xml" inheritAll="false">
-     <target name="clean" />
-     <target name="jar" />
-   </ant>
-   <ant antfile="${modules.dir}/ds-wizard/build.xml" inheritAll="false">
-     <target name="clean" />
-     <target name="jar" />
-   </ant>
-   <copy todir="${jmatter.dir}/lib/src">
-    <fileset dir="${modules.dir}/ds-swing/dist" includes="ds-swing.jar" />
-    <fileset dir="${modules.dir}/ds-wizard/dist" includes="ds-wizard.jar" />
+  <target name="make-distribution"
+          depends="clean, init, include-demoapps, include-modules, make-jmatter-jar, makedoc-pdf"
+          description="Produce jmatter distribution">
+     
+   <copy todir="${build.target.dir}">
+     <fileset dir="${basedir}" includes="Release_notes" />
+     <fileset dir="${jmatter.dir}" includes="doc/Changes*,doc/Credits,doc/guide.pdf,doc/jMatter-license" />
+     <fileset dir="${jmatter.dir}" includes="build.xml" />
+     <fileset dir="${jmatter.dir}" includes="src/**/*" />
+     <fileset dir="${jmatter.dir}" includes="test/**/*" />
+     <fileset dir="${jmatter.dir}" includes="lib/**/*.jar" />
+     <fileset dir="${jmatter.dir}" includes="resources/**/*" />
+     <fileset dir="${jmatter.dir}" includes="tools/**/*" />
+     <fileset dir="${jmatter.dir}" includes="dist/**/*" /> <!-- precompiled binary -->
    </copy>
+
+   <exec dir="${jmatter.dir}/doc" executable="markdown" output="${build.target.dir}/doc/jMatter-License.html">
+     <arg line="jMatter-License" />
+   </exec>
+   <exec dir="${basedir}" executable="markdown" output="${build.dir}/Release_notes.html">
+     <arg line="Release_notes" />
+   </exec>
+
+   <!-- how can i create a property whose 
+        name is dynamically computed based on ${DSTAMP}? -->
+   <mkdir dir="${build.dir}/jmatter-${DSTAMP}" />
+   <move todir="${build.dir}/jmatter-${DSTAMP}">
+      <fileset dir="${build.dir}" excludes="jmatter-${DSTAMP}" />
+   </move>
+   <zip basedir="${build.dir}" destfile="${dist.dir}/jmatter-${DSTAMP}.zip" />
+   <tar basedir="${build.dir}" destfile="${dist.dir}/jmatter-${DSTAMP}.tgz" compression="gzip" />
+
   </target>
 
-   <target name="clean-subprojects" description="invoke clean target on jmatter and demo apps">
-      <ant antfile="${demo.dir}/ContactMgr/build.xml" inheritAll="false" target="clean"/>
-      <ant antfile="${demo.dir}/IssueMgr/build.xml" inheritAll="false" target="clean"/>
-      <ant antfile="${demo.dir}/Sympster/build.xml" inheritAll="false" target="clean"/>
-      <ant antfile="${demo.dir}/MovieLib/build.xml" inheritAll="false" target="clean"/>
-      <ant antfile="${demo.dir}/MyTunes/build.xml" inheritAll="false" target="clean"/>
-      <ant antfile="${demo.dir}/CustomUI/build.xml" inheritAll="false" target="clean"/>
+
+   <target name="make-jmatter-jar">
       <!-- ensure to produce and include a binary in the distribution -->
       <ant antfile="${jmatter.dir}/build.xml" inheritAll="false" target="cleanjar"/>
       <!-- then get rid of artifacts -->
@@ -62,60 +75,66 @@
     </exec>
   </target>
 
-  <target name="preliminaries" 
-          depends="clean, init, update-modules, clean-subprojects, makedoc-pdf" />
-
-  <target name="make-distribution" 
-          description="Produce source distribution" 
-          depends="preliminaries">
-
-   <copy todir="${build.target.dir}" >
-     <fileset dir="${jmatter.dir}" includes="doc/Changes,doc/Credits,doc/guide.pdf,doc/jMatter-license" />
-     <fileset dir="${jmatter.dir}" includes="build.xml" />
-     <fileset dir="${jmatter.dir}" includes="src/**/*" />
-     <fileset dir="${jmatter.dir}" includes="test/**/*" />
-     <fileset dir="${jmatter.dir}" includes="lib/**/*.jar" />
-     <fileset dir="${jmatter.dir}" includes="resources/**/*" />
-     <fileset dir="${jmatter.dir}" includes="dist/**/*" /> <!-- precompiled binary -->
-   </copy>
    
-   <exec dir="${jmatter.dir}/doc" executable="markdown" output="${build.target.dir}/doc/jMatter-License.html">
-     <arg line="jMatter-License" />
-   </exec>
+   
+   <!--    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+   
+   <target name="include-demoapps" depends="clean-demoapps">
+      <copy todir="${build.dir}">
+        <fileset dir="${basedir}" includes="demo-apps/**/*" />
+      </copy>
+   </target>
+   
+   <target name="clean-demoapps">
+      <ant antfile="${demo.dir}/ContactMgr/build.xml" inheritAll="false" target="clean"/>
+      <ant antfile="${demo.dir}/IssueMgr/build.xml" inheritAll="false" target="clean"/>
+      <ant antfile="${demo.dir}/Sympster/build.xml" inheritAll="false" target="clean"/>
+      <ant antfile="${demo.dir}/MovieLib/build.xml" inheritAll="false" target="clean"/>
+      <ant antfile="${demo.dir}/MyTunes/build.xml" inheritAll="false" target="clean"/>
+      <ant antfile="${demo.dir}/CustomUI/build.xml" inheritAll="false" target="clean"/>
+   </target>
+   
+   <!--    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
 
-   <copy todir="${build.dir}">
-     <fileset dir="." includes="demo-apps/**/*" />
-   </copy>
+   <target name="include-modules" depends="clean-modules">
+      <copy todir="${build.dir}">
+         <fileset dir="${basedir}" includes="modules/**/*" />
+      </copy>
+   </target>
+   
+   <target name="clean-modules">
+      <ant antfile="modules/ds-swing/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="modules/ds-wizard/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="modules/echo2vm/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="modules/jmatter-tools/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="modules/swingvm/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="modules/wingsvm/build.xml" inheritAll="false" target="clean" />
+   </target>
+   
+   <!--    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
 
-   <!-- how can i create a property whose 
-        name is dynamically computed based on ${DSTAMP}? -->
-   <mkdir dir="${build.dir}/jmatter-${DSTAMP}" />
-   <move todir="${build.dir}/jmatter-${DSTAMP}">
-      <fileset dir="${build.dir}" excludes="jmatter-${DSTAMP}" />
-   </move>
-   <zip basedir="${build.dir}" destfile="${dist.dir}/jmatter-${DSTAMP}.zip" />
-   <tar basedir="${build.dir}" destfile="${dist.dir}/jmatter-${DSTAMP}.tgz" compression="gzip" />
+   <target name="checksum-distributions" depends="make-distribution"
+           description="generate checksum files for distributions">
+     <antcall target="checksum">
+       <param name="algorithm" value="MD5" />
+     </antcall>
+     <antcall target="checksum">
+       <param name="algorithm" value="SHA-1" />
+     </antcall>
+   </target>
 
-  </target>
-
-
-  <target name="checksum-all" description="generate checksum files for distributions">
-    <antcall target="checksum">
-      <param name="algorithm" value="MD5" />
-    </antcall>
-    <antcall target="checksum">
-      <param name="algorithm" value="SHA-1" />
-    </antcall>
-  </target>
-
-  <target name="checksum">
-    <checksum algorithm="${algorithm}">
-      <fileset dir="${dist.dir}" includes="*.tgz, *.zip" />
-    </checksum>
-  </target>
+   <target name="checksum">
+     <checksum algorithm="${algorithm}">
+       <fileset dir="${dist.dir}" includes="*.tgz, *.zip" />
+     </checksum>
+   </target>
   
-  <target name="make-distro-and-checksums" depends="make-distribution,checksum-all" 
-     description="construct jmatter distributions and corresponding checksums" />
+   <target name="make-distro-and-checksums" depends="checksum-distributions" 
+      description="construct jmatter distributions and corresponding checksums" />
 
+   <!--    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+   
+   
+   
 </project>
 
