@@ -1,0 +1,285 @@
+Feb 2 2007
+
+Changes (since August 25 2006 release)
+--------------------------------------
+
+A. Features / Enhancements
+
+ - Major enhancement to navigation:  ability to open views either in new 
+   windows, in a separate tab, or in place (replacing current view);  ui 
+   gesture/mechanism:  hold down SHIFT while invoking a command, will 
+   prompt you how to open new view.
+   Complete details at: 
+   <http://jmatter.org/articles/2006/12/12/gui-navigation-part-2-new-view-placement-options>
+   
+ - Icon inference logic is improved to be inheritance-aware.
+   For example, if class Bus extends Vehicle and does not 
+   provide a corresponding Bus32.png icon, JMatter will fall back
+   the Vehicle icon.
+   More complete documentation of icon inference is available
+   at:  <http://jmatter.org/articles/2006/11/16/icon-fun>
+   
+ - When creating a new instance or editing an existing one,
+   Form views now auto-focus on first text component, so that
+   the end-user is not required to use the mouse or to tab
+   before data entry.
+
+ - List Views, when in a separate tab are now default-expanded.
+ 
+ - Added ability to do a "vacant drop" on items in the classbar;  that
+   is, to remove items from the classbar by simply dragging them out 
+   of the classbar and dropping them onto an empty area in the desktoppane
+   (can similarly add types or instances to the class bar with dnd by dropping 
+    them in)
+    
+ - JMatter now defines by default two roles:  an administrative role
+   and a new "Default" role.  When creating new users, their role
+   defaults to that "Default" role.
+ 
+ - JMatter tested with H2 database.  Also, H2 is now default database
+   when creating new projects (instead of hsqldb).  Jar included with
+   distribution.
+   
+ - Added a long overdue atomic type: ColorEO.  ColorEO is already
+   being used in conjunction with calendaring.  When dealing with
+   calendars that have multiple schedules, Schedulable  model objects
+   now can define a ColorEO field representing the schedule's color 
+   code, which is now used by the calendar views to distinguish 
+   schedules.
+   
+ - Added annotation attribute "format" for fields of type DateEO and TimeEO
+   which overrides and controls both the display and parsing format used
+   by JMatter for the field in question.  Format is specified using the
+   SimpleDateFormat notation.  See example in MyTunes demo application,
+   where Song durations are now displayed in a custom format.
+   
+ - The JMatter class-bar is now per-user.  That is, the class bar can be
+   customized / different for each user.  For example, in a multi-user
+   application with users who have different roles.
+
+ - Added ability to specify that a field should not be persisted 
+   via a @Fld annotation attribute "persist=false".  This is useful
+   when working with derived/calculated fields.  See ticket #105
+   in the jmatter trac.
+
+ - In a fashion similar to how url types can be clicked on and open
+   in the default web browser:  added integration with default Mail 
+   application.  New model object EmailMessage and enhanced Person
+   object with an action to send them an email.  Action opens 
+   OS's default mail app's composition window and automatically
+   fills person's email address field.
+
+ - Enhancement of Icon List View (this is one of the alternate views
+   for lists).  Previous version didn't support item-level focus,
+   selectability, and keyboard navigation like JList-based views did.
+   Now it does.
+    
+ - JMatter has a new target "new-project-ui" which somewhat supercedes 
+   "new-project."  Can now create a new child project usinga GUI
+   front end.  New option:  projects can now be created either as
+   standalone (frozen) (i.e. including all the libraries it depends on),
+   or as dependent (one that references the jmatter project's
+   codebase and libraries).
+    
+ - The styles of captions for required fields and for validation-related
+   messages in the user interface is now specified via css (see the
+   file "resources/styles.css" in child projects).  Currently supporting
+   a very few set of properties (font-related, color-related).
+   Implementation of a more complete solution for using css to style
+   swing will likely accompany a future release.
+    
+ - Alternative to jibx for unmarshalling data for prepopulating
+   lists:  json.  mytunes demo app was retrofitted to use
+   the json format for uploading genres
+
+ - Localization.  jmatter apps can now be localized!
+   a warm thanks goes out to Felix Torre
+
+ - Ultraviolet tool (not source) is now integrated
+   into jmatter.  don't have to set the jmatter
+   base directory.
+
+
+B. Refactorings
+
+  - JMatter now internally uses the spring framework.  Spring's ioc
+    capabilities have helped streamline and simplify JMatter applications' 
+    startup code.  Some earlier reliance on Jibx to unmarshal configuration
+    information (such as app-config.xml) has now been replaced with
+    Spring and its applicationContext.xml files.
+    
+  - Restructured how JMatter applications start up and are launched
+    to accomodate web deployments / three-tier architectures.
+    
+  - Swing view mechanism has now been completely modularized.  Used
+    to exist as part of the JMatter core project.  Now a separate project,
+    built separately and included as a jar.
+    
+C. Conventions
+
+  - @CommandAt annotations have been renamed to @Cmd
+  - Similarly, @ParamAt becomes @Arg, and @FieldAt becomes @Fld
+    Can now specify tooltip for Fld or Cmd via attribute "description."
+    Beside mnemonic, can now also override label.
+  
+  - app-config.xml replaced by spring persistClasses.xml
+  
+  - Added convenience where instead of having to manually edit
+    persistClasses.xml, now can simply tag persisted model types
+    with a @Persist annotation (jmatter will do the rest).  JMatter
+    uses velocity to dynamically produce persistClasses.xml.
+    In the long term, JMatter will attempt to move to using JPA
+    annotations.
+
+D. Libraries
+
+  - Updated Hibernate jars from v3.1 to v3.2
+
+  - Updated l2fprod commons library with 11.2006 version;  also using 
+    outlookbar-only jar which is smaller as i'm not using any of the 
+    other components at this time
+    
+  - Removed flexdock jars which were not being used
+  
+  - Got rid or/removed JDNC libraries.  Project is now defunct,
+    or carried over through/to SwingX.
+  
+  - Added SwingX libraries.  Beginning to think about how to leverage
+    this work to improve the look/feel/behaviour of JMatter applications.
+
+  - Minor: renamed lib/src directory to more apt lib/runtime
+
+E. Miscellaneous
+
+  - Meta types are now persisted as entities.  As a prelude
+    to supporting applying authorization rules and persisting them
+    
+  - I have been updating ultraviolet/umlc and keeping it in sync
+    with JMatter changes.
+    
+  - Both the JMatter ant build file (build.xml) and generated
+    jmatter project build files have been significantly cleaned 
+    up, streamlined, updated
+    
+  - The IntelliJ IDEA support for JMatter (in terms of templates
+    and live templates) is now included with the distribution
+    
+  - Source distribution now includes a prebuilt jmatter.jar (binary)
+    
+  - Improved the MyTunes demo.  mp3's are now streamed.
+    Achieved by using the underlying jlayer library directly, and not
+    as a service provider interface for the java sound api.
+
+  - Removed deleted and deletedOn fields;  these fields are not used
+    for the moment.
+    
+  - JMatter includes two new modules:  one for a web-based view 
+    mechanism based on the WingS framework, which may be considered
+    an early alpha implementation.  The other based on NextApp's Echo2
+    which mostly has yet to be written (currently implements a quick
+    and dirty AppFrame, LoginDialog, and ClassBar).
+
+  - JMatter tries to be smart about which jdbc driver to include when
+    producing a distribution, so as to keep the distribution lean.
+    
+  - All demo apps have been updated/synched with framework changes
+  
+
+F. Bug Fixes
+
+  - Actually tested JMatter with Oracle Express and fixed
+    a persistence issue which prevented JMatter from working
+    with oracle databases.
+    
+  - Fixes to bugs documented on the JMatter trac:
+    (this list is not a complete list of bugs resolved on 
+     the JMatter trac;  many others have been resolved/closed
+     but may not have required active code changes, or were
+     resolved as a side effect of an enhancement or another
+     fix.  see the jmatter trac at http://trac.jmatter.org/
+     for complete reports).
+
+------------------------------------------------------------------------
+r265 | eitan | 2006-12-13 18:29:53 -0600 (Wed, 13 Dec 2006) | 1 line
+
+added validation to compositequery, as noted in trac issue # 66
+------------------------------------------------------------------------
+r271 | eitan | 2006-12-14 15:47:47 -0600 (Thu, 14 Dec 2006) | 1 line
+
+fixed trac bug #82: persisting choices in the context of a saved query
+------------------------------------------------------------------------
+r274 | eitan | 2006-12-15 10:49:20 -0600 (Fri, 15 Dec 2006) | 1 line
+
+added ability to specify that a field should not be persisted via a field annotation persist=false;  related to ticket #105
+------------------------------------------------------------------------
+r275 | eitan | 2006-12-18 11:59:07 -0600 (Mon, 18 Dec 2006) | 1 line
+
+fixed trac bug #106: save and close in tabbed mode should close tab, not window
+------------------------------------------------------------------------
+r300 | eitan | 2007-01-02 13:27:24 -0600 (Tue, 02 Jan 2007) | 1 line
+
+fixed bug #111: bug in binding for text areas
+------------------------------------------------------------------------
+r324 | eitan | 2007-01-09 10:03:36 -0600 (Tue, 09 Jan 2007) | 1 line
+
+implemented issue #28 (see trac):  desire for system to prompt on New which subtype to create, not only for abstract base types, but also for concrete base types
+------------------------------------------------------------------------
+r333 | eitan | 2007-01-10 11:16:53 -0600 (Wed, 10 Jan 2007) | 1 line
+
+fixed bug #62:  exception when trying to bring up a calendar view for an object that has no schedulables
+------------------------------------------------------------------------
+r336 | eitan | 2007-01-10 17:46:01 -0600 (Wed, 10 Jan 2007) | 1 line
+
+fixed ticket #114;  see comments in ticket;  having to do with supporting command overriding in gui:  not showing duplicate commands with the same name on a type;  feature will likely need more work at a future time
+------------------------------------------------------------------------
+r337 | eitan | 2007-01-10 18:05:08 -0600 (Wed, 10 Jan 2007) | 1 line
+
+fixed issue #76:  remove command Type.New():  produces an exception;  gui is not for creating new types anyway
+------------------------------------------------------------------------
+r343 | eitan | 2007-01-11 11:15:35 -0600 (Thu, 11 Jan 2007) | 1 line
+
+fixed bug #64:  incorrect calculation of event position on calendar for events whose times are on or beyond the bounds of displayed sheet (early morning, late evening)
+------------------------------------------------------------------------
+r358 | eitan | 2007-01-16 21:23:20 -0600 (Tue, 16 Jan 2007) | 1 line
+
+fixed bug #68: jcombobox model should reflect list changes immediately
+------------------------------------------------------------------------
+r361 | eitan | 2007-01-23 10:03:51 -0600 (Tue, 23 Jan 2007) | 1 line
+
+fixed two issues:  [a] issue #55: lists allowing adding duplicates;  [b] a bug in dissociating in a bidirectional many-many situation
+------------------------------------------------------------------------
+r362 | eitan | 2007-01-23 10:50:21 -0600 (Tue, 23 Jan 2007) | 1 line
+
+looked at issue #53: displaying list editing buttons (+/-) only in editable state;  implemented it and worked with it a bit before deciding that enabling these buttons in read state is preferable (left implementation commented out in code (see EditableListView.java)
+------------------------------------------------------------------------
+r367 | eitan | 2007-01-23 11:52:14 -0600 (Tue, 23 Jan 2007) | 1 line
+
+a small, first step in the direction of providing a separate place for styling various parts of a jmatter/swing application;  doing this in the context of issue #45:  providing a way for customizing required field caption styling without 'digging into the codebase'
+------------------------------------------------------------------------
+r369 | eitan | 2007-01-30 15:14:13 -0600 (Tue, 30 Jan 2007) | 1 line
+
+adding first rough implementation of css interpreter for swing;  default stylesheet is in resources/styles.css;  currently used only to style required captions on forms, to address bug # 45;  will be expanded to provide full styling support using css in jmatter (stay tuned)
+------------------------------------------------------------------------
+r374 | eitan | 2007-02-01 14:48:07 -0600 (Thu, 01 Feb 2007) | 1 line
+
+fixed bug #70: making associationviews aware of their associated item's lifecycle (i.e. when they get deleted) so can auto-sever association if in edit mode
+------------------------------------------------------------------------
+r375 | eitan | 2007-02-01 15:16:46 -0600 (Thu, 01 Feb 2007) | 1 line
+
+fixed bug#60:  repeatedly clicking on save (when vetoed) can cause multiple concurrent calls to hibernate which of course is not good
+------------------------------------------------------------------------
+r377 | eitan | 2007-02-01 18:02:33 -0600 (Thu, 01 Feb 2007) | 1 line
+
+fixed bug#117: ensuring classbar folder and items order is correct and consistent
+------------------------------------------------------------------------
+
+  - For a complete change log since the last (August 25 2006) release, 
+    issue this command:
+
+     svn log -r176:HEAD http://svn.jmatter.org/jmatter-complet/trunk
+
+
+----
+Eitan Suez
+Feb 2 2007
+

@@ -1,54 +1,11 @@
-JMatter release v200609??
+JMatter release v20070202
 
 Summary of Bug Fixes, Enhancements
 ==================================
 
-Briefly:
-
- - alternative to jibx for unmarshalling data for prepopulating
-   lists:  json.  mytunes demo app was retrofitted to use 
-   the json format for uploading genres
-
- - localization.  jmatter apps can now be localized!
-   a warm thanks goes out to Felix Torre
-
- - ultraviolet tool (not source) is now integrated 
-   into jmatter.  don't have to set the jmatter 
-   base directory.
-
- - Added ColorEO atomic type for fields of type color
-   (JColorChooser editor).  This is taken advantage of
-   with respect to calendaring, where calendar schedules 
-   now have a color field which the user can now set.
-   That color is used as the color code for the schedule
-   in the calendar.
-   
- - Added first-pass implementation of ability to specify
-   the format to use for displaying and parsing DateEO's
-   and TimeEO's using annotations (see MyTunes demo app
-   for an example)
-
- - Fixed compatibility issue with Oracle
-
- - Added H2 database support.  H2 is now the default database
-   in a new JMatter project.
-
- - UI Enhancement:  Forms now default-focus on their first 
-   editable text field
-
- - Swing view mechanism now supports three modes of navigation:
-   navigating in place (re-use existing windows);  create new
-   view in its own new window;  create new views in a tab.
-   The latter is somewhat analogous to tabbed browsing, but
-   applied more generally to applications.  Can also close
-   and detach tabs.
-
- - JMatter has the ability for you to drop types onto the
-   class bar as a form of editing the classbar.  Added support
-   for the converse:  dragging types out of the class bar will
-   automatically remove them.
-
- - [todo:  list all issues fixed from trac]
+The list of changes for the 200702 release is significant,
+and therefore included in its own, separate file, named:
+   Changes200702
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
