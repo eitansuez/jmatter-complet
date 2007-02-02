@@ -17,8 +17,12 @@ Briefly:
    base directory.
 
  - Added ColorEO atomic type for fields of type color
-   (JColorChooser editor).
-
+   (JColorChooser editor).  This is taken advantage of
+   with respect to calendaring, where calendar schedules 
+   now have a color field which the user can now set.
+   That color is used as the color code for the schedule
+   in the calendar.
+   
  - Added first-pass implementation of ability to specify
    the format to use for displaying and parsing DateEO's
    and TimeEO's using annotations (see MyTunes demo app
@@ -26,7 +30,8 @@ Briefly:
 
  - Fixed compatibility issue with Oracle
 
- - Added H2 database support
+ - Added H2 database support.  H2 is now the default database
+   in a new JMatter project.
 
  - UI Enhancement:  Forms now default-focus on their first 
    editable text field

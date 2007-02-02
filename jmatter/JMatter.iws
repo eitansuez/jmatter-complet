@@ -18,7 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/field/AssociationField.java" afterPath="$PROJECT_DIR$/src/com/u2d/field/AssociationField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/Changes" afterPath="$PROJECT_DIR$/doc/Changes" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/jdbc/h2.jar" afterPath="$PROJECT_DIR$/lib/runtime/jdbc/h2.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
     </list>
   </component>
@@ -156,7 +157,17 @@
     <option name="myCurrentFavoritesList" value="JMatter" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Fld.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/u2d/reflection/Fld.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="43" column="0" selection-start="1064" selection-end="1064" vertical-scroll-proportion="0.6458685">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -588,7 +599,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
+      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
       <autoscrollToSource PackagesPane="true" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -597,8 +608,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="last_opened_file_path" value="/home/eitan/work/jmatter-complet" />
     <property name="MemberChooser.showClasses" value="true" />
@@ -922,13 +933,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/EOCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="244" selection-end="244" vertical-scroll-proportion="0.20100503">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.08/src.zip!/com/sun/jmx/snmp/SnmpV3Message.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="80" column="13" selection-start="2704" selection-end="2704" vertical-scroll-proportion="0.33333334">
@@ -1027,6 +1031,13 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/field/AssociationField.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="242" column="0" selection-start="6687" selection-end="6687" vertical-scroll-proportion="0.6885813">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/reflection/Fld.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="0" selection-start="1064" selection-end="1064" vertical-scroll-proportion="0.6458685">
           <folding />
         </state>
       </provider>
