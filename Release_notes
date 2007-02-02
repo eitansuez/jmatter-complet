@@ -1,9 +1,9 @@
 Feb 2 2007
 
 JMatter Release Notes
-~~~~~~~~~~~~~~~~~~~~~
+=====================
 
-(A copy of this file exists also under jmatter/doc/Changes200702
+(A copy of this file exists also under `jmatter/doc/Changes200702`
  this copy exists here to give the file more visibility)
 
 Changes (since August 25 2006 release)
@@ -206,6 +206,7 @@ F. Bug Fixes
      another fix.  see the jmatter trac at http://trac.jmatter.org/
      for complete reports).
 
+<pre>
 ------------------------------------------------------------------------
 r265 | eitan | 2006-12-13 18:29:53 -0600 (Wed, 13 Dec 2006) | 1 line
 
@@ -279,6 +280,7 @@ r377 | eitan | 2007-02-01 18:02:33 -0600 (Thu, 01 Feb 2007) | 1 line
 
 fixed bug#117: ensuring classbar folder and items order is correct and consistent
 ------------------------------------------------------------------------
+</pre>
 
   - For a complete change log since the last (August 25 2006) release, 
     issue this command:
