@@ -3,6 +3,8 @@ package com.u2d.reflection;
 import com.u2d.element.EOCommand;
 import com.u2d.element.ParameterInfo;
 import com.u2d.model.ComplexType;
+import com.u2d.type.atom.StringEO;
+
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.HashMap;
@@ -42,6 +44,12 @@ public class AnnotationsReflector implements Reflector
                                     at.isSensitive(),
                                     at.viewPosition());
       cmd.blocks(at.blocks());
+      if (!StringEO.isEmpty(at.label()))
+         cmd.getLabel().setValue(at.label());
+         
+      if (!StringEO.isEmpty(at.description()))
+         cmd.getDescription().setValue(at.description());
+         
       
       if (parent == null)  // hack for lists..(temporary)
          return cmd;

@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 import com.u2d.element.Command;
 import com.u2d.view.*;
+import com.u2d.type.atom.StringEO;
 
 /**
  * Adapter for javax.swing.Action
@@ -45,7 +46,8 @@ public class CommandAdapter extends AbstractAction
    }
    public void updateDescription()
    {
-      putValue(Action.SHORT_DESCRIPTION, _command.description());
+      if (!StringEO.isEmpty(_command.description()))
+         putValue(Action.SHORT_DESCRIPTION, _command.description());
    }
    
    

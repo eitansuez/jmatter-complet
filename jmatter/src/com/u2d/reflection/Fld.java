@@ -27,6 +27,11 @@ public @interface Fld
    public String label() default "";
 
    /**
+    * @return field description.  possibly use as text for tool tips..
+    */
+   public String description() default "";
+
+   /**
     * @return a way to control the size of the corresponding database table field
     */
    public int colsize() default 0;
@@ -41,11 +46,6 @@ public @interface Fld
     *   Goveners both how times and dates are displayed and parsed.
     */
    public String format() default "";
-
-   /**
-    * @return field description.  possibly use as text for tool tips..
-    */
-   public String description() default "";
 
    /**
     * @return whether field should be persisted.  most of the time this is true.

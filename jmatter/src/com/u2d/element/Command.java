@@ -257,7 +257,7 @@ public abstract class Command extends Member
       return false;
    }
 
-   static java.util.List MINORCOMMANDS = Arrays.asList(new String[] {"Copy", "Paste"});
+   static java.util.List MINORCOMMANDS = Arrays.asList("Copy", "Paste");
 
    /**
     * Swallow minor commands for maximized views as they should only apply to minimized

@@ -11,6 +11,18 @@ import java.lang.annotation.ElementType;
 public @interface Cmd
 {
    public char mnemonic() default '\0';
+   
+   /**
+    * @return a way to override the caption/label for a field.  i prefer natural labels, 
+    *   derived from the field name. 
+    */
+   public String label() default "";
+
+   /**
+    * @return field description.  possibly use as text for tool tips..
+    */
+   public String description() default "";
+
    public boolean isSensitive() default false;
    public Positioning viewPosition() default Positioning.NEARMOUSE;
 
