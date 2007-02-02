@@ -119,11 +119,12 @@ B. Refactorings
     
   - Swing view mechanism has now been completely modularized.  Used
     to exist as part of the JMatter core project.  Now a separate project,
-    built separately and included as a jar.
+    built separately and included as a jar (located under modules/swingvm).
     
 C. Conventions
 
   - @CommandAt annotations have been renamed to @Cmd
+
   - Similarly, @ParamAt becomes @Arg, and @FieldAt becomes @Fld
     Can now specify tooltip for Fld or Cmd via attribute "description."
     Beside mnemonic, can now also override label.
@@ -198,11 +199,11 @@ F. Bug Fixes
     with oracle databases.
     
   - Fixes to bugs documented on the JMatter trac:
-    (this list is not a complete list of bugs resolved on 
-     the JMatter trac;  many others have been resolved/closed
-     but may not have required active code changes, or were
-     resolved as a side effect of an enhancement or another
-     fix.  see the jmatter trac at http://trac.jmatter.org/
+
+    (this list is not exhaustive;  many other issues have 
+     been resolved/closed but may not have required active code 
+     changes, or were resolved as a side effect of an enhancement or
+     another fix.  see the jmatter trac at http://trac.jmatter.org/
      for complete reports).
 
 ------------------------------------------------------------------------
