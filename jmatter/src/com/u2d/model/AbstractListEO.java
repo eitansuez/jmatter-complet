@@ -105,7 +105,9 @@ public abstract class AbstractListEO extends AbstractEObject
    }
    private List filterDuplicates(List list)
    {
-      return new ArrayList(new HashSet(list));
+      Set set = new HashSet(list);
+      if (list.size() == set.size()) return list;
+      return new ArrayList(set);
    }
    public void setItems(List<EObject> items)
    {

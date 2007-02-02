@@ -170,7 +170,7 @@ public class User extends AbstractComplexEObject
 //      save();
 //   }
    
-   @Cmd
+   @Cmd(mnemonic='g')
    public void LogOut(CommandInfo cmdInfo)
    {
       appSession().onLogout();

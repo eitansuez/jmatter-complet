@@ -12,12 +12,12 @@ import com.u2d.element.CommandInfo;
 import com.u2d.persist.HibernatePersistor;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
+import com.u2d.reflection.IdxFld;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.event.TreeModelListener;
 import org.hibernate.Session;
 import org.hibernate.NonUniqueResultException;
-
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
@@ -52,6 +52,8 @@ public class Folder extends AbstractComplexEObject
    }
    
    public StringEO getName() { return _name; }
+   
+   @IdxFld(ordered=true)
    public RelationalList getItems() { return _items; }
 
    public EView getMainView()

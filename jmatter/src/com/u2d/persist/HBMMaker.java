@@ -4,7 +4,6 @@
 package com.u2d.persist;
 
 import com.u2d.element.Field;
-import com.u2d.element.ProgrammingElement;
 import com.u2d.element.Member;
 import com.u2d.field.AggregateField;
 import com.u2d.field.AssociationField;
@@ -138,7 +137,14 @@ public class HBMMaker
          else if (field.isIndexed())
          {
             IndexedField idxField = (IndexedField) field;
-            produceBag(parentElem, idxField, fieldParent);
+            if (idxField.isOrdered())
+            {
+               produceList(parentElem, idxField, fieldParent);
+            }
+            else
+            {
+               produceBag(parentElem, idxField, fieldParent);
+            }
          }
 //         else if (field.isMap())
 //         {
@@ -160,9 +166,6 @@ public class HBMMaker
             listElem.addAttribute("inverse", "false");
          }
       }
-      
-      Element listIndex = listElem.addElement("list-index");
-      listIndex.addAttribute("column", genName(field.name(), "_sortorder"));
       
       return listElem;
    }
@@ -195,6 +198,13 @@ public class HBMMaker
       else
          keyElem.addAttribute("column", genIdName(parent.name()));
 
+      
+      // dtd/schema constraint:  list-index must be specified right after key
+      if ("list".equals(listType))
+      {
+         Element listIndex = listElem.addElement("list-index");
+         listIndex.addAttribute("column", genName(field.name(), "_sortorder"));
+      }
       
       if (field.isManyToMany())
       {
@@ -384,7 +394,7 @@ public class HBMMaker
       try
       {
          java.lang.reflect.Method customTypeGetter =
-            cls.getDeclaredMethod("getCustomTypeImplementorClass", null);
+            cls.getDeclaredMethod("getCustomTypeImplementorClass");
          return (customTypeGetter != null);
       } catch (NoSuchMethodException e) {}
       return false;
@@ -398,9 +408,9 @@ public class HBMMaker
       try
       {
          java.lang.reflect.Method customTypeGetter = 
-            cls.getDeclaredMethod("getCustomTypeImplementorClass", null);
+            cls.getDeclaredMethod("getCustomTypeImplementorClass");
 
-         return (Class) customTypeGetter.invoke(null, null);
+         return (Class) customTypeGetter.invoke(null);
       }
       catch (Exception ex) { }
       return null;
@@ -495,10 +505,10 @@ public class HBMMaker
       
       try
       {
-         java.lang.reflect.Method method = field.getJavaClass().getMethod("getLength", null);
+         java.lang.reflect.Method method = field.getJavaClass().getMethod("getLength");
          if (method != null)
          {
-            Integer length  = (Integer) method.invoke(null, null);
+            Integer length  = (Integer) method.invoke(null);
             propElem.addAttribute("length", length.toString());
          }
       }

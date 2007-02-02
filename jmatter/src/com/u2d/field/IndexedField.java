@@ -19,6 +19,7 @@ import com.u2d.validation.Required;
 import com.u2d.view.*;
 import com.u2d.view.swing.list.ExpandableView;
 import com.u2d.list.CompositeList;
+import com.u2d.reflection.IdxFld;
 
 /**
  * @author Eitan Suez
@@ -255,5 +256,19 @@ public class IndexedField extends Field implements Bidi, Associable
    public boolean isInterfaceType() { return type().isInterfaceType(); }
    public boolean isAbstract() { return type().isAbstract(); }
    public ComplexType fieldtype() { return type(); }
+   
+   
+   private boolean _ordered;
+   public boolean isOrdered() { return _ordered; }
+   public void setOrdered(boolean ordered) { _ordered = ordered; }
 
+   public void applyMetadata()
+   {
+      super.applyMetadata();
+      if (_getter.isAnnotationPresent(IdxFld.class))
+      {
+         IdxFld fat = (IdxFld) _getter.getAnnotation(IdxFld.class);
+         _ordered = fat.ordered();
+      }
+   }
 }
