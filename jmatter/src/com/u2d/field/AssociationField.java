@@ -12,6 +12,7 @@ import com.u2d.pattern.*;
 import com.u2d.type.Choice;
 import com.u2d.validation.Required;
 import com.u2d.view.*;
+import org.hibernate.HibernateException;
 
 /**
  * @author Eitan Suez
@@ -230,10 +231,15 @@ public class AssociationField extends Field implements Bidi, Associable
       if (pmech instanceof HBMPersistenceMechanism)
       {
          HBMPersistenceMechanism pmech2 = (HBMPersistenceMechanism) pmech;
-         ComplexEObject ceo = pmech2.fetch(_defaultSpec);
-         if (ceo == null)
+         try
+         {
+            return pmech2.fetch(_defaultSpec);
+         }
+         catch (HibernateException ex)
+         {
+            Tracing.tracer().warning("Is default specification: "+_defaultSpec+" valid?");
             _specValid = false;
-         return ceo;
+         }
       }
       return null;
    }
