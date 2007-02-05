@@ -16,10 +16,7 @@
     <option name="USER" value="" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/wings/ParamListView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/wings/ParamListView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wingsvm.iws" afterPath="$PROJECT_DIR$/wingsvm.iws" />
-    </list>
+    <list default="true" name="Default" comment="" />
   </component>
   <component name="ChangeListSynchronizer" />
   <component name="ChangesViewManager" flattened_view="true" />

@@ -6,8 +6,18 @@
         <attribute name="method" value="1" />
         <attribute name="URI" value="/" />
       </containerElement>
+      <containerElement type="library" level="module">
+        <attribute name="method" value="2" />
+        <attribute name="URI" value="/ant-launcher.jar" />
+        <url>jar://$MODULE_DIR$/../../lib/tools/ant-launcher.jar!/</url>
+      </containerElement>
+      <containerElement type="library" level="module">
+        <attribute name="method" value="2" />
+        <attribute name="URI" value="/ant.jar" />
+        <url>jar://$MODULE_DIR$/../../lib/tools/ant.jar!/</url>
+      </containerElement>
     </containerInfo>
-    <setting name="jarUrl" value="file://$MODULE_DIR$/newprojectui.jar" />
+    <setting name="jarUrl" value="file://$MODULE_DIR$/../../lib/tools/newprojectui.jar" />
     <setting name="buildJar" value="true" />
     <setting name="mainClass" value="org.jmatter.tools.NewProjectFrontEnd" />
   </component>
@@ -19,6 +29,24 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../lib/tools/ant.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../lib/tools/ant-launcher.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
 </module>

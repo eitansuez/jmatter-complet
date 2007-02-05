@@ -1,11 +1,13 @@
 package org.jmatter.tools;
 
+import org.apache.tools.ant.ProjectHelper;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.DefaultLogger;
+import org.apache.tools.ant.BuildException;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.File;
 
 /**
  * Created by IntelliJ IDEA.
@@ -50,48 +52,59 @@ public class NewProjectFrontEnd
       {
          public void actionPerformed(ActionEvent e)
          {
-            String projectName = projectNameFld.getText().trim();
-            String projectBaseDir = projectBasedirFld.getText().trim();
-            
-            boolean baseDirSpecified = 
+            final String projectName = projectNameFld.getText().trim();
+            final String projectBaseDir = projectBasedirFld.getText().trim();
+            final boolean baseDirSpecified = 
                   !(projectBaseDir == null || projectBaseDir.length() == 0); 
-            
-            boolean standalone = standaloneRadioButton.isSelected();
-            
-            String cmd = String.format("ant new-project -Dnew.project.name=%s", projectName);
-            if (baseDirSpecified)
-               cmd += String.format(" -Dnew.project.basedir=%s", projectBaseDir);
-            if (standalone)
-               cmd += " -Dstandalone=true";
-            
-            final String finalCmd = cmd;
-            
+            final boolean standalone = standaloneRadioButton.isSelected();
+
             new Thread()
             {
                public void run()
                {
-                  try
-                  {
-                     Process p = Runtime.getRuntime().exec(finalCmd);
-                     BufferedReader br = 
-                           new BufferedReader(new InputStreamReader(p.getInputStream()));
-                     String line;
-                     while ( (line = br.readLine()) != null )
-                     {
-                        System.out.println(line);
-                     }
-                  }
-                  catch (IOException e1)
-                  {
-                     e1.printStackTrace();
-                  }
+                  createNewProject(projectName, baseDirSpecified, projectBaseDir, standalone);
                }
             }.start();
          }
       });
    }
+   
+   private void createNewProject(String projectName, boolean baseDirSpecified, 
+                                          String projectBaseDir, boolean standalone)
+   {
+      File buildFile = new File("build.xml");
+      Project p = new Project();
+      p.setUserProperty("ant.file", buildFile.getAbsolutePath());
+      
+      DefaultLogger consoleLogger = new DefaultLogger();
+      consoleLogger.setErrorPrintStream(System.err);
+      consoleLogger.setOutputPrintStream(System.out);
+      consoleLogger.setMessageOutputLevel(Project.MSG_INFO);
+      p.addBuildListener(consoleLogger);
 
-
+      try
+      {
+         p.fireBuildStarted();
+         p.init();
+         ProjectHelper helper = ProjectHelper.getProjectHelper();
+         p.addReference("ant.projectHelper", helper);
+         helper.parse(p, buildFile);
+         
+         p.setProperty("new.project.name", projectName);
+         if (baseDirSpecified)
+            p.setProperty("new.project.basedir", projectBaseDir);
+         if (standalone)
+            p.setProperty("standalone", "true");
+         
+         p.executeTarget("new-project");
+         p.fireBuildFinished(null);
+      }
+      catch (BuildException e)
+      {
+         p.fireBuildFinished(e);
+      }
+   }
+   
    public static void main(String[] args)
    {
       NewProjectFrontEnd form = new NewProjectFrontEnd();
