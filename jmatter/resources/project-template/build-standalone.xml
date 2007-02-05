@@ -64,7 +64,7 @@
 
  <taskdef name="make-persistclasses" classname="com.u2d.tools.AntPersistClassesMaker" classpathref="libtools.path" />
 
- <target name="compile" description="compile code" depends="init,compile-framework">
+ <target name="compile" description="compile code" depends="init">
    <javac srcdir="${src.dir}"
           destdir="${build.classes.dir}"
           classpathref="class.path"
