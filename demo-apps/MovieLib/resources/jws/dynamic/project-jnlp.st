@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <jnlp spec="1.0+"
-      codebase="http://$ip_addr:$port/MyTunes"
+      codebase="http://$ip_addr$:$port$/MovieLib"
       href="project.jnlp">
 
  <information>
    <title>Project App</title> <!-- TODO: revise title appropriately -->
    <vendor>DS Allergy, Inc.</vendor> <!-- TODO: plug in vendor name here -->
    <homepage href="index.html" />
-   <description kind="one-line">MyTunes App</description>
-   <description kind="short">MyTunes App</description>
-   <description kind="tooltip">MyTunes App</description>
+   <description kind="one-line">MovieLib App</description>
+   <description kind="short">MovieLib App</description>
+   <description kind="tooltip">MovieLib App</description>
    <icon href="leaf.jpg" />
    <icon kind="splash" href="leaf.jpg" /> <!-- TODO: plug in splash image here -->
  </information>
@@ -20,16 +20,16 @@
  </security>
 
  <resources>
-   <j2se version="1.5+" />
-   <jar href="MyTunes.jar" main="true" />
-   #foreach( $jarpath in $jarpathlist )
-   <jar href="$jarpath" />
-   #end
+   <j2se version="1.4+" />
+   <jar href="MovieLib.jar" main="true" />
+   $jars:{jar|
+   <jar href="$jar$" />
+   }$
  </resources>
 
  <!-- TODO: plug in main class name here -->
  <application-desc main-class="com.u2d.view.swing.EntryPoint">
-   <argument>-Xdock:name=MyTunes</argument>
+   <argument>-Xdock:name=MovieLib</argument>
    <argument>-Xdock:icon=icons.icns</argument>
  </application-desc>
 

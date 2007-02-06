@@ -38,7 +38,7 @@ public class ShellScriptMaker extends Java
       catch (IOException e)
       {
          e.printStackTrace();
-         throw new BuildException("SheellScriptMaker failed to write run script to: "+_file.toString(), e);
+         throw new BuildException("ShellScriptMaker failed to write run script to: "+_file.toString(), e);
       }
    }
    

@@ -7,19 +7,20 @@
       default-init-method="initialize">
 
    <util:set id="persist-classes">
-#foreach( $classname in $classnames )
-      <value>$classname</value>
-#end
+$classnames:{ cls |
+      <value>$cls$</value> }$
+      <value>com.u2d.type.USState</value>
+      <value>com.u2d.type.composite.ContactMethod</value>
       <value>com.u2d.type.composite.Folder</value>
       <value>com.u2d.find.CompositeQuery</value>
       <value>com.u2d.type.composite.LoggedEvent</value>
       <value>com.u2d.app.User</value>
       <value>com.u2d.app.Role</value>
       <value>com.u2d.restrict.CommandRestriction</value>
-      <value>com.u2d.restrict.UserRestriction</value>
       <value>com.u2d.restrict.FieldRestriction</value>
-      <value>com.u2d.restrict.Restriction</value>
+      <value>com.u2d.restrict.UserRestriction</value>
       <value>com.u2d.restrict.CreationRestriction</value>
+      <value>com.u2d.restrict.Restriction</value>
       <value>com.u2d.reporting.SimpleReport</value>
       <value>com.u2d.element.ProgrammingElement</value>
       <value>com.u2d.element.Member</value>

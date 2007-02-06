@@ -1,10 +1,8 @@
 package com.u2d.tools;
 
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.Template;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.BuildException;
+import org.antlr.stringtemplate.StringTemplate;
 import java.util.Properties;
 import java.util.List;
 import java.util.ArrayList;
@@ -32,36 +30,22 @@ public class JnlpMaker extends Task
    {
       try
       {
-         Properties config = new Properties();
-         config.put("resource.loader", "file");
-         config.put("file.resource.loader.class",
-                    "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
-         config.put("file.resource.loader.path",
-                    _template.getParent());
-
-         Velocity.init(config);
-
-         VelocityContext context = new VelocityContext();
-         addPropertiesToContext(context);
+         StringTemplate template = STUtils.templateForFile(_template);
+         bindProperties(template);
 
          List jarpathlist = jarpaths(_jarbasepath);
-         context.put("jarpathlist", jarpathlist);
+         template.setAttribute("jars", jarpathlist);
 
-         Template template = Velocity.getTemplate(_template.getName());
-         FileWriter writer = new FileWriter(_tofile);
-         template.merge(context, writer);
-         writer.flush();
-         writer.close();
+         STUtils.toFile(template, _tofile);
       }
-      catch (Exception ex)
+      catch (IOException ex)
       {
          throw new BuildException("Failed to generate jnlp file", ex);
       }
    }
 
 
-   private void addPropertiesToContext(VelocityContext context)
-         throws Exception
+   private void bindProperties(StringTemplate template) throws IOException
    {
       InputStream is = new FileInputStream(_propsFile);
       Properties props = new Properties();
@@ -71,13 +55,13 @@ public class JnlpMaker extends Task
       while (en.hasMoreElements())
       {
          key = (String) en.nextElement();
-         context.put(key, props.getProperty(key));
+         template.setAttribute(key, props.getProperty(key));
       }
    }
 
-   private List jarpaths(File basePath) throws Exception
+   private List<String> jarpaths(File basePath) throws IOException
    {
-      List list = new ArrayList();
+      List<String> list = new ArrayList<String>();
       File[] paths = basePath.listFiles();
       for (int i=0; i<paths.length; i++)
       {
@@ -99,3 +83,4 @@ public class JnlpMaker extends Task
    }
 
 }
+

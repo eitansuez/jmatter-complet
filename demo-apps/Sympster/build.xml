@@ -83,7 +83,7 @@
         factory="com.u2d.tools.PersistClassesMaker"
         factorypathref="libtools.path" />
 -->
-   <make-persistclasses template="${src.dir}/persistClasses.vm"
+   <make-persistclasses template="${src.dir}/persistClasses.st"
         target="${build.classes.dir}/persistClasses.xml"
         classpathref="class.path">
      <fileset dir="${src.dir}" includes="**/*.java" />
@@ -214,7 +214,7 @@
       <param name="vmname" value="swingvm" />
    </antcall>
 
-   <make-jnlp template="resources/jws/dynamic/project-jnlp.vm" 
+   <make-jnlp template="resources/jws/dynamic/project-jnlp.st" 
               props="resources/jws/dynamic/project.properties"
               jarbasepath="${jws-dist.dir}"
               excludejar="${jar.file}"

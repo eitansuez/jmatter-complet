@@ -7,13 +7,10 @@ import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Reference;
 import org.apache.tools.ant.types.Path;
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.Template;
+import org.antlr.stringtemplate.StringTemplate;
 import java.io.File;
-import java.io.PrintWriter;
 import java.io.FileWriter;
-import java.util.Properties;
+import java.io.IOException;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -93,27 +90,11 @@ public class AntPersistClassesMaker extends Task
       
       try
       {
-         Properties config = new Properties();
-         config.put("resource.loader", "file");
-         config.put("file.resource.loader.class",
-                    "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
-         config.put("file.resource.loader.path",
-                    _template.getParent());
-
-         Velocity.init(config);
-
-         VelocityContext context = new VelocityContext();
-
-         context.put("classnames", classSet);
-
-         Template velotemplate = Velocity.getTemplate(_template.getName());
-         PrintWriter writer = new PrintWriter(new FileWriter(_target));
-         
-         velotemplate.merge(context, writer);
-         writer.flush();
-         writer.close();
+         StringTemplate template = STUtils.templateForFile(_template);
+         template.setAttribute("classnames", classSet);
+         STUtils.toFile(template, _target);
       }
-      catch (Exception e)
+      catch (IOException e)
       {
          e.printStackTrace();
       }

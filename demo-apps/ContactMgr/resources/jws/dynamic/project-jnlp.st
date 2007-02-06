@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <jnlp spec="1.0+"
-      codebase="http://$ip_addr:$port/ContactMgr"
+      codebase="http://$ip_addr$:$port$/ContactMgr"
       href="project.jnlp">
 
  <information>
@@ -22,9 +22,9 @@
  <resources>
    <j2se version="1.5+" />
    <jar href="ContactMgr.jar" main="true" />
-   #foreach( $jarpath in $jarpathlist )
-   <jar href="$jarpath" />
-   #end
+   $jars:{jar|
+   <jar href="$jar$" />
+   }$
  </resources>
 
  <application-desc main-class="com.u2d.view.swing.EntryPoint">

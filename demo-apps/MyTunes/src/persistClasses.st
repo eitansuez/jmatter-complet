@@ -7,12 +7,8 @@
       default-init-method="initialize">
 
    <util:set id="persist-classes">
-#foreach( $classname in $classnames )
-      <value>$classname</value>
-#end
-      <value>com.u2d.type.composite.Person</value>
-      <value>com.u2d.type.composite.Business</value>
-      <value>com.u2d.type.USState</value>
+$classnames:{ cls |
+      <value>$cls$</value> }$
       <value>com.u2d.type.composite.ContactMethod</value>
       <value>com.u2d.type.composite.Folder</value>
       <value>com.u2d.find.CompositeQuery</value>
@@ -38,5 +34,5 @@
       <value>com.u2d.element.EOCommand</value>
       <value>com.u2d.element.OverloadedEOCmd</value>
    </util:set>
-
+   
 </beans>
