@@ -3,6 +3,7 @@ package com.u2d.view.swing;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.dnd.BasicTransferHandler;
+import com.u2d.view.swing.list.JListView;
 import com.u2d.type.composite.Folder;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
@@ -12,12 +13,14 @@ import com.u2d.field.Association;
 import com.l2fprod.common.swing.JOutlookBar;
 import com.l2fprod.common.swing.PercentLayout;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListDataEvent;
 import java.beans.PropertyChangeEvent;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +33,10 @@ import java.util.List;
 public class OutlookFolderView extends JOutlookBar implements ComplexEView
 {
    private Folder _folder;
-   private List<VerticalFolderPane> _tabs = new ArrayList<VerticalFolderPane>();
+   private List<JListView> _tabs = new ArrayList<JListView>();
 
-   public OutlookFolderView() {}
+   public OutlookFolderView() { }
+
    public OutlookFolderView(Folder folder)
    {
       this();
@@ -50,11 +54,13 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
          if (item instanceof Folder)
          {
             Folder subfolder = (Folder) item;
-            VerticalFolderPane pnl = new VerticalFolderPane(subfolder);
+            JListView v = new JListView(subfolder.getItems(), true);
+            v.setBorder(new LineBorder(Color.black));
+            v.setOpaque(false);
             addTab(subfolder.getName().stringValue(),
                    _folder.iconSm(),
-                   makeScrollPane((JComponent) pnl));
-            _tabs.add(pnl);
+                   makeScrollPane(v));
+            _tabs.add(v);
          }
       }
 
@@ -62,15 +68,15 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
       {
          public synchronized void drop(DropTargetDropEvent dtde)
          {
-            VerticalFolderPane vfp = _tabs.get(getSelectedIndex());
-            vfp.getDropTarget().drop(dtde);
+            JListView v = _tabs.get(getSelectedIndex());
+            v.getDropTarget().drop(dtde);
          }
       });
    }
 
    public void detach()
    {
-      for (VerticalFolderPane v : _tabs)
+      for (JListView v : _tabs)
       {
          v.detach();
       }

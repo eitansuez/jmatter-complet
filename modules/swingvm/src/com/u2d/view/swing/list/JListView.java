@@ -52,8 +52,7 @@ public class JListView extends SeeThruList
       _asIcons = renderCellsAsIcons;
       if (_asIcons)
       {
-         setVisibleRowCount(1);
-         setLayoutOrientation(HORIZONTAL_WRAP);
+         setLayoutOrientation(VERTICAL);
       }
       else
       {
@@ -90,16 +89,15 @@ public class JListView extends SeeThruList
          EView view = null;
          if (_asIcons)
          {
-            view = SwingViewMechanism.getInstance().getIconViewAdapter(ceo);
+            view = SwingViewMechanism.getInstance().getIconView(ceo);
          }
          else
          {
             view = SwingViewMechanism.getInstance().getListItemViewAdapter(ceo);
-
-            // ensure that if a change takes place in an item in the list,
-            // that the list gets repainted: 
-            view.getEObject().addChangeListener(_memberChangeListener);
          }
+         // ensure that if a change takes place in an item in the list,
+         // that the list gets repainted: 
+         view.getEObject().addChangeListener(_memberChangeListener);
 
          _views.put(value, view);
       }
