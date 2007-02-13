@@ -3,6 +3,11 @@
 \begin_document
 \begin_header
 \textclass book
+\begin_preamble
+\renewcommand\familydefault{\sfdefault}
+\usepackage[scaled=0.92]{helvet}
+\usepackage[sf]{titlesec}
+\end_preamble
 \language english
 \inputencoding auto
 \fontscheme default
@@ -15,20 +20,20 @@
 \cite_engine basic
 \use_bibtopic false
 \paperorientation portrait
-\leftmargin 1.75in
-\topmargin 2in
-\rightmargin 1.5in
-\bottommargin 0.75in
-\headheight 0.5in
-\headsep 0.5in
-\footskip 0.75in
+\leftmargin 1.5in
+\topmargin 1.5in
+\rightmargin 1.25in
+\bottommargin 0.6in
+\headheight 0.4in
+\headsep 0.6in
+\footskip 0.8in
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation skip
 \defskip medskip
 \quotes_language english
 \papercolumns 1
-\papersides 1
+\papersides 2
 \paperpagestyle default
 \tracking_changes false
 \output_changes true
@@ -54,6 +59,10 @@ Eitan Suez
 \end_inset
 
 
+\end_layout
+
+\begin_layout Part
+Introduction
 \end_layout
 
 \begin_layout Chapter
@@ -2094,6 +2103,10 @@ In the next chapter, we'll start exploring how to write JMatter applications.
  We'll build our own contact manager.
  You may or may not be surprised by now if I were to tell you that the task
  will take us only a few minutes.
+\end_layout
+
+\begin_layout Part
+Tutorial Applications
 \end_layout
 
 \begin_layout Chapter
@@ -4193,7 +4206,7 @@ public class Song extends AbstractComplexEObject
 \end_layout
 
 \begin_layout LyX-Code
-   @FieldAt(format="m:ss")
+   @Fld(format="m:ss")
 \end_layout
 
 \begin_layout LyX-Code
@@ -4318,9 +4331,9 @@ TimeEO
 \end_layout
 
 \begin_layout Enumerate
-
+@Fld
 \emph on
-@FieldAt(format="m:ss")
+(format="m:ss")
 \emph default
 
 \newline
@@ -11625,6 +11638,14 @@ In chapter
 \end_layout
 
 \begin_layout Chapter
+Dichotomy of a JMatter Model Object
+\end_layout
+
+\begin_layout Standard
+[tbd]
+\end_layout
+
+\begin_layout Chapter
 Customized Views and Editors
 \end_layout
 
@@ -12717,12 +12738,945 @@ Of course, if you're going to be implementing a custom view for a more complex
  editing process.
 \end_layout
 
+\begin_layout Part
+Framework Reference
+\end_layout
+
+\begin_layout Chapter
+Dichotomy of a Model Object
+\end_layout
+
+\begin_layout Standard
+Let's being by taking a look at a very simple model for a Person:
+\end_layout
+
+\begin_layout LyX-Code
+package com.u2d.contactmgr;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+import ...
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
+\end_layout
+
+\begin_layout LyX-Code
+public class Person
+\end_layout
+
+\begin_layout LyX-Code
+      extends AbstractComplexEObject
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   private final StringEO name = new StringEO();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   public Person() { }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   public StringEO getName() { return name; }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   @Cmd
+\end_layout
+
+\begin_layout LyX-Code
+   public String SayHello(CommandInfo info) { return "Hi"; }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   public Title title() { return name.title(); }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+At the most basic level a class definition consists of data and behaviour,
+ implemented as fields and commands (or methods), known as the type's members.
+ Furthermore we see that JMatter relies heavily on conventions for the purpose
+ of inferring information about a type.
+\end_layout
+
+\begin_layout Enumerate
+Our class must extends the base type 
+\emph on
+AbstractComplexEObject
+\end_layout
+
+\begin_layout Enumerate
+We have a field, the person's name, defined through a private variable and
+ a getter method
+\end_layout
+
+\begin_layout Enumerate
+We have a command, 
+\begin_inset Quotes eld
+\end_inset
+
+Say Hello
+\begin_inset Quotes erd
+\end_inset
+
+, implemented of course as a method
+\end_layout
+
+\begin_layout Enumerate
+Every type must also provide an implementation of the method 
+\emph on
+title()
+\emph default
+, which in a sense defines instances' labels, or captions in the application's
+ user interface.
+ The 
+\emph on
+Title
+\emph default
+ class exists simply to facilitate the task of constructing a title when
+ we wish those titles to be constructed by concatenating various field values.
+\end_layout
+
+\begin_layout Standard
+We use the 
+\emph on
+@Persist
+\emph default
+ annotation to mark the type as one that we want to persist to database.
+ We mark a method with the @Cmd annotation to mark that we wish to expose
+ this method to the user interface, as a command that users can invoke on
+ instances.
+\end_layout
+
+\begin_layout Standard
+A number of subtleties exist here too.
+ For command methods that return a String, the returned string is implied
+ to be a message returned by the action that JMatter will display to the
+ user.
+ Commands can accept arguments and I'll have more to say about that later.
+ Type commands can be defined as well by marking the method as static.
+\end_layout
+
+\begin_layout Standard
+JMatter infers the type names and captions, member names and captions from
+ our choice of class name, getter method name, and command method name.
+ This work is done via run-time reflection in Java.
+\end_layout
+
+\begin_layout Standard
+The total sum of conventions and features supported by JMatter is 
+\series bold
+much
+\series default
+ lengthier than this basic introduction.
+ Let us then delve into the details.
+\end_layout
+
+\begin_layout Section
+Type metadata
+\end_layout
+
+\begin_layout Subsection
+Icons
+\end_layout
+
+\begin_layout Subsection
+Overriding Plural Name
+\end_layout
+
+\begin_layout Subsection
+Field Order
+\end_layout
+
+\begin_layout Subsection
+Command Order
+\end_layout
+
+\begin_layout Subsection
+Flatten Into Parent
+\end_layout
+
+\begin_layout Subsection
+Unique Fields
+\end_layout
+
+\begin_layout Standard
+JMatter automatically takes care to define a surrogate primary key for your
+ model classes.
+ Often there may exist additional fields, natural keys, that must remain
+ unique.
+ Optionally defining a static field 
+\begin_inset Quotes eld
+\end_inset
+
+identities
+\begin_inset Quotes erd
+\end_inset
+
+ will ensure that JMatter construts the database schema properly (marking
+ the field as unique in the database, which will also create an index on
+ the table).
+ In the user interface, such fields cannot be revised after after an object
+ has been created for the first time.
+\end_layout
+
+\begin_layout Description
+Example:
+\end_layout
+
+\begin_layout LyX-Code
+public static String[] identities = {"ssn"};
+\end_layout
+
+\begin_layout Subsection
+Read-only Fields
+\end_layout
+
+\begin_layout Standard
+Fields can be marked as 
+\begin_inset Quotes eld
+\end_inset
+
+read only
+\begin_inset Quotes erd
+\end_inset
+
+ by providing an optional 
+\begin_inset Quotes eld
+\end_inset
+
+readOnly
+\begin_inset Quotes erd
+\end_inset
+
+ static field (in the same manner fieldOrder is specified).
+\end_layout
+
+\begin_layout Description
+Example:
+\end_layout
+
+\begin_layout LyX-Code
+public static String[] readOnly = {"created"};
+\end_layout
+
+\begin_layout Subsection
+Calculated Fields
+\end_layout
+
+\begin_layout Standard
+We sometimes use fields whose values are derived from other information.
+ The information does not need to be persisted (made part of the database
+ schema) and the information can simply be derived when the object is restored
+ from the database.
+\end_layout
+
+\begin_layout Standard
+Define such fields in the usual way.
+ JMatter provides a way to mark the field as 
+\begin_inset Quotes eld
+\end_inset
+
+not persisted
+\begin_inset Quotes erd
+\end_inset
+
+, and a way to hook into the object's life cycle in order to update the
+ field value, as illustrated in the following example.
+\end_layout
+
+\begin_layout Description
+Example:
+\end_layout
+
+\begin_layout LyX-Code
+private final USDollar _total = new USDollar();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Fld(persist = false)
+\end_layout
+
+\begin_layout LyX-Code
+public USDollar getTotal() { return _total; }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void onLoad()
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   super.onLoad();
+\end_layout
+
+\begin_layout LyX-Code
+   calculate();
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+private void calculate()
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   ChargeCalculator calc = new ChargeCalculator(_trip, _settings);
+\end_layout
+
+\begin_layout LyX-Code
+   _charges = calc.getCharges();
+\end_layout
+
+\begin_layout LyX-Code
+   _total.setValue(calc.getTotal());
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Since derived fields need to be recalculated as a function of their inputs,
+ it's also useful to attach change listeners on the input values.
+ Here's an example:
+\end_layout
+
+\begin_layout LyX-Code
+_settings.addChangeListener(new ChangeListener()
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public void stateChanged(ChangeEvent e)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      _tracer.info("Settings changed, recalculating..");
+\end_layout
+
+\begin_layout LyX-Code
+      calculate();
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+});
+\end_layout
+
+\begin_layout Standard
+In this case the variable 
+\emph on
+_settings
+\emph default
+ is a composite member of the enclosing class.
+\end_layout
+
+\begin_layout Section
+Fields
+\end_layout
+
+\begin_layout Standard
+@Fld annotation
+\end_layout
+
+\begin_layout Standard
+Caption
+\end_layout
+
+\begin_layout Standard
+Mnemonic
+\end_layout
+
+\begin_layout Standard
+Tooltip
+\end_layout
+
+\begin_layout Subsection
+Atomic Fields
+\end_layout
+
+\begin_layout Subsection
+Composite Fields
+\end_layout
+
+\begin_layout Subsection
+Associations
+\end_layout
+
+\begin_layout Section
+Commands
+\end_layout
+
 \begin_layout Chapter
 Validation
 \end_layout
 
 \begin_layout Standard
-[tbd]
+There are a number of facets to validation.
+ 
+\end_layout
+
+\begin_layout Standard
+Let's begin by describing one aspect of the GUI.
+ In the user interface, when an object is displayed, it can be edited and
+ saved (updated).
+ The user interface code that lays out the form conveniently inserts a number
+ of panels called validation panels.
+ These panels are normally empty and thus not apparent in the user interface.
+ 
+\end_layout
+
+\begin_layout Standard
+For an object with three atomic fields, say a Speaker with a name (
+\emph on
+StringEO
+\emph default
+), a title (
+\emph on
+StringEO
+\emph default
+), and a biography (
+\emph on
+TextEO
+\emph default
+), four validation panels will be setup: one for each field, and one for
+ the instance.
+\end_layout
+
+\begin_layout Standard
+Each atomic type asserts its own validation requirements.
+ Let's take a look at 
+\emph on
+USZipCode
+\emph default
+ for a moment:
+\end_layout
+
+\begin_layout LyX-Code
+private static String omit = "- ";
+\end_layout
+
+\begin_layout LyX-Code
+private static String valid = "0123456789";
+\end_layout
+
+\begin_layout LyX-Code
+public int validate()
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  String value = SimpleParser.parseValue(omit, valid, _value);
+\end_layout
+
+\begin_layout LyX-Code
+  if (value == null || value.length() != 5 && value.length() != 9) return
+ invalid();
+\end_layout
+
+\begin_layout LyX-Code
+  return 0;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+private int invalid()
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  fireValidationException("Invalid zip code: "+_value);
+\end_layout
+
+\begin_layout LyX-Code
+  return 1;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Here we see that 
+\emph on
+USZipCode
+\emph default
+ implements the 
+\emph on
+validate()
+\emph default
+ method, which the framework will invoke at the proper time.
+ The return value, an 
+\emph on
+int
+\emph default
+, specifies the number of "errors" encountered.
+ So a return value of 
+\emph on
+0
+\emph default
+ implies that everything validated just fine.
+\end_layout
+
+\begin_layout Standard
+There's a publish/subscribe pattern here, where the model object does not
+ have a reference to its corresponding view (or editor) object.
+ Yet, somehow the UI must display the validation error message.
+ So the model object publishes the message *Invalid zip code...* when a validation
+ error is encountered.
+ The validation panel that corresponds to a field of this type in the user
+ interface is a listener, and receives the messages, and properly displays
+ the error:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/zipcode_validation.png
+	lyxscale 30
+	scale 50
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+\begin_inset LatexCommand \label{fig:Zip-Code-Validation}
+
+\end_inset
+
+Zip Code Validation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The way you should view this form is that each field has its own validation
+ panel embedded in the form, just above it.
+ Most of the time these panels are dormant.
+ When a validation message is published, it will appear in the appropriate
+ place.
+ Each panel listens to the value of its corresponding field.
+\end_layout
+
+\begin_layout Standard
+The method 
+\emph on
+validate()
+\emph default
+ will be called on atomic objects when a user tabs out of the editor (when
+ the field loses focus) and again when the user attempts to save the object.
+ 
+\end_layout
+
+\begin_layout Standard
+So validation on atomic types such as such as 
+\emph on
+USZipCode
+\emph default
+, 
+\emph on
+SSN
+\emph default
+, and 
+\emph on
+USPhone
+\emph default
+ is implemented in this way.
+ 
+\end_layout
+
+\begin_layout Standard
+Some validation logic is really more an artifact of how the atomic type's
+ editor chose to allow you to enter the information, and so is implemented
+ directly on the editor.
+ Let's take a look at 
+\emph on
+PasswordEditor
+\emph default
+'s 
+\emph on
+bind()
+\emph default
+ method, which is called by the framework to bind the value entered in the
+ editor back to the model object:
+\end_layout
+
+\begin_layout LyX-Code
+public int bind(AtomicEObject value)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  Password eo = (Password) value;
+\end_layout
+
+\begin_layout LyX-Code
+  String pwd1 = new String(_pf1.getPassword());
+\end_layout
+
+\begin_layout LyX-Code
+  String pwd2 = new String(_pf2.getPassword());
+\end_layout
+
+\begin_layout LyX-Code
+  if (pwd1.length() < Password.MINLENGTH)
+\end_layout
+
+\begin_layout LyX-Code
+  {
+\end_layout
+
+\begin_layout LyX-Code
+    eo.fireValidationException("Password must be at least "+Password.MINLENGTH+"
+ characters long");
+\end_layout
+
+\begin_layout LyX-Code
+    return 1;
+\end_layout
+
+\begin_layout LyX-Code
+  }
+\end_layout
+
+\begin_layout LyX-Code
+  if (! pwd1.equals(pwd2) )
+\end_layout
+
+\begin_layout LyX-Code
+  {
+\end_layout
+
+\begin_layout LyX-Code
+    eo.fireValidationException("Password and repeated password do not match.");
+\end_layout
+
+\begin_layout LyX-Code
+    return 1;
+\end_layout
+
+\begin_layout LyX-Code
+  }
+\end_layout
+
+\begin_layout LyX-Code
+  eo.parseValue(pwd1);
+\end_layout
+
+\begin_layout LyX-Code
+  return 0;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+This editor displays two password fields.
+ The entered value must match each time.
+ Also there's a check to ensure that the specified password meets certain
+ criteria, such as a minimum length, or exceeding a certain minimum password
+ strength, based on a specific algorithm.
+ Again, we see here how the editor, through its reference to the model object,
+ can also tap into the validation panels to display the proper validation
+ error message.
+ 
+\end_layout
+
+\begin_layout Standard
+In addition, baked into the framework is a simple mechanism for marking
+ fields as required.
+ The framework will automatically check that required fields left empty
+ will veto the ability to save an object, and will also display a proper
+ error message.
+ 
+\end_layout
+
+\begin_layout Standard
+The way to mark required fields in JMatter at the moment is to specify them
+ in the properties file 
+\emph on
+model-metadata.properties
+\emph default
+.
+ Here's a sample file, taken from an application having to do with aircraft
+ that I recently implemented:
+\end_layout
+
+\begin_layout LyX-Code
+      Airport.airportID.required=true
+\end_layout
+
+\begin_layout LyX-Code
+      Airport.name.required=true
+\end_layout
+
+\begin_layout LyX-Code
+      Airport.lat.required=true
+\end_layout
+
+\begin_layout LyX-Code
+      Airport.lon.required=true
+\end_layout
+
+\begin_layout LyX-Code
+      Airport.city.required=true
+\end_layout
+
+\begin_layout LyX-Code
+      Airport.stateCode.required=true
+\end_layout
+
+\begin_layout LyX-Code
+      Trip.aircraft.default=from Aircraft a where name='CitationJet'
+\end_layout
+
+\begin_layout LyX-Code
+      TripSegment.from.required=true
+\end_layout
+
+\begin_layout LyX-Code
+      TripSegment.to.required=true
+\end_layout
+
+\begin_layout Standard
+Notice that this metadata file is also used to specify default values for
+ fields.
+ Note how a default value is specified for an association by actually looking
+ it up in the database.
+ The value specified is valid hql (hibernate query language).
+ Let's get back to discussing validation.
+\end_layout
+
+\begin_layout Standard
+Any type you define in your object model can define its own validation as
+ well, again, simply by implementing 
+\emph on
+validate()
+\emph default
+.
+ Here's how it was implemented for the type "TripSegment" in an application
+ I developed: 
+\end_layout
+
+\begin_layout LyX-Code
+      public int validate()
+\end_layout
+
+\begin_layout LyX-Code
+      {
+\end_layout
+
+\begin_layout LyX-Code
+         if (_from == null || _to == null)
+\end_layout
+
+\begin_layout LyX-Code
+         {
+\end_layout
+
+\begin_layout LyX-Code
+            String msg = "From and To fields cannot be empty";
+\end_layout
+
+\begin_layout LyX-Code
+            fireValidationException(msg);
+\end_layout
+
+\begin_layout LyX-Code
+            return 1;
+\end_layout
+
+\begin_layout LyX-Code
+         }
+\end_layout
+
+\begin_layout LyX-Code
+         if (_from.equals(_to))
+\end_layout
+
+\begin_layout LyX-Code
+         {
+\end_layout
+
+\begin_layout LyX-Code
+            fireValidationException("From and To fields cannot be the same");
+\end_layout
+
+\begin_layout LyX-Code
+            return 1;
+\end_layout
+
+\begin_layout LyX-Code
+         }
+\end_layout
+
+\begin_layout LyX-Code
+         if (_trip != null && _trip.getAircraft() != null)
+\end_layout
+
+\begin_layout LyX-Code
+         {
+\end_layout
+
+\begin_layout LyX-Code
+            Aircraft aircraft = _trip.getAircraft();
+\end_layout
+
+\begin_layout LyX-Code
+            if (aircraft.hasRangeFor(_numPassengers.intValue()))
+\end_layout
+
+\begin_layout LyX-Code
+            {
+\end_layout
+
+\begin_layout LyX-Code
+               int range = aircraft.rangeFor(_numPassengers.intValue());
+\end_layout
+
+\begin_layout LyX-Code
+               if (range < distance())
+\end_layout
+
+\begin_layout LyX-Code
+               {
+\end_layout
+
+\begin_layout LyX-Code
+                  String msg = String.format("Segment distance exceeds aircraft
+ range (%d) " +
+\end_layout
+
+\begin_layout LyX-Code
+                        "for specified number of passengers", range);
+\end_layout
+
+\begin_layout LyX-Code
+                  fireValidationException(msg);
+\end_layout
+
+\begin_layout LyX-Code
+                  return 1;
+\end_layout
+
+\begin_layout LyX-Code
+               }
+\end_layout
+
+\begin_layout LyX-Code
+            }
+\end_layout
+
+\begin_layout LyX-Code
+         }
+\end_layout
+
+\begin_layout LyX-Code
+         return 0;
+\end_layout
+
+\begin_layout LyX-Code
+      }
+\end_layout
+
+\begin_layout Standard
+So there's a simple business rule in this case that a trip segment's distance
+ cannot exceed the specified aircraft's range for the specified number of
+ passengers.
+ 
+\end_layout
+
+\begin_layout Standard
+So here you have it, in a nutshell, an overview of validation in JMatter,
+ how to implement it in your applications, and how things work under the
+ hood.
+ 
 \end_layout
 
 \begin_layout Chapter
@@ -13124,139 +14078,11 @@ normal
 \end_layout
 
 \begin_layout Chapter
-A Desktop within a Desktop?
+Wizard Framework in Detail
 \end_layout
 
 \begin_layout Standard
-Unlike most of the other chapters in this book, this one is philosophical
- in nature.
-\end_layout
-
-\begin_layout Standard
-One cannot help making the observation that the applications we're developing
- are desktop-like in nature.
- We end up having a desktop running within a operating system's desktop.
- The features of our applications' desktops are in many ways a replication
- of the features already built into our operating systems.
- The main difference being that instead of managing files and folders, we're
- in a sense extending the desktop to allow for the management of business
- objects, in any combination we choose.
- When we wrote our contact manager, that combination happens to consist
- of persons and businesses, for example.
-\end_layout
-
-\begin_layout Section
-Dreaming of a Better [Virtual] World
-\end_layout
-
-\begin_layout Standard
-The state of operating systems today looks all charming and wonderful.
- Take for example the new MacOS reborn in v10.0.
- Beautiful graphics, colors, lots of applications we can run.
- On the surface, it all looks and feels like a virtual garden of eden.
-\end_layout
-
-\begin_layout Standard
-I see a much colder, harsher landscape.
- I see a landscape of islands of processes that communicate with one another
- hardly ever.
- If they do, it's via messages in a bottle.
- One of the few ways for such applications to talk to one another is via
- the clipboard.
- You copy (or drag) some text or maybe an image from one application and
- paste it (or drop it) onto another.
- That's essentially the extent to which applications can communicate in
- an ad-hoc basis.
-\end_layout
-
-\begin_layout Standard
-Let's go a little further though.
- Let's think about the code required to implement an email application,
- a web browser, a word processor, our finance application, etc..
- Each application must fend for itself: each one has to build its own search
- features, its own mechanism for persisting information, its own user interace,
- its own mechanism for calendaring, for validating information, etc..
-\end_layout
-
-\begin_layout Standard
-This is not entirely true; the operating system does provide certain services
- that any application can avail itself to: reading a file, writing a record
- to a database perhaps, opening a socket, creating a button, a text field.
- Terrific.
- It's a start.
-\end_layout
-
-\begin_layout Standard
-Again what we see is that the notion of orthogonal services that can be
- provided to all the applications that run in an operating system is missing.
- If the ideas embodied in JMatter were to be applied to an operating system,
- then we could create a virtual world where our software applications would
- suddenly and dramatically shrink in size.
- The reason would be simple: all you'd have to do to build your application
- is define your model objects.
- Half of them would already be defined in other applications and you wouldn't
- be writing them from scratch: you'd be composing applications.
-\end_layout
-
-\begin_layout Standard
-Contributors to such an operating system might add new and interesting behaviors
- on existing objects.
- Maybe the ability for an email message object to receive an image object,
- maybe the ability to submit your financial information electronically to
- your accountant.
- You'd be able to file email messages in folders that you place on your
- desktop.
- The notion of multiple separate applications would vanish.
- They'd all run under a single application, managed by the operating system.
- When you're performing a search, you'll be searching your entire virtual
- world in the same way, regardless of whether you're looking for a piece
- of text in a file or an email message, or maybe looking for a financial
- transaction in a specific electronic account.
-\end_layout
-
-\begin_layout Standard
-We wouldn't need such large hard drives, and for many tasks, would not require
- such a fast microprocessor.
- Each application wouldn't request of the operating system a chunk of 50
- megabytes to run in; your memory footprint would drop.
-\end_layout
-
-\begin_layout Standard
-When you perform a software update, you'll be inheriting new orthogonal
- services: new capabilities that all of your objects would inherit, not
- just a single application.
-\end_layout
-
-\begin_layout Standard
-This is my vision for operating systems.
- It turns out these ideas are indeed very old ones.
- What I'm describing, to a certain extent, is Smalltalk.
-\end_layout
-
-\begin_layout Standard
-Indeed the ideas behing JMatter were inspired by the NakedObjects framework,
- which in turn was inspired by Smalltalk.
-\end_layout
-
-\begin_layout Section
-Collapsing the desktops
-\end_layout
-
-\begin_layout Standard
-So, my hope is that some day a single desktop will exist and the ideas in
- JMatter will be integrated into our operating systems.
- Until then, enjoy smashing your competition to bits with JMatter.
-\end_layout
-
-\begin_layout Chapter
-Conventions Reference
-\end_layout
-
-\begin_layout Standard
-
-\emph on
-JMatter Conventions reference (tabviews, fieldorder, icon naming conventions)
- [tbd]
+[tbd]
 \end_layout
 
 \begin_layout Chapter
@@ -13442,7 +14268,7 @@ I hope that after reading this document, that you now have a good feel for
 \end_layout
 
 \begin_layout Chapter
-Summary
+Parting Words
 \end_layout
 
 \begin_layout Standard
@@ -13825,6 +14651,126 @@ hibernate.hbm2ddl.auto=create
 \end_layout
 
 \begin_layout Chapter
+Philosophical Essay: A Desktop within a Desktop?
+\end_layout
+
+\begin_layout Standard
+One cannot help making the observation that the applications we're developing
+ are desktop-like in nature.
+ We end up having a desktop running within a operating system's desktop.
+ The features of our applications' desktops are in many ways a replication
+ of the features already built into our operating systems.
+ The main difference being that instead of managing files and folders, we're
+ in a sense extending the desktop to allow for the management of business
+ objects, in any combination we choose.
+ When we wrote our contact manager, that combination happens to consist
+ of persons and businesses, for example.
+\end_layout
+
+\begin_layout Section
+Dreaming of a Better [Virtual] World
+\end_layout
+
+\begin_layout Standard
+The state of operating systems today looks all charming and wonderful.
+ Take for example the new MacOS reborn in v10.0.
+ Beautiful graphics, colors, lots of applications we can run.
+ On the surface, it all looks and feels like a virtual garden of eden.
+\end_layout
+
+\begin_layout Standard
+I see a much colder, harsher landscape.
+ I see a landscape of islands of processes that communicate with one another
+ hardly ever.
+ If they do, it's via messages in a bottle.
+ One of the few ways for such applications to talk to one another is via
+ the clipboard.
+ You copy (or drag) some text or maybe an image from one application and
+ paste it (or drop it) onto another.
+ That's essentially the extent to which applications can communicate in
+ an ad-hoc basis.
+\end_layout
+
+\begin_layout Standard
+Let's go a little further though.
+ Let's think about the code required to implement an email application,
+ a web browser, a word processor, our finance application, etc..
+ Each application must fend for itself: each one has to build its own search
+ features, its own mechanism for persisting information, its own user interace,
+ its own mechanism for calendaring, for validating information, etc..
+\end_layout
+
+\begin_layout Standard
+This is not entirely true; the operating system does provide certain services
+ that any application can avail itself to: reading a file, writing a record
+ to a database perhaps, opening a socket, creating a button, a text field.
+ Terrific.
+ It's a start.
+\end_layout
+
+\begin_layout Standard
+Again what we see is that the notion of orthogonal services that can be
+ provided to all the applications that run in an operating system is missing.
+ If the ideas embodied in JMatter were to be applied to an operating system,
+ then we could create a virtual world where our software applications would
+ suddenly and dramatically shrink in size.
+ The reason would be simple: all you'd have to do to build your application
+ is define your model objects.
+ Half of them would already be defined in other applications and you wouldn't
+ be writing them from scratch: you'd be composing applications.
+\end_layout
+
+\begin_layout Standard
+Contributors to such an operating system might add new and interesting behaviors
+ on existing objects.
+ Maybe the ability for an email message object to receive an image object,
+ maybe the ability to submit your financial information electronically to
+ your accountant.
+ You'd be able to file email messages in folders that you place on your
+ desktop.
+ The notion of multiple separate applications would vanish.
+ They'd all run under a single application, managed by the operating system.
+ When you're performing a search, you'll be searching your entire virtual
+ world in the same way, regardless of whether you're looking for a piece
+ of text in a file or an email message, or maybe looking for a financial
+ transaction in a specific electronic account.
+\end_layout
+
+\begin_layout Standard
+We wouldn't need such large hard drives, and for many tasks, would not require
+ such a fast microprocessor.
+ Each application wouldn't request of the operating system a chunk of 50
+ megabytes to run in; your memory footprint would drop.
+\end_layout
+
+\begin_layout Standard
+When you perform a software update, you'll be inheriting new orthogonal
+ services: new capabilities that all of your objects would inherit, not
+ just a single application.
+\end_layout
+
+\begin_layout Standard
+This is my vision for operating systems.
+ It turns out these ideas are indeed very old ones.
+ What I'm describing, to a certain extent, is Smalltalk.
+\end_layout
+
+\begin_layout Standard
+Indeed the ideas behing JMatter were inspired by the NakedObjects framework,
+ which in turn was inspired by Smalltalk.
+\end_layout
+
+\begin_layout Section
+Collapsing the desktops
+\end_layout
+
+\begin_layout Standard
+So, my hope is that some day a single desktop will exist and the ideas in
+ JMatter will be integrated into our operating systems.
+ Until then, enjoy smashing your competition to bits with JMatter.
+\end_layout
+
+\begin_layout Chapter
 Programmers Take Issue
 \end_layout
 
@@ -14012,6 +14958,16 @@ I heartily disagree.
 So, I take issue with the statement that ValueHolders are not POJO's.
  Indeed they are.
  The term is used in error in this context.
+\end_layout
+
+\begin_layout Chapter
+FAQ
+\end_layout
+
+\begin_layout Standard
+[tbd - task: collect most relevant questions from mailing list, together
+ with replies here.
+ ]
 \end_layout
 
 \begin_layout Standard
