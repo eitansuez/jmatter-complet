@@ -23,7 +23,7 @@ public @interface Cmd
     */
    public String description() default "";
 
-   public boolean isSensitive() default false;
+   public boolean sensitive() default false;
    public Positioning viewPosition() default Positioning.NEARMOUSE;
 
    /**

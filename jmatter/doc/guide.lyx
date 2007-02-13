@@ -14247,7 +14247,7 @@ Here is a summary of the optional parameters that the
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="3">
+<lyxtabular version="3" rows="5" columns="3">
 <features>
 <column alignment="left" valignment="top" leftline="true" width="1.5in">
 <column alignment="left" valignment="top" leftline="true" width="1in">
@@ -14374,16 +14374,48 @@ Used as a tooltip to the command's corresponding view (usually a button)
 \end_inset
 </cell>
 </row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+sensitive
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+boolean
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Specify whether this is a sensitive command (e.g.
+ 
+\emph on
+Delete
+\emph default
+) where it would be beneficial for the ui to provide a mechanism to prevent
+ against inadvertant invocation of the command.
+ This is done in the Swing view mechanism by disabling the command's button.
+ A small lock on the button can be clicked on to enable the action.
+\end_layout
+
+\end_inset
+</cell>
+</row>
 </lyxtabular>
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Note that the above three parameters are also defined on fields (though
- fields have additional field-specific parameters).
 \end_layout
 
 \begin_layout Chapter
@@ -15482,18 +15514,6 @@ I hope that after reading this document, that you now have a good feel for
  the JMatter philosophy, the JMatter way of doing things.
  It is my sincere belief that the JMatter way is the way forward for the
  software development industry.
-\end_layout
-
-\begin_layout Chapter
-Parting Words
-\end_layout
-
-\begin_layout Standard
-[tbd] [points to make: - a review of what we did - revisiting to original
- premises - most books struggle to build one example application; this book
- gives you four.
- i hope this is one of the many ways that this book illustrates the revolutionar
-y nature of jmatter.
 \end_layout
 
 \begin_layout Chapter

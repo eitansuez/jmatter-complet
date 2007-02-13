@@ -41,7 +41,7 @@ public class AnnotationsReflector implements Reflector
                                     parent,
                                     at.mnemonic(),
                                     parameterInfo(method),
-                                    at.isSensitive(),
+                                    at.sensitive(),
                                     at.viewPosition());
       cmd.blocks(at.blocks());
       if (!StringEO.isEmpty(at.label()))

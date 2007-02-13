@@ -162,7 +162,7 @@ public class User extends AbstractComplexEObject
       }
    }
    
-//   @Cmd(isSensitive = true)
+//   @Cmd(sensitive = true)
 //   public void ResetClassBar(CommandInfo info)
 //   {
 //      deleteClassBarFolders();

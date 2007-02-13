@@ -25,7 +25,7 @@ public class AtomTester
       _vmech = (ViewMechanism) context.getBean("view-mechanism");
 
       AtomicMedley medley = new AtomicMedley(23, "Joey", new Email("eitan@uptodata.com"), true, 23.3);
-      _vmech.displayView(medley.getFormView());
+      _vmech.displayView(medley.getFormView(), null);
    }
 
    public static void main(String[] args)

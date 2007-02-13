@@ -44,17 +44,17 @@ public class AppFrameTester
       //sh2.setTo(addr);
       sh2.getTo().setValue(addr);
 
-      _vmech.displayView(addr.getFormView());
-      _vmech.displayView(shipment.getFormView());
-      _vmech.displayView(addr2.getFormView());
-      _vmech.displayView(sh2.getFormView());
+      _vmech.displayView(addr.getFormView(), null);
+      _vmech.displayView(shipment.getFormView(), null);
+      _vmech.displayView(addr2.getFormView(), null);
+      _vmech.displayView(sh2.getFormView(), null);
    }
 
    void testLists()
    {
       SimpleListEO shipments = shipmentsList();
 //      _vmech.displayView(shipments.getView());
-      _vmech.displayView(shipments.getListViewAsIcons());
+      _vmech.displayView(shipments.getListViewAsIcons(), null);
 
       try {
          Thread.sleep(4000);

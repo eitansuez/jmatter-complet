@@ -17,8 +17,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/list/JListView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/list/JListView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/css4swing.jar" afterPath="$PROJECT_DIR$/lib/css4swing.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/OutlookFolderView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/OutlookFolderView.java" />
     </list>
@@ -297,6 +295,20 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.view.swing.dnd" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="com.u2d.view.swing" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
@@ -382,7 +394,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
+      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
       <autoscrollToSource PackagesPane="true" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -391,8 +403,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -562,7 +574,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1280" height="751" extended-state="0" />
+    <frame x="-5" y="0" width="1280" height="751" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -673,13 +685,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AlternateView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="31" selection-start="2386" selection-end="2386" vertical-scroll-proportion="0.3082077">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AssociationView2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="247" column="45" selection-start="6721" selection-end="6731" vertical-scroll-proportion="0.33333334">
@@ -694,23 +699,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/OutlookFolderView2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="13" selection-start="925" selection-end="925" vertical-scroll-proportion="0.30150753">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/composite/Folder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="13" selection-start="738" selection-end="738" vertical-scroll-proportion="0.20100503">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/GridListView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="26" selection-start="2477" selection-end="2477" vertical-scroll-proportion="1.6947724">
           <folding />
         </state>
       </provider>
@@ -771,12 +762,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/dnd/BasicTransferHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="4" selection-start="661" selection-end="661" vertical-scroll-proportion="0.68296796">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/GridListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="12" selection-start="3820" selection-end="3820" vertical-scroll-proportion="0.48397976">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/OutlookFolderView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="0" selection-start="1655" selection-end="1655" vertical-scroll-proportion="0.306914">
+        <state line="59" column="0" selection-start="1564" selection-end="1564" vertical-scroll-proportion="0.2782462">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FolderPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="0" selection-start="814" selection-end="814" vertical-scroll-proportion="0.4806071">
+          <folding />
         </state>
       </provider>
     </entry>

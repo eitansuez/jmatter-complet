@@ -672,7 +672,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          return AbstractComplexEObject.this;
       }
 
-      @Cmd(isSensitive = true)
+      @Cmd(sensitive = true)
       public String Delete(CommandInfo cmdInfo)
       {
 //         System.out.println("Read.delete");
