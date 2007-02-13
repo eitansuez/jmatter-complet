@@ -12827,21 +12827,39 @@ public class Person
 \end_layout
 
 \begin_layout Standard
+We see that:
+\end_layout
+
+\begin_layout Enumerate
 At the most basic level a class definition consists of data and behaviour,
  implemented as fields and commands (or methods), known as the type's members.
- Furthermore we see that JMatter relies heavily on conventions for the purpose
- of inferring information about a type.
+\end_layout
+
+\begin_layout Enumerate
+JMatter relies heavily on conventions for the purpose of inferring information
+ about a type.
+\end_layout
+
+\begin_layout Standard
+Here are some conventions:
 \end_layout
 
 \begin_layout Enumerate
 Our class must extends the base type 
 \emph on
-AbstractComplexEObject
+AbstractComplexEObject.
+ 
+\emph default
+This base class is a partial implementation of the 
+\emph on
+ComplexEObject
+\emph default
+ interface.
 \end_layout
 
 \begin_layout Enumerate
-We have a field, the person's name, defined through a private variable and
- a getter method
+We have a field, the person's name, defined via a private variable but inferred
+ from a getter method
 \end_layout
 
 \begin_layout Enumerate
@@ -12853,7 +12871,7 @@ Say Hello
 \begin_inset Quotes erd
 \end_inset
 
-, implemented of course as a method
+, implemented of course as a method.
 \end_layout
 
 \begin_layout Enumerate
@@ -12871,27 +12889,43 @@ Title
  we wish those titles to be constructed by concatenating various field values.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Enumerate
 We use the 
 \emph on
 @Persist
 \emph default
  annotation to mark the type as one that we want to persist to database.
- We mark a method with the @Cmd annotation to mark that we wish to expose
- this method to the user interface, as a command that users can invoke on
- instances.
+\end_layout
+
+\begin_layout Enumerate
+We mark a method with the 
+\emph on
+@Cmd
+\emph default
+ annotation to indicate that we wish to expose this method to the user interface
+, as a command that users can invoke on instances.
 \end_layout
 
 \begin_layout Standard
-A number of subtleties exist here too.
- For command methods that return a String, the returned string is implied
+There exist a number of subtleties too.
+ Here are some examples:
+\end_layout
+
+\begin_layout Enumerate
+For command methods that return a String, the returned string is implied
  to be a message returned by the action that JMatter will display to the
  user.
- Commands can accept arguments and I'll have more to say about that later.
- Type commands can be defined as well by marking the method as static.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Enumerate
+Commands can accept arguments (I'll have more to say about that later).
+\end_layout
+
+\begin_layout Enumerate
+Type commands can be defined by marking the method as static.
+\end_layout
+
+\begin_layout Enumerate
 JMatter infers the type names and captions, member names and captions from
  our choice of class name, getter method name, and command method name.
  This work is done via run-time reflection in Java.
@@ -12907,27 +12941,790 @@ much
 \end_layout
 
 \begin_layout Section
-Type metadata
+Types
+\end_layout
+
+\begin_layout Standard
+When buildling a JMatter application, your job as a developer is to develop
+ the model completely, using object-oriented techniques: accounting for
+ both data and behaviour.
+\end_layout
+
+\begin_layout Standard
+You can think of the complete application as having a model-view-controller
+ design.
+ In the case of JMatter, the view and controller are generic, and already
+ implemented.
+ This frees you to focus on the model.
+\end_layout
+
+\begin_layout Standard
+From a persistence perspective, all types inherit three fields or pseudofields:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="2">
+<features>
+<column alignment="center" valignment="top" leftline="true" width="1in">
+<column alignment="center" valignment="top" leftline="true" rightline="true" width="6in">
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Field
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+id
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Serves as surrogate primary key.
+ You do not need to define a primary key for your types.
+ The framework does this for you.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+version
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+This field is used by the underlying hibernate persistence framework to
+ keep track of whether two objects are being edited at the same time, used
+ for optimistic locking.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+createdOn
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+A read only field that records the date and time that an object is created.
+ When displaying a view of an object in form view, the value of this field
+ is displayed at the bottom, in the view's status bar.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Fields
+\end_layout
+
+\begin_layout Standard
+JMatter makes a distinction between atomic fields and complex fields, where
+ atomic fields have a single value, while complex fields are in a sense
+ composed of atomic and other fields.
+\end_layout
+
+\begin_layout Standard
+There's a second distinction that has to do with ownership of a field.
+ Composite, or aggregate fields are ones that are wholly owned by their
+ parent object.
+ All atomic fields are aggregates.
+ Associations on the other hand are fields that represent relationships
+ to other objects.
+ These relationships can be set or severed.
+ Field ownership has implications on specific operations.
+ For example, if the parent object is deleted, associations are only severed,
+ but the associated object is not deleted.
+ That is, the delete operation does not cascade to associations.
+ A deletion on the other hand implies the deletion of child aggregate fields.
+\end_layout
+
+\begin_layout Standard
+We also need to discuss how to model fields with different cardinalities.
+ There are of course to-one relationships, and * or to-many relationships.
 \end_layout
 
 \begin_layout Subsection
-Icons
+Atomic Fields
+\end_layout
+
+\begin_layout Standard
+JMatter defines and provides implementations for a variety of types of atomic
+ fields.
+ Developers are required to use the framework's definitions.
+ That is, a string-based field must be defined as a 
+\emph on
+com.u2d.type.atomic.StringEO
+\emph default
+ and not a 
+\emph on
+java.lang.String
+\emph default
+.
+ Internally the frameworks' atomic fields are often a wrapper around a more
+ primitive value.
+\end_layout
+
+\begin_layout Standard
+The framework's atomic types are modeled as value objects.
+ JMatter defines an interface for Atomics, 
+\emph on
+com.u2d.model.AtomicEObject.
+\end_layout
+
+\begin_layout Standard
+The framework requires that all aggregate type fields be implemented as
+ final fields.
+ Consequently accessor methods for these fields comprise of only a getter
+ method.
+ The definitions look like this:
+\end_layout
+
+\begin_layout LyX-Code
+private final StringEO name = new StringEO();
+\end_layout
+
+\begin_layout LyX-Code
+public StringEO getName() { return name; }
+\end_layout
+
+\begin_layout Standard
+You may wonder then how one sets the value of an object's name field? All
+ value objects have a method:
+\end_layout
+
+\begin_layout LyX-Code
+public void setValue(EObject value);
+\end_layout
+
+\begin_layout Standard
+to provide a means for setting the value.
+ That is, the reference to the object never changes, only its contained
+ value.
+ StringEO has an additional convenience method:
+\end_layout
+
+\begin_layout LyX-Code
+public void setValue(String value);
+\end_layout
+
+\begin_layout Standard
+Other atomic types have similar conveniences.
+ IntEO for example (represents an integer) has this convenience method:
+\end_layout
+
+\begin_layout LyX-Code
+public void setValue(int value);
+\end_layout
+
+\begin_layout Standard
+These types also have a corresponding way of getting the represented value
+ as a simple Java primitive or object.
+ IntEO has:
+\end_layout
+
+\begin_layout LyX-Code
+public int intValue();
+\end_layout
+
+\begin_layout Standard
+StringEO has:
+\end_layout
+
+\begin_layout LyX-Code
+public String stringValue();
+\end_layout
+
+\begin_layout Standard
+..and, you guessed it, DateEO has:
+\end_layout
+
+\begin_layout LyX-Code
+public Date dateValue();
+\end_layout
+
+\begin_layout Standard
+Finally, all these atomic types are 
+\emph on
+ChangeNotifier
+\emph default
+'s, which means that they publish (or fire) change events that you can listen
+ to.
+ This can be useful for building lotus123-style dependencies between objects
+ (when A changes, update B).
+ This is also useful internally to keep the user interface in sync with
+ its underlying model.
+\end_layout
+
+\begin_layout Subsubsection
+Build-In Atomics
+\end_layout
+
+\begin_layout Standard
+Here is a listing of the various atomic types provided that come out of
+ the box:
+\end_layout
+
+\begin_layout LyX-Code
+BooleanEO, CharEO, ChoiceEO, ColorEO, DateEO, DateTime, DateWithAge, Email,
+ FileEO, FileWEO, FloatEO, ImgEO, IntEO, Logo, LongEO, Password, Percent,
+ Photo, SSN, StringEO, TextEO, TimeEO, TimeInterval, URI, USDollar, USPhone,
+ USZipCode.
+\end_layout
+
+\begin_layout Standard
+They are all defined in the 
+\emph on
+package com.u2d.type.atom.
+
+\emph default
+ Writing your own additional types is fairly straightforward.
+ The existing implementations represent a wealth of examples.
+\end_layout
+
+\begin_layout Subsection
+Composite Fields
+\end_layout
+
+\begin_layout Standard
+There isn't much to say about composite (or aggregates) fields that I haven't
+ already.
+ Again, what makes a field an aggregate in the framework is the fact that
+ its member is defined as a value object: define a final field, and only
+ a getter method.
+ Here's an example:
+\end_layout
+
+\begin_layout LyX-Code
+public class Person extends AbstractComplexEObject implements Emailable
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   protected final Name _name = new Name();
+\end_layout
+
+\begin_layout LyX-Code
+   public Name getName() { return _name; }
+\end_layout
+
+\begin_layout LyX-Code
+   ...
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Subsubsection
+Composite Types Provided with the Framework
+\end_layout
+
+\begin_layout Standard
+The framework comes with a number of predefined types that one might typically
+ use as a composite.
+ They're defined in the package 
+\emph on
+com.u2d.type.composite
+\emph default
+.
+ Here's a list of type names:
+\end_layout
+
+\begin_layout LyX-Code
+Name, USAddress, ContactMethod, Contact, BusinessContact, EmailMessage,
+ Folder, Note
+\end_layout
+
+\begin_layout Standard
+There's nothing that makes these types composites.
+ In other words, there's nothing that prevents anyone from using, for example,
+ a USAddress as a full-fledged entity.
+ What makes a Complex Object a composite is how you define the field in
+ a containing class.
+\end_layout
+
+\begin_layout Subsection
+Associations
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Subsection
+Choice Types
+\end_layout
+
+\begin_layout Section
+Commands
+\end_layout
+
+\begin_layout Section
+Metadata
 \end_layout
 
 \begin_layout Subsection
 Overriding Plural Name
 \end_layout
 
+\begin_layout Standard
+JMatter applications are all about managing information.
+ Information stored in objects and presented in the user interface as objects.
+ Every model object of course has a distinct name (or label) and icon, and
+ a distinct set of fields and commands.
+ The user interface displays a classbar, which in a sense is a starting
+ point for performing various operations, listing information of a given
+ type, searching for information, creating a new instance, etc..
+\end_layout
+
+\begin_layout Standard
+The classbar displays the various types in iconized form: with a caption
+ and an icon.
+ Each type's caption is derived from its class name.
+ It's actually the plural form of the class name.
+ For a 
+\emph on
+Boat
+\emph default
+, the plural form is simply 
+\emph on
+Boats.
+
+\emph default
+ For a 
+\emph on
+Person
+\emph default
+ object you might wish the caption to say 
+\emph on
+People
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+To override the default behaviour for deriving the plural for a type, define
+ a static method named 
+\emph on
+pluralName
+\emph default
+.
+\end_layout
+
+\begin_layout Description
+Example:
+\end_layout
+
+\begin_layout LyX-Code
+public static String pluralName() { return "People"; }
+\end_layout
+
+\begin_layout Subsection
+Icons
+\end_layout
+
+\begin_layout Standard
+You can assign an icon to each type.
+ Rather than edit a configuration file, the name of the icon is derived
+ from the type name.
+ JMatter supports .png, .gif, and .jpg formats.
+ Two icons sizes must be supplied: a 16x16 pixel icon (used in listings),
+ and a larger 32x32 pixel icon.
+ The files must be placed in the 
+\emph on
+resources/images
+\emph default
+ folder of your project.
+\end_layout
+
+\begin_layout Standard
+For the 
+\emph on
+User
+\emph default
+ class, the files should be named 
+\emph on
+User16.png
+\emph default
+ and 
+\emph on
+User32.png
+\emph default
+ respectively (the file suffix may vary of course).
+\end_layout
+
+\begin_layout Standard
+List views of a uniform type are also decorated with an icon.
+ You can distinguish icons used for lists of a given type from icons used
+ for individual instances: drop in 
+\emph on
+Users16.png
+\emph default
+ and 
+\emph on
+Users32.png
+\emph default
+ into the 
+\emph on
+images
+\emph default
+ folder.
+ Node how the file name uses the pluralized form of the type.
+\end_layout
+
+\begin_layout Standard
+JMatter also leverages and honors the type's inheritance hierarchy.
+ For example, if you define a specific subclass of User.java, say UberUser.java,
+ without providing a set of icons for the type, JMatter will use the super
+ type's icon set for the subtype.
+\end_layout
+
+\begin_layout Standard
+For types that are stateful, you can also distinguish between instances
+ of different states by icon.
+ For example, the JMatter framework provides a 
+\emph on
+UserLocked32.png
+\emph default
+.
+ If for some reason a user is locked, an administrator viewing a list of
+ users can easily spot the locked user.
+\end_layout
+
 \begin_layout Subsection
 Field Order
+\end_layout
+
+\begin_layout Standard
+To control the order in which a type's fields are laid out on a form, use
+ the 
+\emph on
+fieldOrder
+\emph default
+ static member.
+\end_layout
+
+\begin_layout Description
+Example:
+\end_layout
+
+\begin_layout LyX-Code
+public static String[] fieldOrder = {"name", "contact"};
+\end_layout
+
+\begin_layout Standard
+Whatever field names you don't reference in 
+\emph on
+fieldOrder
+\emph default
+ will still appear on the form, after the listed ones, in no guaranteed
+ order.
+\end_layout
+
+\begin_layout Standard
+This piece of metadata underscores an important aspect of the framework
+ which you must understand: the notion that fields and commands can be reference
+d by name, as a string.
+ What are the rules that govern the derivation of a field's name?
+\end_layout
+
+\begin_layout Standard
+Field names are derived from their accessor method name.
+ Here are a couple of simple examples:
+\end_layout
+
+\begin_layout LyX-Code
+getName() -> "name"
+\end_layout
+
+\begin_layout LyX-Code
+getFirstName() -> "firstName"
+\end_layout
+
+\begin_layout Standard
+Fields also have 
+\emph on
+natural names
+\emph default
+, presented as field captions in the user interface.
+ The natural name for the 
+\emph on
+firstName
+\emph default
+ field is 
+\emph on
+First Name
+\emph default
+.
 \end_layout
 
 \begin_layout Subsection
 Command Order
 \end_layout
 
+\begin_layout Standard
+In a manner analogous to the way fields are ordered on a form, we can control
+ the order in which a type's commands are displayed with the 
+\emph on
+commandOrder
+\emph default
+ static field.
+\end_layout
+
+\begin_layout Standard
+The ContactMgr demo application's 
+\emph on
+PersonContact
+\emph default
+ type has two static methods 
+\emph on
+Report
+\emph default
+ and 
+\emph on
+NewPersonWizard
+\emph default
+.
+ Their relative order can be specified as follows:
+\end_layout
+
+\begin_layout LyX-Code
+public static String[] commandOrder = {"Report", "NewPersonWizard"};
+\end_layout
+
+\begin_layout Standard
+What's interesting here is that these two commands are static methods: they're
+ type commands.
+ The 
+\emph on
+commandOrder
+\emph default
+ field controls both static commands and instance commands.
+ Each list is mutually exclusive.
+\end_layout
+
 \begin_layout Subsection
 Flatten Into Parent
+\end_layout
+
+\begin_layout Standard
+Types can have different types of member fields.
+ Some are simple, atomic, fields such as a string, a number, a percentage
+ perhaps.
+ These fields are not entities.
+ From a persistence perspective, they don't get their own tables.
+ A type may also bear members which are not atomic, but nevertheless aggregates
+ of their containing types.
+ Say for example that I define a 
+\emph on
+Person
+\emph default
+ type with the field 
+\emph on
+name
+\emph default
+ of type is 
+\emph on
+Name.
+
+\emph default
+ The type 
+\emph on
+Name
+\emph default
+ in turn has two fields: 
+\emph on
+first
+\emph default
+, and 
+\emph on
+last
+\emph default
+, both of which are atomic fields.
+ 
+\emph on
+Person.name
+\emph default
+ on the other hand is not atomic.
+ The hierarchical realtionship is sometimes important and useful in many
+ situations.
+\end_layout
+
+\begin_layout Standard
+By default JMatter maintains a one-to-one correspondence from model to view,
+ and there does not hide this relationship.
+ The view widget used by JMatter's Swing-based view mechanism can expand
+ or collapse to show the 
+\emph on
+name
+\emph default
+ field's children.
+ An instance is shown in expanded mode below.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/person_name.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Hierarchical Display of Aggregates
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sometimes it's more practical to display all descendant fields as a single
+ flattened form, rather than require users to expand and collapse subnodes
+ in order to perform data entry.
+ That's what the 
+\emph on
+flattenIntoParent
+\emph default
+ metadata bit is for.
+ In our example, to communicate to the framework that we wish to flatten
+ the 
+\emph on
+name
+\emph default
+ field's child fields (
+\emph on
+first
+\emph default
+ and 
+\emph on
+last
+\emph default
+) into its parent form, we would do this:
+\end_layout
+
+\begin_layout LyX-Code
+public static String[] flattenIntoParent = {"name"};
+\end_layout
+
+\begin_layout Subsection
+Tab Views
+\end_layout
+
+\begin_layout Standard
+Another feature related to controlling an aspect of how information is displayed
+ to users is the 
+\emph on
+tabViews
+\emph default
+ metabit.
+ You use it in a manner similar to many other pieces of metadata: by specifying
+ a list of member fields:
+\end_layout
+
+\begin_layout LyX-Code
+public static String[] tabViews = {"contact"};
+\end_layout
+
+\begin_layout Standard
+The above example may be used, say, in a 
+\emph on
+Person
+\emph default
+ object to specify that the person's contact information (an aggregate field)
+ should be displayed in a separate tab (it would be nice if we could similarly
+ specify that multiple fields appear on a single tab, though such a feature
+ is not yet implemented).
+\end_layout
+
+\begin_layout Standard
+In the Swing-based user interface, the keyboard shortcut 
+\emph on
+Alt-<index>
+\emph default
+ can be used to switch the focus to the tab at index 
+\emph on
+<index>
+\emph default
+.
+ That is, in a view with three tabs, the shortcuts 
+\emph on
+Alt-1
+\emph default
+, 
+\emph on
+Alt-2
+\emph default
+, and 
+\emph on
+Alt-3
+\emph default
+ can be used to toggle tab focus.
 \end_layout
 
 \begin_layout Subsection
@@ -13134,39 +13931,459 @@ _settings
 \end_layout
 
 \begin_layout Section
-Fields
-\end_layout
-
-\begin_layout Standard
-@Fld annotation
-\end_layout
-
-\begin_layout Standard
-Caption
-\end_layout
-
-\begin_layout Standard
-Mnemonic
-\end_layout
-
-\begin_layout Standard
-Tooltip
+Per-Field Metadata
 \end_layout
 
 \begin_layout Subsection
-Atomic Fields
+@Fld Annotation
 \end_layout
 
-\begin_layout Subsection
-Composite Fields
+\begin_layout Standard
+We can augment a field's getter method with the 
+\emph on
+@Fld
+\emph default
+ annotation.
+ Here is a list of the parameters this annotation accepts, along with a
+ description (all of these parameters are optional).
 \end_layout
 
-\begin_layout Subsection
-Associations
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="3">
+<features>
+<column alignment="center" valignment="top" leftline="true" width="1.5in">
+<column alignment="left" valignment="top" leftline="true" width="1in">
+<column alignment="center" valignment="top" leftline="true" rightline="true" width="5in">
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Parameter Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+mnemonic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+char
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+What keyboard mnemonic to attach to the field in question.
+ Useful for form entry, to directly set the focus on a specific field
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+label
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+String
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+A way to override the caption used to display a field in a form
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+String
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+The field's description.
+ Used as the contents of a tooltip on the field.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+colsize
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Controls the size of the field's underlying database column.
+ By default, many string-type fields are set as varchar(255).
+ This attribute provides a means to control the column size at a finer level.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+displaysize
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Controls the size of the corresponding text field used for doing data entry
+ on the field.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+format
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+String
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Applies only to TimeEO and DateEO type fields.
+ Accepts a SimpleDateFormat string to control the format of times and dates
+ for both parsing and rendering.
+ e.g.
+ @Fld(format='m:ss') might be useful on a TimeEO field for displaying song
+ durations.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+persist
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+boolean
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Whether the field should be persisted at all (see the discussion on Calculated
+ Fields)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
-Commands
+Per-Command Metadata
+\end_layout
+
+\begin_layout Standard
+Commands must be marked with the 
+\emph on
+@Cmd
+\emph default
+ in order to be exposed to the user interface.
+ There's nothing special about these methods and they can be invoked programmati
+cally as well.
+ When these commands are invoked from the user interface, JMatter makes
+ sure to call the method off the event dispatch thread.
+\end_layout
+
+\begin_layout Standard
+If a command returns a 
+\emph on
+ComplexEObject
+\emph default
+, its view is drawn and displayed back on the event dispatch thread.
+ The framework also makes sure to display a waiting cursor while the operation
+ is invoked.
+\end_layout
+
+\begin_layout Standard
+Here is a summary of the optional parameters that the 
+\emph on
+@Cmd
+\emph default
+ annotation supports:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features>
+<column alignment="left" valignment="top" leftline="true" width="1.5in">
+<column alignment="left" valignment="top" leftline="true" width="1in">
+<column alignment="left" valignment="top" leftline="true" rightline="true" width="5in">
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Parameter Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+mnemonic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+char
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+What keyboard mnemonic to use to invoke the command
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+label
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+String
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Use to override command's caption in the user interface
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+String
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Used as a tooltip to the command's corresponding view (usually a button)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that the above three parameters are also defined on fields (though
+ fields have additional field-specific parameters).
 \end_layout
 
 \begin_layout Chapter
