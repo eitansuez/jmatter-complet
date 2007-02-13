@@ -13503,15 +13503,429 @@ Bidirectional Associations
 \end_layout
 
 \begin_layout Standard
+We often like to be able to navigate an association from both directions.
+ Take the example of a speaker and his or her list of presentations.
+ The presentation would have an association to its speaker, and the speaker
+ may have a to-many association called 
+\emph on
+presentations
+\emph default
+.
+\end_layout
 
+\begin_layout Standard
+You can define both associations in the manner described in the two previous
+ subsections:
+\end_layout
+
+\begin_layout LyX-Code
+public class Speaker..
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  ...
+\end_layout
+
+\begin_layout LyX-Code
+  private final RelationalList talks = new RelationalList(Talk.class);
+\end_layout
+
+\begin_layout LyX-Code
+  public static final Class talksType = Talk.class;
+\end_layout
+
+\begin_layout LyX-Code
+  public RelationalList getTalks() { return talks; }
+\end_layout
+
+\begin_layout LyX-Code
+  ..
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+public class Talk..
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  ...
+\end_layout
+
+\begin_layout LyX-Code
+  private Speaker speaker;
+\end_layout
+
+\begin_layout LyX-Code
+  public Speaker getSpeaker() { return speaker; }
+\end_layout
+
+\begin_layout LyX-Code
+  public void setSpeaker(Speaker spk)
+\end_layout
+
+\begin_layout LyX-Code
+  {
+\end_layout
+
+\begin_layout LyX-Code
+    Speaker oldValue = this.speaker;
+\end_layout
+
+\begin_layout LyX-Code
+    this.speaker = spk;
+\end_layout
+
+\begin_layout LyX-Code
+    firePropertyChange("speaker", oldValue, this.speaker);
+\end_layout
+
+\begin_layout LyX-Code
+  }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+In addition, you need to supply metadata for the framework to infer the
+ other side of the relationship.
+ The implementation at the moment is not too elegant but is nevertheless
+ simple enough.
+ In class Talk, add:
+\end_layout
+
+\begin_layout LyX-Code
+public static String speakerInverseFieldName = "talks";
+\end_layout
+
+\begin_layout Standard
+And in Speaker:
+\end_layout
+
+\begin_layout LyX-Code
+public static String talksInverseFieldName = "speaker";
+\end_layout
+
+\begin_layout Standard
+Basically, the field name is of the form: 
+\emph on
+<fieldname>InverseFieldName
+\emph default
+.
+ Speaker has a field named talks, so the variable name is talksInverseFieldName.
+ Its value is the name of the inverse field: the talk's speaker's field
+ name is 
+\emph on
+speaker
+\emph default
+.
+ Both sides must define the bit of metadata.
 \end_layout
 
 \begin_layout Subsection
 Choice Types
 \end_layout
 
+\begin_layout Standard
+The notion of a Choice in JMatter is somewhat analogous to what programmers
+ call 
+\emph on
+enumerations
+\emph default
+.
+ Actually, JMatter provides two flavors of choices.
+ The first and more basic flavor is the 
+\emph on
+ChoiceEO
+\emph default
+ and is implemented as an atomic object.
+\end_layout
+
+\begin_layout Standard
+This flavor is suitable for enumerations (or small lists) that are static;
+ i.e.
+ they do not change.
+ The framework itself implements a couple of types as ChoiceEO's.
+ As part of my work on providing access control to information, I define
+ a 
+\emph on
+FieldRestrictionType
+\emph default
+ (in package 
+\emph on
+com.u2d.restrict
+\emph default
+) as follows:
+\end_layout
+
+\begin_layout LyX-Code
+public class FieldRestrictionType extends ChoiceEO
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public FieldRestrictionType() {}
+\end_layout
+
+\begin_layout LyX-Code
+   public FieldRestrictionType(String value)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      setValue(value);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   
+\end_layout
+
+\begin_layout LyX-Code
+   private static Set STATUS_OPTIONS = new HashSet();
+\end_layout
+
+\begin_layout LyX-Code
+   static
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      STATUS_OPTIONS.add(FieldRestriction.NONE);
+\end_layout
+
+\begin_layout LyX-Code
+      STATUS_OPTIONS.add(FieldRestriction.READ_ONLY);
+\end_layout
+
+\begin_layout LyX-Code
+      STATUS_OPTIONS.add(FieldRestriction.HIDDEN);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public Collection entries() { return STATUS_OPTIONS; }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Basically the way to define such enumerations is by extending the base type
+ 
+\emph on
+ChoiceEO
+\emph default
+ and implementing the method 
+\emph on
+entries()
+\emph default
+.
+ The editors for these types are Swing JComboBoxes (pick lists).
+\end_layout
+
+\begin_layout Standard
+The second flavor is modeled as a 
+\emph on
+ComplexEObject
+\emph default
+.
+ The data is not hard-coded and the type is defined as an entity in the
+ database.
+ These lists are more versatile in that one can define new entries, new
+ choices as a system evolves.
+ The framework provides full created/edit/delete capabilities for these
+ types.
+ They are defined by extending the type 
+\emph on
+AbstractChoiceEO
+\emph default
+.
+ The framework itself defines four such types of choices: US States, Sex,
+ Marrital Status, Contact Method (instances of these four types are prepopulated
+ from the xml files located in 
+\emph on
+jmatter/resources/data
+\emph default
+).
+\end_layout
+
+\begin_layout Standard
+Both flavors adhere to the 
+\emph on
+Choice
+\emph default
+ interface:
+\end_layout
+
+\begin_layout LyX-Code
+public interface Choice
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public String code();
+\end_layout
+
+\begin_layout LyX-Code
+   public String caption();
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
 \begin_layout Section
 Commands
+\end_layout
+
+\begin_layout Standard
+Let's discuss how commands work in detail.
+ Here is the basic syntax:
+\end_layout
+
+\begin_layout LyX-Code
+@Cmd
+\end_layout
+
+\begin_layout LyX-Code
+public <modifier> <returntype> <MethodName>(CommandInfo cmdInfo, [additional
+ arguments]) { <body> }
+\end_layout
+
+\begin_layout Standard
+This is not really that different from the task of defining any method.
+ The main differences are:
+\end_layout
+
+\begin_layout Enumerate
+Marking the method with the 
+\emph on
+@Cmd
+\emph default
+ annotation exposes it to the UI
+\end_layout
+
+\begin_layout Enumerate
+The first argument to the method is some context information about the command
+ invocation (at the moment you don't really need to concern yourself with
+ the 
+\emph on
+CommandInfo
+\emph default
+ type; I am discovering that this information is rarely needed and am beginning
+ to question passing this argument in).
+\end_layout
+
+\begin_layout Standard
+Making the method static has the effect of defining the command on the type
+ instead of instances.
+ You can see the command action exposed as a context menu on the type in
+ the classbar.
+\end_layout
+
+\begin_layout Standard
+If the method returns a String, that string is treated as a message that
+ is displayed to the user in a sort of self-dismissing dialog box.
+\end_layout
+
+\begin_layout Standard
+If the method returns a type that is viewable (another entity), the framework
+ makes sure to display a view of the returned instance after the command
+ is invoked.
+\end_layout
+
+\begin_layout Standard
+If the method accepts arguments, then the framework will first display a
+ form for the user to provide the inputs to the action.
+ Take for example, this command, defined on 
+\emph on
+User.java
+\emph default
+ in the framework:
+\end_layout
+
+\begin_layout LyX-Code
+@Cmd(mnemonic='p')
+\end_layout
+
+\begin_layout LyX-Code
+public String ChangePassword(CommandInfo cmdInfo,
+\end_layout
+
+\begin_layout LyX-Code
+                              @Arg("New Password") Password password)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   _password.setValue(password);
+\end_layout
+
+\begin_layout LyX-Code
+   save();
+\end_layout
+
+\begin_layout LyX-Code
+   log(LoggedEvent.INFO, cmdInfo.getCommand(), "User changed password");
+\end_layout
+
+\begin_layout LyX-Code
+   return "Password has been changed";
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+In this case, when an end-user invokes this command (by pressing the 
+\emph on
+Change Password 
+\emph default
+button on an instance of a user), he or she will first be prompted to enter
+ a password.
+ The framework does it all.
+ Once the password is entered, the framework proceeds to invoke the command
+ (in the proper thread).
+ In this case, the password editor takes care to properly validate the password
+ before the method is ever invoked.
+ So there's no need to perform any additional validation.
+ See the chapter on validation for more information.
 \end_layout
 
 \begin_layout Section
@@ -13572,6 +13986,35 @@ Example:
 
 \begin_layout LyX-Code
 public static String pluralName() { return "People"; }
+\end_layout
+
+\begin_layout Subsection
+Color Coding
+\end_layout
+
+\begin_layout Standard
+Types may optionally be color-coded.
+ List views' and instance views' titles are painted using a gradient background
+ color.
+ By defining this field, for example:
+\end_layout
+
+\begin_layout LyX-Code
+public static Color colorCode = new Color(0x4169aa);
+\end_layout
+
+\begin_layout Standard
+The framework will use the specified color as the starting color for the
+ gradient.
+ Additionally, list entries are painted such that row background colors
+ alternate from white to another color.
+ The type's color code, if specified, is used for that other color.
+ Both these styling mechanisms make it easier to distinguish types in the
+ user interface.
+\end_layout
+
+\begin_layout Standard
+Color coding is generally a very effective tool for improving a user interface.
 \end_layout
 
 \begin_layout Subsection
@@ -13925,6 +14368,53 @@ Alt-2
 Alt-3
 \emph default
  can be used to toggle tab focus.
+\end_layout
+
+\begin_layout Subsection
+Default Search Path
+\end_layout
+
+\begin_layout Standard
+This piece of metadata is useful to define one field that is most commonly
+ used to search for instances of a given type.
+ It may be 
+\emph on
+name
+\emph default
+ for a Person object, or 
+\emph on
+title
+\emph default
+ for a Presentation object.
+ Here is how to specify it:
+\end_layout
+
+\begin_layout LyX-Code
+public static String defaultSearchPath = "name";
+\end_layout
+
+\begin_layout Standard
+The value is specified as a string but may actually be a field path (field
+ paths are discussed later), such as 
+\emph on
+name.first
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+This value in turn is used in the user interface to assist with quick searches
+ for performing associations or defaulting the search field when performing
+ a search operation.
+ It's quite useful.
+ At the moment, this feature is supported only for text-based fields where
+ the inequality defaults to 
+\emph on
+TextStarts
+\emph default
+ (i.e.
+ that we're looking for instances whose default search field value starts
+ with the value entered by the user).
 \end_layout
 
 \begin_layout Subsection
@@ -14437,6 +14927,10 @@ ComplexEObject
  is invoked.
 \end_layout
 
+\begin_layout Subsection
+@Cmd Metatada
+\end_layout
+
 \begin_layout Standard
 Here is a summary of the optional parameters that the 
 \emph on
@@ -14616,6 +15110,32 @@ Delete
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+@Arg Metadata
+\end_layout
+
+\begin_layout Standard
+In addition, method arguments can be optionally marked with the 
+\emph on
+@Arg
+\emph default
+ annotation.
+ This annotation accepts a single value, which is used as the caption on
+ the form drawn to accept input to the method, as this example illustrated:
+\end_layout
+
+\begin_layout LyX-Code
+@Cmd(mnemonic='p')
+\end_layout
+
+\begin_layout LyX-Code
+public String ChangePassword(CommandInfo cmdInfo,
+\end_layout
+
+\begin_layout LyX-Code
+                              @Arg("New Password") Password password);
 \end_layout
 
 \begin_layout Chapter
