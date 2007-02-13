@@ -11638,14 +11638,6 @@ In chapter
 \end_layout
 
 \begin_layout Chapter
-Dichotomy of a JMatter Model Object
-\end_layout
-
-\begin_layout Standard
-[tbd]
-\end_layout
-
-\begin_layout Chapter
 Customized Views and Editors
 \end_layout
 
@@ -13298,8 +13290,216 @@ There's nothing that makes these types composites.
  a containing class.
 \end_layout
 
+\begin_layout Subsubsection
+Composite Indexed Field
+\end_layout
+
+\begin_layout Standard
+JMatter provides a means for modeling a composite field with a to-many (*)
+ cardinality.
+ A prototypical example is the relationship between an Order and its list
+ of OrderItems.
+\end_layout
+
+\begin_layout Standard
+JMatter provides the type 
+\emph on
+com.u2d.list.CompositeList
+\emph default
+ for the task.
+ Here's an example field definition inside an 
+\emph on
+Order
+\emph default
+ class:
+\end_layout
+
+\begin_layout LyX-Code
+private final CompositeList _orderItems = new CompositeList(OrderItem.class,
+ this, "order");
+\end_layout
+
+\begin_layout LyX-Code
+public static final Class lineItemsType = OrderItem.class;
+\end_layout
+
+\begin_layout LyX-Code
+public CompositeList getLineItems() { return _orderItems; }
+\end_layout
+
+\begin_layout Standard
+Here's the constructor method signatgure:
+\end_layout
+
+\begin_layout LyX-Code
+public CompositeList(Class clazz, ComplexEObject parent, String parentFldname);
+\end_layout
+
+\begin_layout Standard
+The first argument is the child type (Order Items).
+ The second is a reference to the parent object (this).
+ Finally, there's a convention where CompositeList can automatically give
+ child objects a reference to its containing, parent object.
+ This is done by writing a setter method in the child type definition:
+\end_layout
+
+\begin_layout LyX-Code
+private Order _order;
+\end_layout
+
+\begin_layout LyX-Code
+public void setOrder(Order order) { _order = order; }
+\end_layout
+
+\begin_layout Standard
+and passing the name of the field (
+\emph on
+order
+\emph default
+) as an argument to the CompositeList constructor.
+\end_layout
+
+\begin_layout Standard
+Notice that you also must (at the present time) provide metadata for the
+ framework to introspect the list type statically.
+ The framework looks for a public static variable name of type 
+\emph on
+Class
+\emph default
+ of the form 
+\emph on
+<fieldname>Type.
+\end_layout
+
+\begin_layout Standard
+In the user interface, JMatter provides an tabular component that provides
+ means for adding child items, deleting them, editing them, etc..
+\end_layout
+
 \begin_layout Subsection
 Associations
+\end_layout
+
+\begin_layout Subsubsection
+To-One Associations
+\end_layout
+
+\begin_layout Standard
+A to-one association definition is essentially the implementation of a JavaBeans
+ bound property.
+ Let's look at an example, 
+\emph on
+Song.artist
+\emph default
+:
+\end_layout
+
+\begin_layout LyX-Code
+private Artist _artist = null;
+\end_layout
+
+\begin_layout LyX-Code
+public Artist getArtist() { return _artist; }
+\end_layout
+
+\begin_layout LyX-Code
+public void setArtist(Artist artist)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  Artist oldValue = _artist;
+\end_layout
+
+\begin_layout LyX-Code
+  _artist = artist;
+\end_layout
+
+\begin_layout LyX-Code
+  firePropertyChange("artist", oldValue, _artist);
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+That's about it.
+\end_layout
+
+\begin_layout Subsubsection
+To-Many Associations
+\end_layout
+
+\begin_layout Standard
+For an indexed association, use the type 
+\emph on
+com.u2d.list.RelationalList
+\emph default
+.
+ Here's an example, from the Sympster demo application (
+\emph on
+Speaker.talks
+\emph default
+):
+\end_layout
+
+\begin_layout LyX-Code
+public class Speaker extends AbstractComplexEObject
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  ...
+\end_layout
+
+\begin_layout LyX-Code
+  private final RelationalList talks = new RelationalList(Talk.class);
+\end_layout
+
+\begin_layout LyX-Code
+  public static final Class talksType = Talk.class;
+\end_layout
+
+\begin_layout LyX-Code
+  public RelationalList getTalks() { return talks; }
+\end_layout
+
+\begin_layout LyX-Code
+  ..
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+We do three things:
+\end_layout
+
+\begin_layout Enumerate
+define a final member variable, 
+\emph on
+talks
+\end_layout
+
+\begin_layout Enumerate
+provide metadata for the framework to statically introspect the type to
+ determine the list type
+\end_layout
+
+\begin_layout Enumerate
+suppy a getter method
+\end_layout
+
+\begin_layout Subsubsection
+Bidirectional Associations
 \end_layout
 
 \begin_layout Standard
@@ -15433,18 +15633,45 @@ This chapter is about conveying to you my vision for JMatter: what other
 \end_layout
 
 \begin_layout Enumerate
+Ability to style Swing applications with CSS
+\end_layout
+
+\begin_layout Enumerate
 A complete authorization system, one whose policy is specified directly
  from the user interface
 \end_layout
 
 \begin_layout Enumerate
-The ability to specify the field captions, defaults, whether a field is
- required, command captions, field ordering, even some aspects of laying
- out the user interface, directly from the user interface itself
+Improvements to the calendaring and scheduling subsystem
 \end_layout
 
 \begin_layout Enumerate
-More powerful UI widgets: an editable table to edit multiple objects together;
+Complete reporting support: report definition, specification and production
+ (PDF and other formats) (probably based on JasperReports)
+\end_layout
+
+\begin_layout Enumerate
+Modularization: the ability to pick and choose the combination of features
+ one wants to deploy and including only those jar files (smaller footprint);
+ e.g.
+ JMatter without calendaring support
+\end_layout
+
+\begin_layout Enumerate
+Undo/Redo capabilities
+\end_layout
+
+\begin_layout Enumerate
+A web-based user interface: the ability to support web-based clients in
+ addition to rich clients
+\end_layout
+
+\begin_layout Enumerate
+Charting service (look into jfreechart)
+\end_layout
+
+\begin_layout Enumerate
+Additional UI widgets: an editable table to edit multiple objects together;
  a double-list widget to add items to a list more quickly; a 
 \emph on
 trash can
@@ -15464,38 +15691,8 @@ A distributed real-time publish/subscribe system so that multiple users
  other users' desktops
 \end_layout
 
-\begin_layout Enumerate
-Improvements to the calendaring and scheduling system
-\end_layout
-
-\begin_layout Enumerate
-Undo/Redo capabilities
-\end_layout
-
-\begin_layout Enumerate
-Modularization: the ability to pick and choose the combination of features
- one wants to deploy and including only those jar files (smaller footprint);
- e.g.
- JMatter without calendaring support
-\end_layout
-
-\begin_layout Enumerate
-Complete reporting support: report definition, specification and production
- (PDF and other formats)
-\end_layout
-
-\begin_layout Enumerate
-Charting service (look into jfreechart)
-\end_layout
-
 \begin_layout Standard
-This shorter, though ambitious listing is contemplated tentatively at the
- moment:
-\end_layout
-
-\begin_layout Enumerate
-A web-based user interface: the ability to support web-based clients in
- addition to rich clients
+The following goals are tentative:
 \end_layout
 
 \begin_layout Enumerate
@@ -15506,14 +15703,42 @@ Possibly an extension of the architecture to support the construction of
 \end_layout
 
 \begin_layout Enumerate
-Possibly a move to Java 5 annotations for specifying metadata
+Possibly a move to using Java 5 annotations for specifying all metadata
 \end_layout
 
 \begin_layout Standard
-I hope that after reading this document, that you now have a good feel for
- the JMatter philosophy, the JMatter way of doing things.
- It is my sincere belief that the JMatter way is the way forward for the
- software development industry.
+Another area that I expect to explore is the definition and writing of a
+ domain specific language for writing JMatter applications.
+ We've recently had suggestions to use perhaps the Groovy language as the
+ basis for this DSL, or perhaps to use Ryan Ramage's umlc language, or perhaps
+ doing something custom using antlr.
+\end_layout
+
+\begin_layout Standard
+Another important aspect that needs to be explored is how to make it simple
+ and easy to customize JMatter user interfaces.
+ Something along the lines of being able to use the matisse GUI builder
+ or perhaps the F3 language to define custom layouts and behaviour.
+\end_layout
+
+\begin_layout Standard
+In terms of tooling, today we have Ryan Ramage's UltraViolet: a UML editor
+ for developing your model.
+ UltraViolet proceeds to generate a JMatter application based on the class
+ diagram.
+ My goal in this area is see if such an application can be developed in
+ JMatter itself.
+\end_layout
+
+\begin_layout Standard
+After reading this document, I hope that you now have a good feel for the
+ JMatter philosophy.
+\end_layout
+
+\begin_layout Standard
+This framework is all about you, the developer, not having to repeatedly
+ code all of those things that should not change from project to project,
+ so that you can concentrate on those things that do change: the domain.
 \end_layout
 
 \begin_layout Chapter
