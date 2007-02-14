@@ -4,14 +4,18 @@
 \begin_header
 \textclass book
 \begin_preamble
-\renewcommand\familydefault{\sfdefault}
-\usepackage[scaled=0.92]{helvet}
-\usepackage[sf]{titlesec}
+\usepackage{textcomp}
+\usepackage{mathpazo}
+\usepackage[scaled=0.9]{helvet}
+\usepackage[scaled]{beramono}
+\usepackage[bookmarks, bookmarksopen=true, bookmarksopenlevel=0, bookmarksnumbered=true, colorlinks=true, linkcolor=blue, pdftitle={JMatter Framework Manual}, pdfauthor={Eitan Suez}]{hyperref}
+\raggedbottom
 \end_preamble
 \language english
 \inputencoding auto
 \fontscheme default
 \graphics default
+\float_placement H
 \paperfontsize default
 \spacing single
 \papersize letterpaper
@@ -21,12 +25,12 @@
 \use_bibtopic false
 \paperorientation portrait
 \leftmargin 1.5in
-\topmargin 1.5in
-\rightmargin 1.25in
-\bottommargin 0.6in
-\headheight 0.4in
-\headsep 0.6in
-\footskip 0.8in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\headheight 0.3in
+\headsep 0.5in
+\footskip 0.7in
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation skip
@@ -34,7 +38,7 @@
 \quotes_language english
 \papercolumns 1
 \papersides 2
-\paperpagestyle default
+\paperpagestyle fancy
 \tracking_changes false
 \output_changes true
 \end_header
@@ -107,7 +111,7 @@ The principal advantage of developing a business software application with
 \begin_layout Standard
 Take for example, the Issue Manager demo application described in chapter
  
-\begin_inset LatexCommand \ref{cha:Issue-Manager}
+\begin_inset LatexCommand \vref{cha:Issue-Manager}
 
 \end_inset
 
@@ -995,7 +999,7 @@ right-click
 \emph default
  on the thing in question
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Standard
 The mechanism of first selecting an object, and then selecting an action
@@ -3914,7 +3918,7 @@ public class Album extends AbstractComplexEObject
 \end_layout
 
 \begin_layout LyX-Code
-  public Album() {}
+   public Album() {}
 \end_layout
 
 \begin_layout LyX-Code
@@ -14280,6 +14284,7 @@ name
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
@@ -15293,9 +15298,10 @@ There's a publish/subscribe pattern here, where the model object does not
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \align center
