@@ -12959,7 +12959,7 @@ From a persistence perspective, all types inherit three fields or pseudofields:
 <lyxtabular version="3" rows="4" columns="2">
 <features>
 <column alignment="center" valignment="top" leftline="true" width="1in">
-<column alignment="center" valignment="top" leftline="true" rightline="true" width="6in">
+<column alignment="center" valignment="top" leftline="true" rightline="true" width="4in">
 <row topline="true" bottomline="true">
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -13209,10 +13209,19 @@ Here is a listing of the various atomic types provided that come out of
 \end_layout
 
 \begin_layout LyX-Code
-BooleanEO, CharEO, ChoiceEO, ColorEO, DateEO, DateTime, DateWithAge, Email,
- FileEO, FileWEO, FloatEO, ImgEO, IntEO, Logo, LongEO, Password, Percent,
- Photo, SSN, StringEO, TextEO, TimeEO, TimeInterval, URI, USDollar, USPhone,
- USZipCode.
+BooleanEO, CharEO, ChoiceEO, ColorEO, DateEO, DateTime, DateWithAge, 
+\end_layout
+
+\begin_layout LyX-Code
+Email, FileEO, FileWEO, FloatEO, ImgEO, IntEO, Logo, LongEO, 
+\end_layout
+
+\begin_layout LyX-Code
+Password, Percent, Photo, SSN, StringEO, TextEO, TimeEO, 
+\end_layout
+
+\begin_layout LyX-Code
+TimeInterval, URI, USDollar, USPhone, USZipCode.
 \end_layout
 
 \begin_layout Standard
@@ -13278,8 +13287,11 @@ com.u2d.type.composite
 \end_layout
 
 \begin_layout LyX-Code
-Name, USAddress, ContactMethod, Contact, BusinessContact, EmailMessage,
- Folder, Note
+Name, USAddress, ContactMethod, Contact, BusinessContact, 
+\end_layout
+
+\begin_layout LyX-Code
+  EmailMessage, Folder, Note
 \end_layout
 
 \begin_layout Standard
@@ -13315,8 +13327,11 @@ Order
 \end_layout
 
 \begin_layout LyX-Code
-private final CompositeList _orderItems = new CompositeList(OrderItem.class,
- this, "order");
+private final CompositeList _orderItems = 
+\end_layout
+
+\begin_layout LyX-Code
+                 new CompositeList(OrderItem.class, this, "order");
 \end_layout
 
 \begin_layout LyX-Code
@@ -13820,8 +13835,11 @@ Let's discuss how commands work in detail.
 \end_layout
 
 \begin_layout LyX-Code
-public <modifier> <returntype> <MethodName>(CommandInfo cmdInfo, [additional
- arguments]) { <body> }
+public <modifier> <returntype> <MethodName>(CommandInfo cmdInfo, 
+\end_layout
+
+\begin_layout LyX-Code
+                                 [additional arguments]) { <body> }
 \end_layout
 
 \begin_layout Standard
@@ -14267,6 +14285,7 @@ sideways false
 status collapsed
 
 \begin_layout Standard
+\align center
 \begin_inset Graphics
 	filename figures/person_name.png
 	lyxscale 30
@@ -14642,9 +14661,9 @@ We can augment a field's getter method with the
 \begin_inset Tabular
 <lyxtabular version="3" rows="8" columns="3">
 <features>
-<column alignment="center" valignment="top" leftline="true" width="1.5in">
-<column alignment="left" valignment="top" leftline="true" width="1in">
-<column alignment="center" valignment="top" leftline="true" rightline="true" width="5in">
+<column alignment="center" valignment="top" leftline="true" width="1in">
+<column alignment="left" valignment="top" leftline="true" width="0.75in">
+<column alignment="center" valignment="top" leftline="true" rightline="true" width="3.25in">
 <row topline="true" bottomline="true">
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -14943,9 +14962,9 @@ Here is a summary of the optional parameters that the
 \begin_inset Tabular
 <lyxtabular version="3" rows="5" columns="3">
 <features>
-<column alignment="left" valignment="top" leftline="true" width="1.5in">
 <column alignment="left" valignment="top" leftline="true" width="1in">
-<column alignment="left" valignment="top" leftline="true" rightline="true" width="5in">
+<column alignment="left" valignment="top" leftline="true" width="0.75in">
+<column alignment="left" valignment="top" leftline="true" rightline="true" width="3.25in">
 <row topline="true" bottomline="true">
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -15204,8 +15223,11 @@ public int validate()
 \end_layout
 
 \begin_layout LyX-Code
-  if (value == null || value.length() != 5 && value.length() != 9) return
- invalid();
+  if (value == null || value.length() != 5 && value.length() != 9)
+\end_layout
+
+\begin_layout LyX-Code
+    return invalid();
 \end_layout
 
 \begin_layout LyX-Code
@@ -15273,9 +15295,10 @@ There's a publish/subscribe pattern here, where the model object does not
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
+\align center
 \begin_inset Graphics
 	filename figures/zipcode_validation.png
 	lyxscale 30
@@ -15381,8 +15404,11 @@ public int bind(AtomicEObject value)
 \end_layout
 
 \begin_layout LyX-Code
-    eo.fireValidationException("Password must be at least "+Password.MINLENGTH+"
- characters long");
+    eo.fireValidationException("Password must be at least "
+\end_layout
+
+\begin_layout LyX-Code
+                   + Password.MINLENGTH+" characters long");
 \end_layout
 
 \begin_layout LyX-Code
@@ -15458,39 +15484,39 @@ model-metadata.properties
 \end_layout
 
 \begin_layout LyX-Code
-      Airport.airportID.required=true
+Airport.airportID.required=true
 \end_layout
 
 \begin_layout LyX-Code
-      Airport.name.required=true
+Airport.name.required=true
 \end_layout
 
 \begin_layout LyX-Code
-      Airport.lat.required=true
+Airport.lat.required=true
 \end_layout
 
 \begin_layout LyX-Code
-      Airport.lon.required=true
+Airport.lon.required=true
 \end_layout
 
 \begin_layout LyX-Code
-      Airport.city.required=true
+Airport.city.required=true
 \end_layout
 
 \begin_layout LyX-Code
-      Airport.stateCode.required=true
+Airport.stateCode.required=true
 \end_layout
 
 \begin_layout LyX-Code
-      Trip.aircraft.default=from Aircraft a where name='CitationJet'
+Trip.aircraft.default=from Aircraft a where name='CitationJet'
 \end_layout
 
 \begin_layout LyX-Code
-      TripSegment.from.required=true
+TripSegment.from.required=true
 \end_layout
 
 \begin_layout LyX-Code
-      TripSegment.to.required=true
+TripSegment.to.required=true
 \end_layout
 
 \begin_layout Standard
@@ -15514,7 +15540,83 @@ validate()
 \end_layout
 
 \begin_layout LyX-Code
-      public int validate()
+public int validate()
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  if (_from == null || _to == null)
+\end_layout
+
+\begin_layout LyX-Code
+  {
+\end_layout
+
+\begin_layout LyX-Code
+    String msg = "From and To fields cannot be empty";
+\end_layout
+
+\begin_layout LyX-Code
+    fireValidationException(msg);
+\end_layout
+
+\begin_layout LyX-Code
+    return 1;
+\end_layout
+
+\begin_layout LyX-Code
+  }
+\end_layout
+
+\begin_layout LyX-Code
+  if (_from.equals(_to))
+\end_layout
+
+\begin_layout LyX-Code
+  {
+\end_layout
+
+\begin_layout LyX-Code
+    fireValidationException("From and To fields cannot be the same");
+\end_layout
+
+\begin_layout LyX-Code
+    return 1;
+\end_layout
+
+\begin_layout LyX-Code
+  }
+\end_layout
+
+\begin_layout LyX-Code
+  if (_trip != null && _trip.getAircraft() != null)
+\end_layout
+
+\begin_layout LyX-Code
+  {
+\end_layout
+
+\begin_layout LyX-Code
+    Aircraft aircraft = _trip.getAircraft();
+\end_layout
+
+\begin_layout LyX-Code
+    if (aircraft.hasRangeFor(_numPassengers.intValue()))
+\end_layout
+
+\begin_layout LyX-Code
+    {
+\end_layout
+
+\begin_layout LyX-Code
+      int range = aircraft.rangeFor(_numPassengers.intValue());
+\end_layout
+
+\begin_layout LyX-Code
+      if (range < distance())
 \end_layout
 
 \begin_layout LyX-Code
@@ -15522,116 +15624,40 @@ validate()
 \end_layout
 
 \begin_layout LyX-Code
-         if (_from == null || _to == null)
+        String msg = String.format("Segment distance exceeds aircraft " +
+ 
 \end_layout
 
 \begin_layout LyX-Code
-         {
+             "range (%d) for specified number of passengers", range);
 \end_layout
 
 \begin_layout LyX-Code
-            String msg = "From and To fields cannot be empty";
+        fireValidationException(msg);
 \end_layout
 
 \begin_layout LyX-Code
-            fireValidationException(msg);
-\end_layout
-
-\begin_layout LyX-Code
-            return 1;
-\end_layout
-
-\begin_layout LyX-Code
-         }
-\end_layout
-
-\begin_layout LyX-Code
-         if (_from.equals(_to))
-\end_layout
-
-\begin_layout LyX-Code
-         {
-\end_layout
-
-\begin_layout LyX-Code
-            fireValidationException("From and To fields cannot be the same");
-\end_layout
-
-\begin_layout LyX-Code
-            return 1;
-\end_layout
-
-\begin_layout LyX-Code
-         }
-\end_layout
-
-\begin_layout LyX-Code
-         if (_trip != null && _trip.getAircraft() != null)
-\end_layout
-
-\begin_layout LyX-Code
-         {
-\end_layout
-
-\begin_layout LyX-Code
-            Aircraft aircraft = _trip.getAircraft();
-\end_layout
-
-\begin_layout LyX-Code
-            if (aircraft.hasRangeFor(_numPassengers.intValue()))
-\end_layout
-
-\begin_layout LyX-Code
-            {
-\end_layout
-
-\begin_layout LyX-Code
-               int range = aircraft.rangeFor(_numPassengers.intValue());
-\end_layout
-
-\begin_layout LyX-Code
-               if (range < distance())
-\end_layout
-
-\begin_layout LyX-Code
-               {
-\end_layout
-
-\begin_layout LyX-Code
-                  String msg = String.format("Segment distance exceeds aircraft
- range (%d) " +
-\end_layout
-
-\begin_layout LyX-Code
-                        "for specified number of passengers", range);
-\end_layout
-
-\begin_layout LyX-Code
-                  fireValidationException(msg);
-\end_layout
-
-\begin_layout LyX-Code
-                  return 1;
-\end_layout
-
-\begin_layout LyX-Code
-               }
-\end_layout
-
-\begin_layout LyX-Code
-            }
-\end_layout
-
-\begin_layout LyX-Code
-         }
-\end_layout
-
-\begin_layout LyX-Code
-         return 0;
+        return 1;
 \end_layout
 
 \begin_layout LyX-Code
       }
+\end_layout
+
+\begin_layout LyX-Code
+    }
+\end_layout
+
+\begin_layout LyX-Code
+  }
+\end_layout
+
+\begin_layout LyX-Code
+  return 0;
+\end_layout
+
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout Standard
