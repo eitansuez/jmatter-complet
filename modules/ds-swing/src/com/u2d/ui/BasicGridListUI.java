@@ -4,7 +4,6 @@ import sun.swing.DefaultLookup;
 import sun.swing.UIAction;
 import sun.awt.dnd.SunDragSourceContextPeer;
 import sun.awt.AppContext;
-
 import javax.swing.plaf.ListUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.plaf.ComponentUI;
@@ -24,8 +23,6 @@ import java.util.TooManyListenersException;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import com.sun.java.swing.SwingUtilities2;
 
 /**
  * Eitan Suez
@@ -48,6 +45,10 @@ import com.sun.java.swing.SwingUtilities2;
  * 
  * Used as the basis for the upcoming GridListView in JMatter,
  * which will replace IconListView.
+ * 
+ * Note: the many warnings of usage of deprecated apis in this
+ *  file are a consequence of inheriting code from java se which
+ *  in general produces lots of warnings.
  */
 public class BasicGridListUI
       extends ListUI
@@ -669,6 +670,57 @@ public class BasicGridListUI
    private static final int CHANGE_SELECTION = 1;
    private static final int EXTEND_SELECTION = 2;
 
+
+   // this just sucks.
+   private static Class SU2Cls;
+   static {
+      String name = (Platform.ISJAVA6) ? "sun.swing.SwingUtilities2" :
+            "com.sun.java.swing.SwingUtilities2";
+      try {
+         SU2Cls = Class.forName(name);
+      } catch (ClassNotFoundException e) { e.printStackTrace(); }
+   }
+   
+   private static void su2_adjustFocus(JList list)
+   {
+      try
+      {
+         Method method = SU2Cls.getMethod("adjustFocus", JComponent.class);
+         method.invoke(null, list);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+   }
+   private static int su2_loc2IndexFileList(JList list, Point p)
+   {
+      try
+      {
+         Method method = SU2Cls.getMethod("loc2IndexFileList", JList.class, Point.class);
+         Object result = method.invoke(null, list, p);
+         return ((Integer) result).intValue();
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return -1;
+   }
+   private static boolean su2_shouldIgnore(MouseEvent evt, JList list)
+   {
+      try
+      {
+         Method method = SU2Cls.getMethod("shouldIgnore", MouseEvent.class, JComponent.class);
+         Object result = method.invoke(null, evt, list);
+         return ((Boolean) result).booleanValue();
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return false;
+   }
 
    
    
@@ -1299,14 +1351,14 @@ public class BasicGridListUI
             return;
          }
 
-         SwingUtilities2.adjustFocus(list);
+         su2_adjustFocus(list);
 
          adjustSelection(e);
       }
 
       protected void adjustSelection(MouseEvent e)
       {
-         int row = SwingUtilities2.loc2IndexFileList(list, e.getPoint());
+         int row = su2_loc2IndexFileList(list, e.getPoint());
          if (row >= 0)
          {
             int anchorIndex = list.getAnchorSelectionIndex();
@@ -1434,7 +1486,7 @@ public class BasicGridListUI
 
       public void mousePressed(MouseEvent e)
       {
-         if (SwingUtilities2.shouldIgnore(e, list))
+         if (su2_shouldIgnore(e, list))
          {
             return;
          }
@@ -1444,7 +1496,7 @@ public class BasicGridListUI
 
          if (dragEnabled)
          {
-            int row = SwingUtilities2.loc2IndexFileList(list, e.getPoint());
+            int row = su2_loc2IndexFileList(list, e.getPoint());
             if (row != -1 && DragRecognitionSupport.mousePressed(e))
             {
                dragPressDidSelection = false;
@@ -1470,7 +1522,7 @@ public class BasicGridListUI
 
          if (grabFocus)
          {
-            SwingUtilities2.adjustFocus(list);
+            su2_adjustFocus(list);
          }
 
          adjustSelection(e);
@@ -1480,14 +1532,14 @@ public class BasicGridListUI
       {
          if (me.isControlDown())
          {
-            int row = SwingUtilities2.loc2IndexFileList(list, me.getPoint());
+            int row = su2_loc2IndexFileList(list, me.getPoint());
             list.addSelectionInterval(row, row);
          }
       }
 
       public void mouseDragged(MouseEvent e)
       {
-         if (SwingUtilities2.shouldIgnore(e, list))
+         if (su2_shouldIgnore(e, list))
          {
             return;
          }
@@ -1503,7 +1555,7 @@ public class BasicGridListUI
 
       public void mouseReleased(MouseEvent e)
       {
-         if (SwingUtilities2.shouldIgnore(e, list))
+         if (su2_shouldIgnore(e, list))
          {
             return;
          }
@@ -1513,7 +1565,7 @@ public class BasicGridListUI
             MouseEvent me = DragRecognitionSupport.mouseReleased(e);
             if (me != null)
             {
-               SwingUtilities2.adjustFocus(list);
+               su2_adjustFocus(list);
                if (!dragPressDidSelection)
                {
                   adjustSelection(me);
@@ -1539,7 +1591,7 @@ public class BasicGridListUI
             JList list = (JList) this.getComponent(e);
             if (list.getDragEnabled())
             {
-               int row = SwingUtilities2.loc2IndexFileList(list, e.getPoint());
+               int row = su2_loc2IndexFileList(list, e.getPoint());
                if ((row != -1) && list.isSelectedIndex(row))
                {
                   return true;
@@ -2490,6 +2542,5 @@ class BasicTransferable
       }
       return false;
    }
-
 
 }

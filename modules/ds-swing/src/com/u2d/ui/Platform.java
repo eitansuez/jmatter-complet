@@ -17,4 +17,25 @@ public class Platform
    {
       return (APPLE) ? InputEvent.META_MASK : InputEvent.CTRL_MASK;
    }
+   
+   private static final String JAVA_VERSION = getSystemProperty("java.version");
+   public static boolean ISJAVA6 =  startsWith(JAVA_VERSION, "1.6");
+
+   public static String getSystemProperty(String key)
+   {
+       try
+       {
+           return System.getProperty(key);
+       }
+       catch (SecurityException e)
+       {
+           System.err.println("Can't read the System property " + key + ".");
+           return null;
+       }
+   }
+   
+   private static boolean startsWith(String str, String prefix)
+   {
+       return str != null && str.startsWith(prefix);
+   }
 }
