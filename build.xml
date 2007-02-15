@@ -70,14 +70,10 @@
 
    <target name="makedoc-pdf" unless="pdfdoc-exists"
           description="produce pdf documentation (if necessary)">
-    <exec dir="${jmatter.dir}/doc" executable="lyx-qt">
-      <arg line="--export dvi guide.lyx" />
-    </exec>
-    <exec dir="${jmatter.dir}/doc" executable="dvipdfm">
-      <arg line="guide.dvi" />
+    <exec dir="${jmatter.dir}/doc" executable="lyx">
+      <arg line="--export pdf2 guide.lyx" /> <!-- pdf2 is lyx to pdflatex option -->
     </exec>
   </target>
-
    
    
    <!--    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->

@@ -15,7 +15,6 @@
 \inputencoding auto
 \fontscheme default
 \graphics default
-\float_placement H
 \paperfontsize default
 \spacing single
 \papersize letterpaper
@@ -191,8 +190,8 @@ trac
 This brings up another point: the JMatter framework is written in the Java
  programming language.
  This means that your software applications can run in a heterogeneous IT
- environment, including computers running the Linux, MacOS, Solaris, and
- Windows Operating Systems
+ environment, on a variety of operation systems including the plethora of
+ GNU/Linux OS's, Solaris, MacOSX, and the various flavors of Windows
 \begin_inset Foot
 status collapsed
 
@@ -216,9 +215,7 @@ At this point you should be asking yourself some very important questions:
  
 \emph on
 Can this really be? How? Is it really possible to shave 90% or more of an
- application's code? To deliver software in so much less time? 
-\emph default
-Read on to find out more.
+ application's code? To deliver software in so much less time?
 \end_layout
 
 \begin_layout Section
@@ -226,10 +223,9 @@ How?
 \end_layout
 
 \begin_layout Standard
-Let's take a moment and reflect a little on how software applications are
- constructed.
+Let's take a moment to reflect on how software applications are constructed.
  The reason for developers' high productivity with JMatter is simple, but
- needs a little elaboration.
+ needs some elaboration.
 \end_layout
 
 \begin_layout Standard
@@ -327,7 +323,7 @@ Calendaring
 \begin_deeper
 \begin_layout Standard
 Many varying applications have the basic need to deal with time: scheduling
- activities, looking up a calendar, etc..
+ activities, looking up and manipulating events on a calendar, etc..
 \end_layout
 
 \end_deeper
@@ -437,11 +433,18 @@ a solution that compromises the end-user's feature requirements to stay
 
 \begin_layout Standard
 JMatter promises to empower developers to work on the task at hand without
- having to worry about all these other things.
+ having to build a foundation.
  At the time of this writing, JMatter provides most of the listed orthogonal
  services.
  Authorization implementation is well on its way, though not yet complete.
  Reporting has not yet been implemented.
+\end_layout
+
+\begin_layout Standard
+The predominant architecture for software applications today is known as
+ Model-View-Controller.
+ You can think of JMatter as providing a complete and generic View-Controller
+ implementation, leaving developers to work on the Model.
 \end_layout
 
 \begin_layout Standard
@@ -480,10 +483,20 @@ Contact Manager
 \end_layout
 
 \begin_layout Standard
-Next, we're going to delve into writing JMatter applications.
+Part 2 of this manual focuses on teaching you how to write JMatter applications
+ by example.
  We'll start by building our own contact management software.
  In each succeeding chapter we'll build a new application, each one building
  upon the notions learned in the preceding chapters.
+ All of the tutorial applications documented here are included in the JMatter
+ framework distribution.
+\end_layout
+
+\begin_layout Standard
+The third part of this manual aims to provide a complete reference of the
+ JMatter framework.
+ That's where you'll find detailed information on the various features of
+ the framework, options, and conventions to adhere to.
 \end_layout
 
 \begin_layout Standard
@@ -492,43 +505,16 @@ Bold claims have been made in this introduction.
  with a healthy dose of skepticism.
  It is for you, the reader, to judge the cost-benefit proposition of the
  JMatter framework for delivering software applications.
- What I hope to do in this document is to arm you with the information you
- need to make an informed decision.
+ This document arms you with the information necessary to make that judgement.
 \end_layout
 
 \begin_layout Chapter
-Installation
+Software Installation
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Standard
-Not complete.
- Following are general installation instructions.
- Details to be inserted.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The following instructions assume that you've downloaded the JMatter framework
- zip file from our 
-\begin_inset LatexCommand \htmlurl[web site]{http://www.u2d.com/}
-
-\end_inset
-
-.
- These instructions are designed for software developers; an understanding
- of the 
-\emph on
-command line
-\emph default
- (DOS or Unix) is assumed.
+In this chapter we'll focus on the steps to install JMatter on your system.
+ Let's begin with the prerequisites.
 \end_layout
 
 \begin_layout Section
@@ -536,7 +522,7 @@ Prerequisites
 \end_layout
 
 \begin_layout Subsection
-Java Standard Edition, version 5 (JSE 5)
+Java Standard Edition, version 5 (JSE 5) or later
 \end_layout
 
 \begin_layout Standard
@@ -586,56 +572,27 @@ at the command prompt.
 \end_layout
 
 \begin_layout LyX-Code
-Apache Ant version 1.6.5 compiled on September 14 2005
-\end_layout
-
-\begin_layout Subsection
-A Relational Database Management System
-\end_layout
-
-\begin_layout Standard
-The JMatter framework taps the power of database systems.
- JMatter employs the excellent 
-\emph on
-Hibernate
-\emph default
- 
-\begin_inset Quotes eld
-\end_inset
-
-O/R Mapping
-\begin_inset Quotes erd
-\end_inset
-
- framework which affords JMatter database independence.
- That is, you're not constrained to using a specific database system.
- Options include PostgresQL, MySQL, Oracle, DB2, Sybase, Informix, SAP DB,
- and many more.
- We recommend PostgresQL, a mature, stable and open source database.
- In this document, I'll be using PostgresQL.
-\end_layout
-
-\begin_layout Standard
-To get started however, you don't need to do anything.
- JMatter comes bundled with a lightweight Java database: 
-\begin_inset LatexCommand \url[hsqldb]{http://hsqldb.org/}
-
-\end_inset
-
-.
- So if setting up a database is too much trouble, you can skip this step
- entirely.
-\end_layout
-
-\begin_layout Standard
-The jMatter distribution also pre-bundles jdbc drivers for PostgreSQL, MySQL,
- and hsqldb.
- If you choose to use a different database vendor, you will also need to
- obtain the corresponding JDBC driver jar file.
+Apache Ant version 1.6.5 compiled on July 5 2006
 \end_layout
 
 \begin_layout Section
-Unzip the file to your hard disk
+Installation
+\end_layout
+
+\begin_layout Standard
+Visit the JMatter web site at 
+\begin_inset LatexCommand \url{http://jmatter.org/}
+
+\end_inset
+
+ and click on the Download link in the sidebar.
+ You have the option of downloading the software either as a zip file or
+ as a tgz archive (a compressed tar file).
+ Both files are otherwise identical.
+\end_layout
+
+\begin_layout Standard
+Go ahead and download the version you prefer and unpack it.
 \end_layout
 
 \begin_layout LyX-Code
@@ -647,7 +604,110 @@ You should now have a folder named
 \emph on
 jmatter
 \emph default
-.
+-<date>, containing three folders:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="2">
+<features>
+<column alignment="left" valignment="top" leftline="true" width="0">
+<column alignment="left" valignment="top" leftline="true" rightline="true" width="0">
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Folder Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+demo-apps
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Where JMatter tutorial applications reside
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+jmatter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+The core of the JMatter framework
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+modules
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Various modules which the framework relies upon
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -659,7 +719,12 @@ If applicable, place a copy of the JDBC driver
 \emph on
 lib/src
 \emph default
- subdirectory.
+ subdirectory (see Appendix 
+\begin_inset LatexCommand \ref{cha:Database-Setup}
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -682,80 +747,25 @@ Let's take a first look at a software application developed using JMatter.
 Contact Manager
 \emph default
  demo application that is bundled with JMatter.
- You will find it in a folder named 
+ You will find it in 
 \emph on
-ContactMgr
+demo-apps/ContactMgr
 \emph default
- inside the 
-\emph on
-demo-apps
-\emph default
- directory.
+.
 \end_layout
 
 \begin_layout Section
-Setup
+Launching ContactMgr
 \end_layout
 
 \begin_layout Standard
-Here are the steps we need to follow before we can launch the 
-\emph on
-Contact Manager
-\emph default
-:
-\end_layout
-
-\begin_layout Enumerate
-Create a database where the Contact Manager information will reside
-\end_layout
-
-\begin_layout Enumerate
-Specify the database connection information in a text file
-\end_layout
-
-\begin_layout Enumerate
-Generate the database schema
-\end_layout
-
-\begin_layout Subsection
-Create a Database
-\begin_inset LatexCommand \label{sub:Create-a-Database}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-To create a database in PostgresQL, invoke a command similar to this one:
-\end_layout
-
-\begin_layout LyX-Code
-createdb -U postgres contactmgr
-\end_layout
-
-\begin_layout Standard
-The -U flag is used to specify the name of the user who is creating the
- database.
- The username you should use depends on your specific installation (consult
- the PostgresQL documentation).
-\end_layout
-
-\begin_layout Standard
-You might also want to create a user specifically for this application
+Follow these steps
 \begin_inset Foot
 status collapsed
 
 \begin_layout Standard
-Both 
-\emph on
-createdb
-\emph default
- and 
-\emph on
-createuser
-\emph default
- are programs that come with PostgresQL
+The '$' symbol prefixing each command serves to indicate the command line
+ and is not part of the command
 \end_layout
 
 \end_inset
@@ -764,99 +774,79 @@ createuser
 \end_layout
 
 \begin_layout LyX-Code
-createuser -U postgres contactmgr
+$ cd demo-apps/ContactMgr
 \end_layout
 
-\begin_layout Subsection
-Specify the Database Connection Information
-\begin_inset LatexCommand \label{sub:Specify-DB-ConnInfo}
+\begin_layout LyX-Code
+$ ant schema-export
+\end_layout
+
+\begin_layout Standard
+From the tutorial application's base directory, issuing the 
+\emph on
+schema-export
+\emph default
+ command (an ant target) for the first time will:
+\end_layout
+
+\begin_layout Enumerate
+compile the framework,
+\end_layout
+
+\begin_layout Enumerate
+compile the tutorial application's code,
+\end_layout
+
+\begin_layout Enumerate
+create an H2 database (in subdirectory 
+\emph on
+db/
+\emph default
+ ),
+\end_layout
+
+\begin_layout Enumerate
+generate the necessary o/r mapping files for the application, and 
+\end_layout
+
+\begin_layout Enumerate
+subsequently generates the actual database schema.
+\end_layout
+
+\begin_layout Standard
+Next, let's launch our application:
+\end_layout
+
+\begin_layout LyX-Code
+$ ant run
+\end_layout
+
+\begin_layout Standard
+This command is simply a convenient way of launching the application during
+ development.
+\end_layout
+
+\begin_layout Standard
+JMatter applications are designed to be multi-user applications, running
+ in client-server mode.
+ The framework supports the task of deploying applications using Sun's Java
+ WebStart technology.
+ Please refer to chapter 
+\begin_inset LatexCommand \ref{cha:Deploying-your-Application}
 
 \end_inset
 
-
+ for complete documention pertaining to deploying applications.
 \end_layout
 
 \begin_layout Standard
-Make sure that you're in the 
-\emph on
-ContactMgr
-\emph default
- folder before proceeding.
- Edit the file 
-\emph on
-hibernate.properties
-\emph default
- located in the 
-\emph on
-resources
-\emph default
- directory.
- Modify these three lines accordingly
-\begin_inset Foot
-status collapsed
-
-\begin_layout Standard
-Let's assume for now that the database will reside on the same machine as
- your application.
- 
-\end_layout
+If you prefer to configure your own MySQL or PostgresQL database, please
+ refer to appendix 
+\begin_inset LatexCommand \ref{cha:Database-Setup}
 
 \end_inset
 
-:
-\end_layout
-
-\begin_layout LyX-Code
-#
-\end_layout
-
-\begin_layout LyX-Code
-hibernate.connection.url=jdbc:postgresql://localhost/contactmgr
-\end_layout
-
-\begin_layout LyX-Code
-hibernate.connection.username=contactmgr
-\end_layout
-
-\begin_layout LyX-Code
-hibernate.connection.password=
-\end_layout
-
-\begin_layout Standard
-If you're using a database other than PostgresQL, you'll also need to revise
- these two lines:
-\end_layout
-
-\begin_layout LyX-Code
-#
-\end_layout
-
-\begin_layout LyX-Code
-hibernate.connection.driver_class=org.postgresql.Driver
-\end_layout
-
-\begin_layout LyX-Code
-hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-\end_layout
-
-\begin_layout Standard
-Save the file.
-\end_layout
-
-\begin_layout Subsection
-Generate the Database Schema
-\end_layout
-
-\begin_layout Standard
-From the 
-\emph on
-ContactMgr
-\emph default
- base directory, invoke this command:
-\end_layout
-
-\begin_layout LyX-Code
-ant schema-export
+.
 \end_layout
 
 \begin_layout Section
@@ -864,16 +854,8 @@ The Tour
 \end_layout
 
 \begin_layout Standard
-OK, we should now be all set to launch the application.
- Type:
-\end_layout
-
-\begin_layout LyX-Code
-ant run
-\end_layout
-
-\begin_layout Standard
-You should be greeted with the login screen shown in figure 
+OK, we've just launched our first JMatter application.
+ We should be greeted with the login screen shown in figure 
 \begin_inset LatexCommand \ref{cap:Contact-Manager-Login}
 
 \end_inset
@@ -883,7 +865,6 @@ You should be greeted with the login screen shown in figure
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -940,7 +921,6 @@ desktop
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -971,6 +951,10 @@ Contact Manager Application Desktop
 
 \end_layout
 
+\begin_layout Subsection
+A Quick Orientation to the User Interface
+\end_layout
+
 \begin_layout Standard
 On the left hand side you see a toolbar.
  This toolbar is a little different from most application toolbars.
@@ -989,28 +973,53 @@ paste
 \emph on
 Class Bar
 \emph default
- from here on if you don't mind.
+ from here on.
+ Furthermore, I will often reference the term as a single, lower-cased word:
+ classbar.
 \end_layout
 
 \begin_layout Standard
-To perform actions on these things, you 
+The JMatter user interface was designed to be simple and easy to understand.
+ The mechanism for communicating various activities to the application mirrors
+ the way we naturally tend to think about how to perform actions.
+ We first identify the object in question, and then specify the action to
+ perform.
+\end_layout
+
+\begin_layout Standard
+In JMatter applications, when an object is displayed in a minimized form
+ (which is the case with the various objects we see in the classbar), the
+ various actions to invoke are accessible via a context menu, summoned by
+ right-clicking on the object in question.
+\end_layout
+
+\begin_layout Standard
+This gesture should be a familiar one.
+ For example, on the windows desktop, right-clicking on a file or folder
+ will 
+\begin_inset Quotes eld
+\end_inset
+
+bring up
+\begin_inset Quotes erd
+\end_inset
+
+ its context menu.
+ On the MacOS with a two-button mouse, it's the same gesture (simulated
+ as a ctrl-click on a 1-button mouse).
+ GNU/Linux-based desktops have the same metaphor.
+ The mechanism of first selecting an object, and then selecting an action
+ is known as a 
 \emph on
-right-click
+noun-verb user interface metaphor
 \emph default
- on the thing in question
+
 \begin_inset Foot
 status collapsed
 
 \begin_layout Standard
-The mechanism of first selecting an object, and then selecting an action
- is known as a noun-verb user interface metaphor.
- It turns out that we naturally tend to think in similar terms in real life
- as well.
- That is, most of the time, we first identify an object and then decide
- what action to perform relative to that object.
- For example, we might see a ball, and then decide to kick it.
- Unfortunately many applications' user interfaces today don't abide by this
- metaphor.
+It's worthwhile noting that many applications' user interfaces today don't
+ abide by this metaphor.
  Typical applications' toolbars contain actions and it's not entirely clear
  what objects they relate to.
  When working with menus, you'll pick an action first and an object second
@@ -1021,8 +1030,11 @@ The mechanism of first selecting an object, and then selecting an action
 \end_inset
 
 .
- So for example, to browse the list of users defined in the system, you
- can move your mouse to the 
+\end_layout
+
+\begin_layout Standard
+So for example, to browse the list of users defined in the system, you can
+ move your mouse to the 
 \emph on
 Users
 \emph default
@@ -1047,7 +1059,6 @@ Users
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -1107,9 +1118,7 @@ You will be presented with a dialog and prompted to enter the new password
 \end_layout
 
 \begin_layout Standard
-There.
- You're done.
- The next time you log in to the application, you'll have to enter the new
+The next time you log in to the application, you'll have to enter the new
  password.
  Passwords are stored in the database as hashes and so are not vulnerable
  to prying eyes.
@@ -1146,7 +1155,6 @@ Your screen should now look like figure
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -1292,6 +1300,31 @@ Delete
  button to perform the deletion.
 \end_layout
 
+\begin_layout Standard
+It's important to note that JMatter applications' user interfaces are very
+ simple: they boil down to the implmentation of a single concept: the noun-verb
+ user interface metaphor.
+ That is, we're in world of objects and we manipulate them through actions
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+
+\emph on
+Aside
+\emph default
+: Not only do I content that such user interfaces are simple and natural,
+ but a beautiful thing happens in addition: these concepts map naturally
+ onto an object-oriented implementation.
+ To build your own such applications, very little else is needed other than
+ defining an object model (classes and methods).
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection
 Folders
 \end_layout
@@ -1301,7 +1334,7 @@ Notice the
 \emph on
 Folders
 \emph default
- icon in the Class Bar.
+ icon in the classbar.
  Right-click the 
 \emph on
 New with name
@@ -1361,33 +1394,6 @@ Persons
 Class Bar
 \emph default
  and pick the corresponding action, which this time will be 
-\emph on
-Find
-\emph default
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Standard
-You should begin to get a little tired of hearing this by now :-)
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-
-\emph on
-Aside
-\emph default
-: this metaphor of invoking actions on things should be familiar to anyone
- who's done object-oriented software development: you're simply sending
- messages to objects.
- So in this case there is an object that represents the Person type, which
- defines (actually inherits) the ability to receive and act upon the message
- 
 \emph on
 Find
 \emph default
@@ -1456,7 +1462,6 @@ Save Query.
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -1524,7 +1529,6 @@ Queries
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -1627,8 +1631,8 @@ traditional
 \begin_inset Quotes erd
 \end_inset
 
- software application to support searches; specifially for a type of application
- such as an issue manager.
+ software application to support searches; especially for a category of
+ application such as an issue manager.
  Issue managers are all about entering and updating and searching issues.
  Since entering and updating and searching things is built-in in JMatter,
  then very little work actually remains: the need to define that there exists
@@ -1726,7 +1730,6 @@ Eitan Suez
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -1765,8 +1768,7 @@ What we discover is that the framework keeps track of specific events such
 status collapsed
 
 \begin_layout Standard
-It's fairly trivial for an application to tap into this log system to log
- additional activities.
+Tapping into this log system to log additional activities is trivial
 \end_layout
 
 \end_inset
@@ -1837,7 +1839,6 @@ s) and click on the icon with the yellow star in it.
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -1917,7 +1918,6 @@ For single objects, say a single contact, you will likewise find alternate
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -2026,7 +2026,6 @@ Role
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -2128,78 +2127,108 @@ Let's write our own version of the contact manager.
 \end_layout
 
 \begin_layout Section
-Set Up the Project's Directory Structure
+Creating a New Project
 \end_layout
 
 \begin_layout Standard
-The first thing we need to do is setup a directory structure for our project.
- Let's call our project 
+To create a new project in JMatter, invoke the 
+\emph on
+new-project-ui
+\emph default
+ ant target:
+\end_layout
+
+\begin_layout LyX-Code
+$ cd jmatter
+\end_layout
+
+\begin_layout LyX-Code
+$ ant new-project-ui
+\end_layout
+
+\begin_layout Standard
+We need to decide on a name for our new project.
+ Let's call it 
 \emph on
 CM
 \emph default
-, short for ContactMgr, to ensure that the name doesn't conflict with the
- existing demo version of the contact manager application.
+ (short for ContactMgr), so as not to conflict with the existing demo version
+ of the contact manager application.
 \end_layout
 
 \begin_layout Standard
-Here is how:
-\end_layout
-
-\begin_layout LyX-Code
-cd jmatter
-\end_layout
-
-\begin_layout LyX-Code
-ant new-project -Dnew.project.name=CM
-\end_layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
 
 \begin_layout Standard
-After pressing 
-\emph on
-Enter
-\emph default
-, JMatter creates the directory structure for our project, in a base directory
- named CM.
- Switch to the newly created CM directory:
-\end_layout
-
-\begin_layout LyX-Code
-cd CM
-\end_layout
-
-\begin_layout Section
-Create a Database
-\end_layout
-
-\begin_layout Standard
-We now need to create a database for our application.
- We already did this in the previous chapter: we had to create a database
- and a user, and then specify the connection information in the text file
- 
-\emph on
-hibernate.properties
-\emph default
-.
- The only difference of course is the database name and username information,
- which this time will be 
-\emph on
-cm
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-Follow the instructions in sections 
-\begin_inset LatexCommand \ref{sub:Create-a-Database}
+\align center
+\begin_inset Graphics
+	filename figures/new-project-ui.png
+	lyxscale 50
+	scale 50
 
 \end_inset
 
- and 
-\begin_inset LatexCommand \ref{sub:Specify-DB-ConnInfo}
+
+\end_layout
+
+\begin_layout Caption
+New Project User Interface
+\end_layout
 
 \end_inset
 
- to perform these tasks for this version of the contact manager.
+
+\end_layout
+
+\begin_layout Standard
+We have the option of creating a standalone or dependent project.
+ It doesn't really matter at this point.
+ Let's go with 
+\emph on
+dependent
+\emph default
+.
+ Go ahead and click on the 
+\emph on
+Create Project
+\emph default
+ button.
+ This action will launch an ant target that takes our input and creates
+ a complete directory structure for us.
+ If you didn't specify a base directory, the new project is created by default
+ in the jmatter directory's parent directory.
+\end_layout
+
+\begin_layout Standard
+Go ahead and quit the new-project-ui 
+\begin_inset Quotes eld
+\end_inset
+
+applet.
+\begin_inset Quotes erd
+\end_inset
+
+ Let's navigate to our new project's base directory:
+\end_layout
+
+\begin_layout LyX-Code
+$ cd ../CM
+\end_layout
+
+\begin_layout LyX-Code
+$ ls
+\end_layout
+
+\begin_layout LyX-Code
+build.xml   doc/   resources/   src/   test/
+\end_layout
+
+\begin_layout Standard
+JMatter creates the directory structure for your project, along with its
+ own ant build file.
 \end_layout
 
 \begin_layout Section
@@ -2227,102 +2256,38 @@ com.u2d.type.composite.Business
 
 \begin_layout Standard
 Before we generate our schema, we need a way to communicate to JMatter the
- various types of objects that we need to persist.
+ various types of objects we would like to persist.
+ We typically do this by adding an annotation (
+\emph on
+@Persist
+\emph default
+) directly on the model classes that we define.
+ However in this case, since we're using pre-existing model classes, we
+ do this by editing the underlying template, 
+\emph on
+src/persistClasses.st
+\emph default
+, directly:
+\end_layout
+
+\begin_layout LyX-Code
+..
+\end_layout
+
+\begin_layout LyX-Code
+<value>com.u2d.type.composite.Person</value>
+\end_layout
+
+\begin_layout LyX-Code
+<value>com.u2d.type.composite.Business</value>
+\end_layout
+
+\begin_layout LyX-Code
+..
 \end_layout
 
 \begin_layout Standard
-We do this by editing a text file, actually an xml file, located in 
-\emph on
-src/com/u2d
-\emph default
-, named 
-\emph on
-app-config.xml
-\emph default
-.
- Open this file in a text or xml editor.
- You will see two comments labeled 
-\emph on
-TODO
-\emph default
-.
- Here's the first:
-\end_layout
-
-\begin_layout LyX-Code
-<?xml version=
-\begin_inset Quotes erd
-\end_inset
-
-1.0
-\begin_inset Quotes erd
-\end_inset
-
-?>
-\end_layout
-
-\begin_layout LyX-Code
-<!-- TODO: specify application name (or title) below (the 
-\end_layout
-
-\begin_layout LyX-Code
-                 'name' attribute) -->
-\end_layout
-
-\begin_layout LyX-Code
-<application name="jMatter Application"> 
-\end_layout
-
-\begin_layout Standard
-Revise the application name, maybe to 
-\emph on
-Contact Manager
-\emph default
- or whatever you deem appropriate.
- The text you enter will appear in the title bar of the application's main
- window.
-\end_layout
-
-\begin_layout Standard
-The second looks like this:
-\end_layout
-
-\begin_layout LyX-Code
-<persist-classes>
-\end_layout
-
-\begin_layout LyX-Code
-   <!-- TODO: add model classes to this list to make them a part 
-\end_layout
-
-\begin_layout LyX-Code
-                    of the persistence schema -->
-\end_layout
-
-\begin_layout LyX-Code
-   <class>com.u2d.type.USState</class>
-\end_layout
-
-\begin_layout LyX-Code
-   <class>com.u2d.type.composite.ContactMethod</class>
-\end_layout
-
-\begin_layout LyX-Code
-   <class>com.u2d.type.composite.Folder</class>
-\end_layout
-
-\begin_layout LyX-Code
-   ..
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout Standard
-For every application, JMatter defines a list of Java classes that it needs
- to persist to database.
- Add the two types 
+We simply add the fully qualified names of the two classes 
 \emph on
 Person
 \emph default
@@ -2330,156 +2295,61 @@ Person
 \emph on
 Business
 \emph default
- to the top of the list, like this:
+ to the listing.
+ We're now ready to generate the database schema:
 \end_layout
 
 \begin_layout LyX-Code
-<persist-classes>
-\end_layout
-
-\begin_layout LyX-Code
-   <class>com.u2d.type.composite.Person</class>
-\end_layout
-
-\begin_layout LyX-Code
-   <class>com.u2d.type.composite.Business</class>
-\end_layout
-
-\begin_layout LyX-Code
-   ..
+$ ant schema-export
 \end_layout
 
 \begin_layout Standard
-We're now ready to generate the database schema:
-\end_layout
-
-\begin_layout LyX-Code
-ant schema-export
-\end_layout
-
-\begin_layout Standard
-Behind the scenes, JMatter introspects the classes we specified in 
-\emph on
-app-config.xml
-\emph default
- and for each, it generates a Hibernate mapping file.
- JMatter then asks hibernate to generate the DDL (data definition language)
- instructions and send them to the database.
+Behind the scenes, JMatter introspects the classes in question and for each
+ it generates a Hibernate database mapping file, and finally asks hibernate
+ to generate the DDL (data definition language) instructions and send them
+ to the database.
 \end_layout
 
 \begin_layout Standard
-You should now be able to inspect the contents of your database and verify
- that it contains these tables:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
+We should now be able to inspect the contents of our database and verify
+ that it contains these tables.
+ By default, JMatter uses the H2 database, which is lightweight and requires
+ no work on your part 
+\begin_inset Foot
 status collapsed
 
-\begin_layout LyX-Code
-contactmgr=> 
-\backslash
-dt
-\end_layout
-
-\begin_layout LyX-Code
-                 List of relations
-\end_layout
-
-\begin_layout LyX-Code
- Schema |        Name         | Type  |   Owner
-\end_layout
-
-\begin_layout LyX-Code
---------+---------------------+-------+------------
-\end_layout
-
-\begin_layout LyX-Code
- public | business            | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | commandrestriction  | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | complextype         | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | compositequery      | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | contactmethod       | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | fieldrestriction    | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | folder              | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | folder_items        | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | loggedevent         | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | person              | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | queryspecifications | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | restriction         | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | role                | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | users               | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
- public | usstate             | table | contactmgr
-\end_layout
-
-\begin_layout LyX-Code
-(15 rows)
-\end_layout
-
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Generated-Database-Schema}
+\begin_layout Standard
+You may of course create your own, say, PostgresQL or MySQL database and
+ configure your application to work with it.
+ Appendix 
+\begin_inset LatexCommand \ref{cha:Database-Setup}
 
 \end_inset
 
-Generated Database Schema
+ provides the necessary information.
 \end_layout
 
 \end_inset
 
-
+.
+ By default, JMatter created the database CMh2db in the 
+\emph on
+db/
+\emph default
+ subdirectory of your project.
+ To view its contents, you can use the H2 web-based console.
+ First you must start the H2 server, with this command:
 \end_layout
 
 \begin_layout LyX-Code
-
+$ java -cp ../jmatter/lib/runtime/jdbc/h2.jar org.h2.tools.Server
 \end_layout
 
-\begin_layout LyX-Code
-
+\begin_layout Standard
+Then point your web browser to http://localhost:8082/ and login to the database
+ (default username and password are 'sa', and '' (blank) respectively).
+ These details are much better documented by H2's own documentation, of
+ course.
 \end_layout
 
 \begin_layout Section
@@ -2490,116 +2360,17 @@ The Class Bar
 Similar to the task of specifying which types to persist to the database,
  we also need to specify which types to expose to the user interface via
  the Class Bar.
- Next to 
-\emph on
-app-config.xml
-\emph default
- you'll find another xml file: 
-\emph on
-class-list.xml
-\emph default
-.
- Similar to the way you added two entries to the 
-\emph on
-app-config
-\emph default
- file, add two entries to the class list, like so:
-\end_layout
-
-\begin_layout LyX-Code
-      <folder>
-\end_layout
-
-\begin_layout LyX-Code
-         <name>Model</name>
-\end_layout
-
-\begin_layout LyX-Code
-         <items>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.type.composite.Person</type>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.type.composite.Business</type>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.app.User</type>
+ This step is not really necessary, since we can edit (in this case, add
+ types to) the classbar directly from the user interface.
+ Feel free to skip this section if you wish.
 \end_layout
 
 \begin_layout Standard
-Notice that these files already list a set of basic types including: 
+The way to predefine the default classbar items is to edit 
 \emph on
-User
+src/com/u2d/class-list.xml
 \emph default
-, 
-\emph on
-Folder
-\emph default
-, 
-\emph on
-CompositeQuery
-\emph default
- and 
-\emph on
-LoggedEvent
-\emph default
-.
- For the class list, they're not technically required.
- For the persisted classes listed in 
-\emph on
-app-config.xml
-\emph default
-, they are.
-\end_layout
-
-\begin_layout Standard
-The xml vocabulary exposed by class-list.xml reinforces the fact that the
- class list is modeled as a folder containing folders of types.
- To understand why the class list is modeled this way, go ahead and:
-\end_layout
-
-\begin_layout Enumerate
-rename the subfolder from 
-\emph on
-Model
-\emph default
- to 
-\emph on
-Manager
-\end_layout
-
-\begin_layout Enumerate
-create a second subfolder called 
-\emph on
-Administrative
-\end_layout
-
-\begin_layout Enumerate
-place Person, Business, Folder, and CompositeQuery in 
-\emph on
-Manager
-\end_layout
-
-\begin_layout Enumerate
-place User, LoggedEvent, and a new type: ComplexType in 
-\emph on
-Administrative
-\end_layout
-
-\begin_layout Standard
-Your copy of 
-\emph on
-class-list.xml
-\emph default
- should now look like this:
-\end_layout
-
-\begin_layout LyX-Code
-<?xml version="1.0" encoding="UTF-8"?>
+:
 \end_layout
 
 \begin_layout LyX-Code
@@ -2607,112 +2378,52 @@ class-list.xml
 \end_layout
 
 \begin_layout LyX-Code
-   <name>Class List</name>
+  <name>Class List</name>
 \end_layout
 
 \begin_layout LyX-Code
-   <items>
+  <items>
 \end_layout
 
 \begin_layout LyX-Code
-      <folder>
+    <folder>
 \end_layout
 
 \begin_layout LyX-Code
-         <name>Manager</name>
+      <name>Model</name>
 \end_layout
 
 \begin_layout LyX-Code
-         <items>
+        <items>
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.type.composite.Person</type>
+          <type>com.u2d.type.composite.Person</type>
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.type.composite.Business</type>
+          <type>com.u2d.type.composite.Business</type>
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.type.composite.Folder</type>
+          <type>com.u2d.type.composite.Folder</type>
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.find.CompositeQuery</type>
-\end_layout
-
-\begin_layout LyX-Code
-         </items>
-\end_layout
-
-\begin_layout LyX-Code
-      </folder>
-\end_layout
-
-\begin_layout LyX-Code
-      <folder>
-\end_layout
-
-\begin_layout LyX-Code
-         <name>Administrative</name>
-\end_layout
-
-\begin_layout LyX-Code
-         <items>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.app.User</type>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.type.composite.LoggedEvent</type>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.model.ComplexType</type>
-\end_layout
-
-\begin_layout LyX-Code
-         </items>
-\end_layout
-
-\begin_layout LyX-Code
-      </folder>
-\end_layout
-
-\begin_layout LyX-Code
-   </items>
-\end_layout
-
-\begin_layout LyX-Code
-</folder>
+          ...
 \end_layout
 
 \begin_layout Standard
-When we run our application in the next section, we'll see how this data
- structure manifests itself visually.
-\end_layout
-
-\begin_layout Standard
-One last note: 
-\emph on
-class-list.xml
-\emph default
- is used strictly to seed the database.
- Subsequent customizations to the class bar are performed directly from
- the UI
-\begin_inset Foot
-status collapsed
-
-\begin_layout Standard
-UI: User Interface
-\end_layout
-
-\end_inset
-
-.
+This xml file is nothing but a marshalled Folder object.
+ When the application starts up, the file will be unmarshalled back as a
+ Folder object.
+ JMatter will detect that our database is empty (it contains no classbar)
+ and will automatically persist the folder.
+ Each user has his or her own class list.
+ The xml file serves as a template.
+ This is useful since many applications have multiple users, with different
+ roles.
+ So different types can be exposed for each role.
 \end_layout
 
 \begin_layout Section
@@ -2747,15 +2458,14 @@ Ok, let's run our app:
 \end_layout
 
 \begin_layout LyX-Code
-ant run
+$ ant run
 \end_layout
 
 \begin_layout Standard
 That's it.
  We now have a working contact manager application.
  Go ahead and exercise it: create new person ojbects, etc..
- Notice that the Class Bar looks similar to the type of toolbar popularized
- by Microsoft Outlook (see figure 
+ (see figure 
 \begin_inset LatexCommand \ref{cap:Classlist-organized}
 
 \end_inset
@@ -2765,7 +2475,6 @@ That's it.
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -2853,21 +2562,16 @@ Browse
 
 \begin_layout Standard
 We've just asked our application to show us all the types defined in our
- system.
- Noticed that 
+ system (Note that 
 \emph on
 Contact Methods
 \emph default
  is among the list of defined types, though it doesn't have an icon, and
  thus shows up with a 
-\begin_inset Quotes eld
-\end_inset
-
+\emph on
 question mark
-\begin_inset Quotes erd
-\end_inset
-
- icon.
+\emph default
+ icon).
 \end_layout
 
 \begin_layout Enumerate
@@ -2891,8 +2595,8 @@ Manager
 \end_layout
 
 \begin_layout Standard
-We have just added a type to the class list! Our class bar should now resemble
- figure 
+We have just added a type to the class list.
+ Our class bar should now resemble figure 
 \begin_inset LatexCommand \ref{cap:Class-Bar-Customized}
 
 \end_inset
@@ -2902,7 +2606,6 @@ We have just added a type to the class list! Our class bar should now resemble
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -2933,66 +2636,12 @@ Class Bar Customized with an Additional Type: Contact Methods
 
 \end_layout
 
-\begin_layout Standard
-Even though we initially customized the class list by directly editing its
- xml file, we could have done it all from the user interface, as long as
- ComplexType and Folder are exposed to the initial class list.
-\end_layout
-
 \begin_layout Section
-Review
+Project Structure
 \end_layout
 
 \begin_layout Standard
-Here's a quick recap of what we've done so far:
-\end_layout
-
-\begin_layout Enumerate
-We learned how to create a new project skeleton with the 
-\emph on
-ant new-project
-\emph default
- command;
-\end_layout
-
-\begin_layout Enumerate
-We should be aware of the two configuration files 
-\emph on
-app-config.xml
-\emph default
- and 
-\emph on
-class-list.xml
-\emph default
- and how to configure them;
-\end_layout
-
-\begin_layout Enumerate
-Also, we learned that images go in the 
-\emph on
-resources/images
-\emph default
- folder;
-\end_layout
-
-\begin_layout Enumerate
-Finally we learned the basic commands for creating our schema and running
- our application: 
-\emph on
-ant schema-export
-\emph default
- and 
-\emph on
-ant run
-\end_layout
-
-\begin_layout Section
-A Closer Look
-\end_layout
-
-\begin_layout Standard
-Before we leave this chapter, let's try to answer a few more questions and
- take a closer look at the files in our project.
+Let's take a closer look at the files in our project.
 \end_layout
 
 \begin_layout Subsection
@@ -3009,7 +2658,7 @@ s.
 \begin_layout Enumerate
 Source code resides in the 
 \emph on
-src
+src/
 \emph default
  directory
 \end_layout
@@ -3091,8 +2740,12 @@ README
 \emph on
 Cliche
 \emph default
-, which you can use as a quick reference and simple setup instructions to
- help you get started on a new project
+, which are quickly becoming vestigial as all documentation is being consolidate
+d into the document you are currently reading.
+ You can use these files as a quick reference or as simple setup instructions
+ to help you get started on a new project.
+ You are also urged to use this folder to place any relevant documentation
+ for your project.
 \end_layout
 
 \begin_layout Enumerate
@@ -3102,30 +2755,6 @@ test
 \emph default
  directory is created for you to place JUnit tests you write to ensure that
  your code and business logic is correct and bug-free
-\end_layout
-
-\begin_layout Enumerate
-Any jar files, libraries that your project depends on at runtime are to
- be placed in the 
-\emph on
-lib/src
-\emph default
- directory
-\end_layout
-
-\begin_layout Enumerate
-Any additional jar files necessary for testing should be placed in the 
-\emph on
-lib/test
-\emph default
- directory
-\end_layout
-
-\begin_layout Enumerate
-Any jar files for tools that your project uses at design/build time should
- be placed in 
-\emph on
-lib/tools
 \end_layout
 
 \begin_layout Subsection
@@ -3150,7 +2779,9 @@ ant -projecthelp
 \end_layout
 
 \begin_layout Standard
-to view a list of all the defined targets: their name and description.
+to view a list of all the defined targets: their name and description (Of
+ course, if you're running GNU/Linux and have bash smart completion turned
+ on, simply pressing the tab key will display a list of valid ant targets).
 \end_layout
 
 \begin_layout Subsection
@@ -3280,8 +2911,8 @@ Contact
 \emph on
 USAddress
 \emph default
- are modeled as aggregations, and so are treated in a manner similar to
- value fields such as the work phone or email address.
+ are modeled as aggregates, and so are treated in a manner similar to value
+ fields such as the work phone or email address.
  The fields that make up the contact information and address are aggregated
  into the parent type's table.
  Hibernate calls these 
@@ -3294,12 +2925,63 @@ Components
 \begin_layout Standard
 We'll learn more about ways of modeling relationships between objects in
  the next chapter.
- And we'll finally get a chance to write some code for a change.
- :-)
+ Chapter 
+\begin_inset LatexCommand \ref{cha:model-objs-ref}
+
+\end_inset
+
+ provides a more complete reference.
 \end_layout
 
 \begin_layout Section
 Summary
+\end_layout
+
+\begin_layout Standard
+Here's a quick recap of what we've done so far:
+\end_layout
+
+\begin_layout Enumerate
+We learned how to create a new project skeleton with the 
+\emph on
+ant new-project-ui
+\emph default
+ command;
+\end_layout
+
+\begin_layout Enumerate
+We are aware of two configuration files 
+\emph on
+src/persistClasses.st
+\emph default
+ and 
+\emph on
+src/com/u2d/class-list.xml
+\emph default
+ and know a little about how to configure them;
+\end_layout
+
+\begin_layout Enumerate
+Also, we learned that images go in the 
+\emph on
+resources/images
+\emph default
+ folder;
+\end_layout
+
+\begin_layout Enumerate
+We learned the basic commands for creating our schema and running our applicatio
+n: 
+\emph on
+ant schema-export
+\emph default
+ and 
+\emph on
+ant run
+\end_layout
+
+\begin_layout Enumerate
+We studied the structure of a JMatter child project
 \end_layout
 
 \begin_layout Standard
@@ -3319,7 +3001,7 @@ MyTunes in under 200 Lines of Code
 \end_layout
 
 \begin_layout Standard
-Tunes seem to be a popular topic these days.
+Tunes have become a popular topic.
  Let's build a music player! Before we get started, bear in mind that we
  won't have to build features such as Smart Lists for songs; JMatter will
  give us those things for free.
@@ -3330,66 +3012,39 @@ Tunes seem to be a popular topic these days.
 \end_layout
 
 \begin_layout Section
-The Usual
+Creating the Project
 \end_layout
 
 \begin_layout Standard
-Ok, we know how to begin: from the 
+We now how to create our project.
+ I'll name my project 
 \emph on
-jmatter
+MyTunes
 \emph default
- directory, invoke
+ and make it a dependent project.
+ A finished copy of this project is already bundled with JMatter.
+ If you wish, you can simply follow along using the existing demo application.
 \end_layout
 
 \begin_layout LyX-Code
-ant new-project -Dnew.project.name=MyTunes
+$ cd jmatter/
 \end_layout
 
 \begin_layout LyX-Code
-cd MyTunes
+$ ant new-project-ui
 \end_layout
 
 \begin_layout LyX-Code
-ant -projecthelp
+$ cd ../MyTunes
+\end_layout
+
+\begin_layout LyX-Code
+$ ant -projecthelp
 \end_layout
 
 \begin_layout Standard
 So far so good.
- Let's create our database:
-\end_layout
-
-\begin_layout LyX-Code
-psql -U postgres template1
-\end_layout
-
-\begin_layout LyX-Code
-create database mytunes
-\end_layout
-
-\begin_layout LyX-Code
-
-\backslash
-q
-\end_layout
-
-\begin_layout LyX-Code
-createuser -U postgres mytunes
-\end_layout
-
-\begin_layout LyX-Code
-vi resources/hibernate.properties
-\end_layout
-
-\begin_layout LyX-Code
-[edit the connection parameters]
-\end_layout
-
-\begin_layout LyX-Code
-:wq
-\end_layout
-
-\begin_layout Standard
-Ok, next, let's setup our project in our favorite IDE because we're finally
+ Next, let's setup our project in our favorite IDE because we're finally
  going to be writing code.
 \end_layout
 
@@ -3406,9 +3061,8 @@ Setup your Project in an IDE
 Technically, this step is optional.
  These days, the state of Integrated Development Environments (IDEs) for
  writing software in Java is so advanced that it is compelling to use one.
- These IDEs sport command completion features, intelligent-assisted editing,
- automatic code formatting, useful hints, refactoring support, and the list
- goes on.
+ These IDEs sport command completion features, intelligent assisted editing,
+ automatic code formatting, useful hints, refactoring support, etc..
 \end_layout
 
 \begin_layout Standard
@@ -3507,8 +3161,8 @@ Next > Next > Next
 \emph default
 , with one or two deviations from the defaults.
  My project is almost completely setup.
- The last thing we need to do is add the jar files in lib/src to our IDE
- classpath so that it won't complain about not being able to find classes.
+ The last thing I need to do is add the jar files in ../jmatter/lib/runtime
+ to my project classpath so that the classes we reference can be resolved.
  Since the specific instructions vary from IDE to IDE, and since this is
  such a basic operation, I won't hold your hand through this task.
  :-)
@@ -3546,7 +3200,9 @@ Genres
 \end_layout
 
 \begin_layout Enumerate
-Create a package to hold your classes; mine will be com.u2d.mytunes
+Create a package to hold your classes; mine will be 
+\emph on
+com.u2d.mytunes
 \end_layout
 
 \begin_layout Enumerate
@@ -3586,7 +3242,15 @@ import com.u2d.type.atom.TextEO;
 \end_layout
 
 \begin_layout LyX-Code
+import com.u2d.persist.Persist;
+\end_layout
 
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -3650,13 +3314,25 @@ Let's analyze the above:
 \end_layout
 
 \begin_layout Enumerate
+The 
+\emph on
+@Persist
+\emph default
+ Annotation: automates having to manually edit 
+\emph on
+src/persistClasses.st
+\emph default
+ as we had to do in the last chapter
+\end_layout
+
+\begin_layout Enumerate
 
 \emph on
 Artist extends AbstractComplexEObject
 \emph default
 
 \newline
-In Java all the classes you write extend Object.
+In Java all the classes we write extend Object.
  When building JMatter applications, the base class for complex entities
  (ones that have more than a single field) is AbstractComplexEObject.
  Just like 
@@ -3734,8 +3410,15 @@ See section
 
 .
  There are two differences between a StringEO and a TextEO: [a] StringEO's
- are saved to the database as varchar types whereas TextEO's are saved as
- text types or some other similar large text object; and [b] StringEO editors
+ are saved to the database as 
+\emph on
+varchar
+\emph default
+ types (limit is typically 255) whereas TextEO's are saved as 
+\emph on
+text
+\emph default
+ types or some other similar large text object; and [b] StringEO editors
  in the GUI are text fields whereas TextEO editors are text areas.
 \newline
 Think of
@@ -3797,7 +3480,7 @@ This is essentially metadata.
  displayed when viewed using a form view.
  Name should come first, bio second.
  Notice that the field names are those derived from the accessor methods
- according to the JavaBeans convention, not the actual variable names.
+ according to the JavaBeans convention, not the underlying variable names.
 \end_layout
 
 \begin_layout Enumerate
@@ -3807,8 +3490,7 @@ public Title title() { return _name.title(); }
 \newline
 
 \emph default
-Every JMatter class you define should specify a title and how titles for
- instances should be formatted.
+Every JMatter class you define must specify a title.
  In this case, the title for an artist object will simply be the artist's
  name.
  For the Person class in the previous chapter it was a concatenation of
@@ -3841,8 +3523,8 @@ That's it.
 One last note: If you're thinking right now that metadata such as the fieldOrder
  field above might be better modeled using Java 5 annotations, I would agree
  with you; I may do just that in the next version of JMatter.
- But this design decision's impact on your productivity as a software developer
- is negligible.
+ But this design decision's has no bearing on your productivity as a software
+ developer.
 \end_layout
 
 \begin_layout Section
@@ -12740,6 +12422,11 @@ Framework Reference
 
 \begin_layout Chapter
 Dichotomy of a Model Object
+\begin_inset LatexCommand \label{cha:model-objs-ref}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -13874,7 +13561,7 @@ CommandInfo
 Making the method static has the effect of defining the command on the type
  instead of instances.
  You can see the command action exposed as a context menu on the type in
- the classbar.
+ the Class Bar.
 \end_layout
 
 \begin_layout Standard
@@ -16528,6 +16215,300 @@ Quit the application
 \end_layout
 
 \begin_layout Chapter
+Database Setup
+\begin_inset LatexCommand \label{cha:Database-Setup}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The JMatter framework taps the power of database systems.
+ JMatter employs the excellent 
+\emph on
+Hibernate
+\emph default
+ 
+\begin_inset Quotes eld
+\end_inset
+
+O/R Mapping
+\begin_inset Quotes erd
+\end_inset
+
+ framework which affords it database independence.
+ That is, you're not constrained to using a specific database system.
+ Options include PostgresQL, MySQL, Oracle, DB2, Sybase, Informix, SAP DB,
+ and many more.
+\end_layout
+
+\begin_layout Standard
+JMatter is tested primarily with PostgresQL and H2 (see 
+\begin_inset LatexCommand \htmlurl{http://www.h2database.org/}
+
+\end_inset
+
+), and has been verified to work with Oracle and MySQL.
+\end_layout
+
+\begin_layout Standard
+We recommend either H2: a full-featured, minimal administration, fast, Java-impl
+emented database, or PostgresQL: a mature, stable and open source database.
+\end_layout
+
+\begin_layout Standard
+The JMatter distribution pre-bundles JDBC drivers for PostgreSQL, MySQL,
+ and H2 and hsqldb.
+ If you choose to use a different database vendor, you will need to obtain
+ the corresponding JDBC driver jar file and place it in the 
+\emph on
+jmatter/lib/runtime/jdbc
+\emph default
+ directory.
+\end_layout
+
+\begin_layout Section
+Configuring your own database for the ContactMgr Tutorial Application
+\end_layout
+
+\begin_layout Subsection
+Create a Database
+\begin_inset LatexCommand \label{sub:Create-a-Database}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We'll use PostgresQL as an example.
+\end_layout
+
+\begin_layout Standard
+To create a database in PostgresQL, invoke a command similar to this one:
+\end_layout
+
+\begin_layout LyX-Code
+$ createdb -U postgres contactmgr
+\end_layout
+
+\begin_layout Standard
+The -U flag is used to specify the name of the user who is creating the
+ database.
+ The username you should use depends on your specific installation (consult
+ the PostgresQL documentation).
+\end_layout
+
+\begin_layout Standard
+You might also want to create a user specifically for this application
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+Both 
+\emph on
+createdb
+\emph default
+ and 
+\emph on
+createuser
+\emph default
+ are programs that come with PostgresQL
+\end_layout
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout LyX-Code
+$ createuser -U postgres contactmgr
+\end_layout
+
+\begin_layout Subsection
+Specify the Database Connection Information
+\begin_inset LatexCommand \label{sub:Specify-DB-ConnInfo}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Make sure that you're in the 
+\emph on
+ContactMgr
+\emph default
+ folder before proceeding.
+ Edit the file 
+\emph on
+resources/hibernate.properties
+\emph default
+.
+ Modify these three lines accordingly
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+Let's assume for now that the database will reside on the same machine as
+ your application.
+ 
+\end_layout
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout LyX-Code
+#
+\end_layout
+
+\begin_layout LyX-Code
+hibernate.connection.url=jdbc:postgresql://localhost/contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+hibernate.connection.username=contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+hibernate.connection.password=
+\end_layout
+
+\begin_layout Standard
+If you're using a database other than PostgresQL, you'll also need to revise
+ these two lines:
+\end_layout
+
+\begin_layout LyX-Code
+#
+\end_layout
+
+\begin_layout LyX-Code
+hibernate.connection.driver_class=org.postgresql.Driver
+\end_layout
+
+\begin_layout LyX-Code
+hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+\end_layout
+
+\begin_layout Standard
+Save the file.
+\end_layout
+
+\begin_layout Subsection
+Generate the Database Schema
+\end_layout
+
+\begin_layout Standard
+From the 
+\emph on
+ContactMgr
+\emph default
+ base directory, invoke this command:
+\end_layout
+
+\begin_layout LyX-Code
+$ ant schema-export
+\end_layout
+
+\begin_layout Subsection
+Browsing the database schema with psql
+\end_layout
+
+\begin_layout LyX-Code
+$ psql contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+contactmgr=> 
+\backslash
+dt
+\end_layout
+
+\begin_layout LyX-Code
+                 List of relations
+\end_layout
+
+\begin_layout LyX-Code
+ Schema |        Name         | Type  |   Owner
+\end_layout
+
+\begin_layout LyX-Code
+--------+---------------------+-------+------------
+\end_layout
+
+\begin_layout LyX-Code
+ public | business            | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | commandrestriction  | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | complextype         | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | compositequery      | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | contactmethod       | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | fieldrestriction    | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | folder              | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | folder_items        | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | loggedevent         | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | person              | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | queryspecifications | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | restriction         | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | role                | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | users               | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+ public | usstate             | table | contactmgr
+\end_layout
+
+\begin_layout LyX-Code
+(15 rows)
+\end_layout
+
+\begin_layout Chapter
 Working from the Subversion Repository
 \end_layout
 
@@ -16976,6 +16957,25 @@ So, I take issue with the statement that ValueHolders are not POJO's.
 
 \begin_layout Chapter
 FAQ
+\end_layout
+
+\begin_layout Standard
+Q: How do I customize my application's name in the main window's title bar?
+\end_layout
+
+\begin_layout Standard
+A: Edit the file src/applicationContext.xml and look for a comment labeld
+ 
+\begin_inset Quotes eld
+\end_inset
+
+TODO: Customize App Name Here
+\begin_inset Quotes erd
+\end_inset
+
+.
+ This is also the place where you cusotmize the page size of listings in
+ the user interface (the default is 15).
 \end_layout
 
 \begin_layout Standard
