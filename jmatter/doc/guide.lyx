@@ -2360,7 +2360,7 @@ The Class Bar
 Similar to the task of specifying which types to persist to the database,
  we also need to specify which types to expose to the user interface via
  the Class Bar.
- This step is not really necessary, since we can edit (in this case, add
+ This step is not really necessary, because we can edit (in this case, add
  types to) the classbar directly from the user interface.
  Feel free to skip this section if you wish.
 \end_layout
@@ -2423,7 +2423,7 @@ This xml file is nothing but a marshalled Folder object.
  The xml file serves as a template.
  This is useful since many applications have multiple users, with different
  roles.
- So different types can be exposed for each role.
+ So different classbars can be defined for each role.
 \end_layout
 
 \begin_layout Section
@@ -3568,7 +3568,15 @@ import com.u2d.list.RelationalList;
 \end_layout
 
 \begin_layout LyX-Code
+import com.u2d.persist.Persist;
+\end_layout
 
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -3629,12 +3637,11 @@ public class Album extends AbstractComplexEObject
 
 \begin_layout Standard
 There's really very little new here.
- The only thing possibly worth mentioning is that we're defining a cover
- illustration for an album, that is of type 
+ It's worth mentioning that we're defining a field of type 
 \emph on
 ImgEO
 \emph default
-.
+ for the album's cover illustration.
  This basic type represents an image (gif, jpg, or png) that will be saved
  to database as some kind of binary large object (blob).
 \end_layout
@@ -3660,7 +3667,8 @@ Genre
  in Java.
  We would like the end-user to be able to add entries to the list directly
  from the user interface.
- This is the template that JMatter says we should use:
+ This is the template that JMatter defines for such database-backed enumerations
+:
 \end_layout
 
 \begin_layout LyX-Code
@@ -3684,7 +3692,15 @@ import com.u2d.model.ComplexType;
 \end_layout
 
 \begin_layout LyX-Code
+import com.u2d.persist.Persist;
+\end_layout
 
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -3767,7 +3783,7 @@ AbstractChoiceEO
 \emph default
 .
  In the GUI, when we want to specify a genre for a song, we'll be picking
- the genre from a JComboBox (also called a 
+ the genre from a ComboBox (also called a 
 \emph on
 select
 \emph default
@@ -3791,24 +3807,25 @@ is metadata telling JMatter that the code column in the table should be
 \end_layout
 
 \begin_layout Standard
+Honestly, I don't recall why you have to implement choiceType() and why
+ choiceType() is simply not tucked away in the superclass, 
+\emph on
+AbstractChoiceEO
+\emph default
+.
+ This may simply be an oversight
 \begin_inset Note Comment
 status collapsed
 
 \begin_layout Standard
 This won't do.
  Investigate.
- If choiceType needs to be in parent, put it in parent and delete next paragraph.
+ If choiceType needs to be in parent, put it in parent and delete paragraph.
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Honestly, I don't recall why you have to implement choiceType() and why
- choiceType() is simply not tucked away in the superclass, AbstractChoiceEO.
- This may simply be an oversight.
+.
 \end_layout
 
 \begin_layout Section
@@ -3833,6 +3850,10 @@ package com.u2d.mytunes;
 
 \begin_layout LyX-Code
 
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -3999,8 +4020,12 @@ The song class defines the fields:
 title, duration, album, genre, and artist
 \emph default
 .
- As usual, we define the fieldOrder String array as a means of specifying
- the order in which these fields are to be displayed.
+ As usual, we define the 
+\emph on
+fieldOrder
+\emph default
+ String array as a means of specifying the order in which these fields are
+ to be displayed.
 \end_layout
 
 \begin_layout Enumerate
@@ -4048,13 +4073,20 @@ associations
  The convention for defining and specifying the accessors and mutators for
  association fields is different.
  It complies with the JavaBeans convention for bound properties.
- Notice we: [a] provide both a getter and a setter, and [b] fire a PropertyChang
-eEvent after the assignment.
+ Notice we: [a] provide both a getter and a setter, and [b] fire a 
+\emph on
+PropertyChangeEvent
+\emph default
+ after the assignment.
 \end_layout
 
 \begin_layout Enumerate
 Here we have a better example of a title() method.
- First, don't confuse the song title with the song type's title() method.
+ First, don't confuse the song title with the song type's 
+\emph on
+title()
+\emph default
+ method.
  They're two different things.
  We want songs to display their titles and durations and so we concatenate
  the two.
@@ -4070,15 +4102,40 @@ Running our Application
 \end_layout
 
 \begin_layout Standard
-We've been a little zealous here and defined all four classes Artist, Album,
- Genre, and Song at once.
+We've been a little zealous here and defined all four classes 
+\emph on
+Artist
+\emph default
+, 
+\emph on
+Album
+\emph default
+, 
+\emph on
+Genre
+\emph default
+, and 
+\emph on
+Song
+\emph default
+ at once.
  This is not an example of good incremental coding practice.
  However, we made sure to keep these classes really simple.
  We didn't implement any behavior, we simply defined four types along with
- some pretty basic properties on each, such as the Artist's name, a Song's
- title.
- If you like, feel free to keep the Song class even more simple by just
- giving it a title for now.
+ some pretty basic properties on each, such as the 
+\emph on
+Artist
+\emph default
+'s name, a 
+\emph on
+Song
+\emph default
+'s title.
+ If you like, feel free to keep the 
+\emph on
+Song
+\emph default
+ class even more simple by just giving it a title for now.
 \end_layout
 
 \begin_layout Subsection
@@ -4086,16 +4143,16 @@ Configuration
 \end_layout
 
 \begin_layout Standard
-Add Artist, Album, Genre, and Song to 
+Technically there is no configuration left to do.
+ However, it might be simpler for us to specify the contents of the classbar
+ for our application in xml form.
+ Again, this is optional.
+ The file to edit is 
 \emph on
-app-config.xml
-\emph default
- and 
-\emph on
-class-list.xml
+src/com/u2d/class-list.xml
 \emph default
 .
- Here's class-list.xml:
+ Here's a sample that'll do nicely:
 \end_layout
 
 \begin_layout LyX-Code
@@ -4174,102 +4231,6 @@ class-list.xml
 </folder>
 \end_layout
 
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout Standard
-And app-config.xml:
-\end_layout
-
-\begin_layout LyX-Code
-<?xml version="1.0"?>
-\end_layout
-
-\begin_layout LyX-Code
-<application name="MyTunes">
-\end_layout
-
-\begin_layout LyX-Code
-   <view-mechanism>com.u2d.view.swing.SwingViewMechanism</view-mechanism>
-\end_layout
-
-\begin_layout LyX-Code
-   <look-and-feel>Metal</look-and-feel>
-\end_layout
-
-\begin_layout LyX-Code
-   <page-size>15</page-size>
-\end_layout
-
-\begin_layout LyX-Code
-   <persistence-mechanism>com.u2d.persist.HBMSingleSession
-\end_layout
-
-\begin_layout LyX-Code
-                                                   </persistence-mechanism>
-\end_layout
-
-\begin_layout LyX-Code
-   <persist-classes>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.mytunes.Song</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.mytunes.Album</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.mytunes.Artist</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.mytunes.Genre</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.type.composite.Folder</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.find.CompositeQuery</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.type.composite.LoggedEvent</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.app.User</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.app.Role</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.restrict.CommandRestriction</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.restrict.FieldRestriction</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.restrict.Restriction</class>
-\end_layout
-
-\begin_layout LyX-Code
-   </persist-classes>
-\end_layout
-
-\begin_layout LyX-Code
-</application>
-\end_layout
-
 \begin_layout Subsection
 Finally Running the Application
 \end_layout
@@ -4298,7 +4259,6 @@ After logging in we should see something that looks like figure
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -4332,11 +4292,12 @@ A first look at MyTunes
 \begin_layout Standard
 This is problematic: we haven't specified any icons for our types.
  Let me tell you (and I speak from experience) that the choice and quality
- of your icons is as important (if not more important) to the success of
- your application than the quality of the code itself.
- Apple knows this very well.
- How often have you been fooled that an application is really nice by the
- amount of lipstick its authors put on its user interfaces?
+ of your icons is as important to the success of your application than the
+ quality of the code itself.
+ I strongly believe that all aspects of our application must be of high
+ quality, regardless of whether it's the code under the hood or perhaps
+ cosmetic items that many developers often perceive as being outside their
+ jurisdiction, or outside their realm of expertise.
 \end_layout
 
 \begin_layout Standard
@@ -4416,9 +4377,26 @@ eitan@ubuntu:~/projects/ds/MyTunes$
 \end_layout
 
 \begin_layout Standard
-The convention is quite simple: [ClassName]16.png and [ClassName]32.png for
- each class.
- If, like me, producing icons is not your forte, then I highly recommend
+The basic convention is quite simple: [
+\emph on
+ClassName
+\emph default
+]16.png and [
+\emph on
+ClassName
+\emph default
+]32.png for each class.
+ But that's not the whole story on icons.
+ For a complete description of the icon conventions, see section 
+\begin_inset LatexCommand \ref{sub:Icons}
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If, like me, producing icons is not your forte, then I highly recommend
  
 \begin_inset LatexCommand \htmlurl[the incors professional icons collection]{http://www.iconexperience.com/}
 
@@ -4435,7 +4413,6 @@ The convention is quite simple: [ClassName]16.png and [ClassName]32.png for
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -4468,9 +4445,6 @@ MyTunes with Icons
 
 \begin_layout Standard
 That's much better, don't you agree?
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Comment
 status collapsed
 
@@ -4485,8 +4459,8 @@ TODO: Need to setup Genres first before creating songs.
 \end_layout
 
 \begin_layout Standard
-We can play with the user interface some more and create songs and so on,
- but we're not quite finished with our application.
+We can play with the user interface some more and create genres, songs,
+ and so on, but we're not quite finished with our application.
 \end_layout
 
 \begin_layout Section
@@ -4494,7 +4468,7 @@ Back To the Code
 \end_layout
 
 \begin_layout Standard
-We've basically laid the model foundation.
+Our application's foundation is laid; we have a basic object model.
  But we're missing something: an album should define and maintain a list
  of songs.
  We already have the other side of that association in 
@@ -4503,7 +4477,11 @@ Song.album
 \emph default
 .
  Let's add that one-to-many relationship right now.
- In Album.java, add these:
+ In 
+\emph on
+Album.java
+\emph default
+, add these:
 \end_layout
 
 \begin_layout LyX-Code
@@ -4525,8 +4503,6 @@ Song.album
 \begin_layout Standard
 If you're thinking that the above might be better modeled using Java 5 generics,
  I would agree with you; I may do just that in the next version of JMatter.
- But this design decision's impact on your productivity as a software developer
- is negligible.
 \end_layout
 
 \begin_layout Standard
@@ -4586,9 +4562,7 @@ restore the data
 \end_layout
 
 \begin_layout Standard
-As I understand it, this task is one of the specialties of database administrato
-rs.
- The restoration of data usually needs to be broken down into at least these
+The restoration of data usually needs to be broken down into at least these
  steps:
 \end_layout
 
@@ -4606,7 +4580,15 @@ add the constraints back in
 
 \begin_layout Standard
 Anyhow, in our case, we don't have any precious data to save and restore
- yet so we'll go the easy route of either using schema-update or schema-export.
+ yet so we'll go the easy route of either using 
+\emph on
+schema-update
+\emph default
+ or 
+\emph on
+schema-export
+\emph default
+.
  JMatter places the script template 
 \emph on
 dump_db.sh
@@ -4644,11 +4626,7 @@ identities
 \end_layout
 
 \begin_layout LyX-Code
-public static String[] identities = {
-\begin_inset Quotes erd
-\end_inset
-
-name"};
+public static String[] identities = {"name"};
 \end_layout
 
 \begin_layout Standard
@@ -4662,8 +4640,14 @@ fieldOrder
 \end_layout
 
 \begin_layout Standard
-There's another way.
- You can edit the file 
+In this case, it happens to a coincidence that the fields we wanted to mark
+ as required also happened to be unique (i.e.
+ you should definitely not go about marking fields unique for the purpose
+ of making the user interface treat them as required fields).
+\end_layout
+
+\begin_layout Standard
+To mark fields as required, edit the file 
 \emph on
 resources/model-metadata.properties
 \emph default
@@ -4695,7 +4679,46 @@ Now JMatter will give you built-in validation support in the user interface:
 \end_layout
 
 \begin_layout Enumerate
-Required fields' captions are automatically styled in blue;
+Required fields' captions are automatically styled in blue; (you can change
+ the styling of required fields by modifying the file 
+\emph on
+resources/styles.css
+\emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+JMatter's 
+\emph on
+swing4css
+\emph default
+ module is at present fairly simple and supports only a handful of properties
+ including 
+\emph on
+color
+\emph default
+, 
+\emph on
+background-color
+\emph default
+, 
+\emph on
+font-weight
+\emph default
+, 
+\emph on
+font-style
+\emph default
+, and a few others.
+ I anticipate the next version of JMatter will have more complete support
+ for CSS (with some differences to accomodate the fact that we're targeting
+ a Swing application).
+\end_layout
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Enumerate
@@ -4719,7 +4742,6 @@ Figure
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -4760,6 +4782,12 @@ I attempted to create a new Artist, leaving the name blank.
 \emph default
  that we can override in any of our types to specify more complex validation
  rules that have dependencies on multiple fields.
+ For a more complete treatment of validation in JMatter, see chapter 
+\begin_inset LatexCommand \ref{cha:Validation}
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -4770,11 +4798,18 @@ A word about the model-metadata.properties File
 Although the mechanism of specifying model metadata in a text file may continue
  to exist in the future, it is the goal of the JMatter framework to move
  all of that work directly into the GUI.
- That is, whether a field is required, a field's default value, its caption
- and more will all be entered in the same way one enters the username for
- a new User.
+ Whether a field is required, a field's default value, its caption and more
+ will all be entered in the same way one enters the username for a new User.
  The intent is for Field types (and meta-types in general) to become full-fledge
 d JMatter objects, with a GUI, editability, and so on.
+\end_layout
+
+\begin_layout Standard
+One can definitely imagine a new role for a JMatter user: the configuration
+ manager, who uses a JMatter application to configure a JMatter application
+ before releasing it to its user population.
+ In fact, I recall reading early versions of the J2EE specification years
+ ago where they outlined a number of roles in application development.
 \end_layout
 
 \begin_layout Section
@@ -4783,12 +4818,12 @@ Behaviour
 
 \begin_layout Standard
 So far, we seem to have nice, working model for a music application: we
- can create song definitions, album definitions, associate them.
+ can create songs, albums, associate them.
  We can define artists like the famous 
 \emph on
 Shlomo Artzi
 \emph default
- etc..
+ for example.
 \end_layout
 
 \begin_layout Standard
@@ -4801,8 +4836,8 @@ This modeling is important, don't get me wrong.
 \end_layout
 
 \begin_layout Standard
-So, we've just defined some additional work: we'd like to be able to play
- songs and we'd like to be able to import songs listings.
+So, we've just defined some additional work for ourselves: we'd like to
+ be able to play songs and we'd like to be able to import songs listings.
 \end_layout
 
 \begin_layout Standard
@@ -4869,7 +4904,7 @@ And add the new field to our fieldOrder array:
 
 \begin_layout Standard
 It sure would be nice to construct a song in a single line, so let's add
- this construcotr:
+ this constructor:
 \end_layout
 
 \begin_layout LyX-Code
@@ -5047,11 +5082,11 @@ The Matrix
 \end_layout
 
 \begin_layout LyX-Code
-ant schema-export
+$ ant schema-expor
 \end_layout
 
 \begin_layout LyX-Code
-ant run
+$ ant run
 \end_layout
 
 \begin_layout LyX-Code
@@ -5059,8 +5094,8 @@ ant run
 \end_layout
 
 \begin_layout Standard
-On my machine, Ubuntu thought for maybe 2-3 seconds while it loaded the
- mp3 song and then started playing 
+On my machine, Ubuntu took perhaps 2-3 seconds to load the mp3 song and
+ then started playing 
 \emph on
 Amour Perdu
 \emph default
@@ -5078,7 +5113,6 @@ Adamo
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -5125,8 +5159,13 @@ FileEO
 
 \begin_layout Standard
 JMatter provides editors for all kinds of basic types including Files.
- Our path was of type FileEO and so when I'm ready to assign a path to a
- song, JMatter will give me a JFileChooser.
+ Our path was of type 
+\emph on
+FileEO
+\emph default
+.
+ This implies to the user interface to use the designated editor for the
+ type FileEO when selecting a song: a File Chooser.
  Simple enough.
 \end_layout
 
@@ -5136,17 +5175,20 @@ Commands
 
 \begin_layout Standard
 Exposing commands on types in JMatter is as simple as exposing types.
- A method maps to a command just as a class maps to a type.
- The convention to follow if one desires to expose a command to the GUI
- is to decorate the method with the 
+ A command in the user interface maps to a method implementation on my class,
+ just as a type in the ui is implemented via a Java class.
+ The convention to follow for commands is to decorate the method with the
+ 
 \emph on
 @Cmd
 \emph default
  annotation.
- This annotation is currently defined to accept a number of options, including
- the mnemonic character that the user interface will use to make the command
- more keyboard-accessible.
- There's one additional requirement, that these methods take a CommandInfo
+ This annotation accepts a number of options, including the mnemonic character
+ that the user interface will use to make the command keyboard-accessible.
+ There's one additional requirement, that these methods take a 
+\emph on
+CommandInfo
+\emph default
  argument.
  We don't actually need that information in this particular case but there
  exist situations when we do.
@@ -5199,7 +5241,26 @@ vmech()
 \emph on
 onMessage()
 \emph default
- signals to the view mechanism to display a bit of text to the status bar.
+ signals to the view mechanism to display a bit of text to the status bar
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+Status bar messages have a usability issue in that they're often not noticed
+ because of their location on the screen.
+ A much better solution (which Jef Raskin discusses in his book, and which
+ we see these days effectively implemented on the MacOS) is to use a semitranspa
+rent message using a large font that displays right on top of our current
+ locus of attention, and that automatically dismisses itself perhaps 2 seconds
+ later.
+ I plan to perhaps replace the status bar with such a solution in a future
+ version of JMatter.
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -5225,12 +5286,12 @@ JMatter tries to do this in good taste.
 \end_layout
 
 \begin_layout Standard
-It's time to deal MyTunes its final blow: let's implement a mechanism for
- importing songs from our iTunes library.
+Let's proceed and implement our second task: a mechanism for importing songs
+ from our iTunes library.
 \end_layout
 
 \begin_layout Section
-The Final Blow
+Importing Songs
 \end_layout
 
 \begin_layout Standard
@@ -5254,15 +5315,39 @@ Scan From Base Path
 \end_layout
 
 \begin_layout LyX-Code
-   @Cmd
+@Cmd
 \end_layout
 
 \begin_layout LyX-Code
-   public static Object ScanFromBasePath(CommandInfo cmdInfo,
+public static Object ScanFromBasePath(CommandInfo cmdInfo,
 \end_layout
 
 \begin_layout LyX-Code
-                                         @Arg("Base Path") FileEO basePath)
+                                      @Arg("Base Path") FileEO basePath)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   if (!basePath.fileValue().isDirectory())
+\end_layout
+
+\begin_layout LyX-Code
+      return "You must specify a directory as the base path";
+\end_layout
+
+\begin_layout LyX-Code
+   List songFiles = basePath.listRecursive(mp3Filter);
+\end_layout
+
+\begin_layout LyX-Code
+   Set songs = new HashSet();
+\end_layout
+
+\begin_layout LyX-Code
+   for (int i=0; i<songFiles.size(); i++)
 \end_layout
 
 \begin_layout LyX-Code
@@ -5270,51 +5355,7 @@ Scan From Base Path
 \end_layout
 
 \begin_layout LyX-Code
-      if (!basePath.fileValue().isDirectory())
-\end_layout
-
-\begin_layout LyX-Code
-         return "You must specify a directory as the base path";
-\end_layout
-
-\begin_layout LyX-Code
-      List songFiles = basePath.listRecursive(mp3Filter);
-\end_layout
-
-\begin_layout LyX-Code
-      Set songs = new HashSet();
-\end_layout
-
-\begin_layout LyX-Code
-      for (int i=0; i<songFiles.size(); i++)
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         songs.add(new Song((File) songFiles.get(i)));
-\end_layout
-
-\begin_layout LyX-Code
-      }
-\end_layout
-
-\begin_layout LyX-Code
-      HBMSingleSession pmech = (HBMSingleSession)
-\end_layout
-
-\begin_layout LyX-Code
-            AppFactory.getInstance().getApp().getPersistenceMechanism();
-\end_layout
-
-\begin_layout LyX-Code
-      pmech.saveMany(songs);
-\end_layout
-
-\begin_layout LyX-Code
-      return "Finished importing MP3s";
+      songs.add(new Song((File) songFiles.get(i)));
 \end_layout
 
 \begin_layout LyX-Code
@@ -5326,7 +5367,43 @@ Scan From Base Path
 \end_layout
 
 \begin_layout LyX-Code
-   private static FileFilter mp3Filter = new FileFilter()
+   HBMSingleSession pmech = (HBMSingleSession)
+\end_layout
+
+\begin_layout LyX-Code
+         Context.getInstance().getPersistenceMechanism();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   pmech.saveMany(songs);
+\end_layout
+
+\begin_layout LyX-Code
+   return "Finished importing MP3s";
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+private static FileFilter mp3Filter = new FileFilter()
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public boolean accept(File file)
 \end_layout
 
 \begin_layout LyX-Code
@@ -5334,23 +5411,15 @@ Scan From Base Path
 \end_layout
 
 \begin_layout LyX-Code
-      public boolean accept(File file)
+      return file.getName().toLowerCase().endsWith(".mp3");
 \end_layout
 
 \begin_layout LyX-Code
-      {
+   }
 \end_layout
 
 \begin_layout LyX-Code
-         return file.getName().toLowerCase().endsWith(".mp3");
-\end_layout
-
-\begin_layout LyX-Code
-      }
-\end_layout
-
-\begin_layout LyX-Code
-   };
+};
 \end_layout
 
 \begin_layout LyX-Code
@@ -5368,14 +5437,18 @@ Our method is defined as static to ensure that our command is added to the
 \end_layout
 
 \begin_layout Enumerate
-Next, we see that we use the same little trick of returning a bit of String
- if the specified path is not a directory.
+Next, we see that we use the same little trick of returning a string if
+ the specified path is not a directory.
  So the user will get an error message when they pick a base path that is
  invalid.
 \newline
 Wait a minute.
  Where or when did we tell JMatter to give us a base path? Notice that the
- command method takes an additional argument of type FileEO.
+ command method takes an additional argument of type 
+\emph on
+FileEO
+\emph default
+.
  When this command is invoked, JMatter will see that this method needs a
  path and will prompt the user for it.
 \end_layout
@@ -5387,7 +5460,11 @@ Look towards the bottom of the listing: we're defining a plain old Java
 \emph on
 listRecursive()
 \emph default
- on FileEO, passing in the file filter.
+ on 
+\emph on
+FileEO
+\emph default
+, passing in the file filter.
  Now we have a listing of all the mp3 files nested inside the base directory.
 \end_layout
 
@@ -5399,11 +5476,12 @@ Now all we need to do is create a Song object for each file and save all
 
 \begin_layout Standard
 Let's try this out.
- We don't need to sync with the database this time, just re-run the app:
+ No persistence-related changes have taken place so we can just re-run our
+ app:
 \end_layout
 
 \begin_layout LyX-Code
-ant run
+$ ant run
 \end_layout
 
 \begin_layout Standard
@@ -5421,7 +5499,6 @@ Scan From Base Path
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -5484,8 +5561,12 @@ javax.sound
  Finally, we discover that JMF itself has been in maintenance mode for a
  number of years now.
  Some advocate using Apple's QuickTime for Java API (QTJ).
- I personally have an issue with using QTJ as it's not a true multi-platform
- solution: it'll work only on proprietary systems such as MacOSX and Windows.
+ I personally have an issue with using QTJ: it doesn't run on my computer.
+ That is, Apple does not write their APIs or software applications to run
+ on GNU/Linux, even though they had no qualms about pillaging open source
+ code for their operating system kernel, or for their Safari web browser,
+ just to name a few.
+ I suppose giving is a one-way street.
 \end_layout
 
 \begin_layout Standard
@@ -5498,7 +5579,8 @@ Replace our audio playing implementation with one that is based on the Java
 \end_layout
 
 \begin_layout Enumerate
-Add a second import implementation that interprets iTunes' XML metafile
+Write a second, alternative import implementation that interprets iTunes'
+ XML metafile
 \end_layout
 
 \begin_layout Enumerate
@@ -5510,12 +5592,15 @@ Revise our model to define the notion of a current playlist, add a command
 
 \begin_layout Standard
 It turns out that if we discard the Java Sound API and the MP3 provider
- interface we downloaded, and instead use the JLayer library and its API,
- we get beautiful mp3 streaming for free in Java.
+ interface we downloaded, and instead use the 
+\emph on
+JLayer
+\emph default
+ library and its API, we get beautiful mp3 streaming for free in Java.
  The MyTunes demo application in the JMatter distribution was revised to
  use JLayer directly and mp3 files of all sizes play immediately without
  consuming gobs of memory.
- I leave the study of the final application as an exercise.
+ I leave the study of the final application to you as an exercise.
 \end_layout
 
 \begin_layout Standard
@@ -5542,7 +5627,6 @@ quick search
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -5617,7 +5701,9 @@ We discover that we wrote our music player in under 200 lines of code! That's
  readable.
  That's workable.
  But not just 200 lines of code: a full-fledged music player in under an
- hour? That's a paradigm shift.
+ hour? 
+\series bold
+That's a paradigm shift.
 \end_layout
 
 \begin_layout Standard
@@ -5630,9 +5716,13 @@ We learned how to setup our project in an IDE.
 
 \begin_layout Enumerate
 We've learned the basic class template for our business objects in JMatter:
- our classes extend AbstractComplexEObject, they have aggregate properties
- that follow the ValueHolder pattern, and they have associations to other
- objects that follow the JavaBeans accessor-mutator pattern.
+ our classes extend 
+\emph on
+AbstractComplexEObject
+\emph default
+, they have aggregate properties that adhere to the ValueHolder pattern,
+ and they have associations to other objects that follow the JavaBeans accessor-
+mutator pattern.
 \end_layout
 
 \begin_layout Enumerate
@@ -5659,9 +5749,8 @@ resources/images
 
 \begin_layout Enumerate
 We learned how to expose both instance and class (static) actions to the
- UI, again by following a specific method signature convention for command
- methods.
- We've also seen how JMatter can handle actions that take arguments.
+ UI.
+ We've also seen how to write actions that take arguments.
 \end_layout
 
 \begin_layout Enumerate
@@ -5675,16 +5764,8 @@ We've also been exposed to a simple mechanism for specifying field metadata,
 \end_layout
 
 \begin_layout Standard
-Although we have indeed 
-\begin_inset Quotes eld
-\end_inset
-
-scratched the surface,
-\begin_inset Quotes erd
-\end_inset
-
- we're not even half-way down: jMatter bears many more features that we
- have yet to discuss and uncover.
+Although we have begun to dig deeper into this framework, there are many
+ more features that we have yet to discuss and uncover.
 \end_layout
 
 \begin_layout Standard
@@ -5692,7 +5773,11 @@ A small but useful additional feature that we're going to use in the next
  chapter is the ability to customize icons on a per-instance basis.
  That is, we can use the artist's photo as the basis for its icon in the
  MyTunes user interface; though we'll introduce this feature in the context
- of a new application, a Conference Manager.
+ of a new application, the Conference Manager 
+\emph on
+Sympster
+\emph default
+.
 \end_layout
 
 \begin_layout Standard
@@ -5866,7 +5951,7 @@ A Talk is given by a Speaker, who might have an entire portfolio of talks
 \begin_layout Standard
 We could also think about how such a software application might assist in
  the task of planning a new symposium, perhaps with scheduling sessions,
- printing agenda, etc..
+ printing agenda and other materials needed for the conference.
 \end_layout
 
 \begin_layout Section
@@ -5875,43 +5960,28 @@ Setting up the Project
 
 \begin_layout Standard
 Setting up our project should be a familiar task by now.
- Luckily, our little 
+ The demo application in JMatter that corresponds to this chapter is called
+ 
 \emph on
-new-project
+Sympster
 \emph default
- ant target does most of the work for us:
+.
 \end_layout
 
 \begin_layout LyX-Code
-ant new-project -Dnew.project.name=Sympster
+$ cd jmatter
 \end_layout
 
 \begin_layout LyX-Code
-cd Sympster
-\end_layout
-
-\begin_layout Standard
-And we also have to create a database..
+$ ant new-project-ui
 \end_layout
 
 \begin_layout LyX-Code
-createdb -U postgres sympster
+...
 \end_layout
 
 \begin_layout LyX-Code
-createuser -U postgres sympster
-\end_layout
-
-\begin_layout LyX-Code
-vi resources/hibernate.properties
-\end_layout
-
-\begin_layout LyX-Code
-[edit the connection parameters]
-\end_layout
-
-\begin_layout LyX-Code
-:wq
+$ cd ../Sympster
 \end_layout
 
 \begin_layout Standard
@@ -5971,11 +6041,9 @@ resources/images
 \end_layout
 
 \begin_layout Enumerate
-specify the fully-qualified type name in app-config.xml
-\end_layout
-
-\begin_layout Enumerate
-specify the fully-qualified type name in class-list.xml
+for startup ease, specify the fully-qualified type name in 
+\emph on
+src/com/u2dclass-list.xml
 \end_layout
 
 \begin_layout Subsection
@@ -6007,7 +6075,15 @@ import com.u2d.type.atom.StringEO;
 \end_layout
 
 \begin_layout LyX-Code
+import com.u2d.persist.Persist;
+\end_layout
 
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -6051,7 +6127,11 @@ public class Symposium extends AbstractComplexEObject
 \end_layout
 
 \begin_layout Standard
-We're extending from the base class AbstractComplexEObject.
+We're extending the base class 
+\emph on
+AbstractComplexEObject
+\emph default
+.
  We defined a single field so far: the symposium's name.
  We have a getter method for the 
 \emph on
@@ -6062,7 +6142,7 @@ name
 title()
 \emph default
  method.
- The only new bit is the optional implementation of the static method 
+ The new bit is the optional implementation of the static method 
 \emph on
 pluralName()
 \emph default
@@ -6070,8 +6150,8 @@ pluralName()
  The default derivation of the plural name for Symposium is not intelligent
  enough in this case so we provide it.
  We've already seen how a type's plural name is used in JMatter's user interface
-: the title for each entry in the class bar uses it; the title bar for listings
- also displays the list item type's plural name.
+: each entry in the classbar displays it; the titlebar for listings also
+ displays the list item type's plural name.
 \end_layout
 
 \begin_layout Subsection
@@ -6123,7 +6203,15 @@ import com.u2d.list.RelationalList;
 \end_layout
 
 \begin_layout LyX-Code
+import com.u2d.persist.Persist;
+\end_layout
 
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -6275,7 +6363,15 @@ import com.u2d.type.atom.TextEO;
 \end_layout
 
 \begin_layout LyX-Code
+import com.u2d.persist.Persist;
+\end_layout
 
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -6405,7 +6501,15 @@ import com.u2d.type.atom.StringEO;
 \end_layout
 
 \begin_layout LyX-Code
+import com.u2d.persist.Persist;
+\end_layout
 
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -6457,8 +6561,7 @@ The Session Class
 \emph on
 Session
 \emph default
- is a little more interesting, as it acts as an association class relating
- talks in specific rooms or locations:
+ is a little more interesting, as it relates Talk and Room entities.
 \end_layout
 
 \begin_layout LyX-Code
@@ -6482,7 +6585,15 @@ import com.u2d.type.atom.TimeSpan;
 \end_layout
 
 \begin_layout LyX-Code
+import com.u2d.persist.Persist;
+\end_layout
 
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -6657,11 +6768,11 @@ Let's take our first-draft for a spin:
 \end_layout
 
 \begin_layout LyX-Code
-ant schema-export
+$ ant schema-export
 \end_layout
 
 \begin_layout LyX-Code
-ant run
+$ ant run
 \end_layout
 
 \begin_layout Standard
@@ -6683,7 +6794,6 @@ admin
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -6740,7 +6850,6 @@ New
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -6811,7 +6920,6 @@ Here is a snapshot of my screen after creating and setting a session:
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -6928,7 +7036,7 @@ Let's check out our application with the changes in place.
 \end_layout
 
 \begin_layout LyX-Code
-ant run
+$ ant run
 \end_layout
 
 \begin_layout Standard
@@ -6948,7 +7056,6 @@ Speaker
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -7306,8 +7413,8 @@ public Class defaultCalEventType() { return Session.class; }
 \end_layout
 
 \begin_layout Standard
-We need to implement the method schedulables(), which returns a list of
- all the resources that this calendar maintains.
+We implement the method schedulables(), which returns a list of all the
+ resources that this calendar maintains.
  If each symposium had its own venue, the implementation would simply have
  been:
 \end_layout
@@ -7340,7 +7447,7 @@ Let's look at what we get in return for our efforts.
 \end_layout
 
 \begin_layout LyX-Code
-ant run
+$ ant run
 \end_layout
 
 \begin_layout Standard
@@ -7471,6 +7578,9 @@ I think you'll agree that here again, JMatter provides tremendous leverage.
  different applications that span entirely different business domains.
  As the features of this calendar improve, all JMatter applications will
  inherit these improvements.
+ One more time we ask you to compare the effort required to build such a
+ feature traditionally into an existing software application and what it
+ took to integrate scheduling into Sympster here.
 \end_layout
 
 \begin_layout Subsection
@@ -7533,7 +7643,18 @@ CalEvent
 \emph default
 .
  As we refine jMatter's calendaring feature further, we expect this requirement
- to be removed.
+ to be removed
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+One area worth researching JVM-compatible programming languages which support
+ features such as mixins or traits
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -7595,24 +7716,12 @@ venue.getRooms()
 \end_layout
 
 \begin_layout Enumerate
-Add 
-\emph on
-Venue, Hotel, ConferenceCenter, 
-\emph default
-and
-\emph on
- Campus
-\emph default
- to our app-config file (followed by an 
-\emph on
-ant schema-update
-\emph default
-)
+Update our schema
 \end_layout
 
 \begin_layout Enumerate
 Possibly add one or more of these new types to one of our Class Bar subfolders
- (edit the Class Bar directly from the GUI)
+ (or edit the Class Bar directly from the GUI)
 \end_layout
 
 \begin_layout Standard
@@ -7723,30 +7832,6 @@ ConferenceCenter
 \end_layout
 
 \begin_layout Standard
-We also need to add these four types to our 
-\emph on
-app-config.xml
-\emph default
- file:
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.sympster.Venue</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.sympster.Hotel</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.sympster.Campus</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.sympster.ConferenceCenter</class>
-\end_layout
-
-\begin_layout Standard
 Finally, here are the changes I've made to 
 \emph on
 Symposium
@@ -7824,7 +7909,7 @@ And we should be ready to check out our application:
 \end_layout
 
 \begin_layout LyX-Code
-ant run
+$ ant run
 \end_layout
 
 \begin_layout Standard
@@ -7884,7 +7969,6 @@ Find
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -7927,14 +8011,28 @@ I hope you enjoyed this chapter.
 \end_layout
 
 \begin_layout Standard
-In summary, new features of JMatter covered in this chapter include: type
- color coding, using an image field as the basis for an instance's icon,
- calendaring, and polymorphic modeling.
+In summary, new features of JMatter covered in this chapter include:
+\end_layout
+
+\begin_layout Enumerate
+type color coding, 
+\end_layout
+
+\begin_layout Enumerate
+using an image field as the basis for an instance's icon, 
+\end_layout
+
+\begin_layout Enumerate
+calendaring, and 
+\end_layout
+
+\begin_layout Enumerate
+polymorphic modeling.
 \end_layout
 
 \begin_layout Standard
-Let's do our due diligence once again and get a measure of the amount of
- leverage we got out of JMatter in this application:
+Let's do our due diligence once again and get a feel for the amount of leverage
+ we derived from JMatter in this application:
 \end_layout
 
 \begin_layout LyX-Code
@@ -7990,7 +8088,7 @@ Not bad.
 
 \begin_layout Standard
 In the next chapter we're finally going to take a look at the Issue Manager
- demo application, the one I boasted about in the introduction.
+ demo application, the one referenced in the introduction.
  We'll be focusing on JMatter's support for objects with lifecycles.
 \end_layout
 
@@ -13728,6 +13826,11 @@ Color coding is generally a very effective tool for improving a user interface.
 
 \begin_layout Subsection
 Icons
+\begin_inset LatexCommand \label{sub:Icons}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -13796,6 +13899,95 @@ UserLocked32.png
 .
  If for some reason a user is locked, an administrator viewing a list of
  users can easily spot the locked user.
+\end_layout
+
+\begin_layout Subsubsection
+Per-Instance Icons
+\end_layout
+
+\begin_layout Standard
+There are situations where one of the fields of a model object contains
+ a picture representing the instance in question.
+ Here are examples:
+\end_layout
+
+\begin_layout Enumerate
+An album's cover
+\end_layout
+
+\begin_layout Enumerate
+A person's photo (Sympster)
+\end_layout
+
+\begin_layout Enumerate
+An item's photo (say if you're developing an auction system)
+\end_layout
+
+\begin_layout Standard
+So far, all instances of a given type use the same icon.
+ Why not use a different icon per instance in such situations?
+\end_layout
+
+\begin_layout Standard
+The methods 
+\emph on
+iconLg() and iconSm()
+\emph default
+ which are instance methods on model objects, govern what icon is to be
+ used for an instance.
+ Simply override the implementations in your classes.
+ JMatter provides a utility class: 
+\emph on
+PhotoIconAssistant, 
+\emph default
+that takes the work out of properly scaling the photo to the right size
+ for an icon, on your behalf.
+ Here's an example of how this is done:
+\end_layout
+
+\begin_layout LyX-Code
+public class Speaker extends AbstractComplexEObject
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  ...
+\end_layout
+
+\begin_layout LyX-Code
+  public ImgEO getPhoto() { ...
+ }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+  private transient PhotoIconAssistant assistant = 
+\end_layout
+
+\begin_layout LyX-Code
+                        new PhotoIconAssistant(this, photo);
+\end_layout
+
+\begin_layout LyX-Code
+  public Icon iconLg() { return assistant.iconLg(); }
+\end_layout
+
+\begin_layout LyX-Code
+  public Icon iconSm() { return assistant.iconSm(); }
+\end_layout
+
+\begin_layout LyX-Code
+  ...
+\end_layout
+
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout Subsection
@@ -14851,6 +15043,11 @@ public String ChangePassword(CommandInfo cmdInfo,
 
 \begin_layout Chapter
 Validation
+\begin_inset LatexCommand \label{cha:Validation}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -15981,6 +16178,96 @@ This framework is all about you, the developer, not having to repeatedly
 \end_layout
 
 \begin_layout Chapter
+Summary
+\end_layout
+
+\begin_layout Standard
+I've read many books relating to software development, or documenting various
+ software frameworks.
+ Many of these books do a great thing: they try to teach by example.
+ And so they come up with a sample or tutorial application and throughout
+ the book, make incremental changes to the tutorial application as a means
+ of illustrating the workings of the framework or libraries that the book
+ attempts to teach.
+\end_layout
+
+\begin_layout Standard
+In the manual that you are reading at the moment, I have also tried to teach
+ by example.
+ What strikes me is that that in the process we have built four applications,
+ not one.
+ Furthermore, I claim that the resulting applications are more functional,
+ and bear more features than any of the sample applications you might encounter
+ in most other books.
+ This is not an attempt to boast about this manual.
+\end_layout
+
+\begin_layout Standard
+I sincerely believe that JMatter is not just another framework.
+ I named this framework JMatter because I felt it had tremendous substance,
+ and that this work matters.
+\end_layout
+
+\begin_layout Standard
+Anyone that's attempted to build more than one business software application
+ realizes that there exist many commonalities between the various applications,
+ and wishes that somehow these commonalities were refactored.
+ We often find ourselves either hearing or saying
+\emph on
+ 
+\begin_inset Quotes eld
+\end_inset
+
+It's a simple change, except that I have to make it across 200 templates,
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+how we can factor these commonalities into one place so we can reuse them
+ on the next project?
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Most existing implementations I have seen are implemented in such a way
+ that many of the supposed generic aspects of a software application are
+ hopelessly coupled to the only part that I believe should change: the domain
+ model.
+ And so the generic parts cannot be segregated from the model, and are made
+ to be written over again on the next project, only increasing the complexity
+ of having to manage the various solutions we implement for our customers.
+\end_layout
+
+\begin_layout Standard
+Since open-sourcing JMatter in June of 2006, I cannot tell you how many
+ comments I've received from many other developers who have had these same
+ ideas.
+ Some have worked on their own solutions but the task is dauntingly large.
+ I believe together we can make our shared vision of a better system for
+ building solutions a reality.
+\end_layout
+
+\begin_layout Standard
+JMatter stands on the shoulder of giants.
+ Many of these ideas stem from learning about systems such as smalltalk's
+ Squeak system, and the book NakedObjects, to which I am indebted.
+\end_layout
+
+\begin_layout Standard
+What you have in your hands is only the beginning.
+ Spread the word, contribute to this project, and let's make this vision
+ a reality.
+\end_layout
+
+\begin_layout Chapter
 \start_of_appendix
 Keyboard Shortcuts
 \end_layout
@@ -16982,6 +17269,16 @@ TODO: Customize App Name Here
 [tbd - task: collect most relevant questions from mailing list, together
  with replies here.
  ]
+\end_layout
+
+\begin_layout Chapter
+Contributing to this project
+\end_layout
+
+\begin_layout Standard
+[tbd: spread the word about this project, join the mailing list, suggest
+ design improvements, contribute code, make a donation, buy a printed copy
+ of the book from lulu.com]
 \end_layout
 
 \begin_layout Standard
