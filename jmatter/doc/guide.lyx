@@ -8000,6 +8000,11 @@ Sympster Extended with Venues
 
 \end_layout
 
+\begin_layout Standard
+JMatter supports both inheritance-based polymorphism (as shown in this example)
+ and interface-based polymorphism.
+\end_layout
+
 \begin_layout Section
 Summary
 \end_layout
@@ -8119,9 +8124,9 @@ The central type in this application is the
 Issue
 \emph default
 .
- The interesting aspect of issues is that they do have a life cycle.
- Issues are created and assigned to developers.
- Developers accept the issue and begin working on a fix.
+ The interesting aspect of issues is that they have a life cycle.
+ An Issue is created and assigned to a developer.
+ The developer accepts the issue and begins working on a fix.
  After resolving the issue, the person who opened the issue verifies that
  the resolution is indeed satisfactory, and proceeds to close the issue.
  If the issue is not resolved to satisfaction, the issue can be reopened.
@@ -8273,9 +8278,8 @@ Getting Started
 \begin_layout Standard
 We're about to start building our fourth application.
  Since we've done this together three times already, I'm not going to walk
- you through the steps of creating a new project, creating a database, entering
- the database connection information, etc..
- Please refer to previous chapters for specific instructions.
+ you through the steps of creating a new project and configuring it Please
+ refer to previous chapters for specific instructions.
  I named my application 
 \emph on
 IssueMgr
@@ -8576,7 +8580,11 @@ Ok, it looks like we have a fairly complete list of fields to start with.
 \end_layout
 
 \begin_layout Standard
-I need to show you the context within which all this code is written:
+Here is the context within which all this code is written:
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -8604,7 +8612,7 @@ public class Issue extends AbstractComplexEObject
 \end_layout
 
 \begin_layout LyX-Code
-
+   ...
 \end_layout
 
 \begin_layout LyX-Code
@@ -8647,15 +8655,34 @@ AbstractComplexEObject
 \end_layout
 
 \begin_layout Standard
-If you like, you're welcome to go ahead and add 
+We normally do not edit 
 \emph on
-Issue
+src/persistClasses.st
 \emph default
- to our 
+ by hand: the 
 \emph on
-app-config
+@Persist
 \emph default
- file, export the schema, run the application and create a few issues.
+ annotation takes care to add Issue to the list automatically.
+ However here we're using a predefined entity Note and for it we do need
+ to manually add an entry to our persistClasses.st file, like so:
+\end_layout
+
+\begin_layout LyX-Code
+..
+\end_layout
+
+\begin_layout LyX-Code
+<value>com.u2d.type.composite.Note</value>
+\end_layout
+
+\begin_layout LyX-Code
+..
+\end_layout
+
+\begin_layout Standard
+We can now generate and export our schema, run the application and create
+ a few issues.
 \end_layout
 
 \begin_layout Section
@@ -8725,7 +8752,7 @@ We have identified five states and they're not likely to change.
 ChoiceEO
 \emph default
 .
- Here is the implementaiton of the contract to define the 
+ Here is the implementation of the contract to define the 
 \emph on
 IssueState
 \emph default
@@ -8972,6 +8999,12 @@ Notice that the convention for defining commands on these states is the
  same as the mechanism used for defining commands in general.
  The difference is that JMatter will ensure that these commands are accessible
  in a valid state.
+ The 
+\emph on
+@Arg
+\emph default
+ annotations are a means of specifying the captions used to prompt the end
+ user for each of the method parameters.
 \end_layout
 
 \begin_layout Standard
@@ -9197,10 +9230,6 @@ private void transition(State state, LoggedEvent evt)
 \end_layout
 
 \begin_layout LyX-Code
-   firePropertyChange("icon", null, null);
-\end_layout
-
-\begin_layout LyX-Code
    persistor().updateAssociation(this, evt);
 \end_layout
 
@@ -9212,14 +9241,18 @@ private void transition(State state, LoggedEvent evt)
 We see here that the logged event is added to the history field, the state
  transition takes place, the status field is updated accordingly (kept in
  sync with the issue's state).
- I'm also firing a property change event.
- This is interesting and deserves further discussion.
+ The final statement ensures that the updated issue and its association
+ to the newly created logged event are saved to the database.
+\end_layout
+
+\begin_layout Section
+Per-State Icons
 \end_layout
 
 \begin_layout Standard
-Up until now, you've been told that for each type of object you define in
- JMatter, that JMatter will look for an image file with a specific naming
- convention to use to represent objects of that type.
+Up until now, you've been told that for each type of object you define,
+ that JMatter will look for an image file with a specific naming convention
+ to use to represent objects of that type.
  This is true, but it's not the whole story.
 \end_layout
 
@@ -9266,7 +9299,6 @@ resources/images
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -9285,7 +9317,7 @@ status collapsed
 \end_layout
 
 \begin_layout Caption
-State-Specific Icon Support in DoS
+State-Specific Icon Support
 \begin_inset LatexCommand \label{cap:State-Specific-Icon-Support}
 
 \end_inset
@@ -9298,20 +9330,6 @@ State-Specific Icon Support in DoS
 
 \end_layout
 
-\begin_layout Standard
-Firing a propertychange event ensures that the user interface is notified
- that the state of our object has changed and that its icon should be updated.
-\end_layout
-
-\begin_layout Standard
-Getting back to the implementation of 
-\emph on
-transition()
-\emph default
-, the final statement ensures that the updated issue and its association
- to the newly created logged event are all saved to the database.
-\end_layout
-
 \begin_layout Section
 Additional Metadata
 \end_layout
@@ -9322,8 +9340,7 @@ We've defined a number of commands, such as
 Fix(CommandInfo cmdInfo, StringEO fix, TextEO description)
 \emph default
 .
- It would be nice if we could customize the captions for the two arguments
- 
+ We customized the captions for the two arguments 
 \emph on
 fix
 \emph default
@@ -9333,11 +9350,11 @@ description
 \emph default
  so the end user is clear about what information he or she will have to
  enter.
- We do this by annotating the method's arguments with 
+ We did this by annotating the method's arguments with 
 \emph on
 @Arg
 \emph default
- annotations, as in this example:
+ annotations, like this:
 \end_layout
 
 \begin_layout LyX-Code
@@ -9394,8 +9411,8 @@ owner
 \emph default
  of a command.
  A command's owner is the only user who will be allowed to invoke it.
- JMatter will not even display the command's buttons and menu items to any
- other user.
+ JMatter will not even display the command's views (a button or a menu item)
+ to any other user.
  Here's how this is done:
 \end_layout
 
@@ -9689,16 +9706,17 @@ Issue Categories
 
 \begin_layout Standard
 Our implementation of Issue is now complete.
- Make sure you have the fully qualified class name specified in both xml
- config files.
- This last part is optional.
- It consists of adding one more class to our application: an issue category.
+ Let's add one last feature.
  It might be helpful to define various categories of issues and classify
  issues according to these categories.
 \end_layout
 
 \begin_layout Standard
 The first thing we do is define an issue category type:
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
 \end_layout
 
 \begin_layout LyX-Code
@@ -9723,6 +9741,25 @@ public class IssueCategory extends AbstractComplexEObject
 
 \begin_layout LyX-Code
 
+\end_layout
+
+\begin_layout LyX-Code
+   public Title title() { return _name.title(); }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Nothing fancy here.
+ An issue category is defined to have a single field: a name.
+\end_layout
+
+\begin_layout Standard
+Rather than define a to-many relationship to issue, I'm going to add a command
+ that will fetch the category's issues from the database and return a paged
+ list:
 \end_layout
 
 \begin_layout LyX-Code
@@ -9769,20 +9806,22 @@ public class IssueCategory extends AbstractComplexEObject
    }
 \end_layout
 
-\begin_layout LyX-Code
-   public Title title() { return _name.title(); }
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
 \begin_layout Standard
-Nothing fancy here.
- An issue category is defined to have a single field: a name.
- Rather than defining a to-many relationship to issue, I'm adding a command
- that will fetch a category's issues from the database and return a paged
- list.
+I'm not entirely satisfied with the implementation.
+ I'd like to be able to use plain old hql or the hibernate api to define
+ this query.
+ The above uses JMatter's own API for defining queries, which basically
+ says: 
+\emph on
+fetch all issues where the category equals 
+\begin_inset Quotes eld
+\end_inset
+
+this
+\begin_inset Quotes erd
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -9845,11 +9884,7 @@ fieldOrder
 
 \begin_layout Standard
 That's it for the coding.
- Make sure to ass IssueCategory to 
-\emph on
-app-config.xml
-\emph default
-, update the schema and let's run the application.
+ Make sure to update the schema and let's run the application.
 \end_layout
 
 \begin_layout Section
@@ -9878,8 +9913,8 @@ Figure
 \end_inset
 
  below shows the issue manager in action.
- I'm listing all issues to illustrate how the issue's icon reflects the
- state it's in (the ones with a lock are closed, the ones with the pencil
+ I'm listing all issues to illustrate how the issue's icon reflects its
+ state (the ones with a lock are closed issues, the ones with the pencil
  are accepted, and supposedly, being worked on).
  I'm also showing two smart lists that I've created and that I often use
  to check out outstanding issues.
@@ -9887,7 +9922,6 @@ Figure
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -9959,10 +9993,10 @@ Three classes totalling 300 lines of code.
  The current state of lifecycle support in JMatter is pretty strong.
  Its implementation is a natural extension of the conventions already establishe
 d for simpler business objects.
- Nevertheless, I believe the implementation can be taken further and place
- even less requirements on the developer.
+ Nevertheless, I believe the implementation can be streamlined further and
+ place even less requirements on the developer.
  For example the requirement to add the various states to a state map could
- be performed by the framework.
+ be done by the framework.
 \end_layout
 
 \begin_layout Standard
@@ -9970,12 +10004,11 @@ In summary, support for business objects lifecycle is a necessary component
  of supporting the development of business applications in general.
  Many business objects naturally embody lifecycles, including orders (new,
  confirmed, fulfilled, etc..), visits (scheduled, canceled, confrimed, ongoing,
- archived), and others.
+ archived), etc..
 \end_layout
 
 \begin_layout Standard
-In the next chapter, we're going to take a look at the support that JMatter
- provides for:
+As its name implies, the next chapter will discuss JMatter's support for:
 \end_layout
 
 \begin_layout Enumerate
@@ -9995,8 +10028,8 @@ Wizards, CSV Export, and PDFs
 \end_layout
 
 \begin_layout Standard
-Remember our zero-code contact manager? Well, we're finally going to add
- some code to that application.
+Remember our zero-code contact manager? In this chapter we're going to actually
+ add code to that application.
  Many desktop applications today provide these software assistants, or wizards,
  to help newbie users through a task.
 \end_layout
@@ -10023,7 +10056,7 @@ Enter person's physical address
 \end_layout
 
 \begin_layout Enumerate
-Enter remainder of their contact information (phone numbers, email address)
+Enter remaining contact information (phone numbers, email address)
 \end_layout
 
 \begin_layout Enumerate
@@ -10050,7 +10083,7 @@ com.u2d.type.composite.Person
 .
  We want to enhance person with an additional behaviour: we want to add
  a command to launch our wizard.
- This should be a class command, not an instance command.
+ It should be a class command, not an instance command.
 \end_layout
 
 \begin_layout Standard
@@ -10136,7 +10169,7 @@ Wizard
  object.
  JMatter knows what to do with these objects, how to display them, allow
  the end user to navigate through them, etc..
- All you need to do is provide the wizard.
+ All you need to do is provide the steps.
 \end_layout
 
 \begin_layout Section
@@ -10590,217 +10623,22 @@ Running the Application
 \end_layout
 
 \begin_layout Standard
-Just as a reminder, here's my complete app-config.xml file:
+Let's run our app:
 \end_layout
 
 \begin_layout LyX-Code
-<?xml version="1.0"?>
-\end_layout
-
-\begin_layout LyX-Code
-<application name="Contact Manager">
-\end_layout
-
-\begin_layout LyX-Code
-   <view-mechanism>com.u2d.view.swing.SwingViewMechanism</view-mechanism>
-\end_layout
-
-\begin_layout LyX-Code
-   <look-and-feel>Metal</look-and-feel>
-\end_layout
-
-\begin_layout LyX-Code
-   <page-size>15</page-size>
-\end_layout
-
-\begin_layout LyX-Code
-   <persistence-mechanism>com.u2d.persist.HBMSingleSession</persistence-mechanism>
-\end_layout
-
-\begin_layout LyX-Code
-   <persist-classes>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.contactmgr.PersonContact</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.type.composite.Person</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.type.composite.Business</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.type.USState</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.type.composite.ContactMethod</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.type.composite.Folder</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.find.CompositeQuery</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.type.composite.LoggedEvent</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.app.User</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.app.Role</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.restrict.CommandRestriction</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.restrict.FieldRestriction</class>
-\end_layout
-
-\begin_layout LyX-Code
-      <class>com.u2d.restrict.Restriction</class>
-\end_layout
-
-\begin_layout LyX-Code
-   </persist-classes>
-\end_layout
-
-\begin_layout LyX-Code
-</application>
+$ ant run
 \end_layout
 
 \begin_layout Standard
-And here's my 
-\emph on
-class-list.xml
-\emph default
-:
-\end_layout
-
-\begin_layout LyX-Code
-<?xml version="1.0" encoding="UTF-8"?>
-\end_layout
-
-\begin_layout LyX-Code
-<folder>
-\end_layout
-
-\begin_layout LyX-Code
-   <name>Class List</name>
-\end_layout
-
-\begin_layout LyX-Code
-   <items>
-\end_layout
-
-\begin_layout LyX-Code
-      <folder>
-\end_layout
-
-\begin_layout LyX-Code
-         <name>Manager</name>
-\end_layout
-
-\begin_layout LyX-Code
-         <items>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.contactmgr.PersonContact</type>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.type.composite.Business</type>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.type.composite.Folder</type>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.find.CompositeQuery</type>
-\end_layout
-
-\begin_layout LyX-Code
-         </items>
-\end_layout
-
-\begin_layout LyX-Code
-      </folder>
-\end_layout
-
-\begin_layout LyX-Code
-      <folder>
-\end_layout
-
-\begin_layout LyX-Code
-         <name>Administrative</name>
-\end_layout
-
-\begin_layout LyX-Code
-         <items>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.app.User</type>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.type.composite.LoggedEvent</type>
-\end_layout
-
-\begin_layout LyX-Code
-           <type>com.u2d.model.ComplexType</type>
-\end_layout
-
-\begin_layout LyX-Code
-         </items>
-\end_layout
-
-\begin_layout LyX-Code
-      </folder>
-\end_layout
-
-\begin_layout LyX-Code
-   </items>
-\end_layout
-
-\begin_layout LyX-Code
-</folder>
-\end_layout
-
-\begin_layout Standard
-Let's export our schema and run our app:
-\end_layout
-
-\begin_layout LyX-Code
-ant schema-export
-\end_layout
-
-\begin_layout LyX-Code
-ant run
-\end_layout
-
-\begin_layout Standard
-I have included screenshots for the various steps in our simple wizard in
- the next five figures.
+The next five figures are screenshots for the various steps in our simple
+ wizard.
+ Note how the name, description, and view for each step are automatically
+ placed in their respective places on the wizard's window.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -10825,7 +10663,6 @@ status collapsed
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -10850,7 +10687,6 @@ status collapsed
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -10875,7 +10711,6 @@ status collapsed
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -10900,7 +10735,6 @@ status collapsed
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -10921,6 +10755,13 @@ status collapsed
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This coverage of wizards was meant to be an introduction to the topic.
+ JMatter's wizard framework is complete from the point of view that one
+ can produce wizards of any degree of complexity by combining basic steps,
+ composite steps, and conditional steps in various ways.
 \end_layout
 
 \begin_layout Section
@@ -10946,7 +10787,6 @@ Gnumeric
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -10978,7 +10818,7 @@ Note that this feature could be improved.
  It'd be even nicer if there a CSV export wizard walked you through the
  process, allowing you to select which fields to export, which to skip,
  and in what order to serialize them out to file.
- We hope to extend this CSV export feature in a future version of jMatter.
+ We hope to extend this CSV export feature in a future version of JMatter.
 \end_layout
 
 \begin_layout Section
@@ -10986,14 +10826,18 @@ JFreeReport Integration
 \end_layout
 
 \begin_layout Standard
-JFreeReport is an open source Java API for reporting; its home page is http://ww
-w.jfree.org/jfreereport/
+JFreeReport is an open source Java API for reporting; its home page is 
+\begin_inset LatexCommand \url{http://www.jfree.org/jfreereport/}
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 This API has been around for a number of years.
  It defines an xml vocabulary for laying out reports.
- It's somewhat difficult to describe in a one or two sentences what JFreeReport
+ It's somewhat difficult to describe in one or two sentences what JFreeReport
  is all about.
  Some of its characteristics are reminiscent of templating technologies
  where information from our applications can be merged with a the xml report
@@ -11104,7 +10948,7 @@ A Simple Example
 \begin_layout Standard
 Let's build a very simple report for our ContactManager application.
  The point of this section is not to provide documentation for JFreeReport.
- Rather, it's only to illustrate how the integration is done.
+ Rather, it's only to illustrate how the integration works.
 \end_layout
 
 \begin_layout Standard
@@ -11344,7 +11188,6 @@ The result of invoking this command from the JMatter user interface is the
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -11382,7 +11225,8 @@ In this chapter we've seen the ease with which we can integrate wizards
 
 \begin_layout Standard
 This wizard feature has already been used in other contexts to produce complex
- wizards, such as new patient forms at medical clinics.
+ wizards, that break down complex new patient forms at medical clinics into
+ a set of smaller steps.
  Most of us are too familiar with the amounts of information a patient or
  guarantor must enter when first visiting a medical institution (in the
  United States, at least).
@@ -11393,7 +11237,8 @@ The JMatter framework attempts to be as open as possible.
  Wizards are not the only way to inject custom user interface features into
  JMatter applications.
  JMatter was designed to allow you to write your own custom views for objects
- and plug them into your existing JMatter applications.
+ and plug them into your existing JMatter applications, which is the topic
+ of our next chapter.
 \end_layout
 
 \begin_layout Standard
@@ -11408,17 +11253,9 @@ n's data.
 \begin_layout Standard
 Finally, we also see that JMatter provides an avenue for producing PDFs
  by integrating and leveraging the open source JFreeReport API.
-\end_layout
-
-\begin_layout Standard
-In chapter 
-\begin_inset LatexCommand \ref{cha:Deploying-your-Application}
-
-\end_inset
-
-, we're going to learn how to deploy our applications to all our users.
- I hope you'll agree that here too, JMatter helps turn a difficult and complex
- job into a trivial task.
+ I've personally also written directly against the underlying iText PDF
+ library to produce and display PDFs directly as a consequence of a command
+ invocation.
 \end_layout
 
 \begin_layout Chapter
@@ -11435,7 +11272,7 @@ It's nice for a framework to support the automatic generation of views for
 \end_layout
 
 \begin_layout Standard
-jMatter's primary view mechanism at the moment is its Swing-based view mechanism.
+JMatter's primary view mechanism at the moment is its Swing-based view mechanism.
  Other view mechanisms might be constructed in the future, including possibly
  a web-based user interface, possibly a command-line user interface.
 \end_layout
@@ -11996,7 +11833,7 @@ detach
  A careless implementation can easily introduce a memory leak into the applicati
 on as views are created and their memory not reclaimed because they may
  still be attached to a model object whose lifetime is typically longer
- than its view's.
+ than its views'.
 \end_layout
 
 \begin_layout Standard
@@ -12036,7 +11873,7 @@ Atomic Views
 \end_layout
 
 \begin_layout Standard
-jMatter defines the notion of atomic types.
+JMatter defines the notion of atomic types.
  Examples include representations for booleans, dates, text, zip codes,
  social security number, percentages, integers, floats, etc..
  They're defined in the package 
@@ -12094,11 +11931,11 @@ public class BooleanRenderer extends JLabel implements AtomicRenderer
 \end_layout
 
 \begin_layout Standard
-jMatter defines the interface 
+The interface 
 \emph on
 AtomicRenderer
 \emph default
-, with essentially a single method.
+ has essentially a single method.
  You can ignore the 
 \emph on
 passivate()
@@ -12482,7 +12319,7 @@ public class BooleanRadioEditor extends JPanel implements AtomicEditor
 \end_layout
 
 \begin_layout Standard
-The jMatter codebase is full of examples of atomic editors and renderers.
+The JMatter codebase is rife with examples of atomic editors and renderers.
  Use them as the basis for creating your own implementations.
 \end_layout
 
@@ -12491,9 +12328,26 @@ Specifying the Default Editor and Renderer
 \end_layout
 
 \begin_layout Standard
-You control which type of renderer or editor to use as the default by revising
- the corresponding method for a given view mechanism.
- Assuming the 
+Specifying the default renderer and editor for a given type is straightforward.
+ JMatter defines the interface 
+\emph on
+ViewMechanism
+\emph default
+.
+ The Swing implementation of that interface is 
+\emph on
+SwingViewMechanism
+\emph default
+.
+ This interface defines a litany of methods that specify the components
+ for the entire user interface.
+ By revising the corresponding method for a given view mechanism, you control
+ the user interface.
+\end_layout
+
+\begin_layout Standard
+For our above implementations of a boolean editor and renderer, and assuming
+ the 
 \emph on
 SwingViewMechanism
 \emph default
@@ -12505,13 +12359,29 @@ getBooleanRenderer()
 \emph on
 BooleanEO
 \emph default
- type.
+ type:
+\end_layout
+
+\begin_layout LyX-Code
+   public AtomicRenderer getBooleanRenderer() { return new BooleanRenderer();
+ }
+\end_layout
+
+\begin_layout LyX-Code
+   public AtomicEditor getBooleanEditor() { return new BooleanRadioEditor();
+ }
 \end_layout
 
 \begin_layout Standard
 Of course, if you're going to be implementing a custom view for a more complex
  or composite object, then you're in complete control of the rendering and
  editing process.
+\end_layout
+
+\begin_layout Standard
+The framework's view mechanism in general is extremely modular.
+ It's easy to override one small aspect and plug it right into the existing
+ view mechanism to fundamentally change one aspect of the user interface.
 \end_layout
 
 \begin_layout Part
@@ -12528,7 +12398,7 @@ Dichotomy of a Model Object
 \end_layout
 
 \begin_layout Standard
-Let's being by taking a look at a very simple model for a Person:
+Let's begin by taking a look at a very simple model for a Person:
 \end_layout
 
 \begin_layout LyX-Code
@@ -12709,7 +12579,7 @@ Type commands can be defined by marking the method as static.
 \begin_layout Enumerate
 JMatter infers the type names and captions, member names and captions from
  our choice of class name, getter method name, and command method name.
- This work is done via run-time reflection in Java.
+ This is done via run-time reflection in Java.
 \end_layout
 
 \begin_layout Standard
@@ -12747,8 +12617,8 @@ From a persistence perspective, all types inherit three fields or pseudofields:
 \begin_inset Tabular
 <lyxtabular version="3" rows="4" columns="2">
 <features>
-<column alignment="center" valignment="top" leftline="true" width="1in">
-<column alignment="center" valignment="top" leftline="true" rightline="true" width="4in">
+<column alignment="left" valignment="top" leftline="true" width="1in">
+<column alignment="left" valignment="top" leftline="true" rightline="true" width="4in">
 <row topline="true" bottomline="true">
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -12893,8 +12763,8 @@ com.u2d.type.atomic.StringEO
 java.lang.String
 \emph default
 .
- Internally the frameworks' atomic fields are often a wrapper around a more
- primitive value.
+ Internally the frameworks' atomic type implementations are often a wrapper
+ for the more primitive value.
 \end_layout
 
 \begin_layout Standard
@@ -13010,7 +12880,7 @@ Password, Percent, Photo, SSN, StringEO, TextEO, TimeEO,
 \end_layout
 
 \begin_layout LyX-Code
-TimeInterval, URI, USDollar, USPhone, USZipCode.
+TimeInterval, TimeSpan, URI, USDollar, USPhone, USZipCode.
 \end_layout
 
 \begin_layout Standard
@@ -13132,7 +13002,7 @@ public CompositeList getLineItems() { return _orderItems; }
 \end_layout
 
 \begin_layout Standard
-Here's the constructor method signatgure:
+Here's the constructor method signature:
 \end_layout
 
 \begin_layout LyX-Code
@@ -13543,8 +13413,18 @@ public class FieldRestrictionType extends ChoiceEO
 \end_layout
 
 \begin_layout Standard
-Basically the way to define such enumerations is by extending the base type
- 
+We also wrote a ChoiceEO in chapter 
+\begin_inset LatexCommand \ref{cha:Issue-Manager}
+
+\end_inset
+
+ to define the various states for an 
+\emph on
+Issue
+\emph default
+.
+ Basically the way to define such enumerations is by extending the base
+ type 
 \emph on
 ChoiceEO
 \emph default
@@ -13566,8 +13446,12 @@ ComplexEObject
  database.
  These lists are more versatile in that one can define new entries, new
  choices as a system evolves.
- The framework provides full created/edit/delete capabilities for these
- types.
+ We developed an example implementation in the MyTunes tutorial chapter,
+ to define song genres.
+\end_layout
+
+\begin_layout Standard
+The framework provides full created/edit/delete capabilities for these types.
  They are defined by extending the type 
 \emph on
 AbstractChoiceEO
@@ -13657,9 +13541,9 @@ CommandInfo
 
 \begin_layout Standard
 Making the method static has the effect of defining the command on the type
- instead of instances.
+ instead of its instances.
  You can see the command action exposed as a context menu on the type in
- the Class Bar.
+ the classbar (or anywhere else, say after browsing types).
 \end_layout
 
 \begin_layout Standard
@@ -13732,7 +13616,12 @@ button on an instance of a user), he or she will first be prompted to enter
  In this case, the password editor takes care to properly validate the password
  before the method is ever invoked.
  So there's no need to perform any additional validation.
- See the chapter on validation for more information.
+ See chapter 
+\begin_inset LatexCommand \ref{cha:Validation}
+
+\end_inset
+
+ for more information.
 \end_layout
 
 \begin_layout Section
@@ -14275,6 +14164,11 @@ Alt-3
 
 \begin_layout Subsection
 Default Search Path
+\begin_inset LatexCommand \label{sub:dflt-searchpath}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -15963,14 +15857,639 @@ normal
 \end_layout
 
 \begin_layout Chapter
-Wizard Framework in Detail
+The Power User
 \end_layout
 
 \begin_layout Standard
-[tbd]
+This chapter details features of JMatter applications' user interfaces,
+ including many subtle features that aim to improve usability and users'
+ productivity.
+\end_layout
+
+\begin_layout Section
+Navigation
+\end_layout
+
+\begin_layout Subsection
+Window Placement
+\end_layout
+
+\begin_layout Standard
+JMatter takes a certain strategy relating to the placement of new windows
+ (internal frames) in its Graphical User Interface.
+\end_layout
+
+\begin_layout Standard
+I recall trying various window placement strategies and then realizing something
+ I was doing as a user of my applications: after creating a new view, I'd
+ quickly reach for the window's title bar and place the window where I really
+ wanted it.
+ I don't think there's an algorithm for guessing the user's intent.
+ So I started thinking about what might the next best thing be.
+\end_layout
+
+\begin_layout Standard
+The strategy was to minimize the amount of work one has to do in moving
+ the resulting window.
+ What I do is place new windows such that their title bars are near the
+ current mouse cursor location, thus minimizing the distance one would have
+ to move their mouse to reach for it.
+\end_layout
+
+\begin_layout Standard
+There's a somewhat hidden feature in JMatter which I very much like and
+ that I'd like to share.
+ This feature takes things one step further: it automatically puts the newly
+ created window in placement mode.
+ Allow me to explain..
+\end_layout
+
+\begin_layout Standard
+This feature requires pressing a metakey to communicate your intent to use
+ it: when you're about to invoke a command that creates a new view (e.g.
+ the "Open" command) , hold down the Control key.
+\end_layout
+
+\begin_layout Standard
+The resulting window automatically "binds" to your mouse location.
+ That is, it will follow your mouse.
+ So, the way it works is you invoke the command with the control key pressed
+ and the new view is created, but it starts following your mouse around.
+ Once you've found that ideal spot, a single left-click is all you need
+ to do to pin it back down onto the desktop.
+\end_layout
+
+\begin_layout Standard
+The following subsection discusses a major recent enhancement to GUI Navigation
+ in JMatter.
+\end_layout
+
+\begin_layout Subsection
+New View Placement Options
+\end_layout
+
+\begin_layout Standard
+JMatter GUIs are inherently OO UIs.
+ I like to make the analogy to our operating systems' desktops.
+ There are a number of ways to make such UIs more effective.
+ Sometimes I look to these desktop systems for ideas and features.
+\end_layout
+
+\begin_layout Standard
+One such feature was Apple's "Expose" which has since also been copied by
+ the Beryl project on Linux: the idea of scaling down and fanning out one's
+ windows temporarily for the purpose of easily switching focus to a window
+ that is otherwise hidden by other windows that have a higher z-index.
+ JMatter has such a feature.
+ Pressing the F12 key invokes the JExplose feature which does precisely
+ that (the desktop pane's context menu also bears the option).
+\end_layout
+
+\begin_layout Standard
+Another feature of desktop systems, one that has been around longer, and
+ is specifically related to the file manager, is the idea of giving users
+ options in terms of how to place newly-created views.
+ When navigating a folder hierarchy, one can double click on a folder, which
+ typically opens a new window with the contents of that folder.
+ Long ago, on ms-windows I recall always turning on the option of "re-using
+ the existing window"; that is, replacing the existing view with the new
+ one.
+ This can really help with an otherwise rapid proliferation of windows on
+ one's desktop.
+\end_layout
+
+\begin_layout Standard
+Then, mozilla introduced us to another navigation option: a sort of "middle
+ of the road" option: don't create a new window, but don't replace the existing
+ view either: place the new view in a new, separate tab.
+ So mozilla gave birth to tabbed browsing.
+ I believe tabbed-browsing is not a feature that applies only to the task
+ of navigating web pages; it can be applied more generally, including to
+ applications such as a file manager.
+\end_layout
+
+\begin_layout Standard
+Back to JMatter.
+ I have recently finished implementing a number of related enhancements.
+ The first is extending slightly the model for Users.
+ A User now has a new aggregate property called "Preferences." Its first
+ and only option at the moment captures how a user generally prefers to
+ navigate in JMatter: should new views be created by default:
+\end_layout
+
+\begin_layout Enumerate
+in a new window?
+\end_layout
+
+\begin_layout Enumerate
+in a new tab?
+\end_layout
+
+\begin_layout Enumerate
+in-place, replacing the existing view?
+\end_layout
+
+\begin_layout Standard
+Setting your preference is all it takes to change JMatter's default navigation
+ behavior.
+\end_layout
+
+\begin_layout Standard
+There are many situations where one will want to override the default and,
+ say, want to open a new view in a new tab even though the default is in-place
+ navigation.
+ So a new gesture has been introduced in JMatter.
+ Holding down the Shift key while invoking a command that produces a new
+ view will cause a context menu to popup near your mouse location, allowing
+ you to select how you'd like that particular view created.
+ Choose "in a new tab" and proceed.
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset LatexCommand \ref{fig:nav1}
+
+\end_inset
+
+, you see me invoking the "Open" command.
+ I am holding down the Shift key.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/nav1.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Invoking the Open command, holding down the Shift key
+\begin_inset LatexCommand \label{fig:nav1}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset LatexCommand \ref{fig:nav2}
+
+\end_inset
+
+shows the navigation option pop up.
+ I selected the "in new tab" option.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/nav2.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+\begin_inset Quotes eld
+\end_inset
+
+Open in new tab
+\begin_inset Quotes erd
+\end_inset
+
+ Option
+\begin_inset LatexCommand \label{fig:nav2}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Next, you see the result of the view created in a new tab.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/nav3.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Resulting View
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Finally, this last screenshot shows that, with tabs, you have the option
+ of detaching the view onto its own window or closing the tab (Ctrl+w is
+ the corresponding key binding).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/nav4.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Tab Detach Option
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I believe this to be an important feature, finally producing a desktop with
+ a number of effective navigation instruments:
+\end_layout
+
+\begin_layout Enumerate
+Fundamentally an OOUI
+\end_layout
+
+\begin_layout Enumerate
+DnD support
+\end_layout
+
+\begin_layout Enumerate
+An expose-like feature
+\end_layout
+
+\begin_layout Enumerate
+Tabbed, In-Place, or New-window view placement
+\end_layout
+
+\begin_layout Standard
+The last item on the drawing board that in my mind will complete the picture
+ is support for docking views.
+ I have looked at flexdock, which is a terrific effort.
+ But I'm looking for something that is more transparent: effectively a layout
+ manager designed for JDesktopPane that transparently provides docking support.
+ Let me know if you know of or are working on such a thing!
+\end_layout
+
+\begin_layout Section
+Associations Made Easy
+\end_layout
+
+\begin_layout Standard
+NakedObjects originally introduced a terrific way to establish associations
+ between objects in a user interface.
+ It automatically enabled this via drag and drop.
+\end_layout
+
+\begin_layout Standard
+For some reason, dnd in many ways is not used as much as it used to be.
+ Having to take the hand off the keyboard is admittedly a "productivity
+ mark deduction."
+\end_layout
+
+\begin_layout Standard
+So, in JMatter, I set out to enable associations in more than one way.
+ For starters, dnd works out of the box.
+ But one can also click a "pick" button that will display a listing of entries
+ of the type for a given association, that the user simply picks from.
+\end_layout
+
+\begin_layout Standard
+To make the example concrete, let's say we're working with the Symposium
+ manager demo application in JMatter.
+ And let's further say that we're defining a new talk to be given.
+ Talks have a many-to-one association to the speaker (or presenter) giving
+ the talk.
+\end_layout
+
+\begin_layout Standard
+My favorite way of establishing that association is with the in-place associator
+ widget that's built-in to JMatter.
+ The way it works is that you simply start typing and the list of entries
+ automatically filters out entries that do not match.
+ It's that sort of dynamic JComboBox that web browsers popularized, I suppose.
+ Except that the data comes straight from the database.
+\end_layout
+
+\begin_layout Standard
+Here's a snapshot of me trying to define a new talk, *In Action*, as it
+ were
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+Please pardon the sarcasm
+\end_layout
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/associator.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Associating a Speaker to a talk
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The only detail to tend to is to specify which field of Speaker are we searching
+ by.
+ That's what that little 'magnifying glass' icon to the left of the text
+ field is for.
+ It's a drop-down combobox that dynamically lists the various fields you
+ might want to search by.
+\end_layout
+
+\begin_layout Standard
+The default field that JMatter should use for searching in the context of
+ in-place associations is controlled by the defaultSearchPath metadata,
+ as shown by this example:
+\end_layout
+
+\begin_layout LyX-Code
+public static String defaultSearchPath = "name.first";
+\end_layout
+
+\begin_layout Standard
+See section 
+\begin_inset LatexCommand \ref{sub:dflt-searchpath}
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Copy and Paste
+\end_layout
+
+\begin_layout Standard
+Every Swing application gets for free the ability to use the underlying
+ platform's copy and paste capabilities when working with `JTextField`s
+ and `JTextArea`s.
+\end_layout
+
+\begin_layout Standard
+In JMatter you might have noticed that instances also sport their own Copy/Paste
+ commands.
+ You'll find this feature to be a little more powerful and interesting compared
+ to the basic clipboard copy/paste feature.
+\end_layout
+
+\begin_layout Standard
+The main difference is that unlike the clipboard, where you get one temporary
+ area to copy to, JMatter provides a temporary "buffer" area for every distinct
+ type.
+\end_layout
+
+\begin_layout Standard
+So, for example in the Contact Manager demo application, I can go about
+ and copy an Address here, a Contact object there, or an entire Person instance
+ and all three copies exist in memory simultaneously, each in its own buffer.
+ I can then, say, create a new Person instance and right-click "Paste" on
+ the title view for the new instance.
+ All of the information is copied over.
+ This use case may not be very interesting or real.
+\end_layout
+
+\begin_layout Standard
+But there are other situations.
+ Take for example how a Person has a Contact property modeled using composition
+ (or aggregation).
+ Each instance has its own copy.
+ Yet it's very possible for two persons to have the same contact information,
+ or perhaps the same address, with the very real possibility that the two
+ copies will change/diverge over time.
+\end_layout
+
+\begin_layout Standard
+The copy/paste commands on instances are automatically placed by JMatter
+ in a number of context menus for a number of views.
+ You'll find these commands in the title view's context menu, as shown below.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/copy_on_instance_title_view.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Copy on Instance Title View
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You'll also find it on aggregate objects' nodes as shown in figure 
+\begin_inset LatexCommand \ref{fig:copypage2}
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/copy_on_aggregate_node_view.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Copy on Aggregate Node View
+\begin_inset LatexCommand \label{fig:copypage2}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Finally, you'll find it on the context menus for individual tab title views,
+ as shown here:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/copy_on_tabtitle.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Copy on Tab Title View
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is a minor, though useful feature that comes in handy and can save
+ repetitive data entry tasks, where one might otherwise have to invoke copy/past
+e individually on atomic fields.
+ 
+\end_layout
+
+\begin_layout Section
+The 
+\emph on
+Restore Desktop
+\emph default
+ Feature
+\end_layout
+
+\begin_layout Standard
+One last feature, though not completely polished, is worth mentioning.
+ JMatter saves and restores end users' desktops between sessions.
+\end_layout
+
+\begin_layout Standard
+That is, the size and positions and other information about open windows
+ is recorded and stored to the database when one logs out or quits the applicati
+on.
+ Conversely an attempt is made to restore these views on login.
+ What's nice about saving this information to database is that one's desktop
+ configuration is independent of the workstation you log in to.
+ Instead it's tied to your user information in the database.
+\end_layout
+
+\begin_layout Standard
+This feature is at the moment fairly simple.
+ Other than restoring the main window bounds and simple child windows (lists
+ and instances), it does not yet properly restore other types of views at
+ the moment.
 \end_layout
 
 \begin_layout Chapter
+Summary
+\end_layout
+
+\begin_layout Section
 The State of JMatter
 \end_layout
 
@@ -16177,8 +16696,8 @@ This framework is all about you, the developer, not having to repeatedly
  so that you can concentrate on those things that do change: the domain.
 \end_layout
 
-\begin_layout Chapter
-Summary
+\begin_layout Section
+Parting Thoughts
 \end_layout
 
 \begin_layout Standard
@@ -16194,12 +16713,13 @@ I've read many books relating to software development, or documenting various
 \begin_layout Standard
 In the manual that you are reading at the moment, I have also tried to teach
  by example.
- What strikes me is that that in the process we have built four applications,
+ What strikes me is that in the process we have built four applications,
  not one.
  Furthermore, I claim that the resulting applications are more functional,
  and bear more features than any of the sample applications you might encounter
  in most other books.
  This is not an attempt to boast about this manual.
+ In fact our example applications were incredibly short.
 \end_layout
 
 \begin_layout Standard
@@ -16226,7 +16746,7 @@ It's a simple change, except that I have to make it across 200 templates,
 \begin_inset Quotes eld
 \end_inset
 
-how we can factor these commonalities into one place so we can reuse them
+how can we factor these commonalities into one place so we can reuse them
  on the next project?
 \emph default
 
@@ -16239,7 +16759,7 @@ how we can factor these commonalities into one place so we can reuse them
 \begin_layout Standard
 Most existing implementations I have seen are implemented in such a way
  that many of the supposed generic aspects of a software application are
- hopelessly coupled to the only part that I believe should change: the domain
+ hopelessly tangled to the only part that I believe should change: the domain
  model.
  And so the generic parts cannot be segregated from the model, and are made
  to be written over again on the next project, only increasing the complexity
@@ -16248,8 +16768,8 @@ Most existing implementations I have seen are implemented in such a way
 
 \begin_layout Standard
 Since open-sourcing JMatter in June of 2006, I cannot tell you how many
- comments I've received from many other developers who have had these same
- ideas.
+ comments I've received from other developers for whom the need and desire
+ for such a framework strikes a chord.
  Some have worked on their own solutions but the task is dauntingly large.
  I believe together we can make our shared vision of a better system for
  building solutions a reality.
@@ -16258,13 +16778,13 @@ Since open-sourcing JMatter in June of 2006, I cannot tell you how many
 \begin_layout Standard
 JMatter stands on the shoulder of giants.
  Many of these ideas stem from learning about systems such as smalltalk's
- Squeak system, and the book NakedObjects, to which I am indebted.
+ Squeak, and the book NakedObjects, to which I am indebted.
 \end_layout
 
 \begin_layout Standard
 What you have in your hands is only the beginning.
- Spread the word, contribute to this project, and let's make this vision
- a reality.
+ Spread the word, contribute to this project, and let's fundamentally change
+ the way software is written.
 \end_layout
 
 \begin_layout Chapter
@@ -16933,7 +17453,7 @@ hibernate.hbm2ddl.auto=create
 \end_layout
 
 \begin_layout Chapter
-Philosophical Essay: A Desktop within a Desktop?
+A Desktop within a Desktop?
 \end_layout
 
 \begin_layout Standard
