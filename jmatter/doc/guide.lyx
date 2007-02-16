@@ -4268,7 +4268,7 @@ status collapsed
 \begin_inset Graphics
 	filename figures/MyTunes-1.png
 	lyxscale 30
-	scale 50
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -4422,7 +4422,7 @@ status collapsed
 \begin_inset Graphics
 	filename figures/MyTunes-2.png
 	lyxscale 30
-	scale 50
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -4751,7 +4751,7 @@ status collapsed
 \begin_inset Graphics
 	filename figures/MyTunes-3.png
 	lyxscale 30
-	scale 50
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -5122,7 +5122,7 @@ status collapsed
 \begin_inset Graphics
 	filename figures/MyTunes-amoutperdu.png
 	lyxscale 30
-	scale 50
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -5507,8 +5507,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/MyTunes-SongListing.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -5635,8 +5635,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/MyTunes-search.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -6802,8 +6802,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/NFJS-1.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -6858,8 +6858,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/NFJS-2.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -6928,8 +6928,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/NFJS-3.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -7058,14 +7058,14 @@ Speaker
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename figures/NFJS-4.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -7474,14 +7474,14 @@ CalendarEO
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename figures/NFJS-5.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -7971,14 +7971,14 @@ Find
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename figures/NFJS-6.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -8351,7 +8351,7 @@ status collapsed
 \begin_inset Graphics
 	filename figures/listing_events.png
 	lyxscale 30
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -8383,7 +8383,7 @@ status collapsed
 \begin_inset Graphics
 	filename figures/creating_events.png
 	lyxscale 30
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -8414,7 +8414,7 @@ status collapsed
 \begin_inset Graphics
 	filename figures/events_calendar.png
 	lyxscale 30
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -10269,8 +10269,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/IssueMgr-2.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -10986,8 +10986,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/Wizard-Step0.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -11010,8 +11010,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/Wizard-Step1.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -11034,8 +11034,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/Wizard-Step2.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -11058,8 +11058,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/Wizard-Step3.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -11082,8 +11082,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/Wizard-Step4.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -11141,6 +11141,10 @@ status collapsed
 \end_inset
 
 
+\end_layout
+
+\begin_layout Caption
+CSV Export Viewed in Gnumeric
 \end_layout
 
 \end_inset
@@ -11674,8 +11678,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/CustomView-1.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -11735,8 +11739,8 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename figures/CustomView-2.png
-	lyxscale 50
-	scale 50
+	lyxscale 30
+	scale 40
 	keepAspectRatio
 
 \end_inset
@@ -12953,6 +12957,7 @@ From a persistence perspective, all types inherit three fields or pseudofields:
 \end_layout
 
 \begin_layout Standard
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="4" columns="2">
 <features>
@@ -14789,6 +14794,7 @@ We can augment a field's getter method with the
 \end_layout
 
 \begin_layout Standard
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="8" columns="3">
 <features>
@@ -15090,6 +15096,7 @@ Here is a summary of the optional parameters that the
 \end_layout
 
 \begin_layout Standard
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="5" columns="3">
 <features>
@@ -16511,6 +16518,7 @@ sideways false
 status collapsed
 
 \begin_layout Standard
+\align center
 \begin_inset Graphics
 	filename figures/nav4.png
 	lyxscale 30
@@ -16626,7 +16634,7 @@ status collapsed
 \begin_inset Graphics
 	filename figures/associator.png
 	lyxscale 30
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -17164,6 +17172,7 @@ Keyboard Shortcuts
 \end_layout
 
 \begin_layout Standard
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="9" columns="2">
 <features>
