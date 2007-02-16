@@ -105,7 +105,15 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          {
             EView view = (EView) _views.get(0);
             setFrameIcon(view.getEObject().iconSm());
-            setTitle(view.getEObject().toString());
+            EObject eo = view.getEObject();
+            if (eo instanceof ComplexEObject)
+            {
+               setTitle( ((ComplexEObject) view.getEObject()).viewTitle() );
+            }
+            else
+            {
+               setTitle( eo.title().toString() );
+            }
          }
          else if (_views.get(0) instanceof View)
          {
@@ -493,10 +501,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          if (_eo instanceof ComplexEObject)
          {
             ComplexEObject ceo = (ComplexEObject) _eo;
-            if (ceo.isTransientState())
-            {
-               return "New " + ceo.type().getNaturalName();
-            }
+            return ceo.viewTitle();
          }
          return _eo.title().toString();
       }

@@ -30,7 +30,6 @@ public class TitleView extends JLabel implements ComplexEView
    {
       super();
       _ceo = ceo;
-      _ceo.addPropertyChangeListener(this);
       _ceo.addChangeListener(this);
 
       _cmdsView = new CommandsContextMenuView();
@@ -45,22 +44,8 @@ public class TitleView extends JLabel implements ComplexEView
 
       // TODO:  assign fonts and colors from preferences
       setFont(TITLE_FONT);
-
-      if (_ceo.isTransientState())
-      {
-         if (_ceo.field() == null)
-         {
-            setText("New "+_ceo.type().getNaturalName());
-         }
-         else
-         {
-            setText(_ceo.field().label());
-         }
-      }
-      else
-      {
-         setText(_ceo.title().toString());
-      }
+      
+      setText(_ceo.viewTitle());
       setIcon(_ceo.iconLg());
 
       setTransferHandler(new EOTransferHandler(this));
@@ -74,18 +59,15 @@ public class TitleView extends JLabel implements ComplexEView
          public void run()
          {
             if (!_ceo.isEditableState())
-               setText(_ceo.title().toString());
+            {
+               setText(_ceo.viewTitle());
+               setIcon(_ceo.iconLg());
+            }
          }
       });
    }
 
-   public void propertyChange(PropertyChangeEvent evt)
-   {
-      if ("icon".equals(evt.getPropertyName()))
-      {
-         setIcon(_ceo.iconLg());
-      }
-   }
+   public void propertyChange(PropertyChangeEvent evt) {}
 
    private Insets _insets = new Insets(2, 5, 6, 8);
    public Insets getInsets() { return _insets; }
@@ -125,7 +107,6 @@ public class TitleView extends JLabel implements ComplexEView
    {
       _cmdsView.detach();
       _ceo.removeChangeListener(this);
-      _ceo.removePropertyChangeListener(this);
    }
 
 }

@@ -205,7 +205,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          Field field = (Field) itr.next();
          field.setState(this, state);
       }
-
    }
    private Stack<State> _stateStack = new Stack<State>();
    protected void pushState(State state)
@@ -328,16 +327,39 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public String toString()
    {
-//      List fields = fields();
-//      Field field = null;
-//      StringBuffer text = new StringBuffer("");
-//      for (int i=0; i<fields.size(); i++)
-//      {
-//         field = (Field) fields.get(i);
-//         text.append(field.getPath()+": "+field.get(this).toString()+"; ");
-//      }
-//      return text.toString();
       return title().toString();
+   }
+   
+   public String viewTitle()
+   {
+      if (isTransientState())
+      {
+         if (field() == null)
+         {
+            return "New "+type().getNaturalName();
+         }
+         else
+         {
+            return field().label();
+         }
+      }
+      else
+      {
+         return title().toString();
+      }
+   }
+   
+   public String debugString()
+   {
+      List fields = childFields();
+      Field field = null;
+      StringBuffer text = new StringBuffer("");
+      for (int i=0; i<fields.size(); i++)
+      {
+         field = (Field) fields.get(i);
+         text.append(field.getPath()+": "+field.get(this).toString()+"; ");
+      }
+      return text.toString();
    }
 
    public boolean isEmpty()

@@ -214,7 +214,6 @@ public class Issue extends AbstractComplexEObject
       _history.add(evt);
       setState(state, true);
       _status.setValue(state.getName());
-      firePropertyChange("icon", null, null);
       persistor().updateAssociation(this, evt);
    }
 

@@ -82,5 +82,7 @@ public interface ComplexEObject
    public DateTime getCreatedOn();
 
    public boolean isMeta();
+   
+   public String viewTitle();
 
 }

@@ -90,7 +90,7 @@ public class CompositeQuery extends AbstractComplexEObject
       }
    }
 
-   /**
+   /*
     * overload command new..
     */
    @Cmd
