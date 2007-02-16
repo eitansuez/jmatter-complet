@@ -13768,7 +13768,7 @@ Users32.png
 images
 \emph default
  folder.
- Node how the file name uses the pluralized form of the type.
+ Note how the file name uses the pluralized form of the type.
 \end_layout
 
 \begin_layout Standard
@@ -13788,6 +13788,13 @@ UserLocked32.png
 .
  If for some reason a user is locked, an administrator viewing a list of
  users can easily spot the locked user.
+ The IssueManager demo application also leverages this feature (see chapter
+ 
+\begin_inset LatexCommand \ref{cha:Issue-Manager}
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Subsubsection
@@ -13805,11 +13812,11 @@ An album's cover
 \end_layout
 
 \begin_layout Enumerate
-A person's photo (Sympster)
+A person's photo
 \end_layout
 
 \begin_layout Enumerate
-An item's photo (say if you're developing an auction system)
+A photo of a car part
 \end_layout
 
 \begin_layout Standard
@@ -13988,7 +13995,8 @@ What's interesting here is that these two commands are static methods: they're
 commandOrder
 \emph default
  field controls both static commands and instance commands.
- Each list is mutually exclusive.
+ Each list is mutually exclusive and so can be (and is) specified with a
+ single commandOrder string array field.
 \end_layout
 
 \begin_layout Subsection
@@ -14040,7 +14048,7 @@ Person.name
 
 \begin_layout Standard
 By default JMatter maintains a one-to-one correspondence from model to view,
- and there does not hide this relationship.
+ and does not hide this relationship.
  The view widget used by JMatter's Swing-based view mechanism can expand
  or collapse to show the 
 \emph on
@@ -14191,8 +14199,8 @@ public static String defaultSearchPath = "name";
 \end_layout
 
 \begin_layout Standard
-The value is specified as a string but may actually be a field path (field
- paths are discussed later), such as 
+The value is specified as a string but may actually be a field path, such
+ as 
 \emph on
 name.first
 \emph default
@@ -14234,8 +14242,8 @@ identities
  will ensure that JMatter construts the database schema properly (marking
  the field as unique in the database, which will also create an index on
  the table).
- In the user interface, such fields cannot be revised after after an object
- has been created for the first time.
+ In the user interface, such fields cannot be revised after an object has
+ been created for the first time.
 \end_layout
 
 \begin_layout Description
@@ -14268,6 +14276,8 @@ readOnly
 \end_inset
 
  static field (in the same manner fieldOrder is specified).
+ This is useful when working with derived (or calculated) fields, which
+ we discuss next.
 \end_layout
 
 \begin_layout Description
@@ -14439,9 +14449,9 @@ We can augment a field's getter method with the
 \begin_inset Tabular
 <lyxtabular version="3" rows="8" columns="3">
 <features>
-<column alignment="center" valignment="top" leftline="true" width="1in">
+<column alignment="left" valignment="top" leftline="true" width="1in">
 <column alignment="left" valignment="top" leftline="true" width="0.75in">
-<column alignment="center" valignment="top" leftline="true" rightline="true" width="3.25in">
+<column alignment="left" valignment="top" leftline="true" rightline="true" width="3.25in">
 <row topline="true" bottomline="true">
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -15752,6 +15762,24 @@ The process of accessing a database by nature is meant to be difficult as
  to access the database.
  This would be a good time to take a moment and review your database documentati
 on and your database settings.
+\end_layout
+
+\begin_layout Section
+Security Options
+\end_layout
+
+\begin_layout Standard
+The PostgresQL database can be configured to communicate with clients over
+ SSL, providing secure communications between clients and the database server.
+ This option is an interesting one because it allows us to consider the
+ possibility of deploying a JMatter application to a limited number of concurren
+t users over a wider geographic area.
+\end_layout
+
+\begin_layout Standard
+Also, it's worth mentioning that H2 is a lightweight database that also
+ supports SSL.
+ In addition it supports encrypting the entire database.
 \end_layout
 
 \begin_layout Section
