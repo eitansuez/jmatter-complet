@@ -8098,6 +8098,345 @@ In the next chapter we're finally going to take a look at the Issue Manager
 \end_layout
 
 \begin_layout Chapter
+Interface-Based Modeling
+\end_layout
+
+\begin_layout Subsection
+Modeling with Interfaces
+\end_layout
+
+\begin_layout Standard
+We are taught that interface-based modeling is preferred over models that
+ do not employ interfaces.
+ I concur.
+ I'd like to demonstrate how to do interface-based modeling in JMatter.
+\end_layout
+
+\begin_layout Standard
+As an illustration, let's take the Sympster application we just wrote and
+ extend it.
+ Sympster is a conference manager demo application.
+ Up until now, one could use this application to define a symposium, speakers,
+ their talks, and to schedule sessions.
+ A session is defined as a talk given at a specific date and time, and with
+ a specific duration, at a specific location.
+\end_layout
+
+\begin_layout Standard
+I'd like to broaden the definition of a session to include events other
+ than speakers' presentations.
+ What about BOF's (Birds of a Feature session) for example? Or maybe a panel
+ discussion including a number of participants.
+ At NFJS symposia, we actually hold informal BOFs with 2-3 participants
+ where we discuss a particular topic.
+\end_layout
+
+\begin_layout Standard
+Let's walk through the code.
+\end_layout
+
+\begin_layout Standard
+The first thing I do is define the interface `Event`:
+\end_layout
+
+\begin_layout LyX-Code
+public interface Event extends ComplexEObject
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public StringEO getTitle();
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+We're basically going to require that each event provide a title.
+ Talk already does and BOFs will too.
+ I still want to define this interface as it serves as a mechanism for qualifyin
+g event types.
+\end_layout
+
+\begin_layout Standard
+Next, let's go ahead and define a new object to model a BOF:
+\end_layout
+
+\begin_layout LyX-Code
+public class BOF extends AbstractComplexEObject implements Event
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  private final StringEO title = new StringEO();
+\end_layout
+
+\begin_layout LyX-Code
+  private final RelationalList participants = new RelationalList(Speaker.class);
+\end_layout
+
+\begin_layout LyX-Code
+  public static Class participantsType = Speaker.class;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+  public static String[] fieldOrder = {"title", "participants"};
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+  public BOF() { }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+  public StringEO getTitle() { return title; }
+\end_layout
+
+\begin_layout LyX-Code
+  public RelationalList getParticipants() { return participants; }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+  public Title title()
+\end_layout
+
+\begin_layout LyX-Code
+  {
+\end_layout
+
+\begin_layout LyX-Code
+    return title.title().append(" with", participants);
+\end_layout
+
+\begin_layout LyX-Code
+  }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Finally, let's retrofit our existing class `Talk`:
+\end_layout
+
+\begin_layout LyX-Code
+$ svn diff -r83:84 Talk.java
+\end_layout
+
+\begin_layout LyX-Code
+Index: Talk.java
+\end_layout
+
+\begin_layout LyX-Code
+===================================================================
+\end_layout
+
+\begin_layout LyX-Code
+--- Talk.java (revision 83)
+\end_layout
+
+\begin_layout LyX-Code
++++ Talk.java (revision 84)
+\end_layout
+
+\begin_layout LyX-Code
+@@ -7,7 +7,7 @@ 
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.reflection.FieldAt; 
+\end_layout
+
+\begin_layout LyX-Code
+import java.awt.Color;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+-public class Talk extends AbstractComplexEObject 
+\end_layout
+
+\begin_layout LyX-Code
++public class Talk extends AbstractComplexEObject implements Event
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  private final StringEO title = new StringEO();
+\end_layout
+
+\begin_layout LyX-Code
+  private final TextEO talkAbstract = new TextEO();
+\end_layout
+
+\begin_layout Standard
+As you can see from the above diff, all I had to do was specify that Talk
+ implement Event.
+\end_layout
+
+\begin_layout Standard
+Finally, remaining is broadening Session's definition.
+ Rather than define an association to a 
+\emph on
+Talk
+\emph default
+, we'll revise that to be be an association to an 
+\emph on
+Event
+\emph default
+.
+ I won't show you all the edits.
+ Here's the gist of the change:
+\end_layout
+
+\begin_layout LyX-Code
+- public Talk getTalk() { return talk; } 
+\end_layout
+
+\begin_layout LyX-Code
+- public void setTalk(Talk talk) 
+\end_layout
+
+\begin_layout LyX-Code
++ public Event getEvent() { return event; } 
+\end_layout
+
+\begin_layout LyX-Code
++ public void setEvent(Event event)
+\end_layout
+
+\begin_layout Standard
+And that's it.
+ Now let's take a look at how these changes manifest themselves in our applicati
+on:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/listing_events.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Polymorphic Queries: Listing Events
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+JMatter models the polymorphic association using Hibernate's implicit polymorphi
+sm mechanism, otherwise known as *any* associations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/creating_events.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Polymorphic Instantiation: Creating a new Event
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+JMatter will prompt the user whether they wish to create a talk or a BOF.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/events_calendar.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Events Calendar
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We see two events on this calendar.
+ The first is a talk on JMatter, and the second is a BOF on Programming.
+ :-) 
+\end_layout
+
+\begin_layout Chapter
 Issue Manager
 \begin_inset LatexCommand \label{cha:Issue-Manager}
 
@@ -13624,6 +13963,10 @@ button on an instance of a user), he or she will first be prompted to enter
  for more information.
 \end_layout
 
+\begin_layout Standard
+
+\end_layout
+
 \begin_layout Section
 Metadata
 \end_layout
@@ -17394,8 +17737,11 @@ Then issue the checkout command, as illustrated by this example:
 \end_layout
 
 \begin_layout LyX-Code
-svn checkout http://svn.jmater.org/jmatter-complet/tags/Release-20060825 jm_200608
-25release
+svn checkout http://svn.jmater.org/jmatter-complet/tags/Release-20060825 
+\end_layout
+
+\begin_layout LyX-Code
+                                jm_20060825release
 \end_layout
 
 \begin_layout Section
@@ -17827,9 +18173,6 @@ Contributing to this project
 [tbd: spread the word about this project, join the mailing list, suggest
  design improvements, contribute code, make a donation, buy a printed copy
  of the book from lulu.com]
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Comment
 status collapsed
 
@@ -17851,10 +18194,6 @@ Illustrate custom views
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 .
 \end_layout
 
