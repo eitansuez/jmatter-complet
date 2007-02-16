@@ -21,6 +21,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import static com.u2d.pubsub.AppEventType.*;
 
 /**
  * @author Eitan Suez
@@ -231,7 +232,7 @@ public class CriteriaListEO extends AbstractListEO implements Paginable
         while (itr.hasNext())
         {
            ceo = (ComplexEObject) itr.next();
-           ceo.removeAppEventListener("ONDELETE", this);
+           ceo.removeAppEventListener(DELETE, this);
         }
       }
    }

@@ -11,6 +11,7 @@ import com.u2d.model.ComplexType;
 import com.u2d.model.Title;
 import com.u2d.model.AbstractListEO;
 import com.u2d.pubsub.*;
+import static com.u2d.pubsub.AppEventType.*;
 
 /**
  * @author Eitan Suez
@@ -50,7 +51,7 @@ public class BasicAssociationStrategy implements AssociationStrategy
       //speaks for itself, but in prose:  if transient delay set until after save
       if (value != null && value.isTransientState())
       {
-         value.addAppEventListener("ONCREATE", new AppEventListener()
+         value.addAppEventListener(CREATE, new AppEventListener()
             {
                public void onEvent(AppEvent evt)
                {

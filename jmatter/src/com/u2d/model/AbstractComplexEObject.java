@@ -15,6 +15,7 @@ import com.u2d.field.*;
 import com.u2d.find.inequalities.IdentityInequality;
 import com.u2d.pattern.*;
 import com.u2d.pubsub.*;
+import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.type.Choice;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.type.atom.DateTime;
@@ -109,7 +110,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       vmech().onMessage("Deleted "+title());
       setNullState();
-      fireAppEventNotification("ONDELETE", this);
+      fireAppEventNotification(DELETE, this);
    }
    public void onBeforeSave()
    {
@@ -123,26 +124,26 @@ public abstract class AbstractComplexEObject extends AbstractEObject
             list.onBeforeSave();
          }
       }
-      fireAppEventNotification("ONBEFORESAVE");
+      fireAppEventNotification(BEFORESAVE);
    }
    public void onSave()
    {
       vmech().onMessage("Saved "+title());
       // dillema here:  don't really know you're coming from an EditState Exit:
       popState();
-      fireAppEventNotification("ONSAVE");
+      fireAppEventNotification(SAVE);
    }
    public void onBeforeCreate()
    {
       _createdOn.setValue(new Date());
-      fireAppEventNotification("ONBEFORECREATE", this);
+      fireAppEventNotification(BEFORECREATE, this);
    }
    public void onCreate()
    {
       vmech().onMessage("Created "+title());
       setStartState();
-      fireAppEventNotification("ONCREATE", this);
-      type().fireAppEventNotification("ONCREATE", this);
+      fireAppEventNotification(CREATE, this);
+      type().fireAppEventNotification(CREATE, this);
    }
 
    // state-related methods
@@ -860,19 +861,19 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    // ====  app event support ...
 
    private transient AppEventSupport _support = new AppEventSupport(this);
-   public void addAppEventListener(String evtType, AppEventListener l)
+   public void addAppEventListener(AppEventType evtType, AppEventListener l)
    {
       _support.addAppEventListener(evtType, l);
    }
-   public void removeAppEventListener(String evtType, AppEventListener l)
+   public void removeAppEventListener(AppEventType evtType, AppEventListener l)
    {
       _support.removeAppEventListener(evtType, l);
    }
-   public void fireAppEventNotification(String evtType)
+   public void fireAppEventNotification(AppEventType evtType)
    {
       _support.fireAppEventNotification(evtType);
    }
-   public void fireAppEventNotification(String evtType, Object target)
+   public void fireAppEventNotification(AppEventType evtType, Object target)
    {
       _support.fireAppEventNotification(evtType, target);
    }

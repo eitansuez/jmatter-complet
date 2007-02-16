@@ -3,10 +3,8 @@ package com.u2d.app;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationContext;
 import org.springframework.beans.BeansException;
-import com.u2d.pubsub.AppEventSupport;
-import com.u2d.pubsub.AppEventNotifier;
-import com.u2d.pubsub.AppEventListener;
-import com.u2d.pubsub.AppEvent;
+import com.u2d.pubsub.*;
+import static com.u2d.pubsub.AppEventType.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,7 +29,7 @@ public class Context implements ApplicationContextAware, AppEventNotifier
          throws BeansException
    {
       _applicationContext = applicationContext;
-      fireAppEventNotification("APP_READY");
+      fireAppEventNotification(APP_READY);
    }
 
 
@@ -62,7 +60,7 @@ public class Context implements ApplicationContextAware, AppEventNotifier
 
    // ---
 
-   public void addAppEventListener(String evtType, AppEventListener l)
+   public void addAppEventListener(AppEventType evtType, AppEventListener l)
    {
       if (_applicationContext == null)
       {
@@ -75,12 +73,12 @@ public class Context implements ApplicationContextAware, AppEventNotifier
       }
    }
 
-   public void removeAppEventListener(String evtType, AppEventListener l)
+   public void removeAppEventListener(AppEventType evtType, AppEventListener l)
    {
       _support.removeAppEventListener(evtType, l);
    }
 
-   public void fireAppEventNotification(String evtType)
+   public void fireAppEventNotification(AppEventType evtType)
    {
       _support.fireAppEventNotification(evtType);
    }

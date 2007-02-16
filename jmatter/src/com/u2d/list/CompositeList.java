@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 import java.beans.PropertyDescriptor;
 import java.beans.IntrospectionException;
+import static com.u2d.pubsub.AppEventType.*;
 
 /**
  * @author Eitan Suez
@@ -163,7 +164,7 @@ public class CompositeList extends SimpleListEO
       for (int i=0; i<size; i++)
       {
          item = (ComplexEObject) _items.get(i);
-         item.removeAppEventListener("ONDELETE", this);
+         item.removeAppEventListener(DELETE, this);
       }
       _items.clear();
       fireIntervalRemoved(this, 0, size);

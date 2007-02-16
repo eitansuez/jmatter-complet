@@ -6,11 +6,11 @@ package com.u2d.calendar;
 import com.u2d.app.*;
 import com.u2d.model.*;
 import com.u2d.pubsub.*;
+import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.*;
 import com.u2d.element.Field;
 import com.u2d.ui.UIUtils;
-
 import java.util.*;
 import java.awt.Color;
 import org.hibernate.*;
@@ -42,7 +42,7 @@ public class Schedule extends AbstractComplexEObject implements EventMaker
       
       Class eventClass = _schedulable.eventType();
       ComplexType eventType = ComplexType.forClass(eventClass);
-      eventType.addAppEventListener("ONCREATE", new AppEventListener()
+      eventType.addAppEventListener(CREATE, new AppEventListener()
          {
             public void onEvent(AppEvent appEvt)
             {

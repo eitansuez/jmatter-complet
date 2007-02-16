@@ -3,6 +3,7 @@ package com.u2d.app;
 import com.u2d.pubsub.AppEventNotifier;
 import com.u2d.pubsub.AppEventSupport;
 import com.u2d.pubsub.AppEventListener;
+import com.u2d.pubsub.AppEventType;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.type.composite.LoggedEvent;
@@ -13,6 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import static com.u2d.pubsub.AppEventType.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -114,13 +116,13 @@ public class AppSession implements AuthManager, AppEventNotifier
       user.onLoad();
       setUser(user);
       log(LoggedEvent.LOGIN, null, "Logged In");
-      fireAppEventNotification("LOGIN");
+      fireAppEventNotification(LOGIN);
    }
 
    public void clearUser()
    {
       log(LoggedEvent.LOGOUT,  null, "Logged Out");
-      fireAppEventNotification("LOGOUT");
+      fireAppEventNotification(LOGOUT);
       setUser(null);
    }
 
@@ -205,19 +207,19 @@ public class AppSession implements AuthManager, AppEventNotifier
    // == app event notifier ..
 
    private transient AppEventSupport support = new AppEventSupport(this);
-   public void addAppEventListener(String evtType, AppEventListener l)
+   public void addAppEventListener(AppEventType evtType, AppEventListener l)
    {
       support.addAppEventListener(evtType, l);
    }
-   public void removeAppEventListener(String evtType, AppEventListener l)
+   public void removeAppEventListener(AppEventType evtType, AppEventListener l)
    {
       support.removeAppEventListener(evtType, l);
    }
-   public void fireAppEventNotification(String evtType)
+   public void fireAppEventNotification(AppEventType evtType)
    {
       support.fireAppEventNotification(evtType);
    }
-   public void fireAppEventNotification(String evtType, Object target)
+   public void fireAppEventNotification(AppEventType evtType, Object target)
    {
       support.fireAppEventNotification(evtType, target);
    }

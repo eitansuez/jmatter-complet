@@ -8,7 +8,7 @@ package com.u2d.pubsub;
  */
 public interface AppEventNotifier
 {
-   public void addAppEventListener(String evtType, AppEventListener l);
-   public void removeAppEventListener(String evtType, AppEventListener l);
-   public void fireAppEventNotification(String evtType);
+   public void addAppEventListener(AppEventType evtType, AppEventListener l);
+   public void removeAppEventListener(AppEventType evtType, AppEventListener l);
+   public void fireAppEventNotification(AppEventType evtType);
 }

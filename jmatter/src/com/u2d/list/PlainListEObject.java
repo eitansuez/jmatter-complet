@@ -9,6 +9,7 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
 import com.u2d.model.Harvester;
 import com.u2d.pubsub.*;
+import static com.u2d.pubsub.AppEventType.*;
 import java.util.*;
 import javax.swing.event.ListDataListener;
 import com.u2d.pattern.*;
@@ -35,7 +36,7 @@ public class PlainListEObject extends SimpleListEO
    public PlainListEObject(ComplexType itemType)
    {
       super(itemType);
-      itemType.addAppEventListener("ONCREATE", _addListener);
+      itemType.addAppEventListener(CREATE, _addListener);
    }
 
    public PlainListEObject(Class clazz, List items)
@@ -58,7 +59,7 @@ public class PlainListEObject extends SimpleListEO
       if (_itemType == null)
       {
          _itemType = ComplexType.forClass(_clazz);
-         _itemType.addAppEventListener("ONCREATE", _addListener);
+         _itemType.addAppEventListener(CREATE, _addListener);
       }
       return _itemType;
    }
@@ -74,7 +75,7 @@ public class PlainListEObject extends SimpleListEO
       super.removeListDataListener(l);
       if (_listDataListenerList.getListenerCount() == 0)
       {
-        type().removeAppEventListener("ONCREATE", _addListener);
+        type().removeAppEventListener(CREATE, _addListener);
         _addListener = null;
 
         // remove ondelete listener from items
@@ -82,7 +83,7 @@ public class PlainListEObject extends SimpleListEO
         for (Iterator itr = _items.iterator(); itr.hasNext(); )
         {
            ceo = (ComplexEObject) itr.next();
-           ceo.removeAppEventListener("ONDELETE", this);
+           ceo.removeAppEventListener(DELETE, this);
         }
       }
    }

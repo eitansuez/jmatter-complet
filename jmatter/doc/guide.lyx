@@ -9963,7 +9963,7 @@ Here's the implementation:
 \end_layout
 
 \begin_layout LyX-Code
-            addAppEventListener("ONCREATE", new AppEventListener()
+            addAppEventListener(ONCREATE, new AppEventListener()
 \end_layout
 
 \begin_layout LyX-Code
@@ -15295,6 +15295,185 @@ public String ChangePassword(CommandInfo cmdInfo,
                               @Arg("New Password") Password password);
 \end_layout
 
+\begin_layout Section
+Persistence LifeCycle and AppEvents
+\end_layout
+
+\begin_layout Standard
+The base class 
+\emph on
+AbstractComplexEObject
+\emph default
+ implements the interface PersistorListener:
+\end_layout
+
+\begin_layout LyX-Code
+public interface PersistorListener
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  public void onLoad();
+\end_layout
+
+\begin_layout LyX-Code
+  public void onBeforeCreate();
+\end_layout
+
+\begin_layout LyX-Code
+  public void onCreate();
+\end_layout
+
+\begin_layout LyX-Code
+  public void onBeforeSave();
+\end_layout
+
+\begin_layout LyX-Code
+  public void onSave();
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+The persistence mechanism implementation calls these methods at the appropriate
+ times: when an object is loaded from the persistence store, onLoad() will
+ automatically be called, for example.
+\end_layout
+
+\begin_layout Standard
+It is permissible to override these methods, but be sure to first call the
+ superclass's implementation.
+ That is, do not mask the superclass implementations:
+\end_layout
+
+\begin_layout LyX-Code
+public class Car extends AbstractComplexEObject
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  public void onLoad()
+\end_layout
+
+\begin_layout LyX-Code
+  {
+\end_layout
+
+\begin_layout LyX-Code
+    super.onLoad();
+\end_layout
+
+\begin_layout LyX-Code
+    System.out.println("Loaded "+this);
+\end_layout
+
+\begin_layout LyX-Code
+  }
+\end_layout
+
+\begin_layout LyX-Code
+  ..
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+This is useful for some things.
+ For example, 
+\emph on
+onLoad()
+\emph default
+ is useful for recalculating a derived field.
+ The framework itself uses 
+\emph on
+onBeforeCreate()
+\emph default
+ to set the value of the read-only field 
+\emph on
+createdOn:
+\end_layout
+
+\begin_layout LyX-Code
+1   public void onBeforeCreate()
+\end_layout
+
+\begin_layout LyX-Code
+2   {
+\end_layout
+
+\begin_layout LyX-Code
+3      _createdOn.setValue(new Date());
+\end_layout
+
+\begin_layout LyX-Code
+4      fireAppEventNotification(BEFORECREATE, this);
+\end_layout
+
+\begin_layout LyX-Code
+5   }
+\end_layout
+
+\begin_layout Standard
+This bring up another aspect of the framework that might be useful to know
+ about: 
+\emph on
+AppEvent
+\emph default
+'s.
+\end_layout
+
+\begin_layout Standard
+The JMatter framework contains an implementation of the Observer pattern
+ (aka publish/subscribe) that is used internally for communicating various
+ events between various parts of the application.
+ For example, the framework defines LOGIN and LOGOUT events.
+ When a user logs in, this event is published and all interested listeners
+ are notified.
+ The framework's class 
+\emph on
+AppSession
+\emph default
+ is an 
+\emph on
+AppEventNotifier
+\emph default
+ in that it notifies listeners of login-related events.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+AbstractComplexEObject
+\emph default
+s do a similar thing.
+ By virtue of being persistor listeners, they are notified of persistence
+ lifecycle changes.
+ These objects use the AppEvent mechanism to also notify any interested
+ listeners of these events.
+ That explains line 4 in the above code sample.
+\end_layout
+
+\begin_layout Standard
+To the extent that you have objects in your application that need to be
+ informed of such events, these objects may configure themselves as listeners
+ on whatever model objects they're interested in.
+\end_layout
+
+\begin_layout Standard
+In fact, we saw an example in the IssueMgr sample application where we wanted
+ to delay transitioning to another state until after the object was created.
+\end_layout
+
 \begin_layout Chapter
 Validation
 \begin_inset LatexCommand \label{cha:Validation}
@@ -18179,45 +18358,50 @@ Contributing to this project
 \end_layout
 
 \begin_layout Standard
-[tbd: spread the word about this project, join the mailing list, suggest
- design improvements, contribute code, make a donation, buy a printed copy
- of the book from lulu.com]
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Standard
-Consider writing another chapter: [Content Manager]
+There are many ways that you can help contribute to this project.
 \end_layout
 
-\begin_layout Standard
-A typical blog system editor/manager/poster [tbd]
+\begin_layout Enumerate
+One way is to spread the word: help increase the adoption of this framework.
 \end_layout
 
-\begin_layout Standard
-Consider writing another chapter: [Photo Album]
+\begin_layout Enumerate
+If you're in the business of developing commercial software solutions, buy
+ a license of JMatter.
+ Or get your company to purchase licenses.
+ These licenses are priced ridiculously low (I've estimated that the break-even
+ point for JMatter is approximately one week into your first project) and
+ are royalty-free.
 \end_layout
 
-\begin_layout Standard
-Illustrate custom views
-\end_layout
+\begin_layout Enumerate
+If you're doing open source development, consider donating to this project
+ (see 
+\begin_inset LatexCommand \url{http://jmatter.org/pages/donate}
 
 \end_inset
 
-.
+ )
+\end_layout
+
+\begin_layout Enumerate
+Join the mailing list! Discuss features, possible design improvements; become
+ a part of our community
+\end_layout
+
+\begin_layout Enumerate
+If you're a software developer, contribute bug fixes, features, enhancements
+\end_layout
+
+\begin_layout Enumerate
+This manual will soon be available in print from lulu.com.
+ Consider buying a copy.
+ A small fraction of the price of the book goes back to the developers.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Standard
-Address aspects of JMatter that are not discussed/covered? JiBX Integration,
- Polymorphic modeling
-\end_layout
-
-\end_inset
-
-
+These are only a few ways in which you can make a visible and noticeable
+ contribution.
 \end_layout
 
 \end_body

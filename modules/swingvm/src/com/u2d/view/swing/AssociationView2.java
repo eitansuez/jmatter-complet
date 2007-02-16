@@ -15,7 +15,7 @@ import com.u2d.model.NullAssociation;
 import com.u2d.element.Command;
 import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
-
+import static com.u2d.pubsub.AppEventType.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.BevelBorder;
@@ -155,7 +155,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          view = value.getListItemView();
          itemPnl.addItem(view);
          
-         value.addAppEventListener("ONDELETE", this);
+         value.addAppEventListener(DELETE, this);
 
          TransferHandler transferHandler = new BasicTransferHandler(view, _association);
          ((JComponent) view).setTransferHandler(transferHandler);
@@ -171,7 +171,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
       {
          if (view != null)
          {
-            ((ComplexEObject) view.getEObject()).removeAppEventListener("ONDELETE", this);
+            ((ComplexEObject) view.getEObject()).removeAppEventListener(DELETE, this);
             view.detach();
             view = null;
          }
@@ -180,7 +180,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
       public void onEvent(AppEvent evt)
       {
-         ((ComplexEObject) view.getEObject()).removeAppEventListener("ONDELETE", this);
+         ((ComplexEObject) view.getEObject()).removeAppEventListener(DELETE, this);
          _association.dissociate();
       }
    }

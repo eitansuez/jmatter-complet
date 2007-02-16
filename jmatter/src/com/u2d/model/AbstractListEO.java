@@ -18,6 +18,7 @@ import com.u2d.pattern.ListChangeNotifier;
 import com.u2d.pattern.Onion;
 import com.u2d.pattern.Block;
 import com.u2d.pubsub.*;
+import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.reporting.Reportable;
 import com.u2d.reporting.ReportFormat;
 import com.u2d.view.ListEView;
@@ -138,9 +139,9 @@ public abstract class AbstractListEO extends AbstractEObject
          if (ceo.isMeta()) continue;
          
          if (clear)
-            ceo.removeAppEventListener("ONDELETE", this);
+            ceo.removeAppEventListener(DELETE, this);
          else
-            ceo.addAppEventListener("ONDELETE", this);
+            ceo.addAppEventListener(DELETE, this);
       }
    }
    
@@ -161,7 +162,7 @@ public abstract class AbstractListEO extends AbstractEObject
       if (contains(item)) return;
       
       _items.add(item);
-      item.addAppEventListener("ONDELETE", this);
+      item.addAppEventListener(DELETE, this);
       fireIntervalAdded(this, _items.size() - 1, _items.size() - 1 );
    }
    
@@ -175,7 +176,7 @@ public abstract class AbstractListEO extends AbstractEObject
       int index = _items.indexOf(item);
       if (index >= 0)
       {
-         item.removeAppEventListener("ONDELETE", this);
+         item.removeAppEventListener(DELETE, this);
          _items.remove(item);
          fireIntervalRemoved(this, index, index);
       }
@@ -190,7 +191,7 @@ public abstract class AbstractListEO extends AbstractEObject
       for (Object item : _items)
       {
          ComplexEObject ceo = (ComplexEObject) item;
-         ceo.removeAppEventListener("ONDELETE", this);
+         ceo.removeAppEventListener(DELETE, this);
          _items.remove(ceo);
       }
       fireIntervalRemoved(this, 0, size);

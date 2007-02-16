@@ -33,6 +33,7 @@ import com.u2d.type.Choice;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.ColorEO;
+import com.u2d.pubsub.AppEventType;
 
 /**
  * @author Eitan Suez
@@ -1043,7 +1044,7 @@ public class ComplexType extends AbstractComplexEObject
    /* override fireappeventnotification to also notify abstract types that
       this type represent */
 
-   public void fireAppEventNotification(String evtType)
+   public void fireAppEventNotification(AppEventType evtType)
    {
       super.fireAppEventNotification(evtType);
       ComplexType[] abstractTypes = getAbstractTypes();
@@ -1052,7 +1053,7 @@ public class ComplexType extends AbstractComplexEObject
          abstractTypes[i].fireAppEventNotification(evtType);
       }
    }
-   public void fireAppEventNotification(String evtType, Object target)
+   public void fireAppEventNotification(AppEventType evtType, Object target)
    {
       super.fireAppEventNotification(evtType, target);
       ComplexType[] abstractTypes = getAbstractTypes();

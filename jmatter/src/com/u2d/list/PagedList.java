@@ -10,6 +10,7 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.Harvester;
 import com.u2d.model.ComplexType;
 import com.u2d.pubsub.*;
+import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.pattern.*;
 import com.u2d.find.Query;
 import com.u2d.reflection.Cmd;
@@ -35,7 +36,7 @@ public class PagedList extends CriteriaListEO
    public PagedList(Query query, int pageNum)
    {
       super(query, pageNum);
-      type().addAppEventListener("ONCREATE", _addListener);
+      type().addAppEventListener(CREATE, _addListener);
    }
    
    // See NullAssociation for comments
@@ -60,7 +61,7 @@ public class PagedList extends CriteriaListEO
       super.removeListDataListener(l);
       if (_listDataListenerList.getListenerCount() == 0)
       {
-        type().removeAppEventListener("ONCREATE", _addListener);
+        type().removeAppEventListener(CREATE, _addListener);
         _addListener = null;
       }
    }

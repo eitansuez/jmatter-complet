@@ -13,6 +13,8 @@ import com.u2d.xml.CodesList;
 import com.u2d.pubsub.AppEventNotifier;
 import com.u2d.pubsub.AppEventSupport;
 import com.u2d.pubsub.AppEventListener;
+import com.u2d.pubsub.AppEventType;
+import static com.u2d.pubsub.AppEventType.*;
 import org.hibernate.*;
 import org.jibx.runtime.*;
 import java.io.InputStream;
@@ -121,7 +123,7 @@ public class Application implements AppEventNotifier
    private void message(String msg)
    {
       Tracing.tracer().info(msg);
-      fireAppEventNotification("MESSAGE", msg);
+      fireAppEventNotification(MESSAGE, msg);
    }
 
    public void log(String typeString, EOCommand cmd, String msg)
@@ -145,19 +147,19 @@ public class Application implements AppEventNotifier
    // == app event notifier ..
 
    private transient AppEventSupport support = new AppEventSupport(this);
-   public void addAppEventListener(String evtType, AppEventListener l)
+   public void addAppEventListener(AppEventType evtType, AppEventListener l)
    {
       support.addAppEventListener(evtType, l);
    }
-   public void removeAppEventListener(String evtType, AppEventListener l)
+   public void removeAppEventListener(AppEventType evtType, AppEventListener l)
    {
       support.removeAppEventListener(evtType, l);
    }
-   public void fireAppEventNotification(String evtType)
+   public void fireAppEventNotification(AppEventType evtType)
    {
       support.fireAppEventNotification(evtType);
    }
-   public void fireAppEventNotification(String evtType, Object target)
+   public void fireAppEventNotification(AppEventType evtType, Object target)
    {
       support.fireAppEventNotification(evtType, target);
    }

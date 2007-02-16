@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import static com.u2d.pubsub.AppEventType.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +29,7 @@ public class EntryPoint
                new ClassPathXmlApplicationContext("applicationContext.xml");
       
          Application app = (Application) context.getBean("application");
-         app.addAppEventListener("MESSAGE", splash);
+         app.addAppEventListener(MESSAGE, splash);
       
          app.postInitialize();
       

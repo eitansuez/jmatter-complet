@@ -7,8 +7,8 @@ import com.u2d.element.Field;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
 import com.u2d.pubsub.*;
+import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.app.Context;
-
 import java.util.List;
 
 /**
@@ -36,7 +36,7 @@ public class BidiAssociationStrategy
       {
          _otherSide.set(value, parent());
 
-         value.addAppEventListener("ONCREATE", new AppEventListener()
+         value.addAppEventListener(CREATE, new AppEventListener()
             {
                public void onEvent(AppEvent evt)
                {
@@ -46,7 +46,7 @@ public class BidiAssociationStrategy
       }
       else if (parent().isTransientState())
       {
-         parent().addAppEventListener("ONCREATE", new AppEventListener()
+         parent().addAppEventListener(CREATE, new AppEventListener()
             {
                public void onEvent(AppEvent evt)
                {

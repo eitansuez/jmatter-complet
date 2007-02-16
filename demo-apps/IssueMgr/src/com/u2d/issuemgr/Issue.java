@@ -14,6 +14,7 @@ import com.u2d.element.CommandInfo;
 import com.u2d.pattern.State;
 import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
+import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.persist.Persist;
@@ -90,7 +91,7 @@ public class Issue extends AbstractComplexEObject
       {
          if (isEditableState())
          {
-            addAppEventListener("ONCREATE", new AppEventListener()
+            addAppEventListener(CREATE, new AppEventListener()
             {
                public void onEvent(AppEvent appEvent)
                {

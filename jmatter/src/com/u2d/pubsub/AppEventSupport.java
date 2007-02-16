@@ -17,36 +17,36 @@ public class AppEventSupport implements AppEventNotifier
       _source = source;
    }
    
-   Map listeners = new HashMap();
+   Map<AppEventType, HashSet<AppEventListener>> listeners = new HashMap<AppEventType, HashSet<AppEventListener>>();
    
-   public synchronized void addAppEventListener(String evtType, AppEventListener l)
+   public synchronized void addAppEventListener(AppEventType evtType, AppEventListener l)
    {
       if (listeners.get(evtType) == null)
       {
-         listeners.put(evtType, new HashSet());
+         listeners.put(evtType, new HashSet<AppEventListener>());
       }
-      Set set = (Set) listeners.get(evtType);
+      Set<AppEventListener> set = listeners.get(evtType);
       set.add(l);
    }
    
-   public synchronized void removeAppEventListener(String evtType, AppEventListener l)
+   public synchronized void removeAppEventListener(AppEventType evtType, AppEventListener l)
    {
       if (listeners.get(evtType) == null) return;
-      Set set = (Set) listeners.get(evtType);
+      Set set = listeners.get(evtType);
       set.remove(l);
    }
    
-   public void fireAppEventNotification(String evtType)
+   public void fireAppEventNotification(AppEventType evtType)
    {
       fireAppEventNotification(evtType, null);
    }
    
-   public void fireAppEventNotification(String evtType, Object target)
+   public void fireAppEventNotification(AppEventType evtType, Object target)
    {
       if (listeners.get(evtType) == null) return;
       synchronized(this)
       {
-         HashSet set = (HashSet) listeners.get(evtType);
+         HashSet set = listeners.get(evtType);
          Set targets = (Set) set.clone();
          AppEvent evt = new AppEvent(_source, evtType, target);
          for (Iterator itr = targets.iterator(); itr.hasNext(); )

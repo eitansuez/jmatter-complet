@@ -10,7 +10,6 @@ import java.beans.XMLEncoder;
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
-
 import com.u2d.ui.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
@@ -19,6 +18,7 @@ import com.u2d.view.swing.dnd.*;
 import com.u2d.view.swing.list.CommandsMenuView;
 import com.u2d.app.*;
 import com.u2d.pubsub.*;
+import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.persist.HBMSingleSession;
 import com.u2d.pattern.Filter;
 import com.u2d.element.Command;
@@ -87,7 +87,7 @@ public class AppFrame extends JFrame
 
    private void listenForUserEvents()
    {
-      _appSession.addAppEventListener("LOGIN", new AppEventListener()
+      _appSession.addAppEventListener(LOGIN, new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {
@@ -103,7 +103,7 @@ public class AppFrame extends JFrame
             });
          }
       });
-      _appSession.addAppEventListener("LOGOUT", new AppEventListener()
+      _appSession.addAppEventListener(LOGOUT, new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {
