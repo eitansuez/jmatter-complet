@@ -342,8 +342,9 @@ information
 So many business applications need to process dates, phone numbers, social
  security numbers, images, passwords, percentages, currencies, names, addresses,
  notes, and more.
- Yet here again, you will discover sofware developers spending time [re-]writing
- code to parse, validate, and format such basic information as a phone number;
+ Yet here again, you will discover software developers spending time [re-]writin
+g code to parse, validate, and format such basic information as a phone
+ number;
 \end_layout
 
 \end_deeper
@@ -505,7 +506,7 @@ Bold claims have been made in this introduction.
  with a healthy dose of skepticism.
  It is for you, the reader, to judge the cost-benefit proposition of the
  JMatter framework for delivering software applications.
- This document arms you with the information necessary to make that judgement.
+ This document arms you with the information necessary to make that judgment.
 \end_layout
 
 \begin_layout Chapter
@@ -555,7 +556,7 @@ ant
 \end_layout
 
 \begin_layout Standard
-After instlalling 
+After installing 
 \emph on
 ant
 \emph default
@@ -717,7 +718,7 @@ If applicable, place a copy of the JDBC driver
 \emph default
  for your database in JMatter's 
 \emph on
-lib/src
+lib/runtime/jdbc
 \emph default
  subdirectory (see Appendix 
 \begin_inset LatexCommand \ref{cha:Database-Setup}
@@ -836,7 +837,7 @@ JMatter applications are designed to be multi-user applications, running
 
 \end_inset
 
- for complete documention pertaining to deploying applications.
+ for complete documentation pertaining to deploying applications.
 \end_layout
 
 \begin_layout Standard
@@ -1302,7 +1303,7 @@ Delete
 
 \begin_layout Standard
 It's important to note that JMatter applications' user interfaces are very
- simple: they boil down to the implmentation of a single concept: the noun-verb
+ simple: they boil down to the implementation of a single concept: the noun-verb
  user interface metaphor.
  That is, we're in world of objects and we manipulate them through actions
 \begin_inset Foot
@@ -2464,7 +2465,7 @@ $ ant run
 \begin_layout Standard
 That's it.
  We now have a working contact manager application.
- Go ahead and exercise it: create new person ojbects, etc..
+ Go ahead and exercise it: create new person objects, etc..
  (see figure 
 \begin_inset LatexCommand \ref{cap:Classlist-organized}
 
@@ -4712,7 +4713,7 @@ font-style
 \emph default
 , and a few others.
  I anticipate the next version of JMatter will have more complete support
- for CSS (with some differences to accomodate the fact that we're targeting
+ for CSS (with some differences to accommodate the fact that we're targeting
  a Swing application).
 \end_layout
 
@@ -5053,11 +5054,11 @@ README.txt
 \end_layout
 
 \begin_layout LyX-Code
-cp mp3spi1.9.3.jar ~/projects/ds/MyTunes/lib/src
+cp mp3spi1.9.3.jar ~/jmatter-complet/demo-apps/MyTunes/lib/src
 \end_layout
 
 \begin_layout LyX-Code
-cp lib/*.jar ~/projects/ds/MyTunes/lib/src
+cp lib/*.jar ~/jmatter-complet/demo-apps/MyTunes/lib/src
 \end_layout
 
 \begin_layout Standard
@@ -5082,7 +5083,7 @@ The Matrix
 \end_layout
 
 \begin_layout LyX-Code
-$ ant schema-expor
+$ ant schema-export
 \end_layout
 
 \begin_layout LyX-Code
@@ -7424,7 +7425,7 @@ return getVenue().getRooms();
 \end_layout
 
 \begin_layout Standard
-In our case, we decided to keep our venu constant so we return the entire
+In our case, we decided to keep our venue constant so we return the entire
  list of rooms.
 \end_layout
 
@@ -7642,7 +7643,7 @@ CalEvent
 CalEvent
 \emph default
 .
- As we refine jMatter's calendaring feature further, we expect this requirement
+ As we refine JMatter's calendaring feature further, we expect this requirement
  to be removed
 \begin_inset Foot
 status collapsed
@@ -7667,7 +7668,7 @@ Polymorphism
 \end_layout
 
 \begin_layout Standard
-Let's discuss how we would revise our application to accomodate symposia
+Let's discuss how we would revise our application to accommodate symposia
  with different venues:
 \end_layout
 
@@ -7678,7 +7679,7 @@ venue
 \newline
 
 \emph default
-The goal is for a venue to be a base type for mutliple specializations,
+The goal is for a venue to be a base type for multiple specializations,
  such as a Hotel, a Conference Center, or a Campus (each of these three
  would be concrete implementations of a 
 \emph on
@@ -9025,7 +9026,7 @@ We can now generate and export our schema, run the application and create
 \end_layout
 
 \begin_layout Section
-Modeling Issues' LifeCycle
+Modeling Issues' Lifecycle
 \end_layout
 
 \begin_layout Standard
@@ -9806,7 +9807,7 @@ Fixed
 openedBy
 \emph default
  field.
- In otherwords, whoever opened the issue is the one authorized to close
+ In other words, whoever opened the issue is the one authorized to close
  it.
 \end_layout
 
@@ -9886,8 +9887,8 @@ Issue
  events.
  JMatter provides a generic notification mechanism that any object can take
  advantage of.
- Each type of event is defined by a string constant, such as ONDELETE, ONSAVE,
- ONBEFORECREATE, ONCREATE.
+ Each type of event is defined by a string constant, such as DELETE, SAVE,
+ BEFORECREATE, CREATE.
  You'll see an example use of this mechanism shortly.
  It's also worth noting that besides object persistence events, JMatter
  provides hooks for application events such as login and logout events.
@@ -10147,7 +10148,7 @@ Rather than define a to-many relationship to issue, I'm going to add a command
 
 \begin_layout Standard
 I'm not entirely satisfied with the implementation.
- I'd like to be able to use plain old hql or the hibernate api to define
+ I'd like to be able to use plain old hql or the hibernate API to define
  this query.
  The above uses JMatter's own API for defining queries, which basically
  says: 
@@ -10242,7 +10243,7 @@ List Outstanding Issues
 \emph on
 List Closed Issues
 \emph default
- that pre-filters the listing (using jMatter's Smart List mechanism).
+ that pre-filters the listing (using JMatter's Smart List mechanism).
 \end_layout
 
 \begin_layout Standard
@@ -10328,7 +10329,7 @@ eitan@ubuntu:~/projects/ds/IssueMgr/src/com/u2d/issuemgr$ wc -l *.java
 \end_layout
 
 \begin_layout Standard
-Three classes totalling 300 lines of code.
+Three classes totaling 300 lines of code.
  The current state of lifecycle support in JMatter is pretty strong.
  Its implementation is a natural extension of the conventions already establishe
 d for simpler business objects.
@@ -10342,7 +10343,7 @@ d for simpler business objects.
 In summary, support for business objects lifecycle is a necessary component
  of supporting the development of business applications in general.
  Many business objects naturally embody lifecycles, including orders (new,
- confirmed, fulfilled, etc..), visits (scheduled, canceled, confrimed, ongoing,
+ confirmed, fulfilled, etc..), visits (scheduled, canceled, confirmed, ongoing,
  archived), etc..
 \end_layout
 
@@ -12939,7 +12940,7 @@ Types
 \end_layout
 
 \begin_layout Standard
-When buildling a JMatter application, your job as a developer is to develop
+When building a JMatter application, your job as a developer is to develop
  the model completely, using object-oriented techniques: accounting for
  both data and behaviour.
 \end_layout
@@ -12953,7 +12954,8 @@ You can think of the complete application as having a model-view-controller
 \end_layout
 
 \begin_layout Standard
-From a persistence perspective, all types inherit three fields or pseudofields:
+From a persistence perspective, all types inherit three fields or pseudo
+ fields:
 \end_layout
 
 \begin_layout Standard
@@ -13513,7 +13515,7 @@ provide metadata for the framework to statically introspect the type to
 \end_layout
 
 \begin_layout Enumerate
-suppy a getter method
+supply a getter method
 \end_layout
 
 \begin_layout Subsubsection
@@ -13802,8 +13804,8 @@ AbstractChoiceEO
 \emph default
 .
  The framework itself defines four such types of choices: US States, Sex,
- Marrital Status, Contact Method (instances of these four types are prepopulated
- from the xml files located in 
+ Marrital Status, Contact Method (instances of these four types are pre-populate
+d from the xml files located in 
 \emph on
 jmatter/resources/data
 \emph default
@@ -14390,7 +14392,7 @@ last
 Person.name
 \emph default
  on the other hand is not atomic.
- The hierarchical realtionship is sometimes important and useful in many
+ The hierarchical relationship is sometimes important and useful in many
  situations.
 \end_layout
 
@@ -14436,7 +14438,7 @@ Hierarchical Display of Aggregates
 
 \begin_layout Standard
 Sometimes it's more practical to display all descendant fields as a single
- flattened form, rather than require users to expand and collapse subnodes
+ flattened form, rather than require users to expand and collapse sub-nodes
  in order to perform data entry.
  That's what the 
 \emph on
@@ -14587,7 +14589,7 @@ identities
 \begin_inset Quotes erd
 \end_inset
 
- will ensure that JMatter construts the database schema properly (marking
+ will ensure that JMatter constructs the database schema properly (marking
  the field as unique in the database, which will also create an index on
  the table).
  In the user interface, such fields cannot be revised after an object has
@@ -15254,7 +15256,7 @@ Specify whether this is a sensitive command (e.g.
 Delete
 \emph default
 ) where it would be beneficial for the ui to provide a mechanism to prevent
- against inadvertant invocation of the command.
+ against inadvertent invocation of the command.
  This is done in the Swing view mechanism by disabling the command's button.
  A small lock on the button can be clicked on to enable the action.
 \end_layout
@@ -15296,7 +15298,7 @@ public String ChangePassword(CommandInfo cmdInfo,
 \end_layout
 
 \begin_layout Section
-Persistence LifeCycle and AppEvents
+Persistence Lifecycle and AppEvents
 \end_layout
 
 \begin_layout Standard
@@ -16027,7 +16029,7 @@ We already know that JMatter applications rely on a database management
 \end_layout
 
 \begin_layout Standard
-The dillema is having to install and maintain JMatter applications on each
+The dilemma is having to install and maintain JMatter applications on each
  client machine.
  This is where Java Web Start comes to the rescue.
 \end_layout
@@ -16361,7 +16363,7 @@ Java Web Start - Launched Application on a MacOSX Client
 
 \begin_layout Standard
 The first time the application is launched, Java Web Start will be downloading
- and installling an entire application.
+ and installing an entire application.
  So the first launch will be fairly slow; it might take 30 seconds.
  Subsequent launches will not require the download (only a quick check for
  updates against the server) and consequently will take considerably less
@@ -16832,8 +16834,8 @@ Associating a Speaker to a talk
 \begin_layout Standard
 The only detail to tend to is to specify which field of Speaker are we searching
  by.
- That's what that little 'magnifying glass' icon to the left of the text
- field is for.
+ That's what that little magnifying glass icon to the left of the text field
+ is for.
  It's a drop-down combobox that dynamically lists the various fields you
  might want to search by.
 \end_layout
@@ -16863,8 +16865,15 @@ Copy and Paste
 
 \begin_layout Standard
 Every Swing application gets for free the ability to use the underlying
- platform's copy and paste capabilities when working with `JTextField`s
- and `JTextArea`s.
+ platform's copy and paste capabilities when working with 
+\emph on
+JTextField
+\emph default
+s and 
+\emph on
+JTextArea
+\emph default
+s.
 \end_layout
 
 \begin_layout Standard
@@ -17986,7 +17995,7 @@ ant run
 \end_layout
 
 \begin_layout Standard
-Every demo application isbuilt and run this way.
+Every demo application is built and run this way.
  These instructions are in accordance with the way any JMatter project is
  compiled and run.
 \end_layout
@@ -18060,7 +18069,7 @@ Let's go a little further though.
  Let's think about the code required to implement an email application,
  a web browser, a word processor, our finance application, etc..
  Each application must fend for itself: each one has to build its own search
- features, its own mechanism for persisting information, its own user interace,
+ features, its own mechanism for persisting information, its own user interface,
  its own mechanism for calendaring, for validating information, etc..
 \end_layout
 
@@ -18120,7 +18129,7 @@ This is my vision for operating systems.
 \end_layout
 
 \begin_layout Standard
-Indeed the ideas behing JMatter were inspired by the NakedObjects framework,
+Indeed the ideas behind JMatter were inspired by the NakedObjects framework,
  which in turn was inspired by Smalltalk.
 \end_layout
 
@@ -18165,7 +18174,7 @@ There are ways to manage a desktop, and they're pretty well-known.
 Virtual Desktops: many operating systems such as Linux and the MacOS either
  come with this feature or have utilities that can be installed to provide
  this feature.
- Mutliple desktops mitigates the problem of too many windows overlapping
+ Multiple desktops mitigates the problem of too many windows overlapping
  one another.
  You can use one desktop for Email, the other for Web, and the third for
  desktop apps, for example.
@@ -18277,7 +18286,7 @@ But it wasn't all rosy.
 \end_layout
 
 \begin_layout Standard
-Along comes NakedOjbects.
+Along comes NakedObjects.
  And along with it comes the notion of Value objects, which are ValueHolder
  types.
  The notion of the ValueHolder has its roots in Smalltalk.
@@ -18298,8 +18307,8 @@ In JMatter as well as in NakedObjects the notion of ValueHolders is actually
 
 \begin_layout Standard
 The developer community took issue to this.
- They didn't like having to replace their beloved java.lang.String with org.nakedoj
-bects.value.TextString or with com.u2d.type.atomic.StringEO.
+ They didn't like having to replace their beloved java.lang.String with org.nakedob
+jects.value.TextString or with com.u2d.type.atomic.StringEO.
  They went as far as invoking the POJO clause: 
 \emph on
 we want our plain old java objects back
@@ -18333,8 +18342,11 @@ Q: How do I customize my application's name in the main window's title bar?
 \end_layout
 
 \begin_layout Standard
-A: Edit the file src/applicationContext.xml and look for a comment labeld
- 
+A: Edit the file 
+\emph on
+src/applicationContext.xml
+\emph default
+ and look for a comment labeled 
 \begin_inset Quotes eld
 \end_inset
 
@@ -18343,7 +18355,7 @@ TODO: Customize App Name Here
 \end_inset
 
 .
- This is also the place where you cusotmize the page size of listings in
+ This is also the place where you customize the page size of listings in
  the user interface (the default is 15).
 \end_layout
 
