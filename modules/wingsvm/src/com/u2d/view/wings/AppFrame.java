@@ -6,6 +6,7 @@ import com.u2d.ui.desktop.Positioning;
 import com.u2d.type.composite.Folder;
 import com.u2d.element.Command;
 import com.u2d.pubsub.AppEventListener;
+import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.persist.HibernatePersistor;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
@@ -117,7 +118,7 @@ public class AppFrame extends SFrame
    
    private void listenForUserEvents()
    {
-      _appSession.addAppEventListener("LOGIN", new AppEventListener()
+      _appSession.addAppEventListener(LOGIN, new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {
@@ -126,7 +127,7 @@ public class AppFrame extends SFrame
             _desktopPane.setEnabled(true); // enable context menu
          }
       });
-      _appSession.addAppEventListener("LOGOUT", new AppEventListener()
+      _appSession.addAppEventListener(LOGOUT, new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {

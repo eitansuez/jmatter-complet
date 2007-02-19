@@ -6,6 +6,7 @@ import com.u2d.app.Application;
 import com.u2d.app.PersistenceMechanism;
 import com.u2d.app.User;
 import com.u2d.pubsub.AppEventListener;
+import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.persist.HibernatePersistor;
 import com.u2d.ui.desktop.Positioning;
 
@@ -77,7 +78,7 @@ public class AppFrame extends Window
    
    private void listenForUserEvents()
    {
-      _appSession.addAppEventListener("LOGIN", new AppEventListener()
+      _appSession.addAppEventListener(LOGIN, new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {
@@ -86,7 +87,7 @@ public class AppFrame extends Window
 //            _desktopPane.setEnabled(true); // enable context menu
          }
       });
-      _appSession.addAppEventListener("LOGOUT", new AppEventListener()
+      _appSession.addAppEventListener(LOGOUT, new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {

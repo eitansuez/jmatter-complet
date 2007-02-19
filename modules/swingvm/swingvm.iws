@@ -16,12 +16,7 @@
     <option name="USER" value="" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/AssociationView2.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/AssociationView2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/EntryPoint.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/EntryPoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java" />
-    </list>
+    <list default="true" name="Default" comment="" />
   </component>
   <component name="ChangeListSynchronizer" />
   <component name="ChangesViewManager" flattened_view="true" />
