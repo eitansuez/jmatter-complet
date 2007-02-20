@@ -521,7 +521,7 @@ On the client side, JMatter leverages the Java Swing Toolkit to produce
 The overall architecture has two tiers: the client application communicates
  over the network to the back-end database.
  Multiple clients are installed on multiple workstations, and multiple users
- can access the system concurently.
+ can access the system concurrently.
 \end_layout
 
 \begin_layout Standard
@@ -2459,8 +2459,15 @@ $ java -cp ../jmatter/lib/runtime/jdbc/h2.jar org.h2.tools.Server
 \end_layout
 
 \begin_layout Standard
-Then point your web browser to http://localhost:8082/ and login to the database
- (default username and password are 'sa', and '' (blank) respectively).
+Then point your web browser to 
+\emph on
+http://localhost:8082/
+\emph default
+ and login to the database (default username is 
+\emph on
+sa
+\emph default
+, and the password is blank).
  These details are much better documented by H2's own documentation, of
  course.
 \end_layout
@@ -3274,7 +3281,10 @@ Next > Next > Next
 \emph default
 , with one or two deviations from the defaults.
  My project is almost completely setup.
- The last thing I need to do is add the jar files in ../jmatter/lib/runtime
+ The last thing I need to do is add the jar files in 
+\emph on
+../jmatter/lib/runtime
+\emph default
  to my project classpath so that the classes we reference can be resolved.
  Since the specific instructions vary from IDE to IDE, and since this is
  such a basic operation, I won't hold your hand through this task.
@@ -5289,7 +5299,7 @@ Commands
 \begin_layout Standard
 Exposing commands on types in JMatter is as simple as exposing types.
  A command in the user interface maps to a method implementation on my class,
- just as a type in the ui is implemented via a Java class.
+ just as a type in the UI is implemented via a Java class.
  The convention to follow for commands is to decorate the method with the
  
 \emph on
@@ -5311,8 +5321,11 @@ CommandInfo
 \begin_layout Standard
 The caption that JMatter uses in menu items and buttons representing a command
  method is derived from the method name.
- For an annotated method named ProduceHCFA_WithForm, for example, the caption
- will be 
+ For an annotated method named 
+\emph on
+ProduceHCFA_WithForm
+\emph default
+, for example, the caption will be 
 \emph on
 Produce HCFA With Form
 \emph default
@@ -5678,7 +5691,7 @@ javax.sound
  That is, Apple does not write their APIs or software applications to run
  on GNU/Linux, even though they had no qualms about pillaging open source
  code for their operating system kernel, or for their Safari web browser,
- just to name a few.
+ just to name a few situations.
  I suppose giving is a one-way street.
 \end_layout
 
@@ -7253,7 +7266,7 @@ As its name implies, a Resource is something that
 Grouping of Resources, or Calendarables
 \newline
 Finally, it's important to get a
- view of how multiple resources are utilitized in time.
+ view of how multiple resources are utilized in time.
  We'd like to be able to see what sessions are going on at the same time
  in six different rooms, so we can pick which presentation we want to attend,
  for example.
@@ -9643,9 +9656,16 @@ Close
 RejectFix
 \emph default
  specify arguments.
- Recall that JMatter automagically prompts the end user for these arguments
- in the user interface and then feeds them to the commands when invoking
- their methods.
+ Recall that JMatter 
+\begin_inset Quotes eld
+\end_inset
+
+automagically
+\begin_inset Quotes erd
+\end_inset
+
+ prompts the end user for these arguments in the user interface and then
+ feeds them to the commands when invoking their methods.
  These values are then passed in to the 
 \emph on
 makeLog()
@@ -10632,12 +10652,16 @@ Writing the Wizard
 JMatter models a wizard as a container for a series of steps.
  JMatter defines a several types of steps.
  There are basic (or atomic) steps, conditional steps, and composite steps.
- We need to write a class that is essentially a compositestep: one that
+ We need to write a class that is essentially a composite step: one that
  defines the set of steps that makes up our wizard.
 \end_layout
 
 \begin_layout Standard
-Here is the first part of the implementation for our NewPersonWizard class:
+Here is the first part of the implementation for our 
+\emph on
+NewPersonWizard
+\emph default
+ class:
 \end_layout
 
 \begin_layout LyX-Code
@@ -11083,7 +11107,7 @@ $ ant run
 \end_layout
 
 \begin_layout Standard
-The next five figures are screenshots for the various steps in our simple
+The next five figures are screen shots for the various steps in our simple
  wizard.
  Note how the name, description, and view for each step are automatically
  placed in their respective places on the wizard's window.
@@ -13254,7 +13278,7 @@ Partially localized Sympster Application (French)
 
 \begin_layout Standard
 We see a number of the commands now use French captions.
- The speaker is called a Presenture, the field 
+ The speaker is called a Presenteure, the field 
 \emph on
 name
 \emph default
@@ -16785,7 +16809,7 @@ styles.css
 \begin_layout Standard
 Currently contains a css files that governs the styling of captions for
  required fields and the styling for validation error messages.
- Will in the future be expanded to goven styling for the entire application.
+ Will in the future be expanded to govern styling for the entire application.
 \end_layout
 
 \end_inset
@@ -16935,7 +16959,7 @@ src/com/u2d/class-list.xml
 
 \begin_layout Standard
 This is where you can preconfigure your application's classbar: that is,
- specify here the lsit of model objects you wish to expose to your user
+ specify here the list of model objects you wish to expose to your user
  interface (optional: can be performed directly from the user interface).
 \end_layout
 
@@ -17541,7 +17565,11 @@ I have developed a set of IntelliJ IDEA templates that constitutes a lightweight
 \end_layout
 
 \begin_layout Standard
-This tool is included with the JMatter distribution in jmatter/tools/IDEA.
+This tool is included with the JMatter distribution in 
+\emph on
+jmatter/tools/IDEA
+\emph default
+.
  Follow the instructions in the README file to install the templates into
  the IDE.
  The tool thus far consists of one basic file template and a number of live
@@ -17563,7 +17591,11 @@ Select a package in the side bar
 \end_layout
 
 \begin_layout Enumerate
-Right-click "New->ACO"
+Right-click "New->ACO" (ACO stands for 
+\emph on
+AbstractComplexEObject
+\emph default
+)
 \end_layout
 
 \begin_layout Enumerate
@@ -17828,7 +17860,7 @@ Ultraviolet and UMLC
 
 \begin_layout Standard
 Ultraviolet is a UML class editor.
- A copy is packaged with and intregrated into JMatter.
+ A copy is packaged with and integrated into JMatter.
  One way to launch it is by invoking the ultraviolet target from the framework
  build file:
 \end_layout
@@ -17997,8 +18029,25 @@ One such feature was Apple's "Expose" which has since also been copied by
  windows temporarily for the purpose of easily switching focus to a window
  that is otherwise hidden by other windows that have a higher z-index.
  JMatter has such a feature.
- Pressing the F12 key invokes the JExplose feature which does precisely
- that (the desktop pane's context menu also bears the option).
+ Pressing the F12 key invokes the JExplose 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+There's no typo here.
+ The author of this tool is French; 
+\emph on
+explose
+\emph default
+ is French means 
+\emph on
+explode.
+\end_layout
+
+\end_inset
+
+ feature which does precisely that (the desktop pane's context menu also
+ bears the option).
 \end_layout
 
 \begin_layout Standard
@@ -19406,7 +19455,12 @@ Checking out the code
 \end_layout
 
 \begin_layout Standard
-The JMatter subversion repository is located at http://svn.jmatter.org/
+The JMatter subversion repository is located at 
+\begin_inset LatexCommand \url{http://jmatter.org/documentation/pdf/jmatter_new.pdf}
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -19431,7 +19485,8 @@ Then issue the checkout command, as illustrated by this example:
 \end_layout
 
 \begin_layout LyX-Code
-svn checkout http://svn.jmater.org/jmatter-complet/tags/Release-20060825 
+svn checkout http://svn.jmatter.org/jmatter-complet/tags/Release-20060825
+ 
 \end_layout
 
 \begin_layout LyX-Code
