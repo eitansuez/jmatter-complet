@@ -151,7 +151,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public void setStartState()
    {
       setReadState();
-      setState(startState(), true /* shallow */);
+      setState(startState(), false /* shallow */);
    }
    public void restoreState()
    {
@@ -181,8 +181,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public State getState() { return _currentState; }
 
-
-   // note: was protected.  forced to make public after package restructuring
    public void setState(State state) { setState(state, false); }
 
    protected void setState(State state, boolean shallow)

@@ -78,7 +78,6 @@ public class ListItemView extends JLabel implements ComplexEView
          public void run()
          {
             setText(_ceo.title().toString());
-            //_assistant.update();
          }
       });
    }

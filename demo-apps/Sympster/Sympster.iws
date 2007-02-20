@@ -19,7 +19,6 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sympster.iws" afterPath="$PROJECT_DIR$/Sympster.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/model-metadata.properties" afterPath="$PROJECT_DIR$/resources/model-metadata.properties" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -579,7 +578,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1280" height="751" extended-state="0" />
+    <frame x="0" y="24" width="1276" height="747" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />

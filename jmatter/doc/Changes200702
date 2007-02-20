@@ -1,3 +1,25 @@
+Feb 20 2007
+
+Changes in Beta 2 (since Feb 2)
+------------------------------
+
+A. Complete overhaul of the existing documentation, and addition of 
+   new chapters to round out / complete the manual.
+   All documentation consolidated into JMatter manual.
+
+B. SaveAndClose() logs activity just like Save() action does.
+
+C. Fixed bug # 119:  supporting specification of Date format and
+   Time format application-wide.
+
+D. Revised new Swing-based component (GridListView) to work with both 
+   Java5 and Java6 (Issue with Java SE moving SwingUtilities2 to another 
+   package). 
+
+E. Fixed an incorrect build dependency in in standalone build file 
+   (build-standalone.xml)
+
+
 Feb 2 2007
 
 Changes (since August 25 2006 release)
