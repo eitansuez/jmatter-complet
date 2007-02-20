@@ -358,7 +358,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       for (int i=0; i<fields.size(); i++)
       {
          field = (Field) fields.get(i);
-         text.append(field.getPath()+": "+field.get(this).toString()+"; ");
+         text.append(field.getPath()).append(": ").append(field.get(this).toString()).append("; ");
       }
       return text.toString();
    }
@@ -649,6 +649,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       {
          if (doSave())
          {
+            log(LoggedEvent.INFO, cmdInfo.getCommand(), "New Object Created/Persisted");
             vmech().dismiss(cmdInfo.getSource());
          }
       }
@@ -788,6 +789,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       {
          if (doSave())
          {
+            log(LoggedEvent.INFO, cmdInfo.getCommand(), "Object updated");
             vmech().dismiss(cmdInfo.getSource());
          }
       }
