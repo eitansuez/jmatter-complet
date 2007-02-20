@@ -16,8 +16,8 @@ public class TimeEO extends AbstractAtomicEO
 {
    private Calendar _cal;
    
-   public static SimpleDateFormat PARSE_FORMAT = new SimpleDateFormat("H:mm");
-   public static SimpleDateFormat DISPLAY_FORMAT = new SimpleDateFormat("h:mm a");
+   private static SimpleDateFormat PARSE_FORMAT = new SimpleDateFormat("H:mm");
+   private static SimpleDateFormat DISPLAY_FORMAT = new SimpleDateFormat("h:mm a");
    
    public TimeEO()
    {
@@ -54,6 +54,11 @@ public class TimeEO extends AbstractAtomicEO
       }
       return formatter;
    }
+   public static void setStandardTimeFormat(String format)
+   {
+      DISPLAY_FORMAT = new SimpleDateFormat(format);
+   }
+   public static SimpleDateFormat stdTimeFormat() { return DISPLAY_FORMAT; }
    
    public void parseValue(String stringValue) throws ParseException
    {

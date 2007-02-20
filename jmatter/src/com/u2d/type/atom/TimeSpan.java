@@ -25,9 +25,6 @@ public class TimeSpan extends AbstractAtomicEO
    private int _direction = 1;
    private transient boolean _sameDay;
    
-   private static SimpleDateFormat _dayFmt = new SimpleDateFormat("MM/dd/yyyy");
-   private static SimpleDateFormat _hrFmt = new SimpleDateFormat("HH:mm");
-   
    public static long ONEHOUR = 60 * 60 * 1000;
 
    public TimeSpan()
@@ -54,7 +51,7 @@ public class TimeSpan extends AbstractAtomicEO
    }
    
    /**
-    * @param startDate
+    * @param startDate start date
     * @param duration in milis
     */
    public TimeSpan(Date startDate, TimeInterval duration)
@@ -167,11 +164,11 @@ public class TimeSpan extends AbstractAtomicEO
    
    public String toString()
    {
-      String fromDate = _dayFmt.format(_startCal.getTime());
-      String toDate = _dayFmt.format(_endCal.getTime());
+      String fromDate = DateEO.stdDateFormat().format(_startCal.getTime());
+      String toDate = DateEO.stdDateFormat().format(_endCal.getTime());
 
-      String fromTime = _hrFmt.format(_startCal.getTime());
-      String toTime = _hrFmt.format(_endCal.getTime());
+      String fromTime = TimeEO.stdTimeFormat().format(_startCal.getTime());
+      String toTime = TimeEO.stdTimeFormat().format(_endCal.getTime());
 
       if (isSameDay())
       {
@@ -184,7 +181,7 @@ public class TimeSpan extends AbstractAtomicEO
    }
    public String formatAsDate()
    {
-      return _dayFmt.format(startDate());
+      return DateEO.stdDateFormat().format(startDate());
    }
    public Title title() { return new Title(toString()); }
    

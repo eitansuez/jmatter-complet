@@ -30,9 +30,7 @@ import com.u2d.persist.*;
 import com.u2d.view.View;
 import com.u2d.reflection.*;
 import com.u2d.type.Choice;
-import com.u2d.type.atom.TimeSpan;
-import com.u2d.type.atom.StringEO;
-import com.u2d.type.atom.ColorEO;
+import com.u2d.type.atom.*;
 import com.u2d.pubsub.AppEventType;
 
 /**
@@ -145,6 +143,18 @@ public class ComplexType extends AbstractComplexEObject
       Color code = (Color) Harvester.introspectField(_clazz, "colorCode", DEFAULT_COLOR);
       _colorCode.setValue(code);
       _sortBy = (String) Harvester.introspectField(_clazz, "sortBy");
+      
+      
+      String dateFormat = metadata.getProperty("DateEO.format");
+      if (dateFormat != null)
+      {
+         DateEO.setStandardDateFormat(dateFormat);
+      }
+      String timeFormat = metadata.getProperty("TimeEO.format");
+      if (timeFormat != null)
+      {
+         TimeEO.setStandardTimeFormat(timeFormat);
+      }
       
       String searchPath = (String) Harvester.introspectField(_clazz, "defaultSearchPath");
       if (searchPath != null)

@@ -146,6 +146,11 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
       TWODIGITYEAR = new SimpleDateFormat("MM/dd/yy");
       NOYEAR = new SimpleDateFormat("MM/dd");
    }
+   public static void setStandardDateFormat(String format)
+   {
+      STANDARD = new SimpleDateFormat(format);
+   }
+   public static SimpleDateFormat stdDateFormat() { return STANDARD; }
    
    private DateFormatStrategy NODELIMS_STRATEGY, STD_STRATEGY, 
    TWODIGITS_STRATEGY, NOYR_STRATEGY;

@@ -15653,6 +15653,21 @@ Although the framework provides a means for overriding the label for a field,
  in our object models.
 \end_layout
 
+\begin_layout Standard
+If you wish to revise the date and time format throughout the application
+ (i.e.
+ not for a specific field), you can specify the format in the 
+\emph on
+model-metadata.properties
+\emph default
+ file (see subsection 
+\begin_inset LatexCommand \ref{sub:model-metadata.properties}
+
+\end_inset
+
+ below).
+\end_layout
+
 \begin_layout Section
 Per-Command Metadata
 \end_layout
@@ -15896,6 +15911,108 @@ public String ChangePassword(CommandInfo cmdInfo,
 
 \begin_layout LyX-Code
                               @Arg("New Password") Password password);
+\end_layout
+
+\begin_layout Subsection
+The model-metadata.properties file
+\begin_inset LatexCommand \label{sub:model-metadata.properties}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By default all child projects have a file that can be customized to provide
+ model metadata: 
+\emph on
+resources/model-metadata.properties
+\emph default
+.
+ Here are the default contents of this file:
+\end_layout
+
+\begin_layout LyX-Code
+User.role.required=true
+\end_layout
+
+\begin_layout LyX-Code
+User.role.default=from Role r where r.name='Default'
+\end_layout
+
+\begin_layout LyX-Code
+CompositeQuery.name.required=true
+\end_layout
+
+\begin_layout LyX-Code
+# e.g.
+\end_layout
+
+\begin_layout LyX-Code
+#Speaker.name.required=true
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# date and time format override (optional)
+\end_layout
+
+\begin_layout LyX-Code
+#DateEO.format=dd.MM.yyyy
+\end_layout
+
+\begin_layout LyX-Code
+#TimeEO.format=HH:mm:ss
+\end_layout
+
+\begin_layout Standard
+Although this file is discussed in the next chapter from the perspetive
+ of validation, not all aspects of this file pertain to validation.
+\end_layout
+
+\begin_layout Standard
+First, we see that we can use a sort of field path notation to reference
+ a field, such as 
+\emph on
+User.role
+\emph default
+, or perhaps 
+\emph on
+Person.name.first
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+We can mark fields as required by setting the field property value to 
+\emph on
+true
+\emph default
+.
+ But we can also specify the default value a field should have.
+ Above we see that we can even specify the default value in terms of a hibernate
+ (hql) query.
+ We can also provide a hard-coded value, say 
+\emph on
+Person.salutation=Mr.
+\end_layout
+
+\begin_layout Standard
+For choice-type fields, we can specify the code for the choice and if a
+ database lookup is necessary, it will be performed.
+\end_layout
+
+\begin_layout Standard
+Finally, we just recently inroduced the ability to specify the default date
+ and time format, which previously was hard-coded to US norms.
+ The format is specified using Java's 
+\emph on
+SimpleDateFormat
+\emph default
+ rules.
 \end_layout
 
 \begin_layout Section
