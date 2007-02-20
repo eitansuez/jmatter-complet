@@ -1,10 +1,46 @@
-Feb 2 2007
-
 JMatter Release Notes
 =====================
 
 (A copy of this file exists also under `jmatter/doc/Changes200702`
  this copy exists here to give the file more visibility)
+
+Feb 20 2007
+
+Changes in Beta 2 (since Feb 2)
+------------------------------
+
+1. Complete overhaul of the existing documentation, and addition of
+   new chapters to round out / complete the manual.
+   All documentation consolidated into JMatter manual.
+
+2. Fixed bug # 119:  supporting specification of Date format and Time format application-wide.
+   (requested on mailing list)
+
+3. SaveAndClose() logs activity just like Save() action does.
+   (reported by Justin on mailing list)
+
+4. Revised new Swing-based component (GridListView) to work with both
+   Java5 and Java6 (Issue with Java SE moving SwingUtilities2 to another
+   package). (reported by Curt Cox on mailing list)
+
+5. Fixed an incorrect build dependency in in standalone build file (build-standalone.xml)
+   (reported by dmcpaul on mailing list)
+
+6. new-project-ui target now uses the ant api directly instead of forking a process
+
+7. Internally replacing usage of Velocity with StringTemplate
+
+8. Adding keyboard focus and navigation abilities to classbar items
+
+9. Renamed @Cmd parameter isSensitive to 'sensitive'
+
+10. Switched to using an enumeration for appeventtypes; documented appevents in manual
+
+11. Fixed a bug having to do with incorrect redrawing of aggregated object views on
+    initial save (reported by Justin on mailing list).
+
+
+Feb 2 2007
 
 Changes (since August 25 2006 release)
 --------------------------------------
