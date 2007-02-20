@@ -125,8 +125,8 @@ demo
 
 , it nevertheless is a complete and working Issue Management software applicatio
 n that can be used for day-to-day tracking and management of software issues.
- The authors of the JMatter framework actually use this application for
- tracking bugs and enhancements to JMatter.
+ The authors of the JMatter framework used this application for some time
+ for tracking bugs and enhancements to JMatter.
 \end_layout
 
 \begin_layout Standard
@@ -459,6 +459,108 @@ out of the box
 any
 \emph default
  extra effort on the part of the application developer.
+\end_layout
+
+\begin_layout Section
+Architecture
+\end_layout
+
+\begin_layout Standard
+Before diving into JMatter, let's briefly discuss what types of applications
+ JMatter produces.
+ What is their architecture? What language are these applications written
+ in? What operating systems can they be deployed onto, etc..
+\end_layout
+
+\begin_layout Standard
+The JMatter framework and JMatter-based applications are written in the
+ Java programming language.
+ The implication is primarily that these applications can run on a number
+ of target operating systems, from windows computers, to macs, to the variety
+ of GNU/Linux operating systems out there, as well as other flavors of Unix
+ such as Solaris and BSD.
+\end_layout
+
+\begin_layout Standard
+JMatter applications by design produce software applications where all data
+ is persisted to a back-end relational database.
+ Databases provide powerful query capabilities that are the foundation for
+ many business needs.
+ The JMatter framework uses the Hibernate 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+see 
+\begin_inset LatexCommand \url{http://hibernate.org/}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ framework to communicate to back-end databases.
+ This affords the framework database independence.
+ JMatter applications are compatible with a number of back-end database
+ systems.
+ It has been tested with PostgresQL, MySQL, and Oracle databases, as well
+ as newer and more lightweight database systems such as H2 and hsqldb.
+ These back-end databases are available for a large number of operating
+ systems.
+\end_layout
+
+\begin_layout Standard
+On the client side, JMatter leverages the Java Swing Toolkit to produce
+ rich client applications.
+ These user interfaces are platform-independent.
+\end_layout
+
+\begin_layout Standard
+The overall architecture has two tiers: the client application communicates
+ over the network to the back-end database.
+ Multiple clients are installed on multiple workstations, and multiple users
+ can access the system concurently.
+\end_layout
+
+\begin_layout Standard
+This type of architecture is suitable for local area network deployment,
+ or the wide area network, over a VPN 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+Virtual Private Network
+\end_layout
+
+\end_inset
+
+ connection.
+ A number of database systems today can be configured for communications
+ over SSL, making it possible to deploy such solutions over a wide area
+ network without requiring a VPN solution.
+\end_layout
+
+\begin_layout Standard
+To automate the task of installing clients on multiple workstations, and
+ of keeping these installations up to date, JMatter leverages Java WebStart.
+ Chapter 
+\begin_inset LatexCommand \ref{cha:Deploying-your-Application}
+
+\end_inset
+
+ is devoted to the specifics of deploying JMatter applications using this
+ technology.
+\end_layout
+
+\begin_layout Standard
+At the time of writing, JMatter already has early (alpha quality) implementation
+s of the infrastructure necessary to deploy the very same applications over
+ the world wide web, using a three-tier architecture.
+ We hope to release a final implementation some time in 2007.
+ This will give users the ability to deploy their applications either to
+ the web or using Swing, or both (a mixed population of users).
 \end_layout
 
 \begin_layout Section
@@ -2115,6 +2217,11 @@ Tutorial Applications
 
 \begin_layout Chapter
 A Zero-Code Contact Manager
+\begin_inset LatexCommand \label{cha:tut_contactmgr}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2161,7 +2268,7 @@ CM
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -2177,6 +2284,11 @@ status collapsed
 
 \begin_layout Caption
 New Project User Interface
+\begin_inset LatexCommand \label{fig:newprojectui}
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -12728,6 +12840,460 @@ The framework's view mechanism in general is extremely modular.
  view mechanism to fundamentally change one aspect of the user interface.
 \end_layout
 
+\begin_layout Chapter
+Localization
+\end_layout
+
+\begin_layout Standard
+I would like to thank Felix Torre for assisting in the development of support
+ for localization (l10n) in JMatter.
+ This chapter documents the current support for l10n in JMatter.
+\end_layout
+
+\begin_layout Standard
+The basic requirement is to be able to deploy a single application to a
+ diverse population, in any of a combination of languages.
+ For example, we may have both English-speaking and French-speaking users.
+\end_layout
+
+\begin_layout Standard
+Fundamentally, JMatter resorts to one aspect of the Java language that was
+ designed for localization: the notion of resource bundles.
+ JMatter uses property-file based resource bundles.
+ Multiple properties files are created.
+ Each follows a certain convention to designate what language and locale
+ it corresponds to, by combining a base name with a suffix.
+\end_layout
+
+\begin_layout Standard
+Look at the Sympster demo application for example.
+ You will find three files: 
+\emph on
+locale-metadata.properties
+\emph default
+, 
+\emph on
+locale-metadata_fr.properties
+\emph default
+, and 
+\emph on
+locale-metadata_es.properties
+\emph default
+.
+ So each suffix, 
+\emph on
+_fr
+\emph default
+ or 
+\emph on
+_es
+\emph default
+, is a language designation: the former is the code for the French language,
+ while the second designates Spanish.
+ Resource bundles imply a specific hierarchy for retrieving values for specific
+ keys in these property files: we check the computer's specific language
+ and country.
+ Let's say we're in Canada, where the language is 
+\emph on
+fr
+\emph default
+ and the country is 
+\emph on
+CA
+\emph default
+.
+ The system will look for the file 
+\emph on
+locale-metadata_fr_CA.properties
+\emph default
+, falling back to the more generic 
+\emph on
+_fr
+\emph default
+ file, and finally, falling back to the most generic property file.
+\end_layout
+
+\begin_layout Standard
+JMatter defines keys for retrieving all the labels and text render on the
+ login dialog box.
+ Here is how they're specified in the _fr resource bundle:
+\end_layout
+
+\begin_layout LyX-Code
+# Login Dialog
+\end_layout
+
+\begin_layout LyX-Code
+# ===============================
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.title=Entrez
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.lbl.username=Nom D'utilisateur:
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.lbl.pwd=Mot de passe:
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.msg.login=Entrez S'il vous plait..
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.msg.failed_auth=Mauvais credentiaux; Essayez encore une fois..
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.msg.user_locked=Votre compte est verouille;  Contactez l'administrateur
+ svp..
+\end_layout
+
+\begin_layout Standard
+JMatter also defines a convention for specifying type labels, command labels,
+ and field labels that are shared by all applications:
+\end_layout
+
+\begin_layout LyX-Code
+# JMatter Global Localization Entries
+\end_layout
+
+\begin_layout LyX-Code
+# ===================================
+\end_layout
+
+\begin_layout LyX-Code
+Command.Save=Sauve
+\end_layout
+
+\begin_layout LyX-Code
+Command.Cancel=Abandone
+\end_layout
+
+\begin_layout LyX-Code
+Command.Copy=Copie
+\end_layout
+
+\begin_layout LyX-Code
+Command.Paste=Colle
+\end_layout
+
+\begin_layout LyX-Code
+Command.SaveAndClose=Sauve et Ferme
+\end_layout
+
+\begin_layout LyX-Code
+Command.Open=Ouvre
+\end_layout
+
+\begin_layout LyX-Code
+Command.Edit=Edite
+\end_layout
+
+\begin_layout LyX-Code
+Command.Delete=Efface
+\end_layout
+
+\begin_layout LyX-Code
+Command.Refresh=Rafraichi
+\end_layout
+
+\begin_layout LyX-Code
+ComplexType.New=Fait Nouveau
+\end_layout
+
+\begin_layout LyX-Code
+ComplexType.Browse=Liste
+\end_layout
+
+\begin_layout LyX-Code
+ComplexType.Find=Trouve
+\end_layout
+
+\begin_layout LyX-Code
+User=Utilisateur
+\end_layout
+
+\begin_layout LyX-Code
+Users=Utilisateurs
+\end_layout
+
+\begin_layout LyX-Code
+User.username=Nom d'utilisateur
+\end_layout
+
+\begin_layout LyX-Code
+User.password=Mot de passe
+\end_layout
+
+\begin_layout LyX-Code
+User.locked=Verrouillé
+\end_layout
+
+\begin_layout LyX-Code
+User.photo=Photographe
+\end_layout
+
+\begin_layout LyX-Code
+User.role=rôle
+\end_layout
+
+\begin_layout LyX-Code
+User.desktop=Écriture-bureau
+\end_layout
+
+\begin_layout Standard
+Here we see that generic commands, shared by all types, are specified as
+ 
+\emph on
+Command.<commandname>
+\emph default
+.
+ Generic type commands are specified using the key 
+\emph on
+ComplexType.<commandname>
+\emph default
+.
+ Other type commands and type fields are likewise specified using the key:
+ 
+\emph on
+<typename>.<fieldname|commandname>
+\emph default
+.
+ When dealing with aggregate fields, you can use a multiple dot notation,
+ as in 
+\emph on
+Speaker.contact.homePhone
+\emph default
+ (see below).
+\end_layout
+
+\begin_layout Standard
+Here are some application-specific label designations for French, for the
+ Sympster application:
+\end_layout
+
+\begin_layout LyX-Code
+# Application-Specific Localization Example Entries
+\end_layout
+
+\begin_layout LyX-Code
+# =================================================
+\end_layout
+
+\begin_layout LyX-Code
+Speaker=Presenteur
+\end_layout
+
+\begin_layout LyX-Code
+Speakers=Presenteurs
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.name=Nom
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.title=Titre
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.bio=Biographie
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.photo=Photo
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.AddTalk=Ajoute Une Presentation
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.contact.homePhone=Telephone Maison
+\end_layout
+
+\begin_layout Standard
+Note also that plural designations can be provided.
+ The key is simply the plural name for the type in English.
+\end_layout
+
+\begin_layout Standard
+Here in the USA I can test how my application might look to a French speaker
+ by revising the locale on my system, or simply forcing through my project
+ build file.
+ Look for the 
+\emph on
+run
+\emph default
+ target in 
+\emph on
+build.xml
+\emph default
+:
+\end_layout
+
+\begin_layout LyX-Code
+ <target name="run" description="run app" depends="genhbm">
+\end_layout
+
+\begin_layout LyX-Code
+   <java classname="${main.class}" classpathref="class.path"
+\end_layout
+
+\begin_layout LyX-Code
+         fork="true" maxmemory="192m">
+\end_layout
+
+\begin_layout LyX-Code
+    <!-- to test localization, uncomment this..
+\end_layout
+
+\begin_layout LyX-Code
+     <sysproperty key="user.language" value="fr" />
+\end_layout
+
+\begin_layout LyX-Code
+      -->
+\end_layout
+
+\begin_layout LyX-Code
+   </java>
+\end_layout
+
+\begin_layout LyX-Code
+ </target>
+\end_layout
+
+\begin_layout Standard
+And uncomment the 
+\emph on
+<sysproperty>
+\emph default
+ line and set its value accordingly.
+ We've included a couple of snapshots of the resulting localized application
+ (figures 
+\begin_inset LatexCommand \ref{fig:login_localized}
+
+\end_inset
+
+ and 
+\begin_inset LatexCommand \ref{fig:partiallocalization}
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/i18n_login.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Login dialog localized for French 
+\begin_inset LatexCommand \label{fig:login_localized}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/i18n_speakers.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Partially localized Sympster Application (French) 
+\begin_inset LatexCommand \label{fig:partiallocalization}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We see a number of the commands now use French captions.
+ The speaker is called a Presenture, the field 
+\emph on
+name
+\emph default
+ becomes 
+\emph on
+Nom
+\emph default
+ and 
+\emph on
+title 
+\emph default
+becomes 
+\emph on
+titre
+\emph default
+.
+ Not all the text appears in French simply because I didn't provide a full
+ list of values for all commands and fields.
+ The figures don't show how the context menus also become localized.
+ 
+\emph on
+Open
+\emph default
+ becomes 
+\emph on
+Ouvre
+\emph default
+, etc..
+\end_layout
+
+\begin_layout Standard
+Localization support in JMatter is by no means complete or exhaustive.
+ For example, at the moment support for the proper date and currency formats
+ for different locales needs work.
+ We've already gotten some feedback on how to provide a more complete set
+ of localization services.
+ We hope that future versions will flesh out this support completely.
+\end_layout
+
 \begin_layout Part
 Framework Reference
 \end_layout
@@ -13968,10 +14534,6 @@ button on an instance of a user), he or she will first be prompted to enter
 \end_inset
 
  for more information.
-\end_layout
-
-\begin_layout Standard
-
 \end_layout
 
 \begin_layout Section
@@ -16000,6 +16562,550 @@ So here you have it, in a nutshell, an overview of validation in JMatter,
 \end_layout
 
 \begin_layout Chapter
+Child Projects
+\end_layout
+
+\begin_layout Standard
+This chapter provides a little more detail information about the structure
+ of JMatter project directories, and documents their accompanying build
+ files.
+\end_layout
+
+\begin_layout Section
+Creating Child Projects
+\end_layout
+
+\begin_layout Standard
+The framework has its own build file, used to compile the framework itself.
+ This build file contains a target: 
+\emph on
+new-project-ui 
+\emph default
+that automates the creation of a JMatter project.
+ We walked through using this target in chapter 
+\begin_inset LatexCommand \ref{cha:tut_contactmgr}
+
+\end_inset
+
+.
+ Invoking this target brings up a simple user interface, shown in figure
+ 
+\begin_inset LatexCommand \vref{fig:newprojectui}
+
+\end_inset
+
+.
+ We specify:
+\end_layout
+
+\begin_layout Enumerate
+The project name
+\end_layout
+
+\begin_layout Enumerate
+The base directory
+\end_layout
+
+\begin_layout Enumerate
+Whether we wish to produce a 
+\emph on
+standalone
+\emph default
+ or 
+\emph on
+dependent
+\emph default
+ project
+\end_layout
+
+\begin_layout Standard
+The project name is required.
+ It is also used as the name of the directory that contains the project
+ files.
+ If the base directory is not specified, we default to creating the project
+ as a sibling directory of the framework itself.
+ The last option needs a slightly lengthier explanation.
+\end_layout
+
+\begin_layout Standard
+A standalone project has no external dependencies.
+ Not only is the child project structure created, but all libraries necessary
+ to run it are containing within the project, in the 
+\emph on
+lib/
+\emph default
+ subdirectory.
+ That is, a copy of the JMatter framework is in a sense frozen into the
+ child project.
+ Standalone projects are therefore not subject to changes to the framework
+ that might take place after its creation (unless the JMatter jar file and
+ other dependent jar files are manually replaced of course).
+\end_layout
+
+\begin_layout Standard
+When creating a dependent project, its build file is told where the JMatter
+ framework is located and so it can reference the JMatter framework's .class
+ files directly, as well as any 
+\emph on
+.jar
+\emph default
+ files that the framework itself leverages.
+\end_layout
+
+\begin_layout Standard
+Both modes are useful in different contexts.
+ For developers with in-depth knowledge of the framework, that expect expect
+ perhaps to make changes to the framework as they develop their application,
+ it's convenient not to have to repackage the framework jar file and copy
+ it to the child project each time a change takes place.
+ Dependent child projects would pick up these changes immediately.
+ So therein lays the tradeoff.
+\end_layout
+
+\begin_layout Standard
+It isn't particularly difficult to change one's project from being dependent
+ to being standalone or vice versa.
+ However, at the time of this writing, there is no magic ant target that
+ will do this work on your behalf.
+\end_layout
+
+\begin_layout Section
+Directory Structure and Files
+\end_layout
+
+\begin_layout Standard
+The main directories that you'll see after creating a new project are:
+\end_layout
+
+\begin_layout LyX-Code
+src, test, doc, resources
+\end_layout
+
+\begin_layout Standard
+Each directory's name fairly clearly implies its role.
+ The base directory for Java source code is 
+\emph on
+src
+\emph default
+, while 
+\emph on
+test
+\emph default
+ is the base directory for tests.
+ The 
+\emph on
+doc
+\emph default
+ subdirectory contains a README file and a Cliche: a quick reference of
+ JMatter's conventions.
+ However, this manual has supplanted it and now contains an up-to-date reference.
+ The 
+\emph on
+doc/
+\emph default
+ directory is of course an ideal location for your project's own documentation.
+\end_layout
+
+\begin_layout Standard
+The 
+\emph on
+resources
+\emph default
+ folder is interesting, and is summarized in the table below.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="2">
+<features>
+<column alignment="left" valignment="top" leftline="true" width="0">
+<column alignment="left" valignment="top" leftline="true" rightline="true" width="3.5in">
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Directory or File
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+images/
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Where to place icons for model objects, the image for the splash screen,
+ and other image resources that your application will use.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+styles.css
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Currently contains a css files that governs the styling of captions for
+ required fields and the styling for validation error messages.
+ Will in the future be expanded to goven styling for the entire application.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+model-metadata.properties
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Where to specify required fields, and field default values.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+local-metadata_<locale>.properties
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Use for internationalization: provide translations for type names, command
+ captions, field captions, and more in order to produce a user interface
+ that is properly translated for the given locale.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+hibernate.properties
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Governs database configuration: database dialect, driver class name, connection
+ url, username and password.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+resources/jws
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Contains resources necessary to produce bundle the application as a java
+ webstart distribution.
+ Edit the file 
+\emph on
+dynamic/project.properties
+\emph default
+ to specify the host name and port where jws fetches your codebase from.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+wings/
+\emph default
+ and 
+\emph on
+echo2/
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+This requires some explanation.
+ We're in the process of developing a web-based user interface for JMatter.
+ At the time of this writing, this work is not yet finished.
+ Resources necessary to construct the web application distribution resides
+ in these directories.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+src/com/u2d/class-list.xml
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+This is where you can preconfigure your application's classbar: that is,
+ specify here the lsit of model objects you wish to expose to your user
+ interface (optional: can be performed directly from the user interface).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+src/persistClasses.xml
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+You typically will not need to edit this file.
+ It's a configuration file used to tell Hibernate what types to persist
+ to database.
+ It is typically automatically generated from annotations in your codebase.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+All child projects come with an ant build file.
+ This build file generates a number of directories for the purpose of generating
+ artifacts.
+ Let's discuss these:
+\end_layout
+
+\begin_layout Description
+db If you configure your application to use a lightweight or file-based
+ database, such as H2 or hsqldb, the database files will reside in this
+ subdirectory
+\end_layout
+
+\begin_layout Description
+build/classes Your application is compiled to this directory.
+ All resources are also copied there, including images and hibernate mapping
+ files
+\end_layout
+
+\begin_layout Description
+jws-dist Used to assemble the Java WebStart distribution
+\end_layout
+
+\begin_layout Description
+dist The Java WebStart distribution is packaged as a 
+\emph on
+.war
+\emph default
+ file in and copied to this directory
+\end_layout
+
+\begin_layout Section
+Build File Targets
+\end_layout
+
+\begin_layout Standard
+Let's now turn our attention to the child project's ant build file.
+ Here is a listing and description of the relevant targets.
+\end_layout
+
+\begin_layout LyX-Code
+ compile        compile code
+\end_layout
+
+\begin_layout LyX-Code
+ compile-tests  compile tests
+\end_layout
+
+\begin_layout LyX-Code
+ genhbm         generate hbm.xml files
+\end_layout
+
+\begin_layout LyX-Code
+ jar            jar it
+\end_layout
+
+\begin_layout LyX-Code
+ jws-dist       create java webstart distribution
+\end_layout
+
+\begin_layout LyX-Code
+ run            run app
+\end_layout
+
+\begin_layout LyX-Code
+ run-test       run a test class
+\end_layout
+
+\begin_layout LyX-Code
+ run-tests      run tests
+\end_layout
+
+\begin_layout LyX-Code
+ schema-export  export schema to db
+\end_layout
+
+\begin_layout LyX-Code
+ schema-update  update db schema
+\end_layout
+
+\begin_layout LyX-Code
+ shellscript    produce runnable shell script
+\end_layout
+
+\begin_layout LyX-Code
+ test-report    produce junit reports
+\end_layout
+
+\begin_layout LyX-Code
+Default target: run
+\end_layout
+
+\begin_layout Standard
+There isn't that much to say beyond the default description of these targets.
+ JMatter generates Hibernate 
+\emph on
+hbm.xml
+\emph default
+ files to the 
+\emph on
+build/classes
+\emph default
+ directory.
+ The 
+\emph on
+run
+\emph default
+ target is useful while developing.
+ You typically don't need to invoke many of these targets.
+ Invoking 
+\emph on
+schema-export
+\emph default
+ for example will automatically compile the code and generate the mapping
+ files first.
+\end_layout
+
+\begin_layout Standard
+Also, if you're working with a dependent project, any changes to the framework
+ codebase will automatically be recompiled first.
+\end_layout
+
+\begin_layout Standard
+Chapter 
+\begin_inset LatexCommand \vref{cha:Deploying-your-Application}
+
+\end_inset
+
+ walks you through deploying your project via Java WebStart.
+\end_layout
+
+\begin_layout Chapter
 Deploying your Application
 \begin_inset LatexCommand \label{cha:Deploying-your-Application}
 
@@ -16413,6 +17519,397 @@ Anyone who's had to configure Java Web Start the
 normal
 \emph default
  way will certainly appreciate this.
+\end_layout
+
+\begin_layout Chapter
+Tooling
+\end_layout
+
+\begin_layout Standard
+This chapter attempts to answer the question: are tools available specifically
+ for assisting developers in writing JMatter applications?
+\end_layout
+
+\begin_layout Section
+IDEA Productivity Templates
+\end_layout
+
+\begin_layout Standard
+I have developed a set of IntelliJ IDEA templates that constitutes a lightweight
+ productivity solution for building JMatter apps.
+ I can no longer write JMatter applications without them.
+\end_layout
+
+\begin_layout Standard
+This tool is included with the JMatter distribution in jmatter/tools/IDEA.
+ Follow the instructions in the README file to install the templates into
+ the IDE.
+ The tool thus far consists of one basic file template and a number of live
+ templates that can significantly assist the development of JMatter applications
+ within IDEA.
+\end_layout
+
+\begin_layout Subsection
+How it works
+\end_layout
+
+\begin_layout Standard
+After creating a Java project, you can create basic JMatter model objects
+ in a manner similar to the creation of new classes:
+\end_layout
+
+\begin_layout Enumerate
+Select a package in the side bar
+\end_layout
+
+\begin_layout Enumerate
+Right-click "New->ACO"
+\end_layout
+
+\begin_layout Enumerate
+Specify the class name
+\end_layout
+
+\begin_layout Standard
+For example, for a class named 
+\emph on
+Car
+\emph default
+, this basic template will be created:
+\end_layout
+
+\begin_layout LyX-Code
+package com.u2d.issuemgr;
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.model.AbstractComplexEObject;
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.model.Title;
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.type.atom.StringEO;
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.persist.Persist;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Persist
+\end_layout
+
+\begin_layout LyX-Code
+public class Car extends AbstractComplexEObject
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   private final StringEO name = new StringEO();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   public Car() {}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   public StringEO getName()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return name;
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   public Title title()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return name.title();
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+In the IDEA project settings, enter the "Live Templates" section.
+ You can inspect the various live templates defined for jmatter under the
+ "jmatter" tree node.
+\end_layout
+
+\begin_layout Standard
+Some examples include:
+\end_layout
+
+\begin_layout LyX-Code
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features>
+<column alignment="left" valignment="top" leftline="true" width="1in">
+<column alignment="left" valignment="top" leftline="true" rightline="true" width="3.5in">
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Key
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\series bold
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+fo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+expands to the metadata specification for fieldOrder
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+flat
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+expands to the 'flattenIntoParent' metadata specification
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+bprop
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+will write the bound property getter and setter methods for you
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+tv
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+tabViews
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+plu
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+will write the pluralName() method to override the pluralname for a type
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Ultraviolet and UMLC
+\end_layout
+
+\begin_layout Standard
+Ultraviolet is a UML class editor.
+ A copy is packaged with and intregrated into JMatter.
+ One way to launch it is by invoking the ultraviolet target from the framework
+ build file:
+\end_layout
+
+\begin_layout LyX-Code
+$ cd jmatter
+\end_layout
+
+\begin_layout LyX-Code
+$ ant ultraviolet
+\end_layout
+
+\begin_layout Standard
+See the accompanying screenshot of Ultraviolet in action.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/UltraViolet.jpg
+	lyxscale 30
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Ultraviolet
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+With this editor, you can define the set of classes in your model and their
+ interrelationships.
+ One can specify associations, their cardinality, whether they're bidirectional.
+ Much of JMatter's metadata can be specified directly each class's property
+ sheet: class name, plural name, icon, color code, fields, commands, as
+ well as field and command metadata.
+ One can also model inheritance.
+\end_layout
+
+\begin_layout Standard
+Ultraviolet will generate a .umlc file for your model: a complete description
+ of your model in the umlc language.
+ Finally, the tool will automatically translate the model into a JMatter
+ application.
+ Technically, the only aspects of development that you do outside of Ultraviolet
+ is the implementation of the commands.
+\end_layout
+
+\begin_layout Standard
+This tool is inspiring and shows the power of domain-driven design and implement
+ation.
+ One can go from a simple idea to a model to a running application in minutes.
+\end_layout
+
+\begin_layout Standard
+Both Ultraviolet and umlc were developed entirely by Ryan Ramage.
+ This tool is open source and has its own home page: 
+\begin_inset LatexCommand \url{http://code.google.com/p/umlc/}
+
+\end_inset
+
+ and 
+\begin_inset LatexCommand \url{http://code.google.com/p/umlc/}
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Chapter
@@ -18338,11 +19835,15 @@ FAQ
 \end_layout
 
 \begin_layout Standard
-Q: How do I customize my application's name in the main window's title bar?
+This FAQ will be expanded in future versions of this documentation.
+\end_layout
+
+\begin_layout Section
+How do I customize my application's name in the main window's title bar?
 \end_layout
 
 \begin_layout Standard
-A: Edit the file 
+Edit the file 
 \emph on
 src/applicationContext.xml
 \emph default
@@ -18359,10 +19860,44 @@ TODO: Customize App Name Here
  the user interface (the default is 15).
 \end_layout
 
+\begin_layout Section
+How do I add or remove a command to all my model objects regardless of type?
+\end_layout
+
 \begin_layout Standard
-[tbd - task: collect most relevant questions from mailing list, together
- with replies here.
- ]
+The base class for all JMatter model objects is 
+\emph on
+AbstractComplexEObject
+\emph default
+.
+ When JMatter introspects commands, it recurses up the type's inheritance
+ hierarchy.
+ To add a command to all model objects, edit 
+\emph on
+AbstractComplexEObject
+\emph default
+ and
+\emph on
+ 
+\emph default
+add a new command like you would any model object (marked with the 
+\emph on
+@Cmd
+\emph default
+ annotation).
+ Likewise, to remove an existing command, say for example the 
+\begin_inset Quotes eld
+\end_inset
+
+Export to XML
+\begin_inset Quotes erd
+\end_inset
+
+ command, simply comment out or remove the 
+\emph on
+@Cmd
+\emph default
+ annotation on the corresponding method.
 \end_layout
 
 \begin_layout Chapter
