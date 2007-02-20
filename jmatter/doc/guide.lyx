@@ -15645,6 +15645,14 @@ Whether the field should be persisted at all (see the discussion on Calculated
 
 \end_layout
 
+\begin_layout Standard
+Although the framework provides a means for overriding the label for a field,
+ we generally discourage this practice.
+ We believe there is great value in maintaining a correspondence between
+ field labels in the user interface and their corresponding field names
+ in our object models.
+\end_layout
+
 \begin_layout Section
 Per-Command Metadata
 \end_layout
@@ -15855,6 +15863,13 @@ Delete
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Note: although the framework provides ways of overriding field and command
+ labels, we highly discourage this practice.
+ Having a one-to-one correspondence between the action's label and its correspon
+ding method name significantly improves the maintainability of your application.
 \end_layout
 
 \begin_layout Subsection
@@ -18807,6 +18822,112 @@ After reading this document, I hope that you now have a good feel for the
 This framework is all about you, the developer, not having to repeatedly
  code all of those things that should not change from project to project,
  so that you can concentrate on those things that do change: the domain.
+\end_layout
+
+\begin_layout Section
+How we used to code
+\end_layout
+
+\begin_layout Standard
+I see JMatter as a superframework for building business applications.
+ It's interesting to contrast some aspects of developing with this framework
+ compared to the traditional way of coding.
+\end_layout
+
+\begin_layout Standard
+On many past projects with previous employers, I recall having a strong
+ sense of the link between success on a software project and employee turnover.
+ IT shops in general are vulnerable.
+ Code can rot very quickly in environments where it's not tended, or where
+ the original developer is no longer present.
+\end_layout
+
+\begin_layout Standard
+I believe the reason to be how quickly code becomes exceedingly complex.
+ Navigating the logic of a software module or application is like finding
+ your way through a labyrinth.
+ Documentation is often lacking and if present, almost always out of sync
+ with the actual code.
+ When programmers say to each other 'the original developer left..', there
+ exists between them a silent understanding of the true meaning, the business
+ impact of the fact.
+ It takes time and gumption to really 
+\emph on
+grok
+\emph default
+ a complex piece of software.
+\end_layout
+
+\begin_layout Standard
+What does this have to do with JMatter? I believe JMatter dramatically simplifie
+s software development.
+ Take the following simple example.
+ Let's say that a customer's IT shop maintains an existing JMatter application
+ that was developed by an outside consulting firm.
+ The customer in question needs to revise the business logic for a specific
+ command.
+\end_layout
+
+\begin_layout Standard
+The first step is to find the code.
+ With a traditional application, what a new programmer will do is trace
+ the code from the action's invocation in the user interface, hoping it
+ will lead them to the underlying business logic where the code that needs
+ to be changed resides.
+ Often they discover that no such place exists! The business logic is often
+ scattered throughout the path.
+ Some of it may exist in the user interface, or separated across a number
+ of classes that have no semblance of an object model.
+ We discover that this logic is actually duplicated in a number of places.
+ So the developer has to backtrack and find all places where the logic resides
+ and hopefully refactor the solution before they can begin to make a change.
+ They're very likely to indadvertantly break some existing logic.
+\end_layout
+
+\begin_layout Standard
+Now let's think about how we'd go about making the same change in an application
+ constructed with JMatter.
+ Let's assume that the action in the user interface is the button with a
+ caption 
+\emph on
+Prepare Invoice
+\emph default
+ on an object of type 
+\emph on
+Project
+\emph default
+.
+ We know this because the objects' icon is the same as the one in the class
+ bar labeled 
+\emph on
+Projects
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+How do we find the code? We already know both the class name and the method
+ name.
+ The code is self-documenting.
+ We bring up the class 
+\emph on
+Project
+\emph default
+ in our IDE and lookup the 
+\emph on
+@Cmd
+\emph default
+ 
+\emph on
+PrepareInvoice()
+\emph default
+.
+ This exercise is dead simple.
+ JMatter fundamentally alters things for the better.
+ We saw plenty of evidence of this in the amount of time it took us to build
+ our demo applications, in the number of lines of code we had to write.
+ The implications carry through to maintaining our code.
+ JMatter controls the proliferation of complexity in our software.
 \end_layout
 
 \begin_layout Section
