@@ -9,8 +9,6 @@ import com.l2fprod.common.swing.JOutlookBar;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeEvent;
-import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetDropEvent;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +45,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
             Folder subfolder = (Folder) item;
             JListView v = new JListView(subfolder.getItems(), true);
             v.setBorder(new LineBorder(Color.black));
-            v.setOpaque(false);
+//            v.setOpaque(false);
             addTab(subfolder.getName().stringValue(),
                    _folder.iconSm(),
                    makeScrollPane(v));
@@ -71,5 +69,11 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
    public void propertyChange(PropertyChangeEvent evt) {}
    public void stateChanged(ChangeEvent e) {}
 
+   public void focusFirstItem()
+   {
+      JListView v = _tabs.get(getSelectedIndex());
+      v.setSelectedIndex(0);
+      v.requestFocusInWindow();
+   }
 }
 

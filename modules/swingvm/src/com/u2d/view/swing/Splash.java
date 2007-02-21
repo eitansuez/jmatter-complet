@@ -97,7 +97,7 @@ public class Splash extends JWindow implements AppEventListener
       });
       
       pack();
-      setSize(getWidth()+100, getHeight());
+//      setSize(getWidth()+100, getHeight());
       UIUtils.centerOnScreen(this);
       timer.start();
       setVisible(true);

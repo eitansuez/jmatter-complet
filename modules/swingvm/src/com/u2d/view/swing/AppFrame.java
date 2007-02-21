@@ -83,6 +83,23 @@ public class AppFrame extends JFrame
       setupQuitHooks();
 
       listenForUserEvents();
+      
+      setupKeyboardShorcuts();
+   }
+
+   private void setupKeyboardShorcuts()
+   {
+      JPanel contentPane = (JPanel) getContentPane();
+         
+      contentPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
+            put(KeyStroke.getKeyStroke("alt SLASH"), "focus-classbar");
+      contentPane.getActionMap().put("focus-classbar", new AbstractAction()
+         {
+            public void actionPerformed(ActionEvent e)
+            {
+               _classBar.focusFirstItem();
+            }
+         });
    }
 
    private void listenForUserEvents()
