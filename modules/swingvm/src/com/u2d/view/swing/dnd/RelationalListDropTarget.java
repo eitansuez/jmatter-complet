@@ -1,50 +1,38 @@
-package com.u2d.view.swing;
+package com.u2d.view.swing.dnd;
 
-import com.u2d.type.composite.Folder;
-import com.u2d.model.EObject;
+import com.u2d.list.RelationalList;
 import com.u2d.model.ComplexEObject;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.TooManyListenersException;
 
 /**
  * Created by IntelliJ IDEA.
  * User: eitan
- * Date: Sep 22, 2005
- * Time: 11:54:48 PM
- * 
- * One of the virtues of a FolderPanel is that it should
- * act as a droptarget for folder items..
+ * Date: Feb 21, 2007
+ * Time: 9:44:41 AM
  */
-public class FolderPanel extends JPanel
+public class RelationalListDropTarget extends DropTarget
 {
-   protected Folder _folder;
-
-   public FolderPanel(Folder folder)
+   private RelationalList _leo;
+      
+   public RelationalListDropTarget(RelationalList leo)
    {
-      _folder = folder;
-      setOpaque(true);
-      setBackground(Color.white);
-      setupToAddItemOnDrop(this);
+      super();
+      _leo = leo;
+      setup();
    }
-
-   public EObject getEObject() { return _folder; }
-   public boolean isMinimized() { return false; }
-
-   protected void setupToAddItemOnDrop(JComponent target)
+      
+   private void setup()
    {
-      DropTarget dropTarget = new DropTarget();
       try
       {
-         dropTarget.addDropTargetListener(new DropTargetAdapter()
+         addDropTargetListener(new DropTargetAdapter()
          {
             public void drop(DropTargetDropEvent dtde)
             {
@@ -53,16 +41,16 @@ public class FolderPanel extends JPanel
                for (int i=0; i<flavors.length; i++)
                {
                   Class droppedType = flavors[i].getRepresentationClass();
-                  Class folderItemsType = _folder.getItems().type().getJavaClass();
+                  Class folderItemsType = _leo.type().getJavaClass();
                   if (folderItemsType.isAssignableFrom(droppedType))
                   {
                      try
                      {
                         ComplexEObject item = (ComplexEObject)
                                                 t.getTransferData(flavors[i]);
-                        _folder.getItems().add(item);
-                        if (!_folder.isEditableState())
-                           _folder.save();
+                        _leo.add(item);
+                        if (!_leo.parentObject().isEditableState())
+                           _leo.parentObject().save();
                         break;
                      }
                      catch (UnsupportedFlavorException ex)
@@ -79,7 +67,6 @@ public class FolderPanel extends JPanel
                }
             }
          });
-         target.setDropTarget(dropTarget);
       }
       catch (TooManyListenersException ex)
       {
@@ -87,5 +74,4 @@ public class FolderPanel extends JPanel
         ex.printStackTrace();
       }
    }
-
 }

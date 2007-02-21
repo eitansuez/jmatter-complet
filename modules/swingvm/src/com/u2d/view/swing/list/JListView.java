@@ -13,7 +13,9 @@ import com.u2d.ui.*;
 import com.u2d.view.*;
 import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.view.swing.dnd.SimpleListTransferHandler;
+import com.u2d.view.swing.dnd.RelationalListDropTarget;
 import com.u2d.app.Tracing;
+import com.u2d.list.RelationalList;
 
 import java.awt.*;
 
@@ -157,6 +159,11 @@ public class JListView extends SeeThruList
    {
       setDragEnabled(true);
       setTransferHandler(new SimpleListTransferHandler(this));
+      if (_leo instanceof RelationalList)
+      {
+         RelationalList rl = (RelationalList) _leo;
+         setDropTarget(new RelationalListDropTarget(rl));
+      }
    }
       
    public Dimension getPreferredScrollableViewportSize()

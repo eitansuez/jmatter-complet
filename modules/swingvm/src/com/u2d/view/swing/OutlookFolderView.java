@@ -54,15 +54,6 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
             _tabs.add(v);
          }
       }
-
-      setDropTarget(new DropTarget()
-      {
-         public synchronized void drop(DropTargetDropEvent dtde)
-         {
-            JListView v = _tabs.get(getSelectedIndex());
-            v.getDropTarget().drop(dtde);
-         }
-      });
    }
 
    public void detach()
@@ -77,7 +68,6 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
 
    public EObject getEObject() { return _folder; }
    public boolean isMinimized() { return false; }
-
    public void propertyChange(PropertyChangeEvent evt) {}
    public void stateChanged(ChangeEvent e) {}
 

@@ -6,9 +6,12 @@ import com.u2d.view.EView;
 import com.u2d.view.SelectableListView;
 import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.view.swing.dnd.SimpleListTransferHandler;
+import com.u2d.view.swing.dnd.RelationalListDropTarget;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
+import com.u2d.list.RelationalList;
+
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -135,6 +138,11 @@ public class GridListView
    {
       setDragEnabled(true);
       setTransferHandler(new SimpleListTransferHandler(this));
+      if (_leo instanceof RelationalList)
+      {
+         RelationalList rl = (RelationalList) _leo;
+         setDropTarget(new RelationalListDropTarget(rl));
+      }
    }
    
    public Dimension getPreferredScrollableViewportSize()
