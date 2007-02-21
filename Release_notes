@@ -39,6 +39,7 @@ Changes in Beta 2 (since Feb 2)
 11. Fixed a bug having to do with incorrect redrawing of aggregated object views on
     initial save (reported by Justin on mailing list).
 
+--------------------------------------
 
 Feb 2 2007
 
