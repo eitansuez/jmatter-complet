@@ -44,7 +44,11 @@
    </target>
 
    <target name="compile" depends="init" description="compile">
-      <javac debug="on" srcdir="${srcdir}" destdir="${buildclassesdir}" classpathref="class.path" />
+      <javac debug="on" 
+             srcdir="${srcdir}" 
+             destdir="${buildclassesdir}" 
+             target="1.5"
+             classpathref="class.path" />
    </target>
 
    <target name="jar" depends="compile" description="jar">

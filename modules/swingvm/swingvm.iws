@@ -17,7 +17,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/list/JListView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/list/JListView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
     </list>
   </component>
@@ -376,7 +375,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure ProjectPane="false" PackagesPane="false" Scope="false" Favorites="false" />
+      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
       <autoscrollToSource PackagesPane="true" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -385,8 +384,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -428,13 +427,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -466,6 +458,13 @@
       <method>
         <option name="Make" value="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -576,7 +575,7 @@
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24897625" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32949877" order="0" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" order="2" />

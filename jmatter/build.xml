@@ -68,6 +68,7 @@
     <javac debug="on" deprecation="on" 
            classpathref="class.path"
            listfiles="false"
+           target="1.5"
            destdir="${build.classes.dir}">
       <compilerarg line="-Xmaxwarns 0" />
       <src path="${src.dir}" />

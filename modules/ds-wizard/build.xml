@@ -39,7 +39,12 @@
    </target>
 
    <target name="compile" depends="init" description="compile">
-      <javac debug="on" source="1.4" target="1.4" srcdir="${srcdir}" destdir="${buildclassesdir}" classpathref="class.path" />
+      <javac debug="on" 
+             source="1.4" 
+             target="1.5" 
+             srcdir="${srcdir}" 
+             destdir="${buildclassesdir}" 
+             classpathref="class.path" />
       <copy todir="${buildclassesdir}">
         <fileset dir="${srcdir}" includes="**/*.xml,**/*.txt" />
       </copy>
