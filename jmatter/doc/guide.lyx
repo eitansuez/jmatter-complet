@@ -19146,7 +19146,7 @@ Keyboard Shortcuts
 \begin_layout Standard
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="2">
+<lyxtabular version="3" rows="10" columns="2">
 <features>
 <column alignment="center" valignment="top" leftline="true" width="0">
 <column alignment="block" valignment="top" leftline="true" rightline="true" width="3.5in">
@@ -19341,6 +19341,26 @@ When invoking a command that generates a view, holding down the Shift key
  at the same time will prompt how you'd like the new view generated: in
  a new window, a new tab, or in place (i.e.
  replacing current view).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Alt /
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Focus on first item in Class Bar
 \end_layout
 
 \end_inset
