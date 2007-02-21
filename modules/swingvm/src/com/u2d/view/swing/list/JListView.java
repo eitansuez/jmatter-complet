@@ -121,7 +121,7 @@ public class JListView extends SeeThruList
    // JList UI Delegate already ties a listener onto model
    public void contentsChanged(ListDataEvent e)
    {
-      Tracing.tracer().info("contents changed..index0: "+e.getIndex0()
+      Tracing.tracer().fine("contents changed..index0: "+e.getIndex0()
                          + "; index1: "+e.getIndex1());
       detachItems();
    }

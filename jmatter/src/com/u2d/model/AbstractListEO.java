@@ -157,13 +157,17 @@ public abstract class AbstractListEO extends AbstractEObject
    }
 
    
-   public void add(ComplexEObject item)
+   public void add(int index, ComplexEObject item)
    {
       if (contains(item)) return;
       
-      _items.add(item);
+      _items.add(index, item);
       item.addAppEventListener(DELETE, this);
-      fireIntervalAdded(this, _items.size() - 1, _items.size() - 1 );
+      fireIntervalAdded(this, index, index);
+   }
+   public void add(ComplexEObject item)
+   {
+      add(_items.size(), item);
    }
    
    public void onEvent(AppEvent evt)
