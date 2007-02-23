@@ -2852,18 +2852,12 @@ The
 \emph on
 doc
 \emph default
- directory contains two text files: 
+ directory contains a simple 
 \emph on
 README
 \emph default
- and 
-\emph on
-Cliche
-\emph default
-, which are quickly becoming vestigial as all documentation is being consolidate
-d into the document you are currently reading.
- You can use these files as a quick reference or as simple setup instructions
- to help you get started on a new project.
+ file, serving as a quick reference or as simple setup instructions to help
+ you get started on a new project.
  You are also urged to use this folder to place any relevant documentation
  for your project.
 \end_layout
@@ -16834,9 +16828,7 @@ test
 \emph on
 doc
 \emph default
- subdirectory contains a README file and a Cliche: a quick reference of
- JMatter's conventions.
- However, this manual has supplanted it and now contains an up-to-date reference.
+ subdirectory contains a basic README file.
  The 
 \emph on
 doc/
