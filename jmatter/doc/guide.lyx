@@ -5104,7 +5104,7 @@ play
 \end_layout
 
 \begin_layout LyX-Code
-         vmech().onMessage("Playing song.."+this);
+         vmech().message("Playing song.."+this);
 \end_layout
 
 \begin_layout LyX-Code
@@ -5345,7 +5345,7 @@ Notice that we did not have to worry about launching the song in a separate
 \end_layout
 
 \begin_layout Subsection
-onMessage()
+message()
 \end_layout
 
 \begin_layout Standard
@@ -5353,40 +5353,22 @@ There's a curious line of code in the middle of the command implementation:
 \end_layout
 
 \begin_layout LyX-Code
-vmech().onMessage("Playing song.."+this);
+vmech().message("Playing song.."+this);
 \end_layout
 
 \begin_layout Standard
-From the codebase, you have access to the status bar of the GUI.
- 
+
 \emph on
 vmech()
 \emph default
- is a method that returns a reference to the view mechanism.
+ returns a reference to the view mechanism.
  
 \emph on
-onMessage()
+message()
 \emph default
- signals to the view mechanism to display a bit of text to the status bar
- 
-\begin_inset Foot
-status collapsed
-
-\begin_layout Standard
-Status bar messages have a usability issue in that they're often not noticed
- because of their location on the screen.
- A much better solution (which Jef Raskin discusses in his book, and which
- we see these days effectively implemented on the MacOS) is to use a semitranspa
-rent message using a large font that displays right on top of our current
- locus of attention, and that automatically dismisses itself perhaps 2 seconds
- later.
- I plan to perhaps replace the status bar with such a solution in a future
- version of JMatter.
-\end_layout
-
-\end_inset
-
-.
+ signals to the view mechanism to display a message.
+ The Swing view mechanism displays the message in a large font in a semitranspar
+ent window that automatically dismisses itself after two second.
 \end_layout
 
 \begin_layout Subsection
