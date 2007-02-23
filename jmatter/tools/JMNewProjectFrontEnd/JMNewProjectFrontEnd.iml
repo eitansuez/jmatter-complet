@@ -35,7 +35,9 @@
           <root url="jar://$MODULE_DIR$/../../lib/tools/ant.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../../../caches/ashkelon/ant/core" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">

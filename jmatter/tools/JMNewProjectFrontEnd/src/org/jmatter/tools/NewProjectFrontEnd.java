@@ -1,9 +1,7 @@
 package org.jmatter.tools;
 
-import org.apache.tools.ant.ProjectHelper;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.DefaultLogger;
-import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.*;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -15,7 +13,7 @@ import java.io.File;
  * Date: Oct 16, 2006
  * Time: 12:26:51 PM
  */
-public class NewProjectFrontEnd
+public class NewProjectFrontEnd implements BuildListener
 {
    private JTextField projectNameFld;
    private JTextField projectBasedirFld;
@@ -23,6 +21,7 @@ public class NewProjectFrontEnd
    private JRadioButton standaloneRadioButton;
    private JButton createProjectButton;
    private JPanel mainPanel;
+   private JLabel statusLbl;
 
 
    public NewProjectFrontEnd()
@@ -76,11 +75,7 @@ public class NewProjectFrontEnd
       Project p = new Project();
       p.setUserProperty("ant.file", buildFile.getAbsolutePath());
       
-      DefaultLogger consoleLogger = new DefaultLogger();
-      consoleLogger.setErrorPrintStream(System.err);
-      consoleLogger.setOutputPrintStream(System.out);
-      consoleLogger.setMessageOutputLevel(Project.MSG_INFO);
-      p.addBuildListener(consoleLogger);
+      p.addBuildListener(this);
 
       try
       {
@@ -119,4 +114,37 @@ public class NewProjectFrontEnd
       f.setVisible(true);
    }
 
+   
+   // build listener interface..
+
+   public void buildStarted(BuildEvent buildEvent)
+   {
+      statusLbl.setText("Build started..");
+   }
+
+   public void buildFinished(BuildEvent buildEvent)
+   {
+      statusLbl.setText("Build finished!");
+   }
+
+   public void targetStarted(BuildEvent buildEvent)
+   {
+      statusLbl.setText("Invoking target: "+buildEvent.getTarget().getName());
+   }
+
+   public void targetFinished(BuildEvent buildEvent)
+   {
+   }
+
+   public void taskStarted(BuildEvent buildEvent)
+   {
+   }
+
+   public void taskFinished(BuildEvent buildEvent)
+   {
+   }
+
+   public void messageLogged(BuildEvent buildEvent)
+   {
+   }
 }
