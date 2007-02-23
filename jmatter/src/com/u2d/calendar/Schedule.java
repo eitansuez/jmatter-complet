@@ -68,7 +68,7 @@ public class Schedule extends AbstractComplexEObject implements EventMaker
    public Schedulable getSchedulable() { return _schedulable; }
    
 
-   private List _events;
+   private List<CalEvent> _events;
    private TimeSpan _span;
    
    public List getEventsInTimeSpan(TimeSpan span)
@@ -84,7 +84,7 @@ public class Schedule extends AbstractComplexEObject implements EventMaker
 
       Tracing.tracer().info("schedule:  fetching events for time span: "+span);
       
-      List events = new ArrayList();
+      List<CalEvent> events = new ArrayList<CalEvent>();
       HBMPersistenceMechanism pmech2 = (HBMPersistenceMechanism) persistor();
 
       Session session = pmech2.getSession();
@@ -104,12 +104,9 @@ public class Schedule extends AbstractComplexEObject implements EventMaker
       
       events = criteria.list();
       
-      Iterator itr = events.iterator();
-      CalEvent event;
-      while (itr.hasNext())
+      for (CalEvent evt : events)
       {
-         event = (CalEvent) itr.next();
-         event.onLoad();
+         evt.onLoad();
       }
       
       _span = span;
@@ -121,15 +118,12 @@ public class Schedule extends AbstractComplexEObject implements EventMaker
    // return subset of events in _events that is in span
    private List subset(TimeSpan span)
    {
-      Iterator itr = _events.iterator();
-      CalEvent event;
-      List events = new ArrayList();
-      while (itr.hasNext())
+      List<CalEvent> events = new ArrayList<CalEvent>();
+      for (CalEvent evt : _events)
       {
-         event = (CalEvent) itr.next();
-         if (span.containsOrIntersects(event.timeSpan()))
+         if (span.containsOrIntersects(evt.timeSpan()))
          {
-            events.add(event);
+            events.add(evt);
          }
       }
       return events;
