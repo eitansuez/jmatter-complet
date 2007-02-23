@@ -44,7 +44,7 @@ public class Title
       }
       return this;
    }
-
+   
    public Title append(String joiner, String text)
    {
       if (!text.equals(""))
@@ -160,8 +160,30 @@ public class Title
       return this;
    }
 
+
+   /**
+    * The basic difference with join is that the joiner is a word
+    * and not punctuation.  I could try to programmatically distinguish
+    * a punctuation from a word but there's no harm if a human did that.
+    * With joiner words, a space exists on both sides of the word.
+    */
+   public Title join(String joinerWord, String text)
+   {
+      appendSpace();
+      return append(joinerWord, text);
+   }
+   public Title join(String joinerWord, EObject object)
+   {
+      appendSpace();
+      return append(joinerWord, object);
+   }
+
+   
+   
    public String toString()
    {
       return string.toString();
    }
+
+
 }
