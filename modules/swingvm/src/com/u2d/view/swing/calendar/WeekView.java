@@ -307,6 +307,8 @@ public class WeekView extends JPanel implements TimeIntervalView
        */
       Calendar startOfDayCal = span.startCal();
       startOfDayCal.set(Calendar.HOUR_OF_DAY, _daySpan.startCal().get(Calendar.HOUR_OF_DAY));
+      startOfDayCal.set(Calendar.MINUTE, _daySpan.startCal().get(Calendar.MINUTE));
+      
       TimeSpan distanceSpan = new TimeSpan(startOfDayCal.getTime(), span.startDate());
       double distance = distanceSpan.distance(_cellRes);
 

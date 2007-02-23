@@ -277,6 +277,8 @@ public class DayView extends JPanel implements TimeIntervalView
 
       Calendar startOfDayCal = span.startCal();
       startOfDayCal.set(Calendar.HOUR_OF_DAY, _daySpan.startCal().get(Calendar.HOUR_OF_DAY));
+      startOfDayCal.set(Calendar.MINUTE, _daySpan.startCal().get(Calendar.MINUTE));
+      
       TimeSpan distanceSpan = new TimeSpan(startOfDayCal.getTime(), span.startDate());
       double distance = distanceSpan.distance(_cellRes);
 
@@ -286,9 +288,6 @@ public class DayView extends JPanel implements TimeIntervalView
 
       int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / _cellRes.getMilis() );
       eventHeight = Math.max(eventHeight, rowHeight);
-
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(span.startDate());
 
       // this is tricky because i've introduced into dayview the
       // idea of hiding a column (actually having to remove the 
