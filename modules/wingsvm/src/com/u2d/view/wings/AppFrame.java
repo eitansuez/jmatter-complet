@@ -98,7 +98,7 @@ public class AppFrame extends SFrame
 //      _desktopPane.positionFrame(frame, Positioning.CENTERED);
    }
 
-   public void onMessage(String msg)
+   public void message(String msg)
    {
       _msgPnl.message(msg);
    }

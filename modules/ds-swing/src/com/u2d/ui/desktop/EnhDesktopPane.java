@@ -25,6 +25,7 @@ public class EnhDesktopPane extends MyDesktopPane
    private Action _closeAllAction;
    private ContextMenu _contextMenu;
    private MouseTracker _mouseTracker;
+   private MsgPnl _msgPnl;
 
    public EnhDesktopPane()
    {
@@ -42,9 +43,15 @@ public class EnhDesktopPane extends MyDesktopPane
 
       _mouseTracker = new MouseTracker();
       Toolkit.getDefaultToolkit().addAWTEventListener(_mouseTracker, AWTEvent.MOUSE_EVENT_MASK);
+      
+      _msgPnl = new MsgPnl();
+      add(_msgPnl, JLayeredPane.POPUP_LAYER);
 
       JExploseUtils.installLightningHotKey(explosable, KeyEvent.VK_F12);
    }
+   
+   public void message(String msg) { _msgPnl.message(msg, this); }
+
 
    class MouseTracker implements AWTEventListener
    {
@@ -339,5 +346,5 @@ public class EnhDesktopPane extends MyDesktopPane
       explosable.preparePaintChildren(g);
       super.paintChildren(g);
    }
-
+   
 }

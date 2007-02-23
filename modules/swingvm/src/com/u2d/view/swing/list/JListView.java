@@ -92,6 +92,7 @@ public class JListView extends SeeThruList
          if (_asIcons)
          {
             view = SwingViewMechanism.getInstance().getIconView(ceo);
+            ((JComponent) view).setOpaque(true);
          }
          else
          {
@@ -108,7 +109,7 @@ public class JListView extends SeeThruList
       comp = RenderHelper.highlight(this, comp, selected, hasFocus);
 
       boolean odd = (index % 2) == 1;
-      if (odd && !selected)
+      if (odd && !selected && !_asIcons)
       {
          Color color = ceo.type().colorCode();
          comp.setBackground(new Color(color.getRed(), color.getGreen(),

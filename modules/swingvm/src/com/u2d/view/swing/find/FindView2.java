@@ -133,11 +133,7 @@ public class FindView2 extends JSplitPane implements View
 
             if (cleo.isEmpty())
             {
-               JInternalFrame jif = (JInternalFrame)
-                  SwingUtilities.getAncestorOfClass(JInternalFrame.class, FindView2.this);
-               MsgDialog.showMsgDlg(jif, "No (0) matching search results", "No match found");
-               // put a message in the status bar as well..
-               SwingViewMechanism.getInstance().onMessage("No matching search results");
+               SwingViewMechanism.getInstance().message("No matches found");
             }
 //            else if (cleo.getSize() == 1)
 //            {

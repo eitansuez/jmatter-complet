@@ -1,7 +1,10 @@
 package com.u2d.ui;
 
+import com.u2d.ui.desktop.EnhDesktopPane;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,31 +14,64 @@ import java.awt.*;
  */
 public class MsgDlgTest
 {
+   EnhDesktopPane dp;
+   
    public MsgDlgTest()
    {
       JFrame f = new JFrame();
       JPanel p = (JPanel) f.getContentPane();
 
-      final JDesktopPane dp = new JDesktopPane();
-      dp.setBackground(new Color(0x008000));
+      dp = new EnhDesktopPane();
       
+      p.add(btn(), BorderLayout.NORTH);
       p.add(dp, BorderLayout.CENTER);
-      
 
       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       f.setBounds(100,100,500,500);
       f.setVisible(true);
-      
-      SwingUtilities.invokeLater(new Runnable()
+   }
+   private JButton btn()
+   {
+      JButton btn = new JButton("Show Dlg");
+      btn.setMnemonic('s');
+      btn.addActionListener(new ActionListener()
       {
-         public void run()
+         public void actionPerformed(ActionEvent e)
          {
-            MsgDialog.showMsgDlg(dp, "Hello World", "Hi");
+            new Thread()
+            {
+               public void run()
+               {
+                  for (int i=1; i<100; i++)
+                  {
+                     final String msg = "" + i;
+                     SwingUtilities.invokeLater(new Runnable()
+                     {
+                        public void run()
+                        {
+                           dp.message(msg);
+                        }
+                     });
+
+                     try
+                     {
+                        Thread.sleep(150);
+                     }
+                     catch (InterruptedException e1)
+                     {
+                        e1.printStackTrace();
+                     }
+                  }
+               }
+            }.start();
          }
       });
+         
+      return btn;
    }
    public static void main(String[] args)
    {
+      System.setProperty("swing.aatext", "true");
       new MsgDlgTest();
    }
 }

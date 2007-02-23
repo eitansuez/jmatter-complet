@@ -10,7 +10,6 @@ import com.u2d.element.EOCommand;
 import com.u2d.element.Command;
 import com.u2d.field.Association;
 import com.u2d.find.CompositeQuery;
-import com.u2d.ui.MsgDialog;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.view.*;
@@ -183,7 +182,7 @@ public class SwingViewMechanism implements ViewMechanism
       }
       else if (value instanceof String)
       {
-         showMsgDlg((String) value, source);
+         message((String) value);
       }
       else if (value instanceof Reportable)
       {
@@ -369,22 +368,7 @@ public class SwingViewMechanism implements ViewMechanism
    }
 
 
-   public void showMsgDlg(String msg)
-   {
-      MsgDialog.showMsgDlg(_appFrame, msg, "");
-   }
-   public void showMsgDlg(String msg, EView source)
-   {
-      JComponent component = (JComponent) source;
-      MsgDialog.showMsgDlg(component, msg, "");
-   }
-   public void showMsgDlg(String msg, View source)
-   {
-      JComponent component = (JComponent) source;
-      MsgDialog.showMsgDlg(component, msg, "");
-   }
-
-   public void onMessage(final String msg)
+   public void message(final String msg)
    {
       if (SwingUtilities.isEventDispatchThread())
       {
@@ -784,7 +768,7 @@ public class SwingViewMechanism implements ViewMechanism
                   ComplexEObject selected = component.selectedEO();
                   if (selected == null)
                   {
-                     getInstance().onMessage("No items selected");
+                     getInstance().message("No items selected");
                      return;
                   }
                   try

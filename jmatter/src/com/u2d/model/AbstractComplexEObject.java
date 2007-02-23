@@ -86,7 +86,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public void onLoad()
    {
       restoreState();
-      vmech().onMessage("Loaded "+title());
       
       Field child;
       for (int i=0; i<childFields().size(); i++)
@@ -108,7 +107,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
    public void onDelete()
    {
-      vmech().onMessage("Deleted "+title());
+      vmech().message("Deleted "+title());
       setNullState();
       fireAppEventNotification(DELETE, this);
    }
@@ -128,7 +127,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
    public void onSave()
    {
-      vmech().onMessage("Saved "+title());
+      vmech().message("Saved "+title());
       // dillema here:  don't really know you're coming from an EditState Exit:
       popState();
       fireAppEventNotification(SAVE);
@@ -140,7 +139,10 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
    public void onCreate()
    {
-      vmech().onMessage("Created "+title());
+      if ( ! (this instanceof LoggedEvent) )
+      {
+         vmech().message("Created "+title());
+      }
       setStartState();
       fireAppEventNotification(CREATE, this);
       type().fireAppEventNotification(CREATE, this);

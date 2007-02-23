@@ -174,9 +174,9 @@ public class WingSViewMechanism implements ViewMechanism
       getParentInternalFrame((SComponent) eview).dispose();
    }
 
-   public void onMessage(String message)
+   public void message(String message)
    {
-      _appFrame.onMessage(message);
+      _appFrame.message(message);
    }
 
    public void showMsgDlg(String message)

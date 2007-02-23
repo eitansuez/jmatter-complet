@@ -39,7 +39,7 @@ public class NullViewMechanism implements ViewMechanism
    public void displayWizard(Wizard wizard) { }
    public void displayReport(Reportable reportable) { }
    public void dismiss(EView eview) { }
-   public void onMessage(String message) { }
+   public void message(String message) { }
    public void showMsgDlg(String message) { }
    public void showMsgDlg(String message, EView source) { }
    public void showMsgDlg(String message, View source) { }

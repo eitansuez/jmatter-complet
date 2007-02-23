@@ -103,7 +103,7 @@ public class Echo2ViewMechanism implements ViewMechanism
    {
    }
 
-   public void onMessage(String string)
+   public void message(String string)
    {
    }
 

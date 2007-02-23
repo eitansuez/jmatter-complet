@@ -52,7 +52,6 @@ public class AppFrame extends JFrame
    private OutlookFolderView _classBar = new OutlookFolderView();
 
    private EODesktopPane _desktopPane;
-   private MessagePanel _msgPnl;
 
    public AppFrame(AppSession appSession, String lfname)
    {
@@ -71,9 +70,6 @@ public class AppFrame extends JFrame
       _desktopPane.setEnabled(false);
       _centerPane.add(_desktopPane, BorderLayout.CENTER);
       setupMenu();
-
-      _msgPnl = new MessagePanel();
-      contentPane.add(_msgPnl, BorderLayout.SOUTH);
 
       contentPane.add(_centerPane, BorderLayout.CENTER);
 
@@ -331,7 +327,11 @@ public class AppFrame extends JFrame
    }
 
 
-   public void onMessage(String msg) { _msgPnl.message(msg); }
+   public void onMessage(String msg)
+   {
+      _desktopPane.message(msg);
+   }
+
 
    public void setCursor(Cursor cursor)
    {

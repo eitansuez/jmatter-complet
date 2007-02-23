@@ -41,11 +41,7 @@ public interface ViewMechanism
 
    public void dismiss(EView eview);
 
-   public void onMessage(String message);
-
-   public void showMsgDlg(String message); 
-   public void showMsgDlg(String message, EView source);
-   public void showMsgDlg(String message, View source);
+   public void message(String message);
 
    // views for complex types (complexeobjects)
    public ComplexEView getIconView(ComplexEObject ceo);
