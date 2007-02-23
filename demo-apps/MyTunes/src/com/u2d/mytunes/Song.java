@@ -199,7 +199,7 @@ public class Song extends AbstractComplexEObject
    int position = 0;
    
    /**
-    * JLayer Streams!
+    * JLayer streams
     */
    @Cmd(mnemonic='p')
    public void Play(CommandInfo cmdInfo)
@@ -224,8 +224,20 @@ public class Song extends AbstractComplexEObject
             }
          });
          
-         player.play(position, Integer.MAX_VALUE);
-         vmech().onMessage("Playing song.."+this);
+         new Thread()
+         {
+            public void run()
+            {
+               try
+               {
+                  player.play(position, Integer.MAX_VALUE);
+               }
+               catch (JavaLayerException e)
+               {
+                  e.printStackTrace();
+               }
+            }
+         }.start();
       }
       catch (JavaLayerException e)
       {
