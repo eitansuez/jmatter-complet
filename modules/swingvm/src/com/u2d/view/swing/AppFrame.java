@@ -9,7 +9,7 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 import com.u2d.ui.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
@@ -164,8 +164,12 @@ public class AppFrame extends JFrame
 
    private void setupMenu()
    {
-      JMenu fileMenu = new JMenu("File");
-      fileMenu.setMnemonic('f');
+      TextWithMnemonic twm = TextWithMnemonic.lookup("menubar.file");
+      JMenu fileMenu = new JMenu(twm.text());
+      if (twm.hasMnemonic())
+      {
+         fileMenu.setMnemonic(twm.mnemonic());
+      }
       JMenuItem exitItem = new JMenuItem(new QuitAction());
       fileMenu.add(exitItem);
 
@@ -269,10 +273,14 @@ public class AppFrame extends JFrame
    {
       public QuitAction()
       {
-         super("Exit");
-
+         TextWithMnemonic twm = TextWithMnemonic.lookup("menubar.file.exit");
+         putValue(javax.swing.Action.NAME, twm.text());
+         
          putValue(javax.swing.Action.ACTION_COMMAND_KEY, "exit");
-         putValue(Action.MNEMONIC_KEY, new Integer(KeyEvent.VK_X));
+         if (twm.hasMnemonic())
+         {
+           putValue(Action.MNEMONIC_KEY, new Integer(twm.mnemonic()));
+         }
 
          KeyStroke quitStroke = KeyStroke.getKeyStroke(KeyEvent.VK_Q,
                                                        Platform.mask());
