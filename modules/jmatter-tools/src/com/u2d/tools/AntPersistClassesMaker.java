@@ -1,15 +1,11 @@
 package com.u2d.tools;
 
-import org.apache.tools.ant.Task;
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.DirectoryScanner;
-import org.apache.tools.ant.AntClassLoader;
+import org.apache.tools.ant.*;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Reference;
 import org.apache.tools.ant.types.Path;
 import org.antlr.stringtemplate.StringTemplate;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Set;
 import java.util.HashSet;
@@ -41,10 +37,14 @@ public class AntPersistClassesMaker extends Task
       _fileset = fileset;
    }
    
-   Path _path = new Path(getProject());
+   Path _path;
    
    public void setClasspathRef(Reference r)
    {
+      if (_path == null)
+      {
+         _path = new Path(getProject());
+      }
       _path.createPath().setRefid(r);
    }
    
