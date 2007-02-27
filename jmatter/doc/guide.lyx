@@ -15,6 +15,7 @@
 \inputencoding auto
 \fontscheme default
 \graphics default
+\float_placement H
 \paperfontsize default
 \spacing single
 \papersize custom
@@ -20139,17 +20140,21 @@ In JMatter as well as in NakedObjects the notion of ValueHolders is actually
 
 \begin_layout Standard
 The developer community took issue to this.
- They didn't like having to replace their beloved 
+ They didn't like having to replace a 
 \emph on
 java.lang.String
 \emph default
- with 
+ with a NakedObject 
 \emph on
-org.nakedobjects.value.TextString
+TextString
 \emph default
- or with 
+ or a
 \emph on
-com.u2d.type.atomic.StringEO
+ 
+\emph default
+JMatter 
+\emph on
+StringEO
 \emph default
 .
  They went as far as invoking the POJO clause: 
