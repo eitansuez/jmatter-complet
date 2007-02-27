@@ -7,7 +7,7 @@
 \usepackage{textcomp}
 \usepackage{mathpazo}
 \usepackage[scaled=0.9]{helvet}
-\usepackage[scaled]{beramono}
+\usepackage[scaled=0.75]{beramono}
 \usepackage[bookmarks, bookmarksopen=true, bookmarksopenlevel=0, bookmarksnumbered=true, colorlinks=true, linkcolor=blue, pdftitle={JMatter Framework Manual}, pdfauthor={Eitan Suez}]{hyperref}
 \raggedbottom
 \end_preamble
@@ -17,19 +17,21 @@
 \graphics default
 \paperfontsize default
 \spacing single
-\papersize letterpaper
+\papersize custom
 \use_geometry true
 \use_amsmath 1
 \cite_engine basic
 \use_bibtopic false
 \paperorientation portrait
+\paperwidth 7.44in
+\paperheight 9.68in
 \leftmargin 1.5in
-\topmargin 1in
+\topmargin 1.1in
 \rightmargin 1in
-\bottommargin 1in
+\bottommargin 1.1in
 \headheight 0.3in
 \headsep 0.5in
-\footskip 0.7in
+\footskip 0.8in
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation skip
@@ -1026,7 +1028,7 @@ desktop
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -4602,11 +4604,11 @@ Album.java
 \end_layout
 
 \begin_layout LyX-Code
-   private final RelationalList _songs = new RelationalList(Song.class);
+private final RelationalList _songs = new RelationalList(Song.class);
 \end_layout
 
 \begin_layout LyX-Code
-   public static final Class songsType = Song.class;
+public static final Class songsType = Song.class;
 \end_layout
 
 \begin_layout LyX-Code
@@ -4614,7 +4616,7 @@ Album.java
 \end_layout
 
 \begin_layout LyX-Code
-   public RelationalList getSongs() { return _songs; }
+public RelationalList getSongs() { return _songs; }
 \end_layout
 
 \begin_layout Standard
@@ -4640,7 +4642,7 @@ One last thing: we have a bidirectional one-to-many relationship between
 \end_layout
 
 \begin_layout LyX-Code
-   public static String songsInverseFieldName = "album";
+public static String songsInverseFieldName = "album";
 \end_layout
 
 \begin_layout Standard
@@ -4648,7 +4650,7 @@ And in Song:
 \end_layout
 
 \begin_layout LyX-Code
-   public static final String albumInverseFieldName = "songs";
+public static final String albumInverseFieldName = "songs";
 \end_layout
 
 \begin_layout Standard
@@ -4963,6 +4965,129 @@ A short glance at the Java sound API javadocs tells us that we can attempt
 \end_layout
 
 \begin_layout LyX-Code
+try
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   AudioClip clip = Applet.newAudioClip(_path.fileValue().toURL());
+\end_layout
+
+\begin_layout LyX-Code
+   clip.play();
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+catch (MalformedURLException ex)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   System.err.println(ex);
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Ok, so we need to keep track of the path where our song file is located.
+ So we'll need to add a new field to Song:
+\end_layout
+
+\begin_layout LyX-Code
+private final FileEO _path = new FileEO();
+\end_layout
+
+\begin_layout Standard
+And add the new field to our fieldOrder array:
+\end_layout
+
+\begin_layout LyX-Code
+public static String[] fieldOrder = 
+\end_layout
+
+\begin_layout LyX-Code
+          {"title", "duration", "artist", "album", "genre", "path"};
+\end_layout
+
+\begin_layout Standard
+It sure would be nice to construct a song in a single line, so let's add
+ this constructor:
+\end_layout
+
+\begin_layout LyX-Code
+public Song(File path)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   _title.setValue(path.getName());
+\end_layout
+
+\begin_layout LyX-Code
+   _path.setValue(path);
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Don't forget the accessor method for 
+\emph on
+_path
+\emph default
+:
+\end_layout
+
+\begin_layout LyX-Code
+public FileEO getPath() { return _path; }
+\end_layout
+
+\begin_layout Standard
+Finally we need to expose a 
+\emph on
+play
+\emph default
+ command to our user interface.
+ Since we're already there, why not also add a pause command?
+\end_layout
+
+\begin_layout LyX-Code
+private AudioClip _clip;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Cmd(mnemonic='p')
+\end_layout
+
+\begin_layout LyX-Code
+public Object Play(CommandInfo cmdInfo)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
    try
 \end_layout
 
@@ -4971,11 +5096,19 @@ A short glance at the Java sound API javadocs tells us that we can attempt
 \end_layout
 
 \begin_layout LyX-Code
-      AudioClip clip = Applet.newAudioClip(_path.fileValue().toURL());
+      _clip = Applet.newAudioClip(_path.fileValue().toURL());
 \end_layout
 
 \begin_layout LyX-Code
-      clip.play();
+      vmech().message("Playing song.."+this);
+\end_layout
+
+\begin_layout LyX-Code
+      _clip.play();
+\end_layout
+
+\begin_layout LyX-Code
+      return null;
 \end_layout
 
 \begin_layout LyX-Code
@@ -4995,142 +5128,7 @@ A short glance at the Java sound API javadocs tells us that we can attempt
 \end_layout
 
 \begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout Standard
-Ok, so we need to keep track of the path where our song file is located.
- So we'll need to add a new field to Song:
-\end_layout
-
-\begin_layout LyX-Code
-   private final FileEO _path = new FileEO();
-\end_layout
-
-\begin_layout Standard
-And add the new field to our fieldOrder array:
-\end_layout
-
-\begin_layout LyX-Code
-   public static String[] fieldOrder = 
-\end_layout
-
-\begin_layout LyX-Code
-             {"title", "duration", "artist", "album", "genre", "path"};
-\end_layout
-
-\begin_layout Standard
-It sure would be nice to construct a song in a single line, so let's add
- this constructor:
-\end_layout
-
-\begin_layout LyX-Code
-   public Song(File path)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      _title.setValue(path.getName());
-\end_layout
-
-\begin_layout LyX-Code
-      _path.setValue(path);
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout Standard
-Don't forget the accessor method for 
-\emph on
-_path
-\emph default
-:
-\end_layout
-
-\begin_layout LyX-Code
-   public FileEO getPath() { return _path; }
-\end_layout
-
-\begin_layout Standard
-Finally we need to expose a 
-\emph on
-play
-\emph default
- command to our user interface.
- Since we're already there, why not also add a pause command?
-\end_layout
-
-\begin_layout LyX-Code
-   private AudioClip _clip;
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-   @Cmd(mnemonic='p')
-\end_layout
-
-\begin_layout LyX-Code
-   public Object Play(CommandInfo cmdInfo)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      try
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         _clip = Applet.newAudioClip(_path.fileValue().toURL());
-\end_layout
-
-\begin_layout LyX-Code
-         vmech().message("Playing song.."+this);
-\end_layout
-
-\begin_layout LyX-Code
-         _clip.play();
-\end_layout
-
-\begin_layout LyX-Code
-         return null;
-\end_layout
-
-\begin_layout LyX-Code
-      }
-\end_layout
-
-\begin_layout LyX-Code
-      catch (MalformedURLException ex)
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         System.err.println(ex);
-\end_layout
-
-\begin_layout LyX-Code
-         return ex.getMessage();
-\end_layout
-
-\begin_layout LyX-Code
-      }
+      return ex.getMessage();
 \end_layout
 
 \begin_layout LyX-Code
@@ -5138,23 +5136,27 @@ play
 \end_layout
 
 \begin_layout LyX-Code
-   @Cmd
+}
 \end_layout
 
 \begin_layout LyX-Code
-   public void Pause(CommandInfo cmdInfo)
+@Cmd
 \end_layout
 
 \begin_layout LyX-Code
-   {
+public void Pause(CommandInfo cmdInfo)
 \end_layout
 
 \begin_layout LyX-Code
-      if (_clip != null) _clip.stop();
+{
 \end_layout
 
 \begin_layout LyX-Code
-   }
+   if (_clip != null) _clip.stop();
+\end_layout
+
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout Standard
@@ -7067,7 +7069,7 @@ Here's a useful piece of metadata to help distinguish between different
 \end_layout
 
 \begin_layout LyX-Code
-   public static Color colorCode = new Color(0xffff00);
+public static Color colorCode = new Color(0xffff00);
 \end_layout
 
 \begin_layout Standard
@@ -7333,39 +7335,39 @@ The second is pretty easy too:
 \end_layout
 
 \begin_layout LyX-Code
-   public static String timespanFieldname = "time";
+public static String timespanFieldname = "time";
 \end_layout
 
 \begin_layout LyX-Code
-   public static String schedulableFieldname = "location";
+public static String schedulableFieldname = "location";
 \end_layout
 
 \begin_layout LyX-Code
-   public Title calTitle()
+public Title calTitle()
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      if (talk == null)
+   if (talk == null)
 \end_layout
 
 \begin_layout LyX-Code
-         return new Title("--");
+      return new Title("--");
 \end_layout
 
 \begin_layout LyX-Code
-      else
+   else
 \end_layout
 
 \begin_layout LyX-Code
-         return talk.title();
+      return talk.title();
 \end_layout
 
 \begin_layout LyX-Code
-   }
+}
 \end_layout
 
 \begin_layout Standard
@@ -7760,7 +7762,7 @@ One area worth researching JVM-compatible programming languages which support
 \end_layout
 
 \begin_layout Section
-Polymorphism
+Inheritance-Based Polymorphism
 \begin_inset LatexCommand \label{sec:Polymorphism}
 
 \end_inset
@@ -7942,55 +7944,55 @@ Symposium
 \end_layout
 
 \begin_layout LyX-Code
-   private Venue venue;
+private Venue venue;
 \end_layout
 
 \begin_layout LyX-Code
-   public Venue getVenue() { return venue; }
+public Venue getVenue() { return venue; }
 \end_layout
 
 \begin_layout LyX-Code
-   public void setVenue(Venue venue)
+public void setVenue(Venue venue)
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      Venue oldVenue = this.venue;
+   Venue oldVenue = this.venue;
 \end_layout
 
 \begin_layout LyX-Code
-      this.venue = venue;
+   this.venue = venue;
 \end_layout
 
 \begin_layout LyX-Code
-      firePropertyChange("venue", oldVenue, this.venue);
+   firePropertyChange("venue", oldVenue, this.venue);
 \end_layout
 
 \begin_layout LyX-Code
-   }
+}
 \end_layout
 
 \begin_layout LyX-Code
-   public AbstractListEO schedulables()
+public AbstractListEO schedulables()
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      // return ComplexType.forClass(Room.class).list();
+   // return ComplexType.forClass(Room.class).list();
 \end_layout
 
 \begin_layout LyX-Code
-      return venue.getRooms();
+   return venue.getRooms();
 \end_layout
 
 \begin_layout LyX-Code
-   }
+}
 \end_layout
 
 \begin_layout Standard
@@ -8073,7 +8075,7 @@ Find
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \align center
@@ -8108,103 +8110,7 @@ JMatter supports both inheritance-based polymorphism (as shown in this example)
 \end_layout
 
 \begin_layout Section
-Summary
-\end_layout
-
-\begin_layout Standard
-I hope you enjoyed this chapter.
- We didn't have to work too hard and yet we developed a fully-functional
- conference manager.
-\end_layout
-
-\begin_layout Standard
-In summary, new features of JMatter covered in this chapter include:
-\end_layout
-
-\begin_layout Enumerate
-type color coding, 
-\end_layout
-
-\begin_layout Enumerate
-using an image field as the basis for an instance's icon, 
-\end_layout
-
-\begin_layout Enumerate
-calendaring, and 
-\end_layout
-
-\begin_layout Enumerate
-polymorphic modeling.
-\end_layout
-
-\begin_layout Standard
-Let's do our due diligence once again and get a feel for the amount of leverage
- we derived from JMatter in this application:
-\end_layout
-
-\begin_layout LyX-Code
-eitan@ubuntu:~/projects/ds/Sympster/src/com/u2d/sympster$ wc -l *.java
-\end_layout
-
-\begin_layout LyX-Code
-   7 Campus.java
-\end_layout
-
-\begin_layout LyX-Code
-   6 ConferenceCenter.java
-\end_layout
-
-\begin_layout LyX-Code
-   6 Hotel.java
-\end_layout
-
-\begin_layout LyX-Code
-  21 Room.java
-\end_layout
-
-\begin_layout LyX-Code
-  51 Session.java
-\end_layout
-
-\begin_layout LyX-Code
-  41 Speaker.java
-\end_layout
-
-\begin_layout LyX-Code
-  40 Symposium.java
-\end_layout
-
-\begin_layout LyX-Code
-  32 Talk.java
-\end_layout
-
-\begin_layout LyX-Code
-  19 Venue.java
-\end_layout
-
-\begin_layout LyX-Code
- 223 total
-\end_layout
-
-\begin_layout Standard
-Not bad.
- If you're not convinced by now of the implications of this new mode of
- developing software, this might be a good time to pick up another book
- :-).
-\end_layout
-
-\begin_layout Standard
-In the next chapter we're finally going to take a look at the Issue Manager
- demo application, the one referenced in the introduction.
- We'll be focusing on JMatter's support for objects with lifecycles.
-\end_layout
-
-\begin_layout Chapter
-Interface-Based Modeling
-\end_layout
-
-\begin_layout Subsection
-Modeling with Interfaces
+Interface-Based Polymorphism
 \end_layout
 
 \begin_layout Standard
@@ -8215,11 +8121,9 @@ We are taught that interface-based modeling is preferred over models that
 \end_layout
 
 \begin_layout Standard
-As an illustration, let's take the Sympster application we just wrote and
- extend it.
- Sympster is a conference manager demo application.
- Up until now, one could use this application to define a symposium, speakers,
- their talks, and to schedule sessions.
+As an illustration, let's extend our Sympster application further.
+ Right now, we can define a symposium, speakers, their talks, and we can
+ schedule sessions.
  A session is defined as a talk given at a specific date and time, and with
  a specific duration, at a specific location.
 \end_layout
@@ -8538,6 +8442,106 @@ We see two events on this calendar.
  :-) 
 \end_layout
 
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Standard
+I hope you enjoyed this chapter.
+ We didn't have to work too hard and yet we developed a fully-functional
+ conference manager.
+\end_layout
+
+\begin_layout Standard
+In summary, new features of JMatter covered in this chapter include:
+\end_layout
+
+\begin_layout Enumerate
+type color coding, 
+\end_layout
+
+\begin_layout Enumerate
+using an image field as the basis for an instance's icon, 
+\end_layout
+
+\begin_layout Enumerate
+calendaring, and 
+\end_layout
+
+\begin_layout Enumerate
+polymorphism, using either inheritance or interface-based modeling
+\end_layout
+
+\begin_layout Standard
+Let's do our due diligence once again and get a feel for the amount of leverage
+ we derived from JMatter in this application:
+\end_layout
+
+\begin_layout LyX-Code
+~/work/jmatter-complet/demo-apps/Sympster/src/com/u2d/sympster$ wc -l *.java
+\end_layout
+
+\begin_layout LyX-Code
+  29 BOF.java
+\end_layout
+
+\begin_layout LyX-Code
+   9 Campus.java
+\end_layout
+
+\begin_layout LyX-Code
+   9 ConferenceCenter.java
+\end_layout
+
+\begin_layout LyX-Code
+  17 Event.java
+\end_layout
+
+\begin_layout LyX-Code
+   9 Hotel.java
+\end_layout
+
+\begin_layout LyX-Code
+  28 Room.java
+\end_layout
+
+\begin_layout LyX-Code
+  54 Session.java
+\end_layout
+
+\begin_layout LyX-Code
+  64 Speaker.java
+\end_layout
+
+\begin_layout LyX-Code
+  56 Symposium.java
+\end_layout
+
+\begin_layout LyX-Code
+  38 Talk.java
+\end_layout
+
+\begin_layout LyX-Code
+  21 Venue.java
+\end_layout
+
+\begin_layout LyX-Code
+ 334 total
+\end_layout
+
+\begin_layout Standard
+Not bad.
+ If you're not convinced by now of the implications of this new mode of
+ developing software, this might be a good time to pick up another book
+ :-).
+\end_layout
+
+\begin_layout Standard
+In the next chapter we're finally going to take a look at the Issue Manager
+ demo application, the one referenced in the introduction.
+ We'll be focusing on JMatter's support for objects with lifecycles.
+\end_layout
+
 \begin_layout Chapter
 Issue Manager
 \begin_inset LatexCommand \label{cha:Issue-Manager}
@@ -8742,28 +8746,11 @@ Issue
 \end_layout
 
 \begin_layout LyX-Code
-   private final StringEO _title = new StringEO();
+private final StringEO _title = new StringEO();
 \end_layout
 
 \begin_layout LyX-Code
-   private final TextEO _description = new TextEO();
-\end_layout
-
-\begin_layout LyX-Code
-   
-\end_layout
-
-\begin_layout LyX-Code
-   // a loose definition for these (using a numeric value instead of an
- enumeration).
-\end_layout
-
-\begin_layout LyX-Code
-   private final IntEO _priority = new IntEO();
-\end_layout
-
-\begin_layout LyX-Code
-   private final IntEO _severity = new IntEO();
+private final TextEO _description = new TextEO();
 \end_layout
 
 \begin_layout LyX-Code
@@ -8771,7 +8758,23 @@ Issue
 \end_layout
 
 \begin_layout LyX-Code
-   private Issue _dependsOn;
+// a loose definition (using a numeric value instead of an enumeration)
+\end_layout
+
+\begin_layout LyX-Code
+private final IntEO _priority = new IntEO();
+\end_layout
+
+\begin_layout LyX-Code
+private final IntEO _severity = new IntEO();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+private Issue _dependsOn;
 \end_layout
 
 \begin_layout LyX-Code
@@ -8779,23 +8782,11 @@ Issue
 \end_layout
 
 \begin_layout LyX-Code
-   private final RelationalList _notes = new RelationalList(Note.class);
+private final RelationalList _notes = new RelationalList(Note.class);
 \end_layout
 
 \begin_layout LyX-Code
-   public static Class notesType = Note.class;
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-   private User _openedBy;
-\end_layout
-
-\begin_layout LyX-Code
-   private User _assignedTo;
+public static Class notesType = Note.class;
 \end_layout
 
 \begin_layout LyX-Code
@@ -8803,11 +8794,27 @@ Issue
 \end_layout
 
 \begin_layout LyX-Code
-   private final RelationalList _history = new RelationalList(LoggedEvent.class);
+private User _openedBy;
 \end_layout
 
 \begin_layout LyX-Code
-   public static Class historyType = LoggedEvent.class;
+private User _assignedTo;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+private final RelationalList _history = 
+\end_layout
+
+\begin_layout LyX-Code
+                           new RelationalList(LoggedEvent.class);
+\end_layout
+
+\begin_layout LyX-Code
+public static Class historyType = LoggedEvent.class;
 \end_layout
 
 \begin_layout Standard
@@ -8889,23 +8896,11 @@ Ok, it looks like we have a fairly complete list of fields to start with.
 \end_layout
 
 \begin_layout LyX-Code
-   public StringEO getTitle() { return _title; }
+public StringEO getTitle() { return _title; }
 \end_layout
 
 \begin_layout LyX-Code
-   public TextEO getDescription() { return _description; }
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-   public IntEO getPriority() { return _priority; }
-\end_layout
-
-\begin_layout LyX-Code
-   public IntEO getSeverity() { return _severity; }
+public TextEO getDescription() { return _description; }
 \end_layout
 
 \begin_layout LyX-Code
@@ -8913,39 +8908,11 @@ Ok, it looks like we have a fairly complete list of fields to start with.
 \end_layout
 
 \begin_layout LyX-Code
-   public Issue getDependsOn() { return _dependsOn; }
+public IntEO getPriority() { return _priority; }
 \end_layout
 
 \begin_layout LyX-Code
-   public void setDependsOn(Issue issue)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      Issue oldValue = _dependsOn;
-\end_layout
-
-\begin_layout LyX-Code
-      _dependsOn = issue;
-\end_layout
-
-\begin_layout LyX-Code
-      firePropertyChange("dependsOn", oldValue, _dependsOn);
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-  
-\end_layout
-
-\begin_layout LyX-Code
-   public RelationalList getNotes() { return _notes; }
+public IntEO getSeverity() { return _severity; }
 \end_layout
 
 \begin_layout LyX-Code
@@ -8953,63 +8920,31 @@ Ok, it looks like we have a fairly complete list of fields to start with.
 \end_layout
 
 \begin_layout LyX-Code
-   public User getOpenedBy() { return _openedBy; }
+public Issue getDependsOn() { return _dependsOn; }
 \end_layout
 
 \begin_layout LyX-Code
-   public void setOpenedBy(User user)
+public void setDependsOn(Issue issue)
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      User oldValue = _openedBy;
+   Issue oldValue = _dependsOn;
 \end_layout
 
 \begin_layout LyX-Code
-      _openedBy = user;
+   _dependsOn = issue;
 \end_layout
 
 \begin_layout LyX-Code
-      firePropertyChange("openedBy", oldValue, _openedBy);
+   firePropertyChange("dependsOn", oldValue, _dependsOn);
 \end_layout
 
 \begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   
-\end_layout
-
-\begin_layout LyX-Code
-   public User getAssignedTo() { return _assignedTo; }
-\end_layout
-
-\begin_layout LyX-Code
-   public void setAssignedTo(User user)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      User oldValue = _assignedTo;
-\end_layout
-
-\begin_layout LyX-Code
-      _assignedTo = user;
-\end_layout
-
-\begin_layout LyX-Code
-      firePropertyChange("assignedTo", oldValue, _assignedTo);
-\end_layout
-
-\begin_layout LyX-Code
-   }
+}
 \end_layout
 
 \begin_layout LyX-Code
@@ -9017,7 +8952,79 @@ Ok, it looks like we have a fairly complete list of fields to start with.
 \end_layout
 
 \begin_layout LyX-Code
-   public RelationalList getHistory() { return _history; }
+public RelationalList getNotes() { return _notes; }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public User getOpenedBy() { return _openedBy; }
+\end_layout
+
+\begin_layout LyX-Code
+public void setOpenedBy(User user)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   User oldValue = _openedBy;
+\end_layout
+
+\begin_layout LyX-Code
+   _openedBy = user;
+\end_layout
+
+\begin_layout LyX-Code
+   firePropertyChange("openedBy", oldValue, _openedBy);
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public User getAssignedTo() { return _assignedTo; }
+\end_layout
+
+\begin_layout LyX-Code
+public void setAssignedTo(User user)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   User oldValue = _assignedTo;
+\end_layout
+
+\begin_layout LyX-Code
+   _assignedTo = user;
+\end_layout
+
+\begin_layout LyX-Code
+   firePropertyChange("assignedTo", oldValue, _assignedTo);
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public RelationalList getHistory() { return _history; }
 \end_layout
 
 \begin_layout Standard
@@ -9154,7 +9161,7 @@ Issue
 \end_layout
 
 \begin_layout LyX-Code
-   private final IssueState _status = new IssueState(NEW);
+private final IssueState _status = new IssueState(NEW);
 \end_layout
 
 \begin_layout Standard
@@ -9166,23 +9173,23 @@ NEW
 \end_layout
 
 \begin_layout LyX-Code
-   static final String NEW = "New";
+static final String NEW = "New";
 \end_layout
 
 \begin_layout LyX-Code
-   static final String ASSIGNED = "Assigned";
+static final String ASSIGNED = "Assigned";
 \end_layout
 
 \begin_layout LyX-Code
-   static final String ACCEPTED = "Accepted";
+static final String ACCEPTED = "Accepted";
 \end_layout
 
 \begin_layout LyX-Code
-   static final String FIXED = "Fixed";
+static final String FIXED = "Fixed";
 \end_layout
 
 \begin_layout LyX-Code
-   static final String CLOSED = "Closed";
+static final String CLOSED = "Closed";
 \end_layout
 
 \begin_layout Standard
@@ -9278,7 +9285,7 @@ status
 \end_layout
 
 \begin_layout LyX-Code
-   public IssueState getStatus() { return _status; }
+public IssueState getStatus() { return _status; }
 \end_layout
 
 \begin_layout Subsection
@@ -9291,43 +9298,23 @@ Below I've defined five inner classes, one for each of the states that Issue
 \end_layout
 
 \begin_layout LyX-Code
-   public class NewState extends ReadState {}
+public class NewState extends ReadState {}
 \end_layout
 
 \begin_layout LyX-Code
-   public class AssignedState extends ReadState
+public class AssignedState extends ReadState
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      @Cmd(mnemonic='a')
+   @Cmd(mnemonic='a')
 \end_layout
 
 \begin_layout LyX-Code
-      public void Accept(CommandInfo cmdInfo)
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         transition(_acceptedState, makeLog("Issue accepted by developer"));
-\end_layout
-
-\begin_layout LyX-Code
-      }
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public class AcceptedState extends ReadState
+   public void Accept(CommandInfo cmdInfo)
 \end_layout
 
 \begin_layout LyX-Code
@@ -9335,32 +9322,7 @@ Below I've defined five inner classes, one for each of the states that Issue
 \end_layout
 
 \begin_layout LyX-Code
-      @Cmd
-\end_layout
-
-\begin_layout LyX-Code
-      public void Fix(CommandInfo cmdInfo,
-\end_layout
-
-\begin_layout LyX-Code
-                      @Arg("Fix") StringEO fix,
-\end_layout
-
-\begin_layout LyX-Code
-                      @Arg("Description") TextEO description)
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         transition(_fixedState, makeLog("Fix: "+fix.stringValue(), description))
-;
-\end_layout
-
-\begin_layout LyX-Code
-      }
+      transition(_acceptedState, makeLog("Issue accepted by developer"));
 \end_layout
 
 \begin_layout LyX-Code
@@ -9368,7 +9330,31 @@ Below I've defined five inner classes, one for each of the states that Issue
 \end_layout
 
 \begin_layout LyX-Code
-   public class FixedState extends ReadState
+}
+\end_layout
+
+\begin_layout LyX-Code
+public class AcceptedState extends ReadState
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   @Cmd
+\end_layout
+
+\begin_layout LyX-Code
+   public void Fix(CommandInfo cmdInfo,
+\end_layout
+
+\begin_layout LyX-Code
+                   @Arg("Fix") StringEO fix,
+\end_layout
+
+\begin_layout LyX-Code
+                   @Arg("Description") TextEO description)
 \end_layout
 
 \begin_layout LyX-Code
@@ -9376,55 +9362,79 @@ Below I've defined five inner classes, one for each of the states that Issue
 \end_layout
 
 \begin_layout LyX-Code
-      @Cmd
+      transition(_fixedState, 
 \end_layout
 
 \begin_layout LyX-Code
-      public void RejectFix(CommandInfo cmdInfo,
-\end_layout
-
-\begin_layout LyX-Code
-                            @Arg("Explanation") TextEO explanation)
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         transition(_acceptedState, makeLog("Fix rejected", explanation));
-\end_layout
-
-\begin_layout LyX-Code
-      }
-\end_layout
-
-\begin_layout LyX-Code
-      @Cmd
-\end_layout
-
-\begin_layout LyX-Code
-      public void Close(CommandInfo cmdInfo,
-\end_layout
-
-\begin_layout LyX-Code
-                        @Arg("Explanation") TextEO explanation)
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         transition(_closedState, makeLog("Issue Closed", explanation));
-\end_layout
-
-\begin_layout LyX-Code
-      }
+                 makeLog("Fix: "+fix.stringValue(), description));
 \end_layout
 
 \begin_layout LyX-Code
    }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+public class FixedState extends ReadState
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   @Cmd
+\end_layout
+
+\begin_layout LyX-Code
+   public void RejectFix(CommandInfo cmdInfo,
+\end_layout
+
+\begin_layout LyX-Code
+                         @Arg("Explanation") TextEO explanation)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      transition(_acceptedState, makeLog("Fix rejected", explanation));
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   @Cmd
+\end_layout
+
+\begin_layout LyX-Code
+   public void Close(CommandInfo cmdInfo,
+\end_layout
+
+\begin_layout LyX-Code
+                     @Arg("Explanation") TextEO explanation)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      transition(_closedState, makeLog("Issue Closed", explanation));
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout LyX-Code
@@ -9454,59 +9464,59 @@ Although we've defined the classes, we must also create an instance for
 \end_layout
 
 \begin_layout LyX-Code
-   private transient final State _newState, _assignedState, _acceptedState,
+private transient final State _newState, _assignedState, 
 \end_layout
 
 \begin_layout LyX-Code
-         _fixedState, _closedState;
+                _acceptedState, _fixedState, _closedState;
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      _newState = new NewState();
+   _newState = new NewState();
 \end_layout
 
 \begin_layout LyX-Code
-      _assignedState = new AssignedState();
+   _assignedState = new AssignedState();
 \end_layout
 
 \begin_layout LyX-Code
-      _acceptedState = new AcceptedState();
+   _acceptedState = new AcceptedState();
 \end_layout
 
 \begin_layout LyX-Code
-      _fixedState = new FixedState();
+   _fixedState = new FixedState();
 \end_layout
 
 \begin_layout LyX-Code
-      _closedState = new ClosedState();
+   _closedState = new ClosedState();
 \end_layout
 
 \begin_layout LyX-Code
-      _stateMap.put(_newState.getName(), _newState);
+   _stateMap.put(_newState.getName(), _newState);
 \end_layout
 
 \begin_layout LyX-Code
-      _stateMap.put(_assignedState.getName(), _assignedState);
+   _stateMap.put(_assignedState.getName(), _assignedState);
 \end_layout
 
 \begin_layout LyX-Code
-      _stateMap.put(_acceptedState.getName(), _acceptedState);
+   _stateMap.put(_acceptedState.getName(), _acceptedState);
 \end_layout
 
 \begin_layout LyX-Code
-      _stateMap.put(_fixedState.getName(), _fixedState);
+   _stateMap.put(_fixedState.getName(), _fixedState);
 \end_layout
 
 \begin_layout LyX-Code
-      _stateMap.put(_closedState.getName(), _closedState);
+   _stateMap.put(_closedState.getName(), _closedState);
 \end_layout
 
 \begin_layout LyX-Code
-   }
+}
 \end_layout
 
 \begin_layout Standard
@@ -9965,23 +9975,23 @@ Each time we create an issue, the person who opened the issue is by definition
 \end_layout
 
 \begin_layout LyX-Code
-   public void onBeforeCreate()
+public void onBeforeCreate()
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      super.onBeforeCreate();
+   super.onBeforeCreate();
 \end_layout
 
 \begin_layout LyX-Code
-      setOpenedBy(currentUser());
+   setOpenedBy(currentUser());
 \end_layout
 
 \begin_layout LyX-Code
-   }
+}
 \end_layout
 
 \begin_layout Standard
@@ -10040,15 +10050,15 @@ Here's the implementation:
 \end_layout
 
 \begin_layout LyX-Code
-   public void associateAssignedTo(User user)
+public void associateAssignedTo(User user)
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      setAssignedTo(user);
+   setAssignedTo(user);
 \end_layout
 
 \begin_layout LyX-Code
@@ -10056,7 +10066,15 @@ Here's the implementation:
 \end_layout
 
 \begin_layout LyX-Code
-      if (_assignedTo != null && !_assignedTo.isEmpty())
+   if (_assignedTo != null && !_assignedTo.isEmpty())
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      if (isEditableState())
 \end_layout
 
 \begin_layout LyX-Code
@@ -10064,7 +10082,7 @@ Here's the implementation:
 \end_layout
 
 \begin_layout LyX-Code
-         if (isEditableState())
+         addAppEventListener(ONCREATE, new AppEventListener()
 \end_layout
 
 \begin_layout LyX-Code
@@ -10072,7 +10090,7 @@ Here's the implementation:
 \end_layout
 
 \begin_layout LyX-Code
-            addAppEventListener(ONCREATE, new AppEventListener()
+            public void onEvent(AppEvent appEvent)
 \end_layout
 
 \begin_layout LyX-Code
@@ -10080,44 +10098,35 @@ Here's the implementation:
 \end_layout
 
 \begin_layout LyX-Code
-               public void onEvent(AppEvent appEvent)
+               transition(_assignedState, 
 \end_layout
 
 \begin_layout LyX-Code
-               {
+                          makeLog("Assigned to "+_assignedTo));
 \end_layout
 
 \begin_layout LyX-Code
-                  transition(_assignedState, makeLog("Assigned to "+_assignedTo)
-);
+            }
 \end_layout
 
 \begin_layout LyX-Code
-               }
+         });
 \end_layout
 
 \begin_layout LyX-Code
-            });
+      }
 \end_layout
 
 \begin_layout LyX-Code
-         }
+      else
 \end_layout
 
 \begin_layout LyX-Code
-         else
+      {
 \end_layout
 
 \begin_layout LyX-Code
-         {
-\end_layout
-
-\begin_layout LyX-Code
-            transition(_assignedState, makeLog("Assigned to "+_assignedTo));
-\end_layout
-
-\begin_layout LyX-Code
-         }
+         transition(_assignedState, makeLog("Assigned to "+_assignedTo));
 \end_layout
 
 \begin_layout LyX-Code
@@ -10126,6 +10135,10 @@ Here's the implementation:
 
 \begin_layout LyX-Code
    }
+\end_layout
+
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout Standard
@@ -10211,47 +10224,47 @@ Rather than define a to-many relationship to issue, I'm going to add a command
 \end_layout
 
 \begin_layout LyX-Code
-   @Cmd
+@Cmd
 \end_layout
 
 \begin_layout LyX-Code
-   public Object Issues(CommandInfo cmdInfo)
+public Object Issues(CommandInfo cmdInfo)
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      ComplexType type = ComplexType.forClass(Issue.class);
+   ComplexType type = ComplexType.forClass(Issue.class);
 \end_layout
 
 \begin_layout LyX-Code
-      FieldPath path = new FieldPath("com.u2d.issuemgr.Issue#category");
+   FieldPath path = new FieldPath("com.u2d.issuemgr.Issue#category");
 \end_layout
 
 \begin_layout LyX-Code
-      QuerySpecification spec = new QuerySpecification(path,
+   QuerySpecification spec = new QuerySpecification(path,
 \end_layout
 
 \begin_layout LyX-Code
-            new IdentityInequality().new Equals(), this);
+         new IdentityInequality().new Equals(), this);
 \end_layout
 
 \begin_layout LyX-Code
-      SimpleQuery query = new SimpleQuery(type, spec);
+   SimpleQuery query = new SimpleQuery(type, spec);
 \end_layout
 
 \begin_layout LyX-Code
-      
+
 \end_layout
 
 \begin_layout LyX-Code
-      return new PagedList(query);
+   return new PagedList(query);
 \end_layout
 
 \begin_layout LyX-Code
-   }
+}
 \end_layout
 
 \begin_layout Standard
@@ -10277,7 +10290,7 @@ On the issue side, we need to add a to-one association to the issue category:
 \end_layout
 
 \begin_layout LyX-Code
-   private IssueCategory _category;
+private IssueCategory _category;
 \end_layout
 
 \begin_layout LyX-Code
@@ -10285,31 +10298,31 @@ On the issue side, we need to add a to-one association to the issue category:
 \end_layout
 
 \begin_layout LyX-Code
-   public IssueCategory getCategory() { return _category; }
+public IssueCategory getCategory() { return _category; }
 \end_layout
 
 \begin_layout LyX-Code
-   public void setCategory(IssueCategory category)
+public void setCategory(IssueCategory category)
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      IssueCategory oldValue = _category;
+   IssueCategory oldValue = _category;
 \end_layout
 
 \begin_layout LyX-Code
-      _category = category;
+   _category = category;
 \end_layout
 
 \begin_layout LyX-Code
-      firePropertyChange("category", oldValue, _category);
+   firePropertyChange("category", oldValue, _category);
 \end_layout
 
 \begin_layout LyX-Code
-   }
+}
 \end_layout
 
 \begin_layout Standard
@@ -10321,13 +10334,15 @@ fieldOrder
 \end_layout
 
 \begin_layout LyX-Code
-   public static String[] fieldOrder = {"status", "title", "description",
- "notes",
+public static String[] fieldOrder = {"status", "title", "description", 
 \end_layout
 
 \begin_layout LyX-Code
-         "openedBy", "assignedTo", "history", "severity", "priority", "category"
-};
+      "notes", "openedBy", "assignedTo", "history", "severity", 
+\end_layout
+
+\begin_layout LyX-Code
+      "priority", "category"};
 \end_layout
 
 \begin_layout Standard
@@ -10926,8 +10941,19 @@ class ContactStep extends BasicStep
 \end_layout
 
 \begin_layout LyX-Code
-   public String description() { return "Please specify person's contact
- information"; }
+   public String description()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return "Please specify person's contact information";
+\end_layout
+
+\begin_layout LyX-Code
+   }
 \end_layout
 
 \begin_layout LyX-Code
@@ -10962,7 +10988,15 @@ In our last step, the commit step, we sew everything together and save our
 \end_layout
 
 \begin_layout LyX-Code
-   class CommitWizardStep extends CommitStep
+class CommitWizardStep extends CommitStep
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public void commit()
 \end_layout
 
 \begin_layout LyX-Code
@@ -10970,79 +11004,71 @@ In our last step, the commit step, we sew everything together and save our
 \end_layout
 
 \begin_layout LyX-Code
-      public void commit()
+      PersonContact pc = new PersonContact();
 \end_layout
 
 \begin_layout LyX-Code
-      {
+      pc.getName().setValue(_name);
 \end_layout
 
 \begin_layout LyX-Code
-         PersonContact pc = new PersonContact();
+      pc.getContact().setValue(_contact);
 \end_layout
 
 \begin_layout LyX-Code
-         pc.getName().setValue(_name);
+      pc.getContact().getAddress().setValue(_address);
 \end_layout
 
 \begin_layout LyX-Code
-         pc.getContact().setValue(_contact);
-\end_layout
-
-\begin_layout LyX-Code
-         pc.getContact().getAddress().setValue(_address);
-\end_layout
-
-\begin_layout LyX-Code
-         pc.save();
-\end_layout
-
-\begin_layout LyX-Code
-      }
-\end_layout
-
-\begin_layout LyX-Code
-      public JComponent getView()
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         return new JLabel(description());
-\end_layout
-
-\begin_layout LyX-Code
-      }
-\end_layout
-
-\begin_layout LyX-Code
-      public String title() { return "Final Step"; }
-\end_layout
-
-\begin_layout LyX-Code
-      public String description()
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         return "We're almost done; Person record will be " +
-\end_layout
-
-\begin_layout LyX-Code
-                "committed after clicking 'Next'";
-\end_layout
-
-\begin_layout LyX-Code
-      }
+      pc.save();
 \end_layout
 
 \begin_layout LyX-Code
    }
+\end_layout
+
+\begin_layout LyX-Code
+   public JComponent getView()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return new JLabel(description());
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public String title() { return "Final Step"; }
+\end_layout
+
+\begin_layout LyX-Code
+   public String description()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return "We're almost done; Person record will be " +
+\end_layout
+
+\begin_layout LyX-Code
+             "committed after clicking 'Next'";
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout Standard
@@ -11413,11 +11439,19 @@ So here's a simple mechanism to expose the production of a report that will
 \end_layout
 
 \begin_layout LyX-Code
-   @Cmd
+@Cmd
 \end_layout
 
 \begin_layout LyX-Code
-   public static Reportable Report(CommandInfo cmdInfo)
+public static Reportable Report(CommandInfo cmdInfo)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   return new Reportable()
 \end_layout
 
 \begin_layout LyX-Code
@@ -11425,7 +11459,7 @@ So here's a simple mechanism to expose the production of a report that will
 \end_layout
 
 \begin_layout LyX-Code
-      return new Reportable()
+      public String reportName()
 \end_layout
 
 \begin_layout LyX-Code
@@ -11433,59 +11467,55 @@ So here's a simple mechanism to expose the production of a report that will
 \end_layout
 
 \begin_layout LyX-Code
-         public String reportName()
+         return "/com/u2d/contactmgr/Basic.xml";
 \end_layout
 
 \begin_layout LyX-Code
-         {
+      }
 \end_layout
 
 \begin_layout LyX-Code
-            return "/com/u2d/contactmgr/Basic.xml";
+      public Properties properties()
 \end_layout
 
 \begin_layout LyX-Code
-         }
+      {
 \end_layout
 
 \begin_layout LyX-Code
-         public Properties properties()
+         return new Properties();
 \end_layout
 
 \begin_layout LyX-Code
-         {
+      }
 \end_layout
 
 \begin_layout LyX-Code
-            return new Properties();
+      public TableModel tableModel()
 \end_layout
 
 \begin_layout LyX-Code
-         }
+      {
 \end_layout
 
 \begin_layout LyX-Code
-         public TableModel tableModel()
+         return ComplexType.forClass(PersonContact.class).
 \end_layout
 
 \begin_layout LyX-Code
-         {
+                                          list().tableModel();
 \end_layout
 
 \begin_layout LyX-Code
-            return ComplexType.forClass(PersonContact.class).list().tableModel();
+      }
 \end_layout
 
 \begin_layout LyX-Code
-         }
+   };
 \end_layout
 
 \begin_layout LyX-Code
-      };
-\end_layout
-
-\begin_layout LyX-Code
-   }
+}
 \end_layout
 
 \begin_layout Standard
@@ -11897,19 +11927,19 @@ The first step is straightforward:
 \end_layout
 
 \begin_layout LyX-Code
-   public EView getMainView()
+public EView getMainView()
 \end_layout
 
 \begin_layout LyX-Code
-   {
+{
 \end_layout
 
 \begin_layout LyX-Code
-      return new CustomAddressView(this);
+   return new CustomAddressView(this);
 \end_layout
 
 \begin_layout LyX-Code
-   }
+}
 \end_layout
 
 \begin_layout Standard
@@ -12003,8 +12033,7 @@ public class CustomAddressView extends JPanel
 \end_layout
 
 \begin_layout LyX-Code
-                                         "pref, pref, 10px, pref, pref,
- 10px, pref, pref");
+                         "pref, pref, 10px, pref, pref, 10px, pref, pref");
 \end_layout
 
 \begin_layout LyX-Code
@@ -12819,13 +12848,27 @@ BooleanEO
 \end_layout
 
 \begin_layout LyX-Code
-   public AtomicRenderer getBooleanRenderer() { return new BooleanRenderer();
- }
+public AtomicRenderer getBooleanRenderer() {
 \end_layout
 
 \begin_layout LyX-Code
-   public AtomicEditor getBooleanEditor() { return new BooleanRadioEditor();
- }
+  return new BooleanRenderer();
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+public AtomicEditor getBooleanEditor() {
+\end_layout
+
+\begin_layout LyX-Code
+  return new BooleanRadioEditor();
+\end_layout
+
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout Standard
@@ -12948,8 +12991,13 @@ logindlg.msg.failed_auth=Mauvais credentiaux; Essayez encore une fois..
 \end_layout
 
 \begin_layout LyX-Code
-logindlg.msg.user_locked=Votre compte est verouille;  Contactez l'administrateur
- svp..
+logindlg.msg.user_locked=Votre compte est verouille; 
+\backslash
+ 
+\end_layout
+
+\begin_layout LyX-Code
+   Contactez l'administrateur svp..
 \end_layout
 
 \begin_layout Standard
@@ -13192,7 +13240,7 @@ And uncomment the
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \align center
@@ -13224,7 +13272,7 @@ Login dialog localized for French
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \align center
@@ -16848,8 +16896,8 @@ resources
 \begin_inset Tabular
 <lyxtabular version="3" rows="10" columns="2">
 <features>
-<column alignment="left" valignment="top" leftline="true" width="0">
-<column alignment="left" valignment="top" leftline="true" rightline="true" width="3.5in">
+<column alignment="left" valignment="top" leftline="true" width="2in">
+<column alignment="left" valignment="top" leftline="true" rightline="true" width="2.5in">
 <row topline="true" bottomline="true">
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -17569,7 +17617,7 @@ Figure
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -19688,7 +19736,7 @@ Checking out the code
 
 \begin_layout Standard
 The JMatter subversion repository is located at 
-\begin_inset LatexCommand \url{http://jmatter.org/documentation/pdf/jmatter_new.pdf}
+\begin_inset LatexCommand \url{http://svn.jmatter.org/}
 
 \end_inset
 
@@ -20091,8 +20139,19 @@ In JMatter as well as in NakedObjects the notion of ValueHolders is actually
 
 \begin_layout Standard
 The developer community took issue to this.
- They didn't like having to replace their beloved java.lang.String with org.nakedob
-jects.value.TextString or with com.u2d.type.atomic.StringEO.
+ They didn't like having to replace their beloved 
+\emph on
+java.lang.String
+\emph default
+ with 
+\emph on
+org.nakedobjects.value.TextString
+\emph default
+ or with 
+\emph on
+com.u2d.type.atomic.StringEO
+\emph default
+.
  They went as far as invoking the POJO clause: 
 \emph on
 we want our plain old java objects back
@@ -20236,6 +20295,42 @@ This manual will soon be available in print from lulu.com.
 \begin_layout Standard
 These are only a few ways in which you can make a visible and noticeable
  contribution.
+\end_layout
+
+\begin_layout Bibliography
+
+\bibitem {Mat&Paw}
+Richard Pawson and Robert Matthews.
+ 
+\emph on
+Naked Objects
+\emph default
+.
+ Wiley; 1st edition (November 2002).
+\end_layout
+
+\begin_layout Bibliography
+
+\bibitem {Raskin}
+Jef Raskin.
+ 
+\emph on
+The Humane Interface: New Directions for Designing Interactive Systems
+\emph default
+.
+ Addison-Wesley Professional; 1st edition (March 29, 2000).
+\end_layout
+
+\begin_layout Bibliography
+
+\bibitem {Lewis}
+Simon Lewis.
+ 
+\emph on
+The Art and Science of Smalltalk.
+
+\emph default
+ Prentice Hall; 1 edition (May 11, 1995)
 \end_layout
 
 \end_body
