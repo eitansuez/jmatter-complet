@@ -226,6 +226,7 @@ public class AppFrame extends JFrame
                _classBar = new OutlookFolderView(currentUser.getClassBar());
                
                _centerPane.add(_classBar, BorderLayout.WEST);
+               _classBar.focusFirstItem();
                _centerPane.revalidate(); _centerPane.repaint();
             }
          });
