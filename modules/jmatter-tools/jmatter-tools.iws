@@ -19,8 +19,6 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter-tools.iws" afterPath="$PROJECT_DIR$/jmatter-tools.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/tools/AntPersistClassesMaker.java" afterPath="$PROJECT_DIR$/src/com/u2d/tools/AntPersistClassesMaker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter-tools.ipr" afterPath="$PROJECT_DIR$/jmatter-tools.ipr" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -157,19 +155,7 @@
     <option name="myCurrentFavoritesList" value="jmatter-tools" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AntPersistClassesMaker.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/AntPersistClassesMaker.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="3" selection-start="2035" selection-end="2035" vertical-scroll-proportion="0.94974875">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>

@@ -969,11 +969,9 @@ public class ComplexType extends AbstractComplexEObject
    public int validate(ComplexEObject instance)
    {
       int count = 0;
-      Field field = null;
-      Iterator itr = fields().iterator();
-      while (itr.hasNext())
+      for (Iterator itr = fields().iterator(); itr.hasNext(); )
       {
-         field = (Field) itr.next();
+         Field field = (Field) itr.next();
          count += field.validate(instance);
       }
       return count;

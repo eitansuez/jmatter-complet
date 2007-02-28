@@ -18,7 +18,6 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -142,17 +141,7 @@
     </subPane>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AppFrame.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="228" column="42" selection-start="6964" selection-end="6964" vertical-scroll-proportion="0.6599665">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -768,7 +757,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="228" column="42" selection-start="6964" selection-end="6964" vertical-scroll-proportion="0.6599665">
+        <state line="232" column="4" selection-start="7060" selection-end="7060" vertical-scroll-proportion="0.760469">
           <folding />
         </state>
       </provider>
