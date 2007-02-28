@@ -326,7 +326,7 @@ Calendaring
 \begin_deeper
 \begin_layout Standard
 Many varying applications have the basic need to deal with time: scheduling
- activities, looking up and manipulating events on a calendar, etc..
+ activities, looking up and manipulating events on a calendar, etc..;
 \end_layout
 
 \end_deeper
@@ -358,7 +358,7 @@ Logging
 \begin_deeper
 \begin_layout Standard
 Tracking activity in the system, the fact that someone logged in at a specific
- time, that they deleted an entry, etc..
+ time, that they deleted an entry, etc..;
 \end_layout
 
 \end_deeper
@@ -379,7 +379,7 @@ Reporting
 \begin_deeper
 \begin_layout Standard
 The ability to produce printable (PDF) reports from the information that
- an application manages.
+ an application manages;
 \end_layout
 
 \end_deeper
@@ -390,7 +390,7 @@ Wizards
 \begin_deeper
 \begin_layout Standard
 A component of user interface construction, often used to break down complex
- tasks into a series of steps
+ tasks into a series of steps.
 \end_layout
 
 \end_deeper
