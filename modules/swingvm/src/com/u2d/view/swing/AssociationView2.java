@@ -44,6 +44,20 @@ public class AssociationView2 extends CardPanel implements ComplexEView
       add(_associatedPnl, _associatedPnl.name());
       _dissociatedPnl = new DissociatedPanel();
       add(_dissociatedPnl, _dissociatedPnl.name());
+      // work in progress:
+//      
+//      setFocusable(true);
+//      addFocusListener(new FocusAdapter()
+//      {
+//         public void focusGained(FocusEvent e)
+//         {
+//            if (_association.isEditableState())
+//            {
+//               AssocStateView stateView = (_association.isEmpty()) ? (AssocStateView) _dissociatedPnl : _associatedPnl;
+//               stateView.enterEditState();
+//            }
+//         }
+//      });
 
       setView();
    }
@@ -108,6 +122,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
    {
       public String name();
       public void bind(ComplexEObject value);
+      public void enterEditState();
    }
    class AssociatedPanel extends JPanel implements AssocStateView, AppEventListener
    {
@@ -183,6 +198,9 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          ((ComplexEObject) view.getEObject()).removeAppEventListener(DELETE, this);
          _association.dissociate();
       }
+
+
+      public void enterEditState() { itemPnl.enterEditState(); }
    }
 
 
@@ -259,6 +277,8 @@ public class AssociationView2 extends CardPanel implements ComplexEView
             view = null;
          }
       }
+      
+      public void enterEditState() { itemPnl.enterEditState(); }
    }
 
    public static ImageIcon ASSOCIATE_ICON, DISSOCIATE_ICON, ASSOCIATE_ROLLOVER, DISSOCIATE_ROLLOVER;
@@ -328,7 +348,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
             }
          }
       }
-      public void mousePressed(MouseEvent e) { } 
+      public void mousePressed(MouseEvent e) { }
       public void mouseReleased(MouseEvent e) { } 
       public void mouseEntered(MouseEvent e) { } 
       public void mouseExited(MouseEvent e) { }

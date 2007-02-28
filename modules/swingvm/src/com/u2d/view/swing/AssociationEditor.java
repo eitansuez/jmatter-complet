@@ -107,6 +107,18 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       add(fieldPicker);
       add(_tf);
       
+//      _tf.addFocusListener(new FocusAdapter()
+//      {
+//         public void focusLost(FocusEvent e)
+//         {
+//            boolean innerFocus = SwingUtilities.isDescendingFrom(e.getOppositeComponent(), AssociationEditor.this);
+//            if (!innerFocus)
+//            {
+//               cancelEdit();
+//            }
+//         }
+//      });
+      
       SwingUtilities.invokeLater(new Runnable()
       {
          public void run()
