@@ -66,6 +66,12 @@ public class Schedule extends AbstractComplexEObject implements EventMaker
    public ComplexEView getScheduleView() { return vmech().getScheduleView(this); }
    
    public Schedulable getSchedulable() { return _schedulable; }
+   public void setSchedulable(Schedulable sched)
+   {
+      Schedulable oldSched = _schedulable;
+      _schedulable = sched;
+      firePropertyChange("schedulable", oldSched, _schedulable);
+   }
    
 
    private List<CalEvent> _events;
