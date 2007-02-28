@@ -2,6 +2,7 @@ package com.u2d.persist.type;
 
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.*;
+import org.hibernate.tuple.entity.EntityMetamodel;
 import org.hibernate.id.IdentifierGenerator;
 import org.hibernate.id.Assigned;
 import org.hibernate.metadata.ClassMetadata;
@@ -16,6 +17,8 @@ import org.hibernate.cache.CacheConcurrencyStrategy;
 import org.hibernate.engine.SessionImplementor;
 import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.engine.CascadeStyle;
+import org.hibernate.engine.ValueInclusion;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -346,6 +349,20 @@ public abstract class EntityPersisterAdapter implements EntityPersister
    {
       return null;
    }
-   
-   
+
+
+   public ValueInclusion[] getPropertyInsertGenerationInclusions()
+   {
+      return new ValueInclusion[0];
+   }
+
+   public ValueInclusion[] getPropertyUpdateGenerationInclusions()
+   {
+      return new ValueInclusion[0];
+   }
+
+   public EntityMetamodel getEntityMetamodel()
+   {
+      return null;
+   }
 }
