@@ -16,7 +16,6 @@ import com.u2d.view.swing.dnd.SimpleListTransferHandler;
 import com.u2d.view.swing.dnd.RelationalListDropTarget;
 import com.u2d.app.Tracing;
 import com.u2d.list.RelationalList;
-
 import java.awt.*;
 
 /**
@@ -34,10 +33,16 @@ public class JListView extends SeeThruList
    private ChangeListener _memberChangeListener = 
       new ChangeListener()
       {
-         public void stateChanged(ChangeEvent evt)
+         public void stateChanged(final ChangeEvent evt)
          {
-            int index = _leo.getItems().indexOf(evt.getSource());
-            contentsChanged(new ListDataEvent(evt.getSource(), ListDataEvent.CONTENTS_CHANGED, index, index));
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               public void run()
+               {
+                  int index = _leo.getItems().indexOf(evt.getSource());
+                  contentsChanged(new ListDataEvent(evt.getSource(), ListDataEvent.CONTENTS_CHANGED, index, index));
+               }
+            });
          }
       };
    

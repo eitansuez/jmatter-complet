@@ -39,7 +39,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
    {
       this();
       addView(view);
-      pack();
+      updateSize();
    }
    
    public void addView(JComponent view)
