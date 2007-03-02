@@ -34,9 +34,6 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ChangeListe
       _view.addChangeListener(this);
       _schedule.addChangeListener(this);
       
-      // workaround for mousewheelsupport when hovering over a calevent..
-      addMouseWheelListener(_view.getScrollPane().getMouseWheelListeners()[0]);
-
       update();
    }
 
@@ -67,6 +64,8 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ChangeListe
          {
             CalEvent event = (CalEvent) itr.next();
             JComponent comp = (JComponent) event.getCalEventView(_schedule);
+            // workaround for mousewheelsupport when hovering over a calevent..
+            comp.addMouseWheelListener(_view.getScrollPane().getMouseWheelListeners()[0]);
             add(comp, event);
          }
 
