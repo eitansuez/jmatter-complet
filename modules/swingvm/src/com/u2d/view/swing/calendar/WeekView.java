@@ -347,6 +347,8 @@ public class WeekView extends JPanel implements TimeIntervalView
       if (l instanceof TableColumnModelListener)
          _table.getColumnModel().addColumnModelListener((TableColumnModelListener) l);
    }
+   
+   public JScrollPane getScrollPane() { return _scrollPane; }
 
    class WeekViewModel extends AbstractTableModel
    {

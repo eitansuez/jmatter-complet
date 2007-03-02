@@ -326,6 +326,7 @@ public class DayView extends JPanel implements TimeIntervalView
       if (l instanceof TableColumnModelListener)
          _table.getColumnModel().addColumnModelListener((TableColumnModelListener) l);
    }
+   public JScrollPane getScrollPane() { return _scrollPane; }
 
 
    private java.util.List<Schedule> _schedules = new ArrayList<Schedule>();

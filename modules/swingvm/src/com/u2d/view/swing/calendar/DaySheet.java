@@ -96,8 +96,7 @@ public class DaySheet extends JPanel implements Sheet
    public void detach()
    {
       _map.clear();
-      Iterator itr = _eventsPnls.iterator();
-      while (itr.hasNext())
+      for (Iterator itr = _eventsPnls.iterator(); itr.hasNext(); )
          ((EventsPnl) itr.next()).detach();
    }
 

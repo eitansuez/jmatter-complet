@@ -8,6 +8,8 @@ import java.awt.event.*;
 import com.u2d.calendar.CalEvent;
 import com.u2d.type.atom.*;
 
+import javax.swing.*;
+
 /**
  * @author Eitan Suez
  */
@@ -21,4 +23,5 @@ public interface TimeIntervalView
    public void setCellResolution(TimeInterval interval);
    public void addChangeListener(javax.swing.event.ChangeListener l);
    public void addAdjustmentListener(AdjustmentListener l);
+   public JScrollPane getScrollPane();
 }
