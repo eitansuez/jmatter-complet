@@ -129,7 +129,10 @@ public class JListView extends SeeThruList
    {
       Tracing.tracer().fine("contents changed..index0: "+e.getIndex0()
                          + "; index1: "+e.getIndex1());
-      detachItems();
+      synchronized(this)
+      {
+         detachItems();
+      }
    }
    public void intervalAdded(ListDataEvent e) { }
    public void intervalRemoved(ListDataEvent e) { }
