@@ -18451,6 +18451,118 @@ The last item on the drawing board that in my mind will complete the picture
 \end_layout
 
 \begin_layout Section
+Paging
+\end_layout
+
+\begin_layout Standard
+We've all had to implement this feature as developers.
+ Today, many frameworks such as Tapestry for example, will provide components
+ out of the box that will automatically take care of paging a listing on
+ your behalf.
+\end_layout
+
+\begin_layout Standard
+JMatter also provides paging out of the box.
+ When I sat down and started to think about this feature, I saw a certain
+ pattern.
+ One's first, naive implementation of paging might consist of a simple forward
+ and back navigation buttons:
+\end_layout
+
+\begin_layout LyX-Code
+< >
+\end_layout
+
+\begin_layout Standard
+Shortly afterwards comes the request for the ability to navigate to the
+ first and last page in a listing, and so they are added:
+\end_layout
+
+\begin_layout LyX-Code
+<< < > >>
+\end_layout
+
+\begin_layout Standard
+Then embellished, like so:
+\end_layout
+
+\begin_layout LyX-Code
+<< < [Page 3] > >>
+\end_layout
+
+\begin_layout Standard
+Over time, paging has evolved to let you navigate to a number of pages in
+ the vicinity of the current page:
+\end_layout
+
+\begin_layout LyX-Code
+1 2 ..
+ 7 [Page 8] 9 ..
+ 13 14
+\end_layout
+
+\begin_layout Standard
+This is what most web-based applications do today.
+\end_layout
+
+\begin_layout Standard
+What I realized is that paging, taken to its eventual limit, is essentially
+ embodied in the behaviour of a scrollbar.
+ Most scrollbars provide continous scrolling.
+ Whereas in the case of paging, the scrolling is more discrete.
+ The more pages there are, the less this discrete behaviour is apparent.
+ What's nice about today's scrollbars is that their size is inversely proportion
+al to the length of the list.
+ The larger the list, the smaller they are.
+ Scrollbars have the advantage of giving you more of a visual perspective
+ of where you are in the list.
+ And you can simply drag the scrollbutton to any location along its dimension.
+\end_layout
+
+\begin_layout Standard
+JMatter's Swing-based view mechanism defines a view implementation: a component
+ named PageScrollBar which extends Swing's JScrollBar, shown at the bottom
+ of the following listing:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/paging.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Paging a Conference's Sessions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As usual, developers of JMatter applications need not concern themselves
+ with this at all.
+ It's bundled into the framework and it just works.
+ If however you feel the need to customize the way this scrollbar looks
+ or behaves, it's easy enough with a little Swing experience to make the
+ desired revisions.
+ 
+\end_layout
+
+\begin_layout Section
 Associations Made Easy
 \end_layout
 
