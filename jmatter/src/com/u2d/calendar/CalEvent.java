@@ -74,9 +74,9 @@ public abstract class CalEvent extends AbstractComplexEObject
 
    public static long DEFAULT_DURATION = TimeSpan.ONEHOUR;
    @Cmd
-   public static void SetDefaultDurationHrs(CommandInfo cmdInfo,
-                                @Arg("Duration (Hrs)") FloatEO durationHrs)
+   public static void SetDefaultDurationMins(CommandInfo cmdInfo,
+                                @Arg("Duration (Minutes)") IntEO durationMins)
    {
-      DEFAULT_DURATION = (long) ( durationHrs.doubleValue() * 3600 * 1000 );
+      DEFAULT_DURATION = (long) ( durationMins.intValue() * 60 * 1000 );
    }
 }
