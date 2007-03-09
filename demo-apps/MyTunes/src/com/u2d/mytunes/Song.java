@@ -215,12 +215,12 @@ public class Song extends AbstractComplexEObject
          {
             public void playbackStarted(PlaybackEvent playbackEvent)
             {
-               vmech().onMessage("Playback started..");
+               vmech().message("Playback started..");
             }
 
             public void playbackFinished(PlaybackEvent playbackEvent)
             {
-               vmech().onMessage("Playback finished..");
+               vmech().message("Playback finished..");
             }
          });
          
