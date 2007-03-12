@@ -7,7 +7,7 @@ import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 import com.u2d.calendar.Schedule;
-import com.u2d.type.atom.DateEO;
+import com.u2d.calendar.DateTimeBounds;
 
 /**
  * @author Eitan Suez
@@ -21,13 +21,13 @@ public class WeekSheet extends JPanel implements Sheet
    private java.util.List _eventsPnls = new ArrayList();
    private Map _map = new HashMap();
    
-   public WeekSheet(DateEO eo)
+   public WeekSheet(DateTimeBounds bounds)
    {
       _substrate = new JLayeredPane();
       OverlayLayout overlay = new OverlayLayout(_substrate);
       _substrate.setLayout(overlay);
       
-      _weekView = new WeekView(eo);
+      _weekView = new WeekView(bounds);
       
       _substrate.add(_weekView);
       _substrate.setLayer(_weekView, JLayeredPane.DEFAULT_LAYER.intValue());
@@ -96,8 +96,7 @@ public class WeekSheet extends JPanel implements Sheet
    public void detach()
    {
       _map.clear();
-      Iterator itr = _eventsPnls.iterator();
-      while (itr.hasNext())
+      for (Iterator itr = _eventsPnls.iterator(); itr.hasNext(); )
          ((EventsPnl) itr.next()).detach();
    }
    

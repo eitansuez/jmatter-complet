@@ -26,7 +26,7 @@ public class ScheduleView extends JPanel implements ComplexEView
    public ScheduleView(Schedule schedule)
    {
       _schedule = schedule;
-      _timeSheet = new TimeSheet(schedule.position());
+      _timeSheet = new TimeSheet(schedule.bounds());
       _timeSheet.addSchedule(_schedule);
       
       setLayout(new BorderLayout());

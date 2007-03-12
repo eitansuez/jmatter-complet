@@ -5,6 +5,7 @@ package com.u2d.view.swing.calendar;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Calendar;
 import javax.swing.*;
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
@@ -20,12 +21,15 @@ public class TimeSheet extends JPanel implements ICalView
    private JTabbedPane _tabPane;
    private CardLayout _cl;
    private JPanel _lblPnl, _eastPanel;
+   private CellResChoice _resolution;
    
-   public TimeSheet(DateEO eo)
+   public TimeSheet(DateTimeBounds bounds)
    {
-      _eo = eo;
-      _daySheet = new DaySheet(_eo);
-      _weekSheet = new WeekSheet(_eo);
+      _eo = bounds.position();
+      _daySheet = new DaySheet(bounds);
+      _weekSheet = new WeekSheet(bounds);
+      _resolution = bounds.resolution();
+      setCellResolution(_resolution.timeInterval());
       
       setLayout(new BorderLayout());
       JPanel pnl = new JPanel(new BorderLayout());
@@ -37,13 +41,13 @@ public class TimeSheet extends JPanel implements ICalView
       _eastPanel.add(new DateView2(_eo), BorderLayout.NORTH);
       add(_eastPanel, BorderLayout.EAST);
    }
-   
-   public TimeSheet(DateEO eo, Component c)
+
+   public TimeSheet(DateTimeBounds bounds, Component c)
    {
-      this(eo);
+      this(bounds);
       _eastPanel.add(new JScrollPane(c), BorderLayout.SOUTH);
    }
-   
+
    private Sheet selectedSheet()
    {
       return (Sheet) _tabPane.getSelectedComponent();
@@ -55,7 +59,7 @@ public class TimeSheet extends JPanel implements ICalView
       public Heading()
       {
          setLayout(new BorderLayout());
-         add(new CellResChoice(TimeSheet.this), BorderLayout.WEST);
+         add(new CellResPanel(TimeSheet.this, _resolution), BorderLayout.WEST);
          add(label(), BorderLayout.CENTER);
          add(new NavPanel(TimeSheet.this), BorderLayout.EAST);
       }

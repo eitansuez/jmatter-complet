@@ -34,7 +34,7 @@ public class CalendarView extends JPanel implements ComplexEView
    {
       _calendar = calendar;
       _checkboxPanel = new CBPanel();
-      _timeSheet = new TimeSheet(calendar.position(), _checkboxPanel);
+      _timeSheet = new TimeSheet(calendar.bounds(), _checkboxPanel);
 
       _schedules = _calendar.schedules();
       _scheduleListener = new ScheduleListener();

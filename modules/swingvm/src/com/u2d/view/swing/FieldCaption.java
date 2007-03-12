@@ -57,6 +57,7 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
       }
       else
       {
+         putClientProperty("css-class", "");
          setFont(_font);
          setForeground(_foreground);
       }

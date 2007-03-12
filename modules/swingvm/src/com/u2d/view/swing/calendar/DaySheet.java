@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 import com.u2d.calendar.Schedule;
-import com.u2d.type.atom.DateEO;
+import com.u2d.calendar.DateTimeBounds;
 
 /**
  * @author Eitan Suez
@@ -21,13 +21,13 @@ public class DaySheet extends JPanel implements Sheet
    private java.util.List _eventsPnls = new ArrayList();
    private Map _map = new HashMap();
    
-   public DaySheet(DateEO eo)
+   public DaySheet(DateTimeBounds bounds)
    {
       _substrate = new JLayeredPane();
       OverlayLayout overlay = new OverlayLayout(_substrate);
       _substrate.setLayout(overlay);
       
-      _dayView = new DayView(eo);
+      _dayView = new DayView(bounds);
       
       _substrate.add(_dayView);
       _substrate.setLayer(_dayView, JLayeredPane.DEFAULT_LAYER.intValue());

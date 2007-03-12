@@ -19,7 +19,7 @@ import org.hibernate.criterion.*;
 /**
  * @author Eitan Suez
  */
-public class Schedule extends AbstractComplexEObject implements EventMaker
+public class Schedule extends AbstractComplexEObject implements EventMaker, DateTimeBounded
 {
    private Schedulable _schedulable;
    
@@ -156,15 +156,11 @@ public class Schedule extends AbstractComplexEObject implements EventMaker
       calEvent.association(calEvent.schedulableFieldname()).set(_schedulable);
       return calEvent;
    }
+   
+   private DateTimeBounds _bounds;
+   public DateTimeBounds bounds() { return _bounds; }
+   public void bounds(DateTimeBounds bounds) { _bounds = bounds; }
 
-   private final DateEO _position = new DateEO(new Date());
-   public DateEO position() { return _position; }
-   public void position(Date date)
-   {
-      _position.setValue(date);
-   }
-   
-   
    Calendrier _calendrier = null;
    void inCalendarContext(Calendrier calendrier) { _calendrier = calendrier; }
    private boolean inCalendarContext() { return _calendrier != null; }

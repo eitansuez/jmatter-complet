@@ -27,7 +27,7 @@ import javax.swing.event.ListDataEvent;
  * @author Eitan Suez
  */
 public class Calendrier extends AbstractComplexEObject
-                        implements Serializable, EventMaker
+                        implements Serializable, EventMaker, DateTimeBounded
 {
    private transient Calendarable _cal;
 
@@ -79,14 +79,12 @@ public class Calendrier extends AbstractComplexEObject
    }
 
 
-   private final DateEO _position = new DateEO(new Date());
-   public DateEO position() { return _position; }
-   public void position(Date date)
-   {
-      _position.setValue(date);
-   }
+   
+   private DateTimeBounds _bounds;
+   public DateTimeBounds bounds() { return _bounds; }
+   public void bounds(DateTimeBounds bounds) { _bounds = bounds; }
 
-
+   
    /*
    a work in progress..
    

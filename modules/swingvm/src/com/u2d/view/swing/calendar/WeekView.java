@@ -18,6 +18,7 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import com.u2d.calendar.CalEvent;
+import com.u2d.calendar.DateTimeBounds;
 import com.u2d.type.atom.*;
 import com.u2d.ui.CustomLabel;
 import com.u2d.model.ComplexEObject;
@@ -36,9 +37,6 @@ public class WeekView extends JPanel implements TimeIntervalView
    private static int FIRST_COLUMN_WIDTH = 65;
    private static Color SELECTION_BACKGROUND = new Color(0xf0f5fb);
 
-   private static TimeInterval WEEK_INTERVAL = new TimeInterval(Calendar.DATE, 7);
-   private static TimeInterval DAY_INTERVAL = new TimeInterval(Calendar.HOUR, 12);
-
    private static java.text.SimpleDateFormat LABEL_DATE_FORMATTER =
       new java.text.SimpleDateFormat("MMMM dd yyyy");
 
@@ -52,33 +50,51 @@ public class WeekView extends JPanel implements TimeIntervalView
    private JScrollPane _scrollPane;
 
    private DateEO _eo;
+   private TimeEO _weekStartTime;
+   private TimeEO _dayStartTime;
+   private TimeInterval _dayInterval;
+   private TimeInterval _weekInterval;
    private JLabel _label = new CustomLabel(16.0f, JLabel.CENTER);
    
    private static Logger _log = Tracing.tracer();
 
    
-   public WeekView(DateEO eo)
+   protected class WeekViewChangeListener implements ChangeListener
    {
-      _eo = eo;
-      _eo.addChangeListener(new javax.swing.event.ChangeListener()
-         {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
-               adjustDatesAndTimes();
-               _label.setText("Week of "+LABEL_DATE_FORMATTER.format(_weekSpan.startDate()));
+       public void stateChanged(javax.swing.event.ChangeEvent evt)
+       {
+          adjustDatesAndTimes();
+          _label.setText("Week of "+LABEL_DATE_FORMATTER.format(_weekSpan.startDate()));
 
-               for (int i=1; i<_model.getColumnCount(); i++)
-                  _table.getColumn(""+i).setHeaderValue(_model.getColumnName(i));
+          for (int i=1; i<_model.getColumnCount(); i++)
+             _table.getColumn(""+i).setHeaderValue(_model.getColumnName(i));
 
-               Calendar cal = Calendar.getInstance();
-               cal.setTime(_eo.dateValue());
-               int column = cal.get(Calendar.DAY_OF_WEEK);
-               _table.setColumnSelectionInterval(column, column);
-               repaint();
+          Calendar cal = Calendar.getInstance();
+          cal.setTime(_eo.dateValue());
+          int column = cal.get(Calendar.DAY_OF_WEEK);
+          _table.setColumnSelectionInterval(column, column);
+          repaint();
 
-               fireStateChanged();
-           }
-         });
+          fireStateChanged();
+      }
+    }
+   
+   public WeekView(DateTimeBounds bounds)
+   {
+	   // TODO:  need mutable TimeInterval with ChangeListener
+	   _dayInterval = bounds.dayInterval();
+	   
+	   // TODO:  need mutable TimeInterval with ChangeListener
+	   _weekInterval = bounds.weekInterval();
+	   
+	   _dayStartTime = bounds.dayStartTime();
+	   _dayStartTime.addChangeListener(new WeekViewChangeListener());
+	   
+	   _weekStartTime = bounds.weekStartTime();
+	   _weekStartTime.addChangeListener(new WeekViewChangeListener());
+	   
+      _eo = bounds.position();
+      _eo.addChangeListener(new WeekViewChangeListener());
 
       adjustDatesAndTimes();
       _label.setText("Week of "+LABEL_DATE_FORMATTER.format(_weekSpan.startDate()));
@@ -255,17 +271,25 @@ public class WeekView extends JPanel implements TimeIntervalView
    {
       Calendar startOfWeek = Calendar.getInstance();
       startOfWeek.setTime(_eo.dateValue());
+
+      Calendar weekStartTimeCalendar = _weekStartTime.calendarValue();
+
+      // TODO: No way to represent this in an EOType.
       startOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-      startOfWeek.set(Calendar.HOUR_OF_DAY, 0);
-      startOfWeek.set(Calendar.MINUTE, 0);
-      startOfWeek.set(Calendar.SECOND, 0);
+	   
+      startOfWeek.set(Calendar.HOUR_OF_DAY, weekStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
+      startOfWeek.set(Calendar.MINUTE, weekStartTimeCalendar.get(Calendar.MINUTE));
+      startOfWeek.set(Calendar.SECOND, weekStartTimeCalendar.get(Calendar.SECOND));
+
       //System.out.println("beginning of week is "+startOfWeek.getTime());
 
       TimeEO startHr = new TimeEO(startOfWeek.getTimeInMillis());
-      startHr.set(Calendar.HOUR_OF_DAY, 7);
 
-      _weekSpan = new TimeSpan(startOfWeek.getTime(), WEEK_INTERVAL);
-      _daySpan = new TimeSpan(startHr.dateValue(), DAY_INTERVAL); // 7 AM - 7 PM
+      Calendar dayStartTimeCalendar = _dayStartTime.calendarValue();
+      startHr.set(Calendar.HOUR_OF_DAY, dayStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
+
+      _weekSpan = new TimeSpan(startOfWeek.getTime(), _weekInterval);
+      _daySpan = new TimeSpan(startHr.dateValue(), _dayInterval); // 7 AM - 7 PM
    }
 
    private void updateRowHeight()
@@ -396,7 +420,7 @@ public class WeekView extends JPanel implements TimeIntervalView
 
    }
 
-   public TimeInterval getTimeInterval() { return WEEK_INTERVAL; }
+   public TimeInterval getTimeInterval() { return _weekInterval; }
    public JLabel getLabel() { return _label; }
 
    /************************************************************************

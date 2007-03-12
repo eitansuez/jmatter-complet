@@ -32,8 +32,7 @@ public class DayView extends JPanel implements TimeIntervalView
    private static Color SELECTION_BACKGROUND = new Color(0xf0f5fb);
 
    public static TimeInterval INTERVAL = new TimeInterval(Calendar.HOUR, 24);
-   private static TimeInterval DAY_INTERVAL = new TimeInterval(Calendar.HOUR, 12);
-
+   
    private static java.text.SimpleDateFormat LABEL_DATE_FORMATTER =
       new java.text.SimpleDateFormat("EEEE MMMM dd yyyy");
 
@@ -46,25 +45,35 @@ public class DayView extends JPanel implements TimeIntervalView
    private JScrollPane _scrollPane;
 
    private DateEO _eo;
+   private TimeEO _dayStartTime;
+   private TimeInterval _dayInterval;
    private JLabel _label = new CustomLabel(16.0f, JLabel.CENTER);
 
    private static Logger _log = Tracing.tracer();
 
 
-   public DayView(DateEO eo)
+   protected class DayViewChangeListener implements ChangeListener
    {
-      _eo = eo;
-      _eo.addChangeListener(new javax.swing.event.ChangeListener()
-         {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
-               adjustDayspan();
-               _label.setText(LABEL_DATE_FORMATTER.format(_eo.dateValue()));
+       public void stateChanged(javax.swing.event.ChangeEvent evt)
+       {
+          adjustDayspan();
+          _label.setText(LABEL_DATE_FORMATTER.format(_eo.dateValue()));
 
-               repaint();
-               fireStateChanged();
-           }
-         });
+          repaint();
+          fireStateChanged();
+      }
+    }
+   
+   public DayView(DateTimeBounds bounds)
+   {
+	   // TODO:  need mutable TimeInterval with ChangeListener
+	   _dayInterval = bounds.dayInterval();
+
+	   _dayStartTime = bounds.dayStartTime();
+	   _dayStartTime.addChangeListener(new DayViewChangeListener());
+	   
+      _eo = bounds.position();
+      _eo.addChangeListener(new DayViewChangeListener());
 
       adjustDayspan();
       _label.setText(LABEL_DATE_FORMATTER.format(_eo.dateValue()));
@@ -237,10 +246,13 @@ public class DayView extends JPanel implements TimeIntervalView
    {
       Calendar cal = Calendar.getInstance();
       cal.setTime(_eo.dateValue());
-      cal.set(Calendar.HOUR_OF_DAY, 7);
-      cal.set(Calendar.MINUTE, 0);
-      cal.set(Calendar.SECOND, 0);
-      _daySpan = new TimeSpan(cal.getTime(), DAY_INTERVAL); // 7 AM - 7 PM
+
+      Calendar dayStartTimeCalendar = _dayStartTime.calendarValue();
+
+      cal.set(Calendar.HOUR_OF_DAY, dayStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
+      cal.set(Calendar.MINUTE, dayStartTimeCalendar.get(Calendar.MINUTE));
+      cal.set(Calendar.SECOND, dayStartTimeCalendar.get(Calendar.SECOND));
+      _daySpan = new TimeSpan(cal.getTime(), _dayInterval); // 7 AM - 7 PM
    }
 
    private void updateRowHeight()
