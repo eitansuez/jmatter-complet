@@ -12,8 +12,7 @@ public class TimeInterval
 {
    private long _milis = 0;
    
-   public static TimeInterval ONEDAY = 
-         new TimeInterval(Calendar.DATE,  1);
+   public static TimeInterval ONEDAY = new TimeInterval(Calendar.DATE,  1);
    
    private int _field;
    private long _amt;
@@ -28,29 +27,23 @@ public class TimeInterval
    
    private long calcMilis(int field, long amount)
    {
-      long milis = 0;
+      long milis = amount;
+      
       switch(field)
       {
-         case Calendar.MILLISECOND:
-            milis = amount;
-            break;
-         case Calendar.SECOND:
-            milis = amount * 1000;
-            break;
-         case Calendar.MINUTE:
-            milis = amount * 1000 * 60;
-            break;
+         case Calendar.MONTH:
+            milis *= 30;
+         case Calendar.DATE:
+            milis *= 24;
          case Calendar.HOUR:
          case Calendar.HOUR_OF_DAY:
-            milis = amount * 1000 * 60 * 60;
-            break;
-         case Calendar.DATE:
-            milis = amount * 1000 * 60 * 60 * 24;
-            break;
-         case Calendar.MONTH:
-            milis = amount * 1000 * 60 * 60 * 24 * 30;
-            break;
+            milis *= 60;
+         case Calendar.MINUTE:
+            milis *= 60;
+         case Calendar.SECOND:
+            milis *= 1000;
       }
+
       return milis;
    }
    
