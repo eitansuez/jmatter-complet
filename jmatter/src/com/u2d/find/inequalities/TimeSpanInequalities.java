@@ -25,10 +25,9 @@ public class TimeSpanInequalities
 //   private Field _field;
    private EView _ineqView;
    private List _inequalities;
-   
-   public TimeSpanInequalities(Field field)
+
+   public TimeSpanInequalities()
    {
-//      _field = field;
       _ineqView = new DateEO().getView();
       ((Editor) _ineqView).setEditable(true);
       
@@ -36,6 +35,12 @@ public class TimeSpanInequalities
       _inequalities.add(new SpanOn());
       _inequalities.add(new SpanBefore());
       _inequalities.add(new SpanAfter());
+   }
+
+   public TimeSpanInequalities(Field field)
+   {
+      this();
+//      _field = field;
    }
    
    public List getInequalities() { return _inequalities; }
