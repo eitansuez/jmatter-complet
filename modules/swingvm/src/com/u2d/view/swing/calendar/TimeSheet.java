@@ -10,6 +10,7 @@ import javax.swing.*;
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
+import com.u2d.ui.CustomTabbedPane;
 
 /**
  * @author Eitan Suez
@@ -81,7 +82,7 @@ public class TimeSheet extends JPanel implements ICalView
    
    private JComponent body()
    {
-      _tabPane = new JTabbedPane();
+      _tabPane = new CustomTabbedPane();
       _tabPane.add("Week View", (JComponent) _weekSheet);
       _tabPane.add("Day View", (JComponent) _daySheet);
       
