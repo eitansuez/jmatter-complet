@@ -29,6 +29,17 @@ public enum CellResChoice
       return new TimeInterval(Calendar.MINUTE, _minutes);
    }
    
+   public CellResChoice next()
+   {
+      int index = Math.min(ordinal() + 1, values().length - 1);
+      return values()[index];
+   }
+   public CellResChoice previous()
+   {
+      int index = Math.max(ordinal()-1, 0);
+      return values()[index];
+   }
+   
    public String toString()
    {
       return _minutes + " min.";
