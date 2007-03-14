@@ -268,7 +268,7 @@ public class ComplexType extends AbstractComplexEObject
    {
       return (AbstractListEO) CONCRETE_TYPE_MAP.get(_clazz);
    }
-   public boolean hasConcreteSubTyptes()
+   public boolean hasConcreteSubTypes()
    {
       return (concreteTypes().getSize() > 1);
    }
@@ -688,7 +688,7 @@ public class ComplexType extends AbstractComplexEObject
    }
    public ComplexType baseType()
    {
-      if (hasConcreteSubTyptes())
+      if (hasConcreteSubTypes())
          return this;
       return null;
    }

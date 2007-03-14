@@ -43,7 +43,7 @@ public class OverloadedEOCmd extends EOCommand
       if (value instanceof ComplexType)
       {
          ComplexType type = (ComplexType) value;
-         if (type.isAbstract() || type.hasConcreteSubTyptes())
+         if (type.isAbstract() || type.hasConcreteSubTypes())
          {
             cmd = _overloadedCmd;
          }
@@ -51,7 +51,7 @@ public class OverloadedEOCmd extends EOCommand
       else if (value instanceof Typed)
       {
          ComplexType type = ((Typed) value).type();
-         if (type.isAbstract() || type.hasConcreteSubTyptes())
+         if (type.isAbstract() || type.hasConcreteSubTypes())
          {
             cmd = _overloadedCmd;
          }
