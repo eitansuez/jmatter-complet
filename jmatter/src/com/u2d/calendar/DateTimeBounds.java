@@ -66,6 +66,11 @@ public class DateTimeBounds
    {
       this(position, DEFAULT_DAY_START_TIME, DEFAULT_DAY_INTERVAL);
    }
+   
+   public DateTimeBounds()
+   {
+      this(new DateEO(new Date()));
+   }
 
    
    

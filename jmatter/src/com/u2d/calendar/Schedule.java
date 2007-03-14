@@ -157,7 +157,7 @@ public class Schedule extends AbstractComplexEObject implements EventMaker, Date
       return calEvent;
    }
    
-   private DateTimeBounds _bounds;
+   private DateTimeBounds _bounds = new DateTimeBounds();
    public DateTimeBounds bounds() { return _bounds; }
    public void bounds(DateTimeBounds bounds) { _bounds = bounds; }
 

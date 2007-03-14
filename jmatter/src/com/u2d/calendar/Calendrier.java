@@ -80,7 +80,7 @@ public class Calendrier extends AbstractComplexEObject
 
 
    
-   private DateTimeBounds _bounds;
+   private DateTimeBounds _bounds = new DateTimeBounds();
    public DateTimeBounds bounds() { return _bounds; }
    public void bounds(DateTimeBounds bounds) { _bounds = bounds; }
 
