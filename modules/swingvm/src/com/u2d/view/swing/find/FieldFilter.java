@@ -40,7 +40,7 @@ public class FieldFilter extends JPanel
       _type = type;
 
       setOpaque(false);
-      setLayout(new FlowLayout(FlowLayout.LEFT));
+      setLayout(new FlowLayout(FlowLayout.LEFT, 3, 3));
 
       add(fieldCombo());
       add(ineqCombo());
