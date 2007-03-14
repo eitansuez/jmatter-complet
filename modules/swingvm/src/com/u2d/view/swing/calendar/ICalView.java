@@ -3,7 +3,7 @@
  */
 package com.u2d.view.swing.calendar;
 
-import com.u2d.type.atom.TimeInterval;
+import com.u2d.calendar.CellResChoice;
 
 /**
  * @author Eitan Suez
@@ -11,5 +11,5 @@ import com.u2d.type.atom.TimeInterval;
 public interface ICalView
 {
    public void shift(boolean forward);
-   public void setCellResolution(TimeInterval ti);
+   public void setCellResolution(CellResChoice res);
 }

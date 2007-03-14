@@ -21,6 +21,7 @@ import com.u2d.type.atom.*;
 import com.u2d.ui.CustomLabel;
 import com.u2d.model.ComplexEObject;
 import com.u2d.app.Tracing;
+import com.u2d.view.swing.SwingViewMechanism;
 
 /**
  * @author Eitan Suez
@@ -37,7 +38,7 @@ public class DayView extends JPanel implements TimeIntervalView
       new java.text.SimpleDateFormat("EEEE MMMM dd yyyy");
 
    private TimeSpan _daySpan;
-   private TimeInterval _cellRes = new TimeInterval(Calendar.MINUTE, 30);
+   private CellResChoice _cellRes = CellResChoice.THIRTY_MINUTES;
 
    private JTable _table;
    private DayTableModel _model;
@@ -84,6 +85,19 @@ public class DayView extends JPanel implements TimeIntervalView
       setLayout(new BorderLayout());
       _scrollPane = new JScrollPane(_table);
       add(_scrollPane, BorderLayout.CENTER);
+      
+      _scrollPane.addMouseWheelListener(new MouseWheelListener()
+      {
+         public void mouseWheelMoved(MouseWheelEvent e)
+         {
+            if (e.isControlDown())
+            {
+               boolean increaseResolution = (e.getWheelRotation() < 0);
+               setCellResolution(increaseResolution ? _cellRes.previous() : _cellRes.next());
+               SwingViewMechanism.getInstance().message(_cellRes.toString());
+            }
+         }
+      });
    }
 
    private void buildTable()
@@ -238,7 +252,7 @@ public class DayView extends JPanel implements TimeIntervalView
    {
       Calendar cal = Calendar.getInstance();
       cal.setTime(_daySpan.startDate());
-      cal.add(Calendar.MINUTE, rowidx*(int)_cellRes.getMilis()/(1000*60));
+      cal.add(Calendar.MINUTE, rowidx*(int)_cellRes.timeInterval().getMilis()/(1000*60));
       return cal.getTime();
    }
 
@@ -275,8 +289,8 @@ public class DayView extends JPanel implements TimeIntervalView
 
    public TimeSpan getSpan() { return _daySpan; }
 
-   public TimeInterval getCellRes() { return _cellRes; }
-   public void setCellResolution(TimeInterval cellRes)
+   public TimeInterval getCellRes() { return _cellRes.timeInterval(); }
+   public void setCellResolution(CellResChoice cellRes)
    {
       _cellRes = cellRes;
       _model.updateCellRes();
@@ -292,13 +306,13 @@ public class DayView extends JPanel implements TimeIntervalView
       startOfDayCal.set(Calendar.MINUTE, _daySpan.startCal().get(Calendar.MINUTE));
       
       TimeSpan distanceSpan = new TimeSpan(startOfDayCal.getTime(), span.startDate());
-      double distance = distanceSpan.distance(_cellRes);
+      double distance = distanceSpan.distance(_cellRes.timeInterval());
 
       int rowHeight = _table.getRowHeight();
       int yPos = (int) (distance * rowHeight) + _table.getTableHeader().getHeight();
       _log.fine("yPos: "+yPos+"; distance: "+distance);
 
-      int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / _cellRes.getMilis() );
+      int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / _cellRes.timeInterval().getMilis() );
       eventHeight = Math.max(eventHeight, rowHeight);
 
       // this is tricky because i've introduced into dayview the
@@ -400,12 +414,12 @@ public class DayView extends JPanel implements TimeIntervalView
 
       private void updateCellRes()
       {
-         _numCellsInDay = _daySpan.numIntervals(_cellRes);
+         _numCellsInDay = _daySpan.numIntervals(_cellRes.timeInterval());
          _times = new TimeEO[_numCellsInDay];
 
-         Iterator itr = _daySpan.iterator(_cellRes);
          int i=0;
-         while (itr.hasNext())
+         for (Iterator itr = _daySpan.iterator(_cellRes.timeInterval());
+              itr.hasNext();)
          {
             _times[i++] = (TimeEO) itr.next();
          }

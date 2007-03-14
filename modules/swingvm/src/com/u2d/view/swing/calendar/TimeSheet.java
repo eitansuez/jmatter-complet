@@ -5,7 +5,6 @@ package com.u2d.view.swing.calendar;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Calendar;
 import javax.swing.*;
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
@@ -30,7 +29,7 @@ public class TimeSheet extends JPanel implements ICalView
       _daySheet = new DaySheet(bounds);
       _weekSheet = new WeekSheet(bounds);
       _resolution = bounds.resolution();
-      setCellResolution(_resolution.timeInterval());
+      setCellResolution(_resolution);
       
       setLayout(new BorderLayout());
       JPanel pnl = new JPanel(new BorderLayout());
@@ -128,10 +127,10 @@ public class TimeSheet extends JPanel implements ICalView
       else
          _eo.subtract(interval);
    }
-   public void setCellResolution(TimeInterval interval)
+   public void setCellResolution(CellResChoice res)
    {
-      _weekSheet.getIntervalView().setCellResolution(interval);
-      _daySheet.getIntervalView().setCellResolution(interval);
+      _weekSheet.getIntervalView().setCellResolution(res);
+      _daySheet.getIntervalView().setCellResolution(res);
    }
    public void addActionListener(ActionListener l)
    {

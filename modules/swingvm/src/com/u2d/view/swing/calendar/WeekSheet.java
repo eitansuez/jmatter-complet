@@ -5,6 +5,8 @@ package com.u2d.view.swing.calendar;
 
 import java.util.*;
 import java.awt.*;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
 import javax.swing.*;
 import com.u2d.calendar.Schedule;
 import com.u2d.calendar.DateTimeBounds;
