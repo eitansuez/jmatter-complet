@@ -6,13 +6,11 @@ package com.u2d.list;
 /**
  * @author Eitan Suez
  */
-public interface Paginable
+public interface Paginable extends Navigable
 {
    public void firstPage();
    public boolean hasNextPage();
    public boolean hasPreviousPage();
-   public void nextPage();
-   public void previousPage();
    public String getPageTitleInfo();
    
    public void fetchPage(int pageNum);
