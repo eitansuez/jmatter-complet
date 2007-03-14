@@ -132,7 +132,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
       public AssociatedPanel()
       {
-         setLayout(new FlowLayout(FlowLayout.LEFT));
+         setLayout(new FlowLayout(FlowLayout.LEFT, 3, 0));
          setOpaque(false);
          itemPnl = new ItemPanel();
          add(itemPnl);
@@ -179,9 +179,6 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          CloseableJInternalFrame.updateSize(AssociationView2.this);
       }
 
-      Insets _insets = new Insets(0, 0, 0, 0);
-      public Insets getInsets() { return _insets; }
-
       public void detach()
       {
          if (view != null)
@@ -213,7 +210,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
       public DissociatedPanel()
       {
-         setLayout(new FlowLayout(FlowLayout.LEFT));
+         setLayout(new FlowLayout(FlowLayout.LEFT, 3, 0));
          setOpaque(false);
          itemPnl = new ItemPanel();
          add(itemPnl);
@@ -266,9 +263,6 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          CloseableJInternalFrame.updateSize(AssociationView2.this);
       }
 
-      Insets _insets = new Insets(0, 0, 0, 0);
-      public Insets getInsets() { return _insets; }
-
       public void detach()
       {
          if (view != null)
@@ -303,6 +297,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
       public ItemPanel()
       {
+         setLayout(new FlowLayout(FlowLayout.CENTER, 3, 0));
          setBackground(Color.white);
          setOpaque(true);
          Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
@@ -327,14 +322,18 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          return _editableComp;
       }
 
-      private void returnToReadState()
+      private void returnToReadState() { changeEditableState(true); }
+      private void enterEditState() { changeEditableState(false); }
+
+      private void changeEditableState(boolean read)
       {
          if (getComponentCount() > 0)
          {
             remove(0);
-            add(_itemView, 0);
-            inViewState = true;
-            revalidate(); repaint();
+            Component comp = (read) ? _itemView : editableComp();
+            add(comp, 0);
+            inViewState = read;
+            com.u2d.ui.desktop.CloseableJInternalFrame.updateSize(this);
          }
       }
 
@@ -353,14 +352,6 @@ public class AssociationView2 extends CardPanel implements ComplexEView
       public void mouseEntered(MouseEvent e) { } 
       public void mouseExited(MouseEvent e) { }
 
-      private void enterEditState()
-      {
-         remove(0);
-         add(editableComp(), 0);
-         inViewState = false;
-         revalidate(); repaint();
-      }
-
       public void removeItem(EView view)
       {
          ((JComponent) view).removeMouseListener(this);
@@ -375,9 +366,6 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          _itemView.addMouseListener(this);
       }
       
-      Insets _insets = new Insets(0, 0, 0, 0);
-      public Insets getInsets() { return _insets; }
-
    }
 
 }

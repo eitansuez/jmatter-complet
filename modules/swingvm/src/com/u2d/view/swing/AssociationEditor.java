@@ -46,7 +46,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
 
    public AssociationEditor(Field field)
    {
-      setLayout(new FlowLayout(FlowLayout.LEFT));
+      setLayout(new FlowLayout(FlowLayout.LEFT, 3, 0));
       setOpaque(false);
 
       _type = field.fieldtype();
@@ -274,8 +274,4 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
        }
    }
    
-   Insets _insets = new Insets(0, 0, 0, 0);
-   public Insets getInsets() { return _insets; }
-
-
 }
