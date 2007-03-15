@@ -19281,8 +19281,8 @@ Keyboard Shortcuts
 \begin_layout Standard
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="10" columns="2">
-<features>
+<lyxtabular version="3" rows="11" columns="2">
+<features islongtable="true">
 <column alignment="center" valignment="top" leftline="true" width="0">
 <column alignment="block" valignment="top" leftline="true" rightline="true" width="3.5in">
 <row topline="true" bottomline="true">
@@ -19476,6 +19476,28 @@ When invoking a command that generates a view, holding down the Shift key
  at the same time will prompt how you'd like the new view generated: in
  a new window, a new tab, or in place (i.e.
  replacing current view).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Ctrl-Scrollwheel
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+In the context of a calendar window, can change the resolution of the calendar
+ cells from one minute to one hour using this gesture (for either day view
+ and week view).
 \end_layout
 
 \end_inset
