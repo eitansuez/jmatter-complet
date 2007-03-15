@@ -19,7 +19,6 @@ public class DaySheet extends JPanel implements Sheet
    private static final int LAYER_START = 50;
    private int _layer = LAYER_START;
    private java.util.List _eventsPnls = new ArrayList();
-   private Map _map = new HashMap();
    
    public DaySheet(DateTimeBounds bounds)
    {
@@ -43,16 +42,14 @@ public class DaySheet extends JPanel implements Sheet
       _eventsPnls.add(eventsPnl);
       _substrate.add(eventsPnl);
       _substrate.setLayer(eventsPnl, _layer);
-      _map.put(schedule, new Integer(_layer));
+      schedule.setLayer(_layer);
       _layer++;
    }
 
    public void removeSchedule(Schedule schedule)
    {
       _dayView.removeSchedule(schedule);
-      int layer = ((Integer) _map.get(schedule)).intValue();
-      _map.remove(schedule);
-      Component[] components = _substrate.getComponentsInLayer(layer);
+      Component[] components = _substrate.getComponentsInLayer(schedule.getLayer());
       for (int i=0; i<components.length; i++)
       {
          if (components[i] instanceof EventsPnl)
@@ -73,7 +70,6 @@ public class DaySheet extends JPanel implements Sheet
          eventsPnl = (EventsPnl) itr.next();
          eventsPnl.detach();
          _substrate.remove(eventsPnl);
-         _map.remove(eventsPnl.getSchedule());
       }
       _layer = LAYER_START;
    }
@@ -81,8 +77,7 @@ public class DaySheet extends JPanel implements Sheet
 
    public void setScheduleVisible(Schedule schedule, boolean visible)
    {
-      int layer = ((Integer) _map.get(schedule)).intValue();
-      Component[] comps = _substrate.getComponentsInLayer(layer);
+      Component[] comps = _substrate.getComponentsInLayer(schedule.getLayer());
       for (int i=0; i<comps.length; i++)
       {
          comps[i].setVisible(visible);
@@ -94,7 +89,6 @@ public class DaySheet extends JPanel implements Sheet
    
    public void detach()
    {
-      _map.clear();
       for (Iterator itr = _eventsPnls.iterator(); itr.hasNext(); )
          ((EventsPnl) itr.next()).detach();
    }

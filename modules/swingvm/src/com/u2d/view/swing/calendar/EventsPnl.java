@@ -31,8 +31,18 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ChangeListe
       setOpaque(false);
 
       _view.addAdjustmentListener(this);
+      
+      // these two will go away in favor of being a listdatalistener on the list
       _view.addChangeListener(this);
       _schedule.addChangeListener(this);
+      // somewhere else keep track of navigation sending message to list to update
+      // itself (geteventsintimespan -> setitems -> firelistdataevent )
+      
+      // also, notion of multiple schedules is flawed.
+      // do one query and fetch all matching events.
+      // want to color code them?  that's fine.
+      // want to put them in a separate layer?  that's fine.
+      // however, i don't think that there should be > 1 eventspanels.
       
       update();
    }
@@ -49,6 +59,15 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ChangeListe
 
    public Schedule getSchedule() { return _schedule; }
 
+   // lots of work to do here.
+   // this is backwards.  eventspnl will be made a listdatalistener on
+   // schedule.  when schedule changes, this guy will simply redraw.  no
+   // fetching from the db on the edt (!).
+   // schedule should somehow mirror a paged list (see criterialisteo)
+   // where you pass it a timespan and it fetches the events for that
+   // span and sets its items, which fires the contentschanged event.
+   // also:  dissociate weekview from day view.  when scroll one, don't
+   // scroll the other.
    public void update()
    {
       removeAll();

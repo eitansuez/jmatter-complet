@@ -18,6 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/swingvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/swingvm.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/calendar/Schedule.java" afterPath="$PROJECT_DIR$/src/com/u2d/calendar/Schedule.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
     </list>
   </component>
@@ -155,7 +157,17 @@
     <option name="myCurrentFavoritesList" value="JMatter" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Schedule.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/u2d/calendar/Schedule.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="0" selection-start="962" selection-end="962" vertical-scroll-proportion="0.59900165">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -284,6 +296,20 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.list" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="com.u2d.calendar" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
@@ -369,7 +395,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure ProjectPane="false" PackagesPane="false" Scope="false" Favorites="false" />
+      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
       <autoscrollToSource PackagesPane="true" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -378,8 +404,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
+    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="last_opened_file_path" value="/home/eitan/build_area/jmatter-suite" />
     <property name="MemberChooser.showClasses" value="true" />
@@ -558,7 +584,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1284" height="755" extended-state="1" />
+    <frame x="0" y="24" width="1284" height="755" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
@@ -703,48 +729,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractAtomicEO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="1" selection-start="299" selection-end="299" vertical-scroll-proportion="0.2529511">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="655" column="25" selection-start="19186" selection-end="19186" vertical-scroll-proportion="0.33217993">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/restrict/FieldRestrictionType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="21" selection-start="568" selection-end="568" vertical-scroll-proportion="0.6070826">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/type/Choice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="17" selection-start="103" selection-end="103" vertical-scroll-proportion="0.15177065">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/type/AbstractChoiceEO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="0" selection-start="1909" selection-end="2545" vertical-scroll-proportion="0.8229342">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="468" column="0" selection-start="10845" selection-end="13554" vertical-scroll-proportion="0.29173693">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/type/LogEventType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="13" selection-start="267" selection-end="267" vertical-scroll-proportion="0.2529511">
@@ -806,6 +790,48 @@
     <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/atom/ChoiceEOEditor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="4" selection-start="491" selection-end="491" vertical-scroll-proportion="0.44925123">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/list/Navigable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="1" selection-start="206" selection-end="206" vertical-scroll-proportion="0.29950082">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/list/Paginable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="36" selection-start="122" selection-end="122" vertical-scroll-proportion="0.14975041">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/calendar/NavPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="13" selection-start="212" selection-end="212" vertical-scroll-proportion="0.19966722">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/calendar/EventsPnl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="23" selection-start="2184" selection-end="2184" vertical-scroll-proportion="0.59900165">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/list/CriteriaListEO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/calendar/Schedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="0" selection-start="962" selection-end="962" vertical-scroll-proportion="0.59900165">
           <folding />
         </state>
       </provider>

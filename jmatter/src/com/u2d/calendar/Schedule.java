@@ -21,15 +21,23 @@ import org.hibernate.criterion.*;
  */
 public class Schedule extends AbstractComplexEObject implements EventMaker, DateTimeBounded
 {
-   private Schedulable _schedulable;
-   
    private static Color[] COLORS = {Color.red, Color.blue, Color.green, 
          Color.cyan, Color.magenta, Color.yellow };
    private static int COLOR_IDX = 0;
    
+   private Schedulable _schedulable;
+   
    private Color _color = UIUtils.lighten(COLORS[COLOR_IDX++ % COLORS.length]);
    private Field _colorField;
 
+   private List<CalEvent> _events;
+   private TimeSpan _span;
+   
+   private int _layer;
+   public int getLayer() { return _layer; }
+   public void setLayer(int layer) { _layer = layer; }
+   
+   
    public Schedule() {}
    
    public Schedule(Schedulable schedulable)
@@ -74,9 +82,6 @@ public class Schedule extends AbstractComplexEObject implements EventMaker, Date
    }
    
 
-   private List<CalEvent> _events;
-   private TimeSpan _span;
-   
    public List getEventsInTimeSpan(TimeSpan span)
    {
       // an attempt to flatten multiple db queries per schedule into a single query
