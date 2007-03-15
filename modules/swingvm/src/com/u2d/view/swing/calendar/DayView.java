@@ -10,29 +10,22 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.io.IOException;
 import java.util.*;
-import java.util.logging.Logger;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
-import com.u2d.ui.CustomLabel;
 import com.u2d.model.ComplexEObject;
-import com.u2d.app.Tracing;
-import com.u2d.view.swing.SwingViewMechanism;
 
 /**
  * @author Eitan Suez
  */
-public class DayView extends JPanel implements TimeIntervalView
+public class DayView extends BaseTimeIntervalView
 {
    private static int COLUMN_WIDTH = 300;
    private static int FIRST_COLUMN_WIDTH = 65;
-   private static Color SELECTION_BACKGROUND = new Color(0xf0f5fb);
 
    public static TimeInterval INTERVAL = new TimeInterval(Calendar.HOUR, 24);
    
@@ -40,27 +33,14 @@ public class DayView extends JPanel implements TimeIntervalView
       new java.text.SimpleDateFormat("EEEE MMMM dd yyyy");
 
    private TimeSpan _daySpan;
-   private CellResChoice _cellRes = CellResChoice.THIRTY_MINUTES;
-
-   private JTable _table;
-   private DayTableModel _model;
-   private int _initialRowHeight;
-   private JScrollPane _scrollPane;
-
-   private DateEO _eo;
-   private TimeEO _dayStartTime;
-   private TimeInterval _dayInterval;
-   private JLabel _label = new CustomLabel(16.0f, JLabel.CENTER);
-
-   private static Logger _log = Tracing.tracer();
-
+   private DateTimeBounds _datetimeBounds;
 
    protected class DayViewChangeListener implements ChangeListener
    {
        public void stateChanged(javax.swing.event.ChangeEvent evt)
        {
           adjustDayspan();
-          _label.setText(LABEL_DATE_FORMATTER.format(_eo.dateValue()));
+          _label.setText(LABEL_DATE_FORMATTER.format(_datetimeBounds.position().dateValue()));
 
           repaint();
           fireStateChanged();
@@ -69,57 +49,18 @@ public class DayView extends JPanel implements TimeIntervalView
    
    public DayView(DateTimeBounds bounds)
    {
-	   // TODO:  need mutable TimeInterval with ChangeListener
-	   _dayInterval = bounds.dayInterval();
-
-	   _dayStartTime = bounds.dayStartTime();
-	   _dayStartTime.addChangeListener(new DayViewChangeListener());
-	   
-      _eo = bounds.position();
-      _eo.addChangeListener(new DayViewChangeListener());
+      _datetimeBounds = bounds;
+      // TODO:  need mutable TimeInterval with ChangeListener
+      _datetimeBounds.dayStartTime().addChangeListener(new DayViewChangeListener());
+      _datetimeBounds.position().addChangeListener(new DayViewChangeListener());
 
       adjustDayspan();
-      _label.setText(LABEL_DATE_FORMATTER.format(_eo.dateValue()));
+      _label.setText(LABEL_DATE_FORMATTER.format(_datetimeBounds.position().dateValue()));
 
-      buildTable();
-      setupDropHandler();
-
-      setLayout(new BorderLayout());
-      _scrollPane = new JScrollPane(_table);
-      add(_scrollPane, BorderLayout.CENTER);
-
-      
-      addPropertyChangeListener("cellResolution", new PropertyChangeListener()
-      {
-         public void propertyChange(PropertyChangeEvent evt)
-         {
-            SwingUtilities.invokeLater(new Runnable()
-            {
-               public void run()
-               {
-                  _model.updateCellRes();
-                  updateRowHeight();
-               }
-            });
-         }
-      });
-      
-      _scrollPane.addMouseWheelListener(new MouseWheelListener()
-      {
-         public void mouseWheelMoved(MouseWheelEvent e)
-         {
-            if (e.isControlDown())
-            {
-               boolean increaseResolution = (e.getWheelRotation() < 0);
-               CellResChoice resolution = increaseResolution ? _cellRes.previous() : _cellRes.next();
-               setCellResolution(resolution);
-               SwingViewMechanism.getInstance().message(_cellRes.toString());
-            }
-         }
-      });
+      init();
    }
 
-   private void buildTable()
+   protected void buildTable()
    {
       _model = new DayTableModel();
       _table = new JTable();
@@ -146,7 +87,8 @@ public class DayView extends JPanel implements TimeIntervalView
       // changes size??  or extend JTable layout management?  this kind of sucks.  at this point i'm wondering 
       // whether using a JTable was the right thing to do...
 
-      _table.addMouseListener(new MouseAdapter() {
+      _table.addMouseListener(new MouseAdapter()
+      {
          public void mouseClicked(MouseEvent evt)
          {
             if (evt.getClickCount() == 2)
@@ -174,7 +116,7 @@ public class DayView extends JPanel implements TimeIntervalView
    }
 
 
-   private void setupDropHandler()
+   protected void setupDropHandler()
    {
       DropTarget dropTarget = new DropTarget();
       try
@@ -278,43 +220,19 @@ public class DayView extends JPanel implements TimeIntervalView
    private void adjustDayspan()
    {
       Calendar cal = Calendar.getInstance();
-      cal.setTime(_eo.dateValue());
+      cal.setTime(_datetimeBounds.position().dateValue());
 
-      Calendar dayStartTimeCalendar = _dayStartTime.calendarValue();
+      Calendar dayStartTimeCalendar = _datetimeBounds.dayStartTime().calendarValue();
 
       cal.set(Calendar.HOUR_OF_DAY, dayStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
       cal.set(Calendar.MINUTE, dayStartTimeCalendar.get(Calendar.MINUTE));
       cal.set(Calendar.SECOND, dayStartTimeCalendar.get(Calendar.SECOND));
-      _daySpan = new TimeSpan(cal.getTime(), _dayInterval); // 7 AM - 7 PM
-   }
-
-   private void updateRowHeight()
-   {
-      int vpheight = _scrollPane.getViewport().getSize().height;
-      int height = _table.getSize().height;
-      if (vpheight >= height)
-      {
-         int newRowHeight = (int) ((double) vpheight / _table.getRowCount());
-         newRowHeight = Math.max(_initialRowHeight, newRowHeight);
-         //System.out.println("new Row height is "+newRowHeight+"; table row count is "+getRowCount());
-         _table.setRowHeight(newRowHeight);
-      }
-      else
-      {
-         _table.setRowHeight(_initialRowHeight);
-      }
-      _table.repaint();
+      _daySpan = new TimeSpan(cal.getTime(), _datetimeBounds.dayInterval()); // 7 AM - 7 PM
    }
 
    public TimeSpan getSpan() { return _daySpan; }
+   public TimeInterval getTimeInterval() { return INTERVAL; }
 
-   public CellResChoice getCellResolution() { return _cellRes; }
-   public void setCellResolution(CellResChoice choice)
-   {
-      CellResChoice oldValue = _cellRes;
-      _cellRes = choice;
-      firePropertyChange("cellResolution", oldValue, _cellRes);
-   }
 
    public Rectangle getBounds(CalEvent event)
    {
@@ -365,15 +283,6 @@ public class DayView extends JPanel implements TimeIntervalView
       return bounds;
    }
 
-   public void addAdjustmentListener(AdjustmentListener l)
-   {
-      _scrollPane.getVerticalScrollBar().addAdjustmentListener(l);
-      if (l instanceof TableColumnModelListener)
-         _table.getColumnModel().addColumnModelListener((TableColumnModelListener) l);
-   }
-   public JScrollPane getScrollPane() { return _scrollPane; }
-
-
    private java.util.List<Schedule> _schedules = new ArrayList<Schedule>();
    public void addSchedule(Schedule schedule)
    {
@@ -394,9 +303,8 @@ public class DayView extends JPanel implements TimeIntervalView
 
    public void removeSchedules()
    {
-      Iterator itr = _schedules.iterator();
       Schedule schedule = null;
-      while (itr.hasNext())
+      for (Iterator itr = _schedules.iterator(); itr.hasNext(); )
       {
          schedule = (Schedule) itr.next();
          TableColumn column = _table.getColumn(schedule.getSchedulable());
@@ -421,7 +329,7 @@ public class DayView extends JPanel implements TimeIntervalView
       }
    }
 
-   class DayTableModel extends AbstractTableModel
+   class DayTableModel extends AbstractTableModel implements SpanTableModel
    {
       private int _numCellsInDay;
       private TimeEO[] _times;
@@ -431,7 +339,7 @@ public class DayView extends JPanel implements TimeIntervalView
          updateCellRes();
       }
 
-      private void updateCellRes()
+      public void updateCellRes()
       {
          _numCellsInDay = _daySpan.numIntervals(_cellRes.timeInterval());
          _times = new TimeEO[_numCellsInDay];
@@ -469,100 +377,6 @@ public class DayView extends JPanel implements TimeIntervalView
       }
 
    }
-
-   public TimeInterval getTimeInterval() { return INTERVAL; }
-   public JLabel getLabel() { return _label; }
-
-   /************************************************************************
-    * List of observers.
-    */
-
-   private ActionListener subscribers = null;
-
-   /** Add a listener that's notified when the user scrolls the
-    *  selector or picks a date.
-    *  @see com.holub.ui.Date_selector
-    */
-    public synchronized void addActionListener(ActionListener l)
-    {
-      subscribers = AWTEventMulticaster.add(subscribers, l);
-    }
-
-   /**
-    * Remove a listener.
-    *  @see com.holub.ui.Date_selector
-    */
-    public synchronized void removeActionListener(ActionListener l)
-    {
-      subscribers = AWTEventMulticaster.remove(subscribers, l);
-    }
-
-   /**
-    * Notify the listeners of a scroll or select
-    */
-   private void fireActionEvent( Date date, Schedulable schedulable )
-   {
-      if (subscribers != null)
-          subscribers.actionPerformed( new CalActionEvent(this, date, schedulable) );
-   }
-   
-
-   /*****************************************************************/
-
-
-   /* ** State Change Support Code ** */
-   protected transient ChangeEvent _changeEvent = null;
-   protected transient EventListenerList _listenerList = new EventListenerList();
-
-   public void addChangeListener(ChangeListener l)
-   {
-      _listenerList.add(ChangeListener.class, l);
-   }
-
-   public void removeChangeListener(ChangeListener l)
-   {
-      _listenerList.remove(ChangeListener.class, l);
-   }
-
-   protected void fireStateChanged()
-   {
-      Object[] listeners = _listenerList.getListenerList();
-
-      for (int i = listeners.length - 2; i >= 0; i -= 2)
-      {
-         if (listeners[i]==ChangeListener.class)
-         {
-            if (_changeEvent == null)
-               _changeEvent = new ChangeEvent(this);
-            ((ChangeListener)listeners[i+1]).stateChanged(_changeEvent);
-         }
-      }
-   }
-
-   /*****************************************************************/
-   
-   protected transient EventListenerList _dropListenerList = new EventListenerList();
-   public void addDropListener(DropListener l)
-   {
-      _dropListenerList.add(DropListener.class, l);
-   }
-   public void removeDropListener(DropListener l)
-   {
-      _dropListenerList.remove(DropListener.class,  l);
-   }
-   protected void fireDropEvent(CalDropEvent dropEvent)
-   {
-      Object[] listeners = _dropListenerList.getListenerList();
-      
-      for (int i=listeners.length-2; i>=0; i-=2)
-      {
-         if (listeners[i]==DropListener.class)
-         {
-            ((DropListener)listeners[i+1]).itemDropped(dropEvent);
-         }
-      }
-   }
-   /*****************************************************************/
 
    public String toString() { return "Day View"; }
 }

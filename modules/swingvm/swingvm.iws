@@ -17,14 +17,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekSheet.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekSheet.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DayView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DayView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeSheet.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeSheet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/atom/ChoiceEOModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CellResPanel.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CellResPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/atom/ChoiceEOEditor.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/atom/ChoiceEOEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/EventsPnl.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/EventsPnl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DaySheet.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DaySheet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/NavPanel.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/NavPanel.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/ICalView.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeIntervalView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeIntervalView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekView.java" />
     </list>
   </component>
@@ -149,17 +148,7 @@
     </subPane>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="EventsPnl.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/EventsPnl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="13" selection-start="1958" selection-end="1958" vertical-scroll-proportion="0.4326123">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -471,21 +460,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1284" height="755" extended-state="1" />
+    <frame x="0" y="24" width="1284" height="755" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" order="8" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32371795" order="1" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3227848" order="1" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39903846" order="4" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32371795" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24816327" order="1" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24735558" order="1" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3996724" order="0" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
@@ -583,34 +572,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/LogEventType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="38" selection-start="505" selection-end="505" vertical-scroll-proportion="0.52412647">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/restrict/FieldRestriction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="30" selection-start="356" selection-end="356" vertical-scroll-proportion="0.34941763">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/restrict/FieldRestrictionType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="45" selection-start="432" selection-end="432" vertical-scroll-proportion="0.47420964">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/app/ViewOpenChoice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="378" selection-end="378" vertical-scroll-proportion="0.42429283">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/atom/ChoiceEO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="21" selection-start="423" selection-end="423" vertical-scroll-proportion="0.14975041">
@@ -646,9 +607,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekView.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CellResPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="32" selection-start="1695" selection-end="1695" vertical-scroll-proportion="0.665529">
+        <state line="17" column="6" selection-start="389" selection-end="389" vertical-scroll-proportion="0.19966722">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/EventsPnl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DaySheet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="6" selection-start="1246" selection-end="1246" vertical-scroll-proportion="0.3327787">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekSheet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -660,31 +642,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeIntervalView.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/NavPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="17" selection-start="331" selection-end="331" vertical-scroll-proportion="0.19966722">
+        <state line="10" column="0" selection-start="169" selection-end="169" vertical-scroll-proportion="0.12479201">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CellResPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeIntervalView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="6" selection-start="389" selection-end="389" vertical-scroll-proportion="0.19966722">
+        <state line="31" column="34" selection-start="967" selection-end="967" vertical-scroll-proportion="0.52412647">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="0" selection-start="906" selection-end="906" vertical-scroll-proportion="-5.503413">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/BaseTimeIntervalView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="219" column="0" selection-start="6657" selection-end="6657" vertical-scroll-proportion="0.8502496">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DayView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="0" selection-start="3552" selection-end="3552" vertical-scroll-proportion="0.4880546">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/EventsPnl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="13" selection-start="1958" selection-end="1958" vertical-scroll-proportion="0.4326123">
-          <folding />
+        <state line="37" column="37" selection-start="1040" selection-end="1040" vertical-scroll-proportion="-1.2542663">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

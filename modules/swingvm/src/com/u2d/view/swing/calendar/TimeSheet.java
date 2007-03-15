@@ -14,7 +14,7 @@ import com.u2d.ui.CustomTabbedPane;
 /**
  * @author Eitan Suez
  */
-public class TimeSheet extends JPanel implements ICalView
+public class TimeSheet extends JPanel
 {
    private Sheet _daySheet, _weekSheet;
    private final DateEO _eo;

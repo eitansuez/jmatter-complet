@@ -27,11 +27,11 @@ public class NavPanel extends JPanel implements ActionListener
       PREV_ROLLOVER = new ImageIcon(imgURL);
    }
    
-   private ICalView _calView;
+   private TimeSheet _timesheet;
 
-   public NavPanel(ICalView calView)
+   public NavPanel(TimeSheet timesheet)
    {
-      _calView = calView;
+      _timesheet = timesheet;
       
       setLayout(new FlowLayout(FlowLayout.CENTER));
       setupButton(PREV_ICON, PREV_ROLLOVER, "<");
@@ -51,7 +51,7 @@ public class NavPanel extends JPanel implements ActionListener
    public void actionPerformed(ActionEvent evt)
    {
       boolean forward = ">".equals(evt.getActionCommand());
-      _calView.shift(forward);
+      _timesheet.shift(forward);
    }
 
 }

@@ -18,9 +18,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/swingvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/swingvm.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/calendar/CellResChoice.java" afterPath="$PROJECT_DIR$/src/com/u2d/calendar/CellResChoice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" afterPath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
     </list>
   </component>

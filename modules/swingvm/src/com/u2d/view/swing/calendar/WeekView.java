@@ -11,58 +11,35 @@ import java.awt.dnd.DropTargetAdapter;
 import java.io.IOException;
 import java.text.*;
 import java.util.*;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-
 import com.u2d.calendar.CalEvent;
 import com.u2d.calendar.DateTimeBounds;
-import com.u2d.calendar.CellResChoice;
 import com.u2d.type.atom.*;
-import com.u2d.ui.CustomLabel;
 import com.u2d.model.ComplexEObject;
-import com.u2d.app.Tracing;
-import com.u2d.view.swing.SwingViewMechanism;
 
 /**
  * @author Eitan Suez
  */
-public class WeekView extends JPanel implements TimeIntervalView
+public class WeekView extends BaseTimeIntervalView
 {
    private static final String[] WEEKS = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
    private static DateFormat COLHEADER_FORMATTER= new SimpleDateFormat("EEE, MMM dd");
 
    private static int COLUMN_WIDTH = 100;
-   private static int WEEKEND_COLUMN_WIDTH = 85;
    private static int FIRST_COLUMN_WIDTH = 65;
-   private static Color SELECTION_BACKGROUND = new Color(0xf0f5fb);
+   private static int WEEKEND_COLUMN_WIDTH = 85;
 
    private static java.text.SimpleDateFormat LABEL_DATE_FORMATTER =
       new java.text.SimpleDateFormat("MMMM dd yyyy");
 
    private TimeSpan _daySpan;
-   private CellResChoice _cellRes = CellResChoice.THIRTY_MINUTES;
    private TimeSpan _weekSpan;
 
-   private JTable _table;
-   private WeekViewModel _model;
-   private int _initialRowHeight;
-   private JScrollPane _scrollPane;
-
-   private DateEO _eo;
-   private TimeEO _weekStartTime;
-   private TimeEO _dayStartTime;
-   private TimeInterval _dayInterval;
-   private TimeInterval _weekInterval;
-   private JLabel _label = new CustomLabel(16.0f, JLabel.CENTER);
-   
-   private static Logger _log = Tracing.tracer();
-
+   private DateTimeBounds _datetimeBounds;
    
    protected class WeekViewChangeListener implements ChangeListener
    {
@@ -75,7 +52,7 @@ public class WeekView extends JPanel implements TimeIntervalView
              _table.getColumn(""+i).setHeaderValue(_model.getColumnName(i));
 
           Calendar cal = Calendar.getInstance();
-          cal.setTime(_eo.dateValue());
+          cal.setTime(_datetimeBounds.position().dateValue());
           int column = cal.get(Calendar.DAY_OF_WEEK);
           _table.setColumnSelectionInterval(column, column);
           repaint();
@@ -86,64 +63,22 @@ public class WeekView extends JPanel implements TimeIntervalView
    
    public WeekView(DateTimeBounds bounds)
    {
+      _datetimeBounds = bounds;
+      // TODO:  need mutable TimeInterval with ChangeListener
 	   // TODO:  need mutable TimeInterval with ChangeListener
-	   _dayInterval = bounds.dayInterval();
-	   
-	   // TODO:  need mutable TimeInterval with ChangeListener
-	   _weekInterval = bounds.weekInterval();
-	   
-	   _dayStartTime = bounds.dayStartTime();
-	   _dayStartTime.addChangeListener(new WeekViewChangeListener());
-	   
-	   _weekStartTime = bounds.weekStartTime();
-	   _weekStartTime.addChangeListener(new WeekViewChangeListener());
-	   
-      _eo = bounds.position();
-      _eo.addChangeListener(new WeekViewChangeListener());
-
+	   _datetimeBounds.dayStartTime().addChangeListener(new WeekViewChangeListener());
+	   _datetimeBounds.weekStartTime().addChangeListener(new WeekViewChangeListener());
+      _datetimeBounds.position().addChangeListener(new WeekViewChangeListener());
+      
       adjustDatesAndTimes();
       _label.setText("Week of "+LABEL_DATE_FORMATTER.format(_weekSpan.startDate()));
 
-      buildTable();
-      setupDropHandler();
-
-      setLayout(new BorderLayout());
-      _scrollPane = new JScrollPane(_table);
-      add(_scrollPane, BorderLayout.CENTER);
-      
-      addPropertyChangeListener("cellResolution", new PropertyChangeListener()
-      {
-         public void propertyChange(PropertyChangeEvent evt)
-         {
-            SwingUtilities.invokeLater(new Runnable()
-            {
-               public void run()
-               {
-                  _model.updateCellRes();
-                  updateRowHeight();
-               }
-            });
-         }
-      });
-      
-      _scrollPane.addMouseWheelListener(new MouseWheelListener()
-      {
-         public void mouseWheelMoved(MouseWheelEvent e)
-         {
-            if (e.isControlDown())
-            {
-               boolean increaseResolution = (e.getWheelRotation() < 0);
-               CellResChoice resolution = increaseResolution ? _cellRes.previous() : _cellRes.next();
-               setCellResolution(resolution);
-               SwingViewMechanism.getInstance().message(_cellRes.toString());
-            }
-         }
-      });
+      init();
    }
 
-   private void buildTable()
+   protected void buildTable()
    {
-      _model = new WeekViewModel();
+      _model = new WeekTableModel();
       _table = new JTable();
 
       _table.setAutoCreateColumnsFromModel(false);
@@ -219,7 +154,7 @@ public class WeekView extends JPanel implements TimeIntervalView
    }
 
 
-   private void setupDropHandler()
+   protected void setupDropHandler()
    {
       DropTarget dropTarget = new DropTarget();
       try
@@ -304,9 +239,9 @@ public class WeekView extends JPanel implements TimeIntervalView
    private void adjustDatesAndTimes()
    {
       Calendar startOfWeek = Calendar.getInstance();
-      startOfWeek.setTime(_eo.dateValue());
+      startOfWeek.setTime(_datetimeBounds.position().dateValue());
 
-      Calendar weekStartTimeCalendar = _weekStartTime.calendarValue();
+      Calendar weekStartTimeCalendar = _datetimeBounds.weekStartTime().calendarValue();
 
       // TODO: No way to represent this in an EOType.
       startOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
@@ -319,40 +254,15 @@ public class WeekView extends JPanel implements TimeIntervalView
 
       TimeEO startHr = new TimeEO(startOfWeek.getTimeInMillis());
 
-      Calendar dayStartTimeCalendar = _dayStartTime.calendarValue();
+      Calendar dayStartTimeCalendar = _datetimeBounds.dayStartTime().calendarValue();
       startHr.set(Calendar.HOUR_OF_DAY, dayStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
 
-      _weekSpan = new TimeSpan(startOfWeek.getTime(), _weekInterval);
-      _daySpan = new TimeSpan(startHr.dateValue(), _dayInterval); // 7 AM - 7 PM
-   }
-
-   private void updateRowHeight()
-   {
-      int vpheight = _scrollPane.getViewport().getSize().height;
-      int height = _table.getSize().height;
-      if (vpheight >= height)
-      {
-         int newRowHeight = (int) ((double) vpheight / _table.getRowCount());
-         newRowHeight = Math.max(_initialRowHeight, newRowHeight);
-         //System.out.println("new Row height is "+newRowHeight+"; table row count is "+getRowCount());
-         _table.setRowHeight(newRowHeight);
-      }
-      else
-      {
-         _table.setRowHeight(_initialRowHeight);
-      }
-      _table.repaint();
+      _weekSpan = new TimeSpan(startOfWeek.getTime(), _datetimeBounds.weekInterval());
+      _daySpan = new TimeSpan(startHr.dateValue(), _datetimeBounds.dayInterval()); // 7 AM - 7 PM
    }
 
    public TimeSpan getSpan() { return _weekSpan; }
-
-   public CellResChoice getCellResolution() { return _cellRes; }
-   public void setCellResolution(CellResChoice choice)
-   {
-      CellResChoice oldValue = _cellRes;
-      _cellRes = choice;
-      firePropertyChange("cellResolution", oldValue, _cellRes);
-   }
+   public TimeInterval getTimeInterval() { return _datetimeBounds.weekInterval(); }
 
    public Rectangle getBounds(CalEvent event)
    {
@@ -399,26 +309,17 @@ public class WeekView extends JPanel implements TimeIntervalView
       return bounds;
    }
 
-   public void addAdjustmentListener(AdjustmentListener l)
-   {
-      _scrollPane.getVerticalScrollBar().addAdjustmentListener(l);
-      if (l instanceof TableColumnModelListener)
-         _table.getColumnModel().addColumnModelListener((TableColumnModelListener) l);
-   }
-   
-   public JScrollPane getScrollPane() { return _scrollPane; }
-
-   class WeekViewModel extends AbstractTableModel
+   class WeekTableModel extends AbstractTableModel implements SpanTableModel
    {
       private int _numCellsInDay;
       private TimeEO[] _times;
 
-      WeekViewModel()
+      WeekTableModel()
       {
          updateCellRes();
       }
 
-      private void updateCellRes()
+      public void updateCellRes()
       {
          _numCellsInDay = _daySpan.numIntervals(_cellRes.timeInterval());
          _times = new TimeEO[_numCellsInDay];
@@ -454,103 +355,6 @@ public class WeekView extends JPanel implements TimeIntervalView
 
    }
 
-   public TimeInterval getTimeInterval() { return _weekInterval; }
-   public JLabel getLabel() { return _label; }
-
-   /************************************************************************
-    * List of observers.
-    */
-
-   private ActionListener subscribers = null;
-
-   /** Add a listener that's notified when the user scrolls the
-    *  selector or picks a date.
-    *  @see com.holub.ui.Date_selector
-    */
-    public synchronized void addActionListener(ActionListener l)
-    {
-      subscribers = AWTEventMulticaster.add(subscribers, l);
-    }
-
-   /** Remove a listener.
-    *  @see com.holub.ui.Date_selector
-    */
-    public synchronized void removeActionListener(ActionListener l)
-    {
-      subscribers = AWTEventMulticaster.remove(subscribers, l);
-    }
-
-   /** Notify the listeners of a scroll or select
-    */
-   private void fireActionEvent( Date date )
-   {
-      if (subscribers != null)
-          subscribers.actionPerformed( new CalActionEvent(this, date, null) );
-   }
-
-   /*****************************************************************/
-
-
-   /* ** State Change Support Code ** */
-   protected transient ChangeEvent _changeEvent = null;
-   protected transient EventListenerList _listenerList = new EventListenerList();
-
-   public void addChangeListener(ChangeListener l)
-   {
-      _listenerList.add(ChangeListener.class, l);
-   }
-
-   public void removeChangeListener(ChangeListener l)
-   {
-      _listenerList.remove(ChangeListener.class, l);
-   }
-
-   protected void fireStateChanged()
-   {
-      Object[] listeners = _listenerList.getListenerList();
-
-      for (int i = listeners.length - 2; i >= 0; i -= 2)
-      {
-         if (listeners[i]==ChangeListener.class)
-         {
-            if (_changeEvent == null)
-               _changeEvent = new ChangeEvent(this);
-            ((ChangeListener)listeners[i+1]).stateChanged(_changeEvent);
-         }
-      }
-   }
-
-   /*****************************************************************/
-   /* TODO: this code below is duplicated also in DayView:  refactor please. */
-   
-   protected transient EventListenerList _dropListenerList = new EventListenerList();
-   public void addDropListener(DropListener l)
-   {
-      _dropListenerList.add(DropListener.class, l);
-   }
-   public void removeDropListener(DropListener l)
-   {
-      _dropListenerList.remove(DropListener.class,  l);
-   }
-   protected void fireDropEvent(CalDropEvent dropEvent)
-   {
-      Object[] listeners = _dropListenerList.getListenerList();
-      
-      for (int i=listeners.length-2; i>=0; i-=2)
-      {
-         if (listeners[i]==DropListener.class)
-         {
-            ((DropListener)listeners[i+1]).itemDropped(dropEvent);
-         }
-      }
-   }
-
-   /*****************************************************************/
-
-   public String toString()
-   {
-      return "Week View";
-   }
+   public String toString()    { return "Week View"; }
 
 }
-

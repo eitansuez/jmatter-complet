@@ -64,9 +64,8 @@ public class WeekSheet extends JPanel implements Sheet
    }
    public void clearSchedules()
    {
-      Iterator itr = _eventsPnls.iterator();
       EventsPnl eventsPnl = null;
-      while (itr.hasNext())
+      for (Iterator itr = _eventsPnls.iterator(); itr.hasNext(); )
       {
          eventsPnl = (EventsPnl) itr.next();
          eventsPnl.detach();
