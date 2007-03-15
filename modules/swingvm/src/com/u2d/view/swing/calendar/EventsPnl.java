@@ -65,7 +65,11 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ChangeListe
             CalEvent event = (CalEvent) itr.next();
             JComponent comp = (JComponent) event.getCalEventView(_schedule);
             // workaround for mousewheelsupport when hovering over a calevent..
-            comp.addMouseWheelListener(_view.getScrollPane().getMouseWheelListeners()[0]);
+            MouseWheelListener[] listeners = _view.getScrollPane().getMouseWheelListeners();
+            for (int i=0; i<listeners.length; i++)
+            {
+               comp.addMouseWheelListener(listeners[i]);
+            }
             add(comp, event);
          }
 

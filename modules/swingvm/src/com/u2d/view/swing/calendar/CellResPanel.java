@@ -5,48 +5,58 @@ package com.u2d.view.swing.calendar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-
-import com.u2d.type.atom.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 import com.u2d.calendar.CellResChoice;
-
-import java.util.*;
+import com.u2d.view.swing.atom.ChoiceEOModel;
 
 /**
  * @author Eitan Suez
  */
-class CellResPanel
-      extends JPanel implements ActionListener
+class CellResPanel extends JPanel implements ActionListener, PropertyChangeListener
 {
    private JComboBox _combo = new JComboBox();
-   private ICalView _weekCal;
+   private ChoiceEOModel _weekmodel, _daymodel;
+   private TimeSheet _timesheet;
+   private TimeIntervalView _currentView;
    
-   CellResPanel(ICalView weekCal, CellResChoice initVal)
+   CellResPanel(TimeSheet timesheet)
    {
-      _weekCal = weekCal;
-      
+      _timesheet = timesheet;
+
       setLayout(new FlowLayout(FlowLayout.LEFT));
       
       JLabel label = new JLabel("Increments of:");
       add(label);
-      
-      for (CellResChoice choice : CellResChoice.values())
-      {
-         _combo.addItem(choice);
-      }
-      
-      _combo.setSelectedItem(initVal);
-      
-      _combo.addActionListener(this);
       add(_combo);
       label.setLabelFor(_combo);
+      
+      _combo.addActionListener(this);
+      _weekmodel = new ChoiceEOModel(_timesheet.getWeekView().getCellResolution());
+      _daymodel = new ChoiceEOModel(_timesheet.getDayView().getCellResolution());
+      
+      bindTo(_timesheet.getWeekView());
    }
    
-   public void actionPerformed(ActionEvent evt)
+   public void bindTo(TimeIntervalView view)
    {
-      CellResChoice item = (CellResChoice) _combo.getSelectedItem();
-      _weekCal.setCellResolution(new TimeInterval(Calendar.MINUTE, item.minutes()));
+      if (_currentView != null)
+         _currentView.removePropertyChangeListener("cellResolution", this);
+      view.addPropertyChangeListener("cellResolution", this);
+      _currentView = view;
+      
+      _combo.setModel(view instanceof WeekView ? _weekmodel : _daymodel);
    }
-
+   
+   public void actionPerformed(ActionEvent e)
+   {
+      _timesheet.setCellResolution((CellResChoice) _combo.getModel().getSelectedItem());
+   }
+   public void propertyChange(PropertyChangeEvent evt)
+   {
+      _combo.getModel().setSelectedItem(evt.getNewValue());
+   }
 }
 

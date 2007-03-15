@@ -5,7 +5,6 @@ import com.u2d.model.AtomicEditor;
 import com.u2d.model.EObject;
 import com.u2d.type.atom.ChoiceEO;
 import javax.swing.*;
-import java.util.*;
 
 /**
  *
@@ -13,34 +12,30 @@ import java.util.*;
  */
 public class ChoiceEOEditor extends JComboBox implements AtomicEditor
 {
+   private ComboBoxModel _model;
+
    public ChoiceEOEditor() {}
 
    public void render(AtomicEObject value)
    {
-      if (getItemCount() == 0)
-         initialize((ChoiceEO) value);
-
-      ChoiceEO eo = (ChoiceEO) value;
-      setSelectedItem(eo.code());
-   }
-
-   private void initialize(ChoiceEO eo)
-   {
-      for (Iterator itr = eo.entries().iterator(); itr.hasNext(); )
-         addItem(itr.next());
+      if (_model == null)
+      {
+         _model = new ChoiceEOModel((ChoiceEO) value);
+         setModel(_model);
+      }
+      setSelectedItem(value);
    }
 
    public int bind(AtomicEObject value)
    {
-      ChoiceEO eo = (ChoiceEO) value;
-      Object item = getSelectedItem();
-      if (item instanceof String)
+      Object selectedItem = _model.getSelectedItem();
+      if (selectedItem instanceof String)
       {
-         eo.setValue((String) item);
+         ((ChoiceEO) value).setValue((String) selectedItem);
       }
-      else if (item instanceof EObject)
+      else
       {
-         eo.setValue((EObject) item);
+         value.setValue((EObject) selectedItem);
       }
       return 0;
    }

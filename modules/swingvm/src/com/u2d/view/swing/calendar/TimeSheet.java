@@ -21,15 +21,17 @@ public class TimeSheet extends JPanel implements ICalView
    private JTabbedPane _tabPane;
    private CardLayout _cl;
    private JPanel _lblPnl, _eastPanel;
-   private CellResChoice _resolution;
+   private CellResPanel _cellResPanel;
    
+
    public TimeSheet(DateTimeBounds bounds)
    {
       _eo = bounds.position();
       _daySheet = new DaySheet(bounds);
       _weekSheet = new WeekSheet(bounds);
-      _resolution = bounds.resolution();
-      setCellResolution(_resolution);
+      
+      _weekSheet.getIntervalView().setCellResolution(bounds.resolution());
+      _daySheet.getIntervalView().setCellResolution(bounds.resolution());
       
       setLayout(new BorderLayout());
       JPanel pnl = new JPanel(new BorderLayout());
@@ -53,13 +55,13 @@ public class TimeSheet extends JPanel implements ICalView
       return (Sheet) _tabPane.getSelectedComponent();
    }
 
-   
    class Heading extends JPanel
    {
       public Heading()
       {
          setLayout(new BorderLayout());
-         add(new CellResPanel(TimeSheet.this, _resolution), BorderLayout.WEST);
+         _cellResPanel = new CellResPanel(TimeSheet.this);
+         add(_cellResPanel, BorderLayout.WEST);
          add(label(), BorderLayout.CENTER);
          add(new NavPanel(TimeSheet.this), BorderLayout.EAST);
       }
@@ -92,6 +94,7 @@ public class TimeSheet extends JPanel implements ICalView
                Component selected = _tabPane.getSelectedComponent();
                String key = (selected == _weekSheet) ? "week" : "day";
                _cl.show(_lblPnl, key);
+               _cellResPanel.bindTo(selectedSheet().getIntervalView());
             }
          });
       
@@ -127,11 +130,16 @@ public class TimeSheet extends JPanel implements ICalView
       else
          _eo.subtract(interval);
    }
+   
+   public CellResChoice getCellResolution()
+   {
+      return selectedSheet().getIntervalView().getCellResolution();
+   }
    public void setCellResolution(CellResChoice res)
    {
-      _weekSheet.getIntervalView().setCellResolution(res);
-      _daySheet.getIntervalView().setCellResolution(res);
+      selectedSheet().getIntervalView().setCellResolution(res);
    }
+
    public void addActionListener(ActionListener l)
    {
       _weekSheet.getIntervalView().addActionListener(l);

@@ -13,6 +13,8 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
@@ -85,6 +87,22 @@ public class DayView extends JPanel implements TimeIntervalView
       setLayout(new BorderLayout());
       _scrollPane = new JScrollPane(_table);
       add(_scrollPane, BorderLayout.CENTER);
+
+      
+      addPropertyChangeListener("cellResolution", new PropertyChangeListener()
+      {
+         public void propertyChange(PropertyChangeEvent evt)
+         {
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               public void run()
+               {
+                  _model.updateCellRes();
+                  updateRowHeight();
+               }
+            });
+         }
+      });
       
       _scrollPane.addMouseWheelListener(new MouseWheelListener()
       {
@@ -93,7 +111,8 @@ public class DayView extends JPanel implements TimeIntervalView
             if (e.isControlDown())
             {
                boolean increaseResolution = (e.getWheelRotation() < 0);
-               setCellResolution(increaseResolution ? _cellRes.previous() : _cellRes.next());
+               CellResChoice resolution = increaseResolution ? _cellRes.previous() : _cellRes.next();
+               setCellResolution(resolution);
                SwingViewMechanism.getInstance().message(_cellRes.toString());
             }
          }
@@ -289,12 +308,12 @@ public class DayView extends JPanel implements TimeIntervalView
 
    public TimeSpan getSpan() { return _daySpan; }
 
-   public TimeInterval getCellRes() { return _cellRes.timeInterval(); }
-   public void setCellResolution(CellResChoice cellRes)
+   public CellResChoice getCellResolution() { return _cellRes; }
+   public void setCellResolution(CellResChoice choice)
    {
-      _cellRes = cellRes;
-      _model.updateCellRes();
-      updateRowHeight();
+      CellResChoice oldValue = _cellRes;
+      _cellRes = choice;
+      firePropertyChange("cellResolution", oldValue, _cellRes);
    }
 
    public Rectangle getBounds(CalEvent event)

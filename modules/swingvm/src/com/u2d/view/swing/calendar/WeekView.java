@@ -17,6 +17,9 @@ import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+
 import com.u2d.calendar.CalEvent;
 import com.u2d.calendar.DateTimeBounds;
 import com.u2d.calendar.CellResChoice;
@@ -24,7 +27,6 @@ import com.u2d.type.atom.*;
 import com.u2d.ui.CustomLabel;
 import com.u2d.model.ComplexEObject;
 import com.u2d.app.Tracing;
-import com.u2d.app.Application;
 import com.u2d.view.swing.SwingViewMechanism;
 
 /**
@@ -109,6 +111,21 @@ public class WeekView extends JPanel implements TimeIntervalView
       _scrollPane = new JScrollPane(_table);
       add(_scrollPane, BorderLayout.CENTER);
       
+      addPropertyChangeListener("cellResolution", new PropertyChangeListener()
+      {
+         public void propertyChange(PropertyChangeEvent evt)
+         {
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               public void run()
+               {
+                  _model.updateCellRes();
+                  updateRowHeight();
+               }
+            });
+         }
+      });
+      
       _scrollPane.addMouseWheelListener(new MouseWheelListener()
       {
          public void mouseWheelMoved(MouseWheelEvent e)
@@ -116,7 +133,8 @@ public class WeekView extends JPanel implements TimeIntervalView
             if (e.isControlDown())
             {
                boolean increaseResolution = (e.getWheelRotation() < 0);
-               setCellResolution(increaseResolution ? _cellRes.previous() : _cellRes.next());
+               CellResChoice resolution = increaseResolution ? _cellRes.previous() : _cellRes.next();
+               setCellResolution(resolution);
                SwingViewMechanism.getInstance().message(_cellRes.toString());
             }
          }
@@ -328,12 +346,12 @@ public class WeekView extends JPanel implements TimeIntervalView
 
    public TimeSpan getSpan() { return _weekSpan; }
 
-   public TimeInterval getCellRes() { return _cellRes.timeInterval(); }
-   public void setCellResolution(CellResChoice cellRes)
+   public CellResChoice getCellResolution() { return _cellRes; }
+   public void setCellResolution(CellResChoice choice)
    {
-      _cellRes = cellRes;
-      _model.updateCellRes();
-      updateRowHeight();
+      CellResChoice oldValue = _cellRes;
+      _cellRes = choice;
+      firePropertyChange("cellResolution", oldValue, _cellRes);
    }
 
    public Rectangle getBounds(CalEvent event)

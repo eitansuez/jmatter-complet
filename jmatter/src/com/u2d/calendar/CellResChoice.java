@@ -1,8 +1,8 @@
 package com.u2d.calendar;
 
 import com.u2d.type.atom.TimeInterval;
-
-import java.util.Calendar;
+import com.u2d.type.atom.ChoiceEO;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,18 +10,39 @@ import java.util.Calendar;
  * Date: Mar 12, 2007
  * Time: 5:07:18 PM
  */
-public enum CellResChoice
+public class CellResChoice extends ChoiceEO
 {
-   ONE_MINUTE(1), TWO_MINUTES(2), FIVE_MINUTES(5),
-     TEN_MINUTES(10), TWENTY_MINUTES(15), THIRTY_MINUTES(30), ONE_HOUR(60);
-
    private int _minutes;
    
-   CellResChoice(int minutes)
+   public CellResChoice() {}
+   public CellResChoice(int minutes)
    {
       _minutes = minutes;
+      setValue(""+_minutes);
    }
+
+   public static final CellResChoice ONE_MINUTE = new CellResChoice(1);
+   public static final CellResChoice TWO_MINUTES = new CellResChoice(2);
+   public static final CellResChoice FIVE_MINUTES = new CellResChoice(5);
+   public static final CellResChoice TEN_MINUTES = new CellResChoice(10);
+   public static final CellResChoice FIFTEEN_MINUTES = new CellResChoice(15);
+   public static final CellResChoice THIRTY_MINUTES = new CellResChoice(30);
+   public static final CellResChoice ONE_HOUR = new CellResChoice(60);
    
+   private static List<CellResChoice> OPTIONS = new ArrayList<CellResChoice>();
+   static
+   {
+      OPTIONS.add(ONE_MINUTE);
+      OPTIONS.add(TWO_MINUTES);
+      OPTIONS.add(FIVE_MINUTES);
+      OPTIONS.add(TEN_MINUTES);
+      OPTIONS.add(FIFTEEN_MINUTES);
+      OPTIONS.add(THIRTY_MINUTES);
+      OPTIONS.add(ONE_HOUR);
+   }
+
+   public Collection entries() { return OPTIONS; }
+
    public int minutes() { return _minutes; }
    
    public TimeInterval timeInterval()
@@ -29,20 +50,22 @@ public enum CellResChoice
       return new TimeInterval(Calendar.MINUTE, _minutes);
    }
    
-   public CellResChoice next()
-   {
-      int index = Math.min(ordinal() + 1, values().length - 1);
-      return values()[index];
-   }
-   public CellResChoice previous()
-   {
-      int index = Math.max(ordinal()-1, 0);
-      return values()[index];
-   }
-   
    public String toString()
    {
       return _minutes + " min.";
+   }
+
+   // --
+   
+   public CellResChoice next()
+   {
+      int index = Math.min(OPTIONS.indexOf(this) + 1, OPTIONS.size() - 1);
+      return OPTIONS.get(index);
+   }
+   public CellResChoice previous()
+   {
+      int index = Math.max(OPTIONS.indexOf(this) - 1, 0);
+      return OPTIONS.get(index);
    }
 
 }
