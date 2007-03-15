@@ -5,8 +5,6 @@ package com.u2d.view.swing.calendar;
 
 import java.util.*;
 import java.awt.*;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.MouseWheelEvent;
 import javax.swing.*;
 import com.u2d.calendar.Schedule;
 import com.u2d.calendar.DateTimeBounds;
@@ -21,7 +19,6 @@ public class WeekSheet extends JPanel implements Sheet
    private static final int LAYER_START = 50;
    private int _layer = LAYER_START;
    private java.util.List _eventsPnls = new ArrayList();
-   private Map _map = new HashMap();
    
    public WeekSheet(DateTimeBounds bounds)
    {
@@ -38,20 +35,18 @@ public class WeekSheet extends JPanel implements Sheet
       add(_substrate, BorderLayout.CENTER);
    }
    
-   public void addSchedule(Schedule schedule)
+   public synchronized void addSchedule(Schedule schedule)
    {
       EventsPnl eventsPnl = new EventsPnl(_weekView, schedule);
       _eventsPnls.add(eventsPnl);
       _substrate.add(eventsPnl);
       _substrate.setLayer(eventsPnl, _layer);
-      _map.put(schedule, new Integer(_layer));
+      schedule.setLayer(_layer);
       _layer++;
    }
    public void removeSchedule(Schedule schedule)
    {
-      int layer = ((Integer) _map.get(schedule)).intValue();
-      _map.remove(schedule);
-      Component[] components = _substrate.getComponentsInLayer(layer);
+      Component[] components = _substrate.getComponentsInLayer(schedule.getLayer());
       for (int i=0; i<components.length; i++)
       {
          if (components[i] instanceof EventsPnl)
@@ -70,14 +65,12 @@ public class WeekSheet extends JPanel implements Sheet
          eventsPnl = (EventsPnl) itr.next();
          eventsPnl.detach();
          _substrate.remove(eventsPnl);
-         _map.remove(eventsPnl.getSchedule());
       }
       _layer = LAYER_START;
    }
    public void setScheduleVisible(Schedule schedule, boolean visible)
    {
-      int layer = ((Integer) _map.get(schedule)).intValue();
-      Component[] comps = _substrate.getComponentsInLayer(layer);
+      Component[] comps = _substrate.getComponentsInLayer(schedule.getLayer());
       for (int i=0; i<comps.length; i++)
       {
          comps[i].setVisible(visible);
@@ -96,7 +89,6 @@ public class WeekSheet extends JPanel implements Sheet
    
    public void detach()
    {
-      _map.clear();
       for (Iterator itr = _eventsPnls.iterator(); itr.hasNext(); )
          ((EventsPnl) itr.next()).detach();
    }

@@ -35,7 +35,7 @@ public class DaySheet extends JPanel implements Sheet
       add(_substrate, BorderLayout.CENTER);
    }
    
-   public void addSchedule(Schedule schedule)
+   public synchronized void addSchedule(Schedule schedule)
    {
       _dayView.addSchedule(schedule);
       EventsPnl eventsPnl = new EventsPnl(_dayView, schedule);
