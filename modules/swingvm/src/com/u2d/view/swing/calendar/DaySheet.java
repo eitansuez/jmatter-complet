@@ -18,7 +18,7 @@ public class DaySheet extends JPanel implements Sheet
    private DayView _dayView;
    private static final int LAYER_START = 50;
    private int _layer = LAYER_START;
-   private java.util.List _eventsPnls = new ArrayList();
+   private java.util.List<EventsPnl> _eventsPnls = new ArrayList<EventsPnl>();
    
    public DaySheet(DateTimeBounds bounds)
    {

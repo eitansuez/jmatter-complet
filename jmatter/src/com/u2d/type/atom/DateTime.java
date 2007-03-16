@@ -60,19 +60,6 @@ public class DateTime extends AbstractAtomicEO implements Searchable
    {
       return title().toString();
    }
-   
-   public boolean equals(Object obj)
-   {
-      if (obj == null) return false;
-      if (obj == this) return true;
-      if (!(obj instanceof DateTime)) return false;
-      return _value == ((DateTime) obj).dateValue();
-   }
-
-   public int hashCode()
-   {
-      return _value.hashCode();
-   }
 
    public AtomicRenderer getRenderer() { return vmech().getDateTimeRenderer(); }
    public AtomicEditor getEditor() { return vmech().getDateTimeEditor(); }
@@ -119,4 +106,17 @@ public class DateTime extends AbstractAtomicEO implements Searchable
       return new DateInequalities(field(), false).getInequalities();
    }
 
+   
+   public boolean equals(Object obj)
+   {
+      if (obj == null) return false;
+      if (obj == this) return true;
+      if (!(obj instanceof DateTime)) return false;
+      return _value == ((DateTime) obj).dateValue();
+   }
+
+   public int hashCode()
+   {
+      return _value.hashCode();
+   }
 }

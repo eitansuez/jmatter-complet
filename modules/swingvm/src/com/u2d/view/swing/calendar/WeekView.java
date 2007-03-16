@@ -24,7 +24,7 @@ import com.u2d.model.ComplexEObject;
 /**
  * @author Eitan Suez
  */
-public class WeekView extends BaseTimeIntervalView
+public class WeekView extends BaseTimeIntervalView implements ChangeListener
 {
    private static final String[] WEEKS = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
    private static DateFormat COLHEADER_FORMATTER= new SimpleDateFormat("EEE, MMM dd");
@@ -36,45 +36,81 @@ public class WeekView extends BaseTimeIntervalView
    private static java.text.SimpleDateFormat LABEL_DATE_FORMATTER =
       new java.text.SimpleDateFormat("MMMM dd yyyy");
 
-   private TimeSpan _daySpan;
-   private TimeSpan _weekSpan;
+   private final TimeSpan _daySpan = new TimeSpan();
+   private final TimeSpan _weekSpan = new TimeSpan();
 
    private DateTimeBounds _datetimeBounds;
-   
-   protected class WeekViewChangeListener implements ChangeListener
-   {
-       public void stateChanged(javax.swing.event.ChangeEvent evt)
-       {
-          adjustDatesAndTimes();
-          _label.setText("Week of "+LABEL_DATE_FORMATTER.format(_weekSpan.startDate()));
-
-          for (int i=1; i<_model.getColumnCount(); i++)
-             _table.getColumn(""+i).setHeaderValue(_model.getColumnName(i));
-
-          Calendar cal = Calendar.getInstance();
-          cal.setTime(_datetimeBounds.position().dateValue());
-          int column = cal.get(Calendar.DAY_OF_WEEK);
-          _table.setColumnSelectionInterval(column, column);
-          repaint();
-
-          fireStateChanged();
-      }
-    }
    
    public WeekView(DateTimeBounds bounds)
    {
       _datetimeBounds = bounds;
       // TODO:  need mutable TimeInterval with ChangeListener
 	   // TODO:  need mutable TimeInterval with ChangeListener
-	   _datetimeBounds.dayStartTime().addChangeListener(new WeekViewChangeListener());
-	   _datetimeBounds.weekStartTime().addChangeListener(new WeekViewChangeListener());
-      _datetimeBounds.position().addChangeListener(new WeekViewChangeListener());
+	   _datetimeBounds.dayStartTime().addChangeListener(this);
+	   _datetimeBounds.weekStartTime().addChangeListener(this);
+      _datetimeBounds.position().addChangeListener(this);
       
-      adjustDatesAndTimes();
-      _label.setText("Week of "+LABEL_DATE_FORMATTER.format(_weekSpan.startDate()));
+      adjustSpan();
+      updateLabel();
 
       init();
    }
+
+    public void stateChanged(javax.swing.event.ChangeEvent evt)
+    {
+       adjustSpan();
+       SwingUtilities.invokeLater(new Runnable() {
+          public void run()
+          {
+             updateLabel();
+
+             for (int i=1; i<_model.getColumnCount(); i++)
+                _table.getColumn(""+i).setHeaderValue(_model.getColumnName(i));
+
+             Calendar cal = Calendar.getInstance();
+             cal.setTime(_datetimeBounds.position().dateValue());
+             int column = cal.get(Calendar.DAY_OF_WEEK);
+             _table.setColumnSelectionInterval(column, column);
+
+             repaint();
+          }
+       });
+   }
+
+   private void updateLabel()
+   {
+      _label.setText("Week of "+LABEL_DATE_FORMATTER.format(_weekSpan.startDate()));
+   }
+
+   private void adjustSpan()
+   {
+      Calendar startOfWeek = Calendar.getInstance();
+      startOfWeek.setTime(_datetimeBounds.position().dateValue());
+
+      Calendar weekStartTimeCalendar = _datetimeBounds.weekStartTime().calendarValue();
+
+      // TODO: No way to represent this in an EOType.
+      startOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+	   
+      startOfWeek.set(Calendar.HOUR_OF_DAY, weekStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
+      startOfWeek.set(Calendar.MINUTE, weekStartTimeCalendar.get(Calendar.MINUTE));
+      startOfWeek.set(Calendar.SECOND, weekStartTimeCalendar.get(Calendar.SECOND));
+
+      //System.out.println("beginning of week is "+startOfWeek.getTime());
+
+      TimeEO startHr = new TimeEO(startOfWeek.getTimeInMillis());
+
+      Calendar dayStartTimeCalendar = _datetimeBounds.dayStartTime().calendarValue();
+      startHr.set(Calendar.HOUR_OF_DAY, dayStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
+
+      _weekSpan.setValue(new TimeSpan(startOfWeek.getTime(), _datetimeBounds.weekInterval()));
+      _daySpan.setValue(new TimeSpan(startHr.dateValue(), _datetimeBounds.dayInterval()));
+   }
+
+   public TimeSpan getSpan() { return _weekSpan; }
+   public TimeInterval getTimeInterval() { return _datetimeBounds.weekInterval(); }
+
+   
 
    protected void buildTable()
    {
@@ -193,7 +229,7 @@ public class WeekView extends BaseTimeIntervalView
                {
                   final CalEvent calEvent = (CalEvent) transferObject;
 
-                  TimeSpan moved = calEvent.timeSpan().move(slot.getTime());
+                  TimeSpan moved = calEvent.timeSpan().position(slot.getTime());
                   calEvent.timeSpan(moved);  // update time span for cal event
                   calEvent.fireStateChanged();
 
@@ -235,35 +271,12 @@ public class WeekView extends BaseTimeIntervalView
       }
    }
 
-
-   private void adjustDatesAndTimes()
-   {
-      Calendar startOfWeek = Calendar.getInstance();
-      startOfWeek.setTime(_datetimeBounds.position().dateValue());
-
-      Calendar weekStartTimeCalendar = _datetimeBounds.weekStartTime().calendarValue();
-
-      // TODO: No way to represent this in an EOType.
-      startOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-	   
-      startOfWeek.set(Calendar.HOUR_OF_DAY, weekStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
-      startOfWeek.set(Calendar.MINUTE, weekStartTimeCalendar.get(Calendar.MINUTE));
-      startOfWeek.set(Calendar.SECOND, weekStartTimeCalendar.get(Calendar.SECOND));
-
-      //System.out.println("beginning of week is "+startOfWeek.getTime());
-
-      TimeEO startHr = new TimeEO(startOfWeek.getTimeInMillis());
-
-      Calendar dayStartTimeCalendar = _datetimeBounds.dayStartTime().calendarValue();
-      startHr.set(Calendar.HOUR_OF_DAY, dayStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
-
-      _weekSpan = new TimeSpan(startOfWeek.getTime(), _datetimeBounds.weekInterval());
-      _daySpan = new TimeSpan(startHr.dateValue(), _datetimeBounds.dayInterval()); // 7 AM - 7 PM
-   }
-
-   public TimeSpan getSpan() { return _weekSpan; }
-   public TimeInterval getTimeInterval() { return _datetimeBounds.weekInterval(); }
-
+   
+   
+   /* note this is not date/time bounds..  this is actually
+      bounds used by layout manager to place calevent in the proper location
+      on the screen.  it is a function of the calevent's timespan of course.
+    */
    public Rectangle getBounds(CalEvent event)
    {
       TimeSpan span = event.timeSpan();

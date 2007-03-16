@@ -29,6 +29,9 @@ public class ScheduleView extends JPanel implements ComplexEView
       _timeSheet = new TimeSheet(schedule.bounds());
       _timeSheet.addSchedule(_schedule);
       
+      _timeSheet.getDayView().getSpan().addChangeListener(this);
+      _timeSheet.getWeekView().getSpan().addChangeListener(this);
+      
       setLayout(new BorderLayout());
       add(_timeSheet, BorderLayout.CENTER);
       
@@ -55,11 +58,25 @@ public class ScheduleView extends JPanel implements ComplexEView
       CalendarDropHandler cdh = new CalendarDropHandler(_schedule);
       _timeSheet.getDayView().addDropListener(cdh);
       _timeSheet.getWeekView().addDropListener(cdh);
+    
+      new Thread() { public void run() {
+         _schedule.fetchEvents(_timeSheet.selectedView().getSpan());
+         } }.start();
    }
    
-   public void propertyChange(final PropertyChangeEvent evt) {}
-   public void stateChanged(javax.swing.event.ChangeEvent evt) {}
    
+   public void propertyChange(final PropertyChangeEvent evt) {}
+
+   public void stateChanged(javax.swing.event.ChangeEvent evt)
+   {
+      TimeSpan span = (TimeSpan) evt.getSource();
+      if ( (_timeSheet.getDayView().getSpan() == span && _timeSheet.getDayView().isVisible()) ||
+           (_timeSheet.getWeekView().getSpan() == span && _timeSheet.getWeekView().isVisible()) )
+      {
+         _schedule.fetchEvents(span);
+      }
+   }
+
    public EObject getEObject() { return _schedule; }
    public boolean isMinimized() { return false; }
    
@@ -67,6 +84,5 @@ public class ScheduleView extends JPanel implements ComplexEView
    {
       _timeSheet.detach();
    }
-   
 
 }

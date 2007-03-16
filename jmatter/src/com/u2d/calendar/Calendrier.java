@@ -9,7 +9,6 @@ import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexType;
 import com.u2d.view.*;
 import com.u2d.type.atom.*;
-import com.u2d.app.HBMPersistenceMechanism;
 import com.u2d.app.Tracing;
 import com.u2d.list.PlainListEObject;
 import java.io.*;
@@ -30,6 +29,13 @@ public class Calendrier extends AbstractComplexEObject
                         implements Serializable, EventMaker, DateTimeBounded
 {
    private transient Calendarable _cal;
+   private Title _title = new Title("Calendar");
+   private DateTimeBounds _bounds = new DateTimeBounds();
+
+   private List _schedulables = null;
+   private final TimeSpan _span = new TimeSpan();
+   private AbstractListEO _schedules = new PlainListEObject(Schedule.class);
+
 
    public Calendrier() { setStartState(); }
    public Calendrier(Calendarable cal)
@@ -50,19 +56,14 @@ public class Calendrier extends AbstractComplexEObject
 
    public Calendarable calendarable() { return _cal; }
 
-   private Title _title = new Title("Calendar");
-   public Title title() { return _title; }
+   public DateTimeBounds bounds() { return _bounds; }
+   public void bounds(DateTimeBounds bounds) { _bounds = bounds; }
 
    // TODO: revisit
 //   public Onion commands()  // hack
 //   {
 //      return type().commands(getState()).subList(0, 1);
 //   }
-
-   public EView getMainView() { return getCalendarView(); }
-   public ComplexEView getCalendarView() { return vmech().getCalendarView(this); }
-
-   private List _schedulables = null;
 
    public AbstractListEO schedules()
    {
@@ -78,123 +79,84 @@ public class Calendrier extends AbstractComplexEObject
       return schedules;
    }
 
-
-   
-   private DateTimeBounds _bounds = new DateTimeBounds();
-   public DateTimeBounds bounds() { return _bounds; }
-   public void bounds(DateTimeBounds bounds) { _bounds = bounds; }
-
-   
-   /*
-   a work in progress..
-   
-   goal is to:
-      improve response time of calendar navigation from timespan to timespan
-      by fetching multiple schedules together as a single query instead of 
-      multiple separate queries.  revise schedule.getEventsInTimeSpan()
-      query from criteria.add(expression.eq(schedule, schedule))
-      to criteria.add(expression.in(schedule, schedules)), and populating 
-      a map of events for each schedule as a simple cache;
-      then when each event panel wants its schedule's events, you can
-      just do a return (List) map.get(schedule).  q: how to distinguish between
-      a cached lookup and a new one?  if the time span has changed.
-   */
-
-   private Map _events;
-   private TimeSpan _span;
-
-   List getEventsInTimeSpan(TimeSpan span, Schedule schedule)
+   // TODO: revisit this
+   private ComplexType eventType()
    {
-      if (_span != null && _span.containsCompletely(span))
-         return subset(span, schedule);
-      if (_span != null && span.equals(_span))
-         return getEvents(schedule);
+      Schedule schedule = (Schedule) _schedules.get(0);
+      Class eventClass = schedule.getSchedulable().eventType();
+      return ComplexType.forClass(eventClass);
+   }
+   
+   public void fetchEvents(TimeSpan span)
+   {
+      if (_span != null && (_span.equals(span) || _span.containsCompletely(span)))
+      {
+         for (int i=0; i<_schedules.getSize(); i++)
+         {
+            Schedule s = (Schedule) _schedules.get(i);
+            s.getCalEventList().fireContentsChanged(this, 0, s.getCalEventList().getSize());
+         }
+         return;
+      }
 
       Tracing.tracer().info("calendrier: fetching events for time span: "+span);
 
-      List events = new ArrayList();
-      HBMPersistenceMechanism pmech2 = (HBMPersistenceMechanism) persistor();
+      Session session = hbmPersistor().getSession();
 
-      Session session = pmech2.getSession();
-
-      Class eventClass = schedule.getSchedulable().eventType();
-      ComplexType eventType = ComplexType.forClass(eventClass);
-      Criteria criteria = session.createCriteria(eventType.getJavaClass());
+      ComplexType evtType = eventType();
+      Class evtClass = evtType.getJavaClass();
+      Criteria criteria = session.createCriteria(evtClass);
       Junction junction = Expression.conjunction();
       
-      String timespanFieldname = CalEvent.timespanFieldname(eventClass);
-      String schedulableFieldname = CalEvent.schedulableFieldname(eventClass);
+      String timespanFieldname = CalEvent.timespanFieldname(evtClass);
+      String schedulableFieldname = CalEvent.schedulableFieldname(evtClass);
 
       junction.add(Expression.in(schedulableFieldname , _schedulables));
+      
       junction.add(Expression.ge(timespanFieldname + ".start", span.startDate()));
       junction.add(Expression.le(timespanFieldname + ".end", span.endDate()));
       criteria.add(junction);
 
-      events = criteria.list();
-
-      Iterator itr = events.iterator();
-      _events = new HashMap();
-      CalEvent event;
-      while (itr.hasNext())
+      addEventsToSchedules(criteria.list());
+      _span.setValue(span);
+   }
+   
+   private void addEventsToSchedules(List events)
+   {
+      Map<Schedule, List> scheduleEvents = new HashMap<Schedule, List>();
+      for (Iterator itr = events.iterator(); itr.hasNext(); )
       {
-         event = (CalEvent) itr.next();
+         CalEvent event = (CalEvent) itr.next();
          event.onLoad();
-         addEvent(event);
+         Schedule s = event.schedulable().schedule();
+         List l = scheduleEvents.get(s);
+         if (l == null)
+         {
+            l = new ArrayList();
+            scheduleEvents.put(s, l);
+         }
+         l.add(event);
       }
-
-      _span = span;
-
-      return getEvents(schedule);
+      // the reason i do things this way is to make sure to fire a single contentsChanged event
+      // ( not one per time i add / loop )
+      for (Schedule s : scheduleEvents.keySet())
+      {
+         s.getCalEventList().setItems(scheduleEvents.get(s));
+      }
    }
 
    void addEvent(CalEvent event, Schedule schedule)
    {
-      getEvents(schedule).add(event);
+      schedule.getCalEventList().add(event);
    }
 
-   private List getEvents(Schedule schedule)
-   {
-      List events = (List) _events.get(schedule);
-      if (events == null)
-      {
-         events = new ArrayList();
-         _events.put(schedule, events);
-      }
-      return events;
-   }
+   public EView getMainView() { return getCalendarView(); }
+   public ComplexEView getCalendarView() { return vmech().getCalendarView(this); }
 
-   private void addEvent(CalEvent event)
-   {
-      Schedule schedule = event.schedulable().schedule();
-      List scheduleEvents = (List) _events.get(schedule);
-      if (scheduleEvents == null)
-         scheduleEvents = new ArrayList();
-      scheduleEvents.add(event);
-      _events.put(event.schedulable().schedule(), scheduleEvents);
-   }
 
-   // return subset of events in _events that is in span
-   private List subset(TimeSpan span, Schedule schedule)
-   {
-      List scheduleEvents = getEvents(schedule);
-      Iterator itr = scheduleEvents.iterator();
-      CalEvent event;
-      List events = new ArrayList();
-      while (itr.hasNext())
-      {
-         event = (CalEvent) itr.next();
-         if (span.containsOrIntersects(event.timeSpan()))
-         {
-            events.add(event);
-         }
-      }
-      return events;
-   }
-
+   public Title title() { return _title; }
 
    // =======
-
-   private AbstractListEO _schedules = new PlainListEObject(Schedule.class);
 
    private AbstractListEO loadSchedules()
    {
@@ -250,7 +212,5 @@ public class Calendrier extends AbstractComplexEObject
          _schedules.setItems(list);
       }
    }
-
-
 
 }

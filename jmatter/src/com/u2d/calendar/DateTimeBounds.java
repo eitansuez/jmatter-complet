@@ -20,21 +20,37 @@ public class DateTimeBounds
    public static final TimeEO DEFAULT_WEEK_START_TIME = new TimeEO(0, 0, 0);
 
    private final DateEO _position = new DateEO(new Date());
-   private final TimeEO _weekStartTime = new TimeEO(0, 0, 0);
-   private final TimeEO _dayStartTime = new TimeEO(7, 0, 0);
-   private TimeInterval _weekInterval = new TimeInterval(Calendar.DATE, 7);
-   private TimeInterval _dayInterval = new TimeInterval(Calendar.HOUR, 12);
+
+   private final TimeEO _weekStartTime = new TimeEO();
+   private TimeInterval _weekInterval;
+
+   private final TimeEO _dayStartTime = new TimeEO();
+   private TimeInterval _dayInterval;
+
    private CellResChoice _resolution = CellResChoice.THIRTY_MINUTES;
 
+   
+   public DateTimeBounds()
+   {
+      this(new DateEO(new Date()));
+   }
+
+   /**
+    *   use defaults for both day and week values
+    */
+   public DateTimeBounds(DateEO position)
+   {
+      this(position, DEFAULT_DAY_START_TIME, DEFAULT_DAY_INTERVAL);
+   }
+   
+   /**
+    *  Use default week values
+    */
    public DateTimeBounds(DateEO position,
-                         TimeEO weekStartTime, TimeInterval weekInterval,
                          TimeEO dayStartTime, TimeInterval dayInterval)
    {
-      _position.setValue(position);
-      _weekStartTime.setValue(weekStartTime);
-      _weekInterval = weekInterval;
-      _dayStartTime.setValue(dayStartTime);
-      _dayInterval = dayInterval;
+      this(position, DEFAULT_WEEK_START_TIME, DEFAULT_WEEK_INTERVAL,
+                     dayStartTime, dayInterval);
    }
 
    /**
@@ -49,29 +65,16 @@ public class DateTimeBounds
       _resolution = resolution;
    }
 
-   /**
-    *  Use default week values
-    */
    public DateTimeBounds(DateEO position,
+                         TimeEO weekStartTime, TimeInterval weekInterval,
                          TimeEO dayStartTime, TimeInterval dayInterval)
    {
-      this(position, DEFAULT_WEEK_START_TIME, DEFAULT_WEEK_INTERVAL,
-                     dayStartTime, dayInterval);
+      _position.setValue(position);
+      _weekStartTime.setValue(weekStartTime);
+      _weekInterval = weekInterval;
+      _dayStartTime.setValue(dayStartTime);
+      _dayInterval = dayInterval;
    }
-
-   /**
-    *   use defaults for both day and week values
-    */
-   public DateTimeBounds(DateEO position)
-   {
-      this(position, DEFAULT_DAY_START_TIME, DEFAULT_DAY_INTERVAL);
-   }
-   
-   public DateTimeBounds()
-   {
-      this(new DateEO(new Date()));
-   }
-
    
    
    public DateEO position() { return _position; }

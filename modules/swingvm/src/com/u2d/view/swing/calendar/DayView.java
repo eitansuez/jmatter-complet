@@ -22,7 +22,7 @@ import com.u2d.model.ComplexEObject;
 /**
  * @author Eitan Suez
  */
-public class DayView extends BaseTimeIntervalView
+public class DayView extends BaseTimeIntervalView implements ChangeListener
 {
    private static int COLUMN_WIDTH = 300;
    private static int FIRST_COLUMN_WIDTH = 65;
@@ -32,33 +32,57 @@ public class DayView extends BaseTimeIntervalView
    private static java.text.SimpleDateFormat LABEL_DATE_FORMATTER =
       new java.text.SimpleDateFormat("EEEE MMMM dd yyyy");
 
-   private TimeSpan _daySpan;
+   private final TimeSpan _daySpan = new TimeSpan();
    private DateTimeBounds _datetimeBounds;
 
-   protected class DayViewChangeListener implements ChangeListener
-   {
-       public void stateChanged(javax.swing.event.ChangeEvent evt)
-       {
-          adjustDayspan();
-          _label.setText(LABEL_DATE_FORMATTER.format(_datetimeBounds.position().dateValue()));
-
-          repaint();
-          fireStateChanged();
-      }
-    }
-   
    public DayView(DateTimeBounds bounds)
    {
       _datetimeBounds = bounds;
       // TODO:  need mutable TimeInterval with ChangeListener
-      _datetimeBounds.dayStartTime().addChangeListener(new DayViewChangeListener());
-      _datetimeBounds.position().addChangeListener(new DayViewChangeListener());
+      _datetimeBounds.dayStartTime().addChangeListener(this);
+      _datetimeBounds.position().addChangeListener(this);
 
-      adjustDayspan();
-      _label.setText(LABEL_DATE_FORMATTER.format(_datetimeBounds.position().dateValue()));
+      adjustSpan();
+      updateLabel();
 
       init();
    }
+
+    public void stateChanged(javax.swing.event.ChangeEvent evt)
+    {
+       adjustSpan();
+       SwingUtilities.invokeLater(new Runnable() {
+          public void run()
+          {
+             updateLabel();
+             repaint();
+          }
+       });
+   }
+
+   private void updateLabel()
+   {
+      _label.setText(LABEL_DATE_FORMATTER.format(_datetimeBounds.position().dateValue()));
+   }
+
+   private void adjustSpan()
+   {
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(_datetimeBounds.position().dateValue());
+
+      Calendar dayStartTimeCalendar = _datetimeBounds.dayStartTime().calendarValue();
+
+      cal.set(Calendar.HOUR_OF_DAY, dayStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
+      cal.set(Calendar.MINUTE, dayStartTimeCalendar.get(Calendar.MINUTE));
+      cal.set(Calendar.SECOND, dayStartTimeCalendar.get(Calendar.SECOND));
+      _daySpan.setValue(new TimeSpan(cal.getTime(), _datetimeBounds.dayInterval()));
+   }
+
+   public TimeSpan getSpan() { return _daySpan; }
+   public TimeInterval getTimeInterval() { return INTERVAL; }
+
+
+
 
    protected void buildTable()
    {
@@ -159,7 +183,7 @@ public class DayView extends BaseTimeIntervalView
                {
                   final CalEvent calEvent = (CalEvent) transferObject;
 
-                  TimeSpan moved = calEvent.timeSpan().move(timeSlot);
+                  TimeSpan moved = calEvent.timeSpan().position(timeSlot);
                   calEvent.timeSpan(moved);  // update time span for cal event
                   calEvent.schedulable(schedulable);  // update schedulable for cal event
 
@@ -217,23 +241,10 @@ public class DayView extends BaseTimeIntervalView
       return cal.getTime();
    }
 
-   private void adjustDayspan()
-   {
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(_datetimeBounds.position().dateValue());
-
-      Calendar dayStartTimeCalendar = _datetimeBounds.dayStartTime().calendarValue();
-
-      cal.set(Calendar.HOUR_OF_DAY, dayStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
-      cal.set(Calendar.MINUTE, dayStartTimeCalendar.get(Calendar.MINUTE));
-      cal.set(Calendar.SECOND, dayStartTimeCalendar.get(Calendar.SECOND));
-      _daySpan = new TimeSpan(cal.getTime(), _datetimeBounds.dayInterval()); // 7 AM - 7 PM
-   }
-
-   public TimeSpan getSpan() { return _daySpan; }
-   public TimeInterval getTimeInterval() { return INTERVAL; }
-
-
+   /* note this is not date/time bounds..  this is actually
+      bounds used by layout manager to place calevent in the proper location
+      on the screen.  it is a function of the calevent's timespan of course.
+    */
    public Rectangle getBounds(CalEvent event)
    {
       TimeSpan span = event.timeSpan();
@@ -283,6 +294,7 @@ public class DayView extends BaseTimeIntervalView
       return bounds;
    }
 
+   
    private java.util.List<Schedule> _schedules = new ArrayList<Schedule>();
    public void addSchedule(Schedule schedule)
    {
@@ -303,10 +315,9 @@ public class DayView extends BaseTimeIntervalView
 
    public void removeSchedules()
    {
-      Schedule schedule = null;
       for (Iterator itr = _schedules.iterator(); itr.hasNext(); )
       {
-         schedule = (Schedule) itr.next();
+         Schedule schedule = (Schedule) itr.next();
          TableColumn column = _table.getColumn(schedule.getSchedulable());
          _table.removeColumn(column);
       }

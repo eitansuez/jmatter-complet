@@ -41,6 +41,9 @@ public class CalendarView extends JPanel implements ComplexEView
       _schedules.addListDataListener(_scheduleListener);
       _scheduleListener.contentsChanged(null);
 
+      _timeSheet.getDayView().getSpan().addChangeListener(this);
+      _timeSheet.getWeekView().getSpan().addChangeListener(this);
+
       setLayout(new BorderLayout());
       add(_timeSheet, BorderLayout.CENTER);
 
@@ -115,8 +118,17 @@ public class CalendarView extends JPanel implements ComplexEView
    }
    
    public void propertyChange(final PropertyChangeEvent evt) {}
-   public void stateChanged(javax.swing.event.ChangeEvent evt) {}
-   
+
+   public void stateChanged(javax.swing.event.ChangeEvent evt)
+   {
+      TimeSpan span = (TimeSpan) evt.getSource();
+      if ( (_timeSheet.getDayView().getSpan() == span && _timeSheet.getDayView().isVisible()) ||
+           (_timeSheet.getWeekView().getSpan() == span && _timeSheet.getWeekView().isVisible()) )
+      {
+         _calendar.fetchEvents(span);
+      }
+   }
+
    public EObject getEObject() { return _calendar; }
    public boolean isMinimized() { return false; }
    

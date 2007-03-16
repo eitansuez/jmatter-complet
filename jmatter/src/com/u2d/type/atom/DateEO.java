@@ -17,40 +17,39 @@ import java.text.*;
  */
 public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<DateEO>
 {
-   protected Date _value = null;  // _value of null implies empty (not set)
-   private Calendar _calendar;
+   private Calendar _value = Calendar.getInstance();
 
    public DateEO()
    {
-      _calendar = Calendar.getInstance();
    }
 
-   public DateEO(Date value)
+   public DateEO(Date date)
    {
-      this();
-      _value = value;
-      if (value != null)
-      {
-         _calendar.setTime(_value);
-      }
+      if (date == null) throw new IllegalArgumentException("Null argument not allowed");
+      _value.setTime(date);
    }
    
    // ensure that hours/minutes/seconds set to 0
    protected static long HRS24 = 24 * 60 * 60 * 1000;
    public long milisValue()
    {
-      long milis = _value.getTime();
+      long milis = _value.getTimeInMillis();
       long remainder = milis % HRS24;
       return milis - remainder;
    }
-   public Date dateValue() { return _value; }
+   public Date dateValue() { return _value.getTime(); }
+   public Calendar calendarValue()
+   {
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(_value.getTime());
+      return cal;
+   }
    public void setValue(Date value)
    {
-      _value = value;
-      if (_value != null)
-      {
-         _calendar.setTime(_value);
-      }
+      if (value == null)
+         _value = null;
+      else
+         _value.setTime(value);
       fireStateChanged();
    }
    public void setValue(EObject value)
@@ -61,9 +60,9 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
       setValue(((DateEO) value).dateValue());
    }
    
-   public int dayofmonth() { return _calendar.get(Calendar.DAY_OF_MONTH); }
-   public int month() { return _calendar.get(Calendar.MONTH); }
-   public int year() { return _calendar.get(Calendar.YEAR); }
+   public int dayofmonth() { return _value.get(Calendar.DAY_OF_MONTH); }
+   public int month() { return _value.get(Calendar.MONTH); }
+   public int year() { return _value.get(Calendar.YEAR); }
    
    public static int daysDifference(DateEO first, DateEO second)
    {
@@ -75,10 +74,8 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
 
    public void add(TimeInterval interval)
    {
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(_value);
-      cal.add(interval.field(), (int) interval.amt());
-      setValue(cal.getTime());
+      _value.add(interval.field(), (int) interval.amt());
+      fireStateChanged();
 //      long milis = _value.getTime() + interval.getMilis();
 //      setValue(new Date(milis));
    }
@@ -115,7 +112,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    public Title title()
    {
       if (_value == null) return new Title("");
-      String formattedString = formatter().format(_value);
+      String formattedString = formatter().format(_value.getTime());
       return new Title(formattedString);
    }
    public String toString() { return title().toString(); }

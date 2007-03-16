@@ -17,16 +17,16 @@ import com.u2d.ui.CustomTabbedPane;
 public class TimeSheet extends JPanel
 {
    private Sheet _daySheet, _weekSheet;
-   private final DateEO _eo;
    private JTabbedPane _tabPane;
-   private CardLayout _cl;
+   private CardLayout _cardLayout;
    private JPanel _lblPnl, _eastPanel;
    private CellResPanel _cellResPanel;
    
+   private final DateEO _position;
 
    public TimeSheet(DateTimeBounds bounds)
    {
-      _eo = bounds.position();
+      _position = bounds.position();
       _daySheet = new DaySheet(bounds);
       _weekSheet = new WeekSheet(bounds);
       
@@ -40,20 +40,17 @@ public class TimeSheet extends JPanel
       add(pnl, BorderLayout.CENTER);
       
       _eastPanel = new JPanel(new BorderLayout());
-      _eastPanel.add(new DateView2(_eo), BorderLayout.NORTH);
+      _eastPanel.add(new DateView2(_position), BorderLayout.NORTH);
       add(_eastPanel, BorderLayout.EAST);
    }
-
+   
    public TimeSheet(DateTimeBounds bounds, Component c)
    {
       this(bounds);
       _eastPanel.add(new JScrollPane(c), BorderLayout.SOUTH);
    }
 
-   private Sheet selectedSheet()
-   {
-      return (Sheet) _tabPane.getSelectedComponent();
-   }
+   public DateEO currentPosition() { return _position; }
 
    class Heading extends JPanel
    {
@@ -73,11 +70,11 @@ public class TimeSheet extends JPanel
    {
       JLabel dayLbl = _daySheet.getIntervalView().getLabel();
       JLabel weekLbl = _weekSheet.getIntervalView().getLabel();
-      _cl = new CardLayout();
-      _lblPnl = new JPanel(_cl);
+      _cardLayout = new CardLayout();
+      _lblPnl = new JPanel(_cardLayout);
       _lblPnl.add(dayLbl, "day");
       _lblPnl.add(weekLbl, "week");
-      _cl.show(_lblPnl, "week");
+      _cardLayout.show(_lblPnl, "week");
       return _lblPnl;
    }
    
@@ -93,8 +90,9 @@ public class TimeSheet extends JPanel
             {
                Component selected = _tabPane.getSelectedComponent();
                String key = (selected == _weekSheet) ? "week" : "day";
-               _cl.show(_lblPnl, key);
-               _cellResPanel.bindTo(selectedSheet().getIntervalView());
+               _cardLayout.show(_lblPnl, key);
+               TimeIntervalView selectedView = selectedView();
+               _cellResPanel.bindTo(selectedView);
             }
          });
       
@@ -124,28 +122,27 @@ public class TimeSheet extends JPanel
    
    public void shift(boolean forward)
    {
-      TimeInterval interval = selectedSheet().getIntervalView().getTimeInterval();
+      TimeInterval interval = selectedView().getTimeInterval();
       if (forward)
-         _eo.add(interval);
+         _position.add(interval);
       else
-         _eo.subtract(interval);
+         _position.subtract(interval);
    }
    
-   public CellResChoice getCellResolution()
-   {
-      return selectedSheet().getIntervalView().getCellResolution();
-   }
-   public void setCellResolution(CellResChoice res)
-   {
-      selectedSheet().getIntervalView().setCellResolution(res);
-   }
-
+   public CellResChoice getCellResolution() { return selectedView().getCellResolution(); }
+   public void setCellResolution(CellResChoice res) { selectedView().setCellResolution(res); }
    public void addActionListener(ActionListener l)
    {
-      _weekSheet.getIntervalView().addActionListener(l);
-      _daySheet.getIntervalView().addActionListener(l);
+      getDayView().addActionListener(l);
+      getWeekView().addActionListener(l);
    }
    
+   public DayView getDayView() { return (DayView) ((DaySheet) _daySheet).getIntervalView(); }
+   public WeekView getWeekView() { return (WeekView) ((WeekSheet) _weekSheet).getIntervalView(); }
+
+   public TimeIntervalView selectedView() { return selectedSheet().getIntervalView(); }
+   private Sheet selectedSheet() { return (Sheet) _tabPane.getSelectedComponent(); }
+
    public void detach()
    {
       _daySheet.detach();
@@ -156,7 +153,5 @@ public class TimeSheet extends JPanel
    public Dimension getPreferredSize() { return new Dimension(800,400); }
    public Dimension getMinimumSize() { return new Dimension(500,250); }
    
-   public DayView getDayView() { return (DayView) ((DaySheet) _daySheet).getIntervalView(); }
-   public WeekView getWeekView() { return (WeekView) ((WeekSheet) _weekSheet).getIntervalView(); }
    
 }

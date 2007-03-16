@@ -92,6 +92,7 @@ public class TimeSpan extends AbstractAtomicEO
    {
       _sameDay = sameDay(_startCal, _endCal);
    }
+   public boolean isSameDay() { return _sameDay; }
    
    public static boolean sameDay(Calendar first, Calendar second)
    {
@@ -108,12 +109,14 @@ public class TimeSpan extends AbstractAtomicEO
       Calendar cal = Calendar.getInstance();
       cal.setTime(startDate);
       assign(cal, _endCal);
+      fireStateChanged();
    }
    public void endDate(Date endDate)
    {
       Calendar cal = Calendar.getInstance();
       cal.setTime(endDate);
       assign(_startCal, cal);
+      fireStateChanged();
    }
    
    // convenience..
@@ -126,16 +129,11 @@ public class TimeSpan extends AbstractAtomicEO
    
    
    public TimeInterval duration() { return _duration; }
-   
    public void setDuration(TimeInterval duration)
    {
       _endCal.setTimeInMillis(_startCal.getTimeInMillis() + duration.getMilis());
       assign(_startCal, _endCal);
-   }
-   
-   public TimeSpan move(Date startDate)
-   {
-      return new TimeSpan(startDate, duration());
+      fireStateChanged();
    }
    
    
@@ -162,31 +160,12 @@ public class TimeSpan extends AbstractAtomicEO
       return contains(span.startDate()) || contains(span.endDate());
    }
    
-   public String toString()
-   {
-      String fromDate = DateEO.stdDateFormat().format(_startCal.getTime());
-      String toDate = DateEO.stdDateFormat().format(_endCal.getTime());
-
-      String fromTime = TimeEO.stdTimeFormat().format(_startCal.getTime());
-      String toTime = TimeEO.stdTimeFormat().format(_endCal.getTime());
-
-      if (isSameDay())
-      {
-         return fromDate + " " + fromTime + "-" + toTime;
-      }
-      else
-      {
-         return fromDate + " " + fromTime + "-" + toDate + " " + toTime;
-      }
-   }
-   public String formatAsDate()
-   {
-      return DateEO.stdDateFormat().format(startDate());
-   }
-   public Title title() { return new Title(toString()); }
    
-   public boolean isSameDay() { return _sameDay; }
-   
+   public TimeSpan add(TimeInterval interval)
+   {
+      return add(interval.field(), (int) interval.amt());
+   }
+
    public TimeSpan add(int field, int amount)
    {
       Calendar newStart = Calendar.getInstance();
@@ -195,6 +174,21 @@ public class TimeSpan extends AbstractAtomicEO
       return new TimeSpan(newStart.getTime(), duration());
    }
    
+   public TimeSpan position(Date startDate)
+   {
+      return new TimeSpan(startDate, duration());
+   }
+
+   public TimeSpan next()
+   {
+      return add(duration());
+   }
+
+   public TimeSpan previous()
+   {
+      return add(_duration.field(), (int) (-1 * _duration.amt()));
+   }
+
    public int numIntervals(TimeInterval interval)
    {
       long numIntervals = duration().getMilis() / interval.getMilis() ;
@@ -267,21 +261,6 @@ public class TimeSpan extends AbstractAtomicEO
       return new TimeSpan(_startCal.getTime(), _endCal.getTime());
    }
    
-   public boolean equals(Object obj)
-   {
-      if (obj == null) return false;
-      if (obj == this) return true;
-      if (!(obj instanceof TimeSpan)) return false;
-      TimeSpan span = (TimeSpan) obj;
-      return (span.startDate().getTime() == _startCal.getTimeInMillis())
-        && (span.endDate().getTime() == _endCal.getTimeInMillis());
-   }
-
-   public int hashCode()
-   {
-      return _startCal.hashCode() * 31 + _endCal.hashCode();
-   }
-
    public void setValue(EObject value)
    {
       if (value == null) return; // attempt by hibernate to restore empty value - just ignore
@@ -294,6 +273,7 @@ public class TimeSpan extends AbstractAtomicEO
       Calendar end = Calendar.getInstance();
       end.setTime(span.endDate());
       assign(start, end);
+      fireStateChanged();
    }
    
    @Cmd
@@ -315,6 +295,46 @@ public class TimeSpan extends AbstractAtomicEO
       TimeEO startOfDay = new TimeEO(0, 0);
       TimeEO endOfDay = startOfDay.add(new TimeInterval(Calendar.HOUR, 24));
       return new TimeSpan(startOfDay.dateValue(), endOfDay.dateValue());
+   }
+
+   public String formatAsDate()
+   {
+      return DateEO.stdDateFormat().format(startDate());
+   }
+
+   public String toString()
+   {
+      String fromDate = DateEO.stdDateFormat().format(_startCal.getTime());
+      String toDate = DateEO.stdDateFormat().format(_endCal.getTime());
+
+      String fromTime = TimeEO.stdTimeFormat().format(_startCal.getTime());
+      String toTime = TimeEO.stdTimeFormat().format(_endCal.getTime());
+
+      if (isSameDay())
+      {
+         return fromDate + " " + fromTime + "-" + toTime;
+      }
+      else
+      {
+         return fromDate + " " + fromTime + "-" + toDate + " " + toTime;
+      }
+   }
+
+   public Title title() { return new Title(toString()); }
+   
+   public boolean equals(Object obj)
+   {
+      if (obj == null) return false;
+      if (obj == this) return true;
+      if (!(obj instanceof TimeSpan)) return false;
+      TimeSpan span = (TimeSpan) obj;
+      return (span.startDate().getTime() == _startCal.getTimeInMillis())
+        && (span.endDate().getTime() == _endCal.getTimeInMillis());
+   }
+
+   public int hashCode()
+   {
+      return _startCal.hashCode() * 31 + _endCal.hashCode();
    }
 
 }

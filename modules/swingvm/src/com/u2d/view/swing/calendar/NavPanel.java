@@ -5,6 +5,8 @@ package com.u2d.view.swing.calendar;
 
 import javax.swing.*;
 import com.u2d.ui.IconButton;
+import com.u2d.view.swing.SwingViewMechanism;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -48,10 +50,26 @@ public class NavPanel extends JPanel implements ActionListener
       return btn;
    }
    
-   public void actionPerformed(ActionEvent evt)
+   public void actionPerformed(final ActionEvent evt)
    {
-      boolean forward = ">".equals(evt.getActionCommand());
-      _timesheet.shift(forward);
+      // TODO: capture this pattern in one place
+      SwingViewMechanism.getInstance().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+      new Thread()
+      {
+         public void run()
+         {
+            boolean forward = ">".equals(evt.getActionCommand());
+            _timesheet.shift(forward);
+
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               public void run()
+               {
+                   SwingViewMechanism.getInstance().setCursor(Cursor.getDefaultCursor());
+               }
+            });
+         }
+      }.start();
    }
 
 }
