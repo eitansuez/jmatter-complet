@@ -9,6 +9,7 @@ import javax.swing.*;
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
+import com.u2d.view.swing.find.FindPanel;
 import com.u2d.ui.CustomTabbedPane;
 
 /**
@@ -19,9 +20,8 @@ public class TimeSheet extends JPanel
    private Sheet _daySheet, _weekSheet;
    private JTabbedPane _tabPane;
    private CardLayout _cardLayout;
-   private JPanel _lblPnl, _eastPanel;
+   private JPanel _lblPnl, _eastPanel, _northPanel;
    private CellResPanel _cellResPanel;
-   
    private final DateEO _position;
 
    public TimeSheet(DateTimeBounds bounds)
@@ -35,7 +35,7 @@ public class TimeSheet extends JPanel
       
       setLayout(new BorderLayout());
       JPanel pnl = new JPanel(new BorderLayout());
-      pnl.add(new Heading(), BorderLayout.NORTH);
+      pnl.add(northPanel(), BorderLayout.NORTH);
       pnl.add(body(), BorderLayout.CENTER);
       add(pnl, BorderLayout.CENTER);
       
@@ -49,21 +49,30 @@ public class TimeSheet extends JPanel
       this(bounds);
       _eastPanel.add(new JScrollPane(c), BorderLayout.SOUTH);
    }
+   public TimeSheet(DateTimeBounds bounds, FindPanel findPanel)
+   {
+      this(bounds);
+      _northPanel.add(findPanel, BorderLayout.SOUTH);
+   }
 
    public DateEO currentPosition() { return _position; }
 
-   class Heading extends JPanel
+   
+   private JPanel northPanel()
    {
-      public Heading()
-      {
-         setLayout(new BorderLayout());
-         _cellResPanel = new CellResPanel(TimeSheet.this);
-         add(_cellResPanel, BorderLayout.WEST);
-         add(label(), BorderLayout.CENTER);
-         add(new NavPanel(TimeSheet.this), BorderLayout.EAST);
-      }
-
-      public Dimension getMinimumSize() { return getPreferredSize(); }
+      _northPanel = new JPanel(new BorderLayout());
+      _northPanel.add(heading(), BorderLayout.CENTER);
+      return _northPanel;
+   }
+   private JPanel heading()
+   {
+      JPanel heading = new JPanel();
+      heading.setLayout(new BorderLayout());
+      _cellResPanel = new CellResPanel(TimeSheet.this);
+      heading.add(_cellResPanel, BorderLayout.WEST);
+      heading.add(label(), BorderLayout.CENTER);
+      heading.add(new NavPanel(TimeSheet.this), BorderLayout.EAST);
+      return heading;
    }
    
    private JPanel label()
@@ -93,6 +102,8 @@ public class TimeSheet extends JPanel
                _cardLayout.show(_lblPnl, key);
                TimeIntervalView selectedView = selectedView();
                _cellResPanel.bindTo(selectedView);
+               if (selectedView == _weekSheet.getIntervalView())
+                 selectedView.getSpan().fireStateChanged();
             }
          });
       

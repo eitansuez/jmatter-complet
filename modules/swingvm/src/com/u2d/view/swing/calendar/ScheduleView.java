@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.*;
 import com.u2d.view.*;
 import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.view.swing.find.FindPanel;
+
 import java.util.*;
 
 /**
@@ -26,7 +28,8 @@ public class ScheduleView extends JPanel implements ComplexEView
    public ScheduleView(Schedule schedule)
    {
       _schedule = schedule;
-      _timeSheet = new TimeSheet(schedule.bounds());
+      FindPanel findPanel = new FindPanel(_schedule.getCalEventList());
+      _timeSheet = new TimeSheet(schedule.bounds(), findPanel);
       _timeSheet.addSchedule(_schedule);
       
       _timeSheet.getDayView().getSpan().addChangeListener(this);
@@ -82,6 +85,8 @@ public class ScheduleView extends JPanel implements ComplexEView
    
    public void detach()
    {
+      _timeSheet.getDayView().getSpan().removeChangeListener(this);
+      _timeSheet.getWeekView().getSpan().removeChangeListener(this);
       _timeSheet.detach();
    }
 

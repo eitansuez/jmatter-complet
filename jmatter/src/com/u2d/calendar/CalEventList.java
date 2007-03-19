@@ -2,7 +2,8 @@ package com.u2d.calendar;
 
 import com.u2d.model.*;
 import com.u2d.list.Navigable;
-import com.u2d.find.Query;
+import com.u2d.find.*;
+import com.u2d.find.inequalities.IdentityInequality;
 import static com.u2d.pubsub.AppEventType.DELETE;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TimeSpan;
@@ -23,12 +24,28 @@ import java.util.Iterator;
  * Modeled somewhat from CriteriaListEO..
  */
 public class CalEventList extends AbstractListEO
-      implements Navigable
+      implements Navigable, QueryList
 {
-   private Query _query;
+   private Query _query, _previousQuery;
    private final TimeSpan _span = new TimeSpan();
 
    public CalEventList() {}
+   
+   public void setSchedulable(Schedulable schedulable)
+   {
+      Class eventClass = schedulable.eventType();
+      ComplexType eventType = ComplexType.forClass(eventClass);
+      
+      String schedulableFieldname = CalEvent.schedulableFieldname(eventClass);
+      FieldPath path = new FieldPath(eventType.field(schedulableFieldname).fullPath());
+      QuerySpecification spec = 
+            new QuerySpecification(path, 
+                                   new IdentityInequality().new Equals(),
+                                   schedulable);
+      com.u2d.find.Query query = new SimpleQuery(eventType, spec);
+      setQuery(query);
+   }
+   
    public CalEventList(Query query, TimeSpan span)
    {
       setQuery(query, span);
@@ -37,9 +54,18 @@ public class CalEventList extends AbstractListEO
    public Query getQuery() { return _query; }
    public TimeSpan getSpan() { return _span; }
    
+   public void setQuery(Query query)
+   {
+      setQuery(query, _span);
+   }
    public synchronized void setQuery(Query query, TimeSpan span)
    {
+      _previousQuery = _query;
       _query = query;
+      fetchSpan(span);
+   }
+   public synchronized void setSpan(TimeSpan span)
+   {
       fetchSpan(span);
    }
 
@@ -72,7 +98,9 @@ public class CalEventList extends AbstractListEO
 
    public void fetchSpan(TimeSpan span)
    {
-      if (_span != null && (_span.equals(span) || _span.containsCompletely(span)))
+      // optimization: when switch from weekview to dayview, already have events..
+      if ( (_previousQuery != null && _previousQuery.equals(_query)) &&
+           (_span != null && (_span.equals(span) || _span.containsCompletely(span))) )
       {
          fireContentsChanged(this, 0, getSize());
          return;
@@ -92,7 +120,11 @@ public class CalEventList extends AbstractListEO
       fetchCurrentSpan();
    }
 
-   public ComplexType type() { return _query.getQueryType(); }
+   public ComplexType type()
+   {
+      return _query.getQueryType();
+   }
+
    public Class getJavaClass() { return type().getJavaClass(); }
 
    public int getSize() { return _items.size(); }

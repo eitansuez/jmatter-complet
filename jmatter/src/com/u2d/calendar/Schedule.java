@@ -10,10 +10,6 @@ import com.u2d.type.atom.*;
 import com.u2d.view.*;
 import com.u2d.element.Field;
 import com.u2d.ui.UIUtils;
-import com.u2d.find.SimpleQuery;
-import com.u2d.find.QuerySpecification;
-import com.u2d.find.FieldPath;
-import com.u2d.find.inequalities.IdentityInequality;
 import java.awt.Color;
 
 /**
@@ -46,6 +42,8 @@ public class Schedule extends AbstractComplexEObject implements EventMaker, Date
          _colorField = _schedulable.type().firstFieldOfType(ColorEO.class);
       }
       
+      _events.setSchedulable(_schedulable);
+      
       Class eventClass = _schedulable.eventType();
       ComplexType eventType = ComplexType.forClass(eventClass);
       eventType.addAppEventListener(CREATE, new AppEventListener()
@@ -63,7 +61,7 @@ public class Schedule extends AbstractComplexEObject implements EventMaker, Date
                }
             }
          });
-      
+
       setStartState();
    }
    
@@ -109,20 +107,7 @@ public class Schedule extends AbstractComplexEObject implements EventMaker, Date
    
    public void fetchEvents(TimeSpan span)
    {
-      Class eventClass = _schedulable.eventType();
-      ComplexType eventType = ComplexType.forClass(eventClass);
-
-      String schedulableFieldname = CalEvent.schedulableFieldname(eventClass);
-      
-      FieldPath path = new FieldPath(eventType.field(schedulableFieldname).fullPath());
-      
-      QuerySpecification spec = 
-            new QuerySpecification(path, 
-                                   new IdentityInequality().new Equals(),
-                                   _schedulable);
-      
-      com.u2d.find.Query query = new SimpleQuery(eventType, spec);
-      _events.setQuery(query, span);
+      _events.setSpan(span);
    }
    
    public EView getMainView() { return getScheduleView(); }

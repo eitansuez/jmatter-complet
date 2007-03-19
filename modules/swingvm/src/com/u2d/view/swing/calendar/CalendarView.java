@@ -184,6 +184,8 @@ public class CalendarView extends JPanel implements ComplexEView
    
    public void detach()
    {
+      _timeSheet.getDayView().getSpan().removeChangeListener(this);
+      _timeSheet.getWeekView().getSpan().removeChangeListener(this);
       _timeSheet.detach();
       _schedules.removeListDataListener(_scheduleListener);
    }

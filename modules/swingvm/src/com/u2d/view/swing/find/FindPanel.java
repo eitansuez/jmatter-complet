@@ -4,7 +4,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.u2d.ui.DefaultButton;
-import com.u2d.list.CriteriaListEO;
+import com.u2d.find.QueryList;
 import com.u2d.model.AbstractListEO;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -73,7 +73,7 @@ public class FindPanel extends JPanel
       {
          public void run()
          {
-            ((CriteriaListEO) _leo).setQuery(_filter.getQuery());
+            ((QueryList) _leo).setQuery(_filter.getQuery());
          }
       }.start();
    }

@@ -14,6 +14,7 @@ import com.u2d.ui.sorttable.SortTableModel;
 import com.u2d.element.Field;
 import com.u2d.element.Command;
 import com.u2d.find.Query;
+import com.u2d.find.QueryList;
 import com.u2d.pattern.Onion;
 import com.u2d.type.atom.StringEO;
 import org.hibernate.Criteria;
@@ -26,7 +27,7 @@ import static com.u2d.pubsub.AppEventType.*;
 /**
  * @author Eitan Suez
  */
-public class CriteriaListEO extends AbstractListEO implements Paginable
+public class CriteriaListEO extends AbstractListEO implements Paginable, QueryList
 {
    private static int PAGE_SIZE = Context.getInstance().getApplication().getPagesize();
 
