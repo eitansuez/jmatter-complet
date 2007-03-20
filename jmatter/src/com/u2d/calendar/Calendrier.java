@@ -47,11 +47,12 @@ public class Calendrier extends AbstractComplexEObject
    public CalEvent newDefaultCalEvent(TimeSpan span)
    {
       ComplexType eventType = ComplexType.forClass(_cal.defaultCalEventType());
-      CalEvent calEvt = (CalEvent) eventType.New(null);
+      CalEvent calEvt = (CalEvent) eventType.instance();
       calEvt.timeSpan(span);
       calEvt.schedulable((Schedulable) _schedulables.get(0));
       return calEvt;
    }
+
    public CalEvent newEvent(TimeSpan span) { return newDefaultCalEvent(span); }
 
    public Calendarable calendarable() { return _cal; }

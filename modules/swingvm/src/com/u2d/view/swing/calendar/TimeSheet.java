@@ -5,12 +5,16 @@ package com.u2d.view.swing.calendar;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Date;
 import javax.swing.*;
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
 import com.u2d.view.swing.find.FindPanel;
+import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.view.EView;
 import com.u2d.ui.CustomTabbedPane;
+import com.u2d.model.Editor;
 
 /**
  * @author Eitan Suez
@@ -23,9 +27,11 @@ public class TimeSheet extends JPanel
    private JPanel _lblPnl, _eastPanel, _northPanel;
    private CellResPanel _cellResPanel;
    private final DateEO _position;
+   private EventMaker _eventMaker;
 
-   public TimeSheet(DateTimeBounds bounds)
+   public TimeSheet(EventMaker eventMaker, DateTimeBounds bounds)
    {
+      _eventMaker = eventMaker;
       _position = bounds.position();
       _daySheet = new DaySheet(bounds);
       _weekSheet = new WeekSheet(bounds);
@@ -42,16 +48,43 @@ public class TimeSheet extends JPanel
       _eastPanel = new JPanel(new BorderLayout());
       _eastPanel.add(new DateView2(_position), BorderLayout.NORTH);
       add(_eastPanel, BorderLayout.EAST);
+      
+      // double clicking on a cell should initiate the creation of an event..
+      addActionListener(new ActionListener()
+      {
+         public void actionPerformed(ActionEvent evt)
+         {
+            CalActionEvent tevt = (CalActionEvent) evt;
+            Date startDate = tevt.getTime();
+
+            TimeSpan span = new TimeSpan(startDate, CalEvent.DEFAULT_DURATION);
+            
+            CalEvent calEvt = _eventMaker.newEvent(span);
+            if (tevt.getSchedulable() != null)
+            {
+               calEvt.schedulable(tevt.getSchedulable());
+            }
+
+            EView calView = calEvt.getMainView();
+            if (calEvt.isEditableState() && calView instanceof Editor)
+               calEvt.setEditor((Editor) calView);
+            SwingViewMechanism.getInstance().displayView(calView, null);
+         }
+      });
+      
+      CalendarDropHandler cdh = new CalendarDropHandler(_eventMaker);
+      getDayView().addDropListener(cdh);
+      getWeekView().addDropListener(cdh);
    }
    
-   public TimeSheet(DateTimeBounds bounds, Component c)
+   public TimeSheet(EventMaker eventMaker, DateTimeBounds bounds, Component c)
    {
-      this(bounds);
+      this(eventMaker, bounds);
       _eastPanel.add(new JScrollPane(c), BorderLayout.SOUTH);
    }
-   public TimeSheet(DateTimeBounds bounds, FindPanel findPanel)
+   public TimeSheet(EventMaker eventMaker, DateTimeBounds bounds, FindPanel findPanel)
    {
-      this(bounds);
+      this(eventMaker, bounds);
       _northPanel.add(findPanel, BorderLayout.SOUTH);
    }
 

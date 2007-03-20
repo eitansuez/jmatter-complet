@@ -101,7 +101,7 @@ public class Schedule extends AbstractComplexEObject implements EventMaker, Date
       ComplexType eventType = ComplexType.forClass(eventClass);
       CalEvent calEvent = (CalEvent) eventType.instance();
       calEvent.timeSpan(span);
-      calEvent.association(calEvent.schedulableFieldname()).set(_schedulable);
+      calEvent.schedulable(_schedulable);
       return calEvent;
    }
    

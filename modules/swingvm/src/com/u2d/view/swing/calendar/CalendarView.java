@@ -5,7 +5,6 @@ package com.u2d.view.swing.calendar;
 
 import com.u2d.calendar.*;
 import com.u2d.model.EObject;
-import com.u2d.model.Editor;
 import com.u2d.model.AbstractListEO;
 import com.u2d.type.atom.*;
 import java.beans.*;
@@ -15,9 +14,7 @@ import javax.swing.event.ListDataEvent;
 import java.awt.*;
 import java.awt.event.*;
 import com.u2d.view.*;
-import com.u2d.view.swing.SwingViewMechanism;
 import com.jgoodies.forms.builder.ButtonStackBuilder;
-import java.util.*;
 
 /**
  * @author Eitan Suez
@@ -34,7 +31,7 @@ public class CalendarView extends JPanel implements ComplexEView
    {
       _calendar = calendar;
       _checkboxPanel = new CBPanel();
-      _timeSheet = new TimeSheet(calendar.bounds(), _checkboxPanel);
+      _timeSheet = new TimeSheet(_calendar, _calendar.bounds(), _checkboxPanel);
 
       _schedules = _calendar.schedules();
       _scheduleListener = new ScheduleListener();
@@ -46,30 +43,6 @@ public class CalendarView extends JPanel implements ComplexEView
 
       setLayout(new BorderLayout());
       add(_timeSheet, BorderLayout.CENTER);
-
-      // double clicking on a cell should initiate the creation of an event..
-      _timeSheet.addActionListener(new ActionListener()
-         {
-            public void actionPerformed(ActionEvent evt)
-            {
-               CalActionEvent tevt = (CalActionEvent) evt;
-               Date startDate = tevt.getTime();
-               TimeSpan span = new TimeSpan(startDate, CalEvent.DEFAULT_DURATION);
-               CalEvent calEvt = _calendar.newDefaultCalEvent(span);
-               calEvt.schedulable(tevt.getSchedulable());
-
-               EView calView = calEvt.getMainView();
-
-               if (calEvt.isEditableState() && calView instanceof Editor)
-                  calEvt.setEditor((Editor) calView);
-
-               SwingViewMechanism.getInstance().displayView(calView, null);
-            }
-         });
-      
-      CalendarDropHandler cdh = new CalendarDropHandler(_calendar);
-      _timeSheet.getDayView().addDropListener(cdh);
-      _timeSheet.getWeekView().addDropListener(cdh);
    }
    
 
