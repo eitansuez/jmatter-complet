@@ -24,7 +24,7 @@ import java.util.Iterator;
  * Modeled somewhat from CriteriaListEO..
  */
 public class CalEventList extends AbstractListEO
-      implements Navigable, QueryList
+      implements Navigable, QueryReceiver
 {
    private Query _query, _previousQuery;
    private final TimeSpan _span = new TimeSpan();
@@ -120,11 +120,8 @@ public class CalEventList extends AbstractListEO
       fetchCurrentSpan();
    }
 
-   public ComplexType type()
-   {
-      return _query.getQueryType();
-   }
-
+   public ComplexType queryType() { return _query.getQueryType(); }
+   public ComplexType type() { return queryType(); }
    public Class getJavaClass() { return type().getJavaClass(); }
 
    public int getSize() { return _items.size(); }

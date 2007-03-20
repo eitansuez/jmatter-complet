@@ -4,8 +4,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.u2d.ui.DefaultButton;
-import com.u2d.find.QueryList;
-import com.u2d.model.AbstractListEO;
+import com.u2d.find.QueryReceiver;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -21,17 +20,17 @@ import java.awt.event.ActionEvent;
 public class FindPanel extends JPanel
 {
    private FieldFilter _filter;
-   private AbstractListEO _leo;
+   private QueryReceiver _queryReceiver;
 
-   public FindPanel(AbstractListEO leo)
+   public FindPanel(QueryReceiver receiver)
    {
-      _leo = leo;
+      _queryReceiver = receiver;
       
       FormLayout layout = new FormLayout("left:pref:grow, 3dlu, right:pref, 1dlu", "pref");
       PanelBuilder builder = new PanelBuilder(layout, this);
       CellConstraints cc = new CellConstraints();
       
-      _filter = new FieldFilter(_leo.type());
+      _filter = new FieldFilter(_queryReceiver.queryType());
       
       updateResultsDynamically();
       
@@ -50,7 +49,6 @@ public class FindPanel extends JPanel
    {
       _filter.removeValueChangeListener(_changeListener);
       _filter.detach();
-      _leo = null;
    }
 
 
@@ -73,7 +71,7 @@ public class FindPanel extends JPanel
       {
          public void run()
          {
-            ((QueryList) _leo).setQuery(_filter.getQuery());
+            _queryReceiver.setQuery(_filter.getQuery());
          }
       }.start();
    }

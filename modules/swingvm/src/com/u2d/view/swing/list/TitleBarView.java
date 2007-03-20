@@ -11,6 +11,7 @@ import com.u2d.model.EObject;
 import com.u2d.ui.GradientPanel;
 import com.u2d.view.*;
 import com.u2d.view.swing.find.FindPanel;
+import com.u2d.find.QueryReceiver;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -44,7 +45,7 @@ public class TitleBarView extends GradientPanel implements ListEView
 
       if (!(_leo instanceof RelationalList))
       {
-         _findPnl = new FindPanel(_leo);
+         _findPnl = new FindPanel((QueryReceiver) _leo);
          add(_findPnl, cc.xyw(1, 2, 3));
       }
    }

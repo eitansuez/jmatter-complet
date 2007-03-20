@@ -72,6 +72,7 @@
           destdir="${build.classes.dir}"
           classpathref="class.path"
           listfiles="true"
+          target="1.5"
           debug="on" deprecation="on" />
 <!-- apt sucks..
    <apt srcdir="${src.dir}"

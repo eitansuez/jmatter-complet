@@ -14,6 +14,7 @@ import javax.swing.event.ListDataEvent;
 import java.awt.*;
 import java.awt.event.*;
 import com.u2d.view.*;
+import com.u2d.view.swing.find.FindPanel;
 import com.jgoodies.forms.builder.ButtonStackBuilder;
 
 /**
@@ -31,15 +32,13 @@ public class CalendarView extends JPanel implements ComplexEView
    {
       _calendar = calendar;
       _checkboxPanel = new CBPanel();
-      _timeSheet = new TimeSheet(_calendar, _calendar.bounds(), _checkboxPanel);
+      FindPanel findPanel = new FindPanel(_calendar);
+      _timeSheet = new TimeSheet(_calendar, _calendar.bounds(), findPanel, _checkboxPanel);
 
       _schedules = _calendar.schedules();
       _scheduleListener = new ScheduleListener();
       _schedules.addListDataListener(_scheduleListener);
       _scheduleListener.contentsChanged(null);
-
-      _timeSheet.getDayView().getSpan().addChangeListener(this);
-      _timeSheet.getWeekView().getSpan().addChangeListener(this);
 
       setLayout(new BorderLayout());
       add(_timeSheet, BorderLayout.CENTER);
@@ -91,16 +90,7 @@ public class CalendarView extends JPanel implements ComplexEView
    }
    
    public void propertyChange(final PropertyChangeEvent evt) {}
-
-   public void stateChanged(javax.swing.event.ChangeEvent evt)
-   {
-      TimeSpan span = (TimeSpan) evt.getSource();
-      if ( (_timeSheet.getDayView().getSpan() == span && _timeSheet.getDayView().isVisible()) ||
-           (_timeSheet.getWeekView().getSpan() == span && _timeSheet.getWeekView().isVisible()) )
-      {
-         _calendar.fetchEvents(span);
-      }
-   }
+   public void stateChanged(javax.swing.event.ChangeEvent evt) {}
 
    public EObject getEObject() { return _calendar; }
    public boolean isMinimized() { return false; }
@@ -157,8 +147,6 @@ public class CalendarView extends JPanel implements ComplexEView
    
    public void detach()
    {
-      _timeSheet.getDayView().getSpan().removeChangeListener(this);
-      _timeSheet.getWeekView().getSpan().removeChangeListener(this);
       _timeSheet.detach();
       _schedules.removeListDataListener(_scheduleListener);
    }

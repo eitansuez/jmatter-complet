@@ -27,37 +27,19 @@ public class ScheduleView extends JPanel implements ComplexEView
       _timeSheet = new TimeSheet(_schedule, _schedule.bounds(), findPanel);
       _timeSheet.addSchedule(_schedule);
       
-      _timeSheet.getDayView().getSpan().addChangeListener(this);
-      _timeSheet.getWeekView().getSpan().addChangeListener(this);
-      
       setLayout(new BorderLayout());
       add(_timeSheet, BorderLayout.CENTER);
-      
-      new Thread() { public void run() {
-         _schedule.fetchEvents(_timeSheet.selectedView().getSpan());
-         } }.start();
    }
    
    
    public void propertyChange(final PropertyChangeEvent evt) {}
-
-   public void stateChanged(javax.swing.event.ChangeEvent evt)
-   {
-      TimeSpan span = (TimeSpan) evt.getSource();
-      if ( (_timeSheet.getDayView().getSpan() == span && _timeSheet.getDayView().isVisible()) ||
-           (_timeSheet.getWeekView().getSpan() == span && _timeSheet.getWeekView().isVisible()) )
-      {
-         _schedule.fetchEvents(span);
-      }
-   }
+   public void stateChanged(javax.swing.event.ChangeEvent evt) {}
 
    public EObject getEObject() { return _schedule; }
    public boolean isMinimized() { return false; }
    
    public void detach()
    {
-      _timeSheet.getDayView().getSpan().removeChangeListener(this);
-      _timeSheet.getWeekView().getSpan().removeChangeListener(this);
       _timeSheet.detach();
    }
 

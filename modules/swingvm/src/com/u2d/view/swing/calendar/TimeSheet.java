@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Date;
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
@@ -19,7 +22,7 @@ import com.u2d.model.Editor;
 /**
  * @author Eitan Suez
  */
-public class TimeSheet extends JPanel
+public class TimeSheet extends JPanel implements ChangeListener
 {
    private Sheet _daySheet, _weekSheet;
    private JTabbedPane _tabPane;
@@ -27,11 +30,11 @@ public class TimeSheet extends JPanel
    private JPanel _lblPnl, _eastPanel, _northPanel;
    private CellResPanel _cellResPanel;
    private final DateEO _position;
-   private EventMaker _eventMaker;
+   private EventManager _eventMgr;
 
-   public TimeSheet(EventMaker eventMaker, DateTimeBounds bounds)
+   public TimeSheet(EventManager mgr, DateTimeBounds bounds)
    {
-      _eventMaker = eventMaker;
+      _eventMgr = mgr;
       _position = bounds.position();
       _daySheet = new DaySheet(bounds);
       _weekSheet = new WeekSheet(bounds);
@@ -59,7 +62,7 @@ public class TimeSheet extends JPanel
 
             TimeSpan span = new TimeSpan(startDate, CalEvent.DEFAULT_DURATION);
             
-            CalEvent calEvt = _eventMaker.newEvent(span);
+            CalEvent calEvt = _eventMgr.newEvent(span);
             if (tevt.getSchedulable() != null)
             {
                calEvt.schedulable(tevt.getSchedulable());
@@ -72,20 +75,31 @@ public class TimeSheet extends JPanel
          }
       });
       
-      CalendarDropHandler cdh = new CalendarDropHandler(_eventMaker);
+      CalendarDropHandler cdh = new CalendarDropHandler(_eventMgr);
       getDayView().addDropListener(cdh);
       getWeekView().addDropListener(cdh);
+      
+      getWeekView().getSpan().addChangeListener(this);
+      
+      new Thread() { public void run() {
+         _eventMgr.fetchEvents(selectedView().getSpan());
+         } }.start();
    }
    
-   public TimeSheet(EventMaker eventMaker, DateTimeBounds bounds, Component c)
+   public TimeSheet(EventManager mgr, DateTimeBounds bounds, Component c)
    {
-      this(eventMaker, bounds);
+      this(mgr, bounds);
       _eastPanel.add(new JScrollPane(c), BorderLayout.SOUTH);
    }
-   public TimeSheet(EventMaker eventMaker, DateTimeBounds bounds, FindPanel findPanel)
+   public TimeSheet(EventManager mgr, DateTimeBounds bounds, FindPanel findPanel)
    {
-      this(eventMaker, bounds);
+      this(mgr, bounds);
       _northPanel.add(findPanel, BorderLayout.SOUTH);
+   }
+   public TimeSheet(EventManager mgr, DateTimeBounds bounds, FindPanel findPanel, Component c)
+   {
+      this(mgr, bounds, findPanel);
+      _eastPanel.add(new JScrollPane(c), BorderLayout.SOUTH);
    }
 
    public DateEO currentPosition() { return _position; }
@@ -135,14 +149,26 @@ public class TimeSheet extends JPanel
                _cardLayout.show(_lblPnl, key);
                TimeIntervalView selectedView = selectedView();
                _cellResPanel.bindTo(selectedView);
-               if (selectedView == _weekSheet.getIntervalView())
+               
+               // bind to selected span
+               TimeIntervalView otherView = (selectedView == getWeekView()) ? getDayView() : getWeekView();
+               otherView.getSpan().removeChangeListener(this);
+               selectedView.getSpan().addChangeListener(this);
+               
+               if (selectedView == getWeekView())
                  selectedView.getSpan().fireStateChanged();
             }
          });
       
       return _tabPane;
    }
-   
+
+
+   public void stateChanged(ChangeEvent evt)
+   {
+      _eventMgr.fetchEvents(selectedView().getSpan());
+   }
+
    public void addSchedule(Schedule schedule)
    {
       _daySheet.addSchedule(schedule);
@@ -189,6 +215,8 @@ public class TimeSheet extends JPanel
 
    public void detach()
    {
+      getDayView().getSpan().removeChangeListener(this);
+      getWeekView().getSpan().removeChangeListener(this);
       _daySheet.detach();
       _weekSheet.detach();
    }

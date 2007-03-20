@@ -15,7 +15,7 @@ import java.awt.Color;
 /**
  * @author Eitan Suez
  */
-public class Schedule extends AbstractComplexEObject implements EventMaker, DateTimeBounded
+public class Schedule extends AbstractComplexEObject implements EventManager, DateTimeBounded
 {
    private static Color[] COLORS = {Color.red, Color.blue, Color.green, 
          Color.cyan, Color.magenta, Color.yellow };
