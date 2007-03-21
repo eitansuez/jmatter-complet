@@ -37,10 +37,6 @@ public class ScheduleView extends JPanel implements ComplexEView
 
    public EObject getEObject() { return _schedule; }
    public boolean isMinimized() { return false; }
-   
-   public void detach()
-   {
-      _timeSheet.detach();
-   }
+   public void detach() { _timeSheet.detach(); }
 
 }

@@ -6,6 +6,8 @@ package com.u2d.view.swing.find;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 import javax.swing.*;
 import javax.swing.event.*;
 import com.u2d.element.Field;
@@ -20,6 +22,8 @@ import com.u2d.ui.JComboTree;
 import com.u2d.view.EView;
 import com.u2d.view.swing.atom.AtomicView;
 import com.u2d.view.swing.atom.StringEditor;
+import com.u2d.view.swing.AssociationView2;
+import com.u2d.field.Association;
 
 /**
  * @author Eitan Suez
@@ -183,6 +187,18 @@ public class FieldFilter extends JPanel
                   ((JTextField) editor).getDocument().addDocumentListener(_docListener);
                }
             }
+            else if (comp instanceof AssociationView2)
+            {
+               final Association association = ((AssociationView2) comp).getAssociation();
+               association.addPropertyChangeListener(new PropertyChangeListener()
+               {
+                  public void propertyChange(PropertyChangeEvent evt)
+                  {
+                     if (association.getName().equals(evt.getPropertyName()))
+                        fireChange();
+                  }
+               });
+            }
 
             removeOldComp();
             _valueSpot.add(comp);
@@ -255,7 +271,15 @@ public class FieldFilter extends JPanel
       java.util.LinkedList list = _fieldCombo.getSelectedPath();
       FieldPath fieldPath = new FieldPath(list);
       Inequality ineq = (Inequality) _ineqCombo.getSelectedItem();
-      return new QuerySpecification(fieldPath, ineq, ineq.getValue());
+      EObject value = ineq.getValue();
+      if (value == null)
+      {
+         return null;
+      }
+      else
+      {
+         return new QuerySpecification(fieldPath, ineq, value);
+      }
    }
 
    public SimpleQuery getQuery()

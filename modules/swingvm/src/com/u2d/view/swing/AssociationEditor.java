@@ -129,23 +129,23 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       });
    }
 
-   boolean _closeYourEyes = false;
+   boolean _ignoreChange = false;
    public void clearValue()
    {
-      _closeYourEyes = true;
+      _ignoreChange = true;
       _tf.setText("");
-      _closeYourEyes = false;
+      _ignoreChange = false;
    }
    public void renderValue(ComplexEObject parent)
    {
-      _closeYourEyes = true;
+      _ignoreChange = true;
       _selectedItem = parent;
       if (_searchByField != null)
       {
          EObject value = _searchByField.get(parent);
          _tf.setText(value.toString());
       }
-      _closeYourEyes = false;
+      _ignoreChange = false;
    }
    public void bindValue(Association association)
    {
@@ -165,7 +165,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
 
    private void updateModel()
    {
-      if (_closeYourEyes) return;
+      if (_ignoreChange) return;
       
       _value.setValue(_tf.getText());
       FieldPath fp = new FieldPath(_searchByField.fullPath());

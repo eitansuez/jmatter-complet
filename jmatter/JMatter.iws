@@ -18,14 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/swingvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/swingvm.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/calendar/Schedule.java" afterPath="$PROJECT_DIR$/src/com/u2d/calendar/Schedule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/calendar/CalEventList.java" afterPath="$PROJECT_DIR$/src/com/u2d/calendar/CalEventList.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/u2d/find/QueryReceiver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/calendar/Calendrier.java" afterPath="$PROJECT_DIR$/src/com/u2d/calendar/Calendrier.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/list/CriteriaListEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/list/CriteriaListEO.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/u2d/find/QueryList.java" afterPath="" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -162,35 +155,7 @@
     <option name="myCurrentFavoritesList" value="JMatter" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Calendrier.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/calendar/Calendrier.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="49" selection-start="672" selection-end="684" vertical-scroll-proportion="0.20236088">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/calendar/EventManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="42" selection-start="250" selection-end="250" vertical-scroll-proportion="0.3035413">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Schedule.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/calendar/Schedule.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="76" selection-start="393" selection-end="393" vertical-scroll-proportion="0.20236088">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -1109,14 +1074,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/calendar/Calendrier.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="49" selection-start="672" selection-end="684" vertical-scroll-proportion="0.20236088">
+        <state line="26" column="13" selection-start="581" selection-end="581" vertical-scroll-proportion="0.2529511">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/calendar/Schedule.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="76" selection-start="393" selection-end="393" vertical-scroll-proportion="0.20236088">
+        <state line="17" column="13" selection-start="330" selection-end="330" vertical-scroll-proportion="0.20236088">
           <folding />
         </state>
       </provider>
