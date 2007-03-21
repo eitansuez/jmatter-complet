@@ -37,7 +37,7 @@ public class TimeSheet extends JPanel implements ChangeListener
       _eventMgr = mgr;
       _position = bounds.position();
       _daySheet = new DaySheet(bounds);
-      _weekSheet = new WeekSheet(bounds);
+      _weekSheet = new BaseSheet(new WeekView(bounds));
       
       _weekSheet.getIntervalView().setCellResolution(bounds.resolution());
       _daySheet.getIntervalView().setCellResolution(bounds.resolution());
@@ -207,8 +207,8 @@ public class TimeSheet extends JPanel implements ChangeListener
       getWeekView().addActionListener(l);
    }
    
-   public DayView getDayView() { return (DayView) ((DaySheet) _daySheet).getIntervalView(); }
-   public WeekView getWeekView() { return (WeekView) ((WeekSheet) _weekSheet).getIntervalView(); }
+   public DayView getDayView() { return (DayView) _daySheet.getIntervalView(); }
+   public WeekView getWeekView() { return (WeekView) _weekSheet.getIntervalView(); }
 
    public TimeIntervalView selectedView() { return selectedSheet().getIntervalView(); }
    private Sheet selectedSheet() { return (Sheet) _tabPane.getSelectedComponent(); }
