@@ -152,8 +152,8 @@ public class TimeSheet extends JPanel implements ChangeListener
                
                // bind to selected span
                TimeIntervalView otherView = (selectedView == getWeekView()) ? getDayView() : getWeekView();
-               otherView.getSpan().removeChangeListener(this);
-               selectedView.getSpan().addChangeListener(this);
+               otherView.getSpan().removeChangeListener(TimeSheet.this);
+               selectedView.getSpan().addChangeListener(TimeSheet.this);
                
                if (selectedView == getWeekView())
                  selectedView.getSpan().fireStateChanged();
