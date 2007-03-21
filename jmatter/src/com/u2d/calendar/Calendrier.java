@@ -148,10 +148,7 @@ public class Calendrier extends AbstractComplexEObject
    private void fetchCurrentSpan()
    {
       Tracing.tracer().info("calendrier: fetching events for time span: "+_span);
-      Criteria criteria = criteria();
-      List list = criteria.list();
-      System.out.println("list size is: "+list.size());
-      addEventsToSchedules(list);
+      addEventsToSchedules(criteria().list());
    }
 
    private void addEventsToSchedules(List events)

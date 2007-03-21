@@ -36,8 +36,8 @@ public class TimeSheet extends JPanel implements ChangeListener
    {
       _eventMgr = mgr;
       _position = bounds.position();
-      _daySheet = new DaySheet(bounds);
-      _weekSheet = new BaseSheet(new WeekView(bounds));
+      _daySheet = new DayEventsSheet(bounds);
+      _weekSheet = new EventsSheet(new WeekView(bounds));
       
       _weekSheet.getIntervalView().setCellResolution(bounds.resolution());
       _daySheet.getIntervalView().setCellResolution(bounds.resolution());

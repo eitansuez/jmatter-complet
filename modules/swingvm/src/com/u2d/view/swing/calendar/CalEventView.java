@@ -7,6 +7,8 @@ import com.u2d.calendar.*;
 import com.u2d.view.swing.dnd.EOTransferHandler;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.*;
 import java.text.SimpleDateFormat;
 import com.u2d.model.EObject;
@@ -53,7 +55,24 @@ public class CalEventView extends JXPanel
       setTransferHandler(new EOTransferHandler(this));
 
       stateChanged(null);
+      
+      addMouseListener(_layerController);
+      _body.addMouseListener(_layerController);
+         
    }
+   
+   MouseAdapter _layerController = new MouseAdapter()
+   {
+      public void mouseClicked(MouseEvent e)
+      {
+         EventsSheet sheet = (EventsSheet) 
+               SwingUtilities.getAncestorOfClass(EventsSheet.class,  CalEventView.this);
+         if (sheet != null)
+         {
+            sheet.bringScheduleToFront(_event);
+         }
+      }
+   };
    
    // an attempt (not yet working) to give the caleventview rounded corners
    private void setupColor(Schedule schedule)

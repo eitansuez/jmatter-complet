@@ -1,6 +1,7 @@
 package com.u2d.view.swing.calendar;
 
 import com.u2d.calendar.Schedule;
+import com.u2d.calendar.CalEvent;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,7 +13,8 @@ import java.awt.*;
  * Date: Mar 21, 2007
  * Time: 1:50:03 PM
  */
-public class BaseSheet extends JPanel implements Sheet
+public class EventsSheet
+      extends JPanel implements Sheet
 {
    protected static final int LAYER_START = 50;
 
@@ -21,7 +23,7 @@ public class BaseSheet extends JPanel implements Sheet
    protected TimeIntervalView _view;
    protected java.util.List<EventsPnl> _eventsPnls = new ArrayList<EventsPnl>();
    
-   public BaseSheet(TimeIntervalView view)
+   public EventsSheet(TimeIntervalView view)
    {
       _substrate = new JLayeredPane();
       OverlayLayout overlay = new OverlayLayout(_substrate);
@@ -79,6 +81,26 @@ public class BaseSheet extends JPanel implements Sheet
       {
          comps[i].setVisible(visible);
       }
+   }
+   
+   public synchronized void bringScheduleToFront(CalEvent calEvt)
+   {
+      Schedule schedule = calEvt.schedulable().schedule();
+
+      int newLayer = _layer;
+      
+      for (Iterator itr = _eventsPnls.iterator(); itr.hasNext(); )
+      {
+         EventsPnl pnl = (EventsPnl) itr.next();
+         if (pnl.getSchedule() == schedule)
+         {
+            _substrate.setLayer(pnl, newLayer);
+            break;
+         }
+      }
+      schedule.setLayer(newLayer);
+      
+      _layer++;
    }
    
    public TimeIntervalView getIntervalView() { return _view; }
