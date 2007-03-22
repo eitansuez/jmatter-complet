@@ -79,7 +79,7 @@ public class IdentityInequality
          }
       }
 
-      public String toString() { return "is"; }
+      public String toString() { return ComplexType.localeLookupStatic("is"); }
 
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()
@@ -103,7 +103,7 @@ public class IdentityInequality
          Criterion criterion = Expression.eq(field.getCleanPath()+".class", clsName);
          criteria.add(criterion);
       }
-      public String toString() { return "type is"; }
+      public String toString() { return ComplexType.localeLookupStatic("type_is"); }
 
       public EView getValueEditor()
       {

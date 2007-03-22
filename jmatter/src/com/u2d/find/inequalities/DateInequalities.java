@@ -5,6 +5,7 @@ package com.u2d.find.inequalities;
 
 import com.u2d.view.*;
 import com.u2d.element.Field;
+import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.model.Editor;
 import org.hibernate.Criteria;
@@ -53,7 +54,7 @@ public class DateInequalities
          criteria.add(criterion);
       }
 
-      public String toString() { return "is before"; }
+      public String toString() { return ComplexType.localeLookupStatic("is_before"); }
       
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()
@@ -71,7 +72,7 @@ public class DateInequalities
          criteria.add(criterion);
       }
 
-      public String toString() { return "is after"; }
+      public String toString() { return ComplexType.localeLookupStatic("is_after"); }
       
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()
@@ -89,7 +90,7 @@ public class DateInequalities
          criteria.add(criterion);
       }
       
-      public String toString() { return "is"; }
+      public String toString() { return ComplexType.localeLookupStatic("is"); }
       
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()

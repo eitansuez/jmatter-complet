@@ -9,6 +9,7 @@ import com.u2d.model.AbstractListEO;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexType;
 import com.u2d.ui.Platform;
+import com.u2d.app.User;
 import com.u2d.element.Command;
 import com.u2d.list.Paginable;
 import com.u2d.list.PagedList;
@@ -67,6 +68,7 @@ public class ListEOPanel  extends JPanel
    private void setupKeyStrokes()
    {
       Command newCmd = _leo.command("New");
+      newCmd.localize(ComplexType.forClass(User.class));
       if (newCmd != null)
       {
          getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(COMMAND_N, MAP_KEY);

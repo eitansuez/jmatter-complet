@@ -6,6 +6,7 @@ package com.u2d.type.atom;
 import com.u2d.find.Searchable;
 import com.u2d.find.inequalities.IdentityInequality;
 import com.u2d.model.AbstractAtomicEO;
+import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.model.Title;
 import com.u2d.model.AtomicRenderer;
@@ -37,7 +38,7 @@ public class BooleanEO extends AbstractAtomicEO implements Searchable
    
    public boolean isEmpty() { return false; }
    
-   public Title title() {  return new Title((booleanValue()) ? "Yes" : "No"); }
+   public Title title() {  return new Title((booleanValue()) ? ComplexType.localeLookupStatic("yes") : ComplexType.localeLookupStatic("no")); }
    public String toString() { return title().toString(); }
    
    public boolean equals(Object obj)

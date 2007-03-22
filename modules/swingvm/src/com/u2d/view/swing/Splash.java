@@ -1,5 +1,6 @@
 package com.u2d.view.swing;
 
+import com.u2d.model.ComplexType;
 import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
 import com.u2d.ui.UIUtils;
@@ -18,7 +19,7 @@ import java.awt.event.*;
  */
 public class Splash extends JWindow implements AppEventListener
 {
-   private static final String WAIT_MSG = "Launching Application";
+   private static final String WAIT_MSG =  ComplexType.localeLookupStatic("launching_application");
 
    private int fromX, fromY;
    private Timer timer;

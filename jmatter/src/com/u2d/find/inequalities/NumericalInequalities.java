@@ -5,6 +5,7 @@ package com.u2d.find.inequalities;
 
 import com.u2d.view.*;
 import com.u2d.element.Field;
+import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.model.Editor;
 import org.hibernate.Criteria;
@@ -50,7 +51,7 @@ public class NumericalInequalities
          criteria.add(criterion);
       }
 
-      public String toString() { return "is equal to"; }
+      public String toString() { return ComplexType.localeLookupStatic("is_equal_to"); }
       
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()
@@ -68,7 +69,7 @@ public class NumericalInequalities
          criteria.add(criterion);
       }
 
-      public String toString() { return "is less than"; }
+      public String toString() { return ComplexType.localeLookupStatic("is_less_than"); }
       
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()
@@ -86,7 +87,7 @@ public class NumericalInequalities
          criteria.add(criterion);
       }
 
-      public String toString() { return "is greater than"; }
+      public String toString() { return ComplexType.localeLookupStatic("is_greater_than"); }
 
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()

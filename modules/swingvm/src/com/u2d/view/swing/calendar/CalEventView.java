@@ -74,12 +74,13 @@ public class CalEventView extends JXPanel
       }
    };
    
-   // an attempt (not yet working) to give the caleventview rounded corners
    private void setupColor(Schedule schedule)
    {
       if (schedule == null) return;
-      _header.setBackground(schedule.getColor());
-      _body.setupColor(schedule.getColor());
+      
+      final Color backgroundColor = schedule.getColor();
+      _header.setBackground(backgroundColor);
+      _body.setupColor(backgroundColor);
    }
 
    public void propertyChange(final PropertyChangeEvent evt)
@@ -158,5 +159,5 @@ public class CalEventView extends JXPanel
       super.setBounds(bounds);
       getLayout().layoutContainer(this);
    }
-
+   
 }

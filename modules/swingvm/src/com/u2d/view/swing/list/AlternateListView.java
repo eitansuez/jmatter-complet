@@ -15,12 +15,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataEvent;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexEObject;
+import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.ui.CardPanel;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.IconButton;
 import com.u2d.view.*;
-import com.u2d.view.ViewInfo;
 import com.u2d.view.swing.CommandAdapter;
 import com.u2d.element.Command;
 
@@ -180,7 +180,7 @@ public class AlternateListView extends JPanel
    }
    private JButton pickBtn()
    {
-      JButton pickBtn = new JButton("Pick");
+      JButton pickBtn = new JButton(ComplexType.localeLookupStatic("pick"));
       pickBtn.setMnemonic('p');
       pickBtn.addActionListener(new ActionListener()
          {

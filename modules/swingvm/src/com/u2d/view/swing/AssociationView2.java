@@ -9,9 +9,11 @@ import com.u2d.view.EView;
 import com.u2d.view.swing.dnd.DropTargetHandler;
 import com.u2d.view.swing.dnd.BasicTransferHandler;
 import com.u2d.field.Association;
+import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.NullAssociation;
+import com.u2d.app.User;
 import com.u2d.element.Command;
 import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
@@ -240,6 +242,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
       private JMenuItem menuItem(String cmdName)
       {
          Command cmd = nullAssoc.command(cmdName);
+         cmd.localize(ComplexType.forClass(User.class));
          CommandAdapter action = new CommandAdapter(cmd, nullAssoc, AssociationView2.this);
          return new JMenuItem(action);
       }

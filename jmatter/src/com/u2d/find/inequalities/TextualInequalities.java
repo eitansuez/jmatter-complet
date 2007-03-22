@@ -3,6 +3,7 @@
  */
 package com.u2d.find.inequalities;
 
+import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.model.Editor;
 import com.u2d.type.atom.StringEO;
@@ -64,7 +65,7 @@ public class TextualInequalities
          criteria.add(criterion);
       }
 
-      public String toString() { return "is"; }
+      public String toString() { return ComplexType.localeLookupStatic("is"); }
 
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()
@@ -85,7 +86,7 @@ public class TextualInequalities
          c.add(criterion);
       }
 
-      public String toString() { return "contains"; }
+      public String toString() { return ComplexType.localeLookupStatic("contains"); }
       
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()
@@ -106,7 +107,7 @@ public class TextualInequalities
          c.add(criterion);
       }
 
-      public String toString() { return "starts with"; }
+      public String toString() { return ComplexType.localeLookupStatic("starts_with");}
       
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()
@@ -127,7 +128,7 @@ public class TextualInequalities
          c.add(criterion);
       }
 
-      public String toString() { return "ends with"; }
+      public String toString() { return ComplexType.localeLookupStatic("ends_with"); }
       
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()

@@ -3,6 +3,7 @@
  */
 package com.u2d.find.inequalities;
 
+import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.model.Editor;
 import com.u2d.type.atom.DateEO;
@@ -73,7 +74,7 @@ public class TimeSpanInequalities
          criteria.add(junction);
       }
 
-      public String toString() { return "on"; }
+      public String toString() { return ComplexType.localeLookupStatic("on"); }
 
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()
@@ -93,7 +94,7 @@ public class TimeSpanInequalities
          criteria.add(criterion);
       }
 
-      public String toString() { return "before"; }
+      public String toString() { return ComplexType.localeLookupStatic("before"); }
       
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()
@@ -119,7 +120,7 @@ public class TimeSpanInequalities
          criteria.add(criterion);
       }
 
-      public String toString() { return "after"; }
+      public String toString() { return ComplexType.localeLookupStatic("after"); }
       
       public EView getValueEditor() { return _ineqView; }
       public EObject getValue()

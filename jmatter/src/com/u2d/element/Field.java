@@ -286,7 +286,7 @@ public abstract class Field extends Member
          {
             String remainder = text.substring(i+1);
             if (remainder.indexOf(".") < 0) // last dot
-               sb.append("'s ");
+               sb.append(ComplexType.localeLookupStatic("s")+" ");
             else
                sb.append(' ');
             sb.append(Character.toUpperCase(text.charAt(i+1)));

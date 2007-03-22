@@ -107,7 +107,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
    public void onDelete()
    {
-      vmech().message("Deleted "+title());
+      vmech().message(ComplexType.localeLookupStatic("deleted")+" "+title());
       setNullState();
       fireAppEventNotification(DELETE, this);
    }
@@ -127,7 +127,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
    public void onSave()
    {
-      vmech().message("Saved "+title());
+      vmech().message(ComplexType.localeLookupStatic("saved")+" "+title());
       // dillema here:  don't really know you're coming from an EditState Exit:
       popState();
       fireAppEventNotification(SAVE);
@@ -141,7 +141,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       if ( ! (this instanceof LoggedEvent) )
       {
-         vmech().message("Created "+title());
+         vmech().message(ComplexType.localeLookupStatic("created")+" "+title());
       }
       setStartState();
       fireAppEventNotification(CREATE, this);
@@ -337,7 +337,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       {
          if (field() == null)
          {
-            return "New "+type().getNaturalName();
+            return ComplexType.localeLookupStatic("new")+" "+type().getNaturalName();
          }
          else
          {
