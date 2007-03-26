@@ -5,8 +5,8 @@ package com.u2d.type.atom;
 
 import com.u2d.find.Searchable;
 import com.u2d.find.inequalities.DateInequalities;
-import com.u2d.model.AtomicRenderer;
 import com.u2d.model.*;
+
 import java.util.*;
 import java.text.*;
 
@@ -175,7 +175,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
       {
          for (int i=0; i<strategyFallbackHierarchy.length; i++)
             if (strategyFallbackHierarchy[i].parse(stringValue)) return;
-         throw new ParseException("Failed to parse date value: "+stringValue, 0);
+         throw new ParseException(ComplexType.localeLookupStatic("error.date")+": "+stringValue, 0);
       }
       else
       {

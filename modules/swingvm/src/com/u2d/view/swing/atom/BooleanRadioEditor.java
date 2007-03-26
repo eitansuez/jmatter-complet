@@ -2,6 +2,7 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
+import com.u2d.model.ComplexType;
 import com.u2d.type.atom.BooleanEO;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -23,9 +24,9 @@ public class BooleanRadioEditor extends JPanel implements AtomicEditor
 
    public BooleanRadioEditor()
    {
-      _yesBtn = new JRadioButton("Yes");
+      _yesBtn = new JRadioButton(ComplexType.localeLookupStatic("yes"));
       _yesBtn.setOpaque(false);
-      _noBtn = new JRadioButton("No");
+      _noBtn = new JRadioButton(ComplexType.localeLookupStatic("no"));
       _noBtn.setOpaque(false);
 
       _yesBtn.addActionListener(new ActionListener()

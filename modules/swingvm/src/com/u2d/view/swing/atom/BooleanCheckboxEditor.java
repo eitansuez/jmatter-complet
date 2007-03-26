@@ -2,6 +2,7 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
+import com.u2d.model.ComplexType;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.view.ActionNotifier;
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class BooleanCheckboxEditor extends JCheckBox
 
    public void itemStateChanged(ItemEvent e)
    {
-      setText( (isSelected()) ? "Yes" : "No" );
+      setText( (isSelected()) ? ComplexType.localeLookupStatic("yes") : ComplexType.localeLookupStatic("no") );
    }
 
    public int bind(AtomicEObject value)

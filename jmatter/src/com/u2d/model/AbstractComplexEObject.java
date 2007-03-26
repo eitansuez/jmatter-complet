@@ -488,7 +488,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       if (errorCount > 0)
       {
          String plural = (errorCount == 1) ? "" : "s";
-         fireValidationException("[Syntax errors in "+errorCount+" form field"+plural+".]", true);
+         fireValidationException("["+ComplexType.localeLookupStatic("error.syntax")+" "+errorCount+" "+ComplexType.localeLookupStatic("form_field"+plural)+".]", true);
          return false;
       }
 
@@ -496,7 +496,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       if (errorCount > 0)
       {
          String plural = (errorCount == 1) ? "" : "s";
-         fireValidationException("["+errorCount+" validation error"+plural+".]", true);
+         fireValidationException("["+errorCount+" "+ComplexType.localeLookupStatic("validation.error"+plural) +".]", true);
          return false;
       }
 

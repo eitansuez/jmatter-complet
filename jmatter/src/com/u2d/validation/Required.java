@@ -3,13 +3,15 @@
  */
 package com.u2d.validation;
 
+import com.u2d.model.ComplexType;
+
 /**
  * @author Eitan Suez
  */
 public class Required
 {
    private boolean _isit;
-   private String _msg = "Required field empty";
+   private String _msg = ComplexType.localeLookupStatic("validation.required");
    
    public Required(boolean isit)
    {

@@ -5,6 +5,8 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.u2d.ui.DefaultButton;
 import com.u2d.find.QueryReceiver;
+import com.u2d.model.ComplexType;
+
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -57,7 +59,7 @@ public class FindPanel extends JPanel
 
    private JButton findBtn()
    {
-      JButton findBtn = new DefaultButton("Go");
+      JButton findBtn = new DefaultButton(ComplexType.localeLookupStatic("go"));
       findBtn.addActionListener(new ActionListener()
          {
             public void actionPerformed(ActionEvent event)

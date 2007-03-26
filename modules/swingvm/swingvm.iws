@@ -18,8 +18,6 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iml" afterPath="$PROJECT_DIR$/swingvm.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CalEventView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CalEventView.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -143,17 +141,7 @@
     </subPane>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AssociationView2.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AssociationView2.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="239" column="23" selection-start="6437" selection-end="6445" vertical-scroll-proportion="0.33333334">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -456,7 +444,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1280" height="751" extended-state="1" />
+    <frame x="0" y="24" width="1280" height="751" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -672,7 +660,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AssociationView2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="239" column="23" selection-start="6437" selection-end="6445" vertical-scroll-proportion="0.33333334">
+        <state line="237" column="77" selection-start="6445" selection-end="6445" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
