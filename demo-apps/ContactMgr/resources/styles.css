@@ -4,6 +4,14 @@ JDesktopPane
   background-color: #7684FF;
 }
 
+.feedback-pane
+{
+  color: white;
+  background-color: black;
+  font-size: 24pt;
+  font-weight: bold;
+}
+
 .form-pane
 {
   background-color: #fffaf0;

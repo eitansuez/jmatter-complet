@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.event.*;
 import com.u2d.ui.UIUtils;
+import com.u2d.css4swing.style.ComponentStyle;
 
 /**
  * @author Eitan Suez
@@ -18,23 +19,19 @@ import com.u2d.ui.UIUtils;
 public class MsgPnl extends JXPanel
 {
    private static Painter backgroundPainter = new MsgPanelPainter();
-   private static Color _msgColor = Color.white;
-   private static Font _msgFont = UIManager.getFont("Label.font").deriveFont(Font.BOLD, 24f);
    
    private JLabel _label;
-   
    private static int _delay = 2000; // ms
    private Timer _timer;
    
    public MsgPnl()
    {
       setBackgroundPainter(backgroundPainter);
+      ComponentStyle.addClass(this, "feedback-pane");
       setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
       setVisible(false);
       
       _label = new JLabel();
-      _label.setFont(_msgFont);
-      _label.setForeground(_msgColor);
       
       setLayout(new BorderLayout());
       add(_label, BorderLayout.CENTER);
@@ -91,7 +88,7 @@ public class MsgPnl extends JXPanel
          }
          
          g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-         g2.setColor(new Color(0.0f, 0.0f, 0.0f));
+         g2.setColor(c.getBackground());
          RoundRectangle2D rect = new RoundRectangle2D.Double(0, 0, c.getWidth() - 1, c.getHeight() - 1, 24, 24);
          g2.fill(rect);
 

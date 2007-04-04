@@ -17,8 +17,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/FormPane.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/FormPane.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/FormView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/FormView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
     </list>
   </component>
@@ -359,7 +357,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
+      <showStructure Favorites="false" PackagesPane="false" Scope="false" ProjectPane="false" />
       <autoscrollToSource PackagesPane="true" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -368,8 +366,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
+    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -649,24 +647,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FieldCaption.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="367" selection-end="367" vertical-scroll-proportion="0.30150753">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/CommandButton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="20" selection-start="1651" selection-end="1651" vertical-scroll-proportion="0.33333334">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/EOPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="0" selection-start="437" selection-end="437" vertical-scroll-proportion="0.32663316">
@@ -733,23 +713,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/desktop/EnhDesktopPane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="10" selection-start="712" selection-end="712" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/ListEOPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="46" column="0" selection-start="1182" selection-end="1182" vertical-scroll-proportion="0.4723618">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="7" selection-start="1278" selection-end="1278" vertical-scroll-proportion="0.15745394">
           <folding />
         </state>
       </provider>
@@ -769,6 +735,34 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/SwingViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="375" column="30" selection-start="10408" selection-end="10408" vertical-scroll-proportion="0.4589615">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/desktop/EnhDesktopPane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="15" selection-start="689" selection-end="689" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="340" column="23" selection-start="9696" selection-end="9696" vertical-scroll-proportion="0.3835846">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/desktop/MsgPnl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="0" selection-start="1657" selection-end="1657" vertical-scroll-proportion="0.94974875">
+          <folding />
         </state>
       </provider>
     </entry>
