@@ -10,6 +10,7 @@ import com.u2d.validation.ValidationListener;
 import com.u2d.view.*;
 import com.u2d.app.PersistenceMechanism;
 import com.u2d.app.Context;
+import com.u2d.css4swing.style.ComponentStyle;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -85,6 +86,7 @@ public class EOPanel extends JPanel
       }
       
       JPanel topPanel = builder.getPanel();
+      ComponentStyle.addClass(topPanel, "instance-title-panel");
       add(topPanel, BorderLayout.NORTH);
    }
    
@@ -126,7 +128,7 @@ public class EOPanel extends JPanel
       private JLabel msgLabel()
       {
          JLabel label = new JLabel("");
-         label.putClientProperty("css-class", "validation-msg");
+         ComponentStyle.addClass(label, "validation-msg");
          return label;
       }
       

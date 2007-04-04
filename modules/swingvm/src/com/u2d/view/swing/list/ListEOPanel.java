@@ -14,6 +14,7 @@ import com.u2d.element.Command;
 import com.u2d.list.Paginable;
 import com.u2d.list.PagedList;
 import com.u2d.find.SimpleQuery;
+import com.u2d.css4swing.style.ComponentStyle;
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ChangeEvent;
@@ -48,6 +49,7 @@ public class ListEOPanel  extends JPanel
    {
       setLayout(new BorderLayout());
       _titleBarView = new TitleBarView(_leo, this, _view);
+      ComponentStyle.addClass(_titleBarView, "list-title-panel");
       add(_titleBarView, BorderLayout.NORTH);
 
       if (_view instanceof CompositeView)

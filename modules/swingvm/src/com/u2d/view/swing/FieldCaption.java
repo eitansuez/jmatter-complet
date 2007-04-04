@@ -12,6 +12,7 @@ import com.u2d.type.atom.BooleanEO;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import com.u2d.model.EObject;
+import com.u2d.css4swing.style.ComponentStyle;
 
 /**
  * @author Eitan Suez
@@ -53,11 +54,11 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
    {
       if (_field.required())
       {
-         putClientProperty("css-class", "required");
+         ComponentStyle.addClass(this, "required");
       }
       else
       {
-         putClientProperty("css-class", "");
+         ComponentStyle.removeClass(this, "required");
          setFont(_font);
          setForeground(_foreground);
       }

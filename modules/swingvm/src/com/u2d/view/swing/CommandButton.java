@@ -8,6 +8,8 @@ import com.u2d.model.EObject;
 import com.u2d.ui.LockedButton;
 import com.u2d.ui.DefaultButton;
 import com.u2d.ui.NormalButton;
+import com.u2d.css4swing.style.ComponentStyle;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeEvent;
@@ -58,6 +60,7 @@ public class CommandButton extends JPanel
       {
          btn = new NormalButton(_cmdAdapter);
       }
+      ComponentStyle.addClass(btn, "command");
       
       _cmdsView.detach();
       _cmdsView.bind(_cmd, btn, this);

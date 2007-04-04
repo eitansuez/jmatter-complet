@@ -1,4 +1,25 @@
 
+.command
+{
+  font-style: italic;
+}
+
+.list-title, .instance-title
+{
+  color: #400;
+  font-weight: bold;
+  font-size: 16pt;
+}
+/*
+.list-title
+{
+  text-align: right;
+}
+*/
+.list-title-panel, .instance-title-panel
+{
+}
+
 .required
 {
    color: blue;
@@ -9,3 +30,9 @@
    color: red;
    font-style: italic;
 }
+
+.default-button
+{
+  font-weight: bold;
+}
+

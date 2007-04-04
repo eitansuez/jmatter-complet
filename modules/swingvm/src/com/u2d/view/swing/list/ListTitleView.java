@@ -9,6 +9,7 @@ import javax.swing.event.*;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.EObject;
 import com.u2d.view.*;
+import com.u2d.css4swing.style.ComponentStyle;
 
 /**
  * @author Eitan Suez
@@ -17,12 +18,6 @@ public class ListTitleView extends JLabel implements ListEView
 {
    protected AbstractListEO _leo;
    private transient CommandsContextMenuView _cmdsView;
-   
-   private static Font TITLE_FONT;
-   static
-   {
-      TITLE_FONT = UIManager.getFont("Label.font").deriveFont(Font.BOLD, 16.0f);
-   }
    
    public ListTitleView(AbstractListEO leo, EView parentView)
    {
@@ -40,7 +35,7 @@ public class ListTitleView extends JLabel implements ListEView
       setVerticalTextPosition(JLabel.CENTER);
       setOpaque(false);
       
-      setFont(TITLE_FONT);
+      ComponentStyle.addClass(this, "list-title");
       
       updateTitle();
       setIcon(_leo.iconLg());

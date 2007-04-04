@@ -11,6 +11,7 @@ import com.u2d.model.EObject;
 import com.u2d.view.*;
 import com.u2d.view.swing.dnd.*;
 import com.u2d.view.swing.list.CommandsContextMenuView;
+import com.u2d.css4swing.style.ComponentStyle;
 
 /**
  * @author Eitan Suez
@@ -19,12 +20,6 @@ public class TitleView extends JLabel implements ComplexEView
 {
    protected ComplexEObject _ceo;
    private transient CommandsContextMenuView _cmdsView;
-
-   private static Font TITLE_FONT;
-   static
-   {
-      TITLE_FONT = UIManager.getFont("Label.font").deriveFont(Font.BOLD, 16.0f);
-   }
 
    public TitleView(ComplexEObject ceo, EView parentView)
    {
@@ -42,8 +37,7 @@ public class TitleView extends JLabel implements ComplexEView
       setVerticalTextPosition(JLabel.CENTER);
       setOpaque(false);
 
-      // TODO:  assign fonts and colors from preferences
-      setFont(TITLE_FONT);
+      ComponentStyle.addClass(this, "instance-title");
       
       setText(_ceo.viewTitle());
       setIcon(_ceo.iconLg());

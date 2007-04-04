@@ -153,7 +153,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/css4swing.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/css4swing.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

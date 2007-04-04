@@ -18,6 +18,7 @@
    <path id="class.path">
       <fileset dir="${libdir}" includes="*.jar" />
       <pathelement location="${buildclassesdir}" />
+      <fileset dir="../../jmatter/lib/runtime/" includes="css4swing.jar" />
    </path>
 
    <path id="test.classpath">

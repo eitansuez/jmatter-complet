@@ -3,16 +3,14 @@
  */
 package com.u2d.ui;
 
+import com.u2d.css4swing.style.ComponentStyle;
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author Eitan Suez
  */
 public class DefaultButton extends NormalButton
 {
-   private static Font BOLD = UIManager.getFont("Button.font").deriveFont(Font.BOLD);
-   
 	public DefaultButton()
 	{
 		super();
@@ -32,7 +30,7 @@ public class DefaultButton extends NormalButton
    private void setCharacteristics()
    {
       setOpaque(false);
-      setFont(BOLD);
+      ComponentStyle.addClass(this, "default-button");
    }
 	
 	public void addNotify()

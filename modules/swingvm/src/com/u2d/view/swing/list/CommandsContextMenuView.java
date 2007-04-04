@@ -8,6 +8,7 @@ import com.u2d.element.Command;
 import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
+import com.u2d.css4swing.style.ComponentStyle;
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import java.awt.event.MouseAdapter;
@@ -92,7 +93,10 @@ public class CommandsContextMenuView
                Command cmd = (Command) obj;
                if (cmd.isOpenInNonMinimizedContext(_source)) return;
 
-               add(new CommandAdapter(cmd, _eo, _source));
+               JMenuItem item = new JMenuItem(new CommandAdapter(cmd, _eo, _source));
+               ComponentStyle.addClass(item, "command");
+               add(item);
+               
                _indexMap.put(new Integer(index),
                              new Integer(getComponentCount()-1));
                index++;
@@ -122,7 +126,9 @@ public class CommandsContextMenuView
                      ((Integer) _indexMap.get(new Integer(i))).intValue();
 
                Action action = new CommandAdapter(cmd, _eo, _source);
-               add(new JMenuItem(action), componentIndex);
+               JMenuItem item = new JMenuItem(action);
+               ComponentStyle.addClass(item, "command");
+               add(item, componentIndex);
             }
          }
       });
