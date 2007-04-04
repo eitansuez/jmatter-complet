@@ -3,6 +3,8 @@
  */
 package com.u2d.view.swing;
 
+import com.u2d.css4swing.style.ComponentStyle;
+
 import java.awt.*;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
@@ -17,7 +19,7 @@ public class FormPane extends JPanel implements Scrollable
    public FormPane()
    {
       setOpaque(true);
-      setBackground(new Color(0xfffaf0));
+      ComponentStyle.addClass(this, "form-pane");
    }
    
    private static Dimension MAXSIZE = new Dimension(700,450);

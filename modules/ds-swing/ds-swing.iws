@@ -18,10 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ds-swing.iml" afterPath="$PROJECT_DIR$/ds-swing.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ds-swing.iws" afterPath="$PROJECT_DIR$/ds-swing.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/ui/DefaultButton.java" afterPath="$PROJECT_DIR$/src/com/u2d/ui/DefaultButton.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
