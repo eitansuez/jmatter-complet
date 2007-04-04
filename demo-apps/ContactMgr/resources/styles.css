@@ -1,4 +1,9 @@
 
+.form-pane
+{
+  background-color: #fffaf0;
+}
+
 .command
 {
   font-style: italic;
@@ -10,12 +15,6 @@
   font-weight: bold;
   font-size: 16pt;
 }
-/*
-.list-title
-{
-  text-align: right;
-}
-*/
 .list-title-panel, .instance-title-panel
 {
 }
