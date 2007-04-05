@@ -1,3 +1,18 @@
+import com.u2d.view.swing
+
+JDesktopPane
+{
+  background-color: #7684FF;
+}
+
+.feedback-pane
+{
+  color: white;
+  background-color: #black;
+  font-size: 24pt;
+  font-weight: bold;
+  padding: 30px;
+}
 
 .form-pane
 {
@@ -19,6 +34,11 @@
 {
 }
 
+FieldCaption
+{
+  color: black;
+  font-weight: normal;
+}
 .required
 {
    color: blue;

@@ -5,16 +5,7 @@ JDesktopPane
   background-color: #7684FF;
 }
 
-.feedback-pane
-{
-  color: white;
-  background-color: #black;
-  font-size: 24pt;
-  font-weight: bold;
-  padding: 30px;
-}
-
-.form-pane
+FormPane
 {
   background-color: #fffaf0;
 }
@@ -54,4 +45,14 @@ FieldCaption
 {
   font-weight: bold;
 }
+
+.feedback-pane
+{
+  color: white;
+  background-color: #black;
+  font-size: 24pt;
+  font-weight: bold;
+  padding: 30px;
+}
+
 

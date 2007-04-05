@@ -17,6 +17,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/FormPane.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/FormPane.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
     </list>
   </component>
@@ -733,13 +734,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/atom/StringEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="63" selection-start="337" selection-end="337" vertical-scroll-proportion="0.2512563">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/atom/AtomicView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="102" column="24" selection-start="2541" selection-end="2541" vertical-scroll-proportion="0.44723618">
@@ -757,13 +751,6 @@
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractComplexEObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="33" column="22" selection-start="857" selection-end="857" vertical-scroll-proportion="0.20618556">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FormView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="427" column="0" selection-start="12055" selection-end="12055" vertical-scroll-proportion="0.8492462">
           <folding />
         </state>
       </provider>
@@ -837,6 +824,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="0" selection-start="583" selection-end="583" vertical-scroll-proportion="0.8040201">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FormView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="13" selection-start="834" selection-end="834" vertical-scroll-proportion="0.20100503">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FormPane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="0" selection-start="82" selection-end="82" vertical-scroll-proportion="0.10050251">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
