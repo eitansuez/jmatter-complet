@@ -1,3 +1,4 @@
+import com.u2d.view.swing
 
 JDesktopPane
 {
@@ -7,9 +8,10 @@ JDesktopPane
 .feedback-pane
 {
   color: white;
-  background-color: black;
+  background-color: #black;
   font-size: 24pt;
   font-weight: bold;
+  padding: 30px;
 }
 
 .form-pane
@@ -32,6 +34,11 @@ JDesktopPane
 {
 }
 
+FieldCaption
+{
+  color: black;
+  font-weight: normal;
+}
 .required
 {
    color: blue;

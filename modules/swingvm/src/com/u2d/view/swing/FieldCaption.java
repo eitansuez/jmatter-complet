@@ -3,7 +3,6 @@
  */
 package com.u2d.view.swing;
 
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -21,8 +20,6 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
 {
    private Field _field;
    private transient CommandsContextMenuView _cmdsView = new CommandsContextMenuView();
-   private transient Font _font;
-   private transient Color _foreground;
    
    public FieldCaption(Field field, JComponent comp)
    {
@@ -35,9 +32,6 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
          _cmdsView.bind(_field, this);
       }
       
-      _font = getFont();
-      _foreground = getForeground();
-
       setupLabel();
       setLabelFor(comp);
       setupTooltip();
@@ -59,8 +53,6 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
       else
       {
          ComponentStyle.removeClass(this, "required");
-         setFont(_font);
-         setForeground(_foreground);
       }
    }
 

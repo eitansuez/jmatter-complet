@@ -28,7 +28,6 @@ public class MsgPnl extends JXPanel
    {
       setBackgroundPainter(backgroundPainter);
       ComponentStyle.addClass(this, "feedback-pane");
-      setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
       setVisible(false);
       
       _label = new JLabel();
@@ -80,7 +79,6 @@ public class MsgPnl extends JXPanel
          Composite composite = g2.getComposite();
          Color color = g2.getColor();
 
-         
          float alpha = 0.7f;
          if (composite instanceof AlphaComposite)
          {
