@@ -4800,7 +4800,19 @@ Now JMatter will give you built-in validation support in the user interface:
 
 \begin_layout Enumerate
 Required fields' captions are automatically styled in blue; (you can change
- the styling of required fields by modifying the file 
+ the styling of required fields by modifying the rule 
+\emph on
+
+\begin_inset Quotes eld
+\end_inset
+
+.required
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ in the file 
 \emph on
 resources/styles.css
 \emph default
@@ -4809,31 +4821,12 @@ resources/styles.css
 status collapsed
 
 \begin_layout Standard
-JMatter's 
-\emph on
-swing4css
-\emph default
- module is at present fairly simple and supports only a handful of properties
- including 
-\emph on
-color
-\emph default
-, 
-\emph on
-background-color
-\emph default
-, 
-\emph on
-font-weight
-\emph default
-, 
-\emph on
-font-style
-\emph default
-, and a few others.
- I anticipate the next version of JMatter will have more complete support
- for CSS (with some differences to accommodate the fact that we're targeting
- a Swing application).
+See chapter 
+\begin_inset LatexCommand \ref{cha:Styling-the-UI}
+
+\end_inset
+
+ for more about styling the user interface using CSS
 \end_layout
 
 \end_inset
@@ -16962,9 +16955,13 @@ styles.css
 \begin_inset Text
 
 \begin_layout Standard
-Currently contains a css files that governs the styling of captions for
- required fields and the styling for validation error messages.
- Will in the future be expanded to govern styling for the entire application.
+Default stylesheet for JMatter; governs how the JMatter user interface is
+ styled (see 
+\begin_inset LatexCommand \ref{cha:Styling-the-UI}
+
+\end_inset
+
+).
 \end_layout
 
 \end_inset
@@ -17282,6 +17279,906 @@ Chapter
 \end_inset
 
  walks you through deploying your project via Java WebStart.
+\end_layout
+
+\begin_layout Chapter
+Styling the UI with CSS
+\begin_inset LatexCommand \label{cha:Styling-the-UI}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Cascading Stylesheets (CSS) is a web technology.
+ It is supported by modern web browsers to style user interfaces.
+ CSS is simple and elegant.
+ It is also powerful.
+ It has an aspect-like design in that styles for parts of a user interface
+ can be specified in a manner that is orthogonal from the rest of an application
+: it is a cross-cutting concern.
+\end_layout
+
+\begin_layout Standard
+JMatter comes with built-in support for a subset of the CSS that I believe
+ to be applicable to Java's Swing technology.
+ By default, JMatter will automatically load the file 
+\emph on
+resources/styles.css
+\emph default
+ on startup, and interpret and apply the rules contained within that stylesheet.
+ Stylesheets consist of rules, and rules consist of selectors and declarations.
+\end_layout
+
+\begin_layout Standard
+Let us begin with a description of the CSS engine itself and specifically
+ what subset of CSS is supported, and how it is adapted to Swing.
+ We will then turn our attention to the default stylesheet.
+\end_layout
+
+\begin_layout Section
+JMatter's CSS Engine
+\end_layout
+
+\begin_layout Subsection
+Selectors
+\end_layout
+
+\begin_layout Standard
+JMatter's CSS implementation at this time supports simple selectors: the
+ specification for matching a component by any of the following, or a combinatio
+n thereof:
+\end_layout
+
+\begin_layout Enumerate
+its type
+\end_layout
+
+\begin_layout Enumerate
+a semantic style name (a css class name)
+\end_layout
+
+\begin_layout Enumerate
+an id
+\end_layout
+
+\begin_layout Standard
+In the web world, a component type is designated by its corresponding tag
+ name, such as <h1> or <p>.
+ In Swing it's designated by its class name, for example: JLabel.
+\end_layout
+
+\begin_layout Subsection
+Adapting Selectors for Swing
+\end_layout
+
+\begin_layout Standard
+By default, you can reference any Swing component class that is a member
+ of the package javax.swing without qualifying it.
+ Some examples include: JPanel, JLabel, and JButton.
+\end_layout
+
+\begin_layout Standard
+Any component that is assignable from the referenced class name will be
+ matched.
+ That is, if you write a subclass of JLabel, and write a CSS rule like this:
+\end_layout
+
+\begin_layout LyX-Code
+JLabel
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  background-color: blue;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+The rule will apply to instances of the subclass as well (this is not true
+ the other way around of course).
+\end_layout
+
+\begin_layout Standard
+A parsing ambiguity arises if one wished to reference a fully-qualified
+ class name in a selector.
+ Let's say we had a rule such as:
+\end_layout
+
+\begin_layout LyX-Code
+JLabel.special
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  background-color: blue;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+If the component type were referenced fully-qualified:
+\end_layout
+
+\begin_layout LyX-Code
+javax.swing.JLabel.special
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  background-color: blue;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+It would be less clear (though not impossible to disambiguate) that we were
+ referencing a component marked with a css class name.
+ JMatter's CSS implementation therefore does not allow fully-qualified class
+ names in selectors.
+ To reference a type in a different package, you must specifically import
+ it, like so:
+\end_layout
+
+\begin_layout LyX-Code
+import com.l2fprod.common.swing
+\end_layout
+
+\begin_layout LyX-Code
+JOutlookBar
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  color: olive;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+So the notion of an import statement is unique to this implementation.
+ It should be specified on its own line, with 
+\series bold
+no
+\series default
+ terminating semicolon.
+\end_layout
+
+\begin_layout Subsection
+Assigning Components CSS class names
+\end_layout
+
+\begin_layout Standard
+On the web, components are given semantic style names by annotating them
+ with an html attribute, as in: class=
+\begin_inset Quotes erd
+\end_inset
+
+title
+\begin_inset Quotes erd
+\end_inset
+
+.
+ JMatter's CSS implementation provides an API method for assigning a css
+ class name to a component:
+\end_layout
+
+\begin_layout LyX-Code
+ComponentStyle.addClass(componentRef, "title");
+\end_layout
+
+\begin_layout Standard
+Since components can have more than a single semantic class name, one can
+ invoke the above method repeatedly.
+ There's also a corresponding method for removing a class assignment:
+\end_layout
+
+\begin_layout LyX-Code
+ComponentStyle.removeClass(componentRef, "title");
+\end_layout
+
+\begin_layout Standard
+One can likewise assign an id to a component with:
+\end_layout
+
+\begin_layout LyX-Code
+ComponentStyle.setIdent(componentRef, "btn103");
+\end_layout
+
+\begin_layout Standard
+The above are all static methods.
+\end_layout
+
+\begin_layout Standard
+Applications developers needn't concern themselves with this because the
+ work associated with defining style names and annotating a user interface
+ is a part of the task of writing that user interface.
+ In the case of JMatter, the user interface is already written and is already
+ annotated.
+ If you wish to customize the styling of a JMatter application, all you
+ need to concern yourself with (besides knowing what semantic names to reference
+) is editing the stylesheet itself.
+\end_layout
+
+\begin_layout Subsection
+Values
+\end_layout
+
+\begin_layout Standard
+Of the myriad of ways in which measures can be specified in CSS, JMatter
+ supports only a subset:
+\end_layout
+
+\begin_layout Enumerate
+Font sizes must be specified in pt's
+\end_layout
+
+\begin_layout Enumerate
+Borders, margins, and padding must be specified in px's
+\end_layout
+
+\begin_layout Enumerate
+Colors can be specified either using the sixteen predefined color names,
+ the six-digit hex notation, or the three digit hex notation.
+ The rgb() function is not supported at this time
+\end_layout
+
+\begin_layout Enumerate
+Only the line styles dotted, dashed, and solid are supported at this time
+\end_layout
+
+\begin_layout Enumerate
+Only the generic font family names serif, sans-serif, and monospace are
+ supported at this time
+\end_layout
+
+\begin_layout Subsection
+Properties
+\end_layout
+
+\begin_layout Standard
+Again, a subset of the CSS defined properties is supported at this time:
+\end_layout
+
+\begin_layout LyX-Code
+cursor
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+color
+\end_layout
+
+\begin_layout LyX-Code
+background-color
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+font-family
+\end_layout
+
+\begin_layout LyX-Code
+font-size
+\end_layout
+
+\begin_layout LyX-Code
+font-weight
+\end_layout
+
+\begin_layout LyX-Code
+font-style
+\end_layout
+
+\begin_layout LyX-Code
+font
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+border-color, border-left-color, border-right-color, border-top-color, border-bo
+ttom-color
+\end_layout
+
+\begin_layout LyX-Code
+border-style, border-left-style, border-right-style, border-top-style, border-bo
+ttom-style
+\end_layout
+
+\begin_layout LyX-Code
+border-width, border-left-width, border-right-width, border-top-width, border-bo
+ttom-width
+\end_layout
+
+\begin_layout LyX-Code
+border
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+margin, margin-left, margin-right, margin-top, margin-bottom
+\end_layout
+
+\begin_layout LyX-Code
+padding, padding-left, padding-right, padding-top, padding-bottom
+\end_layout
+
+\begin_layout Subsection
+CSS Inheritance
+\end_layout
+
+\begin_layout Standard
+It is important to mention that this engine supports CSS inheritance: that
+ styles inherited from containing components are applied as well.
+\end_layout
+
+\begin_layout Section
+The JMatter Stylesheet
+\end_layout
+
+\begin_layout Standard
+Let's study the file 
+\emph on
+resources/styles.css
+\emph default
+ one piece at a time.
+\end_layout
+
+\begin_layout Standard
+First comes an import declaration:
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.view.swing
+\end_layout
+
+\begin_layout Standard
+This allows me to reference custom components from JMatter's Swing view
+ mechanism in selectors.
+ Here are some examples:
+\end_layout
+
+\begin_layout LyX-Code
+JDesktopPane
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  background-color: #7684FF;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+FormPane
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  background-color: #fffaf0;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+The first rule customizes the background color of the desktop pane.
+ The selector matches a standard swing component.
+ The second rule customizes the background color of form panes (an off-beige
+ color).
+\end_layout
+
+\begin_layout Standard
+Here are two more rules:
+\end_layout
+
+\begin_layout LyX-Code
+.command
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  font-style: italic;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+.default-button
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  font-weight: bold;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Views of commands in JMatter are annotated with the css class name 
+\emph on
+command
+\emph default
+.
+ I have chosen to emphasize that commands are 
+\emph on
+active
+\emph default
+ by italicizing their views (views of commands are either JMenuItem's or
+ JButton's).
+\end_layout
+
+\begin_layout Standard
+Furthermore, Swing (and forms) has the notion of a single command being
+ designated as the default command on a form.
+ Default buttons are given a little extra attention, such as interpreting
+ pressing the 
+\emph on
+Enter
+\emph default
+ key on the form as implying the invocation of the default command.
+ Here you can specify how its view should be styled.
+\end_layout
+
+\begin_layout Standard
+Note how both rules 
+\emph on
+.command
+\emph default
+ and 
+\emph on
+.default-button
+\emph default
+ apply to default commands.
+\end_layout
+
+\begin_layout Standard
+Here is a rule that styles the text in title views:
+\end_layout
+
+\begin_layout LyX-Code
+.list-title, .instance-title
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  color: #400;
+\end_layout
+
+\begin_layout LyX-Code
+  font-weight: bold;
+\end_layout
+
+\begin_layout LyX-Code
+  font-size: 16pt;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+We are applying the same set of declarations to both list titles and instance
+ titles, so we grouped the selectors together.
+\end_layout
+
+\begin_layout Standard
+Here are two more semantic styles:
+\end_layout
+
+\begin_layout LyX-Code
+.required
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   color: blue;
+\end_layout
+
+\begin_layout LyX-Code
+   font-weight: bold;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+.validation-msg
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   color: red;
+\end_layout
+
+\begin_layout LyX-Code
+   font-style: italic;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Here we specify how to style the captions for required fields and validation
+ error messages.
+\end_layout
+
+\begin_layout Standard
+And finally, this rule styles the large semi-transparent message panel that
+ appears for 2-3 seconds to acknowledge various actions, for example when
+ one creates and persists a new instance to database:
+\end_layout
+
+\begin_layout LyX-Code
+.feedback-pane
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  color: white;
+\end_layout
+
+\begin_layout LyX-Code
+  background-color: #black;
+\end_layout
+
+\begin_layout LyX-Code
+  font-size: 24pt;
+\end_layout
+
+\begin_layout LyX-Code
+  font-weight: bold;
+\end_layout
+
+\begin_layout LyX-Code
+  padding: 30px;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Feel free to customize as you see fit!
+\end_layout
+
+\begin_layout Subsection
+The complete stylesheet
+\end_layout
+
+\begin_layout Standard
+Below is a copy of the complete stylesheet, for reference.
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.view.swing
+\end_layout
+
+\begin_layout LyX-Code
+JDesktopPane
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  background-color: #7684FF;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+FormPane
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  background-color: #fffaf0;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+.command
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  font-style: italic;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+.list-title, .instance-title
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  color: #400;
+\end_layout
+
+\begin_layout LyX-Code
+  font-weight: bold;
+\end_layout
+
+\begin_layout LyX-Code
+  font-size: 16pt;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+.list-title-panel, .instance-title-panel
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+FieldCaption
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  color: black;
+\end_layout
+
+\begin_layout LyX-Code
+  font-weight: normal;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+.required
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   color: blue;
+\end_layout
+
+\begin_layout LyX-Code
+   font-weight: bold;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+.validation-msg
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   color: red;
+\end_layout
+
+\begin_layout LyX-Code
+   font-style: italic;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+.default-button
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  font-weight: bold;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+.feedback-pane
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  color: white;
+\end_layout
+
+\begin_layout LyX-Code
+  background-color: #black;
+\end_layout
+
+\begin_layout LyX-Code
+  font-size: 24pt;
+\end_layout
+
+\begin_layout LyX-Code
+  font-weight: bold;
+\end_layout
+
+\begin_layout LyX-Code
+  padding: 30px;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Section
+Future Plans
+\end_layout
+
+\begin_layout Standard
+Additional enhancements for CSS support in JMatter are planned.
+ Here is a tentative list:
+\end_layout
+
+\begin_layout Enumerate
+Enhance the existing stylesheet to provide complete styling for all parts
+ of a JMatter application
+\end_layout
+
+\begin_layout Enumerate
+Produce multiple alternative stylesheets that can be used as themes to skin
+ JMatter applications
+\end_layout
+
+\begin_layout Enumerate
+Complete selector language support: mainly the ability to specify a selector
+ as a sequence of sibling, child, or descendent selectors
+\end_layout
+
+\begin_layout Enumerate
+Support all border line styles defined by the CSS specification
+\end_layout
+
+\begin_layout Enumerate
+Complete support for color value syntax, including the 
+\emph on
+rgb()
+\emph default
+ function and the CSS3 
+\emph on
+rgba()
+\emph default
+ function for supporting transparency
+\end_layout
+
+\begin_layout Enumerate
+Support for the CSS3 border-radius property for specifying rounded corners
+ (this can be implemented with SwingX painters, which would apply only to
+ JXPanel's)
+\end_layout
+
+\begin_layout Enumerate
+Possibly adding support for CSS 
+\emph on
+@import
+\emph default
+ statements
+\end_layout
+
+\begin_layout Enumerate
+Possibly adding support for applicable CSS pseudo classes and pseudo elements
+\end_layout
+
+\begin_layout Enumerate
+Ensuring that stylesheet errors produce only warnings and are not fatal
+\end_layout
+
+\begin_layout Standard
+If you produce a stylesheet that you find does a good job at styling the
+ JMatter user interface, please consider contributing it back to the project
+ as a JMatter theme.
 \end_layout
 
 \begin_layout Chapter
