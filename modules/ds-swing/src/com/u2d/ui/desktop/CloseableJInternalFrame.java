@@ -90,40 +90,41 @@ public class CloseableJInternalFrame extends JInternalFrame
 
    public static void updateSize(Component comp)
    {
-      JInternalFrame jif = (JInternalFrame) SwingUtilities.getAncestorOfClass(JInternalFrame.class, comp);
+      CloseableJInternalFrame jif = (CloseableJInternalFrame)
+               SwingUtilities.getAncestorOfClass(CloseableJInternalFrame.class,  comp);
       if (jif == null) return;
-      updateSize(jif);
-
-      JDesktopPane desktopPane = jif.getDesktopPane();
-      if (desktopPane == null)
-      {
-         // System.err.println("CloseableJInternalFrame::updateSize: desktop pane for jinternal frame is not set");
-         return;
-      }
 
       Point point = null;
       JViewport viewport = (JViewport) SwingUtilities.getAncestorOfClass(JViewport.class, comp);
       if (viewport != null)
       {
          point = viewport.getViewPosition();
-         //System.out.println("Saved view position: "+point);
       }
-      jif.pack();  // pack appears to have side effect of obliterating viewport position
 
-      adjustSize(jif, desktopPane);
+      jif.updateSize();
 
       // preserve view position after pack
       if (viewport != null && point != null)
       {
-         //System.out.println("Restoring view position: "+point);
          viewport.setViewPosition(point);
       }
+   }
+
+   public void updateSize()
+   {
+      Dimension dim = new Dimension();
+      dim.width = Math.max(getSize().width, getPreferredSize().width);
+      dim.height = Math.max(getSize().height, getPreferredSize().height);
+      setSize(dim);  validate();
+//      pack();
+      adjustSize(this, getDesktopPane());
    }
 
    // if necessary, trim height of window so it does not exceed that of the desktoppane that the
    // window is in
    private static void adjustSize(JInternalFrame jif, JDesktopPane desktopPane)
    {
+      if (desktopPane == null) return;
       int desktopHeight = desktopPane.getHeight();
       int desktopWidth = desktopPane.getWidth();
       Dimension dim = jif.getSize();
@@ -132,13 +133,6 @@ public class CloseableJInternalFrame extends JInternalFrame
       if (jif.getWidth() > desktopWidth)
          dim.width = desktopWidth - 10;
       jif.setSize(dim);
-   }
-
-   public void updateSize()
-   {
-      pack();
-      if (getDesktopPane() == null) return;
-      adjustSize(this, getDesktopPane());
    }
 
    protected void setupToFocusOnDragEnter()
