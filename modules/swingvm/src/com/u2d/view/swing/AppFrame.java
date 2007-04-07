@@ -290,14 +290,14 @@ public class AppFrame extends JFrame
 
       public void actionPerformed(ActionEvent evt)
       {
-         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+         setWaitCursor();
          SwingUtilities.invokeLater(new Runnable()
+         {
+            public void run()
             {
-               public void run()
-               {
-                  quit();
-               }
-            });
+               quit();
+            }
+         });
       }
    }
 
@@ -342,10 +342,18 @@ public class AppFrame extends JFrame
    }
 
 
-   public void setCursor(Cursor cursor)
+   private static final Cursor WAITCURSOR = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
+   private static final Cursor DEFAULTCURSOR = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
+
+   public void setWaitCursor()
    {
-      super.setCursor(cursor);
-      _desktopPane.setCursor(cursor);
+      getGlassPane().setCursor(WAITCURSOR);
+      getGlassPane().setVisible(true);
+   }
+   public void setDefaultCursor()
+   {
+      getGlassPane().setCursor(DEFAULTCURSOR);
+      getGlassPane().setVisible(false);
    }
 
    /* ======

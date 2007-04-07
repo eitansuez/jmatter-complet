@@ -2,6 +2,8 @@ package com.u2d.view.swing.list;
 
 import com.u2d.ui.IconButton;
 import com.u2d.view.swing.calendar.NavPanel;
+import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.view.swing.SwingAction;
 import com.u2d.list.Paginable;
 import javax.swing.*;
 import java.awt.*;
@@ -39,26 +41,22 @@ public class SimplePagePanel extends JPanel
             {
                public void actionPerformed(ActionEvent evt)
                {
-                  new Thread()
+                  SwingViewMechanism.invokeSwingAction(new SwingAction()
                   {
-                     public void run()
-                     {
-                        _paginable.previousPage();
-                     }
-                  }.start();
+                     public void offEDT() { _paginable.previousPage(); }
+                     public void backOnEDT() { }
+                  });
                }
             });
       _nextBtn.addActionListener( new ActionListener()
             {
                public void actionPerformed(ActionEvent evt)
                {
-                  new Thread()
+                  SwingViewMechanism.invokeSwingAction(new SwingAction()
                   {
-                     public void run()
-                     {
-                        _paginable.nextPage();
-                     }
-                  }.start();
+                     public void offEDT() { _paginable.nextPage(); }
+                     public void backOnEDT() { }
+                  });
                }
             });
    }

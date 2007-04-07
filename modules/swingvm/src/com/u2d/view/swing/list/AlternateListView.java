@@ -22,6 +22,8 @@ import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.IconButton;
 import com.u2d.view.*;
 import com.u2d.view.swing.CommandAdapter;
+import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.view.swing.SwingAction;
 import com.u2d.element.Command;
 
 /**
@@ -188,20 +190,19 @@ public class AlternateListView extends JPanel
             {
                JComponent view = (JComponent) getInnerView();
                if (!(view instanceof Selectable)) return;
-
                final ComplexEObject value = ((Selectable) view).selectedEO();
                if (value == null) return;
 
-               new Thread()
+               SwingViewMechanism.invokeSwingAction(new SwingAction()
                {
-                  public void run()
-                  {
-                     _leo.pick(value);
-                  }
-               }.start();
+                  public void offEDT() { _leo.pick(value); }
 
-               if (!_leo.isInContext())
-                  CloseableJInternalFrame.close(AlternateListView.this);
+                  public void backOnEDT()
+                  {
+                     if (!_leo.isInContext())
+                        CloseableJInternalFrame.close(AlternateListView.this);
+                  }
+               });
             }
          });
       return pickBtn;

@@ -386,11 +386,9 @@ public class SwingViewMechanism implements ViewMechanism
       }
    }
 
-   public void setCursor(Cursor cursor)
-   {
-      _appFrame.setCursor(cursor);
-   }
-   
+   public void setWaitCursor() { _appFrame.setWaitCursor(); }
+   public void setDefaultCursor() { _appFrame.setDefaultCursor(); }
+
    /* package private */ void displayFrame(final JInternalFrame frame)
    {
       displayFrame(frame, com.u2d.ui.desktop.Positioning.TOTHERIGHT);
@@ -828,6 +826,34 @@ public class SwingViewMechanism implements ViewMechanism
          throw new RuntimeException("Application is not configured to run with Swing View Mechanism");
       }
       return (SwingViewMechanism) vmech;
+   }
+   
+   
+   // Utility:
+   public static void invokeSwingAction(final SwingAction action)
+   {
+      SwingViewMechanism.getInstance().setWaitCursor();
+      new Thread()
+      {
+        public void run()
+        {
+           try
+           {
+              action.offEDT();
+           }
+           finally
+           {
+              SwingUtilities.invokeLater(new Runnable()
+              {
+                 public void run()
+                 {
+                    action.backOnEDT();
+                    SwingViewMechanism.getInstance().setDefaultCursor();
+                 }
+              });
+           }
+        }
+      }.start();
    }
 
 }

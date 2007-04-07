@@ -5,7 +5,6 @@ package com.u2d.view.swing;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.Cursor;
 import com.u2d.element.Command;
 import com.u2d.view.*;
 import com.u2d.type.atom.StringEO;
@@ -75,20 +74,15 @@ public class CommandAdapter extends AbstractAction
    public void attach(Object value) { _value = value; }
    public void detach() { _value = null; }
 
-   private static final Cursor WAITCURSOR = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
-
    public void actionPerformed(ActionEvent evt)
    {
-      SwingViewMechanism.getInstance().setCursor(WAITCURSOR);
-      
       if (_command.blocks())
       {
          ((JComponent) _source).setEnabled(false);
       }
-      
-      new Thread()
+      SwingViewMechanism.invokeSwingAction(new SwingAction()
       {
-         public void run()
+         public void offEDT()
          {
             try
             {
@@ -99,22 +93,15 @@ public class CommandAdapter extends AbstractAction
             {
                SwingViewMechanism.getInstance().displayFrame(new ExceptionFrame(ex));
             }
-            finally
+         }
+         public void backOnEDT()
+         {
+            if (_command.blocks())
             {
-               SwingUtilities.invokeLater(new Runnable()
-               {
-                  public void run()
-                  {
-                     SwingViewMechanism.getInstance().setCursor(Cursor.getDefaultCursor());
-                     if (_command.blocks())
-                     {
-                        ((JComponent) _source).setEnabled(true);
-                     }
-                  }
-               });
+               ((JComponent) _source).setEnabled(true);
             }
          }
-      }.start();
+      });
    }
 
 }
