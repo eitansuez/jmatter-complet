@@ -15,7 +15,10 @@ public class StringRenderer extends JLabel implements AtomicRenderer
 {
    public void render(AtomicEObject value)
    {
-      setText(value.toString());
+      if (value.isEmpty())
+         setText("--");
+      else
+         setText(value.toString());
    }
    public void passivate() {}
 }
