@@ -279,7 +279,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
+      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -502,7 +502,6 @@
       <option name="RECURSIVE" value="false" />
     </CheckinOptions>
     <AddOptions>
-      <option name="COMMENT" value="" />
       <option name="STORE_ONLY_LATEST_VERSION" value="false" />
       <option name="CHECK_OUT_IMMEDIATELY" value="false" />
       <option name="FILE_TYPE" value="0" />
@@ -560,23 +559,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.08/src.zip!/java/lang/ClassLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="0" selection-start="5811" selection-end="5811" vertical-scroll-proportion="0.34083045">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/caches/ashkelon/ant/core/org/apache/tools/ant/taskdefs/Java.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="230" column="0" selection-start="7842" selection-end="7842" vertical-scroll-proportion="0.40809444">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.08/src.zip!/java/lang/Class.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2984" column="36" selection-start="119211" selection-end="119211" vertical-scroll-proportion="0.48788926">
           <folding />
         </state>
       </provider>
@@ -591,13 +576,6 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/ShellScriptMaker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="14" selection-start="297" selection-end="297" vertical-scroll-proportion="0.2512563">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/STUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="841" selection-end="841" vertical-scroll-proportion="0.67839193">
           <folding />
         </state>
       </provider>
@@ -637,9 +615,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/stringtemplate.jar!/org/antlr/stringtemplate/StringTemplateGroup.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="50" selection-start="3843" selection-end="3843" vertical-scroll-proportion="0.41065294">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/STUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="25" selection-start="633" selection-end="633" vertical-scroll-proportion="0.5477387">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/AntPersistClassesMaker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="3" selection-start="2035" selection-end="2035" vertical-scroll-proportion="0.94974875">
+        <state line="79" column="0" selection-start="1996" selection-end="1996" vertical-scroll-proportion="0.32663316">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
