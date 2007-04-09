@@ -18,9 +18,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gant" afterPath="$PROJECT_DIR$/build.gant" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/jws/dynamic/project-jnlp.gt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ContactMgr.iws" afterPath="$PROJECT_DIR$/ContactMgr.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/persistClasses.gt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build.gant" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -138,8 +138,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -330,7 +330,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
+      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -339,8 +339,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
+    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -748,14 +748,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="0" selection-start="2744" selection-end="2981" vertical-scroll-proportion="0.5910653">
+        <state line="228" column="34" selection-start="8777" selection-end="8791" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gant">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="12" selection-start="3783" selection-end="3783" vertical-scroll-proportion="0.50921273">
+        <state line="277" column="1" selection-start="8249" selection-end="8249" vertical-scroll-proportion="0.39698493">
           <folding />
         </state>
       </provider>

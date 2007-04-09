@@ -232,9 +232,6 @@ task (hbmPractice : 'run hbm practice tools')
      fork : 'true', maxmemory : '128m' )
 }
 
-Ant.taskdef ( name : 'makeJnlp' , classname : 'com.u2d.tools.JnlpMaker', 
-   classpathref : 'libtools.path' )
-
 task (jwsDist : 'create java webstart distribution')
 {
   depends ( jar, keystore )
@@ -243,16 +240,34 @@ task (jwsDist : 'create java webstart distribution')
     fileset ( dir : 'resources/jws/static', includes : '*' )
   }
   copylibs("${jwsDistDir}/lib", 'swingvm')
-  Ant.makeJnlp ( template: 'resources/jws/dynamic/project-jnlp.st',
-              props: 'resources/jws/dynamic/project.properties',
-              jarbasepath: jwsDistDir, excludejar: jarFile,
-              tofile="${jwsDistDir}/project.jnlp")
+
+  makeJnlpFile()
+
   Ant.signjar ( alias : 'unknown', storepass : 'public' , keystore : 'tempKeystore' )
-    {
-      fileset ( dir: jwsDistDir, includes : '**/*.jar' )
-    }
+  {
+    fileset ( dir: jwsDistDir, includes : '**/*.jar' )
+  }
     
   Ant.war ( destfile : warFile, webxml : 'resources/jws/web.xml', basedir : jwsDistDir)
+}
+
+void makeJnlpFile()
+{
+  def fs = Ant.fileset ( dir : jwsDistDir, includes : '**/*.jar' , excludes : 'contactmgr.jar' )
+  def ds = fs.getDirectoryScanner(Ant.project)
+  def jars = new java.util.HashSet(ds.getIncludedFiles().toList());
+  def binding = ['jars' : jars];
+  
+  def props = new java.util.Properties()
+  props.load(new java.io.FileInputStream('resources/jws/dynamic/project.properties'))
+  binding.putAll(props)
+  
+  def engine = new groovy.text.SimpleTemplateEngine()
+  def templateFile = 'resources/jws/dynamic/project-jnlp.gt'
+  def template = engine.createTemplate(new java.io.File(templateFile))
+  def writer = new java.io.FileWriter("${jwsDistDir}/project.jnlp");
+  
+  template.make(binding).writeTo(writer);
 }
 
 task ( findDrvname: '')
@@ -260,17 +275,16 @@ task ( findDrvname: '')
   Ant.taskdef (name : 'jdbcdriversetter' , classname : 'com.u2d.tools.DriverPropertySetter', 
     classpathref : 'class.path' )
   Ant.jdbcdriversetter ( basepath : "${libDir}/jdbc" )
-  Ant.echo (message : "jdbcdrivername is ${jdbcdrivername} " )
 }
 
 task(copylibs : '') { targetDir, vmname ->
   depends (findDrvname)
-  Ant.property( name : jdbcdrivername, value : '*.jar')  // fallback
+  Ant.property( name : 'jdbcdrivername', value : '*.jar')  // fallback
   Ant.mkdir (dir : targetDir )
   Ant.copy (todir: targetDir, flatten : 'true')
   {
     fileset (dir : libDir, includes: "*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,${vmname}.jar,${vmname}/*.jar")
-    fileset (dir : libDir, includes: "jdbc/${jdbcdrivername}" )
+    fileset (dir : libDir, includes: "jdbc/${Ant.project.properties.jdbcdrivername}" )
   }
 }
 
