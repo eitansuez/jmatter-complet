@@ -1,0 +1,181 @@
+projectName = 'jmatter'
+
+modules = ['ds-swing', 'ds-wizard', 'swingvm', 'wingsvm', 'echo2vm']
+
+srcDir = 'src'
+libDir = 'lib'
+resourcesDir = 'resources'
+buildDir = 'build'
+distDir = 'dist'
+
+buildClassesDir = buildDir + '/classes'
+buildGenDir = buildDir + '/gen'
+
+runtimeLibDir = libDir + '/runtime'
+toolsLibDir = libDir + '/tools'
+genLibDir = libDir + '/gen'
+
+Ant.path ( id : 'class.path' )
+{
+  fileset ( dir : runtimeLibDir, includes : '**/*.jar' )
+  pathelement ( location : buildClassesDir )
+  fileset ( dir : toolsLibDir, includes : 'ant.jar' )
+}
+
+task ( init : '')
+{
+  Ant.tstamp()
+  Ant.mkdir ( dir : buildClassesDir )
+  Ant.mkdir ( dir : buildGenDir )
+  Ant.mkdir ( dir : distDir )
+}
+
+task ( clean : 'Clean')
+{
+  Ant.delete (dir : buildDir )
+}
+
+smcJar = genLibDir + '/Smc.jar'
+Ant.taskdef (name : 'smc', classname : 'net.sf.smc.ant.SmcJarWrapper', 
+             classpath : genLibDir + '/smc-ant.jar' )
+
+
+task ( gen : 'Generate smc support code' )
+{
+  depends ( init )
+  Ant.mkdir ( dir : buildGenDir + '/com/u2d/app' )
+  Ant.smc ( target : 'java' , smfile : srcDir + '/com/u2d/app/AppSession.sm', 
+        destdir : buildGenDir + '/com/u2d/app', smcjar : smcJar )
+}
+
+
+task ( compile : 'Compile code' )
+{
+  depends ( rawCompile, compileModules )
+}
+
+task ( rawCompile : 'Compile code' )
+{
+  depends ( gen )
+  Ant.javac ( debug : 'on' , deprecation : 'on', 
+              classpathref : 'class.path' , listfiles : 'false', 
+              target : '1.5', destdir : buildClassesDir )
+  {
+    compilerarg ( line : '-Xmaxwarns 0' )
+    src ( path : srcDir )
+    src ( path : buildGenDir )
+  }
+  Ant.copy ( todir : buildClassesDir )
+  {
+    fileset ( dir : resourcesDir , includes : 'images/*.gif,images/*.png' )
+    fileset ( dir : resourcesDir, includes : 'jfreereport.properties' )
+    fileset ( dir : resourcesDir + '/data', includes : '*.xml' )
+    fileset ( dir : srcDir , includes : '**/*/xml' )   // wizard fsm
+  }
+}
+
+task ( compileModules : '')
+{
+  modules.each { moduleName -> 
+    Ant.ant(antfile : "../modules/${moduleName}/build.xml" , inheritAll : 'false', target : 'jar' )
+    Ant.copy(file : "../modules/${moduleName}/dist/${moduleName}.jar", todir : runtimeLibDir )
+  }
+}
+
+task ( justJar : 'just jar jmatter framework (assume compiled)' )
+{
+  Ant.jar ( basedir : buildClassesDir , file : "${distDir}/${projectName}.jar" )
+  {
+    manifest
+    {
+      attribute ( name : 'Created-By', value : 'Eitan Suez' )
+    }
+  }
+}
+
+task ( jar : 'jar jmatter framework' )
+{
+  depends ( bind, justJar )
+}
+task (cleanjar : 'clean first, then jar')
+{
+  depends ( clean, jar )
+}
+
+Ant.taskdef ( name : 'bind', classname : 'org.jibx.binding.ant.CompileTask' )
+{
+  classpath
+  {
+    pathelement (location : toolsLibDir + '/bcel.jar')
+    pathelement (location : toolsLibDir + '/jibx-bind.jar')
+    pathelement (location : runtimeLibDir + '/jibx-run.jar')
+    pathelement (location : runtimeLibDir + '/xpp3.jar')
+  }
+}
+
+task ( bind : 'run JiBX binding compiler')
+{
+  depends ( compile )
+  Ant.bind( binding : resourcesDir + '/binding.xml' )
+  {
+    classpathset ( dir : buildClassesDir )
+    classpathset ( dir : runtimeLibDir + '/jibx-run.jar' )
+  }
+}
+   
+   
+task ( ultraviolet : 'Launch UltraViolet design tool' )
+{
+  depends ( bind )
+  Ant.ant ( antfile : 'tools/ultraviolet/run.xml' , inheritAll : 'false' )
+}
+
+task ( javadoc : 'produce jmatter javadocs' )
+{
+  Ant.javadoc ( sourcepath : srcDir,
+                destDir : "$buildDir/javadocs",
+                classpathref : 'class.path' ,
+                packagenames : 'com.u2d.*' )
+}
+
+
+task ( newProjectUi : 'GUI for creating a new jmatter project' )
+{
+  depends( jar )
+  Ant.java ( jar : 'lib/tools/newprojectui.jar', fork : 'true' )
+}
+
+newProjectName = "new-jmatter-project"
+newProjectBasedir = ".."
+
+task ( newProject : 'create a new project (flags: new.project.name, new.project.basedir)' )
+{
+  depends ( jar )
+  def npBasedir = "${newProjectBasedir}/${newProjectName}"
+  Ant.mkdir ( dir : npBasedir )
+  Ant.copy ( todir : npBasedir , verbose : 'true', filtering : 'true' )
+  {
+    fileset ( dir : "${resourcesDir}/project-template" )
+    filterset 
+    {
+      filter ( token : 'PROJECTNAME' , value : newProjectName )
+      filter ( token : 'FRAMEWORK_DIR', value : Ant.basedir )
+    }
+    def standalone = Ant.project.properties.standalone ;
+    if (standalone)
+    {
+      Ant.copy( todir : "${npBasedir}/lib" )
+      {
+        fileset (dir: libDir, excludes : 'gen/**' )
+      }
+      Ant.copy ( file : "${distDir}/${projectName}.jar", todir : "${npBasedir}/lib/runtime" )
+      Ant.move ( file : "${npBasedir}/build-standalone.xml", tofile : "${npBasedir}/build.xml" )
+    }
+    else
+    {
+      Ant.delete( file : "${npBasedir}/build-standalone.xml" )
+    }
+  }
+}
+
+task ( 'default' : 'default target' ) { jar() }
