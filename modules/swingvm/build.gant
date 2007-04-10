@@ -1,0 +1,109 @@
+projectName = 'swingvm'
+
+task( 'default' : 'default target (jar)' ) { jar () }
+
+// Swing View Mechanism Implementation for JMatter
+
+srcDir = 'src'
+buildDir = 'build'
+buildClassesDir = "${buildDir}/classes"
+libDir = 'lib'
+distDir = 'dist'
+
+frameworkDir = '../../jmatter'
+
+testDir = 'test'
+testSrcDir = testDir
+testClassesDir = buildClassesDir
+testLibDir = "${frameworkDir}/lib/test"
+testReportsDir = "${buildDir}/reports"
+
+Ant.path (id : 'class.path')
+{
+  fileset ( dir: libDir, includes: '*.jar' )
+  pathelement ( location : buildClassesDir )
+  pathelement ( location : frameworkDir + '/build/classes' )
+  fileset (dir : frameworkDir + '/lib/runtime', includes: 'css4swing.jar' )
+  fileset (dir : frameworkDir + '/lib/runtime', includes: 'jibx-run.jar' )
+  fileset (dir : frameworkDir + '/lib/runtime/spring', includes: '*.jar' )
+  pathelement ( location : '../ds-swing/build/classes' )
+  pathelement ( location : '../ds-wizard/build/classes' )
+}
+
+Ant.path ( id : 'test.classpath')
+{
+  path ( refid : 'class.path')
+  fileset ( dir : testLibDir, includes : '**/*.jar' )
+  pathelement ( location : testClassesDir )
+}
+
+task ( init : '')
+{
+  Ant.mkdir ( dir : buildClassesDir )
+  Ant.mkdir ( dir : distDir )
+  Ant.tstamp()
+}
+
+task ( clean : 'delete build artifacts')
+{
+  Ant.delete ( dir : buildDir )
+  Ant.delete ( dir : distDir )
+}
+
+task ( compile : 'compile' )
+{
+  depends (init)
+  Ant.javac(debug: 'on', srcdir : srcDir, destdir : buildClassesDir, target : '1.5', classpathref : 'class.path' )
+}
+
+task ( jar : 'jar' )
+{
+  depends ( compile )
+  Ant.jar ( destfile : "${distDir}/${projectName}.jar" , 
+            basedir : buildClassesDir , includes : '**/*' )
+}
+
+// targets pertaining to junit testing
+
+task ( testInit : '')
+{
+  Ant.mkdir ( dir : testClassesDir )
+  Ant.mkdir ( dir : testReportsDir )
+}
+
+task ( compileTests : 'compile tests')
+{
+  depends (testInit, compile)
+  Ant.javac ( debug : 'on', deprecation : 'on', 
+              classpathref : 'test.classpath' , destdir : testClassesDir, srcdir : testSrcDir )
+}
+
+task ( runTests : 'run tests')
+{
+  depends ( compileTests )
+  Ant.junit ( fork: true, haltonfailure : true, printsummary : true )
+  {
+    classpath ( refid : 'test.classpath' )
+    formatter ( type: 'brief' , usefile : false ) // alternative type: 'xml' for producing reports
+    batchtest ( todir : testReportsDir )
+    {
+      fileset ( dir : testClassesDir, includes: '**/*Suite.class' )
+    }
+  }
+}
+
+task ( runTest : 'run a test class' )
+{
+  depends ( compileTests )
+  Ant.java ( classname : mainClass, classpathref : 'class.path' , fork : true )
+}
+
+task ( testReport : 'produce junit reports')
+{
+  depends ( runTests )
+  Ant.junitreport ( todir : testReportsDir )
+  {
+    fileset ( dir : testReportsDir, includes: 'TEST-*.xml' )
+    report ( todir : testReportsDir+ '/html' )
+  }
+}
