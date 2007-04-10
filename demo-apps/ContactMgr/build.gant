@@ -6,9 +6,16 @@ buildDir = 'build'
 buildClassesDir = "${buildDir}/classes"
 srcDir = 'src'
 
-frameworkDir = '../../jmatter'
-frameworkClassesDir = "${frameworkDir}/build/classes"
-libBaseDir = "${frameworkDir}/lib"
+boolean isStandalone() { return new File('lib/runtime/jmatter.jar').exists() }
+standalone = isStandalone()
+
+libBaseDir = 'lib'
+if (!standalone)
+{
+   frameworkDir = '../../jmatter'
+   frameworkClassesDir = "${frameworkDir}/build/classes"
+   libBaseDir = "${frameworkDir}/lib"
+}
 
 libDir = "${libBaseDir}/runtime"
 libToolsDir = "${libBaseDir}/tools"
@@ -30,7 +37,10 @@ Ant.path ( id : 'class.path' )
 {
   fileset ( dir : libDir, includes : '**/*.jar' )
   pathelement ( location : buildClassesDir )
-  pathelement ( location : frameworkClassesDir )
+  if (!standalone)
+  {
+    pathelement ( location : frameworkClassesDir )
+  }
 }
 Ant.path ( id : 'libtools.path' )
 {
@@ -117,15 +127,18 @@ void makePersistClassesFile()
   def binding = [ classnames : persistclasses ]
   def engine = new groovy.text.SimpleTemplateEngine()
   def templateFile = srcDir + '/persistClasses.gt'
-  def template = engine.createTemplate(new java.io.File(templateFile))
-  def writer = new java.io.FileWriter("${buildClassesDir}/persistClasses.xml");
+  def template = engine.createTemplate(new File(templateFile))
+  def writer = new FileWriter("${buildClassesDir}/persistClasses.xml");
   template.make(binding).writeTo(writer);
 }
 
 task ( compileFramework : '')
 {
-  // TODO: call gant file instead of ant build..
-  Ant.ant( antfile : "${frameworkDir}/build.xml",  inheritAll : 'false', target: 'bind')
+  if (!standalone)
+  {
+    // TODO: call gant file instead of ant build..
+    Ant.ant( antfile : "${frameworkDir}/build.xml",  inheritAll : 'false', target: 'bind')
+  }
 }
 
 task ( run : 'run app' )
@@ -158,7 +171,10 @@ task ( jar : 'jar it' )
       attribute (name : 'Main-Class' , value : mainClass )
     }
     fileset (dir : buildClassesDir, includes : '**/*' )
-    fileset (dir : frameworkClassesDir, includes : '**/*' )
+    if (!standalone)
+    {
+      fileset (dir : frameworkClassesDir, includes : '**/*' )
+    }
   }
 }
 
@@ -255,17 +271,17 @@ void makeJnlpFile()
 {
   def fs = Ant.fileset ( dir : jwsDistDir, includes : '**/*.jar' , excludes : 'contactmgr.jar' )
   def ds = fs.getDirectoryScanner(Ant.project)
-  def jars = new java.util.HashSet(ds.getIncludedFiles().toList());
+  def jars = new HashSet(ds.getIncludedFiles().toList());
   def binding = ['jars' : jars];
   
-  def props = new java.util.Properties()
-  props.load(new java.io.FileInputStream('resources/jws/dynamic/project.properties'))
+  def props = new Properties()
+  props.load(new FileInputStream('resources/jws/dynamic/project.properties'))
   binding.putAll(props)
   
   def engine = new groovy.text.SimpleTemplateEngine()
   def templateFile = 'resources/jws/dynamic/project-jnlp.gt'
-  def template = engine.createTemplate(new java.io.File(templateFile))
-  def writer = new java.io.FileWriter("${jwsDistDir}/project.jnlp");
+  def template = engine.createTemplate(new File(templateFile))
+  def writer = new FileWriter("${jwsDistDir}/project.jnlp");
   
   template.make(binding).writeTo(writer);
 }
@@ -292,7 +308,7 @@ task(copylibs : '') { targetDir, vmname ->
 //  not yet fully working:  for deploying as a web application using WingS
 buildWebDir = 'jetty/ContactMgr'
 
-task ( initWeb : '') { new java.io.File("${buildWebDir}/WEB-INF/classes").mkdirs() }
+task ( initWeb : '') { new File("${buildWebDir}/WEB-INF/classes").mkdirs() }
 
 task ( wingsApp : 'build wings-based web application') { webApp('wings') }
 task (echo2App : 'build echo2-based web application') { webApp('echo2') }
@@ -311,7 +327,10 @@ task (webApp : '') { vmname ->
   Ant.copy ( todir: "${buildWebDir}/WEB-INF/classes")
   {
     fileset ( dir: buildClassesDir, includes: '**/*', excludes: '*.xml' )
-    fileset ( dir: frameworkClassesDir, includes: '**/*' )
+    if (!standalone)
+    {
+      fileset ( dir: frameworkClassesDir, includes: '**/*' )
+    }
   }
   copylibs("${buildWebDir}/WEB-INF/lib", "${vmname}vm")
   Ant.copy ( todir : buildWebDir )

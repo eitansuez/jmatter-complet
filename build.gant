@@ -8,9 +8,11 @@ buildDir = 'build'
 distDir = 'dist'
 buildTargetDir = "${buildDir}/jmatter"
 
-jmatterDir = Ant.project.properties.basedir + '/jmatter'
-demoDir = Ant.project.properties.basedir + '/demo-apps'
-modulesDir = Ant.project.properties.basedir + '/modules'
+baseDir = Ant.project.properties.basedir;
+
+jmatterDir = baseDir + '/jmatter'
+demoDir = baseDir + '/demo-apps'
+modulesDir = baseDir + '/modules'
 
 task ( init : '')
 {
@@ -45,9 +47,9 @@ task ( makeDistro : 'Produce JMatter Distribution' )
   }
   Ant.copy ( todir: buildDir )
   {
-    fileset ( dir : Ant.project.properties.basedir, includes: 'Release_notes' )
+    fileset ( dir : baseDir, includes: 'Release_notes' )
   }
-  Ant.exec ( dir : ANt.project.properties.basedir, executable: 'markdown', 
+  Ant.exec ( dir : baseDir, executable: 'markdown', 
      output : "${buildDir}/Release_notes.html" )
    {
      arg ( line : 'Release_notes' )
@@ -94,7 +96,7 @@ task ( includeDemoapps : '')
   depends ( cleanDemoapps )
   Ant.copy ( todir : buildDir )
   {
-    fileset ( dir : Ant.project.properties.basedir, includes: 'demo-apps/**/*' )
+    fileset ( dir : baseDir, includes: 'demo-apps/**/*' )
   }
 }   
 
@@ -114,7 +116,7 @@ task ( includeModules : '' )
   depends ( cleanModules )
   Ant.copy ( todir : buildDir )
   {
-    fileset (dir : Ant.project.properties.basedir, includes: 'modules/**/*' )
+    fileset (dir : baseDir, includes: 'modules/**/*' )
   }
 }
 

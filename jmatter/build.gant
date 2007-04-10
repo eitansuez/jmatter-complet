@@ -159,7 +159,7 @@ task ( newProject : 'create a new project (flags: new.project.name, new.project.
     filterset 
     {
       filter ( token : 'PROJECTNAME' , value : newProjectName )
-      filter ( token : 'FRAMEWORK_DIR', value : Ant.project.basedir )
+      filter ( token : 'FRAMEWORK_DIR', value : Ant.project.properties.basedir )
     }
     def standalone = Ant.project.properties.standalone ;
     if (standalone)
@@ -179,3 +179,4 @@ task ( newProject : 'create a new project (flags: new.project.name, new.project.
 }
 
 task ( 'default' : 'default target' ) { jar() }
+
