@@ -1,4 +1,4 @@
-projectName = 'ContactMgr'
+projectName = '@PROJECTNAME@'
 
 task ( 'default' : 'default target: run' ) { run() }
 
@@ -6,7 +6,7 @@ buildDir = 'build'
 buildClassesDir = "${buildDir}/classes"
 srcDir = 'src'
 
-frameworkDir = '../../jmatter'
+frameworkDir = '@FRAMEWORK_DIR@'
 frameworkClassesDir = "${frameworkDir}/build/classes"
 libBaseDir = "${frameworkDir}/lib"
 
@@ -134,7 +134,7 @@ task ( run : 'run app' )
   Ant.java ( classname : mainClass, classpathref : 'class.path', fork : 'true', maxmemory : '192m' )
   {
     // to test localization, uncomment this..
-    // sysproperty ( key : 'user.language', value: 'it')
+    // sysproperty ( key : 'user.language', value: 'fr')
   }
 }
 
@@ -290,7 +290,7 @@ task(copylibs : '') { targetDir, vmname ->
 
 
 //  not yet fully working:  for deploying as a web application using WingS
-buildWebDir = 'jetty/ContactMgr'
+buildWebDir = "${buildDir}/web"
 
 task ( initWeb : '') { new java.io.File("${buildWebDir}/WEB-INF/classes").mkdirs() }
 
@@ -319,4 +319,5 @@ task (webApp : '') { vmname ->
     fileset ( dir: "resources/${vmname}", excludes : "WEB-INF" )
   }
 }
+
 
