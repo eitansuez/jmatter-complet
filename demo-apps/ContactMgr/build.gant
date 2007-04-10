@@ -42,10 +42,6 @@ Ant.path ( id : 'class.path' )
     pathelement ( location : frameworkClassesDir )
   }
 }
-Ant.path ( id : 'libtools.path' )
-{
-  fileset ( dir : libToolsDir, includes: '*.jar' )
-}
 
 task ( init : '')
 {
@@ -151,14 +147,33 @@ task ( run : 'run app' )
   }
 }
 
-Ant.taskdef ( name: 'scriptMaker', classname : 'com.u2d.tools.ShellScriptMaker', 
-              classpathref : 'libtools.path' )
+class ShellScriptMaker extends org.apache.tools.ant.taskdefs.Java
+{
+  def outputFile = 'run';  // default
+  public void setOutputFile(String filename) { this.outputFile = filename; }
+  public void execute()
+  {
+    def targetFile = outputFile;
+    if (! ( targetFile.endsWith(".sh") || targetFile.endsWith(".bat") ) )
+    {
+      def os = System.getProperty("os.name").toLowerCase();
+      targetFile += (os =~ /windows/ || os =~ /nt/ ) ? ".bat" : ".sh"
+    }
+    def writer = new FileWriter(targetFile)
+    writer.write(getCommandLine().toString());
+    writer.close();
+    
+    new AntBuilder().chmod(file: targetFile, perm: 755)
+  }
+}
+Ant.project.addTaskDefinition('scriptMaker', ShellScriptMaker)
 
 task ( shellscript : 'produce runnable shell script')
 {
   depends (genhbm)
-  Ant.scriptMaker ( classname : mainClass, classpathref : 'class.path' , maxmemory : '192m', outputFile: 'run')
+  Ant.scriptMaker ( classname : mainClass, classpathref : 'class.path' , maxmemory : '192m' )
 }
+
 
 task ( jar : 'jar it' )
 {

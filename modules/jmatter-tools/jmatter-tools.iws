@@ -155,17 +155,7 @@
     <option name="myCurrentFavoritesList" value="jmatter-tools" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="ShellScriptMaker.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/ShellScriptMaker.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="13" selection-start="296" selection-end="296" vertical-scroll-proportion="0.1758794">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -646,8 +636,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/ShellScriptMaker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="296" selection-end="296" vertical-scroll-proportion="0.1758794">
-          <folding />
+        <state line="53" column="0" selection-start="1210" selection-end="1210" vertical-scroll-proportion="0.6482412">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
