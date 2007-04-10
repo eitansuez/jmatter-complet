@@ -1,0 +1,151 @@
+projectName = "jmatterDistributor"
+
+task ('default' : 'default target (makeDistroAndChecksums)' ) { makeDistroAndChecksums() }
+
+// This build file produces official JMatter distributions
+
+buildDir = 'build'
+distDir = 'dist'
+buildTargetDir = "${buildDir}/jmatter"
+
+jmatterDir = Ant.project.properties.basedir + '/jmatter'
+demoDir = Ant.project.properties.basedir + '/demo-apps'
+modulesDir = Ant.project.properties.basedir + '/modules'
+
+task ( init : '')
+{
+  Ant.tsamp()
+  Ant.mkdir (dir : buildTargetDir )
+  Ant.mkdir (dir : distDir )
+}
+
+task ( clean : '')
+{
+  Ant.delete ( dir : buildDir )
+} 
+
+task ( makeDistro : 'Produce JMatter Distribution' )
+{
+  depends ( clean, init, includeDemoapps, includeModules, makeJmatterJar, makedocPdf )
+  Ant.copy ( todir : buildTargetDir )
+  {
+    fileset ( dir : jmatterDir , includes: 'doc/Changes*,doc/Credits,doc/guide.pdf,doc/jMatter-license' )
+    fileset ( dir : jmatterDir , includes: 'build.xml, build.gant')
+    fileset ( dir : jmatterDir , includes: 'src/**/*' )
+    fileset ( dir : jmatterDir , includes: 'test/**/*')
+    fileset ( dir : jmatterDir , includes: 'lib/**/*.jar' )
+    fileset ( dir : jmatterDir , includes: 'resources/**/*')
+    fileset ( dir : jmatterDir , includes: 'tools/**/*' )
+    fileset ( dir : jmatterDir , includes: 'dist/**/*')
+  }
+  Ant.exec ( dir : "${jmatterDir}/doc" , executable : 'markdown', 
+     output : "${buildTargetDir}/doc/jMatter-License.html" )
+  {
+    arg ( line : 'jMatter-License' )
+  }
+  Ant.copy ( todir: buildDir )
+  {
+    fileset ( dir : Ant.project.properties.basedir, includes: 'Release_notes' )
+  }
+  Ant.exec ( dir : ANt.project.properties.basedir, executable: 'markdown', 
+     output : "${buildDir}/Release_notes.html" )
+   {
+     arg ( line : 'Release_notes' )
+   }
+   
+   def dstamp = Ant.project.properties.DSTAMP
+   def dirname = "jmatter-${dstamp}"
+   Ant.mkdir (dir : "${buildDir}/${dirname}" )
+   Ant.move (todir : "${buildDir}/${dirname}" )
+   {
+     fileset ( dir : buildDir, excludes : dirname )
+   }
+   Ant.zip ( basedir : buildDir, destfile : "${distDir}/${dirname}.zip" )
+   Ant.tar ( basedir : buildDir, destfile : "${distDir}/${dirname}.tgz", compression: "gzip" )
+}
+
+task ( makeJmatterJar : '')
+{
+   // ensure to produce and include a binary in the distribution
+   Ant.ant(antfile : "${jmatterDir}/build.xml" , inheritAll : false, target : 'cleanjar' )
+   // then get rid of artifacts
+   Ant.ant(antfile : "${jmatterDir}/build.xml", inheritAll : false, target : 'clean ' )
+}
+
+task ( makedocPdf : 'produce pdf documentation (if necessary)' )
+{
+  File srcFile = new File("${jmatterDir}/doc/guide.lyx")
+  File pdf = new File("${jmatterDir}/doc/guide.pdf")
+  if (pdf.exists() && srcFile.lastModified() < pdf.lastModified())
+  {
+    println ("guide.pdf is up to date")
+    return
+  }
+  Ant.exec (dir : "${jmatterDir}/doc" , executable : 'lyx' )
+  {
+    arg ( line : '--export pdf2 guide.lyx' ) // pdf2 is lyx to pdflatex option
+  }  
+}
+
+// ---------------------------------------
+
+task ( includeDemoapps : '')
+{
+  depends ( cleanDemoapps )
+  Ant.copy ( todir : buildDir )
+  {
+    fileset ( dir : Ant.project.properties.basedir, includes: 'demo-apps/**/*' )
+  }
+}   
+
+def demoapps = ['ContactMgr', 'IssueMgr', 'Sympster', 'MovieLib', 'MyTunes', 'CustomUI'];
+
+task ( cleanDemoapps : '')
+{
+  demoapps.each { demoapp ->
+    Ant.ant(antfile : "${demoDir}/${demoapp}/build.xml", inheritAll : false, target : 'clean' )
+  }
+}
+   
+// -------------------------------
+
+task ( includeModules : '' )
+{
+  depends ( cleanModules )
+  Ant.copy ( todir : buildDir )
+  {
+    fileset (dir : Ant.project.properties.basedir, includes: 'modules/**/*' )
+  }
+}
+
+def modules = ['ds-swing', 'ds-wizard', 'echo2vm', 'jmatter-tools', 'swingvm', 'wingsvm']
+
+task ( cleanModules : '')
+{
+  modules.each { module ->
+    Ant.ant (antfile : "modules/${module}/build.xml" , inheritAll : false, target : 'clean' )
+  }
+}  
+
+// --------------------------------
+
+task ( checksumDistributions : 'generate checksum files for distributions')
+{
+  depends ( makeDistro )
+  checksum('MD5')
+  checksum('SHA-1')
+}
+
+task ( checksum : '') { algo ->
+  Ant.checksum(algorighm : algo)
+  {
+    fileset ( dir: distDir, includes: '*.tgz, *.zip' )
+  }
+}
+
+task ( makeDistroAndChecksums : 'construct jmatter distributions and corresponding checksums' )
+{
+  depends ( checksumDistributions )
+}
+  
+
