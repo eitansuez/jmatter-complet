@@ -6,9 +6,16 @@ buildDir = 'build'
 buildClassesDir = "${buildDir}/classes"
 srcDir = 'src'
 
-frameworkDir = '@FRAMEWORK_DIR@'
-frameworkClassesDir = "${frameworkDir}/build/classes"
-libBaseDir = "${frameworkDir}/lib"
+boolean isStandalone() { return new File('lib/runtime/jmatter.jar').exists() }
+standalone = isStandalone()
+
+libBaseDir = 'lib'
+if (!standalone)
+{
+   frameworkDir = '@FRAMEWORK_DIR@'
+   frameworkClassesDir = "${frameworkDir}/build/classes"
+   libBaseDir = "${frameworkDir}/lib"
+}
 
 libDir = "${libBaseDir}/runtime"
 libToolsDir = "${libBaseDir}/tools"
@@ -30,8 +37,12 @@ Ant.path ( id : 'class.path' )
 {
   fileset ( dir : libDir, includes : '**/*.jar' )
   pathelement ( location : buildClassesDir )
-  pathelement ( location : frameworkClassesDir )
+  if (!standalone)
+  {
+    pathelement ( location : frameworkClassesDir )
+  }
 }
+
 Ant.path ( id : 'libtools.path' )
 {
   fileset ( dir : libToolsDir, includes: '*.jar' )
@@ -124,8 +135,11 @@ void makePersistClassesFile()
 
 task ( compileFramework : '')
 {
-  // TODO: call gant file instead of ant build..
-  Ant.ant( antfile : "${frameworkDir}/build.xml",  inheritAll : 'false', target: 'bind')
+  if (!standalone)
+  {
+     // TODO: call gant file instead of ant build..
+     Ant.ant( antfile : "${frameworkDir}/build.xml",  inheritAll : 'false', target: 'bind')
+  }
 }
 
 task ( run : 'run app' )
@@ -158,7 +172,10 @@ task ( jar : 'jar it' )
       attribute (name : 'Main-Class' , value : mainClass )
     }
     fileset (dir : buildClassesDir, includes : '**/*' )
-    fileset (dir : frameworkClassesDir, includes : '**/*' )
+    if (!standalone)
+    {
+      fileset (dir : frameworkClassesDir, includes : '**/*' )
+    }
   }
 }
 
@@ -311,7 +328,10 @@ task (webApp : '') { vmname ->
   Ant.copy ( todir: "${buildWebDir}/WEB-INF/classes")
   {
     fileset ( dir: buildClassesDir, includes: '**/*', excludes: '*.xml' )
-    fileset ( dir: frameworkClassesDir, includes: '**/*' )
+    if (!standalone)
+    {
+      fileset ( dir: frameworkClassesDir, includes: '**/*' )
+    }
   }
   copylibs("${buildWebDir}/WEB-INF/lib", "${vmname}vm")
   Ant.copy ( todir : buildWebDir )
@@ -319,5 +339,3 @@ task (webApp : '') { vmname ->
     fileset ( dir: "resources/${vmname}", excludes : "WEB-INF" )
   }
 }
-
-
