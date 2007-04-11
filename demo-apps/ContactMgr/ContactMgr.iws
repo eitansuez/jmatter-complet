@@ -18,7 +18,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gant" afterPath="$PROJECT_DIR$/build.gant" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ContactMgr.iws" afterPath="$PROJECT_DIR$/ContactMgr.iws" />
     </list>
   </component>
@@ -177,7 +176,7 @@
       <file leaf-file-name="build.gant" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.gant">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="170" column="0" selection-start="4238" selection-end="4940" vertical-scroll-proportion="0.85809684">
+            <state line="170" column="0" selection-start="4238" selection-end="4940" vertical-scroll-proportion="0.85953176">
               <folding />
             </state>
           </provider>
@@ -757,7 +756,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gant">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="170" column="0" selection-start="4238" selection-end="4940" vertical-scroll-proportion="0.85809684">
+        <state line="170" column="0" selection-start="4238" selection-end="4940" vertical-scroll-proportion="0.85953176">
           <folding />
         </state>
       </provider>

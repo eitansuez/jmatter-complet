@@ -17,9 +17,7 @@
     <option name="USER" value="" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter-tools.iws" afterPath="$PROJECT_DIR$/jmatter-tools.iws" />
-    </list>
+    <list default="true" name="Default" comment="" />
   </component>
   <component name="ChangeListSynchronizer" />
   <component name="ChangesViewManager" flattened_view="true" />
@@ -279,7 +277,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
+      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -597,32 +595,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/STUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="25" selection-start="633" selection-end="633" vertical-scroll-proportion="0.5477387">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/AntPersistClassesMaker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="0" selection-start="1996" selection-end="1996" vertical-scroll-proportion="0.32663316">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/JnlpMaker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="409" selection-end="409" vertical-scroll-proportion="0.025125628">
+        <state line="14" column="13" selection-start="308" selection-end="308" vertical-scroll-proportion="0.25906736">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/ShellScriptMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="13" selection-start="296" selection-end="296" vertical-scroll-proportion="0.33333334">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/ProjectMaker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="13" selection-start="406" selection-end="406" vertical-scroll-proportion="0.30150753">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/JnlpMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="386" selection-end="386" vertical-scroll-proportion="0.2512563">
           <folding />
         </state>
       </provider>
@@ -634,12 +630,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/ShellScriptMaker.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/tools/AntPersistClassesMaker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="0" selection-start="1210" selection-end="1210" vertical-scroll-proportion="0.6482412">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="18" column="13" selection-start="435" selection-end="435" vertical-scroll-proportion="0.2512563">
+          <folding />
         </state>
       </provider>
     </entry>
