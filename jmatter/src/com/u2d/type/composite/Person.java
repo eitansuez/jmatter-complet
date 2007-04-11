@@ -19,6 +19,7 @@ public class Person extends AbstractComplexEObject implements Emailable
 
    public static String[] fieldOrder = {"name", "contact"};
    public static String[] tabViews = {"contact"};
+   public static final String[] flattenIntoParent = {"name"};
    
    public static String defaultSearchPath = "name.first";
 

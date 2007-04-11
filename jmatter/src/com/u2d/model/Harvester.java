@@ -162,6 +162,7 @@ public class Harvester
       List tabViewList = introspectArrayField(clazz, "tabViews");
       List identities = introspectArrayField(clazz, "identities");
       List readOnly = introspectArrayField(clazz, "readOnly");
+      List hidden = introspectArrayField(clazz, "hidden");
       List flattenIntoParent = introspectArrayField(clazz, "flattenIntoParent");
 
       BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
@@ -210,7 +211,7 @@ public class Harvester
             if ( "deleted".equals(descriptors[i].getName()) ||
                  "deletedOn".equals(descriptors[i].getName()) )
             {
-               field.setHidden(true);
+               field.hide();
                field.setSearchable(false);
             }
          }
@@ -218,6 +219,8 @@ public class Harvester
          {
             field = new AssociationField(parent, descriptors[i]);
          }
+         if (hidden.contains(descriptors[i].getName()))
+            field.hide();
 
          field.applyMetadata();
          

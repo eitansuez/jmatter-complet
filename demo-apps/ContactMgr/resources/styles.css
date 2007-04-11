@@ -8,6 +8,7 @@ JDesktopPane
 FormPane
 {
   background-color: #fffaf0;
+  padding: 5px;
 }
 
 .command

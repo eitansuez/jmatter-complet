@@ -52,4 +52,6 @@ public @interface Fld
     *  for derived/calculated fields, this should be false.
     */
    public boolean persist() default true;
+   
+   public boolean hidden() default false;
 }

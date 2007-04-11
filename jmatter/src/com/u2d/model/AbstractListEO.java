@@ -301,7 +301,7 @@ public abstract class AbstractListEO extends AbstractEObject
          {
             field = (Field) itr.next();
             if ( AbstractListEO.class.isAssignableFrom(field.getJavaClass()) ||
-                  field.isHidden() ||
+                  field.hidden() ||
                   "createdOn".equals(field.name()) ||
                   field.getJavaClass().equals(com.u2d.type.atom.Photo.class) )
                continue;

@@ -42,10 +42,7 @@ public class User extends AbstractComplexEObject
      // must go through changepwd cmd 
    public static String[] readOnly = {"locked", "desktop"};
 
-   public User()
-   {
-      field("desktop").setHidden(true);
-   }
+   public User() {}
 
    public User(String username)
    {
@@ -122,6 +119,7 @@ public class User extends AbstractComplexEObject
    public UserPreferences getPreferences() { return _preferences; }
    public Folder getClassBar() { return _classBar; }
 
+   @Fld(hidden=true)
    public TextEO getDesktop() { return _desktop; }
 
    public Role getRole() { return _role; }

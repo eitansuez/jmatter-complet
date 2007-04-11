@@ -355,16 +355,15 @@ public abstract class Field extends Member
    public Title title() { return _title; }
 
 
-
-   // Restriction-related..
-   private boolean _hidden = false;
-   public boolean isHidden()
+   private final BooleanEO _hidden = new BooleanEO(false);
+   public BooleanEO getHidden() { return _hidden; }
+   public boolean hidden()
    {
-       return _hidden || restrictHidden();
+       return _hidden.booleanValue() || restrictHidden();
    }
-   public void setHidden(boolean hidden) { _hidden = hidden; }
+   public void hide() { _hidden.setValue(true); }
    
-   
+   // Restriction-related..
    protected FieldRestriction _restriction = null;
    public void applyRestriction(Restriction restriction)
    {
@@ -436,6 +435,7 @@ public abstract class Field extends Member
          Fld fat = (Fld) _getter.getAnnotation(Fld.class);
          _mnemonic.setValue(fat.mnemonic());
          _persist.setValue(fat.persist());
+         _hidden.setValue(fat.hidden());
          
          if (!StringEO.isEmpty(fat.label()))
             getLabel().setValue(fat.label());

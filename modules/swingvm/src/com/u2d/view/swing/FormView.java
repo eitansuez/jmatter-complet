@@ -143,7 +143,7 @@ public class FormView extends JPanel implements ComplexEView, Editor
       {
          field = (Field) itr.next();
 
-         if ( field.isHidden() || "createdOn".equals(field.name())
+         if ( field.hidden() || "createdOn".equals(field.name())
                || "status".equals(field.name()) )
             continue;
 
@@ -275,7 +275,7 @@ public class FormView extends JPanel implements ComplexEView, Editor
          {
             field = view.getEObject().field();
 
-            if (field.isHidden()) continue;
+            if (field.hidden()) continue;
 
             if (field.isComposite() && !field.isIndexed())
             {
@@ -326,7 +326,7 @@ public class FormView extends JPanel implements ComplexEView, Editor
 
             field = eo.field();
 
-            if (field.isHidden()) continue;
+            if (field.hidden()) continue;
 
             if (field.isComposite() && editable && !field.isIndexed())
             {
