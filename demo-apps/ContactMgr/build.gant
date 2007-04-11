@@ -159,9 +159,9 @@ class ShellScriptMaker extends org.apache.tools.ant.taskdefs.Java
       def os = System.getProperty("os.name").toLowerCase();
       targetFile += (os =~ /windows/ || os =~ /nt/ ) ? ".bat" : ".sh"
     }
-    def writer = new FileWriter(targetFile)
-    writer.write(getCommandLine().toString());
-    writer.close();
+    new File(targetFile).withWriter { w ->
+      w.write getCommandLine().toString()
+    }
     
     new AntBuilder().chmod(file: targetFile, perm: 755)
   }
