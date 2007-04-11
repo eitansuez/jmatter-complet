@@ -17,6 +17,7 @@ import com.u2d.view.swing.dnd.RelationalListDropTarget;
 import com.u2d.app.Tracing;
 import com.u2d.list.RelationalList;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Eitan Suez
@@ -90,8 +91,23 @@ public class JListView extends SeeThruList
                                                           int index, boolean selected, boolean hasFocus)
    {
       ComplexEObject ceo = (ComplexEObject) value;
+      JComponent comp = componentFor(ceo);
+      comp = RenderHelper.highlight(this, comp, selected, hasFocus);
 
-      if (_views.get(value) == null)
+      boolean odd = (index % 2) == 1;
+      if (odd && !selected && !_asIcons)
+      {
+         Color color = ceo.type().colorCode();
+         comp.setBackground(new Color(color.getRed(), color.getGreen(),
+                                      color.getBlue(), 64));
+      }
+
+      return comp;
+   }
+
+   private JComponent componentFor(ComplexEObject ceo)
+   {
+      if (_views.get(ceo) == null)
       {
          EView view = null;
          if (_asIcons)
@@ -107,32 +123,22 @@ public class JListView extends SeeThruList
          // that the list gets repainted: 
          view.getEObject().addChangeListener(_memberChangeListener);
 
-         _views.put(value, view);
+         _views.put(ceo, view);
       }
-      JComponent comp = (JComponent) _views.get(value);
-
-      comp = RenderHelper.highlight(this, comp, selected, hasFocus);
-
-      boolean odd = (index % 2) == 1;
-      if (odd && !selected && !_asIcons)
-      {
-         Color color = ceo.type().colorCode();
-         comp.setBackground(new Color(color.getRed(), color.getGreen(),
-                                      color.getBlue(), 64));
-      }
-
-      return comp;
+      return (JComponent) _views.get(ceo);
    }
-   
+
    // JList UI Delegate already ties a listener onto model
    public void contentsChanged(ListDataEvent e)
    {
       Tracing.tracer().fine("contents changed..index0: "+e.getIndex0()
                          + "; index1: "+e.getIndex1());
-      synchronized(this)
-      {
-         detachItems();
-      }
+      
+      // force the serialization of this otherwise thorny thread-related problem..
+      SwingUtilities.invokeLater(new Runnable() { public void run()
+         {
+            detachItems();
+         } });
    }
    public void intervalAdded(ListDataEvent e) { }
    public void intervalRemoved(ListDataEvent e) { }
@@ -152,12 +158,12 @@ public class JListView extends SeeThruList
       firePropertyChange("model", _leo, null);  // get BasicListUI$Handler
       // to stop listening;  jprofiler tells me it still is.
    }
+   
    private void detachItems()
    {
-      EView view = null;
       for (Iterator itr = _views.values().iterator(); itr.hasNext(); )
       {
-         view = (EView) itr.next();
+         EView view = (EView) itr.next();
          view.getEObject().removeChangeListener(_memberChangeListener);
          view.detach();
       }

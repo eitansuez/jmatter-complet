@@ -3,6 +3,9 @@ package com.u2d.view.swing.list;
 import com.u2d.list.Paginable;
 import com.u2d.ui.IconButton;
 import com.u2d.view.swing.calendar.NavPanel;
+import com.u2d.view.swing.SwingAction;
+import com.u2d.view.swing.SwingViewMechanism;
+
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
@@ -73,11 +76,22 @@ public class PageScrollBar extends JScrollBar
       }
       addAdjustmentListener(new AdjustmentListener()
       {
-         public void adjustmentValueChanged(AdjustmentEvent e)
+         public void adjustmentValueChanged(final AdjustmentEvent e)
          {
-            _paginable.fetchPage(e.getValue());
-            setToolTipText(_paginable.getPageTitleInfo());
-            postToolTipImmediately();
+            if (e.getValueIsAdjusting()) return;
+
+            SwingViewMechanism.invokeSwingAction(new SwingAction()
+            {
+               public void offEDT()
+               {
+                  _paginable.fetchPage(e.getValue());
+               }
+               public void backOnEDT()
+               {
+                  setToolTipText(_paginable.getPageTitleInfo());
+                  postToolTipImmediately();
+               }
+            });
          }
       });
    }

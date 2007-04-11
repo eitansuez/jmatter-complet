@@ -291,13 +291,7 @@ public class AppFrame extends JFrame
       public void actionPerformed(ActionEvent evt)
       {
          setWaitCursor();
-         SwingUtilities.invokeLater(new Runnable()
-         {
-            public void run()
-            {
-               quit();
-            }
-         });
+         quit();
       }
    }
 
