@@ -153,10 +153,15 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
       public void stateChanged()
       {
-         dissocBtn.setVisible(_association.isEditableState());
-         if (!_association.isEditableState())
+         boolean editable = _association.isEditableState();
+         if (!editable)
          {
+            dissocBtn.setVisible(editable);
             itemPnl.returnToReadState();
+         }
+         else if (!_association.isReadOnly())
+         {
+            dissocBtn.setVisible(editable);
          }
       }
 
@@ -222,10 +227,15 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
       public void stateChanged()
       {
-         assocBtn.setVisible(_association.isEditableState());
-         if (!_association.isEditableState())
+         boolean editable = _association.isEditableState();
+         if (!editable)
          {
+            assocBtn.setVisible(editable);
             itemPnl.returnToReadState();
+         }
+         else if (!_association.isReadOnly())
+         {
+            assocBtn.setVisible(editable);
          }
       }
 

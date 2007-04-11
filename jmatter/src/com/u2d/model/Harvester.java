@@ -200,8 +200,6 @@ public class Harvester
                field.setTabView(true);
             if (identities.contains(descriptors[i].getName()))
                ((CompositeField)field).setIdentity(true);
-            if (readOnly.contains(descriptors[i].getName()))
-               ((CompositeField)field).setReadOnly(true);
             if (flattenIntoParent.contains(descriptors[i].getName())
                   && field instanceof AggregateField)
             {
@@ -219,6 +217,8 @@ public class Harvester
          {
             field = new AssociationField(parent, descriptors[i]);
          }
+         if (readOnly.contains(descriptors[i].getName()))
+            field.setReadOnly(true);
          if (hidden.contains(descriptors[i].getName()))
             field.hide();
 

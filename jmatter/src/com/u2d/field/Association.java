@@ -66,7 +66,12 @@ public class Association
    public javax.swing.Icon iconSm() { return _as.iconSm(); }
    public boolean isEmpty() { return _as.isEmpty(); }
    public ComplexType type() { return _as.type(); }
-   
+
+   public boolean isReadOnly()
+   {
+      return (_as.field() == null) ? false : _as.field().isReadOnly();
+   }
+
    public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       parent().addPropertyChangeListener(listener);

@@ -78,8 +78,6 @@ public abstract class CompositeField extends Field
       getRequired().setValue(true);
    }
    
-   public boolean _readOnly = false;
-   public void setReadOnly(boolean readOnly) { _readOnly = readOnly; }
    /*
     * restrictedit is layered restriction system on top of default
     * definitions of fields as readonly or not.  need to be able to apply
