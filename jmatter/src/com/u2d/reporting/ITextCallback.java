@@ -13,5 +13,5 @@ import java.io.IOException;
  */
 public interface ITextCallback
 {
-   public void doInIText(Document doc) throws DocumentException;
+   public void doInIText(Document doc) throws IOException, DocumentException;
 }

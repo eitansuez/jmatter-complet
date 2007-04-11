@@ -3,7 +3,7 @@ package com.u2d.reporting;
 import com.lowagie.text.Document;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.*;
 import com.lowagie.text.rtf.RtfWriter2;
 import com.lowagie.tools.Executable;
 import com.u2d.utils.Launcher;
@@ -11,6 +11,10 @@ import com.u2d.utils.Launcher;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -63,15 +67,47 @@ public class ITextTemplate
          doc.close();
       }
       
-      if (Executable.isLinux())
-      {
-         Launcher.openFile(reportFile);
-      }
-      else
-      {
-         Executable.openDocument(reportFile);
-      }
+      Launcher.openFile(reportFile);
    }
+   
+   public void mergeTemplateWithData(InputStream resourceStream, Set<TextWithCoords> set)
+         throws IOException, DocumentException
+   {
+      List<Set<TextWithCoords>> list = new ArrayList<Set<TextWithCoords>>();
+      list.add(set);
+      mergeTemplateWithData(resourceStream, 1, list);
+   }
+   
+   public void mergeTemplateWithData(InputStream resourceStream, int numPages, List<Set<TextWithCoords>> list)
+         throws IOException, DocumentException
+   {
+      PdfReader reader = new PdfReader(resourceStream);
+
+      File reportFile = File.createTempFile("report", ".pdf");
+      reportFile.deleteOnExit();
+      
+      PdfStamper stamp = new PdfStamper(reader, new FileOutputStream(reportFile));
+      BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+      
+      for (int i=1; i<=numPages; i++)
+      {
+         PdfContentByte cb = stamp.getOverContent(i);
+         cb.setFontAndSize(bf, 10);
+         cb.beginText();
+         
+         for (TextWithCoords twc : list.get(i-1))
+         {
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, twc.text(), twc.xpos(), twc.ypos(), 0);
+         }
+
+         cb.endText();
+      }
+      
+      stamp.close();
+      
+      Launcher.openFile(reportFile);
+   }
+   
 
    /*
     * Note: Java 6 will fix all this nonsense with auto registry-lookup
