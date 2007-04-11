@@ -54,6 +54,9 @@ April 2007
     only resize if resulting window size is larger than existing
     window size)
 
+7. Fixed trac issue #122:  enforce readOnly on association fields.
+
+
 As always thanks to members of the community who've contributed
 answers on the mailing list, feedback, and bug reports.
 

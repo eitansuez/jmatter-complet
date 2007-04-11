@@ -17512,14 +17512,14 @@ The above are all static methods.
 \end_layout
 
 \begin_layout Standard
-Applications developers needn't concern themselves with this because the
+Application developers needn't concern themselves with this because the
  work associated with defining style names and annotating a user interface
  is a part of the task of writing that user interface.
  In the case of JMatter, the user interface is already written and is already
  annotated.
- If you wish to customize the styling of a JMatter application, all you
- need to concern yourself with (besides knowing what semantic names to reference
-) is editing the stylesheet itself.
+ To customize the style of a JMatter application, all you need to concern
+ yourself with (besides knowing what semantic names to reference) is editing
+ the stylesheet itself.
 \end_layout
 
 \begin_layout Subsection
@@ -17542,16 +17542,43 @@ Borders, margins, and padding must be specified in px's
 \begin_layout Enumerate
 Colors can be specified either using the sixteen predefined color names,
  the six-digit hex notation, or the three digit hex notation.
- The rgb() function is not supported at this time
+ The 
+\emph on
+rgb()
+\emph default
+ function is not supported at this time
 \end_layout
 
 \begin_layout Enumerate
-Only the line styles dotted, dashed, and solid are supported at this time
+Only the line styles 
+\emph on
+dotted
+\emph default
+, 
+\emph on
+dashed
+\emph default
+, and 
+\emph on
+solid
+\emph default
+ are supported at this time
 \end_layout
 
 \begin_layout Enumerate
-Only the generic font family names serif, sans-serif, and monospace are
- supported at this time
+Only the generic font family names 
+\emph on
+serif
+\emph default
+, 
+\emph on
+sans-serif
+\emph default
+, and 
+\emph on
+monospace
+\emph default
+ are supported at this time
 \end_layout
 
 \begin_layout Subsection
@@ -17559,7 +17586,8 @@ Properties
 \end_layout
 
 \begin_layout Standard
-Again, a subset of the CSS defined properties is supported at this time:
+A subset of the CSS defined properties is supported at this time.
+ They are:
 \end_layout
 
 \begin_layout LyX-Code
@@ -17643,7 +17671,8 @@ CSS Inheritance
 
 \begin_layout Standard
 It is important to mention that this engine supports CSS inheritance: that
- styles inherited from containing components are applied as well.
+ [inheritable] properties inherited from containing components are applied
+ as well.
 \end_layout
 
 \begin_layout Section
@@ -17707,8 +17736,8 @@ FormPane
 \begin_layout Standard
 The first rule customizes the background color of the desktop pane.
  The selector matches a standard swing component.
- The second rule customizes the background color of form panes (an off-beige
- color).
+ The second rule customizes the background color of form panes (using an
+ off-beige color).
 \end_layout
 
 \begin_layout Standard
@@ -17748,7 +17777,7 @@ Here are two more rules:
 \end_layout
 
 \begin_layout Standard
-Views of commands in JMatter are annotated with the css class name 
+Views of commands in JMatter are annotated with the CSS class name 
 \emph on
 command
 \emph default
@@ -17765,7 +17794,7 @@ active
 Furthermore, Swing (and forms) has the notion of a single command being
  designated as the default command on a form.
  Default buttons are given a little extra attention, such as interpreting
- pressing the 
+ pressing of the 
 \emph on
 Enter
 \emph default
@@ -17782,7 +17811,9 @@ Note how both rules
 \emph on
 .default-button
 \emph default
- apply to default commands.
+ match for default commands so that their properties are combined.
+ This CSS engine will make sure to apply the more specific rule in case
+ of a conflict.
 \end_layout
 
 \begin_layout Standard
@@ -17865,6 +17896,7 @@ Here are two more semantic styles:
 \begin_layout Standard
 Here we specify how to style the captions for required fields and validation
  error messages.
+ Feel free to customize these (and any other styles) as you see fit.
 \end_layout
 
 \begin_layout Standard
@@ -17906,7 +17938,11 @@ And finally, this rule styles the large semi-transparent message panel that
 \end_layout
 
 \begin_layout Standard
-Feel free to customize as you see fit!
+Styling JMatter UIs is now much more accessible thanks to CSS.
+ Since CSS is a technology you might already be familiar with, and since
+ this implementation adheres strictly to the specification (i.e.
+ it doesn't invent its own properties), you should be able to jump in right
+ away without a learning curve.
 \end_layout
 
 \begin_layout Subsection
@@ -18114,6 +18150,304 @@ FieldCaption
 \end_layout
 
 \begin_layout Section
+Using CSS4Swing in Standalone Swing Applications
+\end_layout
+
+\begin_layout Standard
+The CSS engine used by JMatter was developed by Eitan Suez, for the purpose
+ of enhancing JMatter.
+ However, the implementation is agnostic to the JMatter framework, and can
+ be used with any old Swing application.
+\end_layout
+
+\begin_layout Standard
+That is, if you're working on a Swing-related project and wished you could
+ style your application with CSS, well, now you can.
+\end_layout
+
+\begin_layout Standard
+First you'll need to add these two libraries to your classpath, which you'll
+ find in 
+\emph on
+jmatter/lib/runtime
+\emph default
+:
+\end_layout
+
+\begin_layout Enumerate
+css4swing.jar
+\end_layout
+
+\begin_layout Enumerate
+antlr-3.0b6.jar
+\end_layout
+
+\begin_layout Standard
+This chapter has already documented how to write stylesheets, and how to
+ apply semantic style names or id's to various components.
+\end_layout
+
+\begin_layout Standard
+The only other requirement is to insert this statement before you start
+ building your Swing user interface:
+\end_layout
+
+\begin_layout LyX-Code
+CSSEngine.initialize();
+\end_layout
+
+\begin_layout Standard
+By default, the engine will look for the file 
+\emph on
+styles.css
+\emph default
+ in your classpath.
+ Alternatively, you can specify a different origin for your stylesheet with
+ this method:
+\end_layout
+
+\begin_layout LyX-Code
+CSSEngine.initialize(InputStream is);
+\end_layout
+
+\begin_layout Standard
+Here is a sample class that provides a little more context, and a more complete
+ illustration:
+\end_layout
+
+\begin_layout LyX-Code
+package com.u2d.css4swing;
+\end_layout
+
+\begin_layout LyX-Code
+import com.l2fprod.common.swing.JOutlookBar;
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.css4swing.style.ComponentStyle;
+\end_layout
+
+\begin_layout LyX-Code
+import javax.swing.*;
+\end_layout
+
+\begin_layout LyX-Code
+/**
+\end_layout
+
+\begin_layout LyX-Code
+ * Created by IntelliJ IDEA.
+\end_layout
+
+\begin_layout LyX-Code
+ * User: eitan
+\end_layout
+
+\begin_layout LyX-Code
+ * Date: Jan 30, 2007
+\end_layout
+
+\begin_layout LyX-Code
+ * Time: 11:48:24 AM
+\end_layout
+
+\begin_layout LyX-Code
+ */
+\end_layout
+
+\begin_layout LyX-Code
+public class SampleTest
+\end_layout
+
+\begin_layout LyX-Code
+      extends JPanel
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public SampleTest()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      JLabel label = new JLabel("Eitan is testing..");
+\end_layout
+
+\begin_layout LyX-Code
+      ComponentStyle.addClass(label, "required");
+\end_layout
+
+\begin_layout LyX-Code
+      add(label);
+\end_layout
+
+\begin_layout LyX-Code
+      
+\end_layout
+
+\begin_layout LyX-Code
+      JLabel lbl2 = new JLabel("Ident-Designated");
+\end_layout
+
+\begin_layout LyX-Code
+      ComponentStyle.setIdent(lbl2, "theone");
+\end_layout
+
+\begin_layout LyX-Code
+      add(lbl2);
+\end_layout
+
+\begin_layout LyX-Code
+      
+\end_layout
+
+\begin_layout LyX-Code
+      FieldCaption caption = new FieldCaption("A label subclass..");
+\end_layout
+
+\begin_layout LyX-Code
+      add(caption);
+\end_layout
+
+\begin_layout LyX-Code
+      
+\end_layout
+
+\begin_layout LyX-Code
+      JButton button = new JButton("Button 1 (required)..");
+\end_layout
+
+\begin_layout LyX-Code
+      ComponentStyle.addClass(button, "required");
+\end_layout
+
+\begin_layout LyX-Code
+      add(button);
+\end_layout
+
+\begin_layout LyX-Code
+      JButton button2 = new JButton("Button 2 (not required)..");
+\end_layout
+
+\begin_layout LyX-Code
+      add(button2);
+\end_layout
+
+\begin_layout LyX-Code
+      _bar = new JOutlookBar();
+\end_layout
+
+\begin_layout LyX-Code
+      ComponentStyle.addClass(_bar, "left-sidebar");
+\end_layout
+
+\begin_layout LyX-Code
+      _bar.addTab("Hello", new JLabel("Hi"));
+\end_layout
+
+\begin_layout LyX-Code
+      _bar.addTab("Bye", new JLabel("Bye"));
+\end_layout
+
+\begin_layout LyX-Code
+      add(_bar);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   
+\end_layout
+
+\begin_layout LyX-Code
+   JOutlookBar _bar;
+\end_layout
+
+\begin_layout LyX-Code
+   
+\end_layout
+
+\begin_layout LyX-Code
+   public static void main(String[] args)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      CSSEngine.initialize();
+\end_layout
+
+\begin_layout LyX-Code
+      
+\end_layout
+
+\begin_layout LyX-Code
+      SwingUtilities.invokeLater(new Runnable()
+\end_layout
+
+\begin_layout LyX-Code
+      {
+\end_layout
+
+\begin_layout LyX-Code
+         public void run()
+\end_layout
+
+\begin_layout LyX-Code
+         {
+\end_layout
+
+\begin_layout LyX-Code
+            JFrame f = new JFrame();
+\end_layout
+
+\begin_layout LyX-Code
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+\end_layout
+
+\begin_layout LyX-Code
+            SampleTest st = new SampleTest();
+\end_layout
+
+\begin_layout LyX-Code
+            f.setContentPane(st);
+\end_layout
+
+\begin_layout LyX-Code
+            f.setBounds(100,100,500,500);
+\end_layout
+
+\begin_layout LyX-Code
+            f.setVisible(true);
+\end_layout
+
+\begin_layout LyX-Code
+         }
+\end_layout
+
+\begin_layout LyX-Code
+      });
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Section
 Future Plans
 \end_layout
 
@@ -18123,8 +18457,8 @@ Additional enhancements for CSS support in JMatter are planned.
 \end_layout
 
 \begin_layout Enumerate
-Enhance the existing stylesheet to provide complete styling for all parts
- of a JMatter application
+Expose the JMatter UI to CSS even further through additional targetable
+ semantic style names
 \end_layout
 
 \begin_layout Enumerate
@@ -18164,7 +18498,11 @@ Possibly adding support for CSS
 \emph on
 @import
 \emph default
- statements
+ statements, as a simple 
+\emph on
+include
+\emph default
+ mechanism
 \end_layout
 
 \begin_layout Enumerate
