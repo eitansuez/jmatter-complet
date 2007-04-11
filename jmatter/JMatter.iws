@@ -18,17 +18,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/ds-wizard.jar" afterPath="$PROJECT_DIR$/lib/runtime/ds-wizard.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/project-template/resources/styles.css" afterPath="$PROJECT_DIR$/resources/project-template/resources/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/field/IndexedField.java" afterPath="$PROJECT_DIR$/src/com/u2d/field/IndexedField.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/wingsvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/wingsvm.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/reporting/ITextCallback.java" afterPath="$PROJECT_DIR$/src/com/u2d/reporting/ITextCallback.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/echo2vm.jar" afterPath="$PROJECT_DIR$/lib/runtime/echo2vm.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/swingvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/swingvm.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" afterPath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/project-template/build.gant" afterPath="$PROJECT_DIR$/resources/project-template/build.gant" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/reporting/TextWithCoords.java" afterPath="$PROJECT_DIR$/src/com/u2d/reporting/TextWithCoords.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/reporting/PDFFormFiller.java" afterPath="$PROJECT_DIR$/src/com/u2d/reporting/PDFFormFiller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/reporting/ITextTemplate.java" afterPath="$PROJECT_DIR$/src/com/u2d/reporting/ITextTemplate.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -405,17 +397,17 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
-      <autoscrollToSource PackagesPane="true" />
-      <autoscrollFromSource PackagesPane="true" />
+      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
+      <autoscrollToSource PackagesPane="false" />
+      <autoscrollFromSource PackagesPane="false" />
       <sortByType />
     </navigator>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="last_opened_file_path" value="/home/eitan/build_area/jmatter-suite" />
     <property name="MemberChooser.showClasses" value="true" />
@@ -472,21 +464,15 @@
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <module name="" />
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <module name="" />
       <method>
         <option name="Make" value="true" />
       </method>
@@ -503,15 +489,21 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+      <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <module name="" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
       <method>
         <option name="Make" value="true" />
       </method>
@@ -822,13 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/TextWithCoords.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="3" selection-start="459" selection-end="459" vertical-scroll-proportion="0.5276382">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/ITextTemplate.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="110" column="0" selection-start="1852" selection-end="3123" vertical-scroll-proportion="0.94974875">
@@ -836,9 +821,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/TextWithCoords.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="435" selection-end="435" vertical-scroll-proportion="0.47738692">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/PDFFormFiller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="10" selection-start="2135" selection-end="2135" vertical-scroll-proportion="0.5728643">
+        <state line="2" column="0" selection-start="28" selection-end="28" vertical-scroll-proportion="0.050251257">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

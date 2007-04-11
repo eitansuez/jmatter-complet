@@ -8,12 +8,14 @@ package com.u2d.reporting;
  */
 public class TextWithCoords
 {
-   private String text;
+   private String text = "";
    private int xpos, ypos;
    
    public TextWithCoords(String text, int xpos, int ypos)
    {
-      this.text = text; this.xpos = xpos; this.ypos = ypos;
+      if (text == null) throw new IllegalArgumentException("invalid text value: "+text);
+      this.text = text;
+      this.xpos = xpos; this.ypos = ypos;
    }
    
    public String text() { return text; }
