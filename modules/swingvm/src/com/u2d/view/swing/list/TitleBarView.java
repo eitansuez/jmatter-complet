@@ -43,7 +43,7 @@ public class TitleBarView extends GradientPanel implements ListEView
       if (_altView != null)
          add(_altView.getControlPane(), cc.xy(3, 1));
 
-      if (!(_leo instanceof RelationalList))
+      if (_leo instanceof QueryReceiver)
       {
          _findPnl = new FindPanel((QueryReceiver) _leo);
          add(_findPnl, cc.xyw(1, 2, 3));
