@@ -172,12 +172,12 @@ public class IndexedField extends Field implements Bidi, Associable
    public EView getView(ComplexEObject parent)
    {
       AbstractListEO value = (AbstractListEO) get(parent);
-      if (isTabView())
+      EView view = value.getView();
+      if (isTabView() && (view instanceof ExpandableView))
       {
-         return vmech().getAlternateListView(value, 
-              new String[] {"listview", "listtableview", "listiconsview", "omnilistview"});
+         ((ExpandableView) view).toggle(true);
       }
-      return value.getView();
+      return view;
    }
 
    public void set(ComplexEObject parent, Object value)
