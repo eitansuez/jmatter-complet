@@ -171,7 +171,9 @@ public class QueryView extends JPanel implements ComplexEView, Editor
       
       return count;
    }
-   
+
+   public int validateValue() { return _query.validate(); }
+
    public EObject getEObject() { return _query; }
    
    public void propertyChange(PropertyChangeEvent evt) {}

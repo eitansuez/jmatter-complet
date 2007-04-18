@@ -165,6 +165,8 @@ public class EOPanel extends JPanel
    }
    
    public int transferValue() { return ((Editor) _view).transferValue(); }
+   public int validateValue() { return ((Editor) _view).validateValue(); }
+
    public void setEditable(boolean editable)
    {
       ((Editor) _view).setEditable(editable);

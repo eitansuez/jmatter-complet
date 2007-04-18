@@ -122,7 +122,7 @@ public class WizardPane extends JPanel
 
          if (eo.field() == null)
          {
-            errorCount = eo.validate();
+            errorCount = editor.validateValue();
          }
          else
          {

@@ -44,6 +44,7 @@ public class TypePicker extends CardPanel implements EView, Editor
       _renderer.setText(_editor.getSelectedItem().toString());
       return 0;
    }
+   public int validateValue() { return 0; }
 
    private boolean _editable = false;
    public void setEditable(boolean editable)

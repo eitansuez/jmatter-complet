@@ -131,11 +131,7 @@ public class FormView extends JPanel implements ComplexEView, Editor
       if ( (ceo.field() != null) && (ceo.field().isInterfaceType()) )
          ceo.setField(null, null);
       
-      List fields = _partialFieldList;
-      if (fields == null)
-      {
-         fields =  ceo.childFields();
-      }
+      List fields = (_partialFieldList == null) ? ceo.childFields() : _partialFieldList;
       
       JComponent vPnl;
       Field field = null;
@@ -262,18 +258,14 @@ public class FormView extends JPanel implements ComplexEView, Editor
 
    public int transferValue()
    {
-      Iterator itr = _childViews.iterator();
-
-      EView view = null;
-      Field field = null;
       int count = 0;
-      while (itr.hasNext())
+      for (Iterator itr = _childViews.iterator(); itr.hasNext(); )
       {
-         view = (EView) itr.next();
+         EView view = (EView) itr.next();
          Tracing.tracer().fine("attempting to transfer value for field "+view.getEObject().field());
          if (view instanceof Editor)
          {
-            field = view.getEObject().field();
+            Field field = view.getEObject().field();
 
             if (field.hidden()) continue;
 
@@ -291,6 +283,21 @@ public class FormView extends JPanel implements ComplexEView, Editor
          }
       }
       return count;
+   }
+   
+   public int validateValue()
+   {
+      if (_partialFieldList == null)
+      {
+         return _ceo.validate();
+      }
+      // else..
+      int errorCount = 0;
+      for (int i=0; i<_partialFieldList.size(); i++)
+      {
+         errorCount += _partialFieldList.get(i).validate(_ceo);
+      }
+      return errorCount;
    }
 
    public void setEditable(boolean editable)

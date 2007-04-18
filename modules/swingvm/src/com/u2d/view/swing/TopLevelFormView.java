@@ -87,6 +87,7 @@ public class TopLevelFormView extends JPanel
    }
 
    public int transferValue() { return _formView.transferValue(); }
+   public int validateValue() { return _formView.validateValue(); }
 
    public void setEditable(boolean editable)
    {

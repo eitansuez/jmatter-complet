@@ -116,6 +116,10 @@ public class AbstractView extends JPanel
          _field.set(_parent, view.getEObject());
       return result;
    }
-   
-   
+
+   public int validateValue()
+   {
+      EView view = (EView) _typeViewMap.get(_picker.getEObject());
+      return ((Editor) view).validateValue();
+   }
 }

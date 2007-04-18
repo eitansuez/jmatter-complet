@@ -11,4 +11,5 @@ public interface Editor
    public int transferValue();
    public void setEditable(boolean editable);
    public boolean isEditable();
+   public int validateValue();
 }

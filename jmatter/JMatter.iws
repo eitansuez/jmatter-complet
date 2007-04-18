@@ -18,12 +18,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/field/CompositeField.java" afterPath="$PROJECT_DIR$/src/com/u2d/field/CompositeField.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/Harvester.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/Harvester.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/ds-wizard.jar" afterPath="$PROJECT_DIR$/lib/runtime/ds-wizard.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/wingsvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/wingsvm.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/Editor.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/Editor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/echo2vm.jar" afterPath="$PROJECT_DIR$/lib/runtime/echo2vm.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/swingvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/swingvm.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/element/Field.java" afterPath="$PROJECT_DIR$/src/com/u2d/element/Field.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" afterPath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/field/Association.java" afterPath="$PROJECT_DIR$/src/com/u2d/field/Association.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/wizard/ui/WizardPane.java" afterPath="$PROJECT_DIR$/src/com/u2d/wizard/ui/WizardPane.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -251,34 +253,6 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
       </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.utils" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.reporting" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
     </subPane>
   </component>
   <component name="PerforceChangeBrowserSettings">
@@ -400,7 +374,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
+      <showStructure ProjectPane="false" PackagesPane="false" Scope="false" Favorites="false" />
       <autoscrollToSource PackagesPane="false" />
       <autoscrollFromSource PackagesPane="false" />
       <sortByType />
@@ -460,38 +434,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <module name="" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -510,6 +452,38 @@
       <method>
         <option name="Make" value="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <module name="" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
   </component>
   <component name="ScopeViewComponent">
@@ -589,7 +563,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1280" height="751" extended-state="0" />
+    <frame x="-3" y="24" width="1280" height="751" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
@@ -733,109 +707,107 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/SimpleReport.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/find/CompositeQuery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="13" selection-start="464" selection-end="464" vertical-scroll-proportion="-0.030150754">
+        <state line="64" column="32" selection-start="1852" selection-end="1852" vertical-scroll-proportion="0.3835846">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/ITextUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/type/composite/DetailedPerson.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="284" selection-end="284" vertical-scroll-proportion="-0.42713568">
+        <state line="55" column="34" selection-start="1633" selection-end="1633" vertical-scroll-proportion="0.7487437">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/ITextCallback.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/type/composite/USAddress.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="322" selection-end="322" vertical-scroll-proportion="0.3517588">
+        <state line="52" column="35" selection-start="1651" selection-end="1660" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/ITextPdfCallback.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/field/IndexedField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="22" selection-start="184" selection-end="184" vertical-scroll-proportion="0.2512563">
+        <state line="218" column="14" selection-start="6163" selection-end="6163" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/utils/Launcher.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/field/CompositeIndexedField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="22" selection-start="326" selection-end="326" vertical-scroll-proportion="0.30150753">
+        <state line="45" column="29" selection-start="1091" selection-end="1091" vertical-scroll-proportion="0.3835846">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/ITextTemplate.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/field/AtomicField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="0" selection-start="1852" selection-end="3123" vertical-scroll-proportion="0.94974875">
+        <state line="112" column="7" selection-start="2801" selection-end="2801" vertical-scroll-proportion="0.760469">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/TextWithCoords.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/field/AggregateField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="435" selection-end="435" vertical-scroll-proportion="0.47738692">
+        <state line="110" column="0" selection-start="2954" selection-end="2954" vertical-scroll-proportion="0.53433836">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/PDFFormFiller.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractAtomicEO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="28" selection-end="28" vertical-scroll-proportion="0.050251257">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reflection/Fld.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="27" selection-start="1494" selection-end="1507" vertical-scroll-proportion="0.79899496">
+        <state line="15" column="23" selection-start="314" selection-end="323" vertical-scroll-proportion="0.2763819">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/User.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractEObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="0" selection-start="3669" selection-end="3669" vertical-scroll-proportion="0.4087102">
+        <state line="21" column="32" selection-start="505" selection-end="514" vertical-scroll-proportion="0.32663316">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="303" column="24" selection-start="8235" selection-end="8235" vertical-scroll-proportion="0.17085427">
+        <state line="49" column="23" selection-start="1276" selection-end="1285" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/Harvester.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="216" column="0" selection-start="8122" selection-end="8122" vertical-scroll-proportion="0.20100503">
+        <state line="512" column="32" selection-start="14627" selection-end="14636" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/field/CompositeField.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/EObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="28" selection-start="2544" selection-end="2554" vertical-scroll-proportion="0.5618557">
+        <state line="12" column="17" selection-start="211" selection-end="211" vertical-scroll-proportion="0.20100503">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Field.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/Editor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="359" column="0" selection-start="9534" selection-end="9534" vertical-scroll-proportion="0.41065294">
+        <state line="13" column="14" selection-start="236" selection-end="236" vertical-scroll-proportion="0.2763819">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/field/Association.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/FormView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="70" selection-start="2157" selection-end="2157" vertical-scroll-proportion="0.33333334">
+        <state line="287" column="27" selection-start="8294" selection-end="8307" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/WizardPane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="130" column="9" selection-start="3449" selection-end="3449" vertical-scroll-proportion="0.8291457">
           <folding />
         </state>
       </provider>

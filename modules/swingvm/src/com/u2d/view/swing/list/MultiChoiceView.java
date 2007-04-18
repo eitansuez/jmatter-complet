@@ -98,7 +98,8 @@ public class MultiChoiceView extends JPanel
       return 0;
    }
 
-   
+   public int validateValue() { return _leo.validate(); }
+
    public void setEditable(boolean editable)
    {
       _editable = editable;

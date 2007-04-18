@@ -103,6 +103,9 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
       return errorCount;
    }
 
+   public int validateValue() { return _eo.validate(); }
+
+   
    private boolean _editable = false;
    public void setEditable(boolean editable)
    {

@@ -183,5 +183,17 @@ public class AlternateView extends JPanel
       }
       return 0;
    }
+
+   public int validateValue()
+   {
+      // a higher order-function would do nice to refactor these two methods.. 
+      EView currentView = getInnerView();
+      if (currentView instanceof Editor)
+      {
+         Editor editor = (Editor) currentView;
+         return editor.validateValue();
+      }
+      return 0;
+   }
 }
 

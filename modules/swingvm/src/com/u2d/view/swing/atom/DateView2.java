@@ -116,8 +116,9 @@ public class DateView2 extends JPanel implements AtomicEView, Editor
          return 1;
       }
    }
-   
-   
+   public int validateValue() { return _eo.validate(); }
+
+
    public EObject getEObject() { return _eo; }
    
    public void setEditable(boolean editable)

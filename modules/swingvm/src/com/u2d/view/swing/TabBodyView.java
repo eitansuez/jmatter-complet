@@ -46,6 +46,8 @@ public class TabBodyView extends JPanel implements ComplexEView, Editor
    public boolean isMinimized() { return false; }
 
    public int transferValue() { return ((Editor) _main).transferValue(); }
+   public int validateValue() { return ((Editor) _main).validateValue(); }
+
    public void setEditable(boolean editable) { ((Editor) _main).setEditable(editable); }
    public boolean isEditable() { return ((Editor) _main).isEditable(); }
    

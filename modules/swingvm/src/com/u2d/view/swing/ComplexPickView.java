@@ -69,8 +69,8 @@ public class ComplexPickView extends JPanel
    public boolean isEditable() { return true; }
    public void setEditable(boolean editable) {}
    public int transferValue() { return 0; }
-   
-   
+   public int validateValue() { return 0; }
+
    private void updateCeo(ComplexEObject item)
    {
       if (_view != null)
