@@ -41,7 +41,7 @@ public class TopLevelFormView extends JPanel
       _cmdsView = new CommandsButtonView();
       _cmdsView.bind(_ceo, this, BorderLayout.EAST, this);
 
-      add(statusPanel(), BorderLayout.SOUTH);
+      addStatusPanel();
    }
 
 
@@ -65,25 +65,26 @@ public class TopLevelFormView extends JPanel
       }.start();
    }
 
-   private JPanel statusPanel()
+   private void addStatusPanel()
    {
+      if (_ceo.isMeta())
+         return;
+      
       _statusPanel = new StatusPanel();
-      if (!(_ceo.isMeta()))
-         _statusPanel.addEO(_ceo.getCreatedOn());
-
+      _statusPanel.addEO(_ceo.getCreatedOn());
       Field statusField = _ceo.field("status");
       if (statusField != null)
       {
          _statusPanel.addEO((AtomicEObject) statusField.get(_ceo));
       }
-      return _statusPanel;
+      add(_statusPanel, BorderLayout.SOUTH);
    }
 
    public void detach()
    {
       _formView.detach();
       _cmdsView.detach();
-      _statusPanel.detach();
+      if (_statusPanel != null) _statusPanel.detach();
    }
 
    public int transferValue() { return _formView.transferValue(); }

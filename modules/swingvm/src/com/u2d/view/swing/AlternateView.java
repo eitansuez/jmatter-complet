@@ -129,13 +129,10 @@ public class AlternateView extends JPanel
    public EObject getEObject() { return _ceo; }
    public void detach()
    {
-      Iterator itr = _map.keySet().iterator();
-      EView view = null;
-      Object key = null;
-      while (itr.hasNext())
+      for (Iterator itr = _map.keySet().iterator(); itr.hasNext(); )
       {
-         key = itr.next();
-         view = (EView) _map.get(key);
+         Object key = itr.next();
+         EView view = (EView) _map.get(key);
          view.detach();
       }
    }
