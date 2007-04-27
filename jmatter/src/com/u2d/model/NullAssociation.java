@@ -65,7 +65,7 @@ public class NullAssociation extends NullComplexEObject
    public ComplexEObject New(CommandInfo cmdInfo, ComplexType type)
    {
       final ComplexEObject ceo = type.New(cmdInfo);
-      _association.associate(ceo);
+      _association.set(ceo);
       return ceo;
    }
 

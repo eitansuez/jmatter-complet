@@ -20,12 +20,10 @@
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/ds-wizard.jar" afterPath="$PROJECT_DIR$/lib/runtime/ds-wizard.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/wingsvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/wingsvm.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/Editor.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/Editor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/echo2vm.jar" afterPath="$PROJECT_DIR$/lib/runtime/echo2vm.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/swingvm.jar" afterPath="$PROJECT_DIR$/lib/runtime/swingvm.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" afterPath="$PROJECT_DIR$/lib/runtime/ds-swing.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/wizard/ui/WizardPane.java" afterPath="$PROJECT_DIR$/src/com/u2d/wizard/ui/WizardPane.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -253,6 +251,20 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
       </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.model" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
     </subPane>
   </component>
   <component name="PerforceChangeBrowserSettings">
@@ -374,7 +386,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure ProjectPane="false" PackagesPane="false" Scope="false" Favorites="false" />
+      <showStructure Favorites="false" PackagesPane="false" Scope="false" ProjectPane="false" />
       <autoscrollToSource PackagesPane="false" />
       <autoscrollFromSource PackagesPane="false" />
       <sortByType />
@@ -434,25 +446,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -469,6 +462,25 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <module name="" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
       <method>
         <option name="Make" value="true" />
       </method>
@@ -563,7 +575,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3" y="24" width="1280" height="751" extended-state="1" />
+    <frame x="0" y="33" width="1278" height="751" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
@@ -584,7 +596,7 @@
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="4" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2579592" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25716627" order="0" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24734694" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39872408" order="6" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43152866" order="2" x="25" y="300" width="1232" height="206" />
@@ -707,27 +719,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/find/CompositeQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="32" selection-start="1852" selection-end="1852" vertical-scroll-proportion="0.3835846">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/type/composite/DetailedPerson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="34" selection-start="1633" selection-end="1633" vertical-scroll-proportion="0.7487437">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/type/composite/USAddress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="35" selection-start="1651" selection-end="1660" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/field/IndexedField.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="218" column="14" selection-start="6163" selection-end="6163" vertical-scroll-proportion="0.33333334">
@@ -808,6 +799,27 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/WizardPane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="130" column="9" selection-start="3449" selection-end="3449" vertical-scroll-proportion="0.8291457">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/persist/HBMMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="638" column="0" selection-start="20999" selection-end="20999" vertical-scroll-proportion="1.4656616">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/PDFFormFiller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="0" selection-start="1878" selection-end="1878" vertical-scroll-proportion="0.4688027">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="478" column="64" selection-start="14160" selection-end="14160" vertical-scroll-proportion="0.33217993">
           <folding />
         </state>
       </provider>
