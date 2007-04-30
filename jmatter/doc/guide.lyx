@@ -17433,16 +17433,30 @@ It would be less clear (though not impossible to disambiguate) that we were
  referencing a component marked with a css class name.
  JMatter's CSS implementation therefore does not allow fully-qualified class
  names in selectors.
- To reference a type in a different package, you must specifically import
- it, like so:
+\end_layout
+
+\begin_layout Standard
+This CSS implementation adopts and leverages CSS3's namespaces (thanks for
+ Tiago Silveira) module to resolve this issue.
+ CSS3 namespaces were designed to resolve the issue of possibly clashing
+ namespaces in different xml vocabularies.
+\end_layout
+
+\begin_layout Standard
+To reference a type in a different package, you must define a namespace
+ for it, like so:
 \end_layout
 
 \begin_layout LyX-Code
-import com.l2fprod.common.swing
+@namespace l2f com.l2fprod.common.swing
 \end_layout
 
 \begin_layout LyX-Code
-JOutlookBar
+
+\end_layout
+
+\begin_layout LyX-Code
+l2f|JOutlookBar
 \end_layout
 
 \begin_layout LyX-Code
@@ -17458,12 +17472,20 @@ JOutlookBar
 \end_layout
 
 \begin_layout Standard
-So the notion of an import statement is unique to this implementation.
- It should be specified on its own line, with 
-\series bold
-no
-\series default
- terminating semicolon.
+The two main items to note here are:
+\end_layout
+
+\begin_layout Enumerate
+A @namespace css rule is defined and aliased as 
+\emph on
+l2f
+\emph default
+.
+\end_layout
+
+\begin_layout Enumerate
+To reference a type selector in that namespace, concatenate the namespace
+ id and type name with a vertical bar delimiter.
 \end_layout
 
 \begin_layout Subsection
@@ -17692,7 +17714,7 @@ First comes an import declaration:
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.view.swing
+@namespace jm com.u2d.view.swing
 \end_layout
 
 \begin_layout Standard
@@ -17718,7 +17740,7 @@ JDesktopPane
 \end_layout
 
 \begin_layout LyX-Code
-FormPane
+jm|FormPane
 \end_layout
 
 \begin_layout LyX-Code
@@ -17954,7 +17976,7 @@ Below is a copy of the complete stylesheet, for reference.
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.view.swing
+@namespace jm com.u2d.view.swing
 \end_layout
 
 \begin_layout LyX-Code
@@ -17974,7 +17996,7 @@ JDesktopPane
 \end_layout
 
 \begin_layout LyX-Code
-FormPane
+jm|FormPane
 \end_layout
 
 \begin_layout LyX-Code
@@ -18042,7 +18064,7 @@ FormPane
 \end_layout
 
 \begin_layout LyX-Code
-FieldCaption
+jm|FieldCaption
 \end_layout
 
 \begin_layout LyX-Code

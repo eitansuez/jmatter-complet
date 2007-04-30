@@ -1,13 +1,14 @@
-import com.u2d.view.swing
+@namespace jm com.u2d.view.swing
 
 JDesktopPane
 {
   background-color: #7684FF;
 }
 
-FormPane
+jm|FormPane
 {
   background-color: #fffaf0;
+  padding: 5px;
 }
 
 .command
@@ -25,7 +26,7 @@ FormPane
 {
 }
 
-FieldCaption
+jm|FieldCaption
 {
   color: black;
   font-weight: normal;
