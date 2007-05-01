@@ -18,11 +18,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/wizard/ui/CenterPane.java" afterPath="$PROJECT_DIR$/src/com/u2d/wizard/ui/CenterPane.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/u2d/wizard/ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ds-wizard.iml" afterPath="$PROJECT_DIR$/ds-wizard.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/com/u2d/wizard/MockBasicStep.java" afterPath="$PROJECT_DIR$/test/com/u2d/wizard/MockBasicStep.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ds-wizard.iws" afterPath="$PROJECT_DIR$/ds-wizard.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ds-wizard.ipr" afterPath="$PROJECT_DIR$/ds-wizard.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/wizard/abstractions/ScriptEngine.java" afterPath="$PROJECT_DIR$/src/com/u2d/wizard/abstractions/ScriptEngine.java" />
     </list>
   </component>
   <component name="ChangesViewManager" flattened_view="true" />
@@ -212,6 +210,20 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="com.u2d.wizard.ui" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ds-wizard.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ds-wizard" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.wizard.abstractions" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -413,7 +425,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="-1" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="-1" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="1" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" order="1" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="4" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="-1" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="-1" />
@@ -427,7 +439,7 @@
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34234235" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2899263" order="0" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32744783" order="2" />
@@ -515,98 +527,108 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/ConditionStep.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/BasicStep.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/wizard/CompositeTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="253" selection-end="253" vertical-scroll-proportion="0.3338983">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/SimpleStepPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="771" selection-end="771" vertical-scroll-proportion="0.7779661">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/CommitStep.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="22" selection-start="149" selection-end="149" vertical-scroll-proportion="0.35978836">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/wizard/CommitTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="0" selection-start="2361" selection-end="2361" vertical-scroll-proportion="0.52506596">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/wizard/WizardTestSuite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="30" selection-start="576" selection-end="576" vertical-scroll-proportion="0.9419525">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/abstractions/Step.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="271" selection-end="271" vertical-scroll-proportion="0.7176781">
+        <state line="11" column="22" selection-start="213" selection-end="213" vertical-scroll-proportion="0.2529511">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/CompositeStep.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="18" selection-start="2618" selection-end="2618" vertical-scroll-proportion="0.73614776">
+        <state line="14" column="13" selection-start="256" selection-end="256" vertical-scroll-proportion="0.2529511">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/u2d/wizard/NumberingTest.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/ConditionStep.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="0" selection-start="3060" selection-end="3060" vertical-scroll-proportion="3.5152543">
+        <state line="12" column="13" selection-start="250" selection-end="250" vertical-scroll-proportion="-1.2647555">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/CenterPane.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/NextAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="0" selection-start="1858" selection-end="1858" vertical-scroll-proportion="0.84822935">
+        <state line="12" column="13" selection-start="251" selection-end="251" vertical-scroll-proportion="0.2529511">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/NavPane.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/PreviousAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="289" selection-end="289" vertical-scroll-proportion="0.3288364">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="12" column="13" selection-start="251" selection-end="251" vertical-scroll-proportion="0.2529511">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/TitlePane.java">
+    <entry file="jar://$PROJECT_DIR$/lib/ds-swing.jar!/com/u2d/ui/DescriptionText.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="13" selection-start="405" selection-end="405" vertical-scroll-proportion="0.2529511">
+        <state line="7" column="10" selection-start="210" selection-end="210" vertical-scroll-proportion="0.23622048">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/SimpleStepPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="0" selection-start="856" selection-end="856" vertical-scroll-proportion="0.7335582">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/Wizard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="7" selection-start="1427" selection-end="1427" vertical-scroll-proportion="1.6188871">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/com/u2d/wizard/MockCondition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="12" selection-start="287" selection-end="287" vertical-scroll-proportion="0.37942666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/NotCondition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="1" selection-start="413" selection-end="413" vertical-scroll-proportion="0.5564924">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/abstractions/Condition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="132" selection-end="132" vertical-scroll-proportion="0.20761245">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/abstractions/NavAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="0" selection-start="467" selection-end="467" vertical-scroll-proportion="0.6070826">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/abstractions/ScriptEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="13" selection-start="503" selection-end="503" vertical-scroll-proportion="0.6458685">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/abstractions/Step.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="1" selection-start="470" selection-end="470" vertical-scroll-proportion="0.6576728">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/WizardPane.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="13" selection-start="571" selection-end="571" vertical-scroll-proportion="0.33391005">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="211" column="0" selection-start="5700" selection-end="5700" vertical-scroll-proportion="1.6747404">
+          <folding />
         </state>
       </provider>
     </entry>

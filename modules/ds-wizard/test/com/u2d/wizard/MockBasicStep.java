@@ -16,10 +16,7 @@ public class MockBasicStep extends BasicStep
    public MockBasicStep() { }
 
    // with optional caption..
-   public MockBasicStep(String text)
-   {
-      _text = text;
-   }
+   public MockBasicStep(String text) { _text = text; }
 
    int invokeCount = 0;
    public JComponent getView()

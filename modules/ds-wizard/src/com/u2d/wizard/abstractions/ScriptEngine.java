@@ -24,12 +24,9 @@ public class ScriptEngine
 
       step.getView();
 
-      Iterator itr = _actions.iterator();
-      NavAction action;
-
-      while (itr.hasNext())
+      for (Iterator itr = _actions.iterator(); itr.hasNext(); )
       {
-         action = (NavAction) itr.next();
+         NavAction action = (NavAction) itr.next();
          if (action == null) break; // done
          if ( (step = action.invoke(step)) == null) break; // done
 
