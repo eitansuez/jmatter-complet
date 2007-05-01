@@ -18,6 +18,8 @@
    <path id="class.path">
       <fileset dir="${libdir}" includes="*.jar" />
       <pathelement location="${buildclassesdir}" />
+      <fileset dir="../swingvm/lib/" includes="forms*.jar,l2f*.jar" />
+      <pathelement location="../../jmatter/build/classes" />
    </path>
 
    <path id="test.classpath">
@@ -40,7 +42,7 @@
 
    <target name="compile" depends="init" description="compile">
       <javac debug="on" 
-             source="1.4" 
+             source="1.5" 
              target="1.5" 
              srcdir="${srcdir}" 
              destdir="${buildclassesdir}" 

@@ -18,7 +18,7 @@ import java.util.Iterator;
 public class CenterPane extends JPanel
 {
    private CardLayout _cardLayout;
-   private Map _stepViewMap = new HashMap();
+   private Map<String,JComponent> _stepViewMap = new HashMap<String,JComponent>();
    private JComponent _currentView;
 
    public static final Dimension PREFERRED_SIZE = new Dimension(350,400);
