@@ -21,9 +21,6 @@ public class CenterPane extends JPanel
    private Map<String,JComponent> _stepViewMap = new HashMap<String,JComponent>();
    private JComponent _currentView;
 
-   public static final Dimension PREFERRED_SIZE = new Dimension(350,400);
-
-
    public CenterPane()
    {
       _cardLayout = new CardLayout();
@@ -58,15 +55,14 @@ public class CenterPane extends JPanel
 
    public JComponent getCurrentView() { return _currentView; }
 
+   public static final Dimension PREFERRED_SIZE = new Dimension(350,400);
    public Dimension getPreferredSize() { return PREFERRED_SIZE; }
 
    public void detach()
    {
-      Iterator views = _stepViewMap.values().iterator();
-      Object next;
-      while (views.hasNext())
+      for (Iterator views = _stepViewMap.values().iterator(); views.hasNext(); )
       {
-         next = views.next();
+         Object next = views.next();
          if (next instanceof EView)
          {
             ((EView) next).detach();
