@@ -10635,7 +10635,7 @@ Writing the Wizard
 
 \begin_layout Standard
 JMatter models a wizard as a container for a series of steps.
- JMatter defines a several types of steps.
+ JMatter defines several types of steps.
  There are basic (or atomic) steps, conditional steps, and composite steps.
  We need to write a class that is essentially a composite step: one that
  defines the set of steps that makes up our wizard.
@@ -10974,6 +10974,25 @@ class ContactStep extends BasicStep
 We see here that the implementation is trivial.
  We provide a title, description, and a view for each of our steps.
  Nothing to it!
+\end_layout
+
+\begin_layout Standard
+It is worth noting that the 
+\emph on
+FormView
+\emph default
+ class is taken from JMatter's own Swing-based view mechanism.
+ By reusing this class, we automate the chore of having to write the panels
+ that make up our wizard's user interface.
+ Not only do we automate the construction of each panel, but also the binding
+ of the view to its model object, as well model object validation.
+ For example, entering a zip code with an invalid format in the 
+\emph on
+AddressStep
+\emph default
+ will automatically be flagged, giving the user a chance to revise and fix
+ the data entry (see the screenshots that follow this section) before being
+ able to proceed to the next step in the wizard.
 \end_layout
 
 \begin_layout Standard
