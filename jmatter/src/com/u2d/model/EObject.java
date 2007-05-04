@@ -19,6 +19,8 @@ public interface EObject
    
    public javax.swing.Icon iconSm();
    public javax.swing.Icon iconLg();
+   public String iconSmResourceRef();
+   public String iconLgResourceRef();
 
    public Onion commands();
    public Onion filteredCommands();

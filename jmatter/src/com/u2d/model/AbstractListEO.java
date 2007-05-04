@@ -60,6 +60,8 @@ public abstract class AbstractListEO extends AbstractEObject
 
    public Icon iconSm() { return type().iconsSm(); }
    public Icon iconLg() { return type().iconsLg(); }
+   public String iconSmResourceRef() { return type().iconsSmResourceRef(); }
+   public String iconLgResourceRef() { return type().iconsLgResourceRef(); }
 
    public static String[] commandOrder = {"Open", "ExportToCSV", "Print"};
    protected static Onion _commands;

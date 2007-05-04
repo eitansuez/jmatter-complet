@@ -1,9 +1,6 @@
 package com.u2d.view.echo2;
 
-import nextapp.echo2.app.Label;
-import nextapp.echo2.app.AwtImageReference;
-import nextapp.echo2.app.ImageReference;
-import nextapp.echo2.app.Alignment;
+import nextapp.echo2.app.*;
 import com.u2d.view.ComplexEView;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
@@ -45,7 +42,7 @@ public class IconView extends Label implements ComplexEView
 
          setText(_ceo.title().toString());
          // this mechanism of getting an image reference is discouraged / inefficient.. TODO: revisit
-         setIcon(Echo2ViewMechanism.imageFor(_ceo.iconLg()));
+         setIcon(new ResourceImageReference(_ceo.iconLgResourceRef()));
 //         setIcon(_ceo.iconLg());
 
          // TODO: NullComplexEObject should have its own iconview.

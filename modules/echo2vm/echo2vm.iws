@@ -17,8 +17,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/IconView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/IconView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo2vm.iws" afterPath="$PROJECT_DIR$/echo2vm.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo2vm.ipr" afterPath="$PROJECT_DIR$/echo2vm.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Echo2_App.jar" afterPath="$PROJECT_DIR$/lib/Echo2_App.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Echo2_WebContainer.jar" afterPath="$PROJECT_DIR$/lib/Echo2_WebContainer.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Echo2_WebRender.jar" afterPath="$PROJECT_DIR$/lib/Echo2_WebRender.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/LoginDialog.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/LoginDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo2vm.iml" afterPath="$PROJECT_DIR$/echo2vm.iml" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -330,7 +338,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
+      <showStructure Favorites="false" PackagesPane="false" Scope="false" ProjectPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -361,25 +369,6 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <module name="" />
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -398,6 +387,25 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <method>
+        <option name="Make" value="true" />
+      </method>
     </configuration>
   </component>
   <component name="ScopeViewComponent">
@@ -476,7 +484,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="28" width="1276" height="747" extended-state="0" />
+    <frame x="0" y="30" width="1280" height="770" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -490,13 +498,14 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979591" order="1" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979457" order="1" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
+      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24979457" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24897288" order="0" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
@@ -581,97 +590,16 @@
   </component>
   <component name="com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectRootMasterDetailsConfigurable" proportions="0.16666667" version="1">
     <option name="myPlainMode" value="false" />
-    <option name="myLastEditedConfigurable" value="echo2vm" />
+    <option name="myLastEditedConfigurable" value="Echo2_WebRender.jar" />
   </component>
   <component name="com.intellij.profile.ui.ErrorOptionsConfigurable" proportions="" version="1">
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/app/AppSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="24" selection-start="1098" selection-end="1098" vertical-scroll-proportion="0.3321918">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/thirdparty/Echo2_Beta/SourceCode/src/webcontainer/java/nextapp/echo2/webcontainer/ContainerSynchronizeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="422" column="50" selection-start="20173" selection-end="20173" vertical-scroll-proportion="0.255137">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/thirdparty/Echo2_Beta/SourceCode/src/app/java/nextapp/echo2/app/ApplicationInstance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="22" selection-start="2029" selection-end="2029" vertical-scroll-proportion="0.23116438">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/persist/HBMEcho2Session.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="13" selection-start="332" selection-end="332" vertical-scroll-proportion="0.25041735">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Echo2EntryPoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="0" selection-start="910" selection-end="910" vertical-scroll-proportion="0.6010017">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.08/src.zip!/javax/swing/Icon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="17" selection-start="364" selection-end="364" vertical-scroll-proportion="0.30050084">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.08/src.zip!/javax/swing/ImageIcon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="269" column="17" selection-start="8797" selection-end="8797" vertical-scroll-proportion="0.33222038">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/OutlookFolderView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="13" selection-start="731" selection-end="731" vertical-scroll-proportion="-2.6310518">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.08/src.zip!/java/awt/TextField.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="13" selection-start="2976" selection-end="2976" vertical-scroll-proportion="0.33222038">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/ComplexType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="541" column="0" selection-start="16223" selection-end="16223" vertical-scroll-proportion="0.5075125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="4" selection-start="3327" selection-end="3327" vertical-scroll-proportion="0.32387313">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/IconView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="28" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.24874792">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -682,19 +610,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/LoginDialog.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/app/AppSession.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="0" selection-start="1660" selection-end="1660" vertical-scroll-proportion="0.43238732">
+        <state line="47" column="24" selection-start="1179" selection-end="1179" vertical-scroll-proportion="0.33217993">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/ComplexEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="0" selection-start="1875" selection-end="1875" vertical-scroll-proportion="0.3322091">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/OutlookFolderView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="99" column="40" selection-start="2718" selection-end="2718" vertical-scroll-proportion="0.5193929">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Echo2EntryPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="67" selection-start="1094" selection-end="1094" vertical-scroll-proportion="0.70826304">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="0" selection-start="2061" selection-end="2061" vertical-scroll-proportion="1.5989847">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/ComplexType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="0" selection-start="3678" selection-end="3678" vertical-scroll-proportion="0.6605042">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/IconLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="93" column="0" selection-start="2368" selection-end="2368" vertical-scroll-proportion="0.5327869">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractComplexEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="323" column="28" selection-start="8843" selection-end="8843" vertical-scroll-proportion="0.38319328">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/EObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="37" selection-start="476" selection-end="476" vertical-scroll-proportion="0.4180328">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="571" column="1" selection-start="10086" selection-end="10086" vertical-scroll-proportion="0.8278689">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/LoginDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="28" selection-start="1029" selection-end="1029" vertical-scroll-proportion="0.3327674">
-          <folding />
+        <state line="54" column="0" selection-start="1261" selection-end="1261" vertical-scroll-proportion="0.30819672">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/IconView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="22" selection-start="1250" selection-end="1250" vertical-scroll-proportion="0.43114755">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

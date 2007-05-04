@@ -57,6 +57,9 @@ public class AppFrame extends Window
 //      _desktopPane.setEnabled(false);
       
       _split = new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEADING_TRAILING);
+      _split.setSeparatorWidth(new Extent(10));
+      _split.setResizable(true);
+      
       _split.add(_placeHolder);
       _split.add(_desktopPane);
       contentPane.add(_split);

@@ -122,10 +122,15 @@ public class ComplexType extends AbstractComplexEObject
       updateConcreteTypeMap();
       updateAbstractTypeMap();
 
-      _iconLg = IconLoader.typeIcon(this, "32");
-      _iconSm = IconLoader.typeIcon(this, "16");
-      _iconsLg = IconLoader.pluralIcon(this, "32");
-      _iconsSm = IconLoader.pluralIcon(this, "16");
+      _iconLgResourceRef = IconResolver.typeIconRef(this, "32");
+      _iconSmResourceRef = IconResolver.typeIconRef(this, "16");
+      _iconsLgResourceRef = IconResolver.pluralIconRef(this, "32");
+      _iconsSmResourceRef = IconResolver.pluralIconRef(this, "16");
+      
+      _iconLg = IconLoader.loadIcon(_iconLgResourceRef);
+      _iconSm = IconLoader.loadIcon(_iconSmResourceRef);
+      _iconsLg = IconLoader.loadIcon(_iconsLgResourceRef);
+      _iconsSm = IconLoader.loadIcon(_iconsSmResourceRef);
 
       harvest();
 
@@ -602,11 +607,18 @@ public class ComplexType extends AbstractComplexEObject
    // *** icon stuff ***
 
    protected Icon _iconSm, _iconLg, _iconsSm, _iconsLg;
+   protected String _iconSmResourceRef, _iconLgResourceRef, _iconsSmResourceRef, _iconsLgResourceRef;
+   
    public Icon iconSm() { return _iconSm; }
    public Icon iconLg() { return _iconLg; }
    public Icon iconsSm() { return _iconsSm; }
    public Icon iconsLg() { return _iconsLg; }
 
+   public String iconSmResourceRef() { return _iconSmResourceRef; }
+   public String iconLgResourceRef() { return _iconLgResourceRef; }
+   public String iconsSmResourceRef() { return _iconsSmResourceRef; }
+   public String iconsLgResourceRef() { return _iconsLgResourceRef; }
+   
    public Title title() { return new Title(_pluralName); }
    public ColorEO getColorCode() { return _colorCode; }
    public Color colorCode() { return _colorCode.colorValue(); }

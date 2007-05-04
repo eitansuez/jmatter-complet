@@ -6,8 +6,6 @@ import nextapp.echo2.app.event.ActionListener;
 import nextapp.echo2.app.event.ActionEvent;
 import com.u2d.app.AuthManager;
 import com.u2d.model.ComplexType;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,7 +15,6 @@ import javax.swing.ImageIcon;
  */
 public class LoginDialog extends WindowPane
 {
-
    private TextField _userNameFld = null;
    private PasswordField _pwdField = null;
    private Label _msg = null;
@@ -59,7 +56,7 @@ public class LoginDialog extends WindowPane
       Column c = new Column();
       Row row = new Row();
       row.add(_msg);
-      Label iconLabel = new Label(Echo2ViewMechanism.imageFor(LOGIN_ICON));
+      Label iconLabel = new Label(new ResourceImageReference(LOGIN_ICON));
       RowLayoutData data = new RowLayoutData();
       data.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
       iconLabel.setLayoutData(data);
@@ -109,15 +106,8 @@ public class LoginDialog extends WindowPane
       return okBtn;
    }
    
-   static Icon LOGIN_ICON_SMALL, LOGIN_ICON;
-   static
-   {
-      ClassLoader loader = LoginDialog.class.getClassLoader();
-      java.net.URL imgURL = loader.getResource("images/login16.png");
-      LOGIN_ICON_SMALL = new ImageIcon(imgURL);
-      imgURL = loader.getResource("images/login32.png");
-      LOGIN_ICON = new ImageIcon(imgURL);
-   }
+   static String LOGIN_ICON_SMALL = "images/login16.png";
+   static String LOGIN_ICON = "images/login32.png";
    
    private void reset(String msg)
    {

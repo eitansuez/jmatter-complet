@@ -18,9 +18,9 @@ import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
 import java.util.logging.Logger;
-
 import nextapp.echo2.app.ImageReference;
 import nextapp.echo2.app.AwtImageReference;
+import nextapp.echo2.app.ResourceImageReference;
 
 import javax.swing.*;
 
@@ -569,9 +569,4 @@ public class Echo2ViewMechanism implements ViewMechanism
       }
    }
    
-   
-   public static ImageReference imageFor(Icon icon)
-   {
-      return new AwtImageReference(((ImageIcon) icon).getImage());
-   }
 }

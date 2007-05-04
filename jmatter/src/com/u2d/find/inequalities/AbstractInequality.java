@@ -68,4 +68,6 @@ public abstract class AbstractInequality extends AbstractEObject
 
    public Icon iconSm() { return null; }
    public Icon iconLg() { return null; }
+   public String iconSmResourceRef() { return null; }
+   public String iconLgResourceRef() { return null; }
 }

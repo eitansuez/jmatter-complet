@@ -314,15 +314,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
 
 
-   public javax.swing.Icon iconSm()
-   {
-      return IconLoader.stateIcon(this, "16");
-   }
+   public String iconSmResourceRef() { return IconResolver.stateIconRef(this, "16"); }
+   public String iconLgResourceRef() { return IconResolver.stateIconRef(this, "32"); }
 
-   public javax.swing.Icon iconLg()
-   {
-      return IconLoader.stateIcon(this, "32");
-   }
+   public javax.swing.Icon iconSm() { return IconLoader.stateIcon(this, "16"); }
+   public javax.swing.Icon iconLg() { return IconLoader.stateIcon(this, "32"); }
 
    public abstract Title title();
 
