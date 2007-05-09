@@ -21,7 +21,7 @@ import java.util.Set;
 /**
  * @author Eitan Suez
  */
-public class User extends AbstractComplexEObject
+public class User extends AbstractComplexEObject implements Authorizer
 {
    private final StringEO _username = new StringEO();
    private final Password _password = new Password();
@@ -248,5 +248,5 @@ public class User extends AbstractComplexEObject
    public void applyRestrictions() { getRole().applyRestrictions(); }
    public void liftRestrictions() { getRole().liftRestrictions(); }
 
-
+   public boolean authorizes(User user) { return this.equals(user); }
 }

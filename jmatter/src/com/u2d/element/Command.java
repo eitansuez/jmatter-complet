@@ -8,6 +8,7 @@ import com.u2d.restrict.Restriction;
 import com.u2d.view.*;
 import com.u2d.app.User;
 import com.u2d.app.Role;
+import com.u2d.app.Authorizer;
 import com.u2d.model.*;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
@@ -188,10 +189,10 @@ public abstract class Command extends Member
       _ownerField = ownerField;
    }
 
-   public User getOwner(ComplexEObject parent)
+   public Authorizer getOwner(ComplexEObject parent)
    {
       if (_ownerField == null) return null;
-      return (User) _ownerField.get(parent);
+      return (Authorizer) _ownerField.get(parent);
    }
 
 
@@ -348,8 +349,8 @@ public abstract class Command extends Member
          
          if (_target instanceof ComplexEObject)
          {
-            User owner = cmd.getOwner((ComplexEObject) _target);
-            if (owner != null && !owner.equals(cmd.currentUser()))
+            Authorizer owner = cmd.getOwner((ComplexEObject) _target);
+            if (owner != null && !owner.authorizes(cmd.currentUser()))
             {
                return true;
             }

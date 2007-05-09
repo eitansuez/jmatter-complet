@@ -22,7 +22,7 @@ import java.util.*;
 /**
  * @author Eitan Suez
  */
-public class Role extends AbstractComplexEObject
+public class Role extends AbstractComplexEObject implements Authorizer
 {
    private final StringEO _name = new StringEO();
    private final RelationalList _users = new RelationalList(User.class);
@@ -180,5 +180,6 @@ public class Role extends AbstractComplexEObject
       }
       
    }
-   
+
+   public boolean authorizes(User user) { return _users.contains(user); }
 }
