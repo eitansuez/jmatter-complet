@@ -146,19 +146,18 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    public static void setStandardDateFormat(String format)
    {
       STANDARD = new SimpleDateFormat(format);
+      strategyFallbackHierarchy = new DateFormatStrategy[] {STD_STRATEGY};
    }
+   
    public static SimpleDateFormat stdDateFormat() { return STANDARD; }
    
-   private DateFormatStrategy NODELIMS_STRATEGY, STD_STRATEGY, 
-   TWODIGITS_STRATEGY, NOYR_STRATEGY;
-   {
-      NODELIMS_STRATEGY = new NoDelimsStrategy();
-      STD_STRATEGY = new StandardStrategy();
-      TWODIGITS_STRATEGY = new SimpleDateFormatStrategy(TWODIGITYEAR);
-      NOYR_STRATEGY = new NoYearStrategy();
-   }
-   private DateFormatStrategy[] strategyFallbackHierarchy = 
-   {NODELIMS_STRATEGY, STD_STRATEGY, TWODIGITS_STRATEGY, NOYR_STRATEGY};
+   private static DateFormatStrategy NODELIMS_STRATEGY = new NoDelimsStrategy();
+   private static DateFormatStrategy STD_STRATEGY = new StandardStrategy();
+   private static DateFormatStrategy TWODIGITS_STRATEGY = new SimpleDateFormatStrategy(TWODIGITYEAR);
+   private static DateFormatStrategy NOYR_STRATEGY = new NoYearStrategy();
+   
+   private static DateFormatStrategy[] strategyFallbackHierarchy = 
+             {NODELIMS_STRATEGY, STD_STRATEGY, TWODIGITS_STRATEGY, NOYR_STRATEGY};
 
    private static int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
    
@@ -174,7 +173,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
       if (fieldFormatter == null)
       {
          for (int i=0; i<strategyFallbackHierarchy.length; i++)
-            if (strategyFallbackHierarchy[i].parse(stringValue)) return;
+            if (strategyFallbackHierarchy[i].parse(stringValue, this)) return;
          throw new ParseException(ComplexType.localeLookupStatic("error.date")+": "+stringValue, 0);
       }
       else
@@ -188,26 +187,26 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    
    interface DateFormatStrategy
    {
-      public boolean parse(String stringValue);
+      public boolean parse(String stringValue, DateEO target);
    }
-   abstract class BaseDateFormatStrategy implements DateFormatStrategy
+   static abstract class BaseDateFormatStrategy implements DateFormatStrategy
    {
-      public boolean parse(String stringValue)
+      public boolean parse(String stringValue, DateEO target)
       {
          try
          {
-            return tryParse(stringValue);
+            return tryParse(stringValue, target);
          }
          catch (ParseException ex)
          {
             return false;
          }
       }
-      protected abstract boolean tryParse(String stringValue) throws ParseException;
+      protected abstract boolean tryParse(String stringValue, DateEO target) throws ParseException;
    }
-   class StandardStrategy extends BaseDateFormatStrategy
+   static class StandardStrategy extends BaseDateFormatStrategy
    {
-      public boolean tryParse(String stringValue) throws ParseException
+      public boolean tryParse(String stringValue, DateEO target) throws ParseException
       {
          Date value = STANDARD.parse(stringValue);
          Calendar cal = Calendar.getInstance();
@@ -216,42 +215,42 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
          {
             return false;
          }
-         setValue(value);
+         target.setValue(value);
          return true;
       }
    }
-   class SimpleDateFormatStrategy extends BaseDateFormatStrategy
+   static class SimpleDateFormatStrategy extends BaseDateFormatStrategy
    {
       DateFormat _fmt;
       SimpleDateFormatStrategy(DateFormat fmt) { _fmt = fmt; }
       
-      public boolean tryParse(String stringValue) throws ParseException
+      public boolean tryParse(String stringValue, DateEO target) throws ParseException
       {
-         setValue(_fmt.parse(stringValue));
+         target.setValue(_fmt.parse(stringValue));
          return true;
       }
    }
-   class NoYearStrategy extends BaseDateFormatStrategy
+   static class NoYearStrategy extends BaseDateFormatStrategy
    {
-      public boolean tryParse(String stringValue) throws ParseException
+      public boolean tryParse(String stringValue, DateEO target) throws ParseException
       {
          Date value = NOYEAR.parse(stringValue);
          Calendar cal = Calendar.getInstance();
          cal.setTime(value);
          cal.set(Calendar.YEAR, CURRENT_YEAR);  // default current year (w/o this code uses epoch)
-         setValue(cal.getTime());
+         target.setValue(cal.getTime());
          return true;
       }
    }
-   class NoDelimsStrategy extends BaseDateFormatStrategy
+   static class NoDelimsStrategy extends BaseDateFormatStrategy
    {
-      public boolean tryParse(String stringValue) throws ParseException
+      public boolean tryParse(String stringValue, DateEO target) throws ParseException
       {
          if (stringValue.length() == 7)  // zero-padding for parse
             stringValue = "0" + stringValue;
          
          Date value = NODELIMITERS.parse(stringValue);
-         setValue(value);
+         target.setValue(value);
          return true;
       }
    }
