@@ -104,10 +104,13 @@ public class ListEOPanel  extends JPanel
 
    public void serialize(XMLEncoder enc)
    {
-      enc.writeObject(ListEOPanel.class);
-      enc.writeObject(_leo.type().getJavaClass());
-      Paginable p = (Paginable) _leo;
-      enc.writeObject(p.pageNum());
+      if (_leo instanceof Paginable)
+      {
+         enc.writeObject(ListEOPanel.class);
+         enc.writeObject(_leo.type().getJavaClass());
+         Paginable p = (Paginable) _leo;
+         enc.writeObject(p.pageNum());
+      }
    }
    
    public static void deserialize(final XMLDecoder dec, final FlexiFrame f)

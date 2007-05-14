@@ -426,8 +426,11 @@ public class AppFrame extends JFrame
          try
          {
             CloseableJInternalFrame f = (CloseableJInternalFrame) viewType.newInstance();
-            addFrame(f, Positioning.NONE);
             f.deserialize(dec);
+            if (!(f instanceof FlexiFrame) || !((FlexiFrame) f).isEmpty())
+            {
+               addFrame(f, Positioning.NONE);
+            }
          }
          catch (InstantiationException ex) { ex.printStackTrace(); }
          catch (IllegalAccessException ex) { ex.printStackTrace(); }

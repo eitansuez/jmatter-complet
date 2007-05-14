@@ -7,6 +7,8 @@ import com.u2d.view.swing.list.ListEOPanel;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
+import com.u2d.list.Paginable;
+
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -76,6 +78,8 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       updateSize();
    }
    
+   public boolean isEmpty() { return _views.isEmpty(); }
+
    public void stateChanged(final ChangeEvent e)
    {
       SwingUtilities.invokeLater(new Runnable()
@@ -217,7 +221,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       enc.writeObject(FlexiFrame.class);
       super.serialize(enc);
       
-      int numViews = 0;
+      List<JComponent> viewsToSave = new ArrayList<JComponent>();
       for (JComponent view : _views)
       {
          if ( (view instanceof EOPanel) &&
@@ -225,11 +229,15 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          {
             continue;
          }
-         numViews++;
+         if ( view instanceof ListEOPanel && !(((ListEOPanel) view).getEObject() instanceof Paginable) )
+         {
+            continue;
+         }
+         viewsToSave.add(view);
       }
       
-      enc.writeObject(numViews);
-      for (JComponent view : _views)
+      enc.writeObject(viewsToSave.size());
+      for (JComponent view : viewsToSave)
       {
          if (view instanceof EOPanel)
          {
