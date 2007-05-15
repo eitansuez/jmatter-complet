@@ -16,9 +16,7 @@
     <option name="USER" value="" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
-    </list>
+    <list default="true" name="Default" comment="" />
   </component>
   <component name="ChangeListSynchronizer" />
   <component name="ChangesViewManager" flattened_view="true" />
@@ -141,28 +139,7 @@
     </subPane>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="FormPane.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FormPane.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="4" selection-start="350" selection-end="350" vertical-scroll-proportion="0.31451613">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FormView.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FormView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="189" column="20" selection-start="5363" selection-end="5363" vertical-scroll-proportion="0.5258064">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -795,19 +772,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FormPane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="4" selection-start="350" selection-end="350" vertical-scroll-proportion="0.31451613">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FormView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="189" column="20" selection-start="5363" selection-end="5363" vertical-scroll-proportion="0.5258064">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FormPane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="4" selection-start="350" selection-end="350" vertical-scroll-proportion="0.31451613">
+          <folding />
         </state>
       </provider>
     </entry>

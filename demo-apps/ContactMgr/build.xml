@@ -107,6 +107,14 @@
    </java>
  </target>
 
+<!-- experimental..
+ <target name="iconpicker" description="Launch icon picker">
+   <java fork="true" jar="../../jmatter/lib/tools/iconpicker.jar">
+     <arg line="${basedir} /home/eitan/images/incors_v2" />
+   </java>
+ </target>
+-->
+
  <taskdef name="script-maker" classname="com.u2d.tools.ShellScriptMaker" classpathref="libtools.path" />
  <target name="shellscript" description="produce runnable shell script" depends="genhbm">
     <script-maker classname="${main.class}"

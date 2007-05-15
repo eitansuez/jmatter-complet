@@ -28,13 +28,13 @@ jm|FormPane
 
 jm|FieldCaption
 {
-  color: black;
+  color: #2f4f4f;
   font-weight: normal;
 }
 .required
 {
-   color: blue;
-   font-weight: bold;
+  color: #483d8b;
+  font-weight: bold;
 }
 .validation-msg
 {
