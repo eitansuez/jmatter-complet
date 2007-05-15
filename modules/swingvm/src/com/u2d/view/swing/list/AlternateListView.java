@@ -37,7 +37,7 @@ public class AlternateListView extends JPanel
    private String[] _viewNames;
    private JPanel _controlPane;
    private CardPanel _viewPane;
-   private Map _map = new HashMap();
+   private Map<String, JComponent> _map = new HashMap<String, JComponent>();
    private JPanel _pickPane;
 
    public AlternateListView(AbstractListEO leo, String[] viewNames)
@@ -77,16 +77,45 @@ public class AlternateListView extends JPanel
    private void buildViewPane()
    {
       _viewPane = new CardPanel();
-      show(_viewNames[0]);
+      show(firstViewName());
    }
+
+
+   public void addNotify()
+   {
+      super.addNotify();
+      new Thread()
+      {
+         public void run()
+         {
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               public void run()
+               {
+                  cacheView(firstViewName()).requestFocusInWindow();
+               }
+            });
+         }
+      }.start();
+   }
+   
+   private String firstViewName() { return _viewNames[0]; }
+
 
    public JPanel getControlPane() { return _controlPane; }
    public JPanel getViewPane() { return _viewPane; }
 
    private void show(String viewName)
    {
-      JComponent view = null;
-      if (_map.get(viewName) == null)
+      cacheView(viewName);
+      _viewPane.show(viewName);
+      CloseableJInternalFrame.updateSize(this);
+   }
+   
+   private JComponent cacheView(String viewName)
+   {
+      JComponent view = _map.get(viewName);
+      if (view == null)
       {
          view = view(viewName);
 
@@ -102,8 +131,7 @@ public class AlternateListView extends JPanel
 
          _map.put(viewName, view);
       }
-      _viewPane.show(viewName);
-      CloseableJInternalFrame.updateSize(this);
+      return view;
    }
 
    private JButton button(Icon icon, Icon rolloverIcon, final String viewName)
@@ -144,13 +172,10 @@ public class AlternateListView extends JPanel
    public EObject getEObject() { return _leo; }
    public void detach()
    {
-      Iterator itr = _map.keySet().iterator();
-      EView view = null;
-      Object key = null;
-      while (itr.hasNext())
+      for (Iterator itr = _map.keySet().iterator(); itr.hasNext(); )
       {
-         key = itr.next();
-         view = (EView) _map.get(key);
+         String key = (String) itr.next();
+         EView view = (EView) _map.get(key);
          view.detach();
       }
 
