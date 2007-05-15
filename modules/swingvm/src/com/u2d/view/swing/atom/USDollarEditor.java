@@ -23,6 +23,12 @@ public class USDollarEditor extends JTextField implements AtomicEditor
 
    public void render(AtomicEObject value)
    {
+      if (value.field() != null && value.field().displaysize() > 0
+            && value.field().displaysize() != getColumns())
+      {
+         setColumns(value.field().displaysize());
+      }
+
       setText(value.toString());
    }
 
