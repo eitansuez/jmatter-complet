@@ -17,16 +17,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/IconView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/IconView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo2vm.iws" afterPath="$PROJECT_DIR$/echo2vm.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo2vm.ipr" afterPath="$PROJECT_DIR$/echo2vm.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Echo2_App.jar" afterPath="$PROJECT_DIR$/lib/Echo2_App.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Echo2_WebContainer.jar" afterPath="$PROJECT_DIR$/lib/Echo2_WebContainer.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Echo2_WebRender.jar" afterPath="$PROJECT_DIR$/lib/Echo2_WebRender.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/echo2/LoginDialog.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/echo2/LoginDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo2vm.iml" afterPath="$PROJECT_DIR$/echo2vm.iml" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -338,7 +329,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Favorites="false" PackagesPane="false" Scope="false" ProjectPane="false" />
+      <showStructure ProjectPane="false" PackagesPane="false" Scope="false" Favorites="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -369,25 +360,6 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <module name="" />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="/opt/idea-5766/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -406,6 +378,25 @@
       <method>
         <option name="Make" value="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="/opt/idea-5766/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
   </component>
   <component name="ScopeViewComponent">
@@ -484,7 +475,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="30" width="1280" height="770" extended-state="6" />
+    <frame x="0" y="30" width="1280" height="751" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -631,13 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Echo2EntryPoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="67" selection-start="1094" selection-end="1094" vertical-scroll-proportion="0.70826304">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/AppFrame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="71" column="0" selection-start="2061" selection-end="2061" vertical-scroll-proportion="1.5989847">
@@ -697,6 +681,13 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Echo2EntryPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="725" selection-end="725" vertical-scroll-proportion="0.5329949">
+          <folding />
         </state>
       </provider>
     </entry>
