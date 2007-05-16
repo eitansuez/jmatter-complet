@@ -1,0 +1,59 @@
+@namespace jm com.u2d.view.swing
+
+JDesktopPane
+{
+  background-color: #7684FF;
+}
+
+jm|FormPane
+{
+  background-color: #fffaf0;
+  padding: 5px;
+}
+
+.command
+{
+  font-style: italic;
+}
+
+.list-title, .instance-title
+{
+  color: #400;
+  font-weight: bold;
+  font-size: 16pt;
+}
+.list-title-panel, .instance-title-panel
+{
+}
+
+jm|FieldCaption
+{
+  color: #2f4f4f;
+  font-weight: normal;
+}
+.required
+{
+  color: #483d8b;
+  font-weight: bold;
+}
+.validation-msg
+{
+   color: red;
+   font-style: italic;
+}
+
+.default-button
+{
+  font-weight: bold;
+}
+
+.feedback-pane
+{
+  color: white;
+  background-color: black;
+  font-size: 24pt;
+  font-weight: bold;
+  padding: 30px;
+}
+
+
