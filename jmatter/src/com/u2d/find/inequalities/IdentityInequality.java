@@ -11,6 +11,7 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.model.Editor;
+import com.u2d.find.Inequality;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.*;
 import java.util.*;
@@ -22,19 +23,19 @@ public class IdentityInequality
 {
    private ComplexType _type;
    private EView _ineqView;
-   private List _inequalities;
+   private List<Inequality> _inequalities;
    
    public IdentityInequality()
    {
-      _inequalities = new ArrayList();
+      _inequalities = new ArrayList<Inequality>();
       _inequalities.add(new Equals());
    }
    
    public IdentityInequality(ComplexType type)
    {
-      _inequalities = new ArrayList();
+      _inequalities = new ArrayList<Inequality>();
       _type = type;
-      if (_type.isAbstract())
+      if (_type.hasConcreteSubTypes())
          _inequalities.add(new TypeInequality());
    }
    public IdentityInequality(Field field)
@@ -55,7 +56,7 @@ public class IdentityInequality
          ((Editor) _ineqView).setEditable(true);
       }
 
-      if (_type != null && _type.isAbstract())
+      if (_type != null && _type.hasConcreteSubTypes())
          _inequalities.add(new TypeInequality());
    }
    
