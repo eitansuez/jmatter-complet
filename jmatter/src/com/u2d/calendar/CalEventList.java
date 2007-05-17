@@ -9,6 +9,10 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.view.EView;
 import com.u2d.app.Tracing;
+import com.u2d.reflection.Cmd;
+import com.u2d.element.CommandInfo;
+import com.u2d.element.Command;
+import com.u2d.pattern.Onion;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Expression;
@@ -159,4 +163,23 @@ public class CalEventList extends AbstractListEO
    public EView getView() { return vmech().getListView(this); }
    public EView getMainView() { return getView(); }
 
+   // TODO: fix this..
+   @Cmd
+   public ComplexEObject New(CommandInfo cmdInfo)
+   {
+      return type().New(cmdInfo);
+   }
+   private static Onion _cmds;
+   static
+   {
+      _cmds = Harvester.simpleHarvestCommands(CalEventList.class,
+                                                   new Onion(), false, null);
+   }
+   public Onion commands() { return _cmds; }
+   public Command command(String commandName)
+   {
+      return (Command) _cmds.find(Command.finder(commandName));
+   }
+
+   
 }
