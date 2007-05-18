@@ -5,7 +5,8 @@
       <folder>
          <name>Model</name>
          <items>
-            <!-- TODO: add a type below to make it accessible from the class bar -->
+            <type>com.u2d.self.Space</type>
+            <type>com.u2d.self.Ball</type>
             <type>com.u2d.type.composite.Folder</type>
             <type>com.u2d.find.CompositeQuery</type>
             <type>com.u2d.reporting.SimpleReport</type>
