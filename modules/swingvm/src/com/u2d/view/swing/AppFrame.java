@@ -93,7 +93,7 @@ public class AppFrame extends JFrame
          {
             public void actionPerformed(ActionEvent e)
             {
-               _classBar.focusFirstItem();
+               _classBar.focusItem();
             }
          });
    }
@@ -226,7 +226,7 @@ public class AppFrame extends JFrame
                _classBar = new OutlookFolderView(currentUser.getClassBar());
                
                _centerPane.add(_classBar, BorderLayout.WEST);
-               _classBar.focusFirstItem();
+               _classBar.focusItem();
                _centerPane.revalidate(); _centerPane.repaint();
             }
          });

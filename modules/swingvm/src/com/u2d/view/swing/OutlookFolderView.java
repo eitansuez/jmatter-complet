@@ -63,7 +63,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
       {
          ch = caption.charAt(i++);
       }
-      setMnemonicAt(_tabs.size(), ch);
+      setMnemonicAt(index, ch);
       mnemonics += ch;
    }
    
@@ -82,10 +82,9 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
    public void propertyChange(PropertyChangeEvent evt) {}
    public void stateChanged(ChangeEvent e) {}
 
-   public void focusFirstItem()
+   public void focusItem()
    {
       JListView v = _tabs.get(getSelectedIndex());
-      v.setSelectedIndex(0);
       v.requestFocusInWindow();
    }
 }
