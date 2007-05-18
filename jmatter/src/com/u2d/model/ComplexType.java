@@ -110,8 +110,8 @@ public class ComplexType extends AbstractComplexEObject
    private final ColorEO _colorCode = new ColorEO();
    private String _sortBy;
 
-   private static Map CONCRETE_TYPE_MAP = new HashMap();
-   private static Map ABSTRACT_TYPE_MAP = new HashMap();
+   private static Map<Class, PlainListEObject> CONCRETE_TYPE_MAP = new HashMap<Class, PlainListEObject>();
+   private static Map<Class, HashSet> ABSTRACT_TYPE_MAP = new HashMap<Class, HashSet>();
 
 
    private ComplexType(Class instanceClass)
@@ -412,8 +412,7 @@ public class ComplexType extends AbstractComplexEObject
    {
       Onion commands = commands();
       SimpleFinder finder = Command.finder(commandName);
-      Command cmd = (Command) commands.find(finder);
-      return cmd;
+      return (Command) commands.find(finder);
       // q: don't you need to disambiguate between different commands 
       //   with the same name but that exist in different states??
    }
@@ -481,7 +480,7 @@ public class ComplexType extends AbstractComplexEObject
    {
       try
       {
-         return (String) getJavaClass().getMethod("pluralName", null).invoke(null, null);
+         return (String) getJavaClass().getMethod("pluralName").invoke(null);
       } catch (NoSuchMethodException ignore) {
       } catch (IllegalAccessException ignore) {
       } catch (InvocationTargetException ignore) {
@@ -806,7 +805,7 @@ public class ComplexType extends AbstractComplexEObject
    {
       public Object getRoot()
       {
-         _treeFields = new HashSet();
+         _treeFields = new HashSet<Field>();
          return ComplexType.this;
       }
       public Object getChild(Object parent, int index)
@@ -849,7 +848,7 @@ public class ComplexType extends AbstractComplexEObject
 
 
       private Map searchFieldMap = new HashMap();
-      private Set _treeFields;
+      private Set<Field> _treeFields;
 
       private List searchFields(FieldParent fp)
       {
