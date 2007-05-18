@@ -34,15 +34,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/forms-1.0.7.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/l2fprod-common-outlookbar.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -154,6 +145,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/css4swing.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/forms-1.1.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
