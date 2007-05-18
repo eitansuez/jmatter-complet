@@ -46,14 +46,27 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
             JListView v = new JListView(subfolder.getItems(), true);
             v.setBorder(new LineBorder(Color.black));
 //            v.setOpaque(false);
-            addTab(subfolder.getName().stringValue(),
-                   _folder.iconSm(),
-                   makeScrollPane(v));
+            String caption = subfolder.getName().stringValue();
+            addTab(caption, _folder.iconSm(), makeScrollPane(v));
+            addMnemonic(_tabs.size(), caption);
             _tabs.add(v);
          }
       }
    }
-
+   
+   private String mnemonics = "";
+   private void addMnemonic(int index, String caption)
+   {
+      int i = 0;
+      char ch = caption.charAt(i++);
+      while (mnemonics.indexOf(ch) >= 0 && caption.length() > i)
+      {
+         ch = caption.charAt(i++);
+      }
+      setMnemonicAt(_tabs.size(), ch);
+      mnemonics += ch;
+   }
+   
    public void detach()
    {
       for (JListView v : _tabs)
