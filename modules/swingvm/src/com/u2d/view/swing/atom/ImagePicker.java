@@ -26,6 +26,7 @@ public class ImagePicker extends JPanel implements AtomicEditor
    private ImgEO _eo;
    private JSlider _slider = new MySlider();
    private JPanel _labelPnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
+   private boolean _editmode;
    
    public ImagePicker()
    {
@@ -40,11 +41,12 @@ public class ImagePicker extends JPanel implements AtomicEditor
       _labelPnl.add(_imgLabel);
       add(_labelPnl);
       add(_slider);
+      _editmode = editMode;
       if (editMode)
       {
          _labelPnl.add(pickBtn());
-         _slider.setVisible(false);
       }
+      _slider.setVisible(false);
    }
 
    class MySlider extends JSlider
@@ -79,7 +81,7 @@ public class ImagePicker extends JPanel implements AtomicEditor
          return super.getWidth();
       }
    }
-
+   
    public void passivate()
    {
       if (_pickBtn != null)
@@ -91,6 +93,7 @@ public class ImagePicker extends JPanel implements AtomicEditor
       _eo = (ImgEO) value;
       _imgLabel.setText(_eo.isEmpty() ? _eo.emptyCaption() : "");
       _imgLabel.setIcon(_eo.imageValue());
+      _slider.setVisible(!_editmode && !_eo.isEmpty());
    }
    
    public int bind(AtomicEObject value)
