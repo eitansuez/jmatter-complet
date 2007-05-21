@@ -37,10 +37,10 @@ public class FindPanel extends JPanel
       updateResultsDynamically();
       
       builder.add(_filter, cc.xy(1, 1));
-      // no longer needed since query invoked dynamically.  
-      // for a long time necessary because association setting did not dynamically invoke query
-      // but this is now fixed.
-//      builder.add(findBtn(), cc.xy(3, 1));
+      // trying to get rid of go button and instead dynamically update search results
+      // by attaching listeners to value editor.
+      // see fieldfilter.ineqactionlistener
+      builder.add(findBtn(), cc.xy(3, 1));
 
       setBorder(BorderFactory.createEtchedBorder());
    }

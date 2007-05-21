@@ -6,6 +6,8 @@ package com.u2d.view.swing.find;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import javax.swing.*;
@@ -22,6 +24,7 @@ import com.u2d.ui.JComboTree;
 import com.u2d.view.EView;
 import com.u2d.view.swing.atom.AtomicView;
 import com.u2d.view.swing.atom.StringEditor;
+import com.u2d.view.swing.atom.TypePicker;
 import com.u2d.view.swing.AssociationView2;
 import com.u2d.field.Association;
 
@@ -199,6 +202,10 @@ public class FieldFilter extends JPanel
                   }
                });
             }
+            else if (comp instanceof TypePicker)
+            {
+               ((TypePicker) comp).addItemListener(_itemChangeAdapter);
+            }
 
             removeOldComp();
             _valueSpot.add(comp);
@@ -212,6 +219,10 @@ public class FieldFilter extends JPanel
 
    JComponent _oldComp = null;
    DocumentListener _docListener = new DocumentTrigger();
+   ItemListener _itemChangeAdapter = new ItemListener()
+      {
+         public void itemStateChanged(ItemEvent e) { fireChange(); }
+      };
       
    class DocumentTrigger implements DocumentListener, ActionListener   
    {
@@ -250,6 +261,10 @@ public class FieldFilter extends JPanel
          {
             ((JTextField) editor).getDocument().removeDocumentListener(_docListener);
          }
+      }
+      else if (_oldComp instanceof TypePicker)
+      {
+         ((TypePicker) _oldComp).removeItemListener(_itemChangeAdapter);
       }
       _valueSpot.remove(_oldComp);
    }
