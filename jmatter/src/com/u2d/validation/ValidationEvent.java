@@ -13,13 +13,6 @@ public class ValidationEvent extends EventObject
    private String _msg;
    private boolean _statusType = false;
    
-   public ValidationEvent(Object source, String msg)
-   {
-      super(source);
-      _msg = msg;
-      _statusType = false;
-   }
-   
    public ValidationEvent(Object source, String msg, boolean statusType)
    {
       super(source);
@@ -27,13 +20,12 @@ public class ValidationEvent extends EventObject
       _statusType = statusType;
    }
 
-   public String getMsg()
+   public ValidationEvent(Object source, String msg)
    {
-      return _msg;
+      this(source, msg, false);
    }
    
-   public boolean isStatusMsg()
-   {
-      return _statusType;
-   }
+   public String getMsg()    { return _msg; }
+   public boolean isStatusMsg() { return _statusType; }
+
 }
