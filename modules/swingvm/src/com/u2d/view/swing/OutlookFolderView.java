@@ -74,6 +74,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
          v.detach();
       }
       _tabs.clear();
+      mnemonics = "";
       removeAll();
    }
 
