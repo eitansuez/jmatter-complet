@@ -17,7 +17,6 @@ import com.u2d.view.swing.dnd.RelationalListDropTarget;
 import com.u2d.app.Tracing;
 import com.u2d.list.RelationalList;
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Eitan Suez

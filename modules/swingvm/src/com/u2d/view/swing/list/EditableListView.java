@@ -43,6 +43,7 @@ public class EditableListView extends JPanel
       _leo = leo;
       _association = new NullAssociation(_leo);
       _listView = new JListView(_leo);
+      _listView.setVisibleRowCount(Math.min(leo.getSize()+2, 10));
       
       setLayout(new BorderLayout());
       setOpaque(false);
