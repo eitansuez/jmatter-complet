@@ -220,10 +220,7 @@ public class AppFrame extends JFrame
             public void run()
             {
                User currentUser = _appSession.getUser();
-               // some kind of bug in l2fprod when try to reuse
-               // folderview after having removed all tabs
-//               _classBar.bind(currentUser.getClassBar());
-               _classBar = new OutlookFolderView(currentUser.getClassBar());
+               _classBar.bind(currentUser.getClassBar());
                
                _centerPane.add(_classBar, BorderLayout.WEST);
                _classBar.focusItem();
