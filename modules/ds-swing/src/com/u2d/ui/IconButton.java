@@ -14,12 +14,16 @@ import javax.swing.JButton;
  */
 public class IconButton extends JButton
 {
-   public IconButton(Icon icon, Icon rollover)
+   public IconButton(Icon icon)
    {
       super(icon);
       setBorder(BorderFactory.createEmptyBorder(1,2,1,2));
       setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       setContentAreaFilled(false);
+   }
+   public IconButton(Icon icon, Icon rollover)
+   {
+      this(icon);
       setRolloverEnabled(true);
       setRolloverIcon(rollover);
    }
