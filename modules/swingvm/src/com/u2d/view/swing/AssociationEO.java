@@ -28,7 +28,11 @@ public class AssociationEO extends JPanel implements ComplexEView
       _association = association;
       _editor = new AssociationEditor(_association.field());
 
-      if (!_association.isEmpty())
+      if (_association.isEmpty())
+      {
+         _editor.clearValue();
+      }
+      else
       {
          _editor.renderValue(_association.get());
       }

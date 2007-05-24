@@ -103,9 +103,16 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
             }
          }
       });
+      
+      IconButton showListButton = new IconButton(JComboTree.EXPAND_ICON);
+      showListButton.addActionListener(new ActionListener()
+      {
+         public void actionPerformed(ActionEvent e) { updateModel(); }
+      });
 
       add(fieldPicker);
       add(_tf);
+      add(showListButton);
       
 //      _tf.addFocusListener(new FocusAdapter()
 //      {
