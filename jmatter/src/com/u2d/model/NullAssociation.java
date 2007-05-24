@@ -54,7 +54,7 @@ public class NullAssociation extends NullComplexEObject
 //   public Title title() { return _association.title(); }
 //   public boolean isEmpty() { return _association.isEmpty(); }
 
-   // override commandNew to also do the binding/association
+   // override @New to also do the binding/association
    @Cmd
    public ComplexEObject New(CommandInfo cmdInfo)
    {

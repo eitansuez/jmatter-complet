@@ -257,7 +257,16 @@ public class ComplexType extends AbstractComplexEObject
    {
       return cls.isInterface() || Modifier.isAbstract(cls.getModifiers());
    }
-   public boolean isAbstract() { return isAbstract(_clazz); }
+   
+   public boolean isAbstract() { return isAbstract(_clazz) || designatedAbstract; }
+
+   private boolean designatedAbstract = false;
+   public void setAbstract(boolean abstr)
+   {
+      designatedAbstract = abstr;
+      concreteTypes(_clazz).remove(this);
+   }
+
    public boolean isInterfaceType() { return _clazz.isInterface(); }
    public boolean isChoice()
    {
@@ -692,8 +701,7 @@ public class ComplexType extends AbstractComplexEObject
       return null;  // TODO: consider throwing instead of catching both exceptions 
    }
    @Cmd
-   public ComplexEObject New(CommandInfo cmdInfo,
-                             ComplexType type)
+   public ComplexEObject New(CommandInfo cmdInfo, ComplexType type)
    {
       return type.New(cmdInfo);
    }
