@@ -160,7 +160,7 @@ public class JComboTree extends JPanel implements ActionListener
       
    }
    
-   static Icon EXPAND_ICON;
+   public static Icon EXPAND_ICON;
    static
    {
       ClassLoader loader = JComboTree.class.getClassLoader();
