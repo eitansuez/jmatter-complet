@@ -54,7 +54,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    protected transient State _currentState;
 
-//   public static String[] readOnly = {"createdOn", "deleted", "deletedOn"};
    public static String[] readOnly = {"createdOn"};
 
 
@@ -532,7 +531,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       transferCopy(this, _copy, true);
    }
-
+   
    protected void transferCopy(ComplexEObject target, ComplexEObject copy, boolean forCopy)
    {
       List fields = target.type().fields();
