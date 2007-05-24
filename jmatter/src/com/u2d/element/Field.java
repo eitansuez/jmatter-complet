@@ -106,6 +106,12 @@ public abstract class Field extends Member
    }
 
    public abstract EView getView(ComplexEObject parent);
+   protected FieldViewHandler viewHandler;
+   public void setViewHandler(FieldViewHandler handler)
+   {
+      viewHandler = handler;
+   }
+   
    public abstract int validate(ComplexEObject parent);
    public abstract void setState(ComplexEObject parent, State state);
 

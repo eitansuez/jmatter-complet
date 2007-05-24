@@ -177,7 +177,8 @@ public class IndexedField extends Field implements Bidi, Associable
       {
          ((ExpandableView) view).toggle(true);
       }
-      return view;
+
+      return (viewHandler == null ? view : viewHandler.getView(value, view));
    }
 
    public void set(ComplexEObject parent, Object value)
