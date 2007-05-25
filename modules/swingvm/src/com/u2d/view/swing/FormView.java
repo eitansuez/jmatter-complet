@@ -403,10 +403,6 @@ public class FormView extends JPanel implements ComplexEView, Editor
 
    public void focusFirstEditableField()
    {
-      focusFirstEditableField(FormView.this);
-   }
-   private boolean focusFirstEditableField(Container container)
-   {
-      return UIUtils.focusFirstEditableField(FormView.this);
+      UIUtils.focusFirstEditableField(FormView.this);
    }
 }
