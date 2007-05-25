@@ -61,6 +61,9 @@ public class EditableListView extends JPanel
       setBorder(BorderFactory.createTitledBorder(_leo.field().getNaturalPath()));
 
       _listView.addListSelectionListener(this);
+      
+      _leo.addListDataListener(this);  // for the purpose of dynamically resizing the height of the
+        // contained listview component as a function of the number of children it contains.
    }
 
    public void valueChanged(ListSelectionEvent e)
@@ -144,6 +147,7 @@ public class EditableListView extends JPanel
 //      _leo.parentObject().removeChangeListener(this);
       _listView.removeListSelectionListener(this);
       _listView.detach();
+      _leo.removeListDataListener(this);
    }
 
    public void stateChanged(ChangeEvent e)
@@ -162,9 +166,14 @@ public class EditableListView extends JPanel
       _northPanel.setVisible(editable);
    }
 
-   public void intervalAdded(ListDataEvent e) { }
-   public void intervalRemoved(ListDataEvent e) { }
-   public void contentsChanged(ListDataEvent e) { }
+   public void intervalAdded(ListDataEvent e) { updateListRowHeight(); }
+   public void intervalRemoved(ListDataEvent e) { updateListRowHeight(); }
+   public void contentsChanged(ListDataEvent e) { updateListRowHeight(); }
+   
+   private void updateListRowHeight()
+   {
+      _listView.setVisibleRowCount(Math.min(_leo.getSize()+1, 5));
+   }
 
    public boolean isMinimized() { return false; }
 
