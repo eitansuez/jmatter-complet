@@ -23,6 +23,7 @@ import com.u2d.view.*;
 import com.u2d.view.swing.list.TableView;
 import com.u2d.view.swing.list.CompositeTableView;
 import com.u2d.ui.CustomTabbedPane;
+import com.u2d.ui.UIUtils;
 import com.u2d.app.Tracing;
 
 /**
@@ -406,29 +407,6 @@ public class FormView extends JPanel implements ComplexEView, Editor
    }
    private boolean focusFirstEditableField(Container container)
    {
-      for (int i=0; i<container.getComponentCount(); i++)
-      {
-         Component c = container.getComponent(i);
-         if (c instanceof JTextComponent)
-         {
-            JTextComponent textC = (JTextComponent) c;
-//            System.out.println("Requesting focus for: "+textC.getClass().getName());
-            textC.requestFocusInWindow();
-            textC.selectAll();
-            return true;
-         }
-         else if (c instanceof JTabbedPane)
-         {
-            JTabbedPane tp = (JTabbedPane) c;
-            Container tabContents = (Container) tp.getSelectedComponent();
-            return focusFirstEditableField(tabContents);
-         }
-         else if (c instanceof Container)
-         {
-            boolean done = focusFirstEditableField((Container) c);
-            if (done) return done;
-         }
-      }
-      return false;
+      return UIUtils.focusFirstEditableField(FormView.this);
    }
 }

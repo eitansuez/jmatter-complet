@@ -20,6 +20,7 @@
       <pathelement location="${buildclassesdir}" />
       <fileset dir="../swingvm/lib/" includes="forms*.jar,l2f*.jar" />
       <pathelement location="../../jmatter/build/classes" />
+      <pathelement location="../ds-swing/build/classes" />
    </path>
 
    <path id="test.classpath">

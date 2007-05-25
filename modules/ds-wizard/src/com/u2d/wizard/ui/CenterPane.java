@@ -2,6 +2,7 @@ package com.u2d.wizard.ui;
 
 import com.u2d.wizard.abstractions.Step;
 import com.u2d.view.EView;
+import com.u2d.ui.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +29,18 @@ public class CenterPane extends JPanel
       setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
    }
 
-   public void updateStep(Step step) { _cardLayout.show(this, viewName(step)); }
+   public void updateStep(Step step)
+   {
+      _cardLayout.show(this, viewName(step));
+      // must delay this otherwise may not have any effect..
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            UIUtils.focusFirstEditableField(_currentView);
+         }
+      });
+   }
 
    private String viewName(Step step)
    {

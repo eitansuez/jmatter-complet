@@ -137,4 +137,34 @@ public class UIUtils
                 public void focusLost(FocusEvent evt) {}
              });
     }
+
+
+   public static boolean focusFirstEditableField(Container container)
+   {
+      for (int i=0; i<container.getComponentCount(); i++)
+      {
+         Component c = container.getComponent(i);
+         if (c instanceof JTextComponent)
+         {
+            JTextComponent textC = (JTextComponent) c;
+//            System.out.println("Requesting focus for: "+textC.getClass().getName());
+            textC.requestFocusInWindow();
+            textC.selectAll();
+            return true;
+         }
+         else if (c instanceof JTabbedPane)
+         {
+            JTabbedPane tp = (JTabbedPane) c;
+            Container tabContents = (Container) tp.getSelectedComponent();
+            return focusFirstEditableField(tabContents);
+         }
+         else if (c instanceof Container)
+         {
+            boolean done = focusFirstEditableField((Container) c);
+            if (done) return done;
+         }
+      }
+      return false;
+   }
+
 }
