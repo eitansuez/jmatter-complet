@@ -1,0 +1,32 @@
+.heading
+{
+  font-size: 16pt;
+  font-weight: bold;
+  text-align: left;
+  color: #113322;
+}
+.mainPnl
+{
+   margin: 5px;
+  border: 1px solid black;
+   background-color: white;
+}
+JPanel, JRadioButton
+{
+  background-color: #eeddcc;
+}
+.statusPnl
+{
+   border-top: 1px solid black;
+}
+.bodyPnl
+{
+  margin: 3px;
+  border: 1px solid black;
+  padding: 5px;
+  padding-top: 10px;
+}
+JButton
+{
+  font-weight: bold;
+}

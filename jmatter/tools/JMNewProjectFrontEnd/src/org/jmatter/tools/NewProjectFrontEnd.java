@@ -7,6 +7,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
+import com.u2d.css4swing.CSSEngine;
+import com.u2d.css4swing.StyleMenuBar;
+import com.u2d.css4swing.style.ComponentStyle;
+
 /**
  * Created by IntelliJ IDEA.
  * User: eitan
@@ -20,8 +24,11 @@ public class NewProjectFrontEnd implements BuildListener
    private JButton dirPickerBtn;
    private JRadioButton standaloneRadioButton;
    private JButton createProjectButton;
-   private JPanel mainPanel;
+   private JPanel mainPnl;
    private JLabel statusLbl;
+   private JLabel heading;
+   private JPanel statusPnl;
+   private JPanel bodyPnl;
 
 
    public NewProjectFrontEnd()
@@ -31,6 +38,7 @@ public class NewProjectFrontEnd implements BuildListener
 
    private void init()
    {
+      defineStyles();
       createProjectButton.setMnemonic('c');
       
       dirPickerBtn.addActionListener(new ActionListener()
@@ -39,7 +47,7 @@ public class NewProjectFrontEnd implements BuildListener
          {
             JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            int result = chooser.showDialog(mainPanel, "Choose");
+            int result = chooser.showDialog(mainPnl, "Choose");
             if (result == JFileChooser.APPROVE_OPTION)
             {
                projectBasedirFld.setText(chooser.getSelectedFile().getAbsolutePath());
@@ -66,6 +74,14 @@ public class NewProjectFrontEnd implements BuildListener
             }.start();
          }
       });
+   }
+   
+   private void defineStyles()
+   {
+      ComponentStyle.addClass(mainPnl, "mainPnl");
+      ComponentStyle.addClass(bodyPnl, "bodyPnl");
+      ComponentStyle.addClass(statusPnl, "statusPnl");
+      ComponentStyle.addClass(heading, "heading");
    }
    
    private void createNewProject(String projectName, boolean baseDirSpecified, 
@@ -102,10 +118,12 @@ public class NewProjectFrontEnd implements BuildListener
    
    public static void main(String[] args)
    {
+      CSSEngine.initialize();
       NewProjectFrontEnd form = new NewProjectFrontEnd();
       
       JFrame f = new JFrame("Create new JMatter project..");
-      f.setContentPane(form.mainPanel);
+//      f.setJMenuBar(new StyleMenuBar(f));
+      f.setContentPane(form.mainPnl);
       f.getRootPane().setDefaultButton(form.createProjectButton);
       
       f.setLocation(100,100);

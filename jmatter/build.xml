@@ -194,7 +194,7 @@
 
    <target name="new-project-ui" depends="jar"
            description="GUI for creating a new jmatter project">
-     <java jar="lib/tools/newprojectui.jar" fork="true" />
+     <java classname="org.jmatter.tools.NewProjectFrontEnd" classpath="lib/tools/newprojectui.jar:lib/runtime/css4swing.jar:lib/runtime/antlr-runtime-3.0.jar" fork="true" />
    </target>
 
    <target name="new-project" depends="jar"
