@@ -28,7 +28,7 @@ import java.util.HashSet;
  */
 public class Application implements AppEventNotifier
 {
-   protected String _name;
+   protected String _name, _version, _description, _helpContentsUrl;
    protected int _pagesize;
    protected PersistenceMechanism _pmech;
    private Folder _classBar;
@@ -38,6 +38,15 @@ public class Application implements AppEventNotifier
    public String getName() { return _name; }
    public void setName(String name) { _name = name; }
    
+   public String getVersion() { return _version; }
+   public void setVersion(String version) { _version = version; }
+
+   public String getDescription() { return _description; }
+   public void setDescription(String description) { _description = description; }
+
+   public String getHelpContentsUrl() { return _helpContentsUrl; }
+   public void setHelpContentsUrl(String helpContentsUrl) { _helpContentsUrl = helpContentsUrl; }
+
    public int getPagesize() { return _pagesize; }
    public void setPagesize(int size) { _pagesize = size; }
    

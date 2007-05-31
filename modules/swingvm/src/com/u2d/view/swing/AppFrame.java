@@ -22,6 +22,7 @@ import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.persist.HBMSingleSession;
 import com.u2d.pattern.Filter;
 import com.u2d.element.Command;
+import com.u2d.utils.Launcher;
 
 /**
  * @author Eitan Suez
@@ -164,25 +165,42 @@ public class AppFrame extends JFrame
 
    private void setupMenu()
    {
-      TextWithMnemonic twm = TextWithMnemonic.lookup("menubar.file");
-      JMenu fileMenu = new JMenu(twm.text());
-      if (twm.hasMnemonic())
-      {
-         fileMenu.setMnemonic(twm.mnemonic());
-      }
-      JMenuItem exitItem = new JMenuItem(new QuitAction());
-      fileMenu.add(exitItem);
-
+      _menuBar = new JMenuBar();
+      _menuBar.add(fileMenu());
+      _menuBar.add(lookAndFeelMenu());
+      _menuBar.add(helpMenu());
+      setJMenuBar(_menuBar);
+   }
+   private JMenu fileMenu()
+   {
+      JMenu fileMenu = configMenu("menubar.file");
+      fileMenu.add(new QuitAction());
+      return fileMenu;
+   }
+   private JMenu lookAndFeelMenu()
+   {
       Component[] topLevelContainers =
          new Component[] {this, _desktopPane.getContextMenu()};
       _lfSupport = new BasicLFSupport(topLevelContainers,
             new BasicLFSupport.SystemLFProvider(), _lfSupport);
-      JMenu lookAndFeelMenu = _lfSupport.getMenu();
-
-      _menuBar = new JMenuBar();
-      _menuBar.add(fileMenu);
-      _menuBar.add(lookAndFeelMenu);
-      setJMenuBar(_menuBar);
+      return _lfSupport.getMenu();
+   }
+   private JMenu helpMenu()
+   {
+      JMenu helpMenu = configMenu("menubar.help");
+      helpMenu.add(new AboutAction());
+      helpMenu.add(new HelpContentsAction());
+      return helpMenu;
+   }
+   private JMenu configMenu(String key)
+   {
+      TextWithMnemonic twm = TextWithMnemonic.lookup(key);
+      JMenu menu = new JMenu(twm.text());
+      if (twm.hasMnemonic())
+      {
+         menu.setMnemonic(twm.mnemonic());
+      }
+      return menu;
    }
 
    /* ** public interface ** */
@@ -247,7 +265,8 @@ public class AppFrame extends JFrame
          User currentUser = _appSession.getUser();
          _userMenu.bind(currentUser, _menuBar, null);
          
-         _menuBar.add(_userMenu);
+         int usermenuIndex = _menuBar.getComponentCount() - 2;
+         _menuBar.add(_userMenu, usermenuIndex);
          _menuBar.revalidate(); _menuBar.repaint();
       }
 
@@ -267,18 +286,12 @@ public class AppFrame extends JFrame
 
    //===
 
-   class QuitAction extends javax.swing.AbstractAction
+   class QuitAction extends AbstractAction
    {
       public QuitAction()
       {
-         TextWithMnemonic twm = TextWithMnemonic.lookup("menubar.file.exit");
-         putValue(javax.swing.Action.NAME, twm.text());
-         
          putValue(javax.swing.Action.ACTION_COMMAND_KEY, "exit");
-         if (twm.hasMnemonic())
-         {
-           putValue(Action.MNEMONIC_KEY, new Integer(twm.mnemonic()));
-         }
+         configAction(this, "menubar.file.exit");
 
          KeyStroke quitStroke = KeyStroke.getKeyStroke(KeyEvent.VK_Q,
                                                        Platform.mask());
@@ -289,6 +302,40 @@ public class AppFrame extends JFrame
       {
          setWaitCursor();
          quit();
+      }
+   }
+   
+   private void configAction(Action action, String key)
+   {
+      TextWithMnemonic twm = TextWithMnemonic.lookup(key);
+      action.putValue(javax.swing.Action.NAME, twm.text());
+      if (twm.hasMnemonic())
+      {
+        action.putValue(Action.MNEMONIC_KEY, new Integer(twm.mnemonic()));
+      }
+   }
+   
+   
+   class AboutAction extends AbstractAction
+   {
+      public AboutAction()
+      {
+         configAction(this, "menubar.help.about");
+      }
+      public void actionPerformed(ActionEvent e)
+      {
+         JOptionPane.showMessageDialog(AppFrame.this,  "TBD");
+      }
+   }
+   class HelpContentsAction extends AbstractAction
+   {
+      public HelpContentsAction()
+      {
+         configAction(this, "menubar.help.contents");
+      }
+      public void actionPerformed(ActionEvent e)
+      {
+         Launcher.openInBrowser(_app.getHelpContentsUrl());
       }
    }
 
