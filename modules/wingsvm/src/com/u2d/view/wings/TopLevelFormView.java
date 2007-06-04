@@ -67,6 +67,7 @@ public class TopLevelFormView extends SForm
    }
 
    public int transferValue() { return _formView.transferValue(); }
+   public int validateValue() { return _formView.validateValue(); }
    public void setEditable(boolean editable) { _formView.setEditable(editable); }
    public boolean isEditable() { return _formView.isEditable(); }
 

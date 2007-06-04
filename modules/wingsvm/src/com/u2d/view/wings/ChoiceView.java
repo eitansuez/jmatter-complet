@@ -46,6 +46,8 @@ public class ChoiceView
 
    public int transferValue() { return 0; }
 
+   public int validateValue() { return _choice.validate(); }
+
    public void setEditable(boolean editable)
    {
       _cb.setEnabled(editable);

@@ -85,6 +85,8 @@ public class ExpandableView extends SPanel implements ComplexEView, Editor
    }
 
    public int transferValue() { return leaf().transferValue(); }
+   public int validateValue() { return leaf().validateValue(); }
+
    public void setEditable(boolean editable) { leaf().setEditable(editable); }
    public boolean isEditable() { return leaf().isEditable(); }
 

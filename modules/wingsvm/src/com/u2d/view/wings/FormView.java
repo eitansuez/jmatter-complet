@@ -131,7 +131,7 @@ public class FormView extends SPanel implements ComplexEView, Editor
       ValidationNoticePanel vPnl;
       for (Field field : fields)
       {
-         if ( field.isHidden() || "createdOn".equals(field.name())
+         if ( field.hidden() || "createdOn".equals(field.name())
                || "status".equals(field.name()) )
             continue;
 
@@ -233,7 +233,7 @@ public class FormView extends SPanel implements ComplexEView, Editor
          {
             field = view.getEObject().field();
 
-            if (field.isHidden()) continue;
+            if (field.hidden()) continue;
 
             if (field.isComposite() && !field.isIndexed())
             {
@@ -249,6 +249,21 @@ public class FormView extends SPanel implements ComplexEView, Editor
          }
       }
       return count;
+   }
+
+   public int validateValue()
+   {
+      if (_partialFieldList == null)
+      {
+         return _ceo.validate();
+      }
+      // else..
+      int errorCount = 0;
+      for (int i=0; i<_partialFieldList.size(); i++)
+      {
+         errorCount += _partialFieldList.get(i).validate(_ceo);
+      }
+      return errorCount;
    }
 
    public void setEditable(boolean editable)
@@ -282,7 +297,7 @@ public class FormView extends SPanel implements ComplexEView, Editor
 
             field = eo.field();
 
-            if (field.isHidden()) continue;
+            if (field.hidden()) continue;
 
             if (field.isComposite() && editable && !field.isIndexed())
             {
