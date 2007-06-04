@@ -1,4 +1,5 @@
 @namespace jm com.u2d.view.swing
+@namespace types com.u2d.view.swing.atom
 
 JDesktopPane
 {
@@ -59,4 +60,8 @@ jm|FieldCaption
 #aboutPnl
 {
   margin: 5px;
+}
+types|URIRenderer
+{
+  cursor: pointer;
 }

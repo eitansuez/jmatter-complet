@@ -57,6 +57,7 @@ public class AppFrame extends JFrame
    private JPanel _centerPane;
    private LookAndFeelSupport _lfSupport;
    private OutlookFolderView _classBar = new OutlookFolderView();
+   private ClassMenu _classMenu = new ClassMenu();
 
    private EODesktopPane _desktopPane;
 
@@ -235,6 +236,7 @@ public class AppFrame extends JFrame
             {
                User currentUser = _appSession.getUser();
                _classBar.bind(currentUser.getClassBar());
+               _classMenu.bind(currentUser.getClassBar(), _menuBar, _menuBar.getComponentCount() - 2);
                
                _centerPane.add(_classBar, BorderLayout.WEST);
                _classBar.focusItem();
@@ -249,6 +251,7 @@ public class AppFrame extends JFrame
             public void run()
             {
                _classBar.detach();
+               _classMenu.detach();
                _centerPane.remove(_classBar);
                _centerPane.revalidate(); _centerPane.repaint();
             }
@@ -356,10 +359,10 @@ public class AppFrame extends JFrame
          ComponentStyle.addClass(titleView, "title");
          builder.add(titleView, cc.xy(1, 1));
          
-         JTextArea descriptionArea = new JTextArea(_app.getDescription(), 8, 40);
+         JTextArea descriptionArea = new JTextArea(_app.getDescription(), 5, 40);
          descriptionArea.setEditable(false);
          descriptionArea.setOpaque(false);
-         builder.add(descriptionArea, cc.xy(1, 3));
+         builder.add(new JScrollPane(descriptionArea), cc.xy(1, 3));
          
          URIRenderer link = new URIRenderer();
          link.render(new URI(_app.getHelpContentsUrl()));
