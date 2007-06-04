@@ -17,15 +17,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/wings/TypePicker.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/wings/TypePicker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/wings/atom/AtomicView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/wings/atom/AtomicView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/wings/TopLevelFormView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/wings/TopLevelFormView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/wings/ExpandableView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/wings/ExpandableView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/wings/FormView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/wings/FormView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/wings/ChoiceView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/wings/ChoiceView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/wings/EOFrame.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/wings/EOFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wingsvm.ipr" afterPath="$PROJECT_DIR$/wingsvm.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/wings/TabBodyView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/wings/TabBodyView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wingsvm.iws" afterPath="$PROJECT_DIR$/wingsvm.iws" />
     </list>
   </component>

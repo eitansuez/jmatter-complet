@@ -16,6 +16,7 @@ import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.lf.*;
 import com.u2d.view.swing.dnd.*;
 import com.u2d.view.swing.list.CommandsMenuView;
+import com.u2d.view.swing.atom.URIRenderer;
 import com.u2d.app.*;
 import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
@@ -23,6 +24,11 @@ import com.u2d.persist.HBMSingleSession;
 import com.u2d.pattern.Filter;
 import com.u2d.element.Command;
 import com.u2d.utils.Launcher;
+import com.u2d.type.atom.URI;
+import com.u2d.css4swing.style.ComponentStyle;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.builder.PanelBuilder;
 
 /**
  * @author Eitan Suez
@@ -54,13 +60,18 @@ public class AppFrame extends JFrame
 
    private EODesktopPane _desktopPane;
 
+   private ClassLoader _loader = Thread.currentThread().getContextClassLoader();
+   private java.net.URL _imgURL = _loader.getResource("images/App32.png");
+   private ImageIcon _appIcon = new ImageIcon(_imgURL);
+   
+   
    public AppFrame(AppSession appSession, String lfname)
    {
       _appSession = appSession;
       _app = _appSession.getApp();
 
       setTitle(_app.getName());
-      setAppIcon();
+      setIconImage(_appIcon.getImage());
 
       JPanel contentPane = (JPanel) getContentPane();
       _centerPane = new JPanel(new BorderLayout());
@@ -83,7 +94,7 @@ public class AppFrame extends JFrame
       
       setupKeyboardShorcuts();
    }
-
+   
    private void setupKeyboardShorcuts()
    {
       JPanel contentPane = (JPanel) getContentPane();
@@ -146,21 +157,6 @@ public class AppFrame extends JFrame
             });
          }
       });
-   }
-
-   private void setAppIcon()
-   {
-      ClassLoader loader = Thread.currentThread().getContextClassLoader();
-//      java.net.URL imgURL = loader.getResource("images/App16.png");
-//      if (imgURL == null)
-//         imgURL = loader.getResource("images/Objects16.png");
-      
-      java.net.URL imgURL = loader.getResource("images/App32.png");
-      if (imgURL == null)
-         imgURL = loader.getResource("images/Objects32.png");
-
-      ImageIcon appIconLg = new ImageIcon(imgURL);
-      setIconImage(appIconLg.getImage());
    }
 
    private void setupMenu()
@@ -316,6 +312,8 @@ public class AppFrame extends JFrame
    }
    
    
+   private JDialog aboutDlg;
+   
    class AboutAction extends AbstractAction
    {
       public AboutAction()
@@ -324,9 +322,64 @@ public class AppFrame extends JFrame
       }
       public void actionPerformed(ActionEvent e)
       {
-         JOptionPane.showMessageDialog(AppFrame.this,  "TBD");
+         if (aboutDlg == null)
+         {
+            aboutDlg = new AboutDlg();
+         }
+         aboutDlg.setVisible(true);
       }
    }
+   class AboutDlg extends JDialog implements ActionListener
+   {
+      AboutDlg()
+      {
+         super(AppFrame.this, "About "+_app.getName(), true);
+         setResizable(false);
+         
+         laymeout();
+         
+         pack();
+         Point center = UIUtils.computeCenter(AppFrame.this, AboutDlg.this);
+         setLocation(center);
+      }
+      private void laymeout()
+      {
+         JPanel contentPane = (JPanel) getContentPane();
+         contentPane.setLayout(new BorderLayout());
+         
+         FormLayout layout = new FormLayout("pref",  // columns 
+               "pref, 3dlu, pref, 3dlu, pref, 3dlu, pref");           // rows
+         
+         PanelBuilder builder = new PanelBuilder(layout);
+         CellConstraints cc = new CellConstraints();
+         JLabel titleView = new JLabel(_app.title(), _appIcon, JLabel.LEFT);
+         ComponentStyle.addClass(titleView, "title");
+         builder.add(titleView, cc.xy(1, 1));
+         
+         JTextArea descriptionArea = new JTextArea(_app.getDescription(), 8, 40);
+         descriptionArea.setEditable(false);
+         descriptionArea.setOpaque(false);
+         builder.add(descriptionArea, cc.xy(1, 3));
+         
+         URIRenderer link = new URIRenderer();
+         link.render(new URI(_app.getHelpContentsUrl()));
+         builder.add(link, cc.xy(1, 5));
+         
+         JButton closeBtn = new JButton("OK");
+         closeBtn.addActionListener(AboutDlg.this);
+         builder.add(closeBtn, cc.xy(1, 7, "center, center"));
+         
+         JPanel mainArea = builder.getPanel();
+         ComponentStyle.setIdent(mainArea, "aboutPnl");
+         contentPane.add(mainArea, BorderLayout.CENTER);
+      }
+
+      public void actionPerformed(ActionEvent e)
+      {
+         AboutDlg.this.setVisible(false);
+      }
+   }
+   
    class HelpContentsAction extends AbstractAction
    {
       public HelpContentsAction()

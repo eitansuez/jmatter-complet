@@ -16,7 +16,7 @@ jm|FormPane
   font-style: italic;
 }
 
-.list-title, .instance-title
+.list-title, .instance-title, .title
 {
   color: #400;
   font-weight: bold;
@@ -56,4 +56,7 @@ jm|FieldCaption
   padding: 30px;
 }
 
-
+#aboutPnl
+{
+  margin: 5px;
+}

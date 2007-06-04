@@ -23,8 +23,12 @@
    
    <bean id="application" class="com.u2d.app.Application">
       <property name="name" value="Issue Manager" />
+      <property name="version" value="1.0" />
+      <property name="description" value="Demo App:  An Issue/Bug Manager" />
+      <property name="helpContentsUrl" value="http://jmatter.org/documentation/html/index.html" />
       <property name="pagesize" value="15" />
       <property name="persistenceMechanism" ref="persistor" />
    </bean>
+
    
 </beans>

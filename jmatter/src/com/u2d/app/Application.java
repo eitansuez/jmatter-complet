@@ -40,6 +40,8 @@ public class Application implements AppEventNotifier
    
    public String getVersion() { return _version; }
    public void setVersion(String version) { _version = version; }
+   
+   public String title() { return _name + " v" + _version; }
 
    public String getDescription() { return _description; }
    public void setDescription(String description) { _description = description; }
