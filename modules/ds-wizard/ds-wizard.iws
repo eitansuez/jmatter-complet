@@ -207,20 +207,6 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.wizard.ui" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="ds-wizard.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="ds-wizard" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
           <option name="myItemId" value="com.u2d.wizard.abstractions" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
@@ -590,7 +576,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/NavPane.java">
+    <entry file="file://ui/NavPane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="4" selection-start="851" selection-end="851" vertical-scroll-proportion="0.22765599">
           <folding />
@@ -604,7 +590,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/TitlePane.java">
+    <entry file="file://ui/TitlePane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="62" column="0" selection-start="1747" selection-end="1747" vertical-scroll-proportion="1.3912311">
           <folding />
@@ -618,16 +604,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/CenterPane.java">
+    <entry file="file://ui/CenterPane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="60" selection-start="843" selection-end="843" vertical-scroll-proportion="0.4048387">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/WizardPane.java">
+    <entry file="file://ui/WizardPane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="101" column="20" selection-start="2597" selection-end="2597" vertical-scroll-proportion="0.42903227">
           <folding />

@@ -26,9 +26,7 @@
           <root url="jar://$MODULE_DIR$/lib/swingx-2006_10_27.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../thirdparty/swingx-2007_02_20-src/src/java" />
-        </SOURCES>
+        <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -163,6 +161,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/json.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/hibernate3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

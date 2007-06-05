@@ -63,8 +63,8 @@
     </java>
   </target>
 
-  <target name="compile" description="compile code" depends="raw-compile, compile-modules" />
-  <target name="raw-compile" description="compile code" depends="gen">
+  <target name="compile" description="compile code" depends="raw-compile, compile-dependent-modules" />
+  <target name="raw-compile" description="compile code" depends="gen, compile-standalone-modules">
     <javac debug="on" deprecation="on" 
            classpathref="class.path"
            listfiles="false"
@@ -82,13 +82,16 @@
     </copy>
   </target>
    
-  <target name="compile-modules">
+  <target name="compile-standalone-modules">
      <antcall target="compile-module">
         <param name="module.name" value="ds-swing" />
      </antcall>
      <antcall target="compile-module">
         <param name="module.name" value="ds-wizard" />
      </antcall>
+  </target>
+
+  <target name="compile-dependent-modules">
      <antcall target="compile-module">
         <param name="module.name" value="swingvm" />
      </antcall>
