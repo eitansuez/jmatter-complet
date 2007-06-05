@@ -18,7 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/field/IndexedField.java" afterPath="$PROJECT_DIR$/src/com/u2d/field/IndexedField.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/u2d/tools/HBMPracticeTool.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
     </list>
   </component>
@@ -975,13 +975,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/ViewMechanism.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="48" selection-start="2116" selection-end="2116" vertical-scroll-proportion="0.19354838">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/find/inequalities/IdentityInequality.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="125" column="0" selection-start="3353" selection-end="3353" vertical-scroll-proportion="0.8548387">
@@ -1043,6 +1036,15 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/field/IndexedField.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="20" selection-start="522" selection-end="522" vertical-scroll-proportion="0.3322314">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/ViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="28" selection-start="1015" selection-end="1021" vertical-scroll-proportion="0.33225808">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
