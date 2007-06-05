@@ -72,6 +72,7 @@ public interface ViewMechanism
    public View getParamListView(EOCommand cmd, Object value, CommandInfo cmdInfo);
    public View getFindView(ComplexType type);
    public View getFindView2(ComplexType type);
+   public View getFindView2(ComplexType type, Association association);
 
    // views for atomic types (atomiceobjects)
    public AtomicEView getAtomicView(AtomicEObject eo);

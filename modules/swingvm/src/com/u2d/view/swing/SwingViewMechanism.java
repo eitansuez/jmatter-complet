@@ -715,6 +715,12 @@ public class SwingViewMechanism implements ViewMechanism
    {
       return new FindView2(type);
    }
+   public View getFindView2(ComplexType type, Association association)
+   {
+      FindView2 findview = new FindView2(type);
+      findview.setPickState(association);
+      return findview;
+   }
 
    
    public ComplexEView getFolderView(ComplexEObject ceo)

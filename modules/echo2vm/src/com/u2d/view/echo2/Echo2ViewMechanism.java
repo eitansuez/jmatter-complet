@@ -2,7 +2,6 @@ package com.u2d.view.echo2;
 
 import com.u2d.app.ViewMechanism;
 import com.u2d.app.AppSession;
-import com.u2d.app.Tracing;
 import com.u2d.view.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.wizard.details.Wizard;
@@ -17,12 +16,8 @@ import com.u2d.calendar.CalEvent;
 import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
-import java.util.logging.Logger;
-import nextapp.echo2.app.ImageReference;
-import nextapp.echo2.app.AwtImageReference;
-import nextapp.echo2.app.ResourceImageReference;
-
-import javax.swing.*;
+//import com.u2d.app.Tracing;
+//import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,7 +30,7 @@ public class Echo2ViewMechanism implements ViewMechanism
    private AppSession _appSession;
    private AppFrame _appFrame;
    private LoginDialog _loginDialog;
-   private transient Logger _tracer = Tracing.tracer();
+//   private transient Logger _tracer = Tracing.tracer();
    
    public Echo2ViewMechanism() {}
 
@@ -212,15 +207,9 @@ public class Echo2ViewMechanism implements ViewMechanism
       return null;
    }
 
-   public View getFindView(ComplexType complexType)
-   {
-      return null;
-   }
-
-   public View getFindView2(ComplexType complexType)
-   {
-      return null;
-   }
+   public View getFindView(ComplexType complexType)    { return null; }
+   public View getFindView2(ComplexType complexType) { return null; }
+   public View getFindView2(ComplexType type, Association association) { return null; }
 
    public AtomicEView getAtomicView(AtomicEObject atomicEObject)
    {

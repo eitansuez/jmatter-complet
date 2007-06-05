@@ -297,15 +297,9 @@ public class WingSViewMechanism implements ViewMechanism
       return new ParamListView(cmd, value, cmdInfo);
    }
 
-   public View getFindView(ComplexType type)
-   {
-      return null;
-   }
-
-   public View getFindView2(ComplexType type)
-   {
-      return null;
-   }
+   public View getFindView(ComplexType type) { return null; }
+   public View getFindView2(ComplexType type)    { return null; }
+   public View getFindView2(ComplexType type, Association association) { return null; }
 
    // views for atomic types (atomiceobjects)
    public AtomicEView getAtomicView(AtomicEObject eo)

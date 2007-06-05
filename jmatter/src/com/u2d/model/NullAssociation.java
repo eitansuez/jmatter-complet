@@ -9,7 +9,6 @@ import com.u2d.field.AssociationField;
 import com.u2d.field.IndexedField;
 import com.u2d.pattern.Onion;
 import com.u2d.view.View;
-import com.u2d.view.swing.find.FindView2;
 import com.u2d.list.RelationalList;
 import com.u2d.reflection.Cmd;
 
@@ -103,10 +102,7 @@ public class NullAssociation extends NullComplexEObject
    @Cmd
    public View Find(CommandInfo cmdInfo)
    {
-      View findView = _type.Find(cmdInfo);
-      // i know i'm asking for trouble here..this is a first pass impl..
-      ((FindView2) findView).setPickState(_association);
-      return findView;
+      return vmech().getFindView2(_type, _association);
    }
 
    //    @Cmd

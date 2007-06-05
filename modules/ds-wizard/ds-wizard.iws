@@ -18,11 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/wizard/ui/CenterPane.java" afterPath="$PROJECT_DIR$/src/com/u2d/wizard/ui/CenterPane.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/ds-swing.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ds-wizard.iml" afterPath="$PROJECT_DIR$/ds-wizard.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ds-wizard.iws" afterPath="$PROJECT_DIR$/ds-wizard.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
     </list>
   </component>
   <component name="ChangesViewManager" flattened_view="true" />
@@ -287,7 +283,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
+      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -353,6 +349,13 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
@@ -362,13 +365,6 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <module name="" />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
     </configuration>
   </component>
   <component name="ScopeViewComponent">
@@ -429,7 +425,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="26" width="1288" height="778" extended-state="6" />
+    <frame x="-4" y="26" width="1288" height="778" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -552,13 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/Wizard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="7" selection-start="1427" selection-end="1427" vertical-scroll-proportion="1.6188871">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/com/u2d/wizard/MockCondition.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="12" selection-start="287" selection-end="287" vertical-scroll-proportion="0.37942666">
@@ -641,6 +630,13 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/ui/WizardPane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="101" column="20" selection-start="2597" selection-end="2597" vertical-scroll-proportion="0.42903227">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/wizard/details/Wizard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="0" selection-start="1436" selection-end="1436" vertical-scroll-proportion="0.8548387">
           <folding />
         </state>
       </provider>

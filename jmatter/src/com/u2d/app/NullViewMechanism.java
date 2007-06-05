@@ -68,6 +68,7 @@ public class NullViewMechanism implements ViewMechanism
    public View getParamListView(EOCommand cmd, Object value, CommandInfo cmdInfo) { return null; }
    public View getFindView(ComplexType type) { return null; }
    public View getFindView2(ComplexType type) { return null; }
+   public View getFindView2(ComplexType type, Association association) { return null; }
 
    public AtomicEView getAtomicView(AtomicEObject eo) { return null; }
 
