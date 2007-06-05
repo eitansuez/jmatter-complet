@@ -142,17 +142,7 @@
     </subPane>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="SwingViewMechanism.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/SwingViewMechanism.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="521" column="0" selection-start="14221" selection-end="14221" vertical-scroll-proportion="0.19354838">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -762,7 +752,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/SwingViewMechanism.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="521" column="0" selection-start="14221" selection-end="14221" vertical-scroll-proportion="0.19354838">
+        <state line="684" column="18" selection-start="20401" selection-end="20401" vertical-scroll-proportion="0.5016129">
           <folding />
         </state>
       </provider>

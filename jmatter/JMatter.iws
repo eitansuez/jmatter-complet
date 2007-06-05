@@ -18,9 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/find/inequalities/IdentityInequality.java" afterPath="$PROJECT_DIR$/src/com/u2d/find/inequalities/IdentityInequality.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/NullViewMechanism.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/NullViewMechanism.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/ViewMechanism.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/ViewMechanism.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/field/IndexedField.java" afterPath="$PROJECT_DIR$/src/com/u2d/field/IndexedField.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
     </list>
   </component>
@@ -940,52 +938,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Tracing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="4" selection-start="968" selection-end="968" vertical-scroll-proportion="0.38064516">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/reporting/SimpleReport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="756" selection-end="756" vertical-scroll-proportion="0.27419356">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="17" selection-start="103" selection-end="103" vertical-scroll-proportion="0.14516129">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="718" column="0" selection-start="21073" selection-end="21114" vertical-scroll-proportion="0.4088586">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/NullComplexEObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="18" selection-start="2481" selection-end="2486" vertical-scroll-proportion="0.64224875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/SwingViewMechanism.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="721" column="22" selection-start="21471" selection-end="21471" vertical-scroll-proportion="0.6810631">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/find/FindView2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="175" column="33" selection-start="4868" selection-end="4868" vertical-scroll-proportion="0.733871">
@@ -996,13 +948,6 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/list/CriteriaListEO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="41" selection-start="827" selection-end="827" vertical-scroll-proportion="0.19354838">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="537" column="24" selection-start="15461" selection-end="15472" vertical-scroll-proportion="0.3951613">
           <folding />
         </state>
       </provider>
@@ -1050,6 +995,57 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="63" column="0" selection-start="2642" selection-end="2642" vertical-scroll-proportion="0.66129035">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="25" selection-start="543" selection-end="543" vertical-scroll-proportion="0.33225808">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="22" selection-start="884" selection-end="884" vertical-scroll-proportion="0.21774194">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/FieldViewHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="17" selection-start="232" selection-end="232" vertical-scroll-proportion="0.24193548">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/element/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="108" column="22" selection-start="2872" selection-end="2872" vertical-scroll-proportion="0.3322314">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/ListEView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="17" selection-start="104" selection-end="104" vertical-scroll-proportion="0.14516129">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/EObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="29" selection-start="604" selection-end="609" vertical-scroll-proportion="0.5322581">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/field/IndexedField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="20" selection-start="522" selection-end="522" vertical-scroll-proportion="0.3322314">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

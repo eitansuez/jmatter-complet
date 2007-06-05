@@ -17,7 +17,6 @@ import com.u2d.model.NullComplexEObject;
 import com.u2d.pattern.*;
 import com.u2d.validation.Required;
 import com.u2d.view.*;
-import com.u2d.view.swing.list.ExpandableView;
 import com.u2d.list.CompositeList;
 import com.u2d.reflection.IdxFld;
 
@@ -173,11 +172,6 @@ public class IndexedField extends Field implements Bidi, Associable
    {
       AbstractListEO value = (AbstractListEO) get(parent);
       EView view = value.getView();
-      if (isTabView() && (view instanceof ExpandableView))
-      {
-         ((ExpandableView) view).toggle(true);
-      }
-
       return (viewHandler == null ? view : viewHandler.getView(value, view));
    }
 

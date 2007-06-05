@@ -656,7 +656,7 @@ public class SwingViewMechanism implements ViewMechanism
    public ListEView getListViewAsTree(AbstractListEO leo) { return new MyListTreeView(leo); }
    public ListEView getOmniListView(AbstractListEO leo) { return new OmniListView(leo); }
    public ListEView getToolbarView(String name, AbstractListEO leo) { return new ToolbarView(name, leo); }
-
+   
    public ListEView getPickView(AbstractListEO leo)
    {
       return new PickView(leo);
@@ -677,7 +677,12 @@ public class SwingViewMechanism implements ViewMechanism
    }
    public ListEView getExpandableListView(RelationalList leo)
    {
-      return new com.u2d.view.swing.list.ExpandableView(leo);
+      com.u2d.view.swing.list.ExpandableView view = new com.u2d.view.swing.list.ExpandableView(leo);
+      if (leo.field().isTabView())
+      {
+         view.toggle(true);
+      }
+      return view;
    }
 
    public ListEView getMultiChoiceView(AbstractListEO leo)
