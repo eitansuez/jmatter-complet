@@ -60,6 +60,8 @@ public class NullViewMechanism implements ViewMechanism
    public ComplexEView getAssociationView(Association association) { return null; }
    public ComplexEView getChoiceView(AbstractChoiceEO choice) { return null; }
 
+   public EView getTypePicker(ComplexType type) { return null; }
+
    public ComplexEView getCalendarView(Calendrier calendar) { return null; }
    public ComplexEView getScheduleView(Schedule schedule) { return null; }
    public ComplexEView getCalEventView(CalEvent event) { return null; }

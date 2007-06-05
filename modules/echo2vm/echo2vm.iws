@@ -330,7 +330,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
+      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -685,7 +685,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/echo2/Echo2ViewMechanism.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="639" selection-end="639" vertical-scroll-proportion="0.5080645">
+        <state line="185" column="0" selection-start="3788" selection-end="3788" vertical-scroll-proportion="0.47741935">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

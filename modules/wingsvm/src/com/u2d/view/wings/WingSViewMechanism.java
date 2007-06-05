@@ -269,6 +269,9 @@ public class WingSViewMechanism implements ViewMechanism
    {
       return new ChoiceView(choice);
    }
+   
+   public EView getTypePicker(ComplexType type) { return null; }
+   
 
    // for calendaring / scheduling
    public ComplexEView getCalendarView(Calendrier calendar)

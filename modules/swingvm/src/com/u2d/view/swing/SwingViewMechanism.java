@@ -518,6 +518,9 @@ public class SwingViewMechanism implements ViewMechanism
       return new ChoiceView(choice);
    }
    
+   public EView getTypePicker(ComplexType type) { return new TypePicker(type); }
+
+   
    
    public ComplexEView getCalendarView(Calendrier calendar)
    {
@@ -701,7 +704,6 @@ public class SwingViewMechanism implements ViewMechanism
    // ================================
    // Custom Views:
    // ================================
-   
    
    public View getParamListView(EOCommand cmd, Object value, CommandInfo cmdInfo)
    {

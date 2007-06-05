@@ -142,7 +142,17 @@
     </subPane>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="WingSViewMechanism.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/wings/WingSViewMechanism.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="302" column="26" selection-start="7081" selection-end="7089" vertical-scroll-proportion="0.33225808">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -294,7 +304,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
+      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -658,7 +668,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/wings/WingSViewMechanism.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="302" column="0" selection-start="7206" selection-end="7206" vertical-scroll-proportion="0.5258064">
+        <state line="302" column="26" selection-start="7081" selection-end="7089" vertical-scroll-proportion="0.33225808">
           <folding />
         </state>
       </provider>

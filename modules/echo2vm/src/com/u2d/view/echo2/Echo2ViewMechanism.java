@@ -181,6 +181,11 @@ public class Echo2ViewMechanism implements ViewMechanism
    {
       return null;
    }
+   
+   public EView getTypePicker(ComplexType type) { return null; }
+
+   
+   
 
    public ComplexEView getCalendarView(Calendrier calendrier)
    {

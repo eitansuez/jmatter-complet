@@ -5,7 +5,6 @@ package com.u2d.find.inequalities;
 
 import com.u2d.type.Choice;
 import com.u2d.view.*;
-import com.u2d.view.swing.atom.TypePicker;
 import com.u2d.element.Field;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
@@ -96,7 +95,7 @@ public class IdentityInequality
 
    public class TypeInequality extends AbstractInequality
    {
-      TypePicker _picker;
+      EView _picker;
       public void addExpression(Criteria criteria, Field field, EObject eo)
       {
          ComplexType type = (ComplexType) eo;
@@ -110,15 +109,15 @@ public class IdentityInequality
       {
          if (_picker == null)
          {
-            _picker = new TypePicker(_type);
-            _picker.setEditable(true);
+            _picker = vmech().getTypePicker(_type);
+            ((Editor) _picker).setEditable(true);
          }
          return _picker;
       }
 
       public EObject getValue()
       {
-         _picker.transferValue();
+         ((Editor) _picker).transferValue();
          return _picker.getEObject();
       }
    }

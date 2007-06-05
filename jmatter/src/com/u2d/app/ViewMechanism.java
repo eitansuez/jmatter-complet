@@ -62,6 +62,8 @@ public interface ViewMechanism
    public ComplexEView getAssociationView(Association association);
    public ComplexEView getChoiceView(AbstractChoiceEO choice);
 
+   public EView getTypePicker(ComplexType type);
+
    // for calendaring / scheduling
    public ComplexEView getCalendarView(Calendrier calendar);
    public ComplexEView getScheduleView(Schedule schedule);
