@@ -8,7 +8,6 @@ import com.u2d.element.Field;
 import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
 import com.u2d.find.Query;
-import com.u2d.view.swing.list.TableView;
 import com.u2d.view.ListEView;
 
 /**
@@ -45,7 +44,6 @@ public class SimpleReport extends AbstractComplexEObject
       CriteriaListEO leo = _query.execute();
       leo.useTableModel(leo.tableModel(_fields.getItems()));
       return vmech().getListViewAsTable(leo);
-//      return new TableView(leo, leo.tableModel(_fields.getItems()));
    }
    
    public Title title() { return _name.title(); }
