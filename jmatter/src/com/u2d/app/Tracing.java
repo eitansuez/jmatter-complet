@@ -35,8 +35,7 @@ public class Tracing
 
    static class ShortFormatter extends Formatter
    {
-      private String lineSeparator = (String) java.security.AccessController.doPrivileged(
-            new sun.security.action.GetPropertyAction("line.separator"));
+      private String lineSeparator = System.getProperty("line.separator");
 
       public synchronized String format(LogRecord record)
       {
