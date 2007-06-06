@@ -293,7 +293,10 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
    
    
-   public String defaultCommandName() { return "Open"; }
+   protected String _defaultCmdName = "Open";
+   public String defaultCommandName() { return _defaultCmdName; }
+   public void setDefaultCommandName(String name) { _defaultCmdName = name; }
+
    public Command defaultCommand() { return command(defaultCommandName()); }
 
 

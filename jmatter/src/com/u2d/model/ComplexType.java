@@ -133,6 +133,7 @@ public class ComplexType extends AbstractComplexEObject
       _iconsSm = IconLoader.loadIcon(_iconsSmResourceRef);
 
       harvest();
+      _defaultCmdName = "Browse";
 
       setState(_readState, true);
 
@@ -462,8 +463,6 @@ public class ComplexType extends AbstractComplexEObject
 //      }
 //      return null;
 //   }
-
-   public String defaultCommandName() { return "Browse"; }
 
    public Class getJavaClass() { return _clazz; }
    public FieldParent parent() { return null; } // by definition

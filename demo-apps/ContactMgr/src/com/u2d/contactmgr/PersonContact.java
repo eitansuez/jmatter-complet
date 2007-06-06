@@ -14,6 +14,12 @@ import java.util.Properties;
 @Persist
 public class PersonContact extends Person
 {
+   // an example of how to override the default command for a single type..
+   static
+   {
+      ComplexType.forClass(PersonContact.class).setDefaultCommandName("NewPersonWizard");
+   }
+   
    @Cmd
    public static Wizard NewPersonWizard(CommandInfo cmdInfo)
    {
