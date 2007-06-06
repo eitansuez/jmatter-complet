@@ -5,6 +5,9 @@ package com.u2d.element;
 
 import java.beans.*;
 import java.lang.reflect.*;
+import java.util.List;
+import java.util.ArrayList;
+
 import com.u2d.field.*;
 import com.u2d.find.Searchable;
 import com.u2d.model.*;
@@ -76,7 +79,7 @@ public abstract class Field extends Member
             throw new IllegalArgumentException("Invalid parent type: "+parent.getClass()+"; expected: "+parentClass);
          }
 
-         return _getter.invoke(parent, null);
+         return _getter.invoke(parent);
       }
       catch (IllegalAccessException ex)
       {
@@ -421,7 +424,7 @@ public abstract class Field extends Member
       {
          try
          {
-            Object returnValue = _requiredMethod.invoke(parent, null);
+            Object returnValue = _requiredMethod.invoke(parent);
             return ((Required) returnValue);
          }
          catch (Exception ex)
@@ -460,8 +463,30 @@ public abstract class Field extends Member
          
          if (!StringEO.isEmpty(fat.format()))
             getFormat().setValue(fat.format());
+         
+         // can't figure out how to mark an annotation member as optional
+         // default null does not work.
+         if (!Class.class.equals(fat.optionsEnum()))
+         {
+            setValueOptions(fat.optionsEnum().getEnumConstants());
+         }
       }
    }
+   
+   private List<String> valueOptions; 
+   private void setValueOptions(Object[] options)
+   {
+      valueOptions = new ArrayList<String>();
+      for (Object option : options)
+      {
+         valueOptions.add(option.toString());
+      }
+   }
+   public boolean hasValueOptions()
+   {
+      return (valueOptions!=null) && !(valueOptions.isEmpty());
+   }
+   public List<String> valueOptions() { return valueOptions; }
 
 //   public static Class getCustomTypeImplementorClass()
 //   {

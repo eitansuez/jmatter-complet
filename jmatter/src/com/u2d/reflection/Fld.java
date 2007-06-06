@@ -54,4 +54,9 @@ public @interface Fld
    public boolean persist() default true;
    
    public boolean hidden() default false;
+
+   /**
+    * @return A reference to an enum type used to restrict list of valid values for a field
+    */
+   public Class optionsEnum() default Class.class;
 }

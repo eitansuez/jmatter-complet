@@ -41,7 +41,14 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
    {
       _eo = eo;
       _renderer = eo.getRenderer();
-      _editor = eo.getEditor();
+      if (eo.field().hasValueOptions())
+      {
+         _editor = new ComboEditor(eo.field().valueOptions());
+      }
+      else
+      {
+         _editor = eo.getEditor();
+      }
 
       JComponent rendererComponent = (JComponent) _renderer;
       JComponent editorComponent = (JComponent) _editor;
