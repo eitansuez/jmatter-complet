@@ -299,16 +299,21 @@ public class FieldFilter extends JPanel
 
    public SimpleQuery getQuery()
    {
-      if (_fieldCombo.getSelectedItem() instanceof ComplexType)
+      if (isTypeNarrowing())
       {
-         Inequality ineq = (Inequality) _ineqCombo.getSelectedItem();
-         ComplexType concreteType = (ComplexType) ineq.getValue();
-         return new SimpleQuery(concreteType);
+         return new SimpleQuery(narrowedType());
       }
-      else
-      {
-         return new SimpleQuery(_type, getSpec());
-      }
+      return new SimpleQuery(_type, getSpec());
+   }
+   
+   public boolean isTypeNarrowing()
+   {
+      return _fieldCombo.getSelectedItem() instanceof ComplexType;
+   }
+   public ComplexType narrowedType()
+   {
+      Inequality ineq = (Inequality) _ineqCombo.getSelectedItem();
+      return (ComplexType) ineq.getValue();
    }
 
    

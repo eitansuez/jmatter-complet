@@ -22,7 +22,7 @@ public class FindForm extends JPanel
 {
    private ComplexType _type;
    
-   private java.util.List _filters;
+   private java.util.List<FieldFilter> _filters;
    private JPanel _mainPnl;
 //   private ButtonGroup _radios;
    private PanelBuilder _builder;
@@ -44,7 +44,7 @@ public class FindForm extends JPanel
       _builder = new PanelBuilder(layout, _mainPnl);
       add(_mainPnl, BorderLayout.CENTER);
       
-      _filters = new ArrayList();
+      _filters = new ArrayList<FieldFilter>();
       addFilter();
 	}
    
@@ -122,11 +122,16 @@ public class FindForm extends JPanel
    {
       CompositeQuery query = new CompositeQuery(_type);
 
-      FieldFilter filter = null;
-      for (int i=0; i<_filters.size(); i++)
+      for (FieldFilter filter : _filters)
       {
-         filter = (FieldFilter) _filters.get(i);
-         query.getQuerySpecifications().add(filter.getSpec());
+         if (filter.isTypeNarrowing())
+         {
+            query.setQueryType(filter.narrowedType());
+         }
+         else
+         {
+            query.addSpecification(filter.getSpec());
+         }
       }
       return query;
    }

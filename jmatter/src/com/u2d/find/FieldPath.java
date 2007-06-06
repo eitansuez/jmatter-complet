@@ -78,9 +78,8 @@ public class FieldPath extends AbstractAtomicEO
          _pathList.addLast(node);
       }
       
-      Field field = null;
       int last = fieldPaths.length - 1;
-      field = Field.forPath(fieldPaths[last]);
+      Field field = Field.forPath(fieldPaths[last]);
       _pathList.addFirst(field.parent());
       _pathList.addLast(field);
    }

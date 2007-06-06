@@ -58,7 +58,11 @@ public class CompositeQuery extends AbstractComplexEObject
    }
 
    public CompositeList getQuerySpecifications() { return _querySpecifications; }
-
+   
+   public void addSpecification(QuerySpecification spec)
+   {
+      _querySpecifications.add(spec);
+   }
 
    public int validate()
    {
