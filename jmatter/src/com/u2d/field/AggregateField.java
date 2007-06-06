@@ -86,18 +86,7 @@ public class AggregateField extends CompositeField implements FieldParent
    public EView getView(ComplexEObject parent)
    {
       ComplexEObject value = (ComplexEObject) get(parent);
-      if (value instanceof Choice)
-      {
-         return value.getView();
-      }
-      else if (isTabView())
-      {
-         return value.getTabBodyView();
-      }
-      else
-      {
-         return value.getExpandableView();
-      }
+      return vmech().getAggregateView(value);
    }
    
    public int validate(ComplexEObject parent)

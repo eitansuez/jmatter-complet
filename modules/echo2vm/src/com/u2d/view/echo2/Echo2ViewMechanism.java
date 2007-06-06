@@ -172,15 +172,10 @@ public class Echo2ViewMechanism implements ViewMechanism
       return null;
    }
 
-   public ComplexEView getAssociationView(Association association)
-   {
-      return null;
-   }
+   public EView getAggregateView(ComplexEObject value) { return null; }
+   public ComplexEView getAssociationView(Association association) { return null; }
 
-   public ComplexEView getChoiceView(AbstractChoiceEO abstractChoiceEO)
-   {
-      return null;
-   }
+   public ComplexEView getChoiceView(AbstractChoiceEO abstractChoiceEO) { return null; }
    
    public EView getTypePicker(ComplexType type) { return null; }
 

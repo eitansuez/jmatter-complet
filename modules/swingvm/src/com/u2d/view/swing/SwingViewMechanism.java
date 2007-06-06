@@ -21,7 +21,7 @@ import com.u2d.view.swing.find.QueryView;
 import com.u2d.view.swing.list.*;
 import com.u2d.wizard.ui.WizardPane;
 import com.u2d.wizard.details.Wizard;
-import com.u2d.type.AbstractChoiceEO;
+import com.u2d.type.*;
 import com.u2d.type.composite.Folder;
 import java.awt.*;
 import java.awt.event.*;
@@ -508,9 +508,35 @@ public class SwingViewMechanism implements ViewMechanism
    }
 
    
+   public EView getAggregateView(ComplexEObject value)
+   {
+      if (value instanceof com.u2d.type.Choice)
+      {
+         return value.getView();
+      }
+      else if (value.type().getJavaClass().isAnnotationPresent(EditWithCombo.class))
+      {
+         return new StateCardPanel(getListItemView(value), new AggregateComboView(value));
+      }
+      else if (value.field().isTabView())
+      {
+         return getTabBodyView(value);
+      }
+      else
+      {
+         return getExpandableView(value);
+      }
+   }
    public ComplexEView getAssociationView(Association association)
    {
-      return new AssociationView2(association);
+      if (association.type().getJavaClass().isAnnotationPresent(EditWithCombo.class))
+      {
+         return new StateCardPanel(new AssociationView2(association), new AssociationComboView(association));
+      }
+      else
+      {
+         return new AssociationView2(association);
+      }
    }
    /* the understanding here is that choices are also CEOs */
    public ComplexEView getChoiceView(AbstractChoiceEO choice)

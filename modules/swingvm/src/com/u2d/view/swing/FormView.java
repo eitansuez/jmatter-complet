@@ -10,7 +10,6 @@ import com.jgoodies.forms.layout.FormLayout;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
-import javax.swing.text.JTextComponent;
 import java.util.*;
 import java.util.List;
 import java.beans.*;

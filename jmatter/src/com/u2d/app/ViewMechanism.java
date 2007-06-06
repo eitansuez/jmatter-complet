@@ -59,6 +59,7 @@ public interface ViewMechanism
    public ComplexEView getOutlookView(ComplexEObject ceo);
    public ComplexEView getQueryView(CompositeQuery query);
 
+   public EView getAggregateView(ComplexEObject value);
    public ComplexEView getAssociationView(Association association);
    public ComplexEView getChoiceView(AbstractChoiceEO choice);
 

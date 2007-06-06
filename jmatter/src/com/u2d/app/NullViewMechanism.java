@@ -57,6 +57,8 @@ public class NullViewMechanism implements ViewMechanism
    public ComplexEView getFolderView(ComplexEObject ceo) { return null; }
    public ComplexEView getOutlookView(ComplexEObject ceo) { return null; }
    public ComplexEView getQueryView(CompositeQuery query) { return null; }
+
+   public EView getAggregateView(ComplexEObject value) { return null; }
    public ComplexEView getAssociationView(Association association) { return null; }
    public ComplexEView getChoiceView(AbstractChoiceEO choice) { return null; }
 

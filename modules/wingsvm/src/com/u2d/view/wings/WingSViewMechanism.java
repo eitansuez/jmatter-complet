@@ -259,6 +259,8 @@ public class WingSViewMechanism implements ViewMechanism
       return null;
    }
 
+   public EView getAggregateView(ComplexEObject value) { return null; }
+
    public ComplexEView getAssociationView(Association association)
    {
       return new AssociationView(association);
