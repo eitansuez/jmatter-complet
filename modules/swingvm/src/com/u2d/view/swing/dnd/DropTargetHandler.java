@@ -7,7 +7,6 @@ import java.awt.datatransfer.*;
 import java.util.logging.Logger;
 import javax.swing.*;
 import com.u2d.field.Association;
-import com.u2d.field.Associable;
 import com.u2d.model.*;
 import com.u2d.view.EView;
 import com.u2d.app.Tracing;

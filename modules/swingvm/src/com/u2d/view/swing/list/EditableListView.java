@@ -56,6 +56,7 @@ public class EditableListView extends JPanel
       add(scrollPane, BorderLayout.CENTER);
 
       // allow drop on list to add item to list..
+      _listView.setDropTarget(null); // clear default drop target handling..
       _listView.setTransferHandler(new DropTargetHandler());
 
       setBorder(BorderFactory.createTitledBorder(_leo.field().getNaturalPath()));
