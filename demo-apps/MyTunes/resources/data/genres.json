@@ -3,22 +3,18 @@
   "items": [
     {
       "code": "rock",
-      "type": "com.u2d.mytunes.Genre",
       "caption": "Rock & Roll"
     },
     {
       "code": "blues",
-      "type": "com.u2d.mytunes.Genre",
       "caption": "Blues"
     },
     {
       "code": "classical",
-      "type": "com.u2d.mytunes.Genre",
       "caption": "Classical"
     },
     {
       "code": "country",
-      "type": "com.u2d.mytunes.Genre",
       "caption": "Country"
     }
   ]
