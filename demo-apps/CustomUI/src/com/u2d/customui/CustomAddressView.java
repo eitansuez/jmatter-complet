@@ -80,6 +80,8 @@ public class CustomAddressView extends JPanel
       return result;
    }
 
+   public int validateValue() { return _addr.validate(); }
+
    public void setEditable(boolean editable)
    {
       ((Editor) line1View).setEditable(editable);
