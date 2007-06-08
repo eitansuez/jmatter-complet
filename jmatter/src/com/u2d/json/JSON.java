@@ -90,7 +90,7 @@ public class JSON
       for (int i=0; i<ra.length(); i++)
       {
          jso = ra.getJSONObject(i);
-         leo.add(fromJson(jso));
+         leo.add(fromJson(jso, cls));
       }
 
       return leo;
@@ -99,9 +99,23 @@ public class JSON
    public static ComplexEObject fromJson(JSONObject o)
          throws JSONException, ClassNotFoundException, ParseException
    {
+      return fromJson(o, null);
+   }
+   public static ComplexEObject fromJson(JSONObject o, Class cls)
+         throws JSONException, ClassNotFoundException, ParseException
+   {
       Iterator itr = o.keys();
-      String clsname = (String) o.get("type");
-      Class cls = Class.forName(clsname);
+      if (o.has("type"))
+      {
+         String clsname = (String) o.get("type");
+         cls = Class.forName(clsname);
+      }
+      // special case for unmarshalling complex type references..
+      if (ComplexType.class.isAssignableFrom(cls))
+      {
+         String typeName = o.getString("value");
+         return ComplexType.forClass(Class.forName(typeName));
+      }
       ComplexEObject eo = ComplexType.forClass(cls).instance();
 
       while (itr.hasNext())
