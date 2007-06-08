@@ -252,7 +252,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
 
 
-   protected Map<String, Association> _associations = new HashMap<String, Association>();
    public Association association(String propName)
    {
       Field field = field(propName);
@@ -265,13 +264,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          throw new IllegalArgumentException("Property "+propName+" is not associable.");
       }
 
-      Associable associable = (Associable) field;
-      if (_associations.get(propName) == null)
-      {
-         _associations.put(propName, associable.association(this));
-      }
-
-      return (Association) _associations.get(propName);
+      return ((Associable) field).association(this);
    }
 
    public Command command(String commandName)
