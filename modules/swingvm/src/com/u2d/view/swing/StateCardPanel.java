@@ -56,8 +56,27 @@ public class StateCardPanel
 
 
    // Editor Interface:  Delegate to Edit View..
-   public int transferValue() { return ((Editor) _editView).transferValue(); }
-   public void setEditable(boolean editable) { ((Editor) _editView).setEditable(editable); }
-   public boolean isEditable() { return ((Editor) _editView).isEditable(); }
-   public int validateValue() { return ((Editor) _editView).validateValue(); }
+   public int transferValue()
+   {
+      if (!(_editView instanceof Editor)) return 0;
+      return ((Editor) _editView).transferValue();
+   }
+
+   public void setEditable(boolean editable)
+   {
+      if (!(_editView instanceof Editor)) return;
+      ((Editor) _editView).setEditable(editable);
+   }
+
+   public boolean isEditable()
+   {
+      if (!(_editView instanceof Editor)) return false;
+      return ((Editor) _editView).isEditable();
+   }
+
+   public int validateValue()
+   {
+      if (!(_editView instanceof Editor)) return 0;
+      return ((Editor) _editView).validateValue();
+   }
 }
