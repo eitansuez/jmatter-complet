@@ -5,6 +5,8 @@ import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.Editor;
 import com.u2d.field.Association;
+import com.u2d.app.Tracing;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataListener;
@@ -30,7 +32,7 @@ public class AssociationComboView
    public int transferValue()
    {
       ComplexEObject selectedItem = (ComplexEObject) getModel().getSelectedItem();
-      System.out.println("transferring value: "+selectedItem);
+      Tracing.tracer().fine("transferring value: "+selectedItem);
       _association.set(selectedItem);
       return 0;
    }
