@@ -45,10 +45,16 @@ public class StateCardPanel
       _editView.detach();
    }
 
-   public void stateChanged(ChangeEvent e)
+   public void stateChanged(final ChangeEvent e)
    {
-      ComplexEObject ceo = (ComplexEObject) e.getSource();
-      show (ceo.isEditableState() ? "edit" : "read");
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            ComplexEObject ceo = (ComplexEObject) e.getSource();
+            show (ceo.isEditableState() ? "edit" : "read");
+         }
+      });
    }
 
    public void propertyChange(PropertyChangeEvent evt) { } 
