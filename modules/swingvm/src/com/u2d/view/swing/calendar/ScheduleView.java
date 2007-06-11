@@ -5,7 +5,6 @@ package com.u2d.view.swing.calendar;
 
 import com.u2d.calendar.*;
 import com.u2d.model.EObject;
-import com.u2d.type.atom.*;
 import javax.swing.*;
 import java.beans.*;
 import java.awt.*;
