@@ -44,7 +44,11 @@ public class ProxyListModel extends AbstractListModel
 
    public void intervalAdded(final ListDataEvent e)
    {
-      if (!SwingUtilities.isEventDispatchThread())
+      if (SwingUtilities.isEventDispatchThread())
+      {
+         fireIntervalAdded(e.getSource(), e.getIndex0(), e.getIndex1());
+      }
+      else
       {
          SwingUtilities.invokeLater(new Runnable()
          {
@@ -54,15 +58,15 @@ public class ProxyListModel extends AbstractListModel
             }
          });
       }
-      else
-      {
-         fireIntervalAdded(e.getSource(), e.getIndex0(), e.getIndex1());
-      }
    }
 
    public void intervalRemoved(final ListDataEvent e)
    {
-      if (!SwingUtilities.isEventDispatchThread())
+      if (SwingUtilities.isEventDispatchThread())
+      {
+         fireIntervalRemoved(e.getSource(), e.getIndex0(), e.getIndex1());
+      }
+      else
       {
          SwingUtilities.invokeLater(new Runnable()
          {
@@ -72,15 +76,15 @@ public class ProxyListModel extends AbstractListModel
             }
          });
       }
-      else
-      {
-         fireIntervalRemoved(e.getSource(), e.getIndex0(), e.getIndex1());
-      }
    }
 
    public void contentsChanged(final ListDataEvent e)
    {
-      if (!SwingUtilities.isEventDispatchThread())
+      if (SwingUtilities.isEventDispatchThread())
+      {
+         fireContentsChanged(e.getSource(), e.getIndex0(), e.getIndex1());
+      }
+      else
       {
          SwingUtilities.invokeLater(new Runnable()
          {
@@ -89,10 +93,6 @@ public class ProxyListModel extends AbstractListModel
                fireContentsChanged(e.getSource(), e.getIndex0(), e.getIndex1());
             }
          });
-      }
-      else
-      {
-         fireContentsChanged(e.getSource(), e.getIndex0(), e.getIndex1());
       }
    }
 }
