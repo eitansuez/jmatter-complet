@@ -8,6 +8,7 @@ import static com.u2d.pubsub.AppEventType.DELETE;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.view.EView;
+import com.u2d.view.ListEView;
 import com.u2d.app.Tracing;
 import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
@@ -31,25 +32,33 @@ public class CalEventList extends AbstractListEO
       implements Navigable, QueryReceiver
 {
    private Query _query, _previousQuery;
+   private SimpleQuery _baseQuery;
    private final TimeSpan _span = new TimeSpan();
+   private Schedulable _schedulable;
 
    public CalEventList() {}
    
    public void setSchedulable(Schedulable schedulable)
    {
+      _schedulable = schedulable;
+      _baseQuery = queryForSchedulable(_schedulable);
+      applyBaseQuery();
+   }
+
+   private SimpleQuery queryForSchedulable(Schedulable schedulable)
+   {
       Class eventClass = schedulable.eventType();
       ComplexType eventType = ComplexType.forClass(eventClass);
-      
+
       String schedulableFieldname = CalEvent.schedulableFieldname(eventClass);
       FieldPath path = new FieldPath(eventType.field(schedulableFieldname).fullPath());
       QuerySpecification spec = 
             new QuerySpecification(path, 
                                    new IdentityInequality().new Equals(),
                                    schedulable);
-      com.u2d.find.Query query = new SimpleQuery(eventType, spec);
-      setQuery(query);
+      return new SimpleQuery(eventType, spec);
    }
-   
+
    public CalEventList(Query query, TimeSpan span)
    {
       setQuery(query, span);
@@ -62,10 +71,27 @@ public class CalEventList extends AbstractListEO
    {
       setQuery(query, _span);
    }
+   private void applyBaseQuery()
+   {
+      _previousQuery = _query;
+      _query = _baseQuery;
+      fetchSpan(_span);
+   }
    public synchronized void setQuery(Query query, TimeSpan span)
    {
       _previousQuery = _query;
-      _query = query;
+      
+      if (_schedulable != null)
+      {
+         CompositeQuery filteredQuery = new CompositeQuery(_baseQuery.getQueryType());
+         filteredQuery.addSpecification(_baseQuery.getQuerySpecification());
+         filteredQuery.addSpecification(((SimpleQuery) query).getQuerySpecification());
+         _query = filteredQuery;
+      }
+      else
+      {
+         _query = query;
+      }
       fetchSpan(span);
    }
    public synchronized void setSpan(TimeSpan span)
@@ -181,5 +207,4 @@ public class CalEventList extends AbstractListEO
       return (Command) _cmds.find(Command.finder(commandName));
    }
 
-   
 }
