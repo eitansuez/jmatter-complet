@@ -42,7 +42,6 @@ public class Session extends CalEvent
       return time.title().append(":", event).append(" in", location);
    }
 
-   public static String timespanFieldname = "time";
    public static String schedulableFieldname = "location";
    public Title calTitle()
    {
