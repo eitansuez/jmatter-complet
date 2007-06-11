@@ -35,20 +35,15 @@ public class PropertyAccessorAdapter implements PropertyAccessor
    {
       private Class _clazz;
       private String _propertyName;
-      private Field _field;
       
       protected Field field()
       {
-         if (_field == null)
-         {
-            ComplexType type = ComplexType.forClass(_clazz);
-            Field field = type.field(_propertyName);
-            if (field == null)
-               throw new PropertyNotFoundException("No such field: " + _propertyName +
-                     " on class "+_clazz.getName());
-            _field = field;
-         }
-         return _field;
+         ComplexType type = ComplexType.forClass(_clazz);
+         Field field = type.field(_propertyName);
+         if (field == null)
+            throw new PropertyNotFoundException("No such field: " + _propertyName +
+                  " on class "+_clazz.getName());
+         return field;
       }
 
       PropertyAdapter(Class clazz, String propertyName)
@@ -66,7 +61,8 @@ public class PropertyAccessorAdapter implements PropertyAccessor
 
       public Object get(Object target) throws HibernateException
       {
-         Object value = field().get((ComplexEObject) target);
+         ComplexEObject parent = (ComplexEObject) target;
+         Object value = field().get(parent);
 
          // technically i should have a NullField type so that
          // when i do a .get() on it it will automatically return
@@ -110,7 +106,8 @@ public class PropertyAccessorAdapter implements PropertyAccessor
 
       public void set(Object target, Object value, SessionFactoryImplementor factory) throws HibernateException
       {
-         field().restore((ComplexEObject) target, value);
+         ComplexEObject parent = (ComplexEObject) target;
+         field().restore(parent, value);
       }
    }
    
