@@ -10,7 +10,6 @@ import com.u2d.element.Field;
 import com.u2d.list.RelationalList;
 import com.u2d.model.*;
 import com.u2d.pattern.*;
-import com.u2d.type.Choice;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.view.*;
 
