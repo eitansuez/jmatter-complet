@@ -70,9 +70,9 @@ public class ListEOPanel  extends JPanel
    private void setupKeyStrokes()
    {
       Command newCmd = _leo.command("New");
-      newCmd.localize(ComplexType.forClass(User.class));
       if (newCmd != null)
       {
+         newCmd.localize(ComplexType.forClass(User.class));
          getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(COMMAND_N, MAP_KEY);
          getActionMap().put(MAP_KEY, new CommandAdapter(newCmd, _leo, this));
       }
