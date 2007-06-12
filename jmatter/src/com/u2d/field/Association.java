@@ -32,6 +32,8 @@ public class Association
    }
    
    public Association(AssociationStrategy as) { _as = as; }
+   
+   public AssociationStrategy getStrategy() { return _as; }
 
    public Title title() { return _as.title(); }
    public String toString() { return title().toString(); }
