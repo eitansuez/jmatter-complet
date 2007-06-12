@@ -144,7 +144,13 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          {
             public void actionPerformed(ActionEvent e)
             {
-               _association.dissociate();
+               new Thread()
+               {
+                  public void run()
+                  {
+                     _association.dissociate();
+                  }
+               }.start();
             }
          });
          add(dissocBtn);
