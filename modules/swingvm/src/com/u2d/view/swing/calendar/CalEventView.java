@@ -101,9 +101,12 @@ public class CalEventView extends JXPanel
                _header.updateText();
                _body.setText(_event.calTitle().toString());
                _header.setFont(_body.getFont());
-
-               Schedule schedule = _event.schedulable().schedule();
-               setupColor(schedule);
+               
+               if (_event.schedulable() != null)
+               {
+                  Schedule schedule = _event.schedulable().schedule();
+                  setupColor(schedule);
+               }
                revalidate(); repaint();  // picks up timespan changes
             }
          });
