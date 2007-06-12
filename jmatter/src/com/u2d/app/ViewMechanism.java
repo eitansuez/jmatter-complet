@@ -160,6 +160,7 @@ public interface ViewMechanism
    public ListEView getListViewAsTable(AbstractListEO leo);
    public ListEView getListViewAsIcons(AbstractListEO leo);
    public ListEView getListViewAsTree(AbstractListEO leo);
+   public ListEView getListViewAsCalendar(CalEventList list);
    public ListEView getOmniListView(AbstractListEO leo);
    public ListEView getToolbarView(String name, AbstractListEO leo);
    public ListEView getRelationalListView(RelationalList leo);

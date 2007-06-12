@@ -8,7 +8,6 @@ import static com.u2d.pubsub.AppEventType.DELETE;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.view.EView;
-import com.u2d.view.ListEView;
 import com.u2d.app.Tracing;
 import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
@@ -29,7 +28,7 @@ import java.util.Iterator;
  * Modeled somewhat from CriteriaListEO..
  */
 public class CalEventList extends AbstractListEO
-      implements Navigable, QueryReceiver
+      implements Navigable, QueryReceiver, EventManager
 {
    private Query _query, _previousQuery;
    private SimpleQuery _baseQuery;
@@ -81,16 +80,16 @@ public class CalEventList extends AbstractListEO
    {
       _previousQuery = _query;
       
-      if (_schedulable != null)
+      if (_schedulable == null)
+      {
+         _query = query;
+      }
+      else
       {
          CompositeQuery filteredQuery = new CompositeQuery(_baseQuery.getQueryType());
          filteredQuery.addSpecification(_baseQuery.getQuerySpecification());
          filteredQuery.addSpecification(((SimpleQuery) query).getQuerySpecification());
          _query = filteredQuery;
-      }
-      else
-      {
-         _query = query;
       }
       fetchSpan(span);
    }
@@ -186,8 +185,25 @@ public class CalEventList extends AbstractListEO
 
    public boolean isEmpty() { return _items.isEmpty(); }
 
-   public EView getView() { return vmech().getListView(this); }
    public EView getMainView() { return getView(); }
+   public EView getView()
+   {
+      return vmech().getListViewAsCalendar(this);
+   }
+
+
+   // EventManager implementation
+   public CalEvent newEvent(TimeSpan span)
+   {
+      ComplexType eventType = _query.getQueryType();
+      CalEvent calEvent = (CalEvent) eventType.instance();
+      calEvent.timeSpan(span);
+      calEvent.schedulable(_schedulable);
+      return calEvent;
+   }
+   
+   public void fetchEvents(TimeSpan span) { setSpan(span); }
+
 
    // TODO: fix this..
    @Cmd

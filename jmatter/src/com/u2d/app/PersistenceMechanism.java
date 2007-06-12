@@ -21,7 +21,7 @@ public interface PersistenceMechanism
    public void delete(ComplexEObject ceo);
    public PlainListEObject list(Class clazz);
    public PlainListEObject list(ComplexType type);
-   public AbstractListEO browse(Class clazz);  // browse pages
+   public AbstractListEO browse(ComplexType type);  // browse pages
    
    public com.u2d.type.Choice lookup(Class clazz, String code);
    public ComplexEObject fetchSingle(Class clazz);

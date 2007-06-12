@@ -11,6 +11,7 @@ import com.u2d.type.AbstractChoiceEO;
 import com.u2d.calendar.Calendrier;
 import com.u2d.calendar.Schedule;
 import com.u2d.calendar.CalEvent;
+import com.u2d.calendar.CalEventList;
 import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
@@ -131,6 +132,7 @@ public class NullViewMechanism implements ViewMechanism
    public ListEView getListViewAsTable(AbstractListEO leo) { return null; }
    public ListEView getListViewAsIcons(AbstractListEO leo) { return null; }
    public ListEView getListViewAsTree(AbstractListEO leo) { return null; }
+   public ListEView getListViewAsCalendar(CalEventList list) { return null; }
    public ListEView getOmniListView(AbstractListEO leo) { return null; }
    public ListEView getToolbarView(String name, AbstractListEO leo) { return null; }
    public ListEView getRelationalListView(RelationalList leo) { return null; }

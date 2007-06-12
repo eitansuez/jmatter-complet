@@ -22,6 +22,9 @@
       <fileset dir="../../jmatter/lib/runtime/" includes="css4swing.jar" />
       <fileset dir="../../jmatter/lib/runtime/" includes="jibx-run.jar" />
       <fileset dir="../../jmatter/lib/runtime/" includes="hibernate3.jar" />
+      <!-- for edt testing 
+      <fileset dir="../../jmatter/lib/runtime/" includes="spin.jar" />
+       -->
       <fileset dir="../../jmatter/lib/runtime/spring" includes="*.jar" />
       <pathelement location="../ds-swing/build/classes" />
       <pathelement location="../ds-wizard/build/classes" />

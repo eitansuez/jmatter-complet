@@ -138,9 +138,9 @@ public class InMemoryPersistor implements PersistenceMechanism
       ceo.onDelete();
    }
 
-   public AbstractListEO browse(Class clazz)
+   public AbstractListEO browse(ComplexType type)
    {
-      return list(clazz);
+      return list(type.getJavaClass());
    }
    
    public PlainListEObject list(Class clazz)

@@ -33,6 +33,8 @@ import com.u2d.reporting.*;
 import com.u2d.css4swing.CSSEngine;
 import java.lang.reflect.InvocationTargetException;
 
+//import spin.over.CheckingRepaintManager;
+
 /**
  * @author Eitan Suez
  */
@@ -48,6 +50,8 @@ public class SwingViewMechanism implements ViewMechanism
    public SwingViewMechanism()
    {
       setupAntiAliasing();
+      // Checks for EDT violations..
+//      RepaintManager.setCurrentManager(new CheckingRepaintManager());
       CSSEngine.initialize();
       Toolkit.getDefaultToolkit().addAWTEventListener(_inputTracker, AWTEvent.MOUSE_EVENT_MASK);
    }
@@ -680,6 +684,7 @@ public class SwingViewMechanism implements ViewMechanism
    public ListEView getListViewAsTable(AbstractListEO leo) { return new TableView(leo); }
    public ListEView getListViewAsIcons(AbstractListEO leo) { return new GridListView(leo); }
    public ListEView getListViewAsTree(AbstractListEO leo) { return new MyListTreeView(leo); }
+   public ListEView getListViewAsCalendar(CalEventList list) { return new CalendarListView(list); }
    public ListEView getOmniListView(AbstractListEO leo) { return new OmniListView(leo); }
    public ListEView getToolbarView(String name, AbstractListEO leo) { return new ToolbarView(name, leo); }
    

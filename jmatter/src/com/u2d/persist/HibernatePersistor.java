@@ -223,9 +223,9 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       return parent;
    }
    
-   public AbstractListEO browse(Class clazz)
+   public AbstractListEO browse(ComplexType type)
    {
-      return new PagedList(new SimpleQuery(ComplexType.forClass(clazz)));
+      return new PagedList(new SimpleQuery(type));
    }
 
    public PlainListEObject list(Class clazz)

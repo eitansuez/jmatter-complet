@@ -17,10 +17,7 @@
     <option name="USER" value="" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/data/genres.json" afterPath="$PROJECT_DIR$/resources/data/genres.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MyTunes.iws" afterPath="$PROJECT_DIR$/MyTunes.iws" />
-    </list>
+    <list default="true" name="Default" comment="" />
   </component>
   <component name="ChangeListSynchronizer" />
   <component name="ChangesViewManager" flattened_view="true" />
@@ -156,17 +153,7 @@
     <option name="myCurrentFavoritesList" value="MyTunes" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Application.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/mytunes/Application.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="17" selection-start="259" selection-end="259" vertical-scroll-proportion="0.33870968">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>

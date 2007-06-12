@@ -24,6 +24,7 @@ import com.u2d.element.*;
 import com.u2d.field.*;
 import com.u2d.find.CompositeQuery;
 import com.u2d.find.QueryCommandAdapter;
+import com.u2d.find.SimpleQuery;
 import com.u2d.list.*;
 import com.u2d.pattern.*;
 import com.u2d.persist.*;
@@ -32,6 +33,8 @@ import com.u2d.reflection.*;
 import com.u2d.type.Choice;
 import com.u2d.type.atom.*;
 import com.u2d.pubsub.AppEventType;
+import com.u2d.calendar.CalEvent;
+import com.u2d.calendar.CalEventList;
 
 /**
  * @author Eitan Suez
@@ -650,7 +653,18 @@ public class ComplexType extends AbstractComplexEObject
       {
          return persistedTypes();
       }
-      return persistor().browse(_clazz);
+      // not ready yet.  need to retrofit timesheet
+      // (still schedule-based) further.
+//      else if (CalEvent.class.isAssignableFrom(_clazz))
+//      {
+//         CalEventList list = new CalEventList();
+//         list.setQuery(new SimpleQuery(this));
+//         return list;
+//      }
+      else
+      {
+         return persistor().browse(this);
+      }
    }
 
    private PlainListEObject _persistedTypes;
