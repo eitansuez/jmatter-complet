@@ -8,6 +8,11 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.util.*;
 import com.u2d.calendar.*;
+import com.u2d.model.ComplexType;
+import com.u2d.model.AbstractListEO;
+import com.u2d.element.Field;
+import com.u2d.field.AssociationField;
+import com.u2d.field.IndexedField;
 
 /**
  * @author Eitan Suez
@@ -18,6 +23,8 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ListDataLis
    private TimeIntervalView _view;
    private Schedule _schedule;
    private java.awt.LayoutManager _layout;
+   
+   private AbstractListEO _leo;
 
    public EventsPnl(TimeIntervalView view, Schedule schedule)
    {
@@ -29,7 +36,23 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ListDataLis
       setOpaque(false);
 
       _view.addAdjustmentListener(this);
+
       _schedule.getCalEventList().addListDataListener(this);
+      
+      // an eventspanel is a view of a relationallist.  it needs to synchronize
+      // with changes in that list.
+      Schedulable schedulable = _schedule.getSchedulable();
+      Class eventTypeClass = schedulable.eventType();
+      ComplexType eventType = ComplexType.forClass(eventTypeClass);
+      String propName = CalEvent.schedulableFieldname(eventTypeClass);
+      Field field = eventType.field(propName);
+      if (field instanceof AssociationField && ((AssociationField) field).isBidirectionalRelationship())
+      {
+         String otherFieldName = ((AssociationField) field).getInverseFieldName();
+         IndexedField otherSide = (IndexedField) schedulable.field(otherFieldName);
+         _leo = (AbstractListEO) otherSide.get(schedulable);
+         _leo.addListDataListener(this);
+      }
       
       updateView();
    }
@@ -52,6 +75,10 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ListDataLis
                CalEvent event = (CalEvent) itr.next();
                
                if (!_view.getSpan().containsOrIntersects(event.timeSpan()))
+               {
+                  continue;
+               }
+               if (_leo != null && !_leo.contains(event))
                {
                   continue;
                }
@@ -97,6 +124,10 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ListDataLis
    public void detach()
    {
       _schedule.getCalEventList().removeListDataListener(this);
+      if (_leo != null)
+      {
+         _leo.removeListDataListener(this);
+      }
    }
 
 }
