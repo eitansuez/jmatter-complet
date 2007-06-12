@@ -3,10 +3,7 @@
  */
 package com.u2d.calendar;
 
-import com.u2d.model.AbstractComplexEObject;
-import com.u2d.model.Title;
-import com.u2d.model.Harvester;
-import com.u2d.model.ComplexType;
+import com.u2d.model.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.*;
 import com.u2d.element.CommandInfo;
@@ -66,7 +63,9 @@ public abstract class CalEvent extends AbstractComplexEObject
 
    public Schedulable schedulable()
    {
-      return (Schedulable) field(schedulableFieldname()).get(this);
+      EObject schedulable = field(schedulableFieldname()).get(this);
+      if (schedulable.isEmpty()) return null;
+      return (Schedulable) schedulable;
    }
    public void schedulable(Schedulable schedulable)
    {
