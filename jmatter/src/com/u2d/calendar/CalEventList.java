@@ -3,7 +3,6 @@ package com.u2d.calendar;
 import com.u2d.model.*;
 import com.u2d.list.Navigable;
 import com.u2d.find.*;
-import com.u2d.find.inequalities.IdentityInequality;
 import static com.u2d.pubsub.AppEventType.DELETE;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TimeSpan;
@@ -31,7 +30,6 @@ public class CalEventList extends AbstractListEO
       implements Navigable, QueryReceiver, EventManager
 {
    private Query _query, _previousQuery;
-   private SimpleQuery _baseQuery;
    private final TimeSpan _span = new TimeSpan();
    private Schedulable _schedulable;
 
@@ -40,22 +38,7 @@ public class CalEventList extends AbstractListEO
    public void setSchedulable(Schedulable schedulable)
    {
       _schedulable = schedulable;
-      _baseQuery = queryForSchedulable(_schedulable);
-      applyBaseQuery();
-   }
-
-   private SimpleQuery queryForSchedulable(Schedulable schedulable)
-   {
-      Class eventClass = schedulable.eventType();
-      ComplexType eventType = ComplexType.forClass(eventClass);
-
-      String schedulableFieldname = CalEvent.schedulableFieldname(eventClass);
-      FieldPath path = new FieldPath(eventType.field(schedulableFieldname).fullPath());
-      QuerySpecification spec = 
-            new QuerySpecification(path, 
-                                   new IdentityInequality().new Equals(),
-                                   schedulable);
-      return new SimpleQuery(eventType, spec);
+      setQuery(new SimpleQuery(ComplexType.forClass(_schedulable.eventType())));
    }
 
    public CalEventList(Query query, TimeSpan span)
@@ -70,27 +53,10 @@ public class CalEventList extends AbstractListEO
    {
       setQuery(query, _span);
    }
-   private void applyBaseQuery()
-   {
-      _previousQuery = _query;
-      _query = _baseQuery;
-      fetchSpan(_span);
-   }
    public synchronized void setQuery(Query query, TimeSpan span)
    {
       _previousQuery = _query;
-      
-      if (_schedulable == null)
-      {
-         _query = query;
-      }
-      else
-      {
-         CompositeQuery filteredQuery = new CompositeQuery(_baseQuery.getQueryType());
-         filteredQuery.addSpecification(_baseQuery.getQuerySpecification());
-         filteredQuery.addSpecification(((SimpleQuery) query).getQuerySpecification());
-         _query = filteredQuery;
-      }
+      _query = query;
       fetchSpan(span);
    }
    public synchronized void setSpan(TimeSpan span)
@@ -101,8 +67,15 @@ public class CalEventList extends AbstractListEO
    private Criteria constrainBySpan()
    {
       Criteria criteria = _query.getCriteria();
-
       Junction junction = Expression.conjunction();
+
+      if (_schedulable != null)
+      {
+         Class eventClass = _schedulable.eventType();
+         String schedulableFieldname = CalEvent.schedulableFieldname(eventClass);
+         junction.add(Expression.eq(schedulableFieldname , _schedulable));
+      }
+
       String timespanFieldname = CalEvent.timespanFieldname(getJavaClass());
       junction.add(Expression.ge(timespanFieldname + ".start", _span.startDate()));
       junction.add(Expression.le(timespanFieldname + ".end", _span.endDate()));
