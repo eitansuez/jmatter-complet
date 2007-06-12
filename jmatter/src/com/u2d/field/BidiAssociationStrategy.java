@@ -32,11 +32,12 @@ public class BidiAssociationStrategy
    // has been saved
    public void set(final ComplexEObject value)
    {
-      if (value != null && value.isTransientState())
+      if (value != null && value.isEditableState())
       {
          _otherSide.set(value, parent());
 
-         value.addAppEventListener(CREATE, new AppEventListener()
+         AppEventType signal = (parent().isTransientState() ? BEFORECREATE : BEFORESAVE);
+         value.addAppEventListener(signal, new AppEventListener()
             {
                public void onEvent(AppEvent evt)
                {
@@ -44,9 +45,10 @@ public class BidiAssociationStrategy
                }
             });
       }
-      else if (parent().isTransientState())
+      else if (parent().isEditableState())
       {
-         parent().addAppEventListener(CREATE, new AppEventListener()
+         AppEventType signal = (parent().isTransientState() ? BEFORECREATE : BEFORESAVE);
+         parent().addAppEventListener(signal, new AppEventListener()
             {
                public void onEvent(AppEvent evt)
                {
@@ -86,7 +88,7 @@ public class BidiAssociationStrategy
       {
          ComplexEObject dissociateValue = get();
          AbstractListEO list = (AbstractListEO) _otherSide.get(dissociateValue);
-         list.remove(dissociateValue);
+         list.remove(_parent);
          super.set(null);
       }
       else
