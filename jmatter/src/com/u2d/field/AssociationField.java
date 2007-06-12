@@ -63,6 +63,16 @@ public class AssociationField extends Field implements Bidi, Associable
       }
    }
    
+   public boolean isBidirectionalRelationship()
+   {
+      return (_inverseFieldName != null);
+   }
+   public String getInverseFieldName()
+   {
+      if (!isBidirectionalRelationship())
+         throw new IllegalArgumentException("not a bidirectional relationship");
+      return _inverseFieldName;
+   }
    
    public void setInverseField(Field inverseField)
    {

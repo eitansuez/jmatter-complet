@@ -11,4 +11,5 @@ import com.u2d.element.Field;
 public interface Bidi
 {
    public void setInverseField(Field inverseField);
+   public boolean isBidirectionalRelationship();
 }
