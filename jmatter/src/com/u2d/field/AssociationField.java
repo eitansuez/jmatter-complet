@@ -19,7 +19,8 @@ import org.hibernate.HibernateException;
  */
 public class AssociationField extends Field implements Bidi, Associable
 {
-   private Field _inverse;
+   private Field _inverseField = null;
+   protected String _inverseFieldName = null;
    
    private String _defaultSpec;  //  a valid hibernate query
      // (in the case of a Choice, can simply be a code)
@@ -35,12 +36,18 @@ public class AssociationField extends Field implements Bidi, Associable
    {
       super(parent, name);
       introspectAssociator();
+      _inverseFieldName =
+         (String) Harvester.introspectField(parent.getJavaClass(),
+                                            name() + "InverseFieldName");
    }
    
    public AssociationField(FieldParent parent, PropertyDescriptor descriptor) 
    {
       super(parent, descriptor);
       introspectAssociator();
+      _inverseFieldName =
+         (String) Harvester.introspectField(parent.getJavaClass(),
+                                            name() + "InverseFieldName");
    }
    
    private void introspectAssociator()
@@ -57,19 +64,9 @@ public class AssociationField extends Field implements Bidi, Associable
    }
    
    
-   
-   public void setInverse(String inverseFieldName)
-   {
-      if (inverseFieldName == null) return;
-//      System.out.println("asssociationfield looking for "+inverseFieldName+" on "+type());
-      _inverse = fieldtype().field(inverseFieldName);
-//      System.out.println("Found inverse field: "+_inverse);
-      ((Bidi) _inverse).setInverseField(this);
-   }
-   
    public void setInverseField(Field inverseField)
    {
-      _inverse = inverseField;
+      _inverseField = inverseField;
    }
 
    /*
@@ -78,9 +75,18 @@ public class AssociationField extends Field implements Bidi, Associable
     */
    public Association association(ComplexEObject parent)
    {
-      if (_inverse == null)
+      if (_inverseFieldName == null)
+      {
          return new Association(this, parent);
-      return new Association(this, parent, _inverse);
+      }
+
+      if (_inverseField == null)
+      {
+         _inverseField = fieldtype().field(_inverseFieldName);
+         ((Bidi) _inverseField).setInverseField(this);
+      }
+
+      return new Association(this, parent, _inverseField);
    }
    
    public EObject get(ComplexEObject parent)
@@ -155,13 +161,13 @@ public class AssociationField extends Field implements Bidi, Associable
    
    public EView getView(ComplexEObject parent)
    {
-      Association association = parent.association(name());
+      Association association = association(parent);
       return vmech().getAssociationView(association);
    }
    
    public int validate(ComplexEObject parent)
    {
-      Association association = parent.association(name());
+      Association association = association(parent);
       Required required = getRequired(parent);
       if (required.isit() && association.isEmpty())
       {
@@ -192,7 +198,7 @@ public class AssociationField extends Field implements Bidi, Associable
          ComplexEObject defaultValue = getDefaultValue();
          if (ceo instanceof NullComplexEObject  && defaultValue != null)
          {
-            parent.association(name()).set(defaultValue);
+            association(parent).set(defaultValue);
          }
       }
    }

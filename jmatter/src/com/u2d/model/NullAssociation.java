@@ -27,11 +27,6 @@ public class NullAssociation extends NullComplexEObject
    public NullAssociation(AssociationField field, ComplexEObject parent)
    {
       super(field.fieldtype());
-
-      String inverseFieldName = (String) Harvester.introspectField(parent.getClass(),
-                                                                   field.name() + "InverseFieldName");
-      field.setInverse(inverseFieldName);
-
       setField(field, parent);
       _association = parent.association(field.name());
    }
