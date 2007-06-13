@@ -2,6 +2,21 @@ Changes File
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+June 13 2007 Release
+--------------------
+
+  I will be compiling the list of changes that have taken place
+  in the framework within the next few weeks, and will be updating
+  the manual to go with it.
+
+  This release includes css4swing which I find to be very nice, though there is
+  a noticeable performance hit on the ui.  Optimization of css4swing or perhaps
+  turning off css inheritance can help this.
+
+  The subversion change log, then the mailing list, are good sources of
+  information on what has changed recently.
+ 
+
 April 2007
 
 1. Formally added field metadata property "hidden".  Prior to this
