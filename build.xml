@@ -42,8 +42,8 @@
      <arg line="jMatter-License" />
    </exec>
 
-   <copy todir="${build.dir}">
-     <fileset dir="${basedir}" includes="Release_notes" />
+   <copy tofile="${build.dir}/Release_notes">
+     <fileset dir="${jmatter.dir}/doc" includes="Changes" />
    </copy>
    <exec dir="${basedir}" executable="markdown" output="${build.dir}/Release_notes.html">
      <arg line="Release_notes" />
