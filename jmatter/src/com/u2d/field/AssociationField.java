@@ -147,13 +147,13 @@ public class AssociationField extends Field implements Bidi, Associable
    
    protected void reflectMethod(Method method, EObject parent, Object value)
    {
-      Class parentClass = parent().getJavaClass();
+//      Class parentClass = parent().getJavaClass();
       try
       {
-         if (!parentClass.isAssignableFrom(parent.getClass()))
-         {
-            throw new IllegalArgumentException("Invalid parent type: "+parent.getClass()+"; expected: "+parentClass);
-         }
+//         if (!parentClass.isAssignableFrom(parent.getClass()))
+//         {
+//            throw new IllegalArgumentException("Invalid parent type: "+parent.getClass()+"; expected: "+parentClass);
+//         }
          
          method.invoke(parent, value);
       }

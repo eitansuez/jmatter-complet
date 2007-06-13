@@ -52,9 +52,9 @@ public class IndexedField extends Field implements Bidi, Associable
 
       if (_inverseField == null)
       {
-//      System.out.println("indexedfield looking for "+inverseFieldName+" on "+type());
+//         System.out.println("indexedfield looking for "+_inverseFieldName+" on "+type());
          _inverseField = type().field(_inverseFieldName);
-//      System.out.println("Found inverse field: "+_inverseField);
+//         System.out.println("Found inverse field: "+_inverseField);
          ((Bidi) _inverseField).setInverseField(this);
       }
       return _inverseField;
