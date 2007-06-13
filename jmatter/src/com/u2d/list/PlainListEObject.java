@@ -4,15 +4,12 @@
 package com.u2d.list;
 
 import com.u2d.element.CommandInfo;
-import com.u2d.element.Command;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
-import com.u2d.model.Harvester;
 import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
 import java.util.*;
 import javax.swing.event.ListDataListener;
-import com.u2d.pattern.*;
 import com.u2d.reflection.Cmd;
 
 /**
@@ -88,16 +85,4 @@ public class PlainListEObject extends SimpleListEO
       }
    }
 
-   private static Onion _commands2;
-   static
-   {
-      _commands2 = Harvester.simpleHarvestCommands(PlainListEObject.class,
-                                                   new Onion(), false, null);
-   }
-   public Onion commands() { return _commands2; }
-   public Command command(String commandName)
-   {
-      return (Command) _commands2.find(Command.finder(commandName));
-   }
-   
 }

@@ -12,10 +12,8 @@ import com.u2d.view.EView;
 import com.u2d.view.ListEView;
 import com.u2d.ui.sorttable.SortTableModel;
 import com.u2d.element.Field;
-import com.u2d.element.Command;
 import com.u2d.find.Query;
 import com.u2d.find.QueryReceiver;
-import com.u2d.pattern.Onion;
 import com.u2d.type.atom.StringEO;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -286,19 +284,6 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
       super.remove(item);
    }
 
-   private static Onion _commands2;
-   static
-   {
-      _commands2 = Harvester.simpleHarvestCommands(CriteriaListEO.class,
-            new Onion(), false, null);
-   }
-   public Onion commands() { return _commands2; }
-   public Command command(String commandName)
-   {
-      return (Command) _commands2.find(Command.finder(commandName));
-   }
-   
-   
    public Title title()
    {
       StringEO name = _query.getName();

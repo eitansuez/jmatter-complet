@@ -64,23 +64,22 @@ public abstract class AbstractListEO extends AbstractEObject
    public String iconLgResourceRef() { return type().iconsLgResourceRef(); }
 
    public static String[] commandOrder = {"Open", "ExportToCSV", "Print"};
-   protected static Onion _commands;
-   static
+   
+   private ListType _listtype;
+   public ListType listtype()
    {
-      _commands = Harvester.simpleHarvestCommands(AbstractListEO.class, new Onion(),
-            false, null);  // TODO: FLAG: what parameter to pass in for parent?
+      if (_listtype == null)
+         _listtype = ListType.forClass(getClass());
+      return _listtype;
    }
-   public Onion commands() { return _commands; }
 
+   public Onion commands() { return listtype().commands(); }
+   public Command command(String commandName) { return listtype().command(commandName); }
    public Onion filteredCommands()
    {
       return commands();  // for now.. TODO: fix.
    }
 
-   public Command command(String commandName)
-   {
-      return (Command) _commands.find(Command.finder(commandName));
-   }
 
    public void setValue(EObject eo)
    {

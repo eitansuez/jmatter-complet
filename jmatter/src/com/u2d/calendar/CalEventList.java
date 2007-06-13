@@ -184,16 +184,5 @@ public class CalEventList extends AbstractListEO
    {
       return type().New(cmdInfo);
    }
-   private static Onion _cmds;
-   static
-   {
-      _cmds = Harvester.simpleHarvestCommands(CalEventList.class,
-                                                   new Onion(), false, null);
-   }
-   public Onion commands() { return _cmds; }
-   public Command command(String commandName)
-   {
-      return (Command) _cmds.find(Command.finder(commandName));
-   }
 
 }
