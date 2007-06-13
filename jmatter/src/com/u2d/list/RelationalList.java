@@ -13,10 +13,9 @@ import java.util.Collections;
  * @author Eitan Suez
  */
 public class RelationalList extends SimpleListEO
-            // implements Searchable  // "Criteria queries do not support 
-                                      //  collections of values" (gavin)
-                                      // try this again with v3.0 release candidate
-                                      // at some point in the future (major overhaul)
+            // implements Searchable  // "Criteria queries do not support collections of values" (gavin)
+                                      // see http://opensource.atlassian.com/projects/hibernate/browse/HHH-869
+                                      // still outstanding as of mid-2007
 {
    private RelationalList() {}  // for jibx
 
