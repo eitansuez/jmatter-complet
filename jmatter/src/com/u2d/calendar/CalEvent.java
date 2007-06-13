@@ -10,9 +10,11 @@ import com.u2d.element.CommandInfo;
 import com.u2d.element.Field;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
-
+import com.u2d.find.SimpleQuery;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author Eitan Suez
@@ -72,6 +74,7 @@ public abstract class CalEvent extends AbstractComplexEObject
       field(schedulableFieldname()).set(this, schedulable);
    }
 
+   // TODO: add support for auto-persisting static fields to db.
    public static long DEFAULT_DURATION = TimeSpan.ONEHOUR;
    @Cmd
    public static void SetDefaultDurationMins(CommandInfo cmdInfo,
@@ -79,4 +82,13 @@ public abstract class CalEvent extends AbstractComplexEObject
    {
       DEFAULT_DURATION = (long) ( durationMins.intValue() * 60 * 1000 );
    }
+   
+   @Cmd
+   public static CalEventList BrowseAsCalendar(CommandInfo cmdInfo)
+   {
+      ComplexType type = (ComplexType) cmdInfo.getSource().getEObject();
+      TimeSpan span = new TimeSpan(new Date(), new TimeInterval(Calendar.DATE, 7));
+      return new CalEventList(new SimpleQuery(type), span);
+   }
+   
 }
