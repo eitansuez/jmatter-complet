@@ -167,9 +167,15 @@ public class CalEventList extends AbstractListEO
    public CalEvent newEvent(TimeSpan span)
    {
       ComplexType eventType = _query.getQueryType();
+      if (_schedulable != null)
+      {
+         Class eventClass = _schedulable.eventType();
+         eventType = ComplexType.forClass(eventClass);
+      }
       CalEvent calEvent = (CalEvent) eventType.instance();
       calEvent.timeSpan(span);
-      calEvent.schedulable(_schedulable);
+      if (_schedulable != null)
+         calEvent.schedulable(_schedulable);
       return calEvent;
    }
    

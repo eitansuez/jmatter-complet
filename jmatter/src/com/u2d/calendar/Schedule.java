@@ -95,16 +95,7 @@ public class Schedule extends AbstractComplexEObject implements EventManager, Da
    public void setLayer(int layer) { _layer = layer; }
 
 
-   public CalEvent newEvent(TimeSpan span)
-   {
-      Class eventClass = _schedulable.eventType();
-      ComplexType eventType = ComplexType.forClass(eventClass);
-      CalEvent calEvent = (CalEvent) eventType.instance();
-      calEvent.timeSpan(span);
-      calEvent.schedulable(_schedulable);
-      return calEvent;
-   }
-   
+   public CalEvent newEvent(TimeSpan span) { return _events.newEvent(span); }
    public void fetchEvents(TimeSpan span) { _events.fetchEvents(span); }
 
    public EView getMainView() { return getScheduleView(); }
