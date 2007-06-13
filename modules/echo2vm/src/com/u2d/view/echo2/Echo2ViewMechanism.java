@@ -13,6 +13,7 @@ import com.u2d.type.AbstractChoiceEO;
 import com.u2d.calendar.Calendrier;
 import com.u2d.calendar.Schedule;
 import com.u2d.calendar.CalEvent;
+import com.u2d.calendar.CalEventList;
 import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
@@ -482,6 +483,12 @@ public class Echo2ViewMechanism implements ViewMechanism
    }
 
    public ListEView getListViewAsTree(AbstractListEO abstractListEO)
+   {
+      return null;
+   }
+
+
+   public ListEView getListViewAsCalendar(CalEventList list)
    {
       return null;
    }
