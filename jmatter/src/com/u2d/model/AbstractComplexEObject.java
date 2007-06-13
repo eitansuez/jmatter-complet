@@ -423,7 +423,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public EView getMainView()
    {
-      return vmech().getAlternateView(this, new String[] {"formview", "collapsedview", "omniview"});
+      return vmech().getAlternateView(this, new String[] {"formview", "omniview"});
    }
 
 
