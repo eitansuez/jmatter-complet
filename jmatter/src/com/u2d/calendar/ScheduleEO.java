@@ -23,7 +23,7 @@ public abstract class ScheduleEO extends AbstractComplexEObject
       return _schedule;
    }
 
-   @Cmd
+   @Cmd(mnemonic='s')
    public Schedule SeeSchedule(CommandInfo cmdInfo)
    {
       return schedule();
