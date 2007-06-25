@@ -1,6 +1,6 @@
 projectName = '@PROJECTNAME@'
 
-task ( 'default' : 'default target: run' ) { run() }
+target ( 'default' : 'default target: run' ) { run() }
 
 buildDir = 'build'
 buildClassesDir = "${buildDir}/classes"
@@ -43,7 +43,7 @@ Ant.path ( id : 'class.path' )
   }
 }
 
-task ( init : '')
+target ( init : '')
 {
   Ant.tstamp()
   Ant.mkdir ( dir : buildClassesDir )
@@ -51,7 +51,7 @@ task ( init : '')
   Ant.mkdir ( dir : distDir )
 }
 
-task ( clean : '')
+target ( clean : '')
 {
   Ant.delete ( dir : buildDir )
   Ant.delete ( dir : jwsDistDir )
@@ -68,14 +68,14 @@ Ant.path ( id : 'test.classpath' )
 
 keystoreExists = new File('tempKeystore').exists()
 
-task ( keystore : '' )
+target ( keystore : '' )
 {
   if (keystoreExists) return;
   Ant.genkey ( alias : 'unknown' , storepass : 'public', keystore: 'tempKeystore',
                dname : 'CN=Anonymous Signature, OU=unknown, o=unknown, c=unknown' )
 }
 
-task ( compile : 'compile code' )
+target ( compile : 'compile code' )
 {
   depends ( init, compileFramework )
   Ant.javac ( srcdir : srcDir, destdir : buildClassesDir,
@@ -128,7 +128,7 @@ void makePersistClassesFile()
   template.make(binding).writeTo(writer);
 }
 
-task ( compileFramework : '')
+target ( compileFramework : '')
 {
   if (!standalone)
   {
@@ -137,7 +137,7 @@ task ( compileFramework : '')
   }
 }
 
-task ( run : 'run app' )
+target ( run : 'run app' )
 {
   depends ( genhbm )
   Ant.java ( classname : mainClass, classpathref : 'class.path', fork : 'true', maxmemory : '192m' )
@@ -168,13 +168,13 @@ class ShellScriptMaker extends org.apache.tools.ant.taskdefs.Java
 }
 Ant.project.addTaskDefinition('scriptMaker', ShellScriptMaker)
 
-task ( shellscript : 'produce runnable shell script')
+target ( shellscript : 'produce runnable shell script')
 {
   depends (genhbm)
   Ant.scriptMaker ( classname : mainClass, classpathref : 'class.path' , maxmemory : '192m' )
 }
 
-task ( jar : 'jar it' )
+target ( jar : 'jar it' )
 {
   depends ( clean, genhbm )
   Ant.jar ( file : jarFile )
@@ -192,10 +192,10 @@ task ( jar : 'jar it' )
   }
 }
 
-task ( schemaExport : 'export schema to db') { schemaX('export') }
-task ( schemaUpdate: 'update db schema') { schemaX('update') }
+target ( schemaExport : 'export schema to db') { schemaX('export') }
+target ( schemaUpdate: 'update db schema') { schemaX('update') }
 
-task ( schemaX : '') { cmd ->
+target ( schemaX : '') { cmd ->
   depends(genhbm)
   Ant.echo(message : "performing schema ${cmd}" )
   Ant.java (fork:'true', classpathref:'class.path', classname:'com.u2d.persist.HibernatePersistor')
@@ -210,7 +210,7 @@ task ( schemaX : '') { cmd ->
  */
 def classFile = 'com.u2d.nfjs.Talk'
 
-task (hbmxml: '')
+target (hbmxml: '')
 {
   depends(compile)
   Ant.java (classname: 'com.u2d.persist.HBMMaker', classpathref: 'class.path', fork:'true',
@@ -220,7 +220,7 @@ task (hbmxml: '')
   }
 }
 
-task (genhbm : 'generate hbm.xml files')
+target (genhbm : 'generate hbm.xml files')
 {
   depends (bind)
   Ant.java (classpathref: 'class.path',
@@ -240,7 +240,7 @@ Ant.taskdef ( name: 'bind' , classname : 'org.jibx.binding.ant.CompileTask')
   }
 }
 
-task ( bind : 'run JiBX binding compiler')
+target ( bind : 'run JiBX binding compiler')
 {
   depends(compile)
   /* turn this off;  if there's nothing to bind jibx will instead throw an error;
@@ -255,14 +255,14 @@ task ( bind : 'run JiBX binding compiler')
      */
 }
 
-task (hbmPractice : 'run hbm practice tools')
+target (hbmPractice : 'run hbm practice tools')
 {
   depends (genhbm)
   Ant.java ( classname : 'com.u2d.tools.HBMPracticeTool', classpathref: 'class.path', 
      fork : 'true', maxmemory : '128m' )
 }
 
-task (jwsDist : 'create java webstart distribution')
+target (jwsDist : 'create java webstart distribution')
 {
   depends ( jar, keystore )
   Ant.copy ( todir : jwsDistDir )
@@ -300,7 +300,7 @@ void makeJnlpFile()
   template.make(binding).writeTo(writer);
 }
 
-task ( findDrvname: '')
+target ( findDrvname: '')
 {
   Ant.taskdef (name : 'jdbcdriversetter' , classname : 'com.u2d.tools.DriverPropertySetter', 
     classpathref : 'class.path' )
@@ -322,12 +322,12 @@ task(copylibs : '') { targetDir, vmname ->
 //  not yet fully working:  for deploying as a web application using WingS
 buildWebDir = "${buildDir}/web"
 
-task ( initWeb : '') { new File("${buildWebDir}/WEB-INF/classes").mkdirs() }
+target ( initWeb : '') { new File("${buildWebDir}/WEB-INF/classes").mkdirs() }
 
-task ( wingsApp : 'build wings-based web application') { webApp('wings') }
-task (echo2App : 'build echo2-based web application') { webApp('echo2') }
+target ( wingsApp : 'build wings-based web application') { webApp('wings') }
+target (echo2App : 'build echo2-based web application') { webApp('echo2') }
 
-task (webApp : '') { vmname ->
+target (webApp : '') { vmname ->
   depends (genhbm, initWeb)
   Ant.copy (todir: "${buildWebDir}/WEB-INF")
   {

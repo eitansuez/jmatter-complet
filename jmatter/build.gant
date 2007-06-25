@@ -1,6 +1,7 @@
 projectName = 'jmatter'
 
-modules = ['ds-swing', 'ds-wizard', 'swingvm', 'wingsvm', 'echo2vm']
+dependentModules = ['ds-swing', 'ds-wizard']
+modules = ['swingvm', 'wingsvm', 'echo2vm']
 
 srcDir = 'src'
 libDir = 'lib'
@@ -22,7 +23,7 @@ Ant.path ( id : 'class.path' )
   fileset ( dir : toolsLibDir, includes : 'ant.jar' )
 }
 
-task ( init : '')
+target ( init : '')
 {
   Ant.tstamp()
   Ant.mkdir ( dir : buildClassesDir )
@@ -30,7 +31,7 @@ task ( init : '')
   Ant.mkdir ( dir : distDir )
 }
 
-task ( clean : 'Clean')
+target ( clean : 'Clean')
 {
   Ant.delete (dir : buildDir )
 }
@@ -40,7 +41,7 @@ Ant.taskdef (name : 'smc', classname : 'net.sf.smc.ant.SmcJarWrapper',
              classpath : genLibDir + '/smc-ant.jar' )
 
 
-task ( gen : 'Generate smc support code' )
+target ( gen : 'Generate smc support code' )
 {
   depends ( init )
   Ant.mkdir ( dir : buildGenDir + '/com/u2d/app' )
@@ -49,14 +50,14 @@ task ( gen : 'Generate smc support code' )
 }
 
 
-task ( compile : 'Compile code' )
+target ( compile : 'Compile code' )
 {
   depends ( rawCompile, compileModules )
 }
 
-task ( rawCompile : 'Compile code' )
+target ( rawCompile : 'Compile code' )
 {
-  depends ( gen )
+  depends ( gen, compileDependentModules )
   Ant.javac ( debug : 'on' , deprecation : 'on', 
               classpathref : 'class.path' , listfiles : 'false', 
               target : '1.5', destdir : buildClassesDir )
@@ -74,15 +75,18 @@ task ( rawCompile : 'Compile code' )
   }
 }
 
-task ( compileModules : '')
+target ( compileModules : '') { compileModulesList(modules); }
+target ( compileDependentModules : '') { compileModulesList(dependentModules); }
+
+def compileModulesList(moduleList)
 {
-  modules.each { moduleName -> 
+  moduleList.each { moduleName -> 
     Ant.ant(antfile : "../modules/${moduleName}/build.xml" , inheritAll : 'false', target : 'jar' )
     Ant.copy(file : "../modules/${moduleName}/dist/${moduleName}.jar", todir : runtimeLibDir )
   }
 }
 
-task ( justJar : 'just jar jmatter framework (assume compiled)' )
+target ( justJar : 'just jar jmatter framework (assume compiled)' )
 {
   Ant.jar ( basedir : buildClassesDir , file : "${distDir}/${projectName}.jar" )
   {
@@ -93,11 +97,11 @@ task ( justJar : 'just jar jmatter framework (assume compiled)' )
   }
 }
 
-task ( jar : 'jar jmatter framework' )
+target ( jar : 'jar jmatter framework' )
 {
   depends ( bind, justJar )
 }
-task (cleanjar : 'clean first, then jar')
+target (cleanjar : 'clean first, then jar')
 {
   depends ( clean, jar )
 }
@@ -113,7 +117,7 @@ Ant.taskdef ( name : 'bind', classname : 'org.jibx.binding.ant.CompileTask' )
   }
 }
 
-task ( bind : 'run JiBX binding compiler')
+target ( bind : 'run JiBX binding compiler')
 {
   depends ( compile )
   Ant.bind( binding : resourcesDir + '/binding.xml' )
@@ -124,13 +128,13 @@ task ( bind : 'run JiBX binding compiler')
 }
    
    
-task ( ultraviolet : 'Launch UltraViolet design tool' )
+target ( ultraviolet : 'Launch UltraViolet design tool' )
 {
   depends ( bind )
   Ant.ant ( antfile : 'tools/ultraviolet/run.xml' , inheritAll : 'false' )
 }
 
-task ( javadoc : 'produce jmatter javadocs' )
+target ( javadoc : 'produce jmatter javadocs' )
 {
   Ant.javadoc ( sourcepath : srcDir,
                 destDir : "$buildDir/javadocs",
@@ -139,7 +143,7 @@ task ( javadoc : 'produce jmatter javadocs' )
 }
 
 
-task ( newProjectUi : 'GUI for creating a new jmatter project' )
+target ( newProjectUi : 'GUI for creating a new jmatter project' )
 {
   depends( jar )
   Ant.java ( classname : 'org.jmatter.tools.NewProjectFrontEnd', 
@@ -150,7 +154,7 @@ task ( newProjectUi : 'GUI for creating a new jmatter project' )
 newProjectName = "new-jmatter-project"
 newProjectBasedir = ".."
 
-task ( newProject : 'create a new project (flags: new.project.name, new.project.basedir)' )
+target ( newProject : 'create a new project (flags: new.project.name, new.project.basedir)' )
 {
   depends ( jar )
   def npBasedir = "${newProjectBasedir}/${newProjectName}"
@@ -184,5 +188,5 @@ task ( newProject : 'create a new project (flags: new.project.name, new.project.
   }
 }
 
-task ( 'default' : 'default target' ) { jar() }
+target ( 'default' : 'default target' ) { jar() }
 
