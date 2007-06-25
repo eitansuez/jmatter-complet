@@ -142,7 +142,9 @@ task ( javadoc : 'produce jmatter javadocs' )
 task ( newProjectUi : 'GUI for creating a new jmatter project' )
 {
   depends( jar )
-  Ant.java ( jar : 'lib/tools/newprojectui.jar', fork : 'true' )
+  Ant.java ( classname : 'org.jmatter.tools.NewProjectFrontEnd', 
+             classpath : 'lib/tools/newprojectui.jar:lib/runtime/css4swing.jar:lib/runtime/antlr-runtime-3.0.jar',
+             fork : 'true' )
 }
 
 newProjectName = "new-jmatter-project"
