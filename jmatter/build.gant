@@ -176,6 +176,10 @@ task ( newProject : 'create a new project (flags: new.project.name, new.project.
       Ant.delete( file : "${npBasedir}/build-standalone.xml" )
     }
   }
+  Ant.copy ( todir : "${nbBasedir}/resources/images", overwrite: 'true' )
+  {
+    fileset ( dir: "${resourcesDir}/project-template/resources/images", includes: '*' )
+  }
 }
 
 task ( 'default' : 'default target' ) { jar() }

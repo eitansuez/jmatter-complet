@@ -211,6 +211,9 @@
            <filter token="FRAMEWORK_DIR" value="${basedir}" />
          </filterset>
       </copy>
+      <copy todir="${np.basedir}/resources/images" overwrite="true">
+         <fileset dir="${resource.dir}/project-template/resources/images" includes="*" />
+      </copy>
       <antcall target="new-standalone-project" />
       <antcall target="new-dependent-project" />
    </target>
