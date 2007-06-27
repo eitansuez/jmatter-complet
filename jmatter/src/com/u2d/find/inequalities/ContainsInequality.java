@@ -3,62 +3,59 @@
  */
 package com.u2d.find.inequalities;
 
-//import com.u2d.view.*;
+import com.u2d.view.*;
 import com.u2d.field.IndexedField;
-//import com.u2d.find.Inequality;
+import com.u2d.field.Association;
+import com.u2d.field.DynaAssociationStrategy;
+import com.u2d.model.EObject;
+import com.u2d.model.ComplexEObject;
+import com.u2d.element.Field;
+import com.u2d.app.Context;
 import java.util.*;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * @author Eitan Suez
  */
 public class ContainsInequality
 {
-//   private IndexedField _field;
-// private Inequality _equals;
-//   private EView _ineqView;
+   private EView _ineqView;
    private List _inequalities;
-   
+
+   public ContainsInequality()
+   {
+      _inequalities = new ArrayList();
+      _inequalities.add(new Contains());
+   }
+
    public ContainsInequality(IndexedField field)
    {
-//      _field = field;
-//      IdentityInequality sub = new IdentityInequality(_field);
-//      _equals = (Inequality) sub.getInequalities().get(0);
-//      _ineqView = _equals.getValueEditor();
-      
-      _inequalities = new ArrayList();
-//      _inequalities.add(new Contains());
+      this();
+      DynaAssociationStrategy das = new DynaAssociationStrategy(field.fieldtype());
+      Association typeAssociation = new Association(das);
+      _ineqView = Context.getInstance().getViewMechanism().getAssociationView(typeAssociation);
    }
    
    public List getInequalities() { return _inequalities; }
 
    
-//   public class Contains extends AbstractInequality
-//   {
-//      public void addExpression(Criteria criteria) throws HibernateException
-//      {
-//         if (_ineqView instanceof Editor)
-//            ((Editor) _ineqView).transferValue();
-//         
-//         Criteria subCriteria = criteria.createCriteria(_field.getCleanPath());
-//         _equals.addExpression(subCriteria);
-//      }
-//      public void addExpression(Criteria criteria, Field field, EObject eo)
-//      {
-//         try
-//         {
-//            Criteria subCriteria = criteria.createCriteria(field.getCleanPath());
-//            _equals.addExpression(subCriteria);
-//         }
-//         catch (HibernateException ex)
-//         {
-//            System.err.println("HibernateException: "+ex.getMessage());
-//            ex.printStackTrace();
-//         }
-//      }
-//
-//      public EView getValueEditor() { return _ineqView; }
-//
-//      public String toString() { return "contains"; }
-//   }
+   public class Contains extends AbstractInequality
+   {
+      public void addExpression(Criteria criteria, Field field, EObject eo)
+      {
+         Criteria subCriteria = criteria.createCriteria(field.getCleanPath());
+         subCriteria.add(Restrictions.eq("id", ((ComplexEObject) eo).getID()));
+      }
+
+      public EView getValueEditor() { return _ineqView; }
+
+      public EObject getValue()
+      {
+         return _ineqView.getEObject();
+      }
+
+      public String toString() { return "contains"; }
+   }
 
 }

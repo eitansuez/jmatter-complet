@@ -7,15 +7,18 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
 import com.u2d.field.Association;
+import com.u2d.field.IndexedField;
+import com.u2d.find.Searchable;
+import com.u2d.find.inequalities.ContainsInequality;
+
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Eitan Suez
  */
 public class RelationalList extends SimpleListEO
-            // implements Searchable  // "Criteria queries do not support collections of values" (gavin)
-                                      // see http://opensource.atlassian.com/projects/hibernate/browse/HHH-869
-                                      // still outstanding as of mid-2007
+             implements Searchable
 {
    private RelationalList() {}  // for jibx
 
@@ -36,10 +39,10 @@ public class RelationalList extends SimpleListEO
    }
 
 
-//   public List getInequalities()
-//   {
-//      return new ContainsInequality((IndexedField) field()).getInequalities();
-//   }
+   public List getInequalities()
+   {
+      return new ContainsInequality((IndexedField) field()).getInequalities();
+   }
 
 
    public void jibxAdd(Object obj)
