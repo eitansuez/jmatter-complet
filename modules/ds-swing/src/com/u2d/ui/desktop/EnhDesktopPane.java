@@ -45,6 +45,7 @@ public class EnhDesktopPane extends MyDesktopPane
       Toolkit.getDefaultToolkit().addAWTEventListener(_mouseTracker, AWTEvent.MOUSE_EVENT_MASK);
       
       _msgPnl = new MsgPnl();
+      _msgPnl.setDelay(1000);
       add(_msgPnl, JLayeredPane.POPUP_LAYER);
 
       JExploseUtils.installLightningHotKey(explosable, KeyEvent.VK_F12);

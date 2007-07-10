@@ -49,6 +49,13 @@ public class MsgPnl extends JXPanel
       _timer.setCoalesce(false);
    }
    
+   public void setDelay(int delayMs)
+   {
+      _delay = delayMs;
+      _timer.setInitialDelay(_delay);
+      _timer.setDelay(_delay);
+   }
+   
    public void message(String msg, JComponent parent)
    {
       _label.setText(msg);
