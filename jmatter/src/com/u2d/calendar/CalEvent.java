@@ -21,7 +21,13 @@ import java.util.Date;
  */
 public abstract class CalEvent extends AbstractComplexEObject
 {
-   public abstract Title calTitle();
+   /**
+    * To customize title for an instance in the context of a calendar view,
+    * override this method.  Otherwise, calendar title falls back to default
+    * title().
+    */
+   public Title calTitle() { return title(); }
+
 
    public ComplexEView getCalEventView() { return vmech().getCalEventView(this); }
    public ComplexEView getCalEventView(Schedule schedule)

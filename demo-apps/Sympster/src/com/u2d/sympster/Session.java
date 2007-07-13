@@ -43,11 +43,4 @@ public class Session extends CalEvent
    }
 
    public static String schedulableFieldname = "location";
-   public Title calTitle()
-   {
-      if (event == null)
-         return new Title("--");
-      else
-         return event.title();
-   }
 }
