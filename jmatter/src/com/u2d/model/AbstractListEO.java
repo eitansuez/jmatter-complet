@@ -503,10 +503,10 @@ public abstract class AbstractListEO extends AbstractEObject
 
    
    
-   // basic print capability .. needs a little work.
-   
+   // basic print capability
    private PrintForm _printForm = null;
-   public Reportable commandPrint(CommandInfo cmdInfo)
+//   @Cmd  //  works but .. needs some work.
+   public Reportable Print(CommandInfo cmdInfo)
    {
       if (_printForm == null)
       {
