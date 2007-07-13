@@ -130,6 +130,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       // dillema here:  don't really know you're coming from an EditState Exit:
       popState();
       fireAppEventNotification(SAVE);
+      type().fireAppEventNotification(SAVE, this);
    }
    public void onBeforeCreate()
    {
