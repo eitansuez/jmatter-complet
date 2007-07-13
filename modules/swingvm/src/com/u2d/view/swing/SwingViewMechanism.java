@@ -81,6 +81,13 @@ public class SwingViewMechanism implements ViewMechanism
 
    public String getLfname() { return _lfname; }
    public void setLfname(String lfname) { _lfname = lfname; }
+   
+   private boolean labelEditorLayoutHorizontal = true;
+   public void setLabelEditorLayoutHorizontal(boolean value)
+   {
+      labelEditorLayoutHorizontal = value;
+   }
+   public boolean isLabelEditorLayoutHorizontal() { return labelEditorLayoutHorizontal; }
 
    
    private ReportingInterface reportingInterface()
@@ -477,7 +484,7 @@ public class SwingViewMechanism implements ViewMechanism
    {
       checkState(ceo);
 
-      ExpandableView view = new ExpandableView();
+      ExpandableView2 view = new ExpandableView2();
       view.bind(ceo);
       return view;
    }
@@ -486,7 +493,7 @@ public class SwingViewMechanism implements ViewMechanism
    {
       checkState(ceo);
 
-      ExpandableView view = new ExpandableView();
+      ExpandableView2 view = new ExpandableView2();
       view.bind(ceo, expanded);
       return view;
    }
@@ -562,7 +569,7 @@ public class SwingViewMechanism implements ViewMechanism
    }
    public ComplexEView getCalEventView(CalEvent event)
    {
-      return new CalEventView(event);
+      return new com.u2d.view.swing.simplecal.CalEventView(event);
    }
    public ComplexEView getCalEventView(CalEvent event, Schedule schedule)
    {
@@ -684,7 +691,12 @@ public class SwingViewMechanism implements ViewMechanism
    public ListEView getListViewAsTable(AbstractListEO leo) { return new TableView(leo); }
    public ListEView getListViewAsIcons(AbstractListEO leo) { return new GridListView(leo); }
    public ListEView getListViewAsTree(AbstractListEO leo) { return new MyListTreeView(leo); }
-   public ListEView getListViewAsCalendar(CalEventList list) { return new CalendarListView(list); }
+
+   public ListEView getListViewAsCalendar(CalEventList list)
+   {
+      return new com.u2d.view.swing.simplecal.CalendarListView(list);
+   }
+
    public ListEView getOmniListView(AbstractListEO leo) { return new OmniListView(leo); }
    public ListEView getToolbarView(String name, AbstractListEO leo) { return new ToolbarView(name, leo); }
    
