@@ -34,6 +34,9 @@ public class PagedList extends CriteriaListEO
    {
       super(query, pageNum);
       type().addAppEventListener(CREATE, _addListener);
+
+      ComplexType itemType = query.getQueryType();
+      command("New").getLabel().setValue("New "+itemType.getNaturalName());
    }
    
    // See NullAssociation for comments
