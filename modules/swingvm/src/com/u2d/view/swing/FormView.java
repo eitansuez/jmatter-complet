@@ -13,6 +13,7 @@ import javax.swing.event.ChangeEvent;
 import java.util.*;
 import java.util.List;
 import java.beans.*;
+import java.io.File;
 import com.u2d.element.Field;
 import com.u2d.field.CompositeField;
 import com.u2d.field.AggregateField;
@@ -24,6 +25,8 @@ import com.u2d.view.swing.list.CompositeTableView;
 import com.u2d.ui.CustomTabbedPane;
 import com.u2d.ui.UIUtils;
 import com.u2d.app.Tracing;
+import com.jeta.forms.components.panel.FormPanel;
+import com.jeta.forms.gui.form.FormAccessor;
 
 /**
  * @author Eitan Suez
@@ -33,8 +36,8 @@ public class FormView extends JPanel implements ComplexEView, Editor
    private ComplexEObject _ceo;
    private boolean _leafContext;
 
-   private java.util.List _childViews;  // exclude read-only fields
-   private java.util.Collection _vPnls;
+   private List<EView> _childViews;  // exclude read-only fields
+   private java.util.Collection<ValidationNoticePanel> _vPnls;
 
    private boolean _hasTabs = false;
    private boolean _editable = false;
@@ -77,29 +80,21 @@ public class FormView extends JPanel implements ComplexEView, Editor
 
       stopListeningForValidations();
 
-      Iterator itr = _childViews.iterator();
+      Iterator<EView> itr = _childViews.iterator();
       EView view = null;
       while (itr.hasNext())
       {
-         view = (EView) itr.next();
+         view = itr.next();
          view.detach();
       }
    }
 
    private void layItOut()
    {
-      _childViews = new ArrayList();
-      _vPnls = new HashSet();
+      _childViews = new ArrayList<EView>();
+      _vPnls = new HashSet<ValidationNoticePanel>();
 
-      JPanel mainPane = new FormPane();
-
-      FormLayout layout =
-         new FormLayout("right:pref, 5px, left:pref:grow", "");
-
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout, mainPane);
-      CellConstraints cc = new CellConstraints();
-
-      layoutChildFields(_ceo, builder, cc);
+      JPanel mainPane = mainPane();
 
       setLayout(new BorderLayout());
       // avoid using a tabbedPane altogether unless necessary (> 1 tab is actually used)
@@ -119,10 +114,108 @@ public class FormView extends JPanel implements ComplexEView, Editor
          }
          else
          {
-            mainPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+//            mainPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
             add(new JScrollPane(mainPane), BorderLayout.CENTER);
          }
       }
+   }
+   
+   private JPanel mainPane()
+   {
+      JPanel mainPane = new FormPane();
+      FormLayout layout = new FormLayout("right:pref, 5px, left:pref:grow", "");
+      DefaultFormBuilder builder = new DefaultFormBuilder(layout, mainPane);
+      CellConstraints cc = new CellConstraints();
+      
+      String layoutFormPath = getLayoutFormPath();
+      if (layoutFormPath == null)
+      {
+         layoutChildFields(_ceo, builder, cc);
+         return mainPane;
+      }
+      else
+      {
+         return layoutCustomForm(layoutFormPath);
+      }
+      
+   }
+   
+   private String getLayoutFormPath()
+   {
+      String clsName = _ceo.getClass().getName();
+      String formName = clsName.replace('.', File.separatorChar) + ".jfrm";
+      return (getClass().getClassLoader().getResource(formName) == null) ? null : formName;
+   }
+   
+   private JPanel layoutCustomForm(String layoutFormPath)
+   {
+      FormPanel formPanel = new FormPanel(layoutFormPath);
+
+      List<String> names = new ArrayList<String>();
+      FormAccessor accessor = formPanel.getFormAccessor();
+      for (Iterator itr = accessor.beanIterator(); itr.hasNext(); )
+      {
+         JLabel placeHolder = (JLabel) itr.next();
+         names.add(placeHolder.getName());
+      }
+
+      for (String name : names)
+      {
+         accessor.replaceBean(name, fieldViewFor(name));
+      }
+      
+      return formPanel;
+   }
+   
+   private JComponent fieldViewFor(String name)
+   {
+      // assume/impose convention that form component's bound name is bound object's type's corresponding fieldname
+      Field field = _ceo.field(name);
+
+      EView view = field.getView(_ceo);
+      _childViews.add(view);
+      
+      ValidationNotifier notifier = view.getEObject();
+      if (field.isAssociation())
+      {
+         notifier = _ceo.association(field.name());
+      }
+      ValidationNoticePanel vPnl = new ValidationNoticePanel(notifier, _ceo);
+      _vPnls.add(vPnl);
+
+      JComponent comp = (JComponent) view;
+      FieldCaption caption = new FieldCaption(field, comp);
+
+      return (SwingViewMechanism.getInstance().isLabelEditorLayoutHorizontal()) ?
+            fieldViewPanelHoriz(caption, comp, vPnl) :
+            fieldViewPanelVert(caption, comp, vPnl) ;
+   }
+
+   private JComponent fieldViewPanelVert(FieldCaption caption, JComponent comp, ValidationNoticePanel vPnl)
+   {
+      // build inner panel for caption/comp/vpanel trio:
+      FormLayout layout = new FormLayout("left:pref:grow, 5px, left:pref:grow", "pref, 3px, pref");
+      DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
+      CellConstraints cc = new CellConstraints();
+
+      builder.add(vPnl, cc.xy(3,3));
+      builder.add(caption, cc.xy(1,1));
+      builder.add(comp, cc.xy(1,3));
+
+      return builder.getPanel();
+   }
+   private JComponent fieldViewPanelHoriz(FieldCaption caption, JComponent comp, ValidationNoticePanel vPnl)
+   {
+      // build inner panel for caption/comp/vpanel trio:
+      FormLayout layout = new FormLayout("right:pref, 5px, left:pref:grow", "pref, 3px, pref");
+      DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
+      CellConstraints cc = new CellConstraints();
+
+      builder.add(vPnl, cc.xy(3,1));
+      builder.add(caption, cc.xy(1,3));
+      builder.add(comp, cc.xy(3,3));
+
+      return builder.getPanel();
    }
 
    private void layoutChildFields(ComplexEObject ceo,
@@ -133,7 +226,7 @@ public class FormView extends JPanel implements ComplexEView, Editor
       
       List fields = (_partialFieldList == null) ? ceo.childFields() : _partialFieldList;
       
-      JComponent vPnl;
+      ValidationNoticePanel vPnl;
       Field field = null;
       for (Iterator itr = fields.iterator(); itr.hasNext(); )
       {
@@ -200,11 +293,11 @@ public class FormView extends JPanel implements ComplexEView, Editor
       // component one below the other..
       if (comp instanceof TableView || comp instanceof CompositeTableView)
       {
-         builder.appendRow("pref");
+         builder.appendRow("bottom:pref");
          builder.add(caption, cc.xyw(1, builder.getRow(), 3));
          builder.nextLine();
 
-         builder.appendRow("pref");
+         builder.appendRow("top:pref");
          if (comp instanceof JTable)
          {
             builder.add(new JScrollPane(comp), cc.xyw(1, builder.getRow(), 3));
@@ -217,7 +310,7 @@ public class FormView extends JPanel implements ComplexEView, Editor
       }
       else
       {
-         builder.appendRow("pref");
+         builder.appendRow("top:pref");
          builder.add(caption, cc.xy(1, builder.getRow()));
          builder.add(comp, cc.xy(3, builder.getRow()));
          builder.nextLine();
@@ -259,9 +352,9 @@ public class FormView extends JPanel implements ComplexEView, Editor
    public int transferValue()
    {
       int count = 0;
-      for (Iterator itr = _childViews.iterator(); itr.hasNext(); )
+      for (Iterator<EView> itr = _childViews.iterator(); itr.hasNext(); )
       {
-         EView view = (EView) itr.next();
+         EView view = itr.next();
          Tracing.tracer().fine("attempting to transfer value for field "+view.getEObject().field());
          if (view instanceof Editor)
          {
@@ -318,9 +411,9 @@ public class FormView extends JPanel implements ComplexEView, Editor
       Field field = null;
       EObject eo = null;
 
-      for (Iterator itr = _childViews.iterator(); itr.hasNext(); )
+      for (Iterator<EView> itr = _childViews.iterator(); itr.hasNext(); )
       {
-         view = (EView) itr.next();
+         view = itr.next();
          if (view instanceof Editor)
          {
             eo = view.getEObject();
