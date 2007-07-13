@@ -81,8 +81,7 @@
       <option name="OTHER" value="false" />
     </context>
   </template>
-  <template name="eventmeta" value="public static String timespanFieldname = &quot;$TSFN$&quot;;&#10;public static String schedulableFieldname = &quot;$SCHEDFN$&quot;;&#10;" description="calevent metainfo" toReformat="false" toShortenFQNames="true">
-    <variable name="TSFN" expression="" defaultValue="" alwaysStopAt="true" />
+  <template name="eventmeta" value="public static String schedulableFieldname = &quot;$SCHEDFN$&quot;;&#10;" description="calevent metainfo" toReformat="false" toShortenFQNames="true">
     <variable name="SCHEDFN" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_CODE" value="true" />
@@ -183,6 +182,19 @@
     <variable name="FNAME" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="FN_CAP" expression="capitalize(FNAME)" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="ro" value="public static String[] readOnly = {&quot;$CURSOR$&quot;$END$};" description="Read-Only Metadata" toReformat="false" toShortenFQNames="true">
+    <variable name="CURSOR" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_CODE" value="true" />
       <option name="JAVA_COMMENT" value="false" />
