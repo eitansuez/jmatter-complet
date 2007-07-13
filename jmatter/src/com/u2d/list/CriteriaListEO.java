@@ -209,8 +209,20 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
    }
    public ListEView getAlternateView()
    {
-      return vmech().getAlternateListView(this, 
-            new String[] {"listview", "listtableview", "listiconsview", "omnilistview"});
+      /* a table view assumes all table elements have the same structure, which is not a correct
+        assumption for a list of objects that have a common interface or that are part of f
+        class hierarchy.
+       */
+      if (type().isAbstract())
+      {
+         return vmech().getAlternateListView(this, 
+               new String[] {"listview", "listiconsview", "omnilistview"});
+      }
+      else
+      {
+         return vmech().getAlternateListView(this, 
+               new String[] {"listview", "listtableview", "listiconsview", "omnilistview"});
+      }
    }
    public ListEView getTableView()
    {
