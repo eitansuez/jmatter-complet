@@ -4,6 +4,10 @@ import com.u2d.model.*;
 import com.u2d.list.Navigable;
 import com.u2d.find.*;
 import static com.u2d.pubsub.AppEventType.DELETE;
+import static com.u2d.pubsub.AppEventType.CREATE;
+import static com.u2d.pubsub.AppEventType.SAVE;
+import com.u2d.pubsub.AppEventListener;
+import com.u2d.pubsub.AppEvent;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.view.EView;
@@ -31,7 +35,32 @@ public class CalEventList extends AbstractListEO
    private final TimeSpan _span = new TimeSpan();
    private Schedulable _schedulable;
 
-   public CalEventList() {}
+   private AppEventListener _addOrSaveListener =
+     new AppEventListener()
+       {
+          public void onEvent(AppEvent evt)
+          {
+             CalEvent calevt = (CalEvent) evt.getEventInfo();
+             if (_span.containsOrIntersects(calevt.timeSpan()))
+             {
+                add(calevt);
+             }
+             else
+             {
+                remove(calevt);
+             }
+          }
+       };
+
+   public CalEventList() { }
+
+   public CalEventList(Query query, TimeSpan span)
+   {
+      this();
+      setQuery(query, span);
+      type().addAppEventListener(CREATE, _addOrSaveListener);
+      type().addAppEventListener(SAVE, _addOrSaveListener);
+   }
    
    public void setSchedulable(Schedulable schedulable)
    {
@@ -39,11 +68,6 @@ public class CalEventList extends AbstractListEO
       setQuery(new SimpleQuery(ComplexType.forClass(_schedulable.eventType())));
    }
 
-   public CalEventList(Query query, TimeSpan span)
-   {
-      setQuery(query, span);
-   }
-   
    public Query getQuery() { return _query; }
    public TimeSpan getSpan() { return _span; }
    
@@ -172,17 +196,17 @@ public class CalEventList extends AbstractListEO
          Class eventClass = _schedulable.eventType();
          eventType = ComplexType.forClass(eventClass);
       }
-      CalEvent calEvent = (CalEvent) eventType.instance();
+      final CalEvent calEvent = (CalEvent) eventType.instance();
       calEvent.timeSpan(span);
       if (_schedulable != null)
          calEvent.schedulable(_schedulable);
+      
       return calEvent;
    }
    
    public void fetchEvents(TimeSpan span) { setSpan(span); }
 
 
-   // TODO: fix this..
    @Cmd
    public ComplexEObject New(CommandInfo cmdInfo)
    {
