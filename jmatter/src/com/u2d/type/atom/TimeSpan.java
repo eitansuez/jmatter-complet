@@ -266,6 +266,7 @@ public class TimeSpan extends AbstractAtomicEO
       if (value == null) return; // attempt by hibernate to restore empty value - just ignore
       if (!(value instanceof TimeSpan))
          throw new IllegalArgumentException("Invalid type on set;  must be TimeSpan");
+      if (value.equals(this)) return; // same.
       
       TimeSpan span = (TimeSpan) value;
       Calendar start = Calendar.getInstance();
