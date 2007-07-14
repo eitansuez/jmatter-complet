@@ -9,11 +9,9 @@ import java.util.Date;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
-
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
-import com.u2d.view.swing.find.FindPanel;
 import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.view.EView;
 import com.u2d.ui.CustomTabbedPane;
@@ -27,7 +25,8 @@ public class TimeSheet extends JPanel implements ChangeListener
    private Sheet _daySheet, _weekSheet;
    private JTabbedPane _tabPane;
    private CardLayout _cardLayout;
-   private JPanel _lblPnl, _eastPanel, _northPanel;
+   private JPanel _lblPnl;
+   private JPanel _eastPanel;
    private CellResPanel _cellResPanel;
    private final DateEO _position;
    private EventManager _eventMgr;
@@ -44,7 +43,7 @@ public class TimeSheet extends JPanel implements ChangeListener
       
       setLayout(new BorderLayout());
       JPanel pnl = new JPanel(new BorderLayout());
-      pnl.add(northPanel(), BorderLayout.NORTH);
+      pnl.add(heading(), BorderLayout.NORTH);
       pnl.add(body(), BorderLayout.CENTER);
       add(pnl, BorderLayout.CENTER);
       
@@ -91,26 +90,9 @@ public class TimeSheet extends JPanel implements ChangeListener
       this(mgr, bounds);
       _eastPanel.add(new JScrollPane(c), BorderLayout.SOUTH);
    }
-   public TimeSheet(EventManager mgr, DateTimeBounds bounds, FindPanel findPanel)
-   {
-      this(mgr, bounds);
-      _northPanel.add(findPanel, BorderLayout.SOUTH);
-   }
-   public TimeSheet(EventManager mgr, DateTimeBounds bounds, FindPanel findPanel, Component c)
-   {
-      this(mgr, bounds, findPanel);
-      _eastPanel.add(new JScrollPane(c), BorderLayout.SOUTH);
-   }
 
    public DateEO currentPosition() { return _position; }
 
-   
-   private JPanel northPanel()
-   {
-      _northPanel = new JPanel(new BorderLayout());
-      _northPanel.add(heading(), BorderLayout.CENTER);
-      return _northPanel;
-   }
    private JPanel heading()
    {
       JPanel heading = new JPanel();
