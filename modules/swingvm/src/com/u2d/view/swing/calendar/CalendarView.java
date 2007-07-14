@@ -6,7 +6,6 @@ package com.u2d.view.swing.calendar;
 import com.u2d.calendar.*;
 import com.u2d.model.EObject;
 import com.u2d.model.AbstractListEO;
-import com.u2d.type.atom.*;
 import java.beans.*;
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
@@ -14,7 +13,6 @@ import javax.swing.event.ListDataEvent;
 import java.awt.*;
 import java.awt.event.*;
 import com.u2d.view.*;
-import com.u2d.view.swing.find.FindPanel;
 import com.jgoodies.forms.builder.ButtonStackBuilder;
 
 /**
@@ -32,8 +30,7 @@ public class CalendarView extends JPanel implements ComplexEView
    {
       _calendar = calendar;
       _checkboxPanel = new CBPanel();
-      FindPanel findPanel = new FindPanel(_calendar);
-      _timeSheet = new TimeSheet(_calendar, _calendar.bounds(), findPanel, _checkboxPanel);
+      _timeSheet = new TimeSheet(_calendar, _calendar.bounds(), _checkboxPanel);
 
       _schedules = _calendar.schedules();
       _scheduleListener = new ScheduleListener();

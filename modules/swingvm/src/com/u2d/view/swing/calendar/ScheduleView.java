@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.beans.*;
 import java.awt.*;
 import com.u2d.view.*;
-import com.u2d.view.swing.find.FindPanel;
 
 /**
  * @author Eitan Suez
@@ -22,8 +21,7 @@ public class ScheduleView extends JPanel implements ComplexEView
    public ScheduleView(Schedule schedule)
    {
       _schedule = schedule;
-      FindPanel findPanel = new FindPanel(_schedule.getCalEventList());
-      _timeSheet = new TimeSheet(_schedule, _schedule.bounds(), findPanel);
+      _timeSheet = new TimeSheet(_schedule, _schedule.bounds());
       _timeSheet.addSchedule(_schedule);
       
       setLayout(new BorderLayout());
