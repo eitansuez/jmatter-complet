@@ -44,7 +44,7 @@ public class TimeSheet extends JPanel implements ChangeListener
       
       setLayout(new BorderLayout());
       JPanel pnl = new JPanel(new BorderLayout());
-      pnl.add(northPanel(), BorderLayout.NORTH);
+      pnl.add(heading(), BorderLayout.NORTH);
       pnl.add(body(), BorderLayout.CENTER);
       add(pnl, BorderLayout.CENTER);
 
@@ -84,12 +84,6 @@ public class TimeSheet extends JPanel implements ChangeListener
    
    public DateEO currentPosition() { return _position; }
    
-   private JPanel northPanel()
-   {
-      JPanel northPanel = new JPanel(new BorderLayout());
-      northPanel.add(heading(), BorderLayout.CENTER);
-      return northPanel;
-   }
    private JPanel heading()
    {
       JPanel heading = new JPanel();
