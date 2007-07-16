@@ -200,10 +200,20 @@ public class CalEventList extends AbstractListEO
    public void fetchEvents(TimeSpan span) { setSpan(span); }
 
 
+   // See NullAssociation for comments
    @Cmd
    public ComplexEObject New(CommandInfo cmdInfo)
    {
-      return type().New(cmdInfo);
+      return New(cmdInfo, type());
+   }
+   @Cmd
+   public ComplexEObject New(CommandInfo cmdInfo, ComplexType type)
+   {
+      return type.New(cmdInfo);
+   }
+   public ComplexType baseType()
+   {
+      return type().baseType();
    }
 
 }

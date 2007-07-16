@@ -305,7 +305,6 @@ public class SwingViewMechanism implements ViewMechanism
       if (view instanceof ListEView)
       {
          return new FlexiFrame(new ListEOPanel((ListEView) view));
-//         return new ListEOFrame((ListEView) view);
       }
       else if (view instanceof CalendarView)
       {
@@ -317,7 +316,6 @@ public class SwingViewMechanism implements ViewMechanism
       }
       else if (view instanceof ComplexEView)
       {
-//         return new EOFrame((ComplexEView) view);
          return new FlexiFrame(new EOPanel((ComplexEView) view));
       }
 

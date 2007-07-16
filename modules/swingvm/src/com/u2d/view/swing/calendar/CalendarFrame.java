@@ -28,11 +28,7 @@ public class CalendarFrame extends CloseableJInternalFrame implements ComplexEVi
       _ceo.addChangeListener(this);
       _ceo.addPropertyChangeListener(this);
       
-      if (_ceo.isTransientState())
-         setTitle("New "+_ceo.type().getNaturalName());
-      else
-         setTitle(_ceo.title().toString());
-      
+      setTitle(_ceo.title().toString());
       setFrameIcon(_ceo.iconSm());
       
       JPanel contentPane = (JPanel) getContentPane();
