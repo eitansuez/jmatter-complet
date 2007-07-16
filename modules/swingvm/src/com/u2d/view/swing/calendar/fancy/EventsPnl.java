@@ -1,7 +1,7 @@
 /*
  * Created on Apr 12, 2004
  */
-package com.u2d.view.swing.calendar;
+package com.u2d.view.swing.calendar.fancy;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -13,6 +13,8 @@ import com.u2d.model.AbstractListEO;
 import com.u2d.element.Field;
 import com.u2d.field.AssociationField;
 import com.u2d.field.IndexedField;
+import com.u2d.view.swing.calendar.TimeIntervalView;
+import com.u2d.view.swing.calendar.PositionedLayout;
 
 /**
  * @author Eitan Suez

@@ -1,7 +1,8 @@
-package com.u2d.view.swing.calendar;
+package com.u2d.view.swing.calendar.fancy;
 
 import com.u2d.calendar.Schedule;
 import com.u2d.calendar.CalEvent;
+import com.u2d.view.swing.calendar.TimeIntervalView;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;

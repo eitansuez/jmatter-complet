@@ -1,7 +1,7 @@
 /*
  * Created on Dec 12, 2003
  */
-package com.u2d.view.swing.calendar;
+package com.u2d.view.swing.calendar.fancy;
 
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;

@@ -1,4 +1,4 @@
-package com.u2d.view.swing.calendar;
+package com.u2d.view.swing.calendar.fancy;
 
 import com.u2d.calendar.DateTimeBounds;
 import com.u2d.calendar.Schedule;

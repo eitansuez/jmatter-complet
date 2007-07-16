@@ -1,7 +1,7 @@
 /*
- * Created on Nov 22, 2004
+ * Created on Sep 17, 2003
  */
-package com.u2d.view.swing.calendar;
+package com.u2d.view.swing.calendar.fancy;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -9,41 +9,53 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.io.IOException;
+import java.text.*;
 import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
-import com.u2d.calendar.*;
+import java.awt.*;
+import java.awt.event.*;
+import com.u2d.calendar.CalEvent;
+import com.u2d.calendar.DateTimeBounds;
+import com.u2d.calendar.Schedule;
+import com.u2d.calendar.Schedulable;
 import com.u2d.type.atom.*;
 import com.u2d.model.ComplexEObject;
+import com.u2d.view.swing.calendar.RowHeaderCellRenderer;
+import com.u2d.view.swing.calendar.CalDropEvent;
 
 /**
  * @author Eitan Suez
  */
-public class DayView extends BaseTimeIntervalView implements ChangeListener
+public class WeekView extends BaseTimeIntervalView implements ChangeListener
 {
-   private static int COLUMN_WIDTH = 300;
-   private static int FIRST_COLUMN_WIDTH = 65;
+   private static final String[] WEEKS = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+   private static DateFormat COLHEADER_FORMATTER= new SimpleDateFormat("EEE, MMM dd");
 
-   public static TimeInterval INTERVAL = new TimeInterval(Calendar.HOUR, 24);
-   
+   private static int COLUMN_WIDTH = 100;
+   private static int FIRST_COLUMN_WIDTH = 65;
+   private static int WEEKEND_COLUMN_WIDTH = 85;
+
    private static java.text.SimpleDateFormat LABEL_DATE_FORMATTER =
-      new java.text.SimpleDateFormat("EEEE MMMM dd yyyy");
+      new java.text.SimpleDateFormat("MMMM dd yyyy");
 
    private final TimeSpan _daySpan = new TimeSpan();
-   private DateTimeBounds _datetimeBounds;
+   private final TimeSpan _weekSpan = new TimeSpan();
 
-   public DayView(TimeSheet timesheet, DateTimeBounds bounds)
+   private DateTimeBounds _datetimeBounds;
+   
+   public WeekView(TimeSheet timesheet, DateTimeBounds bounds)
    {
       _datetimeBounds = bounds;
       _timesheet = timesheet;
       
       // TODO:  need mutable TimeInterval with ChangeListener
-      _datetimeBounds.dayStartTime().addChangeListener(this);
+	   // TODO:  need mutable TimeInterval with ChangeListener
+	   _datetimeBounds.dayStartTime().addChangeListener(this);
+	   _datetimeBounds.weekStartTime().addChangeListener(this);
       _datetimeBounds.position().addChangeListener(this);
-
+      
       adjustSpan();
       updateLabel();
 
@@ -57,6 +69,18 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
           public void run()
           {
              updateLabel();
+
+             for (int i=1; i<_model.getColumnCount(); i++)
+                _table.getColumn(""+i).setHeaderValue(_model.getColumnName(i));
+
+             Calendar cal = Calendar.getInstance();
+             cal.setTime(_datetimeBounds.position().dateValue());
+             int column = cal.get(Calendar.DAY_OF_WEEK);
+             if (_table.getSelectedColumn() != column)
+             {
+                _table.setColumnSelectionInterval(column, column);
+             }
+
              repaint();
           }
        });
@@ -64,31 +88,42 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
 
    private void updateLabel()
    {
-      _label.setText(LABEL_DATE_FORMATTER.format(_datetimeBounds.position().dateValue()));
+      _label.setText("Week of "+LABEL_DATE_FORMATTER.format(_weekSpan.startDate()));
    }
 
    private void adjustSpan()
    {
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(_datetimeBounds.position().dateValue());
+      Calendar startOfWeek = Calendar.getInstance();
+      startOfWeek.setTime(_datetimeBounds.position().dateValue());
+
+      Calendar weekStartTimeCalendar = _datetimeBounds.weekStartTime().calendarValue();
+
+      // TODO: No way to represent this in an EOType.
+      startOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+	   
+      startOfWeek.set(Calendar.HOUR_OF_DAY, weekStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
+      startOfWeek.set(Calendar.MINUTE, weekStartTimeCalendar.get(Calendar.MINUTE));
+      startOfWeek.set(Calendar.SECOND, weekStartTimeCalendar.get(Calendar.SECOND));
+
+      //System.out.println("beginning of week is "+startOfWeek.getTime());
+
+      TimeEO startHr = new TimeEO(startOfWeek.getTimeInMillis());
 
       Calendar dayStartTimeCalendar = _datetimeBounds.dayStartTime().calendarValue();
+      startHr.set(Calendar.HOUR_OF_DAY, dayStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
 
-      cal.set(Calendar.HOUR_OF_DAY, dayStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
-      cal.set(Calendar.MINUTE, dayStartTimeCalendar.get(Calendar.MINUTE));
-      cal.set(Calendar.SECOND, dayStartTimeCalendar.get(Calendar.SECOND));
-      _daySpan.setValue(new TimeSpan(cal.getTime(), _datetimeBounds.dayInterval()));
+      _weekSpan.setValue(new TimeSpan(startOfWeek.getTime(), _datetimeBounds.weekInterval()));
+      _daySpan.setValue(new TimeSpan(startHr.dateValue(), _datetimeBounds.dayInterval()));
    }
 
-   public TimeSpan getSpan() { return _daySpan; }
-   public TimeInterval getTimeInterval() { return INTERVAL; }
+   public TimeSpan getSpan() { return _weekSpan; }
+   public TimeInterval getTimeInterval() { return _datetimeBounds.weekInterval(); }
 
-
-
+   
 
    protected void buildTable()
    {
-      _model = new DayTableModel();
+      _model = new WeekTableModel();
       _table = new JTable();
 
       _table.setAutoCreateColumnsFromModel(false);
@@ -101,11 +136,22 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
       column.setIdentifier("times");
       _table.addColumn(column);
 
+      DefaultTableCellRenderer renderer = null;
+      for (int i=1; i<_model.getColumnCount(); i++)
+      {
+         int width = (i==Calendar.SATURDAY || i==Calendar.SUNDAY) ?
+               WEEKEND_COLUMN_WIDTH : COLUMN_WIDTH;
+         renderer = new DefaultTableCellRenderer();
+         column = new TableColumn(i, width, renderer, null);
+         column.setIdentifier(""+i);
+         _table.addColumn(column);
+      }
+
       _table.setGridColor(Color.lightGray);
       _table.setShowGrid(true);
       _table.setRowSelectionAllowed(false);
       _table.setColumnSelectionAllowed(true);
-      _table.getTableHeader().setReorderingAllowed(true);
+      _table.getTableHeader().setReorderingAllowed(false);
       _table.setSelectionBackground(SELECTION_BACKGROUND);
 
       // table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);  // no good
@@ -121,11 +167,22 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
             {
                int colidx = _table.getSelectedColumn();
                if (colidx == 0) return;  // dblclick on times labels does nothing
+               int rowidx = _table.getSelectedRow();
+               // System.out.println("noting action on cell "+rowidx+","+colidx);
 
-               TableColumnModel tcmodel = _table.getColumnModel();
-               TableColumn column = tcmodel.getColumn(colidx);
+               Calendar cal = getDateTimeForCellCoordinates(rowidx, colidx);
 
-               fireActionEvent(getSelectedTime(), (Schedulable) column.getIdentifier());
+               Schedulable schedulable = null;
+               if (_schedules.size() == 1)
+               {
+                  schedulable = _schedules.get(0).getSchedulable();
+               }
+               fireActionEvent(cal.getTime(), schedulable);
+            }
+            else if (evt.getClickCount() == 1 && SwingUtilities.isLeftMouseButton(evt))
+            {
+               Calendar cal = getDateTimeForCellCoordinates(0, _table.getSelectedColumn());
+               _datetimeBounds.position(cal.getTime());
             }
          }
       });
@@ -139,6 +196,17 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
             updateRowHeight();
          }
       });
+   }
+
+
+   private Calendar getDateTimeForCellCoordinates(int rowidx, int colidx)
+   {
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(_daySpan.startDate());
+      cal.add(Calendar.DATE, colidx-1);
+           // (colidx of 1 is sunday, first day of week, add nothing)
+      cal.add(Calendar.MINUTE, rowidx*(int)cellRes().timeInterval().getMilis()/(1000*60));
+      return cal;
    }
 
 
@@ -173,22 +241,16 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
                }
 
                Point location = dropTargetDropEvent.getLocation();
-               int rowIndex = _table.rowAtPoint(location);
-               Date timeSlot = getSelectedTime(rowIndex);
-
-               TableColumnModel tcmodel = _table.getColumnModel();
                int colIndex = _table.columnAtPoint(location);
-               TableColumn column = tcmodel.getColumn(colIndex);
-               Schedulable schedulable = (Schedulable) column.getIdentifier();
+               int rowIndex = _table.rowAtPoint(location);
+               Calendar slot = getDateTimeForCellCoordinates(rowIndex,  colIndex);
 
                if (transferObject instanceof CalEvent)
                {
                   final CalEvent calEvent = (CalEvent) transferObject;
 
-                  TimeSpan moved = calEvent.timeSpan().position(timeSlot);
+                  TimeSpan moved = calEvent.timeSpan().position(slot.getTime());
                   calEvent.timeSpan(moved);  // update time span for cal event
-                  calEvent.schedulable(schedulable);  // update schedulable for cal event
-
                   calEvent.fireStateChanged();
 
                   new Thread()
@@ -205,10 +267,11 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
                         });
                      }
                   }.start();
+
                }
                else if (transferObject instanceof ComplexEObject)
                {
-                  fireDropEvent(new CalDropEvent(this, timeSlot, schedulable, 
+                  fireDropEvent(new CalDropEvent(this, slot.getTime(), null, 
                                                  (ComplexEObject) transferObject,
                                                  dropTargetDropEvent));
                }
@@ -217,7 +280,6 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
                   dropTargetDropEvent.rejectDrop();
                   return;
                }
-
             }
          });
          _table.setDropTarget(dropTarget);
@@ -229,20 +291,8 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
       }
    }
 
-   private Date getSelectedTime()
-   {
-      return getSelectedTime(_table.getSelectedRow());
-   }
-
-   // translate cell position into start day and time
-   private Date getSelectedTime(int rowidx)
-   {
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(_daySpan.startDate());
-      cal.add(Calendar.MINUTE, rowidx*(int)cellRes().timeInterval().getMilis()/(1000*60));
-      return cal.getTime();
-   }
-
+   
+   
    /* note this is not date/time bounds..  this is actually
       bounds used by layout manager to place calevent in the proper location
       on the screen.  it is a function of the calevent's timespan of course.
@@ -250,7 +300,12 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
    public Rectangle getBounds(CalEvent event)
    {
       TimeSpan span = event.timeSpan();
-
+      
+      /*
+        start with vertical distance:
+          want the distance from 7am on the day to start of event
+          produce a time span and get its distance():
+       */
       Calendar startOfDayCal = span.startCal();
       startOfDayCal.set(Calendar.HOUR_OF_DAY, _daySpan.startCal().get(Calendar.HOUR_OF_DAY));
       startOfDayCal.set(Calendar.MINUTE, _daySpan.startCal().get(Calendar.MINUTE));
@@ -265,29 +320,20 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
       int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / cellRes().timeInterval().getMilis() );
       eventHeight = Math.max(eventHeight, rowHeight);
 
-      // this is tricky because i've introduced into dayview the
-      // idea of hiding a column (actually having to remove the 
-      // column from the table to "hide" it).
+      Calendar cal = span.startCal();
+      int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
 
-      int xPos = _table.getColumn("times").getWidth();
-      TableColumnModel tcmodel = _table.getColumnModel();
-      int i=1;
+      int currentFirstColWidth = _table.getColumn("times").getWidth();
+      int eventWidth = _table.getColumn(""+dayofweek).getWidth();
 
-      if ( (i+1) > _table.getColumnCount() )
-         return new Rectangle(0, 0, 0, 0);
-
-      TableColumn column = tcmodel.getColumn(i++);
-      while (!event.schedulable().equals(column.getIdentifier()))
+      int xPos = currentFirstColWidth;
+      for (int i=1; i<dayofweek; i++)
       {
-         xPos += column.getWidth();
-         if ( (i+1) > _table.getColumnCount() )
-            return new Rectangle(0, 0, 0, 0);
-         column = tcmodel.getColumn(i++);
+         xPos += _table.getColumn(""+(i)).getWidth();
       }
 
-      int eventWidth = column.getWidth();
-
       Rectangle bounds = new Rectangle(xPos, yPos, eventWidth, eventHeight);
+      _log.fine("bounds: "+bounds);
 
       Point offset = _scrollPane.getViewport().getViewPosition();
       bounds.x -= offset.x - 1;
@@ -296,58 +342,20 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
       return bounds;
    }
 
-   
+ 
    private java.util.List<Schedule> _schedules = new ArrayList<Schedule>();
-   public void addSchedule(Schedule schedule)
-   {
-      _schedules.add(schedule);
+   public void addSchedule(Schedule schedule) { _schedules.add(schedule); }
+   public void removeSchedule(Schedule schedule) { _schedules.remove(schedule); }
+   public void removeSchedules() { _schedules.clear(); }
 
-      TableColumn column = new TableColumn(_schedules.size(), COLUMN_WIDTH,
-                                           new DefaultTableCellRenderer(), null);
-      column.setIdentifier(schedule.getSchedulable());
-      _table.addColumn(column);
-   }
-
-   public void removeSchedule(Schedule schedule)
-   {
-      TableColumn column = _table.getColumn(schedule.getSchedulable());
-      _table.removeColumn(column);
-      _schedules.remove(schedule);
-   }
-
-   public void removeSchedules()
-   {
-      for (Iterator itr = _schedules.iterator(); itr.hasNext(); )
-      {
-         Schedule schedule = (Schedule) itr.next();
-         TableColumn column = _table.getColumn(schedule.getSchedulable());
-         _table.removeColumn(column);
-      }
-      _schedules.clear();
-   }
-
-   private Map<Schedulable, TableColumn> _colMap = new HashMap<Schedulable, TableColumn>();
-   public void setScheduleVisible(Schedule schedule, boolean visible)
-   {
-      if (visible)
-      {
-         TableColumn column = (TableColumn) _colMap.get(schedule.getSchedulable());
-         _table.addColumn(column);
-      }
-      else
-      {
-         TableColumn column = _table.getColumn(schedule.getSchedulable());
-         _colMap.put(schedule.getSchedulable(), column);
-         _table.removeColumn(column);
-      }
-   }
-
-   class DayTableModel extends AbstractTableModel implements SpanTableModel
+ 
+ 
+   class WeekTableModel extends AbstractTableModel implements SpanTableModel
    {
       private int _numCellsInDay;
       private TimeEO[] _times;
 
-      DayTableModel()
+      WeekTableModel()
       {
          updateCellRes();
       }
@@ -367,17 +375,14 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
       }
 
       public int getRowCount() { return _numCellsInDay; }
-      public int getColumnCount()
-      {
-         return _schedules.size() + 1;
-      }
+      public int getColumnCount() { return WEEKS.length + 1; }
 
       public String getColumnName(int column)
       {
          if (column == 0)
             return " ";
-         Schedule schedule = (Schedule) _schedules.get(column - 1);
-         return schedule.getSchedulable().title().toString();
+         TimeSpan span = _weekSpan.add(Calendar.DATE, column-1);
+         return COLHEADER_FORMATTER.format(span.startDate());
       }
 
       public boolean isCellEditable(int nRow, int nCol) { return false; }
@@ -391,6 +396,6 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
 
    }
 
-   public String toString() { return "Day View"; }
-}
+   public String toString()    { return "Week View"; }
 
+}

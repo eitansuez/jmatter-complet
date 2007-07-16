@@ -1,10 +1,15 @@
-package com.u2d.view.swing.calendar;
+package com.u2d.view.swing.calendar.fancy;
 
 import com.u2d.app.Tracing;
 import com.u2d.calendar.CellResChoice;
 import com.u2d.calendar.Schedulable;
 import com.u2d.ui.CustomLabel;
 import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.view.swing.calendar.TimeIntervalView;
+import com.u2d.view.swing.calendar.CalActionEvent;
+import com.u2d.view.swing.calendar.DropListener;
+import com.u2d.view.swing.calendar.CalDropEvent;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.EventListenerList;
