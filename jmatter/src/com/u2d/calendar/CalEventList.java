@@ -31,7 +31,7 @@ import java.util.Iterator;
 public class CalEventList extends AbstractListEO
       implements Navigable, QueryReceiver, EventManager
 {
-   private Query _query, _previousQuery;
+   private Query _query;
    private final TimeSpan _span = new TimeSpan();
    private Schedulable _schedulable;
 
@@ -65,7 +65,7 @@ public class CalEventList extends AbstractListEO
    public void setSchedulable(Schedulable schedulable)
    {
       _schedulable = schedulable;
-      setQuery(new SimpleQuery(ComplexType.forClass(_schedulable.eventType())));
+      _query = new SimpleQuery(ComplexType.forClass(_schedulable.eventType()));
    }
 
    public Query getQuery() { return _query; }
@@ -75,9 +75,9 @@ public class CalEventList extends AbstractListEO
    {
       setQuery(query, _span);
    }
+
    public synchronized void setQuery(Query query, TimeSpan span)
    {
-      _previousQuery = _query;
       _query = query;
       fetchSpan(span);
    }
@@ -122,13 +122,6 @@ public class CalEventList extends AbstractListEO
 
    public void fetchSpan(TimeSpan span)
    {
-      // optimization: when switch from weekview to dayview, already have events..
-      if ( (_previousQuery != null && _previousQuery.equals(_query)) &&
-           (_span != null && (_span.equals(span) || _span.containsCompletely(span))) )
-      {
-         fireContentsChanged(this, 0, getSize());
-         return;
-      }
       _span.setValue(span);
       fetchCurrentSpan();
    }

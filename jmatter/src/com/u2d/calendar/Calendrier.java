@@ -7,13 +7,12 @@ import com.u2d.model.*;
 import com.u2d.view.*;
 import com.u2d.type.atom.*;
 import com.u2d.app.Tracing;
+import com.u2d.app.Context;
 import com.u2d.list.PlainListEObject;
-import com.u2d.find.*;
-
 import java.io.*;
 import java.util.*;
-
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Expression;
 import javax.swing.event.ListDataListener;
@@ -25,7 +24,7 @@ import javax.swing.event.ListDataEvent;
  * @author Eitan Suez
  */
 public class Calendrier extends AbstractComplexEObject
-                        implements Serializable, EventManager, DateTimeBounded, QueryReceiver
+                        implements Serializable, EventManager, DateTimeBounded
 {
    private transient Calendarable _cal;
    private Title _title = new Title("Calendar");
@@ -35,15 +34,11 @@ public class Calendrier extends AbstractComplexEObject
    private final TimeSpan _span = new TimeSpan();
    private AbstractListEO _schedules = new PlainListEObject(Schedule.class);
 
-   private Query _query, _previousQuery;
-   
-
    public Calendrier() { setStartState(); }
    public Calendrier(Calendarable cal)
    {
       this();
       _cal = cal;
-      setQuery(new SimpleQuery(eventType()));
    }
 
    public CalEvent newDefaultCalEvent(TimeSpan span)
@@ -89,26 +84,10 @@ public class Calendrier extends AbstractComplexEObject
    }
 
 
-   public ComplexType queryType() { return eventType(); }
-
-   public void setQuery(Query query)
-   {
-      setQuery(query, _span);
-   }
-   public synchronized void setQuery(Query query, TimeSpan span)
-   {
-      _previousQuery = _query;
-      _query = query;
-      fetchEvents(span);
-   }
-   public synchronized void setSpan(TimeSpan span)
-   {
-      fetchEvents(span);
-   }
-
    private Criteria criteria()
    {
-      Criteria criteria = _query.getCriteria();
+      Session session = Context.getInstance().hbmpersitor().getSession();
+      Criteria criteria = session.createCriteria(eventType().getJavaClass());
 
       Junction junction = Expression.conjunction();
       
@@ -130,17 +109,6 @@ public class Calendrier extends AbstractComplexEObject
    
    public void fetchEvents(TimeSpan span)
    {
-      // optimization: when switch from weekview to dayview, already have events..
-      if ( (_previousQuery != null && _previousQuery.equals(_query)) &&
-           (_span != null && (_span.equals(span) || _span.containsCompletely(span))) )
-      {
-         for (int i=0; i<_schedules.getSize(); i++)
-         {
-            Schedule s = (Schedule) _schedules.get(i);
-            s.getCalEventList().fireContentsChanged(this, 0, s.getCalEventList().getSize());
-         }
-         return;
-      }
       _span.setValue(span);
       fetchCurrentSpan();
    }

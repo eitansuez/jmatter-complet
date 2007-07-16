@@ -154,7 +154,9 @@
           <root url="jar://$MODULE_DIR$/lib/forms-1.1.0.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../../thirdparty/jgoodies/forms-1.1.0/src/core" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -182,6 +184,17 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../tests/swingtests/lib/formsrt.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../../../apps/abeilleforms/abeille-2.0-src/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntryProperties />

@@ -35,9 +35,11 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
    private final TimeSpan _daySpan = new TimeSpan();
    private DateTimeBounds _datetimeBounds;
 
-   public DayView(DateTimeBounds bounds)
+   public DayView(TimeSheet timesheet, DateTimeBounds bounds)
    {
       _datetimeBounds = bounds;
+      _timesheet = timesheet;
+      
       // TODO:  need mutable TimeInterval with ChangeListener
       _datetimeBounds.dayStartTime().addChangeListener(this);
       _datetimeBounds.position().addChangeListener(this);
@@ -237,7 +239,7 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
    {
       Calendar cal = Calendar.getInstance();
       cal.setTime(_daySpan.startDate());
-      cal.add(Calendar.MINUTE, rowidx*(int)_cellRes.timeInterval().getMilis()/(1000*60));
+      cal.add(Calendar.MINUTE, rowidx*(int)cellRes().timeInterval().getMilis()/(1000*60));
       return cal.getTime();
    }
 
@@ -254,13 +256,13 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
       startOfDayCal.set(Calendar.MINUTE, _daySpan.startCal().get(Calendar.MINUTE));
       
       TimeSpan distanceSpan = new TimeSpan(startOfDayCal.getTime(), span.startDate());
-      double distance = distanceSpan.distance(_cellRes.timeInterval());
+      double distance = distanceSpan.distance(cellRes().timeInterval());
 
       int rowHeight = _table.getRowHeight();
       int yPos = (int) (distance * rowHeight) + _table.getTableHeader().getHeight();
       _log.fine("yPos: "+yPos+"; distance: "+distance);
 
-      int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / _cellRes.timeInterval().getMilis() );
+      int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / cellRes().timeInterval().getMilis() );
       eventHeight = Math.max(eventHeight, rowHeight);
 
       // this is tricky because i've introduced into dayview the
@@ -352,11 +354,11 @@ public class DayView extends BaseTimeIntervalView implements ChangeListener
 
       public void updateCellRes()
       {
-         _numCellsInDay = _daySpan.numIntervals(_cellRes.timeInterval());
+         _numCellsInDay = _daySpan.numIntervals(cellRes().timeInterval());
          _times = new TimeEO[_numCellsInDay];
 
          int i=0;
-         for (Iterator itr = _daySpan.iterator(_cellRes.timeInterval());
+         for (Iterator itr = _daySpan.iterator(cellRes().timeInterval());
               itr.hasNext();)
          {
             _times[i++] = (TimeEO) itr.next();

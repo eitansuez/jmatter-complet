@@ -18,13 +18,14 @@ import com.u2d.view.swing.atom.ChoiceEOModel;
 class CellResPanel extends JPanel implements ActionListener, PropertyChangeListener
 {
    private JComboBox _combo = new JComboBox();
-   private ChoiceEOModel _weekmodel, _daymodel;
+   private ChoiceEOModel _model;
    private TimeSheet _timesheet;
-   private TimeIntervalView _currentView;
    
    CellResPanel(TimeSheet timesheet)
    {
       _timesheet = timesheet;
+      _model = new ChoiceEOModel(_timesheet.getCellResolution());
+      _combo.setModel(_model);
 
       setLayout(new FlowLayout(FlowLayout.LEFT));
       
@@ -34,29 +35,16 @@ class CellResPanel extends JPanel implements ActionListener, PropertyChangeListe
       label.setLabelFor(_combo);
       
       _combo.addActionListener(this);
-      _weekmodel = new ChoiceEOModel(_timesheet.getWeekView().getCellResolution());
-      _daymodel = new ChoiceEOModel(_timesheet.getDayView().getCellResolution());
-      
-      bindTo(_timesheet.getWeekView());
-   }
-   
-   public void bindTo(TimeIntervalView view)
-   {
-      if (_currentView != null)
-         _currentView.removePropertyChangeListener("cellResolution", this);
-      view.addPropertyChangeListener("cellResolution", this);
-      _currentView = view;
-      
-      _combo.setModel(view instanceof WeekView ? _weekmodel : _daymodel);
+      _timesheet.addPropertyChangeListener("cellResolution", this);
    }
    
    public void actionPerformed(ActionEvent e)
    {
-      _timesheet.setCellResolution((CellResChoice) _combo.getModel().getSelectedItem());
+      _timesheet.setCellResolution((CellResChoice) _model.getSelectedItem());
    }
    public void propertyChange(PropertyChangeEvent evt)
    {
-      _combo.getModel().setSelectedItem(evt.getNewValue());
+      _model.setSelectedItem(evt.getNewValue());
    }
 }
 

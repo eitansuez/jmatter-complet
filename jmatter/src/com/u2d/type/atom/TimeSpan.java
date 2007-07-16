@@ -145,8 +145,8 @@ public class TimeSpan extends AbstractAtomicEO
       long lowerbound_sec = _startCal.getTimeInMillis() / 1000;
       long upperbound_sec = _endCal.getTimeInMillis() / 1000;
 
-         return ( item_sec < upperbound_sec && 
-                  item_sec >  lowerbound_sec );
+         return ( item_sec <= upperbound_sec ) && 
+                ( item_sec >= lowerbound_sec );
    }
    
    public boolean containsCompletely(TimeSpan span)

@@ -18,7 +18,7 @@ import com.u2d.field.IndexedField;
  * @author Eitan Suez
  */
 public class EventsPnl extends JPanel implements AdjustmentListener, ListDataListener,
-  TableColumnModelListener
+  TableColumnModelListener, ChangeListener
 {
    private TimeIntervalView _view;
    private Schedule _schedule;
@@ -39,6 +39,8 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ListDataLis
 
       _schedule.getCalEventList().addListDataListener(this);
       
+      _view.getSpan().addChangeListener(this);
+      
       // an eventspanel is a view of a relationallist.  it needs to synchronize
       // with changes in that list.
       Schedulable schedulable = _schedule.getSchedulable();
@@ -56,6 +58,9 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ListDataLis
       
       updateView();
    }
+
+
+   public void stateChanged(ChangeEvent e) { updateView(); }
 
    public void intervalAdded(ListDataEvent e) { updateView(); }
    public void intervalRemoved(ListDataEvent e) { updateView(); }

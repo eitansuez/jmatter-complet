@@ -12,9 +12,9 @@ import com.u2d.calendar.DateTimeBounds;
 public class DayEventsSheet
       extends EventsSheet
 {
-   public DayEventsSheet(DateTimeBounds bounds)
+   public DayEventsSheet(TimeSheet timesheet, DateTimeBounds bounds)
    {
-      super(new DayView(bounds));
+      super(new DayView(timesheet, bounds));
    }
 
 

@@ -41,9 +41,11 @@ public class WeekView extends BaseTimeIntervalView implements ChangeListener
 
    private DateTimeBounds _datetimeBounds;
    
-   public WeekView(DateTimeBounds bounds)
+   public WeekView(TimeSheet timesheet, DateTimeBounds bounds)
    {
       _datetimeBounds = bounds;
+      _timesheet = timesheet;
+      
       // TODO:  need mutable TimeInterval with ChangeListener
 	   // TODO:  need mutable TimeInterval with ChangeListener
 	   _datetimeBounds.dayStartTime().addChangeListener(this);
@@ -70,7 +72,10 @@ public class WeekView extends BaseTimeIntervalView implements ChangeListener
              Calendar cal = Calendar.getInstance();
              cal.setTime(_datetimeBounds.position().dateValue());
              int column = cal.get(Calendar.DAY_OF_WEEK);
-             _table.setColumnSelectionInterval(column, column);
+             if (_table.getSelectedColumn() != column)
+             {
+                _table.setColumnSelectionInterval(column, column);
+             }
 
              repaint();
           }
@@ -165,6 +170,11 @@ public class WeekView extends BaseTimeIntervalView implements ChangeListener
 
                fireActionEvent(cal.getTime());
             }
+            else if (evt.getClickCount() == 1 && SwingUtilities.isLeftMouseButton(evt))
+            {
+               Calendar cal = getDateTimeForCellCoordinates(0, _table.getSelectedColumn());
+               _datetimeBounds.position(cal.getTime());
+            }
          }
       });
 
@@ -179,13 +189,14 @@ public class WeekView extends BaseTimeIntervalView implements ChangeListener
       });
    }
 
+
    private Calendar getDateTimeForCellCoordinates(int rowidx, int colidx)
    {
       Calendar cal = Calendar.getInstance();
       cal.setTime(_daySpan.startDate());
       cal.add(Calendar.DATE, colidx-1);
            // (colidx of 1 is sunday, first day of week, add nothing)
-      cal.add(Calendar.MINUTE, rowidx*(int)_cellRes.timeInterval().getMilis()/(1000*60));
+      cal.add(Calendar.MINUTE, rowidx*(int)cellRes().timeInterval().getMilis()/(1000*60));
       return cal;
    }
 
@@ -291,13 +302,13 @@ public class WeekView extends BaseTimeIntervalView implements ChangeListener
       startOfDayCal.set(Calendar.MINUTE, _daySpan.startCal().get(Calendar.MINUTE));
       
       TimeSpan distanceSpan = new TimeSpan(startOfDayCal.getTime(), span.startDate());
-      double distance = distanceSpan.distance(_cellRes.timeInterval());
+      double distance = distanceSpan.distance(cellRes().timeInterval());
 
       int rowHeight = _table.getRowHeight();
       int yPos = (int) (distance * rowHeight) + _table.getTableHeader().getHeight();
       _log.fine("yPos: "+yPos+"; distance: "+distance);
 
-      int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / _cellRes.timeInterval().getMilis() );
+      int eventHeight = (int) ( ( span.duration().getMilis() * rowHeight ) / cellRes().timeInterval().getMilis() );
       eventHeight = Math.max(eventHeight, rowHeight);
 
       Calendar cal = span.startCal();
@@ -334,11 +345,11 @@ public class WeekView extends BaseTimeIntervalView implements ChangeListener
 
       public void updateCellRes()
       {
-         _numCellsInDay = _daySpan.numIntervals(_cellRes.timeInterval());
+         _numCellsInDay = _daySpan.numIntervals(cellRes().timeInterval());
          _times = new TimeEO[_numCellsInDay];
 
          int i=0;
-         for (Iterator itr = _daySpan.iterator(_cellRes.timeInterval());
+         for (Iterator itr = _daySpan.iterator(cellRes().timeInterval());
               itr.hasNext();)
          {
             _times[i++] = (TimeEO) itr.next();

@@ -6,11 +6,8 @@ package com.u2d.view.swing.calendar;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeListener;
-
 import com.u2d.calendar.CalEvent;
-import com.u2d.calendar.CellResChoice;
 import com.u2d.type.atom.*;
-
 import javax.swing.*;
 
 /**
@@ -23,8 +20,6 @@ public interface TimeIntervalView
    public javax.swing.JLabel getLabel();
    public Rectangle getBounds(CalEvent event);
    public void addActionListener(java.awt.event.ActionListener l);
-   public CellResChoice getCellResolution();
-   public void setCellResolution(CellResChoice cellRes);
    public void addChangeListener(javax.swing.event.ChangeListener l);
    public void addAdjustmentListener(AdjustmentListener l);
    public JScrollPane getScrollPane();
