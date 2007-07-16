@@ -20,11 +20,13 @@ import com.u2d.type.atom.*;
 import com.u2d.model.ComplexEObject;
 import com.u2d.view.swing.calendar.RowHeaderCellRenderer;
 import com.u2d.view.swing.calendar.CalDropEvent;
+import com.u2d.view.swing.calendar.BaseTimeIntervalView;
 
 /**
  * @author Eitan Suez
  */
-public class DayView extends BaseTimeIntervalView implements ChangeListener
+public class DayView extends BaseTimeIntervalView
+      implements ChangeListener
 {
    private static int COLUMN_WIDTH = 300;
    private static int FIRST_COLUMN_WIDTH = 65;

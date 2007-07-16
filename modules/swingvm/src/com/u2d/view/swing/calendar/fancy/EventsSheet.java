@@ -3,7 +3,7 @@ package com.u2d.view.swing.calendar.fancy;
 import com.u2d.calendar.Schedule;
 import com.u2d.calendar.CalEvent;
 import com.u2d.view.swing.calendar.TimeIntervalView;
-import javax.swing.*;
+import com.u2d.view.swing.calendar.BaseEventsSheet;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.*;
@@ -15,28 +15,17 @@ import java.awt.*;
  * Time: 1:50:03 PM
  */
 public class EventsSheet
-      extends JPanel implements Sheet
+      extends BaseEventsSheet
+      implements Sheet
 {
    protected static final int LAYER_START = 50;
 
    protected int _layer = LAYER_START;
-   protected JLayeredPane _substrate;
-   protected TimeIntervalView _view;
    protected java.util.List<EventsPnl> _eventsPnls = new ArrayList<EventsPnl>();
    
    public EventsSheet(TimeIntervalView view)
    {
-      _substrate = new JLayeredPane();
-      OverlayLayout overlay = new OverlayLayout(_substrate);
-      _substrate.setLayout(overlay);
-      
-      _view = view;
-      
-      _substrate.add((Component) _view);
-      _substrate.setLayer((Component) _view, JLayeredPane.DEFAULT_LAYER.intValue());
-
-      setLayout(new BorderLayout());
-      add(_substrate, BorderLayout.CENTER);
+      super(view);
    }
    
    public synchronized void addSchedule(Schedule schedule)
@@ -104,19 +93,10 @@ public class EventsSheet
       _layer++;
    }
    
-   public TimeIntervalView getIntervalView() { return _view; }
-   
    public void detach()
    {
       for (Iterator itr = _eventsPnls.iterator(); itr.hasNext(); )
          ((EventsPnl) itr.next()).detach();
-   }
-
-   public Dimension getMinimumSize()
-   {
-      Dimension size = getPreferredSize();
-      return (new Dimension((int) (size.width*0.7), 
-                            (int) (size.height * 0.7)));
    }
 
 }

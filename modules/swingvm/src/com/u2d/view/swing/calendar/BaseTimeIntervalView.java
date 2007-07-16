@@ -1,14 +1,10 @@
-package com.u2d.view.swing.calendar.simple;
+package com.u2d.view.swing.calendar;
 
 import com.u2d.app.Tracing;
 import com.u2d.calendar.CellResChoice;
+import com.u2d.calendar.Schedulable;
 import com.u2d.ui.CustomLabel;
 import com.u2d.view.swing.SwingViewMechanism;
-import com.u2d.view.swing.calendar.TimeIntervalView;
-import com.u2d.view.swing.calendar.DropListener;
-import com.u2d.view.swing.calendar.CalActionEvent;
-import com.u2d.view.swing.calendar.CalDropEvent;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.EventListenerList;
@@ -33,7 +29,7 @@ public abstract class BaseTimeIntervalView extends JPanel
    protected static Logger _log = Tracing.tracer();
    protected static Color SELECTION_BACKGROUND = new Color(0xf0f5fb);
    
-   protected TimeSheet _timesheet;
+   protected ITimeSheet _timesheet;
 
    protected JTable _table;
    protected SpanTableModel _model;
@@ -41,7 +37,7 @@ public abstract class BaseTimeIntervalView extends JPanel
    protected JScrollPane _scrollPane;
    public JScrollPane getScrollPane() { return _scrollPane; }
    
-   interface SpanTableModel extends TableModel
+   protected interface SpanTableModel extends TableModel
    {
       public void updateCellRes();
    }
@@ -177,10 +173,11 @@ public abstract class BaseTimeIntervalView extends JPanel
    /**
     * Notify the listeners of a scroll or select
     */
-   protected void fireActionEvent( Date date )
+   protected void fireActionEvent( Date date ) { fireActionEvent(date, null); }
+   protected void fireActionEvent( Date date, Schedulable schedulable )
    {
       if (subscribers != null)
-          subscribers.actionPerformed( new CalActionEvent(this, date) );
+          subscribers.actionPerformed( new CalActionEvent(this, date, schedulable) );
    }
 
    /*****************************************************************/
