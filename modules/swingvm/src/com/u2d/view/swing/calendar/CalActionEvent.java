@@ -15,10 +15,15 @@ public class CalActionEvent extends ActionEvent
    protected Date _time;
    protected Schedulable _schedulable;
    
-   public CalActionEvent(Object source, Date time, Schedulable schedulable)
+   public CalActionEvent(Object source, Date time)
    {
       super(source, ActionEvent.ACTION_PERFORMED, "");
       _time = time;
+   }
+
+   public CalActionEvent(Object source, Date time, Schedulable schedulable)
+   {
+      this(source, time);
       _schedulable = schedulable;
    }
    

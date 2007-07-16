@@ -18,7 +18,7 @@ public class RowHeaderCellRenderer implements TableCellRenderer
 {
    JLabel _cell;
    
-   RowHeaderCellRenderer()
+   public RowHeaderCellRenderer()
    {
       _cell = new JLabel();
       _cell.setOpaque(true);

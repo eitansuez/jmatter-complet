@@ -17,6 +17,14 @@ public class CalDropEvent extends CalActionEvent
    protected ComplexEObject _transferObject;
    protected DropTargetDropEvent _dropTargetDropEvent;
 
+   public CalDropEvent(Object source, Date time, 
+                       ComplexEObject transferObject, DropTargetDropEvent sourceEvt)
+   {
+      super(source, time);
+      _transferObject = transferObject;
+      _dropTargetDropEvent = sourceEvt;
+   }
+
    public CalDropEvent(Object source, Date time, Schedulable schedulable,
                        ComplexEObject transferObject, DropTargetDropEvent sourceEvt)
    {

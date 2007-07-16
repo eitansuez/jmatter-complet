@@ -15,13 +15,13 @@ import com.u2d.view.swing.atom.ChoiceEOModel;
 /**
  * @author Eitan Suez
  */
-class CellResPanel extends JPanel implements ActionListener, PropertyChangeListener
+public class CellResPanel extends JPanel implements ActionListener, PropertyChangeListener
 {
    private JComboBox _combo = new JComboBox();
    private ChoiceEOModel _model;
-   private TimeSheet _timesheet;
+   private ITimeSheet _timesheet;
    
-   CellResPanel(TimeSheet timesheet)
+   public CellResPanel(ITimeSheet timesheet)
    {
       _timesheet = timesheet;
       _model = new ChoiceEOModel(_timesheet.getCellResolution());

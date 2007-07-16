@@ -1,6 +1,7 @@
-package com.u2d.view.swing.simplecal;
+package com.u2d.view.swing.calendar.simple;
 
 import com.u2d.calendar.CalEventList;
+import com.u2d.view.swing.calendar.TimeIntervalView;
 
 import javax.swing.*;
 import java.awt.*;

@@ -30,9 +30,9 @@ public class NavPanel extends JPanel implements ActionListener
       PREV_ROLLOVER = new ImageIcon(imgURL);
    }
    
-   private TimeSheet _timesheet;
+   private ITimeSheet _timesheet;
 
-   public NavPanel(TimeSheet timesheet)
+   public NavPanel(ITimeSheet timesheet)
    {
       _timesheet = timesheet;
       

@@ -1,7 +1,7 @@
 /*
  * Created on Apr 12, 2004
  */
-package com.u2d.view.swing.simplecal;
+package com.u2d.view.swing.calendar.simple;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -11,6 +11,8 @@ import com.u2d.calendar.*;
 import com.u2d.pubsub.AppEventType;
 import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
+import com.u2d.view.swing.calendar.TimeIntervalView;
+import com.u2d.view.swing.calendar.PositionedLayout;
 
 /**
  * @author Eitan Suez

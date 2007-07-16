@@ -1,4 +1,4 @@
-package com.u2d.view.swing.simplecal;
+package com.u2d.view.swing.calendar.simple;
 
 import com.u2d.view.ListEView;
 import com.u2d.calendar.CalEventList;

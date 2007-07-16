@@ -15,6 +15,8 @@ import com.u2d.ui.desktop.Positioning;
 import com.u2d.view.*;
 import com.u2d.view.swing.atom.*;
 import com.u2d.view.swing.calendar.*;
+import com.u2d.view.swing.calendar.CalEventView;
+import com.u2d.view.swing.calendar.simple.CalendarListView;
 import com.u2d.view.swing.find.FindView;
 import com.u2d.view.swing.find.FindView2;
 import com.u2d.view.swing.find.QueryView;
@@ -567,7 +569,7 @@ public class SwingViewMechanism implements ViewMechanism
    }
    public ComplexEView getCalEventView(CalEvent event)
    {
-      return new com.u2d.view.swing.simplecal.CalEventView(event);
+      return new com.u2d.view.swing.calendar.simple.CalEventView(event);
    }
    public ComplexEView getCalEventView(CalEvent event, Schedule schedule)
    {
@@ -692,7 +694,7 @@ public class SwingViewMechanism implements ViewMechanism
 
    public ListEView getListViewAsCalendar(CalEventList list)
    {
-      return new com.u2d.view.swing.simplecal.CalendarListView(list);
+      return new CalendarListView(list);
    }
 
    public ListEView getOmniListView(AbstractListEO leo) { return new OmniListView(leo); }

@@ -1,7 +1,7 @@
 /*
  * Created on Apr 14, 2004
  */
-package com.u2d.view.swing.simplecal;
+package com.u2d.view.swing.calendar.simple;
 
 import com.u2d.calendar.*;
 import com.u2d.view.swing.dnd.EOTransferHandler;

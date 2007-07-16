@@ -1,7 +1,7 @@
 /*
  * Created on Nov 22, 2004
  */
-package com.u2d.view.swing.simplecal;
+package com.u2d.view.swing.calendar.simple;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -13,6 +13,7 @@ import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
 import com.u2d.view.swing.CommandAdapter;
+import com.u2d.view.swing.calendar.*;
 import com.u2d.view.EView;
 import com.u2d.ui.CustomTabbedPane;
 import com.u2d.element.Command;
@@ -21,7 +22,7 @@ import com.u2d.pattern.Callback;
 /**
  * @author Eitan Suez
  */
-public class TimeSheet extends JPanel implements ChangeListener
+public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
 {
    private EventsSheet _daySheet, _weekSheet;
    private JTabbedPane _tabPane;

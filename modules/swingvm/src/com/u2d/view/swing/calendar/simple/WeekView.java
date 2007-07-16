@@ -1,7 +1,7 @@
 /*
  * Created on Sep 17, 2003
  */
-package com.u2d.view.swing.simplecal;
+package com.u2d.view.swing.calendar.simple;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -20,6 +20,8 @@ import com.u2d.calendar.CalEvent;
 import com.u2d.calendar.DateTimeBounds;
 import com.u2d.type.atom.*;
 import com.u2d.model.ComplexEObject;
+import com.u2d.view.swing.calendar.RowHeaderCellRenderer;
+import com.u2d.view.swing.calendar.CalDropEvent;
 
 /**
  * @author Eitan Suez

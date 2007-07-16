@@ -18,7 +18,7 @@ public class CalendarDropHandler implements DropListener
 {
    EventMaker _maker;
    
-   CalendarDropHandler(EventMaker maker)
+   public CalendarDropHandler(EventMaker maker)
    {
       _maker = maker;
    }

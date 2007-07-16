@@ -22,7 +22,7 @@ import com.u2d.pattern.Callback;
 /**
  * @author Eitan Suez
  */
-public class TimeSheet extends JPanel implements ChangeListener
+public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
 {
    private Sheet _daySheet, _weekSheet;
    private JTabbedPane _tabPane;
