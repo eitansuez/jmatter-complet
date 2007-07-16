@@ -12,10 +12,12 @@ import javax.swing.event.ChangeEvent;
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
-import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.EView;
 import com.u2d.ui.CustomTabbedPane;
-import com.u2d.model.Editor;
+import com.u2d.model.ComplexType;
+import com.u2d.element.Command;
+import com.u2d.pattern.Callback;
 
 /**
  * @author Eitan Suez
@@ -35,11 +37,10 @@ public class TimeSheet extends JPanel implements ChangeListener
       _eventMgr = mgr;
       _position = bounds.position();
       _daySheet = new DayEventsSheet(this, bounds);
-      WeekView weekView = new WeekView(this, bounds);
-      _weekSheet = new EventsSheet(weekView);
+      _weekSheet = new WeekEventsSheet(this, bounds);
 
       // keep day and week view scroll bars in sync (share scroll model)
-      weekView.getScrollPane().getVerticalScrollBar().setModel(getDayView().getScrollPane().getVerticalScrollBar().getModel());
+      getWeekView().getScrollPane().getVerticalScrollBar().setModel(getDayView().getScrollPane().getVerticalScrollBar().getModel());
       
       setCellResolution(bounds.resolution());
       
@@ -56,23 +57,32 @@ public class TimeSheet extends JPanel implements ChangeListener
       // double clicking on a cell should initiate the creation of an event..
       addActionListener(new ActionListener()
       {
-         public void actionPerformed(ActionEvent evt)
+         public void actionPerformed(final ActionEvent evt)
          {
-            CalActionEvent tevt = (CalActionEvent) evt;
-            Date startDate = tevt.getTime();
-
-            TimeSpan span = new TimeSpan(startDate, CalEvent.DEFAULT_DURATION);
+            ComplexType eventType = _eventMgr.eventType();
+            Command cmd = eventType.command("New");
             
-            CalEvent calEvt = _eventMgr.newEvent(span);
-            if (tevt.getSchedulable() != null)
+            cmd.setCallback(new Callback()
             {
-               calEvt.schedulable(tevt.getSchedulable());
-            }
-
-            EView calView = calEvt.getMainView();
-            if (calEvt.isEditableState() && calView instanceof Editor)
-               calEvt.setEditor((Editor) calView);
-            SwingViewMechanism.getInstance().displayView(calView, null);
+               public void call(Object obj)
+               {
+                  CalEvent calEvt = (CalEvent) obj;
+                  
+                  CalActionEvent tevt = (CalActionEvent) evt;
+                  Date startDate = tevt.getTime();
+                  TimeSpan span = new TimeSpan(startDate, CalEvent.DEFAULT_DURATION);
+                  Schedulable sched = tevt.getSchedulable();
+                  
+                  calEvt.timeSpan(span);
+                  if (sched != null)
+                  {
+                     calEvt.schedulable(sched);
+                  }
+               }
+            });
+            
+            CommandAdapter ca = new CommandAdapter(cmd, eventType, (EView) TimeSheet.this.getParent());
+            ca.actionPerformed(evt);
          }
       });
       

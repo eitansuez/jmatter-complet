@@ -43,8 +43,7 @@ public class Calendrier extends AbstractComplexEObject
 
    public CalEvent newDefaultCalEvent(TimeSpan span)
    {
-      ComplexType eventType = ComplexType.forClass(_cal.defaultCalEventType());
-      CalEvent calEvt = (CalEvent) eventType.instance();
+      CalEvent calEvt = (CalEvent) eventType().instance();
       calEvt.timeSpan(span);
       calEvt.schedulable((Schedulable) _schedulables.get(0));
       return calEvt;
@@ -77,7 +76,7 @@ public class Calendrier extends AbstractComplexEObject
       return schedules;
    }
 
-   private ComplexType eventType()
+   public ComplexType eventType()
    {
       Class eventClass = _cal.defaultCalEventType();
       return ComplexType.forClass(eventClass);

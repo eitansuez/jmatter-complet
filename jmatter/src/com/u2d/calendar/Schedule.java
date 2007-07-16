@@ -97,6 +97,7 @@ public class Schedule extends AbstractComplexEObject implements EventManager, Da
 
    public CalEvent newEvent(TimeSpan span) { return _events.newEvent(span); }
    public void fetchEvents(TimeSpan span) { _events.fetchEvents(span); }
+   public ComplexType eventType() { return _events.eventType(); }
 
    public EView getMainView() { return getScheduleView(); }
    public ComplexEView getScheduleView() { return vmech().getScheduleView(this); }

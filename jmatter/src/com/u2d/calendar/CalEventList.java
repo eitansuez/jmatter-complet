@@ -198,6 +198,7 @@ public class CalEventList extends AbstractListEO
    }
    
    public void fetchEvents(TimeSpan span) { setSpan(span); }
+   public ComplexType eventType() { return type(); }
 
 
    // See NullAssociation for comments
@@ -211,9 +212,6 @@ public class CalEventList extends AbstractListEO
    {
       return type.New(cmdInfo);
    }
-   public ComplexType baseType()
-   {
-      return type().baseType();
-   }
+   public ComplexType baseType() { return type(); }
 
 }

@@ -4,6 +4,7 @@ import com.u2d.view.EView;
 import com.u2d.model.Typed;
 import com.u2d.model.ComplexType;
 import com.u2d.ui.desktop.Positioning;
+import com.u2d.pattern.Callback;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -34,6 +35,13 @@ public class OverloadedEOCmd extends EOCommand
       {
          _overloadedCmd = _secondCmd;
       }
+   }
+
+
+   public void setCallback(Callback callback)
+   {
+      super.setCallback(callback);
+      _secondCmd.setCallback(_callback);
    }
 
    public void execute(Object value, EView source) throws InvocationTargetException

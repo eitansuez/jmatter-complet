@@ -14,6 +14,8 @@ import com.u2d.type.atom.BooleanEO;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.pattern.Filter;
+import com.u2d.pattern.Callback;
+
 import java.util.Arrays;
 import java.lang.reflect.InvocationTargetException;
 
@@ -23,6 +25,9 @@ import java.lang.reflect.InvocationTargetException;
 public abstract class Command extends Member 
 {
    protected final StringEO _fullPath = new StringEO();
+   
+   protected Callback _callback;
+   
 
    public static String[] fieldOrder = {"name", "fullPath", "label", "mnemonic", "description", "sensitive"};
    public static String[] readOnly = {"name", "fullPath"};
@@ -53,6 +58,9 @@ public abstract class Command extends Member
       String fullPath = _parent.getJavaClass().getName() + "#" + _name;
       _fullPath.setValue(fullPath);
    }
+
+   public void setCallback(Callback callback) { _callback = callback; }
+
 
    @Cmd
    public void Execute(CommandInfo cmdInfo, @Arg("Target") ComplexEObject target)

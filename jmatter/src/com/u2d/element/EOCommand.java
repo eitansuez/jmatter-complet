@@ -57,7 +57,7 @@ public class EOCommand extends Command
    private Positioning _positioningHint = Positioning.NEARMOUSE;
    public Positioning getPositioningHint() { return _positioningHint; }
    public void setPositioningHint(Positioning hint) { _positioningHint = hint; }
-
+   
 
    public void execute(Object value, EView source) throws InvocationTargetException
    {
@@ -87,8 +87,14 @@ public class EOCommand extends Command
       Object target = getTarget(value);
       try
       {
-//         System.out.println("target is: "+target+"; invoking "+this);
+         tracer().fine("target is: "+target+"; invoking "+this);
          Object result = _method.invoke(target, params);
+         
+         if (_callback != null)
+         {
+            _callback.call(result);
+         }
+         
          EView source = ((CommandInfo) params[0]).getSource();
          vmech().displayViewFor(result, source, _positioningHint);
       }

@@ -1,6 +1,7 @@
 package com.u2d.calendar;
 
 import com.u2d.type.atom.TimeSpan;
+import com.u2d.model.ComplexType;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,4 +12,5 @@ import com.u2d.type.atom.TimeSpan;
 public interface EventManager extends EventMaker
 {
    public void fetchEvents(TimeSpan span);
+   public ComplexType eventType();
 }

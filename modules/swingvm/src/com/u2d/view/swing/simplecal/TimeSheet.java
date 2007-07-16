@@ -12,10 +12,11 @@ import javax.swing.event.ChangeEvent;
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
-import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.EView;
 import com.u2d.ui.CustomTabbedPane;
-import com.u2d.model.Editor;
+import com.u2d.element.Command;
+import com.u2d.pattern.Callback;
 
 /**
  * @author Eitan Suez
@@ -27,7 +28,6 @@ public class TimeSheet extends JPanel implements ChangeListener
    private CardLayout _cardLayout;
    private JPanel _lblPnl;
    private final DateEO _position;
-   
    private CalEventList _list;
 
    public TimeSheet(CalEventList list, DateTimeBounds bounds)
@@ -61,15 +61,20 @@ public class TimeSheet extends JPanel implements ChangeListener
          {
             CalActionEvent tevt = (CalActionEvent) evt;
             Date startDate = tevt.getTime();
+            final TimeSpan span = new TimeSpan(startDate, CalEvent.DEFAULT_DURATION);
 
-            TimeSpan span = new TimeSpan(startDate, CalEvent.DEFAULT_DURATION);
+            Command cmd = _list.command("New");
+            cmd.setCallback(new Callback()
+            {
+               public void call(Object obj)
+               {
+                  CalEvent calEvt = (CalEvent) obj;
+                  calEvt.timeSpan(span);
+               }
+            });
             
-            CalEvent calEvt = _list.newEvent(span);
-
-            EView calView = calEvt.getMainView();
-            if (calEvt.isEditableState() && calView instanceof Editor)
-               calEvt.setEditor((Editor) calView);
-            SwingViewMechanism.getInstance().displayView(calView, null);
+            CommandAdapter ca = new CommandAdapter(cmd, _list, (EView) TimeSheet.this.getParent());
+            ca.actionPerformed(evt);
          }
       });
       

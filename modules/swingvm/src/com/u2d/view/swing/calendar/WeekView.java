@@ -18,6 +18,8 @@ import java.awt.*;
 import java.awt.event.*;
 import com.u2d.calendar.CalEvent;
 import com.u2d.calendar.DateTimeBounds;
+import com.u2d.calendar.Schedule;
+import com.u2d.calendar.Schedulable;
 import com.u2d.type.atom.*;
 import com.u2d.model.ComplexEObject;
 
@@ -168,7 +170,12 @@ public class WeekView extends BaseTimeIntervalView implements ChangeListener
 
                Calendar cal = getDateTimeForCellCoordinates(rowidx, colidx);
 
-               fireActionEvent(cal.getTime());
+               Schedulable schedulable = null;
+               if (_schedules.size() == 1)
+               {
+                  schedulable = _schedules.get(0).getSchedulable();
+               }
+               fireActionEvent(cal.getTime(), schedulable);
             }
             else if (evt.getClickCount() == 1 && SwingUtilities.isLeftMouseButton(evt))
             {
@@ -333,6 +340,14 @@ public class WeekView extends BaseTimeIntervalView implements ChangeListener
       return bounds;
    }
 
+ 
+   private java.util.List<Schedule> _schedules = new ArrayList<Schedule>();
+   public void addSchedule(Schedule schedule) { _schedules.add(schedule); }
+   public void removeSchedule(Schedule schedule) { _schedules.remove(schedule); }
+   public void removeSchedules() { _schedules.clear(); }
+
+ 
+ 
    class WeekTableModel extends AbstractTableModel implements SpanTableModel
    {
       private int _numCellsInDay;
