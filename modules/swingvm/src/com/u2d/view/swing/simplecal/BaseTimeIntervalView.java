@@ -8,13 +8,9 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.EventListenerList;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.MouseWheelEvent;
+import java.awt.event.*;
 import java.util.logging.Logger;
 import java.util.Date;
 import java.beans.PropertyChangeListener;
@@ -32,6 +28,8 @@ public abstract class BaseTimeIntervalView extends JPanel
    protected static Logger _log = Tracing.tracer();
    protected static Color SELECTION_BACKGROUND = new Color(0xf0f5fb);
    
+   protected TimeSheet _timesheet;
+
    protected JTable _table;
    protected SpanTableModel _model;
    protected int _initialRowHeight;
@@ -43,19 +41,9 @@ public abstract class BaseTimeIntervalView extends JPanel
       public void updateCellRes();
    }
 
-   protected CellResChoice _cellRes = CellResChoice.THIRTY_MINUTES;
-   public CellResChoice getCellResolution() { return _cellRes; }
-   public void setCellResolution(CellResChoice choice)
-   {
-      CellResChoice oldValue = _cellRes;
-      _cellRes = choice;
-      firePropertyChange("cellResolution", oldValue, _cellRes);
-   }
-
    protected JLabel _label = new CustomLabel(16.0f, JLabel.CENTER);
    public JLabel getLabel() { return _label; }
 
-   
    protected void updateRowHeight()
    {
       int vpheight = _scrollPane.getViewport().getSize().height;
@@ -77,13 +65,16 @@ public abstract class BaseTimeIntervalView extends JPanel
    public void addAdjustmentListener(AdjustmentListener l)
    {
       _scrollPane.getVerticalScrollBar().addAdjustmentListener(l);
-      if (l instanceof TableColumnModelListener)
-         _table.getColumnModel().addColumnModelListener((TableColumnModelListener) l);
    }
    
    protected abstract void buildTable();
    protected abstract void setupDropHandler();
 
+   private MouseWheelListener _defaultMWListener;
+   private double _prevCellResMinutes;
+   private Point _prevPt;
+   private int _y_offset;
+   
    protected void init()
    {
       buildTable();
@@ -94,7 +85,7 @@ public abstract class BaseTimeIntervalView extends JPanel
       add(_scrollPane, BorderLayout.CENTER);
 
       
-      addPropertyChangeListener("cellResolution", new PropertyChangeListener()
+      _timesheet.addPropertyChangeListener("cellResolution", new PropertyChangeListener()
       {
          public void propertyChange(PropertyChangeEvent evt)
          {
@@ -104,25 +95,55 @@ public abstract class BaseTimeIntervalView extends JPanel
                {
                   _model.updateCellRes();
                   updateRowHeight();
+
+                  SwingUtilities.invokeLater(new Runnable()
+                  {
+                     public void run()
+                     {
+                        if (_prevPt != null)
+                        {
+                           double ratio = _prevCellResMinutes / cellRes().minutes();
+                           int newY = (int) (ratio * _prevPt.getY());
+                           int newValue = newY - _y_offset;
+                           BoundedRangeModel scrollModel = _scrollPane.getVerticalScrollBar().getModel();
+                           scrollModel.setValue(newValue);
+                        }
+                     }
+                  });
                }
             });
          }
       });
       
+      MouseWheelListener[] listeners = _scrollPane.getMouseWheelListeners();
+      _defaultMWListener = listeners[0];
+      _scrollPane.removeMouseWheelListener(_defaultMWListener);
       _scrollPane.addMouseWheelListener(new MouseWheelListener()
       {
          public void mouseWheelMoved(MouseWheelEvent e)
          {
             if (e.isControlDown())
             {
+               _prevCellResMinutes = cellRes().minutes();
+               _prevPt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), _table);
+               BoundedRangeModel scrollModel = _scrollPane.getVerticalScrollBar().getModel();
+               _y_offset = (int) _prevPt.getY() - scrollModel.getValue();
+               
+               // set new cell resolution 
                boolean increaseResolution = (e.getWheelRotation() < 0);
-               CellResChoice resolution = increaseResolution ? _cellRes.previous() : _cellRes.next();
-               setCellResolution(resolution);
-               SwingViewMechanism.getInstance().message(_cellRes.toString());
+               CellResChoice resolution = increaseResolution ? cellRes().previous() : cellRes().next();
+               _timesheet.setCellResolution(resolution);
+               SwingViewMechanism.getInstance().message(cellRes().toString());
+            }
+            else
+            {
+               _defaultMWListener.mouseWheelMoved(e);
             }
          }
       });
    }
+   
+   protected CellResChoice cellRes() { return _timesheet.getCellResolution(); }
    
    /************************************************************************
     * List of observers.

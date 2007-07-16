@@ -26,7 +26,6 @@ public class TimeSheet extends JPanel implements ChangeListener
    private JTabbedPane _tabPane;
    private CardLayout _cardLayout;
    private JPanel _lblPnl;
-   private CellResPanel _cellResPanel;
    private final DateEO _position;
    
    private CalEventList _list;
@@ -36,11 +35,14 @@ public class TimeSheet extends JPanel implements ChangeListener
       _list = list;
       
       _position = bounds.position();
-      _daySheet = new EventsSheet(new DayView(bounds), _list);
-      _weekSheet = new EventsSheet(new WeekView(bounds), _list);
+      _daySheet = new EventsSheet(new DayView(this, bounds), _list);
+      _weekSheet = new EventsSheet(new WeekView(this, bounds), _list);
       
-      _weekSheet.getIntervalView().setCellResolution(bounds.resolution());
-      _daySheet.getIntervalView().setCellResolution(bounds.resolution());
+      // keep day and week view scroll bars in sync (share scroll model)
+      getWeekView().getScrollPane().getVerticalScrollBar().setModel(
+            getDayView().getScrollPane().getVerticalScrollBar().getModel());
+
+      setCellResolution(bounds.resolution());
       
       setLayout(new BorderLayout());
       JPanel pnl = new JPanel(new BorderLayout());
@@ -78,7 +80,7 @@ public class TimeSheet extends JPanel implements ChangeListener
       getWeekView().getSpan().addChangeListener(this);
       
       new Thread() { public void run() {
-         _list.fetchEvents(selectedView().getSpan());
+         stateChanged(null);
          } }.start();
    }
    
@@ -88,8 +90,7 @@ public class TimeSheet extends JPanel implements ChangeListener
    {
       JPanel heading = new JPanel();
       heading.setLayout(new BorderLayout());
-      _cellResPanel = new CellResPanel(TimeSheet.this);
-      heading.add(_cellResPanel, BorderLayout.WEST);
+      heading.add(new CellResPanel(TimeSheet.this), BorderLayout.WEST);
       heading.add(label(), BorderLayout.CENTER);
       heading.add(new NavPanel(TimeSheet.this), BorderLayout.EAST);
       return heading;
@@ -120,16 +121,6 @@ public class TimeSheet extends JPanel implements ChangeListener
                Component selected = _tabPane.getSelectedComponent();
                String key = (selected == _weekSheet) ? "week" : "day";
                _cardLayout.show(_lblPnl, key);
-               TimeIntervalView selectedView = selectedView();
-               _cellResPanel.bindTo(selectedView);
-               
-               // bind to selected span
-               TimeIntervalView otherView = (selectedView == getWeekView()) ? getDayView() : getWeekView();
-               otherView.getSpan().removeChangeListener(TimeSheet.this);
-               selectedView.getSpan().addChangeListener(TimeSheet.this);
-               
-               if (selectedView == getWeekView())
-                 selectedView.getSpan().fireStateChanged();
             }
          });
       
@@ -139,7 +130,7 @@ public class TimeSheet extends JPanel implements ChangeListener
 
    public void stateChanged(ChangeEvent evt)
    {
-      _list.fetchEvents(selectedView().getSpan());
+      _list.fetchEvents(getWeekView().getSpan());
    }
 
    
@@ -152,14 +143,22 @@ public class TimeSheet extends JPanel implements ChangeListener
          _position.subtract(interval);
    }
    
-   public CellResChoice getCellResolution() { return selectedView().getCellResolution(); }
-   public void setCellResolution(CellResChoice res) { selectedView().setCellResolution(res); }
    public void addActionListener(ActionListener l)
    {
       getDayView().addActionListener(l);
       getWeekView().addActionListener(l);
    }
    
+   protected CellResChoice _cellRes = CellResChoice.THIRTY_MINUTES;
+   public CellResChoice getCellResolution() { return _cellRes; }
+   public void setCellResolution(CellResChoice choice)
+   {
+      CellResChoice oldValue = _cellRes;
+      _cellRes = choice;
+      firePropertyChange("cellResolution", oldValue, _cellRes);
+   }
+
+
    public DayView getDayView() { return (DayView) _daySheet.getIntervalView(); }
    public WeekView getWeekView() { return (WeekView) _weekSheet.getIntervalView(); }
 

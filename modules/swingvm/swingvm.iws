@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4" relativePaths="false">
-  <component name="BookmarkManager" />
+  <component name="BookmarkManager">
+    <editor_bookmark url="file://$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/WeekView.java" line="350" number="9" />
+  </component>
   <component name="ChangeBrowserSettings">
     <option name="MAIN_SPLITTER_PROPORTION" value="0.3" />
     <option name="MESSAGES_SPLITTER_PROPORTION" value="0.8" />
@@ -17,16 +19,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DayView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DayView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/BaseTimeIntervalView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/BaseTimeIntervalView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeSheet.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeSheet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CellResPanel.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CellResPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/EventsPnl.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/EventsPnl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/DayView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/DayView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/TimeSheet.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/TimeSheet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/CellResPanel.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/CellResPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/TimeIntervalView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/TimeIntervalView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/EventsPnl.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/EventsPnl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/WeekView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/WeekView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/BaseTimeIntervalView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/BaseTimeIntervalView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iml" afterPath="$PROJECT_DIR$/swingvm.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DayEventsSheet.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DayEventsSheet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeIntervalView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeIntervalView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekView.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -191,6 +191,34 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="swingvm" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.view.swing.simplecal" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.view.swing.calendar" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
     </subPane>
@@ -457,7 +485,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="30" width="1288" height="778" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" order="8" />
@@ -477,7 +505,7 @@
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32923833" order="3" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6217949" order="8" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28838342" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28838342" order="0" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979591" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" order="2" />
@@ -568,96 +596,6 @@
     <option name="myLastEditedConfigurable" value="IDE Profiles" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/EventsPnl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="13" selection-start="3265" selection-end="3265" vertical-scroll-proportion="0.9516129">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/atom/TimeSpan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="152" column="4" selection-start="3891" selection-end="3891" vertical-scroll-proportion="0.3564516">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DayView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="0" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.21129033">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/BaseTimeIntervalView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="18" selection-start="2334" selection-end="2334" vertical-scroll-proportion="0.33225808">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/WeekView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="176" column="0" selection-start="6394" selection-end="6394" vertical-scroll-proportion="0.8951613">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/calendar/EventManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="17" selection-start="174" selection-end="174" vertical-scroll-proportion="0.24193548">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeSheet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="13" selection-start="519" selection-end="519" vertical-scroll-proportion="-2.642975">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/find/SimpleQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="0" selection-start="1607" selection-end="1720" vertical-scroll-proportion="0.42903227">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/calendar/Calendrier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="206" column="39" selection-start="6205" selection-end="6205" vertical-scroll-proportion="0.7919355">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/calendar/Schedule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/calendar/ScheduleEO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="22" selection-start="255" selection-end="255" vertical-scroll-proportion="0.24193548">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/calendar/Schedulable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="240" selection-end="240" vertical-scroll-proportion="0.26612905">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CalendarView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="34" selection-start="929" selection-end="929" vertical-scroll-proportion="0.33225808">
@@ -675,6 +613,94 @@
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/calendar/CalEventList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="13" selection-start="856" selection-end="856" vertical-scroll-proportion="0.29032257">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/CellResPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="3" selection-start="553" selection-end="553" vertical-scroll-proportion="0.15322581">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CellResPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="49" selection-start="1156" selection-end="1156" vertical-scroll-proportion="0.66129035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/TimeIntervalView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="221" selection-end="221" vertical-scroll-proportion="0.19354838">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/EventsPnl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="73" selection-end="73" vertical-scroll-proportion="0.07258064">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/EventsPnl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="0" selection-start="1894" selection-end="1955" vertical-scroll-proportion="0.8951613">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/BaseTimeIntervalView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="0" selection-start="2528" selection-end="2528" vertical-scroll-proportion="-0.024193548">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/BaseTimeIntervalView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="174" column="28" selection-start="5617" selection-end="5627" vertical-scroll-proportion="0.33225808">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/DayView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="303" column="10" selection-start="10032" selection-end="10032" vertical-scroll-proportion="0.38181818">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/DayView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="4" selection-start="1118" selection-end="1118" vertical-scroll-proportion="0.54545456">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/WeekView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="350" column="0" selection-start="12305" selection-end="12305" vertical-scroll-proportion="0.3322314">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/simplecal/TimeSheet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="161" column="0" selection-start="4955" selection-end="4955" vertical-scroll-proportion="0.66129035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeSheet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="13" selection-start="519" selection-end="519" vertical-scroll-proportion="0.1983471">
           <folding />
         </state>
       </provider>

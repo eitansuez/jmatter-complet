@@ -16,7 +16,7 @@ import com.u2d.pubsub.AppEvent;
  * @author Eitan Suez
  */
 public class EventsPnl extends JPanel implements AdjustmentListener, ListDataListener,
-  TableColumnModelListener
+  TableColumnModelListener, ChangeListener
 {
    private TimeIntervalView _view;
    private CalEventList _calEventList;
@@ -33,6 +33,8 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ListDataLis
 
       _view.addAdjustmentListener(this);
 
+      _view.getSpan().addChangeListener(this);
+
       _calEventList.addListDataListener(this);
       _calEventList.type().addAppEventListener(AppEventType.SAVE, new AppEventListener() {
          public void onEvent(AppEvent evt)
@@ -43,6 +45,8 @@ public class EventsPnl extends JPanel implements AdjustmentListener, ListDataLis
       
       updateView();
    }
+
+   public void stateChanged(ChangeEvent e) { updateView(); }
 
    public void intervalAdded(ListDataEvent e) { updateView(); }
    public void intervalRemoved(ListDataEvent e) { updateView(); }
