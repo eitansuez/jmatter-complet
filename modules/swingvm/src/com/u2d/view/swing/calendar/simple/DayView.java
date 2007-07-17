@@ -180,10 +180,6 @@ public class DayView extends BaseTimeIntervalView
                int rowIndex = _table.rowAtPoint(location);
                Date timeSlot = getSelectedTime(rowIndex);
 
-//               TableColumnModel tcmodel = _table.getColumnModel();
-//               int colIndex = _table.columnAtPoint(location);
-//               TableColumn column = tcmodel.getColumn(colIndex);
-
                if (transferObject instanceof CalEvent)
                {
                   final CalEvent calEvent = (CalEvent) transferObject;

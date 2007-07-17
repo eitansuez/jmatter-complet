@@ -105,7 +105,7 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
    }
 
    public DateEO currentPosition() { return _position; }
-
+   
    private JPanel heading()
    {
       JPanel heading = new JPanel();
@@ -215,6 +215,5 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
 
    public Dimension getPreferredSize() { return new Dimension(800,400); }
    public Dimension getMinimumSize() { return new Dimension(500,250); }
-   
    
 }

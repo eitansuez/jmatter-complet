@@ -164,7 +164,6 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
       firePropertyChange("cellResolution", oldValue, _cellRes);
    }
 
-
    public DayView getDayView() { return (DayView) _daySheet.getIntervalView(); }
    public WeekView getWeekView() { return (WeekView) _weekSheet.getIntervalView(); }
 
@@ -182,6 +181,5 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
 
    public Dimension getPreferredSize() { return new Dimension(800,400); }
    public Dimension getMinimumSize() { return new Dimension(500,250); }
-   
    
 }

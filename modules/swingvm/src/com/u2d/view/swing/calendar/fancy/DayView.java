@@ -89,7 +89,6 @@ public class DayView extends BaseTimeIntervalView
 
 
 
-
    protected void buildTable()
    {
       _model = new DayTableModel();
