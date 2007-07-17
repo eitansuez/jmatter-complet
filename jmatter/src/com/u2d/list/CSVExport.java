@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.table.TableModel;
 import com.u2d.element.*;
 import com.u2d.model.*;
+import com.u2d.field.Association;
 
 /**
  * @author Eitan Suez
@@ -92,7 +93,15 @@ public class CSVExport
          line = new StringBuffer("");
          for (int j=0; j<listTableModel.getColumnCount(); j++)
          {
-            item = listTableModel.getValueAt(i, j).toString();
+            Object value = listTableModel.getValueAt(i, j);
+            if (value instanceof Association)
+            {
+               item = ((Association) value).get().toString();
+            }
+            else
+            {
+               item = value.toString();
+            }
             line.append('"').append(item).append('"');
                
             if (j < listTableModel.getColumnCount() - 1)
