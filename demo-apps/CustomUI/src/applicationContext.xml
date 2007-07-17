@@ -16,6 +16,7 @@
    <bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism">
       <property name="lfname" value="Metal" />
       <property name="appSession" ref="app-session" />
+      <property name="labelEditorLayoutHorizontal" value="false" />
    </bean>
    
    <bean id="context-wrapper" class="com.u2d.app.Context" 

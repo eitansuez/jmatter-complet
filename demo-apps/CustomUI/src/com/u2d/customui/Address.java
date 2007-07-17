@@ -72,9 +72,9 @@ public class Address extends AbstractComplexEObject
    }
 
    // uncomment this method to override the view that used to render addresses.
-   public EView getMainView()
-   {
-      return new CustomAddressView(this);
-   }
+//   public EView getMainView()
+//   {
+//      return new CustomAddressView(this);
+//   }
 
 }
