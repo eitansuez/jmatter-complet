@@ -46,7 +46,7 @@ public class PagedList extends CriteriaListEO
    {
       if (type().isCalendarable())
       {
-         Command cmd = type().command("BrowseAsCalendar");
+         Command cmd = type().command("BrowseInCalendar");
          Onion commands = super.commands();
          Onion instanceCommands = new Onion(commands);
          instanceCommands.add(cmd);
