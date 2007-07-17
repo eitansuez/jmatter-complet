@@ -122,32 +122,29 @@ public class FormView extends JPanel implements ComplexEView, Editor
    
    private JPanel mainPane()
    {
-      JPanel mainPane = new FormPane();
-      FormLayout layout = new FormLayout("right:pref, 5px, left:pref:grow", "");
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout, mainPane);
-      CellConstraints cc = new CellConstraints();
-      
-      String layoutFormPath = getLayoutFormPath();
+      String layoutFormPath = getLayoutFormPath(_ceo);
       if (layoutFormPath == null)
       {
-         layoutChildFields(_ceo, builder, cc);
-         return mainPane;
+         FormLayout layout = new FormLayout("right:pref, 5px, left:pref:grow", "");
+         DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
+         layoutChildFields(_ceo, builder, new CellConstraints());
+         return builder.getPanel();
       }
       else
       {
-         return layoutCustomForm(layoutFormPath);
+         return layoutCustomForm(_ceo, layoutFormPath);
       }
       
    }
    
-   private String getLayoutFormPath()
+   private String getLayoutFormPath(ComplexEObject ceo)
    {
-      String clsName = _ceo.getClass().getName();
+      String clsName = ceo.getClass().getName();
       String formName = clsName.replace('.', File.separatorChar) + ".jfrm";
       return (getClass().getClassLoader().getResource(formName) == null) ? null : formName;
    }
    
-   private JPanel layoutCustomForm(String layoutFormPath)
+   private JPanel layoutCustomForm(ComplexEObject ceo, String layoutFormPath)
    {
       FormPanel formPanel = new FormPanel(layoutFormPath);
 
@@ -161,26 +158,26 @@ public class FormView extends JPanel implements ComplexEView, Editor
 
       for (String name : names)
       {
-         accessor.replaceBean(name, fieldViewFor(name));
+         accessor.replaceBean(name, fieldViewFor(name, ceo));
       }
       
       return formPanel;
    }
    
-   private JComponent fieldViewFor(String name)
+   private JComponent fieldViewFor(String name, ComplexEObject ceo)
    {
       // assume/impose convention that form component's bound name is bound object's type's corresponding fieldname
-      Field field = _ceo.field(name);
+      Field field = ceo.field(name);
 
-      EView view = field.getView(_ceo);
+      EView view = field.getView(ceo);
       _childViews.add(view);
       
       ValidationNotifier notifier = view.getEObject();
       if (field.isAssociation())
       {
-         notifier = _ceo.association(field.name());
+         notifier = ceo.association(field.name());
       }
-      ValidationNoticePanel vPnl = new ValidationNoticePanel(notifier, _ceo);
+      ValidationNoticePanel vPnl = new ValidationNoticePanel(notifier, ceo);
       _vPnls.add(vPnl);
 
       JComponent comp = (JComponent) view;
