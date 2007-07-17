@@ -35,16 +35,16 @@ public abstract class CalEvent extends AbstractComplexEObject
       return vmech().getCalEventView(this, schedule);
    }
 
-   private static Map schedulableFieldnames = new HashMap();
+   private static Map<Class, String> schedulableFieldnames = new HashMap<Class, String>();
 
    public static String schedulableFieldname(Class cls)
    {
-      if (schedulableFieldnames.get(cls) == null)
+      if (!schedulableFieldnames.containsKey(cls))
       {
          schedulableFieldnames.put(cls, (String)
                Harvester.introspectField(cls, "schedulableFieldname"));
       }
-      return (String) schedulableFieldnames.get(cls);
+      return schedulableFieldnames.get(cls);
    }
    
    public String schedulableFieldname() { return schedulableFieldname(getClass()); }
