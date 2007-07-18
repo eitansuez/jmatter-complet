@@ -61,12 +61,6 @@ public class PlainListEObject extends SimpleListEO
       return _itemType;
    }
 
-   @Cmd
-   public ComplexEObject New(CommandInfo cmdInfo)
-   {
-      return type().New(cmdInfo);
-   }
-
    public void removeListDataListener(ListDataListener l)
    {
       super.removeListDataListener(l);

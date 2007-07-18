@@ -12,8 +12,6 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.view.EView;
 import com.u2d.app.Tracing;
-import com.u2d.reflection.Cmd;
-import com.u2d.element.CommandInfo;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Expression;
@@ -199,19 +197,5 @@ public class CalEventList extends AbstractListEO
    
    public void fetchEvents(TimeSpan span) { setSpan(span); }
    public ComplexType eventType() { return type(); }
-
-
-   // See NullAssociation for comments
-   @Cmd
-   public ComplexEObject New(CommandInfo cmdInfo)
-   {
-      return New(cmdInfo, type());
-   }
-   @Cmd
-   public ComplexEObject New(CommandInfo cmdInfo, ComplexType type)
-   {
-      return type.New(cmdInfo);
-   }
-   public ComplexType baseType() { return type(); }
 
 }

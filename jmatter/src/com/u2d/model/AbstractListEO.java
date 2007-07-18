@@ -69,7 +69,7 @@ public abstract class AbstractListEO extends AbstractEObject
    public ListType listtype()
    {
       if (_listtype == null)
-         _listtype = ListType.forClass(getClass());
+         _listtype = ListType.forClass(getClass(), getJavaClass());
       return _listtype;
    }
 

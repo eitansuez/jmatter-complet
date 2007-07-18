@@ -4,15 +4,10 @@
 package com.u2d.list;
 
 import javax.swing.event.ListDataListener;
-import com.u2d.element.CommandInfo;
-import com.u2d.element.Command;
 import com.u2d.model.ComplexEObject;
-import com.u2d.model.ComplexType;
 import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.find.Query;
-import com.u2d.reflection.Cmd;
-import com.u2d.pattern.Onion;
 
 /**
  * @author Eitan Suez
@@ -36,45 +31,7 @@ public class PagedList extends CriteriaListEO
    {
       super(query, pageNum);
       type().addAppEventListener(CREATE, _addListener);
-
-      ComplexType itemType = query.getQueryType();
-      command("New").getLabel().setValue("New "+itemType.getNaturalName());
    }
-
-
-   public Onion commands()
-   {
-      if (type().isCalendarable())
-      {
-         Command cmd = type().command("BrowseInCalendar");
-         Onion commands = super.commands();
-         Onion instanceCommands = new Onion(commands);
-         instanceCommands.add(cmd);
-         return instanceCommands;
-      }
-      else
-      {
-         return super.commands();
-      }
-   }
-   
-   
-   // See NullAssociation for comments
-   @Cmd
-   public ComplexEObject New(CommandInfo cmdInfo)
-   {
-      return New(cmdInfo, type());
-   }
-   @Cmd
-   public ComplexEObject New(CommandInfo cmdInfo, ComplexType type)
-   {
-      return type.New(cmdInfo);
-   }
-   public ComplexType baseType()
-   {
-      return type().baseType();
-   }
-
 
    public void removeListDataListener(ListDataListener l)
    {

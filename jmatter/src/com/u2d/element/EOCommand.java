@@ -120,6 +120,17 @@ public class EOCommand extends Command
          if (State.class.isAssignableFrom(_method.getDeclaringClass()))
             return ceo.getState();
       }
+      else if (value instanceof AbstractListEO)
+      {
+         // list types sometimes are delegates for their item types' commands..
+         AbstractListEO leo = (AbstractListEO) value;
+         if (AbstractListEO.class.isAssignableFrom(_method.getDeclaringClass()))
+            return leo;
+         else
+            return leo.type();
+      }
+      
+      // otherwise..
       return value;
    }
 
