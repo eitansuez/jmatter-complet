@@ -26,7 +26,6 @@
    <jar href="$jar" /> <% } %>
  </resources>
 
- <!-- TODO: plug in main class name here -->
  <application-desc main-class="com.u2d.view.swing.EntryPoint">
    <argument>-Xdock:name=@PROJECTNAME@</argument>
    <argument>-Xdock:icon=icons.icns</argument>
