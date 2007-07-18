@@ -575,7 +575,7 @@ public class ComplexType extends AbstractComplexEObject
       try
       {
          _naturalName = localeBundle.getString(_shortName);
-         _pluralName = localeBundle.getString(_pluralName);
+         _pluralName = localeBundle.getString(derivePluralName(_shortName));
       }
       catch (MissingResourceException ex) {}
    }
