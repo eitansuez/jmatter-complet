@@ -18,6 +18,8 @@ import com.u2d.view.EView;
 import com.u2d.ui.CustomTabbedPane;
 import com.u2d.element.Command;
 import com.u2d.pattern.Callback;
+import com.jeta.forms.components.panel.FormPanel;
+import com.jeta.forms.gui.form.FormAccessor;
 
 /**
  * @author Eitan Suez
@@ -45,15 +47,7 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
 
       setCellResolution(bounds.resolution());
       
-      setLayout(new BorderLayout());
-      JPanel pnl = new JPanel(new BorderLayout());
-      pnl.add(heading(), BorderLayout.NORTH);
-      pnl.add(body(), BorderLayout.CENTER);
-      add(pnl, BorderLayout.CENTER);
-
-      JPanel eastPanel = new JPanel(new BorderLayout());
-      eastPanel.add(new DateView2(_position), BorderLayout.NORTH);
-      add(eastPanel, BorderLayout.EAST);
+      layMeOut();
       
       // double clicking on a cell should initiate the creation of an event..
       addActionListener(new ActionListener()
@@ -89,18 +83,25 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
          stateChanged(null);
          } }.start();
    }
-   
-   public DateEO currentPosition() { return _position; }
-   
-   private JPanel heading()
+
+   private void layMeOut()
    {
-      JPanel heading = new JPanel();
-      heading.setLayout(new BorderLayout());
-      heading.add(new CellResPanel(TimeSheet.this), BorderLayout.WEST);
-      heading.add(label(), BorderLayout.CENTER);
-      heading.add(new NavPanel(TimeSheet.this), BorderLayout.EAST);
-      return heading;
+      FormPanel formPanel = new FormPanel("com/u2d/view/swing/calendar/simple/TimeSheet.jfrm");
+      FormAccessor accessor = formPanel.getFormAccessor();
+      accessor.replaceBean("title", label());
+      accessor.replaceBean("navPanel", new NavPanel(TimeSheet.this));
+      accessor.replaceBean("body", body());
+      
+      FormAccessor nestedForm = formPanel.getFormAccessor("sidePnl");
+      nestedForm.replaceBean("dateChooser", new DateView2(_position));
+      nestedForm.replaceBean("cellResPnl", new CellResPanel(TimeSheet.this));
+      
+      setLayout(new BorderLayout());
+      add(formPanel, BorderLayout.CENTER);
    }
+
+
+   public DateEO currentPosition() { return _position; }
    
    private JPanel label()
    {

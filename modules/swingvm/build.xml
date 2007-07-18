@@ -54,6 +54,9 @@
              destdir="${buildclassesdir}" 
              target="1.5"
              classpathref="class.path" />
+      <copy todir="${buildclassesdir}">
+        <fileset dir="${srcdir}" includes="**/*.jfrm" />
+      </copy>
    </target>
 
    <target name="jar" depends="compile" description="jar">

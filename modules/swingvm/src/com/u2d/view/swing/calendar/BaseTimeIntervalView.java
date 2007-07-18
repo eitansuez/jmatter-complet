@@ -3,8 +3,8 @@ package com.u2d.view.swing.calendar;
 import com.u2d.app.Tracing;
 import com.u2d.calendar.CellResChoice;
 import com.u2d.calendar.Schedulable;
-import com.u2d.ui.CustomLabel;
 import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.css4swing.style.ComponentStyle;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.EventListenerList;
@@ -42,7 +42,10 @@ public abstract class BaseTimeIntervalView extends JPanel
       public void updateCellRes();
    }
 
-   protected JLabel _label = new CustomLabel(16.0f, JLabel.CENTER);
+   protected JLabel _label = new JLabel();
+   {
+      ComponentStyle.addClass(_label, "title");
+   }
    public JLabel getLabel() { return _label; }
 
    protected void updateRowHeight()

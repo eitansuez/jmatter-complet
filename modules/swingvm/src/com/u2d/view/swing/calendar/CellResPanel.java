@@ -26,6 +26,7 @@ public class CellResPanel extends JPanel implements ActionListener, PropertyChan
       _timesheet = timesheet;
       _model = new ChoiceEOModel(_timesheet.getCellResolution());
       _combo.setModel(_model);
+      _combo.setToolTipText("Alternately use Ctrl+Scrollwheel on day and week views");
 
       setLayout(new FlowLayout(FlowLayout.LEFT));
       
