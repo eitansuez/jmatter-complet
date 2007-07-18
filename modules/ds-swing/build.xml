@@ -51,8 +51,8 @@
    </target>
 
    <target name="jar" depends="compile" description="jar">
-      <jar destfile="${distdir}/${ant.project.name}.jar" basedir="${buildclassesdir}"
-        includes="**/*" />
+      <jar destfile="${distdir}/${ant.project.name}.jar" 
+           basedir="${buildclassesdir}" includes="**/*" />
    </target>
 
  <!-- targets pertaining to junit testing -->
