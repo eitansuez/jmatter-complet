@@ -273,7 +273,7 @@ public class Song extends AbstractComplexEObject
          return "You must specify a directory as the base path";
 
       List songFiles = basePath.listRecursive(mp3Filter);
-      Set songs = new HashSet();
+      Set<Song> songs = new HashSet<Song>();
       for (int i=0; i<songFiles.size(); i++)
       {
          File file = (File) songFiles.get(i);
