@@ -8,8 +8,6 @@
 
    <import resource="persistorContext.xml" />
 
-   <bean id="splash" class="com.u2d.ui.Splash" />
-
    <bean id="app-session" class="com.u2d.app.AppSession">
       <property name="app" ref="application" />
       <property name="viewMechanism" ref="view-mechanism" />
@@ -18,16 +16,19 @@
    <bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism">
       <property name="lfname" value="Metal" />
       <property name="appSession" ref="app-session" />
+      <property name="labelEditorLayoutHorizontal" value="false" />
    </bean>
    
    <bean id="context-wrapper" class="com.u2d.app.Context" 
          factory-method="getInstance" />
    
    <bean id="application" class="com.u2d.app.Application">
-      <property name="name" value="test-app" /> <!-- TODO: Customize App Name Here -->
+      <property name="name" value="test-app" />
+      <property name="version" value="1.0" />
+      <property name="description" value="App whose purpose is for helping test things" />
+      <property name="helpContentsUrl" value="http://jmatter.org/documentation/html/index.html" />
       <property name="pagesize" value="15" />
       <property name="persistenceMechanism" ref="persistor" />
-      <property name="splash" ref="splash" />
    </bean>
    
 </beans>

@@ -7,14 +7,10 @@
       default-init-method="initialize">
 
    <util:set id="persist-classes">
-      <value>com.u2d.domain.Order</value>
-      <value>com.u2d.domain.OrderItem</value>
-      <value>com.u2d.domain.Shipment</value>
+<% classnames.each { cls -> %>
+      <value>$cls</value>
+<% } %>
       <value>com.u2d.type.composite.USAddress</value>
-      <value>com.u2d.domain.AtomicMedley</value>
-      <value>com.u2d.domain.Meeting</value>
-      <value>com.u2d.domain.Resource</value>
-      <value>com.u2d.domain.TestVisit</value>
       <value>com.u2d.type.USState</value>
       <value>com.u2d.type.composite.ContactMethod</value>
       <value>com.u2d.type.composite.Folder</value>

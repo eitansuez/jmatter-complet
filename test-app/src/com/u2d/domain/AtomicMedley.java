@@ -8,10 +8,12 @@ import com.u2d.model.Title;
 import com.u2d.type.MarritalStatus;
 import com.u2d.type.Sex;
 import com.u2d.type.atom.*;
+import com.u2d.persist.Persist;
 
 /**
  * @author Eitan Suez
  */
+@Persist
 public class AtomicMedley extends AbstractComplexEObject 
 {
    private final StringEO name = new StringEO();

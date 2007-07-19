@@ -6,10 +6,12 @@ package com.u2d.domain;
 import com.u2d.calendar.*;
 import com.u2d.model.Title;
 import com.u2d.type.atom.*;
+import com.u2d.persist.Persist;
 
 /**
  * @author Eitan Suez
  */
+@Persist
 public class Meeting extends CalEvent
 {
    private final StringEO _title = new StringEO();

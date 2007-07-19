@@ -8,10 +8,12 @@ import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.type.atom.*;
 import com.u2d.type.composite.*;
+import com.u2d.persist.Persist;
 
 /**
  * @author Eitan Suez
  */
+@Persist
 public class Order extends AbstractComplexEObject
 {
    private final StringEO _name = new StringEO("");

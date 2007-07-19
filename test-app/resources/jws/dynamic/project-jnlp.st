@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <jnlp spec="1.0+"
-      codebase="http://$ip_addr:$port/test-app"
+      codebase="http://$ip_addr$:$port$/test-app"
       href="project.jnlp">
 
  <information>
@@ -21,14 +21,13 @@
 
  <resources>
    <j2se version="1.5+" />
-   <jar href="test-app.jar" main="true" />
-   #foreach( $jarpath in $jarpathlist )
-   <jar href="$jarpath" />
-   #end
+   <jar href="swingvm.jar" main="true" />
+   $jars:{jar|
+   <jar href="$jar$" />
+   }$
  </resources>
 
- <!-- TODO: plug in main class name here -->
- <application-desc main-class="com.u2d.app.Application">
+ <application-desc main-class="com.u2d.view.swing.EntryPoint">
    <argument>-Xdock:name=test-app</argument>
    <argument>-Xdock:icon=icons.icns</argument>
  </application-desc>

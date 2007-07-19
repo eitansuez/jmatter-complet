@@ -26,16 +26,16 @@ public class MockPersistor implements PersistenceMechanism
       // do nothing
    }
 
-   public AbstractListEO browse(Class clazz)
+   public AbstractListEO browse(ComplexType type)
    {
-      return list(clazz);
+      return list(type);
    }
    public PlainListEObject list(Class clazz)
    {
       if (USAddress.class.isAssignableFrom(clazz))
       {
          USAddress address = null;
-         List addresses = new ArrayList();
+         List<USAddress> addresses = new ArrayList<USAddress>();
          for (int i=0; i<5; i++)
          {
             address = new USAddress("940"+i+" Some Ln", "Austin", "TX", i+"3434");
@@ -46,7 +46,7 @@ public class MockPersistor implements PersistenceMechanism
       }
       
       Shipment shipment = null;
-      List shipments = new ArrayList();
+      List<Shipment> shipments = new ArrayList<Shipment>();
       for (int i=0; i<10; i++)
       {
          shipment = new Shipment("a"+i, i+3);
