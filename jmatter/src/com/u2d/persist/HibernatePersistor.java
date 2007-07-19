@@ -299,6 +299,17 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       }
    }
    
+   public ComplexEObject lookup(Class clazz, String uniqueFieldName, String value)
+   {
+      Criteria criteria = getSession().createCriteria(clazz);
+      criteria.add(Expression.eq(uniqueFieldName, value));
+      List list = criteria.list();
+      if (list.isEmpty()) return null;
+      ComplexEObject ceo = (ComplexEObject) list.iterator().next();
+      ceo.onLoad();
+      return ceo;
+   }
+   
    public void delete(ComplexEObject ceo)
    {
       Session session = getSession();

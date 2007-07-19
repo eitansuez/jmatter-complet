@@ -23,4 +23,7 @@ public interface HBMPersistenceMechanism extends PersistenceMechanism
    public void saveMany(Set ceos);
    public void deleteMany(Set ceos);
    public void refresh(ComplexEObject eo);
+   
+   public ComplexEObject lookup(Class clazz, String uniqueFieldName, String value);
+   
 }

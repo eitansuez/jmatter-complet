@@ -507,15 +507,16 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
 
 
-   // convenience..
-   public void save()
+   // conveniences..
+   public void save() { persistor().save(this); }
+   public void delete() { persistor().delete(this); }
+   public void refresh() { hbmPersistor().refresh(this); }
+   public AbstractListEO list() { return persistor().list(type()); }
+   public ComplexEObject lookup(String uniqueFieldName, String value)
    {
-      persistor().save(this);
+      return hbmPersistor().lookup(type().getJavaClass(), uniqueFieldName, value);
    }
-   public void delete()
-   {
-      persistor().delete(this);
-   }
+
 
    private transient ComplexEObject _copy;
    public void saveCopy()
@@ -1025,11 +1026,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
    public Logger tracer() { return Tracing.tracer(); }
    
-   
-   public void refresh()
-   {
-      hbmPersistor().refresh(this);
-   }
    
 
 }

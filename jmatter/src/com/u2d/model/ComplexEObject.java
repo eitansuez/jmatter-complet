@@ -66,10 +66,12 @@ public interface ComplexEObject
    public ComplexEView getExpandableView();
    public ComplexEView getTreeView();
 
-   // convenience..
+   // conveniences..
    public void save();
    public boolean doSave();
    public void delete();
+   public void refresh();
+   public AbstractListEO list();
 
    public void setValue(EObject value, boolean forCopy);
    
