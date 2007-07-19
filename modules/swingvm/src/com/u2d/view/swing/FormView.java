@@ -307,7 +307,7 @@ public class FormView extends JPanel implements ComplexEView, Editor
       }
       else
       {
-         builder.appendRow("top:pref");
+         builder.appendRow("pref");
          builder.add(caption, cc.xy(1, builder.getRow()));
          builder.add(comp, cc.xy(3, builder.getRow()));
          builder.nextLine();
