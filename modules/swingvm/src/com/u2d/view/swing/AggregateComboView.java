@@ -5,9 +5,7 @@ import com.u2d.model.Editor;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataListener;
-import java.beans.PropertyChangeEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,12 +14,13 @@ import java.beans.PropertyChangeEvent;
  * Time: 5:02:38 PM
  */
 public class AggregateComboView
-      extends JComboBox
+      extends BaseComboView
       implements ComplexEView, Editor
 {
    private ComplexEObject _value;
    public AggregateComboView(ComplexEObject value)
    {
+      super();
       _value = value;
       setModel(new AggregateComboModel(value));
    }
@@ -32,17 +31,7 @@ public class AggregateComboView
       _value.setValue(selectedItem);
       return 0;
    }
-   public int validateValue() { return getEObject().validate(); }
-
    public EObject getEObject() { return _value; }
-
-
-   public boolean isMinimized() { return false; }
-
-   public void propertyChange(PropertyChangeEvent evt) { } 
-   public void stateChanged(ChangeEvent e) { }
-
-   public void detach() { }
 }
 
 class AggregateComboModel implements ComboBoxModel
@@ -52,7 +41,7 @@ class AggregateComboModel implements ComboBoxModel
    
    public AggregateComboModel(ComplexEObject value)
    {
-      _items = value.type().list();
+      _items = value.list();
       _selectedItem = value;
    }
 

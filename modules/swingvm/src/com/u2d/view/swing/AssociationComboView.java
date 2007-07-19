@@ -1,16 +1,11 @@
 package com.u2d.view.swing;
 
-import com.u2d.view.ComplexEView;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
-import com.u2d.model.Editor;
 import com.u2d.field.Association;
 import com.u2d.app.Tracing;
-
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataListener;
-import java.beans.PropertyChangeEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,16 +14,15 @@ import java.beans.PropertyChangeEvent;
  * Time: 5:02:38 PM
  */
 public class AssociationComboView
-      extends JComboBox
-      implements ComplexEView, Editor
+      extends BaseComboView
 {
    private Association _association;
    public AssociationComboView(Association association)
    {
+      super();
       _association = association;
       setModel(new AssociationComboModel(association));
    }
-   
    public int transferValue()
    {
       ComplexEObject selectedItem = (ComplexEObject) getModel().getSelectedItem();
@@ -36,23 +30,8 @@ public class AssociationComboView
       _association.set(selectedItem);
       return 0;
    }
-   public int validateValue() { return getEObject().validate(); }
-
    public EObject getEObject() { return _association.get(); }
-
-   public void setEditable(boolean editable)
-   {
-      setEnabled(editable);
-   }
-
-   public boolean isMinimized() { return false; }
-
-   public void propertyChange(PropertyChangeEvent evt) { } 
-   public void stateChanged(ChangeEvent e) { }
-
-   public void detach() { }
 }
-
 
 class AssociationComboModel implements ComboBoxModel
 {
