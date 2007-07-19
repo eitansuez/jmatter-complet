@@ -3,7 +3,6 @@
  */
 package com.u2d.type.composite;
 
-import com.u2d.model.ComplexType;
 import com.u2d.type.AbstractChoiceEO;
 import com.u2d.type.atom.StringEO;
 
@@ -25,6 +24,4 @@ public class ContactMethod extends AbstractChoiceEO
    
    public StringEO getCode() { return _code; }
    public StringEO getCaption() { return _caption; }
-   
-   public ComplexType choiceType() { return type(); }
 }
