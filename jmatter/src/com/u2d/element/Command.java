@@ -24,11 +24,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public abstract class Command extends Member 
 {
-   protected final StringEO _fullPath = new StringEO();
    
-   protected Callback _callback;
-   
-
    public static String[] fieldOrder = {"name", "fullPath", "label", "mnemonic", "description", "sensitive"};
    public static String[] readOnly = {"name", "fullPath"};
    public static String[] identities = {"fullPath"};
@@ -59,6 +55,8 @@ public abstract class Command extends Member
       _fullPath.setValue(fullPath);
    }
 
+   
+   protected Callback _callback;
    public void setCallback(Callback callback) { _callback = callback; }
 
 
@@ -284,6 +282,7 @@ public abstract class Command extends Member
    }
    
    
+   protected final StringEO _fullPath = new StringEO();
    public StringEO getFullPath() { return _fullPath; }
    public String fullPath() { return _fullPath.stringValue(); }
 
