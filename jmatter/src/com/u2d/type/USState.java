@@ -3,7 +3,6 @@
  */
 package com.u2d.type;
 
-import com.u2d.model.ComplexType;
 import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
 
@@ -26,8 +25,6 @@ public class USState extends AbstractChoiceEO
    public StringEO getCode() { return _code; }
    public StringEO getCaption() { return _caption; }
    
-   public ComplexType choiceType() { return type(); }
-
    public Title title()
    {
       return _caption.title().appendParens(_code);
