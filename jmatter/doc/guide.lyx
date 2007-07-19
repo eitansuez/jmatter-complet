@@ -3888,10 +3888,6 @@ public class Genre extends AbstractChoiceEO
 \end_layout
 
 \begin_layout LyX-Code
-   public ComplexType choiceType() { return type(); }
-\end_layout
-
-\begin_layout LyX-Code
 }
 \end_layout
 
@@ -3924,28 +3920,6 @@ public static String[] identities = {"code"};
 is metadata telling JMatter that the code column in the table should be
  unique for all Genres (that is, you can't have two genres with the same
  code, 'rock' for example).
-\end_layout
-
-\begin_layout Standard
-Honestly, I don't recall why you have to implement choiceType() and why
- choiceType() is simply not tucked away in the superclass, 
-\emph on
-AbstractChoiceEO
-\emph default
-.
- This may simply be an oversight
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Standard
-This won't do.
- Investigate.
- If choiceType needs to be in parent, put it in parent and delete paragraph.
-\end_layout
-
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Section

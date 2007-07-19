@@ -17,11 +17,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/BaseTimeIntervalView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/BaseTimeIntervalView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/simple/TimeSheet.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/simple/TimeSheet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CellResPanel.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CellResPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/IconView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/IconView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/list/CommandsContextMenuView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/list/CommandsContextMenuView.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -187,6 +185,102 @@
           <option name="myItemId" value="swingvm" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Libraries" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Libraries" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.ui" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Libraries" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-1.5.0-sun-1.5.0.11/jre/lib/rt.jar!/javax/swing" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Libraries" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-1.5.0-sun-1.5.0.11/jre/lib/rt.jar!/java/awt" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.view.swing.list" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.view.swing" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
       </PATH>
     </subPane>
   </component>
@@ -269,7 +363,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
+      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
       <autoscrollToSource PackagesPane="false" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -326,13 +420,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -351,6 +438,13 @@
       <method>
         <option name="Make" value="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
@@ -456,13 +550,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="30" width="1288" height="778" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" order="8" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31643626" order="1" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31595093" order="1" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39903846" order="4" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -476,8 +570,8 @@
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32923833" order="3" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6217949" order="8" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28838342" order="0" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979591" order="2" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28838342" order="0" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24939074" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" order="2" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32872504" order="8" />
@@ -567,97 +661,46 @@
     <option name="myLastEditedConfigurable" value="IDE Profiles" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/PositionedLayout.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/ComplexType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="12" selection-start="2236" selection-end="2236" vertical-scroll-proportion="0.67607975">
+        <state line="690" column="30" selection-start="20584" selection-end="20584" vertical-scroll-proportion="0.38181818">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CalendarDropHandler.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractComplexEObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="12" selection-start="666" selection-end="666" vertical-scroll-proportion="0.20806451">
+        <state line="511" column="0" selection-start="14702" selection-end="14702" vertical-scroll-proportion="0.1338843">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/BaseWeekView.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/ComplexEObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="251" column="24" selection-start="9064" selection-end="9064" vertical-scroll-proportion="0.20495868">
+        <state line="73" column="32" selection-start="2272" selection-end="2272" vertical-scroll-proportion="0.516129">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/calendar/CalEvent.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/field/Association.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="30" selection-start="448" selection-end="456" vertical-scroll-proportion="0.19354838">
+        <state line="154" column="67" selection-start="4658" selection-end="4663" vertical-scroll-proportion="0.46774194">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/SwingViewMechanism.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AssociationComboView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="575" column="39" selection-start="15932" selection-end="15932" vertical-scroll-proportion="0.20495868">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/fancy/TimeSheet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="13" selection-start="629" selection-end="629" vertical-scroll-proportion="0.1983471">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/ListTitleView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="20" selection-start="967" selection-end="981" vertical-scroll-proportion="0.33225808">
+        <state line="28" column="0" selection-start="707" selection-end="707" vertical-scroll-proportion="0.2016129">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/CellResPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AggregateComboView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="855" selection-end="855" vertical-scroll-proportion="0.47741935">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/CustomLabel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="10" selection-start="179" selection-end="179" vertical-scroll-proportion="0.24193548">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/BaseTimeIntervalView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="235" selection-end="235" vertical-scroll-proportion="0.16935484">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/TimeIntervalView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="381" selection-end="381" vertical-scroll-proportion="0.29032257">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/apps/abeilleforms/abeille-2.0-src/src/com/jeta/forms/components/panel/FormPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="273" column="20" selection-start="10339" selection-end="10339" vertical-scroll-proportion="0.3322314">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/calendar/simple/TimeSheet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="6" selection-start="3287" selection-end="3287" vertical-scroll-proportion="0.67096776">
+        <state line="53" column="0" selection-start="1352" selection-end="1352" vertical-scroll-proportion="0.9516129">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -666,14 +709,63 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/FormView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="0" selection-start="4346" selection-end="4346" vertical-scroll-proportion="0.553719">
+        <state line="311" column="28" selection-start="9653" selection-end="9653" vertical-scroll-proportion="0.70413226">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/ExpandableView2.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/IconView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="9" selection-start="3413" selection-end="3413" vertical-scroll-proportion="0.45454547">
+        <state line="47" column="19" selection-start="1309" selection-end="1309" vertical-scroll-proportion="0.4919355">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/SwingViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="801" column="26" selection-start="23830" selection-end="23833" vertical-scroll-proportion="0.3322314">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/JListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="39" selection-start="598" selection-end="598" vertical-scroll-proportion="0.1983471">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="0" selection-start="2977" selection-end="3348" vertical-scroll-proportion="0.5305785">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.11/src.zip!/java/awt/Component.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1073" column="21" selection-start="35021" selection-end="35021" vertical-scroll-proportion="0.40661156">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.11/src.zip!/javax/swing/JPopupMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="944" column="42" selection-start="30958" selection-end="30958" vertical-scroll-proportion="0.62258065">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/CommandsContextMenuView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="18" selection-start="1734" selection-end="1734" vertical-scroll-proportion="0.4919355">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/SeeThruList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="0" selection-start="1756" selection-end="1756" vertical-scroll-proportion="0.92741936">
           <folding />
         </state>
       </provider>

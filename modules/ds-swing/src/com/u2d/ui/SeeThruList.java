@@ -41,9 +41,17 @@ public class SeeThruList extends JList
 				dispatch(evt);
 			}
 		});
-	}
+      
+      addKeyListener(new KeyListener()
+      {
+         public void keyTyped(KeyEvent evt) { dispatch(evt); }
+         public void keyPressed(KeyEvent evt) { dispatch(evt); }
+         public void keyReleased(KeyEvent evt) { dispatch(evt); }
+      });
+         
+   }
 
-	private void dispatch(MouseEvent evt)
+   private void dispatch(MouseEvent evt)
 	{
 		int index = locationToIndex(new Point(evt.getX(), evt.getY()));
 		if (index < 0) return;
@@ -56,4 +64,15 @@ public class SeeThruList extends JList
 
 		item.dispatchEvent(evt);
 	}
+   private void dispatch(KeyEvent evt)
+   {
+      int index = getSelectedIndex();
+      if (index < 0) return;
+      
+      Object value = getModel().getElementAt(index);
+      ListCellRenderer renderer = getCellRenderer();
+      Component item = renderer.getListCellRendererComponent(SeeThruList.this, value, index, false, false);
+
+      item.dispatchEvent(evt);
+   }
 }

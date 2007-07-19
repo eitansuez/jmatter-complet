@@ -37,11 +37,6 @@ public class IconView extends Caption implements ComplexEView
       setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
       setOpaque(false);
       setBreakPosition(15);
-
-      // TODO:  assign fonts and colors from preferences
-      Font font = getFont().deriveFont(Font.PLAIN, 10.0f);
-      setFont(font);
-
    }
 
    public void bind(ComplexEObject ceo)

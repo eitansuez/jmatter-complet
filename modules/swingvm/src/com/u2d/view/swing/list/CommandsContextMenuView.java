@@ -13,6 +13,8 @@ import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.*;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -42,6 +44,27 @@ public class CommandsContextMenuView
       _source = source;
       _target = target;
       _target.addMouseListener(_listener);
+      
+      _target.getInputMap(JComponent.WHEN_FOCUSED).
+            put(KeyStroke.getKeyStroke("ctrl SLASH"), "popup-contextmenu");
+      _target.getActionMap().put("popup-contextmenu", new AbstractAction()
+         {
+            public void actionPerformed(ActionEvent e)
+            {
+               JComponent focusOwner = (JComponent)
+                     KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+               if (focusOwner instanceof JList)
+               {
+                  JList list = (JList) focusOwner;
+                  int index = list.getSelectedIndex();
+                  Point p = list.indexToLocation(index);
+                  Dimension offset = new Dimension((int) (_target.getPreferredSize().width * 0.75), 
+                                                   (int) (_target.getPreferredSize().height * 0.75));
+                  show(focusOwner, p.x+offset.width, p.y+offset.height);
+               }
+            }
+         });
+      
       setup();
    }
    
