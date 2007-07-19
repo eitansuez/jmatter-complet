@@ -8,7 +8,6 @@ import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.AbstractListEO;
-import com.u2d.model.ComplexType;
 import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
 import com.u2d.view.EView;
@@ -21,7 +20,6 @@ public abstract class AbstractChoiceEO extends AbstractComplexEObject
 {
    public abstract StringEO getCode();
    public abstract StringEO getCaption();
-   public abstract ComplexType choiceType();
    
    public String code() { return getCode().stringValue(); }
    public String caption() { return getCaption().stringValue(); }
@@ -52,7 +50,7 @@ public abstract class AbstractChoiceEO extends AbstractComplexEObject
    {
       if (_list == null)
       {
-         _list = choiceType().list();
+         _list = type().list();
       }
       return _list;
    }
