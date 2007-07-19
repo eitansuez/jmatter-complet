@@ -45,7 +45,7 @@ public class CommandsContextMenuView
       _target = target;
       _target.addMouseListener(_listener);
       
-      _target.getInputMap(JComponent.WHEN_FOCUSED).
+      _target.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
             put(KeyStroke.getKeyStroke("ctrl SLASH"), "popup-contextmenu");
       _target.getActionMap().put("popup-contextmenu", new AbstractAction()
          {
