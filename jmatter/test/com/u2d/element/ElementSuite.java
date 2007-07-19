@@ -10,7 +10,7 @@ import com.u2d.pattern.OnionTest;
  * Date: Nov 28, 2006
  * Time: 1:32:47 PM
  */
-public class ElemenSuite
+public class ElementSuite
 {
    public static Test suite()
    {
