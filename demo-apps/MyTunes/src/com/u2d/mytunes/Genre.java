@@ -21,6 +21,4 @@ public class Genre extends AbstractChoiceEO
    
    public StringEO getCode() { return _code; }
    public StringEO getCaption() { return _caption; }
-
-   public ComplexType choiceType()    { return type(); }
 }
