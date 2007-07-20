@@ -100,7 +100,6 @@
  <target name="run" description="run app" depends="genhbm">
    <java classname="${main.class}" classpathref="class.path" 
          fork="true" maxmemory="192m">
-      <jvmarg line="-enableassertions" />
     <!-- to test localization, uncomment this..
      <sysproperty key="user.language" value="it" />
       -->
