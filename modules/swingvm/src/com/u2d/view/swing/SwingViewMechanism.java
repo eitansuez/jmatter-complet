@@ -207,6 +207,11 @@ public class SwingViewMechanism implements ViewMechanism
       {
          displayWizard((Wizard) value);
       }
+      else if (value instanceof JComponent)
+      {
+         JComponent component = (JComponent) value;
+         displayView(component, positioningHint);
+      }
    }
 
 
@@ -342,6 +347,20 @@ public class SwingViewMechanism implements ViewMechanism
             {
                frame = new GenericFrame(view);
             }
+            _appFrame.addFrame(frame, positioning);
+         }
+      });
+   }
+   
+   public void displayView(final JComponent component, final Positioning positioning)
+   {
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            JInternalFrame frame = new CloseableJInternalFrame("", true, true, true, true);
+            frame.setContentPane(component);
+            frame.pack();
             _appFrame.addFrame(frame, positioning);
          }
       });

@@ -17,12 +17,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app.ipr" afterPath="$PROJECT_DIR$/test-app.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/com/u2d/element/CommandTest.java" afterPath="$PROJECT_DIR$/test/com/u2d/element/CommandTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/com/u2d/element" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app.iws" afterPath="$PROJECT_DIR$/test-app.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app.iml" afterPath="$PROJECT_DIR$/test-app.iml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/com/u2d/element/ElemenSuite.java" afterPath="" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -673,41 +668,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/domain/Shipment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="318" selection-end="318" vertical-scroll-proportion="0.26612905">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/composite/USAddress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="503" selection-end="503" vertical-scroll-proportion="0.33870968">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/domain/Meeting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="305" selection-end="305" vertical-scroll-proportion="0.29032257">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/domain/Resource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="375" selection-end="375" vertical-scroll-proportion="0.21774194">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/domain/AtomicMedley.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="306" selection-end="306" vertical-scroll-proportion="0.21774194">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/domain/TestVisit.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="0" selection-start="267" selection-end="267" vertical-scroll-proportion="0.19354838">
@@ -757,13 +717,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractComplexEObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="293" column="18" selection-start="8148" selection-end="8148" vertical-scroll-proportion="0.3322314">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/EntryPoint.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="0" selection-start="706" selection-end="822" vertical-scroll-proportion="0.5322581">
@@ -774,6 +727,48 @@
     <entry file="file://$PROJECT_DIR$/test/com/u2d/element/CommandTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="0" selection-start="738" selection-end="738" vertical-scroll-proportion="0.80508476">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/Viewable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="147" selection-end="147" vertical-scroll-proportion="0.24193548">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/desktop/CloseableJInternalFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="13" selection-start="554" selection-end="554" vertical-scroll-proportion="0.2810903">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/GenericFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="23" selection-start="587" selection-end="587" vertical-scroll-proportion="0.58064514">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/SwingViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="363" column="0" selection-start="10427" selection-end="10427" vertical-scroll-proportion="0.55">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractComplexEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="321" column="0" selection-start="8913" selection-end="8913" vertical-scroll-proportion="0.5305785">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/app/ViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="0" selection-start="875" selection-end="875" vertical-scroll-proportion="0.33225808">
           <folding />
         </state>
       </provider>
