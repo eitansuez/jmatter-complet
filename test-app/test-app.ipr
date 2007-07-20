@@ -7,9 +7,10 @@
         <entry path="file:///home/eitan/work/jmatter-complet/jmatter/lib/test/junit.jar" />
       </additionalClassPath>
       <antReference projectDefault="true" />
-      <customJdkName value="" />
+      <customJdkName value="1.6" />
       <maximumHeapSize value="128" />
       <properties />
+      <executeOn event="beforeRun" target="compile-tests" runConfigurationType="JUnit" runConfigurationName="CommandTest" />
     </buildFile>
   </component>
   <component name="BuildJarProjectSettings">

@@ -15,8 +15,10 @@ import com.u2d.list.RelationalList;
 import com.u2d.app.User;
 import java.util.Iterator;
 
-public class CommandTest
-      extends TestCase
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class CommandTest extends TestCase
 {
    ComplexType folderType;
    EOCommand editCmd;
@@ -24,6 +26,8 @@ public class CommandTest
    protected void setUp()
          throws Exception
    {
+      new ClassPathXmlApplicationContext("applicationContext.xml");
+
       folderType = ComplexType.forClass(Folder.class);
       editCmd = (EOCommand) folderType.instanceCommand("Edit");
    }
@@ -113,7 +117,11 @@ public class CommandTest
       ComplexType userType = ComplexType.forClass(User.class);
       Command openCmd = userType.defaultCommand();
       assertNotNull(openCmd);
-
+   }
+   
+   public void testHasDefaultCmd()
+   {
+      ComplexType userType = ComplexType.forClass(User.class);
       User user = (User) userType.instance();
       Command defaultCmd = user.defaultCommand();
       assertNotNull(defaultCmd);
