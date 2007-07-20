@@ -10,12 +10,11 @@ import junit.framework.TestCase;
 import com.u2d.model.ComplexType;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.type.composite.Folder;
+import com.u2d.type.composite.Person;
 import com.u2d.pattern.Onion;
 import com.u2d.list.RelationalList;
 import com.u2d.app.User;
 import java.util.Iterator;
-
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class CommandTest extends TestCase
@@ -132,6 +131,19 @@ public class CommandTest extends TestCase
       Command newCmd = folderType.command("New");
       assertNotNull(newCmd);
       assertTrue(newCmd instanceof OverloadedEOCmd);
+   }
+   
+   public void testCommandUniqueness()
+   {
+      ComplexType personType = ComplexType.forClass(Person.class);
+      ComplexType userType = ComplexType.forClass(User.class);
+      Command personNew = personType.command("New");
+      Command userNew = userType.command("New");
+      assertNotSame(personNew, userNew);
+      
+      Person p1 = (Person) personType.instance();
+      Person p2 = (Person) personType.instance();
+      assertSame(p1.command("New"), p2.command("New"));
    }
 
 

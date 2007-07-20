@@ -11,7 +11,7 @@
             <type>com.u2d.domain.AtomicMedley</type>
             <type>com.u2d.calendar.Calendrier</type>
             <type>com.u2d.domain.Resource</type>
-            <type>com.u2d.domain.Visit</type>
+            <type>com.u2d.domain.TestVisit</type>
             <type>com.u2d.type.composite.Folder</type>
             <type>com.u2d.find.CompositeQuery</type>
             <type>com.u2d.reporting.SimpleReport</type>
