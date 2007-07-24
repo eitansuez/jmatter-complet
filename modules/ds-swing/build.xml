@@ -19,6 +19,7 @@
       <fileset dir="${libdir}" includes="*.jar" />
       <pathelement location="${buildclassesdir}" />
       <fileset dir="../../jmatter/lib/runtime/" includes="css4swing.jar" />
+      <fileset dir="../../jmatter/lib/runtime/swingvm" includes="swingx*.jar" />
    </path>
 
    <path id="test.classpath">
