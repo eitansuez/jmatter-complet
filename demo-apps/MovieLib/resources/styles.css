@@ -54,6 +54,8 @@ jm|FieldCaption
   font-size: 24pt;
   font-weight: bold;
   padding: 30px;
+  border-radius: 24px;
+  opacity: 0.7;
 }
 
 #aboutPnl

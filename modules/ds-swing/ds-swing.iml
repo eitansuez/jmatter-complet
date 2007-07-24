@@ -46,18 +46,7 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../thirdparty/l2fprod-common-6.11/src" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/swingx-2007_02_20.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../thirdparty/swingx-2007_02_20-src/src/java" />
+          <root url="file://$MODULE_DIR$/../../../thirdparty/l2fprod-common-7.3/src" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -65,6 +54,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/css4swing.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/swingx-2007_02_20.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
