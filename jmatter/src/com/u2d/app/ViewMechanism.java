@@ -177,4 +177,5 @@ public interface ViewMechanism
    public ComplexEView getAlternateView(ComplexEObject ceo, String[] viewNames);
 
    public void setEditable(Editor editor, boolean editable);
+   
 }

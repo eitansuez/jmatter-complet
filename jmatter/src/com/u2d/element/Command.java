@@ -15,7 +15,6 @@ import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.pattern.Filter;
 import com.u2d.pattern.Callback;
-
 import java.util.Arrays;
 import java.lang.reflect.InvocationTargetException;
 
@@ -40,21 +39,6 @@ public abstract class Command extends Member
       
       setState(_readState, true);
    }
-   
-   protected void computePath()
-   {
-      if (_parent == null)
-      {
-         // currently the case for commands set on non-complex types
-         // such as list types and atomic types.  this will be fixed shortly.
-         _fullPath.setValue("#" + _name);
-         return;
-      }
-      
-      String fullPath = _parent.getJavaClass().getName() + "#" + _name;
-      _fullPath.setValue(fullPath);
-   }
-
    
    protected Callback _callback;
    public void setCallback(Callback callback) { _callback = callback; }
@@ -110,11 +94,16 @@ public abstract class Command extends Member
          throw new IllegalArgumentException("Restriction must be a command restriction");
 
       _restriction = (CommandRestriction) restriction;
+      tracer().fine("Applying restriction on command: "+this.toString()+" (fullpath: "+fullPath()+")");
    }
    public CommandRestriction restriction() { return _restriction; }
-   
-   public void liftRestriction() { _restriction = null; }
-   
+
+   public void liftRestriction()
+   {
+      tracer().fine("Lifting restriction on command: "+this.toString()+" (fullpath: "+fullPath()+")");
+      _restriction = null;
+   }
+
    public boolean isForbidden(EObject target)
    {
       tracer().fine("Checking if command "+this.getFullPath()+" is forbidden.."+
@@ -230,22 +219,16 @@ public abstract class Command extends Member
       if (obj == null) return false;
       if (!(obj instanceof Command)) return false;
       if (obj == this) return true;
-      Command cmd = (Command) obj;
       if (_parent == null) return false;
-      return name().equals(cmd.name()) &&
-            _parent.equals(cmd.parent());
+      Command cmd = (Command) obj;
+      return fullPath().equals(cmd.fullPath());
    }
    
+   public int hashCode() { return fullPath().hashCode(); }
+
    public boolean overrides(Command cmd)
    {
       return name().equals(cmd.name());
-   }
-
-   public int hashCode()
-   {
-      if (_parent == null)
-         return name().hashCode() * 31;
-      return name().hashCode() * 31 + _parent.hashCode();
    }
 
 
@@ -282,6 +265,22 @@ public abstract class Command extends Member
    }
    
    
+   protected String calcPath()
+   {
+      if (_parent == null)
+      {
+         // currently the case for commands set on non-complex types
+         // such as list types and atomic types.  this will be fixed shortly.
+         return "#" + _name;
+      }
+      return _parent.getJavaClass().getName() + "#" + _name;
+   }
+   protected void computePath()
+   {
+      _fullPath.setValue(calcPath());
+   }
+
+   
    protected final StringEO _fullPath = new StringEO();
    public StringEO getFullPath() { return _fullPath; }
    public String fullPath() { return _fullPath.stringValue(); }
@@ -297,9 +296,19 @@ public abstract class Command extends Member
          ComplexType type = ComplexType.forClass(cls);
          String commandName = parts[1];
          
-         // this obviously needs work.  there shouldn't be two command lookup methods (!)
-//         Command cmd = type.findCommand(commandName);
-         Command cmd = type.findCommand(commandName);
+         Command cmd = null;
+         if (parts.length == 3)
+         {
+            String stateClassName = parts[2];
+            Class stateClass = Class.forName(stateClassName);
+            cmd = type.command(commandName, stateClass);
+         }
+         else
+         {
+            cmd = type.findCommand(commandName);
+         }
+         
+         
          if (cmd == null)
          {
             System.err.println("Can't find command: "+commandName+" on type: "+type);

@@ -294,7 +294,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public Command defaultCommand() { return command(defaultCommandName()); }
 
 
-   private transient Editor _editor = null;
+   protected transient Editor _editor = null;
 
    public void setEditor(Editor editor)
    {

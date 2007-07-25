@@ -91,8 +91,7 @@ public class Application implements AppEventNotifier
          items.add(defaultRole);
          hbm.saveMany(items);
          
-         // skip this for now..
-//            defaultRole.initializePermissions(hbm);
+         defaultRole.initializePermissions(hbm);
          CodesList.populateCodes(_pmech, hbm.getClasses());
       }
 

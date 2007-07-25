@@ -16,8 +16,14 @@ import com.u2d.type.atom.*;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.element.Member;
 import com.u2d.element.Command;
+import com.u2d.element.CommandInfo;
 import com.u2d.pattern.Block;
+import com.u2d.reflection.Cmd;
+import com.u2d.view.EView;
+
+import javax.swing.*;
 import java.util.*;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Eitan Suez
@@ -55,10 +61,34 @@ public class Role extends AbstractComplexEObject implements Authorizer
       return restriction;
    }
    
+   public void removeCommandRestriction(CommandRestriction restriction)
+   {
+      _restrictions.remove(restriction);
+      restriction.setRole(null);
+   }
+   
    public CommandRestriction addCmdRestriction()
    {
       return addCmdRestriction(new CommandRestriction(this));
    }
+   
+   @Cmd(mnemonic='a')
+   public void AddCmdRestriction(CommandInfo cmdInfo, Command cmd)
+   {
+      CommandRestriction cmdRestriction = new CommandRestriction(this, cmd);
+      _restrictions.add(cmdRestriction);
+      Set set = new HashSet();
+      set.add(this);  set.add(cmdRestriction);
+      hbmPersistor().saveMany(set);
+   }
+   
+   @Cmd
+   public RoleTypeRestrictionMgr ManageRestrictionsForType(CommandInfo cmdInfo, final ComplexType type)
+         throws InterruptedException, InvocationTargetException
+   {
+      return new RoleTypeRestrictionMgr(this, type);
+   }
+   
    
    public Title title() { return _name.title(); }
 
@@ -78,11 +108,29 @@ public class Role extends AbstractComplexEObject implements Authorizer
    }
    public void liftRestrictions()
    {
+      tracer().info("Role "+_name+": lifting restrictions..("+_restrictions.getSize()+")");
       for (Iterator itr = _restrictions.iterator(); itr.hasNext(); )
       {
          Restriction restriction = (Restriction) itr.next();
          restriction.member().liftRestriction();
       }
+   }
+   
+   public CommandRestriction restrictionOnCmd(Command cmd)
+   {
+      for (Iterator itr=_restrictions.iterator(); itr.hasNext(); )
+      {
+         Restriction restriction = (Restriction) itr.next();
+         if (restriction.member() == cmd)
+         {
+            return (CommandRestriction) restriction;
+         }
+      }
+      return null;
+   }
+   public boolean hasRestrictionOnCmd(Command cmd)
+   {
+      return (restrictionOnCmd(cmd) != null);
    }
    
    public boolean equals(Object obj)
@@ -167,15 +215,8 @@ public class Role extends AbstractComplexEObject implements Authorizer
          //  does not require entering edit mode.  so even if disable "edit"
          //   need to ensure that other parts of code that go around this:  editing
          //   associations (namely) is vetoed as well.  that is, add code to 
-         //   just check for the presence of Edit restritions on the association's
+         //   just check for the presence of Edit restrictions on the association's
          //   parent.
-         
-         //  thought:  would be nice if commands were rich enough where
-         //    i could ask it:  isMutator? (does it change the state of the
-         //    underlying object in question).  this way, i could do something
-         //    like:  for each mutating command on given type: forbid.
-         // in ruby, assuming convention can be trusted, can infer from
-         //  command name ending with "!"
 
       }
       

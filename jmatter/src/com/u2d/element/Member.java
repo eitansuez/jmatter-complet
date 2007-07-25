@@ -4,8 +4,6 @@
 package com.u2d.element;
 
 import java.util.*;
-import java.util.logging.Logger;
-
 import com.u2d.model.FieldParent;
 import com.u2d.model.Title;
 import com.u2d.model.ComplexEObject;
@@ -15,10 +13,8 @@ import com.u2d.type.atom.CharEO;
 import com.u2d.app.Context;
 import com.u2d.app.HBMPersistenceMechanism;
 import com.u2d.app.Tracing;
-import com.u2d.persist.HibernatePersistor;
 import com.u2d.pattern.Block;
 import org.hibernate.Session;
-import org.hibernate.Query;
 
 /**
  * @author Eitan Suez
@@ -139,7 +135,7 @@ public abstract class Member extends ProgrammingElement implements Restrictable
       });
    }
    
-   private static void merge(Member member, Session session)
+   public static Member merge(Member member, Session session)
    {
       Member harvested = Member.forMember(member);
       Tracing.tracer().fine("Merging member: "+member+" with member object: "+harvested);
@@ -148,8 +144,8 @@ public abstract class Member extends ProgrammingElement implements Restrictable
       harvested.setVersion(member.getVersion());
       session.evict(member);
       session.update(harvested);
+      return harvested;
    }
-
 
    public Title title() { return getFullPath().title(); }
 

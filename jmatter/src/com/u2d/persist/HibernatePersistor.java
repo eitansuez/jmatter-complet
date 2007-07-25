@@ -59,7 +59,36 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       }
       _cfg.addClass(ComplexType.class);
    }
-   
+
+
+   public void transaction(HBMBlock block)
+   {
+      try
+      {
+         Transaction tx = null;
+         try
+         {
+            Session session = getSession();
+            tx = session.beginTransaction();
+
+            block.invoke(session);
+            
+            tx.commit();
+         }
+         catch (HibernateException ex)
+         {
+            if (tx != null) tx.rollback();
+            throw ex;
+         }
+      }
+      catch (HibernateException ex)
+      {
+         ex.printStackTrace();
+         newSession();
+         throw ex;
+      }
+   }
+
    public void saveMany(java.util.Set ceos)
    {
       try
@@ -425,7 +454,7 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       // this is not necessarily the right course of action:
       //  problem statement:  when saving something, if it has an association
       //  to something transient, the save will fail.  one solution is to 
-      //  cascade the save, which is do here:
+      //  cascade the save, which is done here:
 //      if (ceo.isTransientState())
 //      {
 //         Set set = new HashSet();

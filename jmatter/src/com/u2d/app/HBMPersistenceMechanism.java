@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Query;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
+import com.u2d.persist.HBMBlock;
 import java.util.Set;
 
 /**
@@ -25,5 +26,7 @@ public interface HBMPersistenceMechanism extends PersistenceMechanism
    public void refresh(ComplexEObject eo);
    
    public ComplexEObject lookup(Class clazz, String uniqueFieldName, String value);
+   
+   public void transaction(HBMBlock block);
    
 }

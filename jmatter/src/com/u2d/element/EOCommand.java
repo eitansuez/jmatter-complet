@@ -57,7 +57,20 @@ public class EOCommand extends Command
    private Positioning _positioningHint = Positioning.NEARMOUSE;
    public Positioning getPositioningHint() { return _positioningHint; }
    public void setPositioningHint(Positioning hint) { _positioningHint = hint; }
-   
+
+
+   protected String calcPath()
+   {
+      String fullPath = super.calcPath();
+      if (State.class.isAssignableFrom(_method.getDeclaringClass()))
+      {
+         return fullPath + "#" + _method.getDeclaringClass().getName();
+      }
+      else
+      {
+         return fullPath;
+      }
+   }
 
    public void execute(Object value, EView source) throws InvocationTargetException
    {
@@ -106,7 +119,7 @@ public class EOCommand extends Command
       catch (IllegalArgumentException ex)
       {
          System.err.println("EOCommand:  Failed in attempt to invoke " +
-               " method: " + _method.getName() + " on object: " + target);
+               " method: " + _method + " on object: " + target);
          throw ex;
       }
    }
@@ -166,20 +179,6 @@ public class EOCommand extends Command
                            _mnemonic.charValue(), _params, sensitive());
    }
 
-   public boolean equals(Object obj)
-   {
-      if (obj == null) return false;
-      if (obj == this) return true;
-      if (!(obj instanceof EOCommand)) return false;
-      EOCommand cmd = (EOCommand) obj;
-      return _method.equals(cmd._method) && _parent.equals(cmd._parent);
-   }
-
-   public int hashCode()
-   {
-      return _method.hashCode() * 31 + _parent.hashCode();
-   }
-   
    public OverloadedEOCmd overload(EOCommand secondCmd)
    {
       return new OverloadedEOCmd(_method, (ComplexType) _parent, _mnemonic.charValue(),
