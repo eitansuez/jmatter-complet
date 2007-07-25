@@ -35,8 +35,6 @@ public class EntryPoint
       
          AppSession session = (AppSession) context.getBean("app-session");
          session.launch();
-      
-         Member.mergeInDbMetadata();
       }
       finally
       {

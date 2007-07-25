@@ -8,6 +8,7 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.element.EOCommand;
+import com.u2d.element.Member;
 import java.util.Map;
 import java.util.HashMap;
 import org.hibernate.Session;
@@ -89,6 +90,8 @@ public class AppSession implements AuthManager, AppEventNotifier
 
    public void setupUser(final String username)
    {
+      Member.mergeInDbMetadata();
+      
       User user = null;
       if (hbmpersistence())
       {
