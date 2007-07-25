@@ -35,7 +35,7 @@ public class CommandUserType
       throws HibernateException, java.sql.SQLException
    {
       String commandPath = (String) Hibernate.STRING.nullSafeGet(rs, names[0]);
-      return EOCommand.forPath(commandPath);
+      return Command.forPath(commandPath);
    }
 
    public void nullSafeSet(java.sql.PreparedStatement pstmt, Object value, int index)
