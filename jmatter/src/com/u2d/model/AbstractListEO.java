@@ -77,7 +77,7 @@ public abstract class AbstractListEO extends AbstractEObject
    public Command command(String commandName) { return listtype().command(commandName); }
    public Onion filteredCommands()
    {
-      return commands();  // for now.. TODO: fix.
+      return commands().filter(Command.commandFilter(this));
    }
 
 
