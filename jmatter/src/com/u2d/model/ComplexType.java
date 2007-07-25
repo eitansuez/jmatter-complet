@@ -374,7 +374,6 @@ public class ComplexType extends AbstractComplexEObject
          Command openCmd =
             _reflector.reflectCommand(method,
                                       AbstractComplexEObject.ReadState.class, this);
-//         openCmd.getName().setValue("Inspect Type");
          base.add(openCmd);
       }
       catch (NoSuchMethodException ex)
@@ -426,9 +425,9 @@ public class ComplexType extends AbstractComplexEObject
       Onion commands = commands();
       SimpleFinder finder = Command.finder(commandName);
       return (Command) commands.find(finder);
-      // q: don't you need to disambiguate between different commands 
-      //   with the same name but that exist in different states??
    }
+   // problem: need to disambiguate between different commands 
+   //   with the same name but that exist in different states??
    public Command instanceCommand(String commandName)
    {
       Command cmd = command(commandName);
@@ -607,6 +606,7 @@ public class ComplexType extends AbstractComplexEObject
          cmds.forEach(block);
       }
    }
+   public Map<Class, Onion> instanceCommands() { return _commands; }
    public void allCommands(Block block)
    {
       instanceCommands(block);
