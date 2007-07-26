@@ -205,7 +205,6 @@ public class TypeRestrictionMgrUi extends JPanel
 
    public int transferValue()
    {
-      
       for (Iterator itr=_backingModel.keySet().iterator(); itr.hasNext(); )
       {
          Role role = (Role) itr.next();

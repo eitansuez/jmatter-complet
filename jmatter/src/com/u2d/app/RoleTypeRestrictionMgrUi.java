@@ -8,6 +8,7 @@ import com.u2d.view.swing.FormPane;
 import com.u2d.view.ComplexEView;
 import com.u2d.model.Editor;
 import com.u2d.model.EObject;
+import com.u2d.model.AbstractComplexEObject;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.builder.PanelBuilder;
 import javax.swing.*;
@@ -34,6 +35,12 @@ public class RoleTypeRestrictionMgrUi extends JPanel implements ComplexEView, Ed
       setLayout(new BorderLayout());
       JPanel centerPane = buildUI();
       add(new JScrollPane(centerPane), BorderLayout.CENTER);
+      
+      Command cmd = _mgr.command("ApplyChanges");
+      CommandButton cmdBtn = new CommandButton(cmd, _mgr, this, true);
+      JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+      btnPnl.add(cmdBtn);
+      add(btnPnl, BorderLayout.SOUTH);
    }
 
    private JPanel buildUI()
@@ -41,61 +48,79 @@ public class RoleTypeRestrictionMgrUi extends JPanel implements ComplexEView, Ed
       Onion typeCommands = _mgr.getType().commands();
       Map<Class, Onion> instanceCmds = _mgr.getType().instanceCommands();
 
-      FormLayout layout = new FormLayout("right:pref, 3dlu, center:pref, 6dlu, " +
-                                         "right:pref, 3dlu, center:pref");
-      layout.setColumnGroups(new int[][]{{1, 5}, {3, 7}});
+      FormLayout layout = new FormLayout("right:pref, 3dlu, center:pref");
+//      layout.setColumnGroups(new int[][]{{1, 5}, {3, 7}});
       
       PanelBuilder builder = new PanelBuilder(layout, new FormPane());
       builder.setDefaultDialogBorder();
       
       builder.appendRow("pref");
-      builder.addSeparator("Instance commands", 3);
+      builder.addSeparator("Type commands", 3);
       builder.appendRelatedComponentsGapRow();
       builder.nextLine(2);
-
-      for (Iterator itr = instanceCmds.keySet().iterator(); itr.hasNext(); )
-      {
-         Class stateCls = (Class) itr.next();
-         Onion stateCmds = instanceCmds.get(stateCls);
-
-         builder.appendRow("pref");
-         builder.addSeparator(stateName(stateCls), 3);
-         builder.appendRelatedComponentsGapRow();
-         builder.nextLine(2);
-         
-         for (Iterator itr2 = stateCmds.deepIterator(); itr2.hasNext(); )
-         {
-            builder.appendRow("pref");
-            Command cmd = (Command) itr2.next();
-            builder.addLabel(cmd.label());
-            builder.nextColumn(2);
-            builder.add(checkbox(cmd));
-            builder.appendRelatedComponentsGapRow();
-            builder.nextLine(2);
-         }
-      }
       
-      builder.setRow(1);
-      builder.setColumn(5);
-      builder.addSeparator("Type commands", 3);
-      builder.nextLine(2);
-
       for (Iterator itr = typeCommands.deepIterator(); itr.hasNext(); )
       {
-         builder.setColumn(5);
+         builder.appendRow("pref");
          Command cmd = (Command) itr.next();
          builder.addLabel(cmd.label());
          builder.nextColumn(2);
          builder.add(checkbox(cmd));
+         builder.appendRelatedComponentsGapRow();
          builder.nextLine(2);
       }
 
-      builder.setColumn(5);
-      builder.setColumnSpan(3);
+      int colIdx = 1;
       
-      Command cmd = _mgr.command("ApplyChanges");
-      CommandButton cmdBtn = new CommandButton(cmd, _mgr, this, true);
-      builder.add(cmdBtn);
+      for (Iterator itr = instanceCmds.keySet().iterator(); itr.hasNext(); )
+      {
+         Class stateCls = (Class) itr.next();
+         
+         if ((stateCls == AbstractComplexEObject.NullState.class) ||
+             (stateCls == AbstractComplexEObject.EditState.class) ||
+             (stateCls == AbstractComplexEObject.TransientState.class) ||
+             (stateCls == AbstractComplexEObject.ReadState.class && _mgr.getType().hasSubstates())
+            )
+         {
+            continue;
+         }
+         
+         Onion stateCmds = instanceCmds.get(stateCls);
+         
+         builder.appendColumn("6dlu");
+         builder.appendColumn("right:pref");
+         builder.appendColumn("3dlu");
+         builder.appendColumn("center:pref");
+
+         builder.setRow(1);
+         builder.setColumn(4*colIdx+1);
+         if (stateCls == AbstractComplexEObject.ReadState.class)
+         {
+            builder.addSeparator("Instance commands", 3);
+         }
+         else
+         {
+            builder.addSeparator(stateName(stateCls), 3);
+         }
+         builder.nextLine(2);
+         
+         for (Iterator itr2 = stateCmds.deepIterator(); itr2.hasNext(); )
+         {
+            Command cmd = (Command) itr2.next();
+            if (builder.getRow() > builder.getRowCount())
+            {
+               builder.appendRow("pref");
+               builder.appendRelatedComponentsGapRow();
+            }
+            builder.setColumn(4*colIdx+1);
+            builder.addLabel(cmd.label());
+            builder.nextColumn(2);
+            builder.add(checkbox(cmd));
+            builder.nextLine(2);
+         }
+         
+         colIdx++;
+      }
       
       return builder.getPanel();
    }
