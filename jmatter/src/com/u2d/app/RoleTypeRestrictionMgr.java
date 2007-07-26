@@ -3,6 +3,7 @@ package com.u2d.app;
 import com.u2d.model.ComplexType;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
+import com.u2d.model.IconLoader;
 import com.u2d.element.CommandInfo;
 import com.u2d.persist.HBMBlock;
 import com.u2d.restrict.CommandRestriction;
@@ -10,6 +11,8 @@ import com.u2d.reflection.Cmd;
 import com.u2d.view.EView;
 import java.util.List;
 import org.hibernate.Session;
+
+import javax.swing.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -76,6 +79,12 @@ public class RoleTypeRestrictionMgr extends AbstractComplexEObject
       _editor = mgrui;
       return mgrui;
    }
+
+   public String iconLgResourceRef() { return "images/Restriction32.png"; }
+   public String iconSmResourceRef() { return "images/Restriction16.png"; }
+
+   public Icon iconLg() { return IconLoader.loadIcon(iconLgResourceRef()); }
+   public Icon iconSm() { return IconLoader.loadIcon(iconSmResourceRef()); }
 
    public Title title()
    {

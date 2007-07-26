@@ -18,9 +18,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgr.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgr.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgr.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgrUi.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgrUi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgrUi.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgrUi.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -157,26 +157,7 @@
     <option name="myCurrentFavoritesList" value="JMatter" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="TypeRestrictionMgrUi.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgrUi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="30" selection-start="3784" selection-end="3784" vertical-scroll-proportion="0.58870965">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RoleTypeRestrictionMgrUi.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgrUi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="122" column="0" selection-start="3946" selection-end="3946" vertical-scroll-proportion="1.0241935">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -748,27 +729,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="13" selection-start="1869" selection-end="1869" vertical-scroll-proportion="0.5645161">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/restrict/Restriction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="15" selection-start="1154" selection-end="1154" vertical-scroll-proportion="0.5016129">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/restrict/CommandRestriction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="9" selection-start="600" selection-end="600" vertical-scroll-proportion="0.6048387">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/app/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="209" column="0" selection-start="5794" selection-end="5794" vertical-scroll-proportion="0.3564516">
@@ -804,13 +764,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="13" selection-start="575" selection-end="575" vertical-scroll-proportion="0.24793388">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/model/Harvester.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="324" column="9" selection-start="11684" selection-end="11684" vertical-scroll-proportion="0.3322314">
@@ -825,20 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="408" column="52" selection-start="11172" selection-end="11173" vertical-scroll-proportion="0.3322314">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgrUi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="30" selection-start="3784" selection-end="3784" vertical-scroll-proportion="0.58870965">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/FormPane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="52" selection-start="575" selection-end="575" vertical-scroll-proportion="0.48387095">
@@ -849,6 +788,48 @@
     <entry file="file://$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgrUi.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="122" column="0" selection-start="3946" selection-end="3946" vertical-scroll-proportion="1.0241935">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgrUi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="13" selection-start="839" selection-end="839" vertical-scroll-proportion="0.31451613">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/IconResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="24" selection-start="170" selection-end="170" vertical-scroll-proportion="0.16935484">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/IconLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="3" selection-start="607" selection-end="607" vertical-scroll-proportion="0.58064514">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="315" column="62" selection-start="8751" selection-end="8751" vertical-scroll-proportion="0.38181818">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="0" selection-start="2419" selection-end="2419" vertical-scroll-proportion="0.87903225">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="0" selection-start="2881" selection-end="3188" vertical-scroll-proportion="0.87603307">
           <folding />
         </state>
       </provider>

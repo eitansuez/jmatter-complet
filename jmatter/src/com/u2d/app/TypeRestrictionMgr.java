@@ -1,9 +1,6 @@
 package com.u2d.app;
 
-import com.u2d.model.AbstractComplexEObject;
-import com.u2d.model.ComplexType;
-import com.u2d.model.Title;
-import com.u2d.model.AbstractListEO;
+import com.u2d.model.*;
 import com.u2d.restrict.CommandRestriction;
 import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
@@ -16,6 +13,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.hibernate.Session;
+
+import javax.swing.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -96,8 +95,16 @@ public class TypeRestrictionMgr
       return mgrui;
    }
 
+
+   public String iconLgResourceRef() { return "images/Restriction32.png"; }
+   public String iconSmResourceRef() { return "images/Restriction16.png"; }
+
+   public Icon iconLg() { return IconLoader.loadIcon(iconLgResourceRef()); }
+   public Icon iconSm() { return IconLoader.loadIcon(iconSmResourceRef()); }
+
    public Title title()
    {
       return new Title("Restriction Manager for type '"+_type+"'");
    }
+   
 }
