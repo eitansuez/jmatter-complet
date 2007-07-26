@@ -37,6 +37,7 @@ public class ClassMenu extends JMenu implements EView
             if (ceo instanceof Folder)
             {
                bind((Folder) ceo);
+               addSeparator();
             }
             else
             {
@@ -70,12 +71,15 @@ public class ClassMenu extends JMenu implements EView
    
    public void detach()
    {
-      for (int i=0; i<getComponentCount(); i++)
+      for (int i=0; i<getMenuComponentCount(); i++)
       {
-         CommandsMenuView menu = (CommandsMenuView) getComponent(i);
-         menu.detach();
-         remove(menu);
+         if (getMenuComponent(i) instanceof CommandsMenuView)
+         {
+            CommandsMenuView menu = (CommandsMenuView) getMenuComponent(i);
+            menu.detach(false);
+         }
       }
+      removeAll();
       _menuBar.remove(this);
    }
 

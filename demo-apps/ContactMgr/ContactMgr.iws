@@ -89,34 +89,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <line_breakpoints>
-      <breakpoint url="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/element/Command.java" line="101" class="com.u2d.element.Command" package="com.u2d.element">
-        <option name="ENABLED" value="true" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/element/Command.java" line="110" class="com.u2d.element.Command" package="com.u2d.element">
-        <option name="ENABLED" value="true" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
     <breakpoint_any>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -201,10 +173,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Command.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/element/Command.java">
+      <file leaf-file-name="ClassMenu.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/ClassMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="110" column="0" selection-start="3024" selection-end="3024" vertical-scroll-proportion="0.69251335">
+            <state line="78" column="24" selection-start="1973" selection-end="1973" vertical-scroll-proportion="0.66129035">
               <folding />
             </state>
           </provider>
@@ -380,7 +352,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Favorites="false" PackagesPane="false" Scope="false" ProjectPane="false" />
+      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -441,16 +413,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <module name="" />
-    </configuration>
     <configuration default="true" type="groovy.configuration.type" factoryName="Groovy">
       <option name="SCRIPT_PATH" value="" />
       <option name="VM_PARAMETERS" value="" />
@@ -470,13 +432,6 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -495,6 +450,23 @@
       <method>
         <option name="Make" value="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <module name="" />
     </configuration>
     <configuration default="false" name="Application" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
@@ -600,7 +572,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="30" width="1288" height="778" extended-state="0" />
+    <frame x="0" y="30" width="1288" height="778" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -612,7 +584,7 @@
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32981315" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" order="8" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31950846" order="8" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31950846" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2489796" order="1" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3996724" order="0" />
@@ -749,41 +721,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/atom/DateEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="571" selection-end="571" vertical-scroll-proportion="0.19354838">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/SwingViewMechanism.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="661" column="59" selection-start="19110" selection-end="19110" vertical-scroll-proportion="0.33225808">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/AlternateView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="0" selection-start="2272" selection-end="2272" vertical-scroll-proportion="0.3324397">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/view/ViewInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="0" selection-start="4693" selection-end="4693" vertical-scroll-proportion="0.57372653">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractComplexEObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="279" column="16" selection-start="7750" selection-end="7750" vertical-scroll-proportion="0.33240223">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/CommandsContextMenuView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="109" column="0" selection-start="3058" selection-end="3058" vertical-scroll-proportion="0.3324397">
@@ -851,7 +788,42 @@
     </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/element/Command.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="0" selection-start="3024" selection-end="3024" vertical-scroll-proportion="0.69251335">
+        <state line="110" column="0" selection-start="3191" selection-end="3191" vertical-scroll-proportion="0.024193548">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/AppFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="262" column="7" selection-start="7781" selection-end="7781" vertical-scroll-proportion="0.41774192">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/j2sdk1.6-sun/src.zip!/javax/swing/JMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="829" column="16" selection-start="27658" selection-end="27658" vertical-scroll-proportion="0.33225808">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/j2sdk1.6-sun/src.zip!/java/awt/Container.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1193" column="16" selection-start="48480" selection-end="48480" vertical-scroll-proportion="0.3322314">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/CommandsMenuView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="15" selection-start="1727" selection-end="1727" vertical-scroll-proportion="0.33225808">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/ClassMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="24" selection-start="1973" selection-end="1973" vertical-scroll-proportion="0.66129035">
           <folding />
         </state>
       </provider>

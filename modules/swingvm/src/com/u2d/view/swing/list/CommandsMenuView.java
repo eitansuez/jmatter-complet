@@ -94,7 +94,7 @@ public class CommandsMenuView extends JMenu implements ListEView
       _parent.add(this);
    }
 
-   public void detach()
+   public void detach(boolean removeSelfFromMenu)
    {
       detachCmds();
       if (_eo != null)
@@ -102,8 +102,11 @@ public class CommandsMenuView extends JMenu implements ListEView
          _eo.removeChangeListener(this);
          _eo = null;
       }
-      _parent.remove(this);
+      if (removeSelfFromMenu)
+         _parent.remove(this);
    }
+   public void detach() { detach(true); }
+
    private void detachCmds()
    {
       if (_commands != null)
