@@ -63,7 +63,7 @@ public class RoleTypeRestrictionMgrUi extends JPanel implements ComplexEView, Ed
          builder.appendRelatedComponentsGapRow();
          builder.nextLine(2);
          
-         for (Iterator itr2 = stateCmds.iterator(); itr2.hasNext(); )
+         for (Iterator itr2 = stateCmds.deepIterator(); itr2.hasNext(); )
          {
             builder.appendRow("pref");
             Command cmd = (Command) itr2.next();
@@ -80,7 +80,7 @@ public class RoleTypeRestrictionMgrUi extends JPanel implements ComplexEView, Ed
       builder.addSeparator("Type commands", 3);
       builder.nextLine(2);
 
-      for (Iterator itr = typeCommands.iterator(); itr.hasNext(); )
+      for (Iterator itr = typeCommands.deepIterator(); itr.hasNext(); )
       {
          builder.setColumn(5);
          Command cmd = (Command) itr.next();

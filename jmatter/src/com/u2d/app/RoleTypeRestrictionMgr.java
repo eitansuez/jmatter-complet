@@ -43,10 +43,12 @@ public class RoleTypeRestrictionMgr extends AbstractComplexEObject
    @Cmd
    public String ApplyChanges(CommandInfo cmdInfo)
    {
-      _editor.transferValue();
+      if (_editor != null)
+      {
+         _editor.transferValue();
+      }
       
-      HBMPersistenceMechanism p = Context.getInstance().hbmpersitor();
-      p.transaction(new HBMBlock()
+      hbmPersistor().transaction(new HBMBlock()
       {
          public void invoke(Session session)
          {

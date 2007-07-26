@@ -84,7 +84,6 @@ public class Role extends AbstractComplexEObject implements Authorizer
    
    @Cmd
    public RoleTypeRestrictionMgr ManageRestrictionsForType(CommandInfo cmdInfo, final ComplexType type)
-         throws InterruptedException, InvocationTargetException
    {
       return new RoleTypeRestrictionMgr(this, type);
    }

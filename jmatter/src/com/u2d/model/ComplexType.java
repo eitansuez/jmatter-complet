@@ -751,6 +751,11 @@ public class ComplexType extends AbstractComplexEObject
       return "[tbd]";
    }
 
+   @Cmd
+   public TypeRestrictionMgr ManageRestrictions(CommandInfo cmdInfo)
+   {
+      return new TypeRestrictionMgr(this);
+   }
 
 
    // transferable stuff - TODO:  a possible candidate for aop
