@@ -34,8 +34,17 @@ public class TypeRestrictionMgrUi extends JPanel
    public TypeRestrictionMgrUi(TypeRestrictionMgr mgr)
    {
       _mgr = mgr;
-      
-      _backingModel = new HashMap<Role, java.util.Map<Command, Boolean>>();
+
+      initBackingModel();
+
+      setLayout(new BorderLayout());
+      add(new JScrollPane(buildUI()), BorderLayout.CENTER);
+      add(buttonPnl(), BorderLayout.SOUTH);
+   }
+
+   private void initBackingModel()
+   {
+      _backingModel = new HashMap<Role, Map<Command, Boolean>>();
       for (int i=0; i<_mgr.getRoles().getSize(); i++)
       {
          Role role = (Role) _mgr.getRoles().getElementAt(i);
@@ -62,14 +71,9 @@ public class TypeRestrictionMgrUi extends JPanel
                map.put(cmd, role.hasRestrictionOnCmd(cmd));
             }
          }
-
       }
-      
-      setLayout(new BorderLayout());
-      add(new JScrollPane(buildUI()), BorderLayout.CENTER);
-      add(buttonPnl(), BorderLayout.SOUTH);
    }
-   
+
    private JPanel buildUI()
    {
       Onion typeCommands = _mgr.getType().commands();
@@ -77,7 +81,6 @@ public class TypeRestrictionMgrUi extends JPanel
       
       FormLayout layout = new FormLayout("left:pref");
       PanelBuilder builder = new PanelBuilder(layout, new FormPane());
-      builder.setDefaultDialogBorder();
       
       builder.appendRow("pref");
       builder.addSeparator("Type commands");
@@ -175,9 +178,9 @@ public class TypeRestrictionMgrUi extends JPanel
          }
       });
       
-      Dimension preferredSize = table.getPreferredScrollableViewportSize();
-      preferredSize.height = table.getRowHeight() * table.getRowCount();
-      table.setPreferredScrollableViewportSize(preferredSize);
+      Dimension preferredScrollSize = table.getPreferredScrollableViewportSize();
+      preferredScrollSize.height = table.getRowHeight() * table.getRowCount();
+      table.setPreferredScrollableViewportSize(preferredScrollSize);
       
       return table;
    }
