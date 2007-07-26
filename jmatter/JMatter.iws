@@ -18,8 +18,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgr.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgr.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgr.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
     </list>
   </component>
@@ -771,13 +769,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="13" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.1983471">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/FormPane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="52" selection-start="575" selection-end="575" vertical-scroll-proportion="0.48387095">
@@ -813,23 +804,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgr.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="315" column="62" selection-start="8751" selection-end="8751" vertical-scroll-proportion="0.38181818">
+        <state line="101" column="0" selection-start="3034" selection-end="3034" vertical-scroll-proportion="0.70247936">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgr.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="0" selection-start="2419" selection-end="2419" vertical-scroll-proportion="0.87903225">
+        <state line="84" column="0" selection-start="2263" selection-end="2263" vertical-scroll-proportion="0.7096774">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgr.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/ComplexType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="0" selection-start="2881" selection-end="3188" vertical-scroll-proportion="0.87603307">
+        <state line="81" column="0" selection-start="2217" selection-end="2217" vertical-scroll-proportion="0.3322314">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/model/AbstractComplexEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="316" column="34" selection-start="8805" selection-end="8812" vertical-scroll-proportion="0.3322314">
           <folding />
         </state>
       </provider>

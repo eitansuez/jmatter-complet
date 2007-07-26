@@ -11,7 +11,7 @@
 {
   font-size: 16pt;
   font-weight: bold;
-  color: #113322;
+  color: #222;
   margin-top: 5px;
 }
 JPanel, JRadioButton
@@ -37,6 +37,5 @@ JButton
   margin: 0px 10px;
   border: 1px solid black;
   padding: 2px 10px;
-  border-top-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
 }

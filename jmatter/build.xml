@@ -195,10 +195,19 @@
    <property name="new.project.basedir" value=".." />
    <!-- DOC: presence of "standalone" property determines whether new project is standalone or not -->
 
+
+  <path id="newprojectui.classpath">
+    <fileset dir="${runtime.lib.dir}" includes="css4swing.jar,swingvm/swingx*.jar,antlr-runtime*.jar" />
+    <fileset dir="${tools.lib.dir}" includes="newprojectui.jar" />
+  </path>
+
    <target name="new-project-ui" depends="jar"
            description="GUI for creating a new jmatter project">
-     <java classname="org.jmatter.tools.NewProjectFrontEnd" classpath="lib/tools/newprojectui.jar:lib/runtime/css4swing.jar:lib/runtime/antlr-runtime-3.0.jar" fork="true" />
+     <java classname="org.jmatter.tools.NewProjectFrontEnd" 
+           classpathref="newprojectui.classpath"
+           fork="true" />
    </target>
+
 
    <target name="new-project" depends="jar"
            description="create a new project (flags: new.project.name, new.project.basedir)">

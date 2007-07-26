@@ -1,14 +1,11 @@
 package org.jmatter.tools;
 
 import org.apache.tools.ant.*;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
-
 import com.u2d.css4swing.CSSEngine;
-import com.u2d.css4swing.StyleMenuBar;
 import com.u2d.css4swing.style.ComponentStyle;
 
 /**
