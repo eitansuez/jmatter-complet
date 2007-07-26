@@ -83,9 +83,6 @@ public class RoleTypeRestrictionMgr extends AbstractComplexEObject
    public String iconLgResourceRef() { return "images/Restriction32.png"; }
    public String iconSmResourceRef() { return "images/Restriction16.png"; }
 
-   public Icon iconLg() { return IconLoader.loadIcon(iconLgResourceRef()); }
-   public Icon iconSm() { return IconLoader.loadIcon(iconSmResourceRef()); }
-
    public Title title()
    {
       return new Title("Restriction Manager for role '"+_role+"' on type '"+_type+"'");

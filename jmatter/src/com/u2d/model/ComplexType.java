@@ -79,7 +79,7 @@ public class ComplexType extends AbstractComplexEObject
    
    
    private static transient Map<Class, ComplexType> _typeCache = new HashMap<Class, ComplexType>();
-   public static String[] commandOrder = {"Browse", "New", "Find"};
+   public static String[] commandOrder = {"Browse", "New", "Find", "SmartList", "ImportFromXML", "ManageRestrictions", "Open"};
 
    private static Color DEFAULT_COLOR = new Color(215, 211, 140);
 
@@ -175,7 +175,8 @@ public class ComplexType extends AbstractComplexEObject
       try
       {
          _commands = Harvester.harvestCommands(_clazz, this);
-         _typeCommands = harvestTypeCommands();
+         _typeCommands = Harvester.simpleHarvestCommands(_clazz, new Onion(), true, this);
+
          if (_clazz == ComplexType.class)  // no support for dynamic type creation!  we're in javaland afterall..
          {
             Command newCmd = command("New");
@@ -357,33 +358,6 @@ public class ComplexType extends AbstractComplexEObject
    private static Reflector _reflector = new AnnotationsReflector();
    public static Reflector reflector() { return _reflector; }
 
-   /**
-    * The reason that cannot just fall back to type().commands() is that
-    * static command methods on the class are unique per class and need
-    * to be harvested per class.
-    */
-   protected Onion harvestTypeCommands()
-   {
-      // 1. inspect type..
-      Onion base = new Onion();
-      try
-      {
-         Class[] paramTypes = { CommandInfo.class };
-         Method method = AbstractComplexEObject.ReadState.class.getMethod("Open",
-                                                                          paramTypes);
-         Command openCmd =
-            _reflector.reflectCommand(method,
-                                      AbstractComplexEObject.ReadState.class, this);
-         base.add(openCmd);
-      }
-      catch (NoSuchMethodException ex)
-      {
-         System.err.println("No Such Method: "+ex.getMessage());
-         ex.printStackTrace();
-      }
-      
-      return Harvester.simpleHarvestCommands(_clazz, new Onion(base), true, this);
-   }
 
    public Onion commands() { return _typeCommands; }
 
@@ -763,6 +737,12 @@ public class ComplexType extends AbstractComplexEObject
       return new TypeRestrictionMgr(this);
    }
 
+   @Cmd
+   public ComplexEObject Open(CommandInfo cmdInfo)
+   {
+      refresh();
+      return this;
+   }
 
    // transferable stuff - TODO:  a possible candidate for aop
    private DataFlavor _flavor = null;
