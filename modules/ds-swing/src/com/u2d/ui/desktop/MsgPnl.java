@@ -21,6 +21,11 @@ public class MsgPnl extends JXPanel
    
    public MsgPnl()
    {
+      this(2000);
+   }
+   
+   public MsgPnl(int delay)
+   {
       ComponentStyle.addClass(this, "feedback-pane");
       setVisible(false);
       
@@ -36,6 +41,7 @@ public class MsgPnl extends JXPanel
          public void keyPressed(KeyEvent evt) { dismiss(); }
       });
       
+      _delay = delay;
       _timer = new Timer(_delay, new ActionListener() {
          public void actionPerformed(ActionEvent e) { dismiss(); }
       });
