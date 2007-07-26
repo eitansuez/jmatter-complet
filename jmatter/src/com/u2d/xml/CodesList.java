@@ -10,7 +10,7 @@ import com.u2d.type.MarritalStatus;
 import com.u2d.type.composite.ContactMethod;
 import com.u2d.json.JSON;
 import com.u2d.model.AbstractListEO;
-
+import com.u2d.persist.HBMBlock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
@@ -18,14 +18,12 @@ import java.util.Set;
 import java.io.InputStream;
 import java.io.IOException;
 import java.text.ParseException;
-
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
-import org.hibernate.Transaction;
-import org.hibernate.HibernateException;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -148,7 +146,7 @@ public class CodesList
 
    }  // end populateCodes()
 
-   private static void saveItems(PersistenceMechanism pmech, Class klass, List items)
+   private static void saveItems(PersistenceMechanism pmech, Class klass, final List items)
    {
       if (!(pmech instanceof HBMPersistenceMechanism))
          return;
@@ -163,19 +161,14 @@ public class CodesList
       if (count > 0)
          return;
 
-      Transaction tx = null;
-      try
+      hbm.transaction(new HBMBlock()
       {
-         tx = session.beginTransaction();
-         for (Iterator itr = items.iterator(); itr.hasNext(); )
-            session.save(itr.next());
-         tx.commit();
-      }
-      catch (HibernateException ex)
-      {
-         if (tx != null) tx.rollback();
-         throw ex;
-      }
+         public void invoke(Session session)
+         {
+            for (Iterator itr = items.iterator(); itr.hasNext(); )
+               session.save(itr.next());
+         }
+      });
    }
 
 
