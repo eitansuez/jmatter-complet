@@ -5,8 +5,10 @@ import com.u2d.view.swing.CommandButton;
 import com.u2d.view.swing.FormPane;
 import com.u2d.model.Editor;
 import com.u2d.model.EObject;
+import com.u2d.model.AbstractComplexEObject;
 import com.u2d.element.Command;
 import com.u2d.pattern.Onion;
+import com.u2d.restrict.CommandRestriction;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.builder.PanelBuilder;
 import javax.swing.*;
@@ -15,6 +17,7 @@ import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -94,12 +97,24 @@ public class TypeRestrictionMgrUi extends JPanel
       for (Iterator itr = instanceCmds.keySet().iterator(); itr.hasNext(); )
       {
          Class stateCls = (Class) itr.next();
-         Onion stateCmds = instanceCmds.get(stateCls);
+         if ((stateCls == AbstractComplexEObject.NullState.class) ||
+             (stateCls == AbstractComplexEObject.EditState.class) ||
+             (stateCls == AbstractComplexEObject.TransientState.class) ||
+             (stateCls == AbstractComplexEObject.ReadState.class && _mgr.getType().hasSubstates())
+            )
+         {
+            continue;
+         }
 
-         builder.appendRow("pref");
-         builder.addSeparator(stateName(stateCls));
-         builder.appendRelatedComponentsGapRow();
-         builder.nextLine(2);
+         Onion stateCmds = instanceCmds.get(stateCls);
+         
+         if (stateCls != AbstractComplexEObject.ReadState.class)
+         {
+            builder.appendRow("pref");
+            builder.addSeparator(stateName(stateCls));
+            builder.appendRelatedComponentsGapRow();
+            builder.nextLine(2);
+         }
          
          builder.appendRow("pref");
          builder.add(new JScrollPane(table(stateCmds)));
@@ -187,6 +202,35 @@ public class TypeRestrictionMgrUi extends JPanel
 
    public int transferValue()
    {
+      
+      for (Iterator itr=_backingModel.keySet().iterator(); itr.hasNext(); )
+      {
+         Role role = (Role) itr.next();
+         Map<Command, Boolean> map = _backingModel.get(role);
+         
+         List<CommandRestriction> addedRestrictions, removedRestrictions;
+         addedRestrictions = new ArrayList<CommandRestriction>();
+         removedRestrictions = new ArrayList<CommandRestriction>();
+         
+         for (Iterator itr2 = map.keySet().iterator(); itr2.hasNext(); )
+         {
+            Command cmd = (Command) itr2.next();
+            boolean checked = map.get(cmd);
+            CommandRestriction restriction = role.restrictionOnCmd(cmd);
+            if (restriction==null && checked)
+            {
+               addedRestrictions.add(new CommandRestriction(role, cmd));
+            }
+            else if (restriction!=null && !checked)
+            {
+               removedRestrictions.add(restriction);
+            }
+         }
+         _mgr.setAddedRestrictionsForRole(role, addedRestrictions);
+         _mgr.setRemovedRestrictionsForRole(role, removedRestrictions);
+      }
+      
+      
       return 0;
    }
 

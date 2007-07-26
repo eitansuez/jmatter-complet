@@ -80,6 +80,7 @@ public class TypeRestrictionMgr
                   role.removeCommandRestriction(restriction);
                   session.delete(restriction);
                }
+               session.save(role);
             }
          }
       });

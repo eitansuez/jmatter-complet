@@ -19,7 +19,7 @@ public class FormPane extends JPanel implements Scrollable
       setOpaque(true);
    }
    
-   private static Dimension MAXSIZE = new Dimension(700,450);
+   private static Dimension MAXSIZE = new Dimension(700,500);
    
    public Dimension getPreferredScrollableViewportSize()
    {

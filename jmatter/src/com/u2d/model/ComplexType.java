@@ -391,6 +391,12 @@ public class ComplexType extends AbstractComplexEObject
    {
       return commands().filter(Command.commandFilter(this));
    }
+   
+   public boolean hasSubstates()
+   {
+      System.out.println("number of states: "+_commands.keySet().size());
+      return _commands.keySet().size() > 4;
+   }
 
    public Onion commands(State state)
    {
