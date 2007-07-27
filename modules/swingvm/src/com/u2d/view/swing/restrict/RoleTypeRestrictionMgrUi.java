@@ -1,4 +1,4 @@
-package com.u2d.app;
+package com.u2d.view.swing.restrict;
 
 import com.u2d.pattern.Onion;
 import com.u2d.element.Command;
@@ -9,6 +9,7 @@ import com.u2d.view.ComplexEView;
 import com.u2d.model.Editor;
 import com.u2d.model.EObject;
 import com.u2d.model.AbstractComplexEObject;
+import com.u2d.app.RoleTypeRestrictionMgr;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.builder.PanelBuilder;
 import javax.swing.*;

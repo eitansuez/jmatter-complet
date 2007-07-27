@@ -1,9 +1,6 @@
 package com.u2d.app;
 
-import com.u2d.model.ComplexType;
-import com.u2d.model.AbstractComplexEObject;
-import com.u2d.model.Title;
-import com.u2d.model.IconLoader;
+import com.u2d.model.*;
 import com.u2d.element.CommandInfo;
 import com.u2d.persist.HBMBlock;
 import com.u2d.restrict.CommandRestriction;
@@ -11,8 +8,6 @@ import com.u2d.reflection.Cmd;
 import com.u2d.view.EView;
 import java.util.List;
 import org.hibernate.Session;
-
-import javax.swing.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -75,8 +70,8 @@ public class RoleTypeRestrictionMgr extends AbstractComplexEObject
 
    public EView getMainView()
    {
-      RoleTypeRestrictionMgrUi mgrui = new RoleTypeRestrictionMgrUi(this);;
-      _editor = mgrui;
+      EView mgrui = vmech().getRoleTypeRestrictionMgrUi(this);
+      _editor = (Editor) mgrui;
       return mgrui;
    }
 

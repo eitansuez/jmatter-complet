@@ -595,4 +595,21 @@ public abstract class AbstractListEO extends AbstractEObject
       return text.toString();
    }
    
+   
+   
+   // convenience list-related methods..
+   public static String join(AbstractListEO leo)
+   {
+      if (leo.getSize() == 0) return "";
+      StringBuffer result = new StringBuffer();
+      for (int i=0; i<leo.getSize()-1; i++)
+      {
+         Object item = leo.getElementAt(i);
+         result.append(item.toString()).append(", ");
+      }
+      int lastIdx = leo.getSize() - 1;
+      result.append(leo.getElementAt(lastIdx));
+      return result.toString();
+   }
+   
 }

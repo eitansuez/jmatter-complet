@@ -6,15 +6,11 @@ import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
 import com.u2d.persist.HBMBlock;
 import com.u2d.view.EView;
-
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import org.hibernate.Session;
-
-import javax.swing.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -90,8 +86,8 @@ public class TypeRestrictionMgr
 
    public EView getMainView()
    {
-      TypeRestrictionMgrUi mgrui = new TypeRestrictionMgrUi(this);;
-      _editor = mgrui;
+      EView mgrui = vmech().getTypeRestrictionMgrUi(this);
+      _editor = (Editor) mgrui;
       return mgrui;
    }
 

@@ -23,6 +23,8 @@ import com.u2d.view.swing.find.FindView;
 import com.u2d.view.swing.find.FindView2;
 import com.u2d.view.swing.find.QueryView;
 import com.u2d.view.swing.list.*;
+import com.u2d.view.swing.restrict.TypeRestrictionMgrUi;
+import com.u2d.view.swing.restrict.RoleTypeRestrictionMgrUi;
 import com.u2d.wizard.ui.WizardPane;
 import com.u2d.wizard.details.Wizard;
 import com.u2d.type.*;
@@ -794,30 +796,20 @@ public class SwingViewMechanism implements ViewMechanism
    }
 
    
-   public ComplexEView getFolderView(ComplexEObject ceo)
+   public ComplexEView getFolderView(Folder folder) { return new FolderView(folder); }
+   public ComplexEView getOutlookView(Folder folder) { return new OutlookFolderView(folder); }
+   public ComplexEView getQueryView(CompositeQuery query) { return new QueryView(query); }
+
+
+   public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr)
    {
-      if (! (ceo instanceof Folder))
-         throw new IllegalArgumentException("Object must be a folder type");
-      
-      Folder folder = (Folder) ceo;
-      return new FolderView(folder);
+      return new TypeRestrictionMgrUi(mgr);
    }
-   
-   public ComplexEView getOutlookView(ComplexEObject ceo)
+   public EView getRoleTypeRestrictionMgrUi(RoleTypeRestrictionMgr mgr)
    {
-      if (! (ceo instanceof Folder))
-         throw new IllegalArgumentException("Object must be a folder type");
-      
-      Folder folder = (Folder) ceo;
-      return new OutlookFolderView(folder);
+      return new RoleTypeRestrictionMgrUi(mgr);
    }
-   
-   public ComplexEView getQueryView(CompositeQuery query)
-   {
-      return new QueryView(query);
-   }
-   
-   
+
    public ListEView getAlternateListView(AbstractListEO leo, String[] viewNames)
    {
       return new AlternateListView(leo, viewNames);

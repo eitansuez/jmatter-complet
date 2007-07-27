@@ -11,6 +11,7 @@ import com.u2d.model.*;
 import com.u2d.find.CompositeQuery;
 import com.u2d.field.Association;
 import com.u2d.type.AbstractChoiceEO;
+import com.u2d.type.composite.Folder;
 import com.u2d.calendar.Calendrier;
 import com.u2d.calendar.Schedule;
 import com.u2d.calendar.CalEvent;
@@ -244,21 +245,13 @@ public class WingSViewMechanism implements ViewMechanism
       return new TabBodyView(ceo);
    }
 
-   // TODO: revise signature to strictly apply to Folder argument types
-   public ComplexEView getFolderView(ComplexEObject ceo)
-   {
-      return null;
-   }
+   public ComplexEView getFolderView(Folder folder) { return null; }
+   public ComplexEView getOutlookView(Folder folder) { return null; }
 
-   public ComplexEView getOutlookView(ComplexEObject ceo)
-   {
-      return null;
-   }
+   public ComplexEView getQueryView(CompositeQuery query) { return null; }
 
-   public ComplexEView getQueryView(CompositeQuery query)
-   {
-      return null;
-   }
+   public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr) { return null; }
+   public EView getRoleTypeRestrictionMgrUi(RoleTypeRestrictionMgr mgr) { return null; }
 
    public EView getAggregateView(ComplexEObject value) { return null; }
 

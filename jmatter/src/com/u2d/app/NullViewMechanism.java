@@ -8,6 +8,7 @@ import com.u2d.model.*;
 import com.u2d.find.CompositeQuery;
 import com.u2d.field.Association;
 import com.u2d.type.AbstractChoiceEO;
+import com.u2d.type.composite.Folder;
 import com.u2d.calendar.Calendrier;
 import com.u2d.calendar.Schedule;
 import com.u2d.calendar.CalEvent;
@@ -55,10 +56,13 @@ public class NullViewMechanism implements ViewMechanism
    public ComplexEView getOmniView(ComplexEObject ceo) { return null; }
    public ComplexEView getTabBodyView(ComplexEObject ceo) { return null; }
 
-   public ComplexEView getFolderView(ComplexEObject ceo) { return null; }
-   public ComplexEView getOutlookView(ComplexEObject ceo) { return null; }
+   public ComplexEView getFolderView(Folder ceo) { return null; }
+   public ComplexEView getOutlookView(Folder ceo) { return null; }
    public ComplexEView getQueryView(CompositeQuery query) { return null; }
 
+   public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr) { return null; }
+   public EView getRoleTypeRestrictionMgrUi(RoleTypeRestrictionMgr mgr) { return null; }
+   
    public EView getAggregateView(ComplexEObject value) { return null; }
    public ComplexEView getAssociationView(Association association) { return null; }
    public ComplexEView getChoiceView(AbstractChoiceEO choice) { return null; }
@@ -147,4 +151,5 @@ public class NullViewMechanism implements ViewMechanism
    public ComplexEView getAlternateView(ComplexEObject ceo, String[] viewNames) { return null; }
    
    public void setEditable(Editor editor, boolean editable) { }
+
 }
