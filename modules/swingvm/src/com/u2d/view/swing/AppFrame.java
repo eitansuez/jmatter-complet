@@ -29,11 +29,12 @@ import com.u2d.css4swing.style.ComponentStyle;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.PanelBuilder;
+import org.jdesktop.swingx.JXFrame;
 
 /**
  * @author Eitan Suez
  */
-public class AppFrame extends JFrame
+public class AppFrame extends JXFrame
 {
    private AppSession _appSession;
    private Application _app;
