@@ -17507,7 +17507,7 @@ l2f
 
 \begin_layout Enumerate
 To reference a type selector in that namespace, concatenate the namespace
- id and type name with a vertical bar delimiter.
+ id and type name with the vertical bar delimiter (|).
 \end_layout
 
 \begin_layout Subsection
@@ -17707,6 +17707,25 @@ margin, margin-left, margin-right, margin-top, margin-bottom
 
 \begin_layout LyX-Code
 padding, padding-left, padding-right, padding-top, padding-bottom
+\end_layout
+
+\begin_layout Standard
+JMatter's CSS implementation also supports these CSS3 properties, but only
+ on SwingX JXPanel components, which, unlike basic Swing components, allow
+ for the delegation of background painting:
+\end_layout
+
+\begin_layout LyX-Code
+opacity
+\end_layout
+
+\begin_layout LyX-Code
+border-radius
+\end_layout
+
+\begin_layout LyX-Code
+border-top-left-radius, border-top-right-radius, border-bottom-left-radius,
+ border-bottom-right-radius
 \end_layout
 
 \begin_layout Subsection
@@ -17978,6 +17997,14 @@ And finally, this rule styles the large semi-transparent message panel that
 \end_layout
 
 \begin_layout LyX-Code
+  border-radius: 24px;
+\end_layout
+
+\begin_layout LyX-Code
+  opacity: 0.7;
+\end_layout
+
+\begin_layout LyX-Code
 }
 \end_layout
 
@@ -17999,6 +18026,10 @@ Below is a copy of the complete stylesheet, for reference.
 
 \begin_layout LyX-Code
 @namespace jm com.u2d.view.swing
+\end_layout
+
+\begin_layout LyX-Code
+@namespace types com.u2d.view.swing.atom
 \end_layout
 
 \begin_layout LyX-Code
@@ -18030,6 +18061,10 @@ jm|FormPane
 \end_layout
 
 \begin_layout LyX-Code
+  padding: 5px;
+\end_layout
+
+\begin_layout LyX-Code
 }
 \end_layout
 
@@ -18050,7 +18085,7 @@ jm|FormPane
 \end_layout
 
 \begin_layout LyX-Code
-.list-title, .instance-title
+.list-title, .instance-title, .title
 \end_layout
 
 \begin_layout LyX-Code
@@ -18094,7 +18129,7 @@ jm|FieldCaption
 \end_layout
 
 \begin_layout LyX-Code
-  color: black;
+  color: #2f4f4f;
 \end_layout
 
 \begin_layout LyX-Code
@@ -18114,11 +18149,11 @@ jm|FieldCaption
 \end_layout
 
 \begin_layout LyX-Code
-   color: blue;
+  color: #483d8b;
 \end_layout
 
 \begin_layout LyX-Code
-   font-weight: bold;
+  font-weight: bold;
 \end_layout
 
 \begin_layout LyX-Code
@@ -18174,7 +18209,7 @@ jm|FieldCaption
 \end_layout
 
 \begin_layout LyX-Code
-  background-color: #black;
+  background-color: black;
 \end_layout
 
 \begin_layout LyX-Code
@@ -18190,7 +18225,51 @@ jm|FieldCaption
 \end_layout
 
 \begin_layout LyX-Code
+  border-radius: 24px;
+\end_layout
+
+\begin_layout LyX-Code
+  opacity: 0.7;
+\end_layout
+
+\begin_layout LyX-Code
 }
+\end_layout
+
+\begin_layout LyX-Code
+#aboutPnl
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  margin: 5px;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+types|URIRenderer
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  cursor: pointer;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
 \end_layout
 
 \begin_layout Section
@@ -18223,7 +18302,11 @@ css4swing.jar
 \end_layout
 
 \begin_layout Enumerate
-antlr-3.0b6.jar
+antlr-runtime-3.0.jar
+\end_layout
+
+\begin_layout Enumerate
+swingx-2007_02_20.jar
 \end_layout
 
 \begin_layout Standard
@@ -18529,12 +18612,6 @@ rgb()
 rgba()
 \emph default
  function for supporting transparency
-\end_layout
-
-\begin_layout Enumerate
-Support for the CSS3 border-radius property for specifying rounded corners
- (this can be implemented with SwingX painters, which would apply only to
- JXPanel's)
 \end_layout
 
 \begin_layout Enumerate
