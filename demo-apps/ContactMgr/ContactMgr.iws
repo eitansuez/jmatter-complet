@@ -17,7 +17,9 @@
     <option name="USER" value="" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="" />
+    <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ContactMgr.iws" afterPath="$PROJECT_DIR$/ContactMgr.iws" />
+    </list>
   </component>
   <component name="ChangeListSynchronizer" />
   <component name="ChangesViewManager" flattened_view="true" />
@@ -134,8 +136,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -340,7 +342,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
+      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -401,13 +403,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="groovy.configuration.type" factoryName="Groovy">
-      <option name="SCRIPT_PATH" value="" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="SCRIPT_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY_PATH" value="file://$PROJECT_DIR$" />
-      <module name="" />
-    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -419,6 +414,20 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="groovy.configuration.type" factoryName="Groovy">
+      <option name="SCRIPT_PATH" value="" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="SCRIPT_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY_PATH" value="file://$PROJECT_DIR$" />
+      <module name="" />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
@@ -438,13 +447,6 @@
       <method>
         <option name="Make" value="true" />
       </method>
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
@@ -560,7 +562,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="30" width="1288" height="778" extended-state="0" />
+    <frame x="-4" y="24" width="1288" height="778" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -568,11 +570,11 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24857838" order="1" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" order="1" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3671275" order="4" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36656442" order="4" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32981315" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" order="8" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31950846" order="8" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3190184" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2489796" order="1" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3996724" order="0" />
@@ -703,42 +705,12 @@
   </component>
   <component name="com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectRootMasterDetailsConfigurable" proportions="0.38375" version="1">
     <option name="myPlainMode" value="false" />
-    <option name="myLastEditedConfigurable" value="Project 'ContactMgr'" />
+    <option name="myLastEditedConfigurable" value="JMatter" />
   </component>
   <component name="com.intellij.profile.ui.ErrorOptionsConfigurable" proportions="" version="1">
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/CommandsContextMenuView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="0" selection-start="3058" selection-end="3058" vertical-scroll-proportion="0.3324397">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/pattern/Filter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="146" selection-end="146" vertical-scroll-proportion="0.40214476">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/pattern/Onion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="169" column="22" selection-start="3978" selection-end="3978" vertical-scroll-proportion="0.4903226">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/ComplexType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="391" column="45" selection-start="11632" selection-end="11632" vertical-scroll-proportion="-0.32396695">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/restrict/CommandRestriction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="51" column="0" selection-start="1267" selection-end="1267" vertical-scroll-proportion="0.8064516">
@@ -781,13 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/AppFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="262" column="7" selection-start="7781" selection-end="7781" vertical-scroll-proportion="0.41774192">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/j2sdk1.6-sun/src.zip!/javax/swing/JMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="829" column="16" selection-start="27658" selection-end="27658" vertical-scroll-proportion="0.33225808">
@@ -812,6 +777,41 @@
     <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/ClassMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="78" column="24" selection-start="1973" selection-end="1973" vertical-scroll-proportion="0.66129035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/SeeThruList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="0" selection-start="1764" selection-end="1764" vertical-scroll-proportion="0.92">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/JListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="13" selection-start="572" selection-end="572" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/AppFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="12" selection-start="3384" selection-end="3384" vertical-scroll-proportion="0.6533333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/CommandsContextMenuView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="0" selection-start="1921" selection-end="1921" vertical-scroll-proportion="0.5733333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/SwingViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="241" column="0" selection-start="6827" selection-end="6827" vertical-scroll-proportion="-0.026666667">
           <folding />
         </state>
       </provider>

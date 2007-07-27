@@ -19,7 +19,6 @@
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iml" afterPath="$PROJECT_DIR$/swingvm.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -143,17 +142,7 @@
     </subPane>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AppFrame.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="10" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.3966942">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -207,6 +196,34 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="com.u2d.view.swing.restrict" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.view.swing.list" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.view.swing" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -291,7 +308,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure ProjectPane="false" PackagesPane="false" Scope="false" Favorites="false" />
+      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
       <autoscrollToSource PackagesPane="false" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -300,8 +317,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
+    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -348,18 +365,17 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
       <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="/opt/idea-5766/bin/appletviewer.policy" />
       <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <module name="" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
@@ -387,17 +403,18 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="/opt/idea-5766/bin/appletviewer.policy" />
       <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <module name="" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
     </configuration>
   </component>
   <component name="ScopeViewComponent">
@@ -477,7 +494,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="30" width="1288" height="778" extended-state="0" />
+    <frame x="-4" y="24" width="1288" height="778" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -589,20 +606,6 @@
     <option name="myLastEditedConfigurable" value="IDE Profiles" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-1.5.0-sun-1.5.0.11/src.zip!/javax/swing/ListCellRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="17" selection-start="1108" selection-end="1108" vertical-scroll-proportion="0.17741935">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/AtomicTableCellEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="131" column="0" selection-start="3940" selection-end="4109" vertical-scroll-proportion="0.7768595">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/AssociationTableCellEditor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="62" column="0" selection-start="2019" selection-end="2019" vertical-scroll-proportion="0.41935483">
@@ -680,16 +683,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/SwingViewMechanism.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="13" selection-start="1490" selection-end="1490" vertical-scroll-proportion="0.24793388">
+        <state line="44" column="31" selection-start="1321" selection-end="1321" vertical-scroll-proportion="0.3966942">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/ListEOPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="10" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.3966942">
+        <state line="80" column="43" selection-start="2249" selection-end="2249" vertical-scroll-proportion="0.62903225">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/JListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="13" selection-start="572" selection-end="572" vertical-scroll-proportion="0.1983471">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/SwingViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="253" column="84" selection-start="7319" selection-end="7319" vertical-scroll-proportion="0.6793389">
           <folding />
         </state>
       </provider>

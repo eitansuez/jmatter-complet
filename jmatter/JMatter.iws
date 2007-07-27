@@ -18,13 +18,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgr.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgr.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/u2d/app/TypeRestrictionMgrUi.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgr.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/NullViewMechanism.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/NullViewMechanism.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/AbstractListEO.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/u2d/app/RoleTypeRestrictionMgrUi.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/ViewMechanism.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/ViewMechanism.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
     </list>
   </component>
@@ -253,34 +246,6 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
       </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.model" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.app" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
     </subPane>
   </component>
   <component name="PerforceChangeBrowserSettings">
@@ -384,7 +349,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure ProjectPane="false" PackagesPane="false" Scope="false" Favorites="false" />
+      <showStructure Scope="false" ProjectPane="false" PackagesPane="false" Favorites="false" />
       <autoscrollToSource PackagesPane="false" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -393,8 +358,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
+    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="last_opened_file_path" value="/home/eitan/build_area/jmatter-suite" />
     <property name="MemberChooser.showClasses" value="true" />
@@ -459,6 +424,13 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -477,13 +449,6 @@
       <method>
         <option name="Make" value="true" />
       </method>
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
@@ -576,7 +541,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="30" width="1288" height="778" extended-state="0" />
+    <frame x="-4" y="24" width="1288" height="778" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />

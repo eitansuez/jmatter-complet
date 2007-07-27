@@ -43,8 +43,8 @@ import java.lang.reflect.Method;
  * for keyboard navigation, listselectionmodel, etc..
  * that already exists in JList
  * 
- * Used as the basis for the upcoming GridListView in JMatter,
- * which will replace IconListView.
+ * Used as the basis for the GridListView in JMatter,
+ * which replaced IconListView.
  * 
  * Note: the many warnings of usage of deprecated apis in this
  *  file are a consequence of inheriting code from java se which

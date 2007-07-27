@@ -9,7 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library>
@@ -62,7 +62,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/swingx-2007_02_20.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/swingx.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

@@ -231,8 +231,20 @@ public class SwingViewMechanism implements ViewMechanism
                   }
                   
                   JComponent srcComp = (JComponent) source;
-                  final FlexiFrame existingFrame = 
-                        (FlexiFrame) SwingUtilities.getAncestorOfClass(FlexiFrame.class, srcComp);
+                  Container container = SwingUtilities.getAncestorOfClass(FlexiFrame.class, srcComp);
+                  // since java 6, the above getAncestorOfClass call returns null
+                  // this has to do with the discontinuity in contaiment hierarchy that components
+                  // such as JList create.  here's a workaround:
+                  if (container == null)
+                  {
+                     JComponent focusOwner = (JComponent)
+                           KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+                     if (focusOwner instanceof JList)
+                     {
+                        container = SwingUtilities.getAncestorOfClass(FlexiFrame.class, focusOwner);
+                     }
+                  }
+                  final FlexiFrame existingFrame = (FlexiFrame) container;
 
                   User currentUser = Context.getInstance().getAppSession().getUser();
                   ViewOpenChoice choice = currentUser.getPreferences().getOpenNewViews();
