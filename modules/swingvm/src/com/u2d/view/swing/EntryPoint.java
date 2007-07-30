@@ -2,7 +2,6 @@ package com.u2d.view.swing;
 
 import com.u2d.app.AppSession;
 import com.u2d.app.Application;
-import com.u2d.element.Member;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import org.springframework.context.ApplicationContext;

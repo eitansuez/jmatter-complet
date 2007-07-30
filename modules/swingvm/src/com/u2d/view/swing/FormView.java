@@ -80,11 +80,9 @@ public class FormView extends JPanel implements ComplexEView, Editor
 
       stopListeningForValidations();
 
-      Iterator<EView> itr = _childViews.iterator();
-      EView view = null;
-      while (itr.hasNext())
+      for (Iterator<EView> itr = _childViews.iterator(); itr.hasNext(); )
       {
-         view = itr.next();
+         EView view = itr.next();
          view.detach();
       }
    }
