@@ -30,7 +30,7 @@ public class EntryPoint
          Application app = (Application) context.getBean("application");
          app.addAppEventListener(MESSAGE, splash);
       
-         app.postInitialize();
+         app.seedDatabase();
       
          AppSession session = (AppSession) context.getBean("app-session");
          session.launch();

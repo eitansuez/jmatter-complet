@@ -17,6 +17,9 @@ import com.u2d.pubsub.AppEventType;
 import static com.u2d.pubsub.AppEventType.*;
 import org.hibernate.*;
 import org.jibx.runtime.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.io.InputStream;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -70,7 +73,7 @@ public class Application implements AppEventNotifier
    }
    
    private static final String TEMPLATE_CLASSBAR = "Template Class Bar";
-   public void postInitialize()
+   public void seedDatabase()
    {
       makeClassBar();
 
@@ -172,6 +175,15 @@ public class Application implements AppEventNotifier
    public void fireAppEventNotification(AppEventType evtType, Object target)
    {
       support.fireAppEventNotification(evtType, target);
+   }
+
+
+   public static void main(String[] args)
+   {
+      Logger.getLogger("org.springframework").setLevel(Level.WARNING);
+      ApplicationContext context = 
+            new ClassPathXmlApplicationContext("applicationContext.xml");
+      ((Application) context.getBean("application")).seedDatabase();
    }
 
 }

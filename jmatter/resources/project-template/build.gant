@@ -205,6 +205,13 @@ target ( schemaX : '') { cmd ->
   }
 }
 
+target ( seedDatabase : 'exports schema and initializes database (default classbar + users and roles)' )
+{
+  depends(schemaExport)
+  Ant.java (fork:'true', classpathref:'class.path', classname:'com.u2d.app.Application')
+}
+
+
 /* TODO: (optional)to test .hbm.xml file generation for a single class file
     specify name of class file in the following property 'classFile'
  */

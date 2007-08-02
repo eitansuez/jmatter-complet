@@ -18,11 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iml" afterPath="$PROJECT_DIR$/JMatter.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/model/ComplexType.java" afterPath="$PROJECT_DIR$/src/com/u2d/model/ComplexType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/Role.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/Role.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/app/Application.java" afterPath="$PROJECT_DIR$/src/com/u2d/app/Application.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -159,19 +156,7 @@
     <option name="myCurrentFavoritesList" value="JMatter" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Role.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Role.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="215" column="12" selection-start="7864" selection-end="7864" vertical-scroll-proportion="0.7009967">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -252,6 +237,20 @@
   <component name="NamedScopeManager" />
   <component name="PackagesPane">
     <subPane>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Libraries" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
+        </PATH_ELEMENT>
+      </PATH>
       <PATH>
         <PATH_ELEMENT>
           <option name="myItemId" value="JMatter.ipr" />
@@ -785,13 +784,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/EntryPoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="1139" selection-end="1139" vertical-scroll-proportion="0.8064516">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/project-template/src/applicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="0" selection-start="533" selection-end="533" vertical-scroll-proportion="0.1983471">
@@ -834,13 +826,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="0" selection-start="3139" selection-end="3139" vertical-scroll-proportion="0.52657807">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/pattern/Onion.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="334" column="15" selection-start="8336" selection-end="8336" vertical-scroll-proportion="0.57641196">
@@ -875,6 +860,20 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/EntryPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="0" selection-start="965" selection-end="965" vertical-scroll-proportion="0.6976744">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/app/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="183" column="0" selection-start="6088" selection-end="6088" vertical-scroll-proportion="0.77574754">
+          <folding />
         </state>
       </provider>
     </entry>

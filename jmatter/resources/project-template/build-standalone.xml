@@ -134,6 +134,13 @@
     </java>
  </target>
 
+ <target name="seed-database" depends="schema-export"
+         description="exports schema and initializes database (default classbar + users and roles)">
+   <java fork="true" classpathref="class.path"
+         classname="com.u2d.app.Application" />
+ </target>
+
+
  <!-- TODO: (optional) to test .hbm.xml file generation for a single class file,
     specify name of class file in the following property 'class.file' -->
  <property name="class.file" value="com.u2d.nfjs.Talk" />
