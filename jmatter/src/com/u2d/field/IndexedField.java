@@ -28,6 +28,8 @@ public class IndexedField extends Field implements Bidi, Associable
    protected String _inverseFieldName = null;
    protected Field _inverseField = null;
    protected Boolean _inverseSide = null;
+   
+   public IndexedField() {}
 
    public IndexedField(FieldParent parent, PropertyDescriptor descriptor)
    {
@@ -114,12 +116,11 @@ public class IndexedField extends Field implements Bidi, Associable
       if (_type == null)
       {
          // a new mechanism to determine item type statically (developer provides info in class def)
-         Class fieldCls = null;
          String fldName = getName()+"Type";
          try
          {
             java.lang.reflect.Field f = _parent.getJavaClass().getField(fldName);
-            fieldCls = (Class) f.get(null);
+            Class fieldCls = (Class) f.get(null);
             _type = ComplexType.forClass(fieldCls);
          }
          catch (NoSuchFieldException ex)
@@ -250,7 +251,6 @@ public class IndexedField extends Field implements Bidi, Associable
 
    public boolean isInterfaceType() { return type().isInterfaceType(); }
    public boolean isAbstract() { return type().isAbstract(); }
-   public ComplexType fieldtype() { return type(); }
    
    
    private boolean _ordered;

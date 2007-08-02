@@ -114,9 +114,6 @@ public class AggregateField extends CompositeField implements FieldParent
       return _clazz.isInterface() || 
             Modifier.isAbstract(_clazz.getModifiers());
    }
-   public ComplexType fieldtype() { return ComplexType.forClass(_clazz); }
-
-
    
    public boolean hasFieldOfType(Class cls)
    {

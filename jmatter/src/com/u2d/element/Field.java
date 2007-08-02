@@ -170,7 +170,7 @@ public abstract class Field extends Member
     * 2. named fieldtype() so as not to conflict with complexeobject.type() which now
     *  has become a superclass of field
     */
-   public abstract ComplexType fieldtype();
+   public ComplexType fieldtype() { return ComplexType.forClass(getClass()); }
 
 
    // TODO: make all these abstract and override in child classes
@@ -487,11 +487,5 @@ public abstract class Field extends Member
       return (valueOptions!=null) && !(valueOptions.isEmpty());
    }
    public List<String> valueOptions() { return valueOptions; }
-
-//   public static Class getCustomTypeImplementorClass()
-//   {
-//      return FieldUserType.class;
-//   }
-//
 
 }

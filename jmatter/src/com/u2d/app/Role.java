@@ -8,15 +8,13 @@ import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.model.ComplexType;
 import com.u2d.model.ComplexEObject;
-import com.u2d.restrict.Restriction;
-import com.u2d.restrict.CommandRestriction;
-import com.u2d.restrict.UserRestriction;
-import com.u2d.restrict.CreationRestriction;
+import com.u2d.restrict.*;
 import com.u2d.type.atom.*;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.element.Member;
 import com.u2d.element.Command;
 import com.u2d.element.CommandInfo;
+import com.u2d.element.Field;
 import com.u2d.pattern.Block;
 import com.u2d.reflection.Cmd;
 import java.util.*;
@@ -50,17 +48,26 @@ public class Role extends AbstractComplexEObject implements Authorizer
    public RelationalList getUsers() { return _users; }
    public RelationalList getRestrictions() { return _restrictions; }
    
-   public CommandRestriction addCmdRestriction(CommandRestriction restriction)
+   
+   public Restriction addRestriction(Restriction restriction)
    {
       _restrictions.add(restriction);
       restriction.setRole(this);
       return restriction;
    }
+   public CommandRestriction addCmdRestriction(CommandRestriction restriction)
+   {
+      return (CommandRestriction) addRestriction(restriction);
+   }
    
-   public void removeCommandRestriction(CommandRestriction restriction)
+   public void removeRestriction(Restriction restriction)
    {
       _restrictions.remove(restriction);
       restriction.setRole(null);
+   }
+   public void removeCommandRestriction(CommandRestriction restriction)
+   {
+      removeRestriction(restriction);
    }
    
    public CommandRestriction addCmdRestriction()
@@ -85,7 +92,7 @@ public class Role extends AbstractComplexEObject implements Authorizer
    }
    
    
-   public Title title() { return _name.title(); }
+   public Title title() { return _name.title().append(" role"); }
 
    public void applyRestrictions()
    {
@@ -111,21 +118,34 @@ public class Role extends AbstractComplexEObject implements Authorizer
       }
    }
    
-   public CommandRestriction restrictionOnCmd(Command cmd)
+   public Restriction restrictionOnMember(Member member)
    {
       for (Iterator itr=_restrictions.iterator(); itr.hasNext(); )
       {
          Restriction restriction = (Restriction) itr.next();
-         if (restriction.member() == cmd)
+         if (restriction.member() == member)
          {
-            return (CommandRestriction) restriction;
+            return restriction;
          }
       }
       return null;
    }
+   public CommandRestriction restrictionOnCmd(Command cmd)
+   {
+      return (CommandRestriction) restrictionOnMember(cmd);
+   }
+   public FieldRestriction restrictionOnFld(Field fld)
+   {
+      return (FieldRestriction) restrictionOnMember(fld);
+   }
    public boolean hasRestrictionOnCmd(Command cmd)
    {
       return (restrictionOnCmd(cmd) != null);
+   }
+   public boolean hasRestrictionOnFld(Field fld)
+   {
+      FieldRestriction restriction = restrictionOnFld(fld);
+      return (restriction!=null && !restriction.none());
    }
    
    public boolean equals(Object obj)

@@ -119,6 +119,5 @@ public class AtomicField extends CompositeField
 
    public boolean isInterfaceType() { return false; }
    public boolean isAbstract() { return false; }
-   public ComplexType fieldtype() { return null; }
    
 }

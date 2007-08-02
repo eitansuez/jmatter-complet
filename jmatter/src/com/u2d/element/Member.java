@@ -6,14 +6,11 @@ package com.u2d.element;
 import java.util.*;
 import com.u2d.model.FieldParent;
 import com.u2d.model.Title;
-import com.u2d.model.ComplexEObject;
 import com.u2d.restrict.Restrictable;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.CharEO;
 import com.u2d.app.Context;
-import com.u2d.app.HBMPersistenceMechanism;
 import com.u2d.app.Tracing;
-import com.u2d.pattern.Block;
 import org.hibernate.Session;
 
 /**
@@ -124,15 +121,12 @@ public abstract class Member extends ProgrammingElement implements Restrictable
     */
    public static void mergeInDbMetadata()
    {
-      Context context = Context.getInstance();
-      final HBMPersistenceMechanism hbm = context.hbmpersitor();
-      hbm.list(Member.class).forEach(new Block()
+      Session session = Context.getInstance().hbmpersitor().getSession();
+      List members = session.createCriteria(Member.class).list();
+      for (int i=0; i<members.size(); i++)
       {
-         public void each(ComplexEObject ceo)
-         {
-            merge((Member) ceo, hbm.getSession());
-         }
-      });
+         merge((Member) members.get(i), session);
+      }
    }
    
    public static Member merge(Member member, Session session)

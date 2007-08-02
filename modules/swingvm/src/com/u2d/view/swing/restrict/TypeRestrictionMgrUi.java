@@ -7,14 +7,18 @@ import com.u2d.model.Editor;
 import com.u2d.model.EObject;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.element.Command;
+import com.u2d.element.Field;
 import com.u2d.pattern.Onion;
 import com.u2d.restrict.CommandRestriction;
+import com.u2d.restrict.FieldRestrictionType;
+import com.u2d.restrict.FieldRestriction;
 import com.u2d.app.Role;
 import com.u2d.app.TypeRestrictionMgr;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.builder.PanelBuilder;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -31,7 +35,8 @@ public class TypeRestrictionMgrUi extends JPanel
       implements ComplexEView, Editor
 {
    private TypeRestrictionMgr _mgr;
-   private Map<Role, java.util.Map<Command, Boolean>> _backingModel;
+   private Map<Role, java.util.Map<Command, Boolean>> _cmdBackingModel;
+   private Map<Role, java.util.Map<Field, FieldRestrictionType>> _fldBackingModel;
    
    public TypeRestrictionMgrUi(TypeRestrictionMgr mgr)
    {
@@ -46,14 +51,16 @@ public class TypeRestrictionMgrUi extends JPanel
 
    private void initBackingModel()
    {
-      _backingModel = new HashMap<Role, Map<Command, Boolean>>();
+      _cmdBackingModel = new HashMap<Role, Map<Command, Boolean>>();
+      _fldBackingModel = new HashMap<Role, Map<Field, FieldRestrictionType>>();
+      
       for (int i=0; i<_mgr.getRoles().getSize(); i++)
       {
          Role role = (Role) _mgr.getRoles().getElementAt(i);
     
          Map<Command, Boolean> map = new HashMap<Command, Boolean>();
-         _backingModel.put(role, map);
-              
+         _cmdBackingModel.put(role, map);
+
          Onion typeCommands = _mgr.getType().commands();
          for (Iterator itr = typeCommands.deepIterator(); itr.hasNext(); )
          {
@@ -72,6 +79,20 @@ public class TypeRestrictionMgrUi extends JPanel
                Command cmd = (Command) itr2.next();
                map.put(cmd, role.hasRestrictionOnCmd(cmd));
             }
+         }
+         
+         Map<Field, FieldRestrictionType> fldmap = new HashMap<Field, FieldRestrictionType>();
+         _fldBackingModel.put(role, fldmap);
+         
+         List fields = _mgr.getType().fields();
+         for (Iterator itr = fields.iterator(); itr.hasNext(); )
+         {
+            Field fld = (Field) itr.next();
+            FieldRestriction fr = role.restrictionOnFld(fld);
+            if (fr == null)
+               fldmap.put(fld, new FieldRestrictionType(FieldRestriction.NONE));
+            else
+               fldmap.put(fld, fr.getRestrictionType());
          }
       }
    }
@@ -127,9 +148,88 @@ public class TypeRestrictionMgrUi extends JPanel
          builder.nextLine(2);
       }
       
+      
+      List fields = _mgr.getType().fields();
+      
+      builder.appendRow("pref");
+      builder.addSeparator("Fields");
+      builder.appendRelatedComponentsGapRow();
+      builder.nextLine(2);
+
+      builder.appendRow("pref");
+      builder.add(new JScrollPane(fieldtable(fields)));
+      builder.appendRelatedComponentsGapRow();
+      builder.nextLine(2);
+
       return builder.getPanel();
    }
 
+   private JTable fieldtable(final List fields)
+   {
+      JTable table = new JTable();
+      table.setModel(new AbstractTableModel()
+      {
+         public int getRowCount() { return fields.size(); }
+         public int getColumnCount() { return _mgr.getRoles().getSize() + 1; }
+
+         public Object getValueAt(int rowIndex, int columnIndex)
+         {
+            Field fld = (Field) fields.get(rowIndex);
+            if (columnIndex == 0)
+            {
+               return fld.label();
+            }
+            Role role = (Role) _mgr.getRoles().get(columnIndex-1);
+            Map<Field, FieldRestrictionType> map = _fldBackingModel.get(role);
+            return map.get(fld);
+         }
+
+         public void setValueAt(Object aValue, int rowIndex, int columnIndex)
+         {
+            Field fld = (Field) fields.get(rowIndex);
+            Role role = (Role) _mgr.getRoles().get(columnIndex-1);
+            String value = (String) aValue;
+            Map<Field, FieldRestrictionType> map = _fldBackingModel.get(role);
+            map.put(fld, new FieldRestrictionType(value));
+            fireTableCellUpdated(rowIndex, columnIndex);
+         }
+         
+         public boolean isCellEditable(int rowIndex, int columnIndex)
+         {
+            if (columnIndex == 0) return false;
+            return true;
+         }
+
+         public Class<?> getColumnClass(int columnIndex)
+         {
+            if (columnIndex == 0) return String.class;
+            return FieldRestrictionType.class;
+         }
+         
+         public String getColumnName(int column)
+         {
+            if (column == 0) return "Field";
+            Role role = (Role) _mgr.getRoles().get(column-1);
+            return role.getName() + " role";
+         }
+      });
+      
+      for (int i=1; i<table.getColumnModel().getColumnCount(); i++)
+      {
+         TableColumn roleColumn = table.getColumnModel().getColumn(i);
+         JComboBox comboBox = new JComboBox();
+         comboBox.addItem(FieldRestriction.NONE);
+         comboBox.addItem(FieldRestriction.READ_ONLY);
+         comboBox.addItem(FieldRestriction.HIDDEN);
+         roleColumn.setCellEditor(new DefaultCellEditor(comboBox));
+      }
+
+      Dimension preferredScrollSize = table.getPreferredScrollableViewportSize();
+      preferredScrollSize.height = table.getRowHeight() * table.getRowCount();
+      table.setPreferredScrollableViewportSize(preferredScrollSize);
+      
+      return table;
+   }
    private JTable table(final Onion commands)
    {
       JTable table = new JTable();
@@ -146,7 +246,7 @@ public class TypeRestrictionMgrUi extends JPanel
                return cmd.label();
             }
             Role role = (Role) _mgr.getRoles().get(columnIndex-1);
-            Map<Command, Boolean> map = _backingModel.get(role);
+            Map<Command, Boolean> map = _cmdBackingModel.get(role);
             return map.get(cmd);
          }
 
@@ -155,7 +255,7 @@ public class TypeRestrictionMgrUi extends JPanel
             Command cmd = (Command) commands.get(rowIndex);
             Role role = (Role) _mgr.getRoles().get(columnIndex-1);
             Boolean value = ((Boolean) aValue);
-            Map<Command, Boolean> map = _backingModel.get(role);
+            Map<Command, Boolean> map = _cmdBackingModel.get(role);
             map.put(cmd, value);
             fireTableCellUpdated(rowIndex, columnIndex);
          }
@@ -207,14 +307,16 @@ public class TypeRestrictionMgrUi extends JPanel
 
    public int transferValue()
    {
-      for (Iterator itr=_backingModel.keySet().iterator(); itr.hasNext(); )
+      for (Iterator itr= _mgr.getRoles().iterator(); itr.hasNext(); )
       {
          Role role = (Role) itr.next();
-         Map<Command, Boolean> map = _backingModel.get(role);
+         Map<Command, Boolean> map = _cmdBackingModel.get(role);
+         Map<Field, FieldRestrictionType> fieldmap = _fldBackingModel.get(role);
          
-         List<CommandRestriction> addedRestrictions, removedRestrictions;
-         addedRestrictions = new ArrayList<CommandRestriction>();
-         removedRestrictions = new ArrayList<CommandRestriction>();
+         List addedRestrictions, removedRestrictions, dirtyRestrictions;
+         addedRestrictions = new ArrayList();
+         removedRestrictions = new ArrayList();
+         dirtyRestrictions = new ArrayList();
          
          for (Iterator itr2 = map.keySet().iterator(); itr2.hasNext(); )
          {
@@ -230,8 +332,30 @@ public class TypeRestrictionMgrUi extends JPanel
                removedRestrictions.add(restriction);
             }
          }
+         
+         for (Iterator itr2 = fieldmap.keySet().iterator(); itr2.hasNext(); )
+         {
+            Field fld = (Field) itr2.next();
+            FieldRestrictionType frt = fieldmap.get(fld);
+            FieldRestriction restriction = role.restrictionOnFld(fld);
+            if (restriction == null && !frt.is(FieldRestriction.NONE))
+            {
+               addedRestrictions.add(new FieldRestriction(role, fld, frt));
+            }
+            else if (restriction != null && !restriction.getRestrictionType().equals(frt))
+            {
+               restriction.getRestrictionType().setValue(frt);
+               dirtyRestrictions.add(restriction);
+            }
+            else if (restriction != null && frt.code().equals(FieldRestriction.NONE))
+            {
+               removedRestrictions.add(restriction);
+            }
+         }
+         
          _mgr.setAddedRestrictionsForRole(role, addedRestrictions);
          _mgr.setRemovedRestrictionsForRole(role, removedRestrictions);
+         _mgr.setDirtyRestrictionsForRole(role, dirtyRestrictions);
       }
       
       

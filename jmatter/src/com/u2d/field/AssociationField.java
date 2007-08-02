@@ -266,7 +266,4 @@ public class AssociationField extends Field implements Bidi, Associable
       return _clazz.isInterface() || 
             Modifier.isAbstract(_clazz.getModifiers());
    }
-   public ComplexType fieldtype() { return ComplexType.forClass(_clazz); }
-
-
 }

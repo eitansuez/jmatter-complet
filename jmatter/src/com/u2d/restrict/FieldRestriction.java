@@ -6,6 +6,7 @@ package com.u2d.restrict;
 import com.u2d.app.Role;
 import com.u2d.element.Field;
 import com.u2d.element.Member;
+import com.u2d.model.Title;
 
 /**
  * @author Eitan Suez
@@ -20,15 +21,20 @@ public class FieldRestriction extends Restriction
    public static final String READ_ONLY = "ReadOnly";
    public static final String HIDDEN = "Hidden";
 
-   private final FieldRestrictionType _type = new FieldRestrictionType(READ_ONLY);
+   private final FieldRestrictionType _restrictionType = new FieldRestrictionType(READ_ONLY);
 
    public static String[] fieldOrder = { "role", "member", "restrictionType" };
    
    public FieldRestriction() {}
-   public FieldRestriction(Role role, Field element)
+   public FieldRestriction(Role role, Field field)
    {
       super(role);
-      _member = element;
+      _member = field;
+   }
+   public FieldRestriction(Role role, Field field, FieldRestrictionType frt)
+   {
+      this(role, field);
+      _restrictionType.setValue(frt.code());
    }
    
    
@@ -43,15 +49,15 @@ public class FieldRestriction extends Restriction
    public Member member() { return _member; }
    
 
-   public FieldRestrictionType getRestrictionType() { return _type; }
+   public FieldRestrictionType getRestrictionType() { return _restrictionType; }
    
-   public boolean readOnly()
+   public boolean readOnly()    { return READ_ONLY.equals(_restrictionType.code()); }
+   public boolean hidden() { return HIDDEN.equals(_restrictionType.code()); }
+   public boolean none() { return NONE.equals(_restrictionType.code()); }
+
+
+   public Title title()
    {
-      return READ_ONLY.equals(_type.code());
+      return _member.title().append(",", _role).append(":", _restrictionType);
    }
-   public boolean hidden()
-   {
-      return HIDDEN.equals(_type.code());
-   }
-   
 }

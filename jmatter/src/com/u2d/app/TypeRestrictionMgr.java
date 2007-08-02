@@ -1,7 +1,7 @@
 package com.u2d.app;
 
 import com.u2d.model.*;
-import com.u2d.restrict.CommandRestriction;
+import com.u2d.restrict.Restriction;
 import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
 import com.u2d.persist.HBMBlock;
@@ -23,27 +23,32 @@ public class TypeRestrictionMgr
 {
    private ComplexType _type;
    private AbstractListEO _roles;
-   private Map<Role, List<CommandRestriction>> _addedRestrictions, _removedRestrictions;
+   private Map<Role, List> _addedRestrictions, _removedRestrictions, _dirtyRestrictions;
    
    public TypeRestrictionMgr(ComplexType type)
    {
       _type = type;
       _roles = hbmPersistor().list(Role.class);
 
-      _addedRestrictions = new HashMap<Role, List<CommandRestriction>>();
-      _removedRestrictions = new HashMap<Role, List<CommandRestriction>>();
+      _addedRestrictions = new HashMap<Role, List>();
+      _removedRestrictions = new HashMap<Role, List>();
+      _dirtyRestrictions= new HashMap<Role, List>();
    }
    
    public ComplexType getType() { return _type; }
    public AbstractListEO getRoles() { return _roles; }
    
-   public void setAddedRestrictionsForRole(Role role, List<CommandRestriction> addedRestrictions)
+   public void setAddedRestrictionsForRole(Role role, List addedRestrictions)
    {
       _addedRestrictions.put(role, addedRestrictions);
    }
-   public void setRemovedRestrictionsForRole(Role role, List<CommandRestriction> removedRestrictions)
+   public void setRemovedRestrictionsForRole(Role role, List removedRestrictions)
    {
       _removedRestrictions.put(role, removedRestrictions);
+   }
+   public void setDirtyRestrictionsForRole(Role role, List dirtyRestrictions)
+   {
+      _dirtyRestrictions.put(role, dirtyRestrictions);
    }
    
    @Cmd
@@ -58,22 +63,35 @@ public class TypeRestrictionMgr
             for (Iterator itr = _addedRestrictions.keySet().iterator(); itr.hasNext(); )
             {
                Role role = (Role) itr.next();
-               List<CommandRestriction> addedRestrictionsForRole = _addedRestrictions.get(role);
-               for (CommandRestriction restriction : addedRestrictionsForRole)
+               List addedRestrictionsForRole = _addedRestrictions.get(role);
+               for (int i=0; i<addedRestrictionsForRole.size(); i++)
                {
+                  Restriction restriction = (Restriction) addedRestrictionsForRole.get(i);
                   session.save(restriction);
-                  role.addCmdRestriction(restriction);
+                  role.addRestriction(restriction);
                }
                session.save(role);
             }
             for (Iterator itr = _removedRestrictions.keySet().iterator(); itr.hasNext(); )
             {
                Role role = (Role) itr.next();
-               List<CommandRestriction> removedRestrictionsForRole = _removedRestrictions.get(role);
-               for (CommandRestriction restriction : removedRestrictionsForRole)
+               List removedRestrictionsForRole = _removedRestrictions.get(role);
+               for (int i=0; i<removedRestrictionsForRole.size(); i++)
                {
-                  role.removeCommandRestriction(restriction);
+                  Restriction restriction = (Restriction) removedRestrictionsForRole.get(i);
+                  role.removeRestriction(restriction);
                   session.delete(restriction);
+               }
+               session.save(role);
+            }
+            for (Iterator itr = _dirtyRestrictions.keySet().iterator(); itr.hasNext(); )
+            {
+               Role role = (Role) itr.next();
+               List dirtyRestrictionsForRole = _dirtyRestrictions.get(role);
+               for (int i=0; i<dirtyRestrictionsForRole.size(); i++)
+               {
+                  Restriction restriction = (Restriction) dirtyRestrictionsForRole.get(i);
+                  session.save(restriction);
                }
                session.save(role);
             }

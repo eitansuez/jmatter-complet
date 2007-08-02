@@ -15,6 +15,8 @@ import java.beans.IntrospectionException;
  */
 public class CompositeIndexedField extends IndexedField
 {
+   public CompositeIndexedField() {}
+   
    public CompositeIndexedField(FieldParent parent, PropertyDescriptor descriptor)
    {
       super(parent, descriptor);
