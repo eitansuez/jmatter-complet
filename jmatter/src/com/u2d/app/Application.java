@@ -81,14 +81,14 @@ public class Application implements AppEventNotifier
       int count = ((Long) session.createQuery(hql).iterate().next()).intValue();
       if (count == 0)
       {
-         message("Creating Admin User and base roles..");
+         message("Creating base users and roles..");
          Role adminRole = new Role("Administrator");
          Role defaultRole = new Role("Default");
-         User adminUser = new User("admin", "admin", adminRole);
          Set<EObject> items = new HashSet<EObject>();
-         items.add(adminUser);
          items.add(adminRole);
          items.add(defaultRole);
+         items.add(new User("admin", "admin", adminRole));
+         items.add(new User("johndoe", "johndoe", defaultRole));
          hbm.saveMany(items);
          
          defaultRole.initializePermissions(hbm);

@@ -19,11 +19,7 @@ import com.u2d.element.Command;
 import com.u2d.element.CommandInfo;
 import com.u2d.pattern.Block;
 import com.u2d.reflection.Cmd;
-import com.u2d.view.EView;
-
-import javax.swing.*;
 import java.util.*;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Eitan Suez
@@ -200,6 +196,22 @@ public class Role extends AbstractComplexEObject implements Authorizer
             Command forbidForRole = 
                   ComplexType.forClass(Command.class).instanceCommand("ForbidForRole");
             addCmdRestriction().on(forbidForRole);
+            
+            addCmdRestriction().on(roleType.instanceCommand("ManageRestrictionsForType"));
+            addCmdRestriction().on(roleType.instanceCommand("AddCmdRestriction"));
+            
+            ComplexType.persistedTypes().forEach(new Block()
+            {
+               public void each(ComplexEObject ceo)
+               {
+                  ComplexType type = (ComplexType) ceo;
+                  addCmdRestriction().on(type.command("Open"));
+                  addCmdRestriction().on(type.command("ManageRestrictions"));
+               }
+            });
+            ComplexType types = ComplexType.forClass(ComplexType.class);
+            addCmdRestriction().on(types.instanceCommand("Open"));
+            addCmdRestriction().on(types.instanceCommand("ManageRestrictions"));
             
             Set items = new HashSet();
             items.addAll(_restrictions.getItems());

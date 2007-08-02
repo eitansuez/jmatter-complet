@@ -177,7 +177,7 @@ public class ComplexType extends AbstractComplexEObject
          _commands = Harvester.harvestCommands(_clazz, this);
          _typeCommands = Harvester.simpleHarvestCommands(_clazz, new Onion(), true, this);
 
-         if (_clazz == ComplexType.class)  // no support for dynamic type creation!  we're in javaland afterall..
+         if (isMetaType())  // no support for dynamic type creation!  we're in javaland afterall..
          {
             Command newCmd = command("New");
             _typeCommands.remove(newCmd);
@@ -629,7 +629,7 @@ public class ComplexType extends AbstractComplexEObject
    @Cmd
    public AbstractListEO Browse(CommandInfo cmdInfo)
    {
-      if (_clazz.equals(ComplexType.class))
+      if (isMetaType())
       {
          return persistedTypes();
       }
@@ -647,13 +647,13 @@ public class ComplexType extends AbstractComplexEObject
       }
    }
 
-   private PlainListEObject _persistedTypes;
-   private PlainListEObject persistedTypes()
+   private static PlainListEObject _persistedTypes;
+   public static PlainListEObject persistedTypes()
    {
       if (_persistedTypes == null)
       {
          _persistedTypes = new PlainListEObject(ComplexType.class);
-         HBMPersistenceMechanism hbm = hbmPersistor();
+         HBMPersistenceMechanism hbm = Context.getInstance().hbmpersitor();
          Set<Class> persistClasses = hbm.getClasses();
          for (Class cls : persistClasses)
          {
@@ -1038,6 +1038,11 @@ public class ComplexType extends AbstractComplexEObject
    }
 
    public boolean isMeta() { return true; }
+
+   public boolean isMetaType()
+   {
+      return (_clazz == ComplexType.class);
+   }
 
 
    private StringEO _defaultSearchPath = new StringEO();
