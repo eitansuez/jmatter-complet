@@ -228,34 +228,34 @@ public class HBMMaker
          else
          {
             String tableName = (field.isInverse() ? 
-                  field.type().name() + "_" + parent.name() : 
-                  parent.name() + "_" + field.type().name());
+                  field.fieldtype().name() + "_" + parent.name() : 
+                  parent.name() + "_" + field.fieldtype().name());
             listElem.addAttribute("table", tableName);
             Element manyToManyElem = listElem.addElement("many-to-many");
             manyToManyElem.addAttribute("column", genIdName(field.name()));
-            manyToManyElem.addAttribute("class", field.type().getQualifiedName());
+            manyToManyElem.addAttribute("class", field.fieldtype().getQualifiedName());
          }
       }
       else if (field.isComposite())
       {
          Element compElem = listElem.addElement("composite-element");
-         compElem.addAttribute("class", field.type().getQualifiedName());
-         produceFieldMapping(compElem, field.type());
+         compElem.addAttribute("class", field.fieldtype().getQualifiedName());
+         produceFieldMapping(compElem, field.fieldtype());
       }
       else
       {
          // if field has a user type (TODO: or more generally if it is a value type), 
          // then need to map as an element, not a one-to-many
-         if (hasCustomUserType(field.type().getJavaClass()))
+         if (hasCustomUserType(field.fieldtype().getJavaClass()))
          {
             Element elem = listElem.addElement("element");
-            Class userTypeCls = getCustomUserType(field.type().getJavaClass());
+            Class userTypeCls = getCustomUserType(field.fieldtype().getJavaClass());
             elem.addAttribute("type", userTypeCls.getName());
          }
          else
          {
             Element oneToManyElem = listElem.addElement("one-to-many");
-            oneToManyElem.addAttribute("class", field.type().getQualifiedName());
+            oneToManyElem.addAttribute("class", field.fieldtype().getQualifiedName());
          }
       }
       return listElem;

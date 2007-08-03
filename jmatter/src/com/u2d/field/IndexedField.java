@@ -25,6 +25,7 @@ import com.u2d.reflection.IdxFld;
  */
 public class IndexedField extends Field implements Bidi, Associable
 {
+   protected ComplexType _fieldtype;
    protected String _inverseFieldName = null;
    protected Field _inverseField = null;
    protected Boolean _inverseSide = null;
@@ -55,7 +56,7 @@ public class IndexedField extends Field implements Bidi, Associable
       if (_inverseField == null)
       {
 //         System.out.println("indexedfield looking for "+_inverseFieldName+" on "+type());
-         _inverseField = type().field(_inverseFieldName);
+         _inverseField = fieldtype().field(_inverseFieldName);
 //         System.out.println("Found inverse field: "+_inverseField);
          ((Bidi) _inverseField).setInverseField(this);
       }
@@ -111,9 +112,9 @@ public class IndexedField extends Field implements Bidi, Associable
       return _inverseSide.booleanValue();
    }
 
-   public ComplexType type()
+   public ComplexType fieldtype()
    {
-      if (_type == null)
+      if (_fieldtype == null)
       {
          // a new mechanism to determine item type statically (developer provides info in class def)
          String fldName = getName()+"Type";
@@ -121,7 +122,7 @@ public class IndexedField extends Field implements Bidi, Associable
          {
             java.lang.reflect.Field f = _parent.getJavaClass().getField(fldName);
             Class fieldCls = (Class) f.get(null);
-            _type = ComplexType.forClass(fieldCls);
+            _fieldtype = ComplexType.forClass(fieldCls);
          }
          catch (NoSuchFieldException ex)
          {
@@ -134,7 +135,7 @@ public class IndexedField extends Field implements Bidi, Associable
                   fldName + "(Class: " + _parent.getJavaClass() + ")");
          }
       }
-      return _type;
+      return _fieldtype;
    }
 
    public boolean isComposite() { return false; }
@@ -249,10 +250,6 @@ public class IndexedField extends Field implements Bidi, Associable
       }
    }
 
-   public boolean isInterfaceType() { return type().isInterfaceType(); }
-   public boolean isAbstract() { return type().isAbstract(); }
-   
-   
    private boolean _ordered;
    public boolean isOrdered() { return _ordered; }
    public void setOrdered(boolean ordered) { _ordered = ordered; }

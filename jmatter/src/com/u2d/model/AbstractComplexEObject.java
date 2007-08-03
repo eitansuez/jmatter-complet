@@ -533,10 +533,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    protected void transferCopy(ComplexEObject target, ComplexEObject copy, boolean forCopy)
    {
       List fields = target.type().fields();
-      if (target instanceof Field)
-      {
-         fields = ((Field) target).fieldtype().fields();
-      }
       for (int i=0; i<fields.size(); i++)
       {
          Field field = (Field) fields.get(i);

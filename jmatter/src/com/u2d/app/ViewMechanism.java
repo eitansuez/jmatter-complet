@@ -12,7 +12,6 @@ import com.u2d.list.RelationalList;
 import com.u2d.model.*;
 import com.u2d.reporting.*;
 import com.u2d.type.AbstractChoiceEO;
-import com.u2d.type.composite.Folder;
 import com.u2d.view.*;
 import com.u2d.wizard.details.Wizard;
 import com.u2d.model.AtomicEditor;
@@ -55,8 +54,8 @@ public interface ViewMechanism
    public ComplexEView getTabBodyView(ComplexEObject ceo);
 
 
-   public ComplexEView getFolderView(Folder ceo);
-   public ComplexEView getOutlookView(Folder ceo);
+   public ComplexEView getFolderView(ComplexEObject ceo);
+   public ComplexEView getOutlookView(ComplexEObject ceo);
    public ComplexEView getQueryView(CompositeQuery query);
 
    public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr);

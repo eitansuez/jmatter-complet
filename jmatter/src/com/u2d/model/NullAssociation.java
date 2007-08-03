@@ -40,7 +40,7 @@ public class NullAssociation extends NullComplexEObject
 
    public NullAssociation(IndexedField field, ComplexEObject parent)
    {
-      super(field.type());
+      super(field.fieldtype());
       setField(field, parent);
       _association = parent.association(field.name());
    }

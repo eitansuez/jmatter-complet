@@ -117,7 +117,4 @@ public class AtomicField extends CompositeField
    public String getSortPropertyName() { return getCleanPath(); }
    public boolean isSortable() { return true; }
 
-   public boolean isInterfaceType() { return false; }
-   public boolean isAbstract() { return false; }
-   
 }

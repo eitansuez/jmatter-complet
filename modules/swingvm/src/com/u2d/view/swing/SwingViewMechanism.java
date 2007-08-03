@@ -807,9 +807,30 @@ public class SwingViewMechanism implements ViewMechanism
       return findview;
    }
 
-   
-   public ComplexEView getFolderView(Folder folder) { return new FolderView(folder); }
-   public ComplexEView getOutlookView(Folder folder) { return new OutlookFolderView(folder); }
+
+   /*
+    folder views are sometimes constructed dynamically/reflectivley
+    (see viewinfo).  the expected signature for these methods is that
+    they access a parameter of type ComplexEObject.
+    */
+   public ComplexEView getFolderView(ComplexEObject ceo)
+   {
+      if (! (ceo instanceof Folder))
+         throw new IllegalArgumentException("Object must be a folder type");
+      
+      Folder folder = (Folder) ceo;
+      return new FolderView(folder);
+   }
+
+   public ComplexEView getOutlookView(ComplexEObject ceo)
+   {
+      if (!(ceo instanceof Folder))
+         throw new IllegalArgumentException("Object must be a folder type");
+
+      Folder folder = (Folder) ceo;
+      return new OutlookFolderView(folder);
+   }
+
    public ComplexEView getQueryView(CompositeQuery query) { return new QueryView(query); }
 
 

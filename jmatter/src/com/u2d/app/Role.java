@@ -92,7 +92,7 @@ public class Role extends AbstractComplexEObject implements Authorizer
    }
    
    
-   public Title title() { return _name.title().append(" role"); }
+   public Title title() { return _name.title().append("role"); }
 
    public void applyRestrictions()
    {

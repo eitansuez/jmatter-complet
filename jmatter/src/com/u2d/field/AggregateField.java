@@ -108,13 +108,6 @@ public class AggregateField extends CompositeField implements FieldParent
       ((ComplexEObject) value).setState(state);
    }
 
-   public boolean isInterfaceType() { return _clazz.isInterface(); }
-   public boolean isAbstract()
-   {
-      return _clazz.isInterface() || 
-            Modifier.isAbstract(_clazz.getModifiers());
-   }
-   
    public boolean hasFieldOfType(Class cls)
    {
       return firstFieldOfType(cls) != null;

@@ -12,7 +12,6 @@ import com.u2d.model.*;
 import com.u2d.find.CompositeQuery;
 import com.u2d.field.Association;
 import com.u2d.type.AbstractChoiceEO;
-import com.u2d.type.composite.Folder;
 import com.u2d.calendar.Calendrier;
 import com.u2d.calendar.Schedule;
 import com.u2d.calendar.CalEvent;
@@ -161,8 +160,8 @@ public class Echo2ViewMechanism implements ViewMechanism
       return null;
    }
 
-   public ComplexEView getFolderView(Folder folder) { return null; }
-   public ComplexEView getOutlookView(Folder folder) { return null; }
+   public ComplexEView getFolderView(ComplexEObject folder) { return null; }
+   public ComplexEView getOutlookView(ComplexEObject folder) { return null; }
 
    public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr) { return null; }
    public EView getRoleTypeRestrictionMgrUi(RoleTypeRestrictionMgr mgr) { return null; }

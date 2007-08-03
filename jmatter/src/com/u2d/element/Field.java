@@ -28,7 +28,6 @@ public abstract class Field extends Member
          implements java.io.Serializable
 {
    protected Class _clazz;
-   protected ComplexType _type;
    private String _cleanPath, _path, _naturalPath;
    private final StringEO _fullPath = new StringEO();
    private Title _title;
@@ -162,15 +161,17 @@ public abstract class Field extends Member
       return (this instanceof Associable);
    }
 
-   public abstract boolean isInterfaceType();
-   public abstract boolean isAbstract();
-   /**
-    * 1. lazy derivation of type from class avoids infinite recursion when harvesting
-    *  if this were placed eagerly in Field's constructor
-    * 2. named fieldtype() so as not to conflict with complexeobject.type() which now
-    *  has become a superclass of field
-    */
-   public ComplexType fieldtype() { return ComplexType.forClass(getClass()); }
+   public ComplexType fieldtype()
+   {
+      if (ComplexEObject.class.isAssignableFrom(_clazz))
+      {
+         return ComplexType.forClass(_clazz);
+      }
+      return null;
+   }
+
+   public boolean isInterfaceType() { return fieldtype().isInterfaceType(); }
+   public boolean isAbstract() { return fieldtype().isAbstract(); }
 
 
    // TODO: make all these abstract and override in child classes

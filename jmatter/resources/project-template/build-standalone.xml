@@ -77,7 +77,7 @@
    </make-persistclasses>
 
    <copy todir="${build.classes.dir}">
-      <fileset dir="resources" includes="images/*.gif,images/*.png,**/*.jpg" />
+      <fileset dir="resources" includes="images/*.gif,images/*.png,images/*.jpg" />
       <fileset dir="resources" includes="model-metadata.properties" />
       <fileset dir="resources" includes="locale-metadata*.properties" />
       <fileset dir="resources" includes="styles.css" />
