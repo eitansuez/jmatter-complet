@@ -54,7 +54,8 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
       }
    }
    
-   private String mnemonics = "";
+   private String mnemonics = "A"; // TODO:  the list of mnemonics should be global to the app..
+   
    private void addMnemonic(int index, String caption)
    {
       int i = 0;
@@ -63,7 +64,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
       {
          ch = caption.charAt(i++);
       }
-      setMnemonicAt(index, ch);
+      setMnemonicAt(index, Character.toUpperCase(ch));
       mnemonics += ch;
    }
    
@@ -74,7 +75,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
          v.detach();
       }
       _tabs.clear();
-      mnemonics = "";
+      mnemonics = "A";
       removeAll();
    }
 
