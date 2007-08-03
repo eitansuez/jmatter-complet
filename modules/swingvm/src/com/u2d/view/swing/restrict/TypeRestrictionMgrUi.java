@@ -19,6 +19,7 @@ import com.jgoodies.forms.builder.PanelBuilder;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -111,7 +112,7 @@ public class TypeRestrictionMgrUi extends JPanel
       builder.nextLine(2);
 
       builder.appendRow("pref");
-      builder.add(new JScrollPane(table(typeCommands)));
+      builder.add(new JScrollPane(commandtable(typeCommands)));
       builder.appendRelatedComponentsGapRow();
       builder.nextLine(2);
 
@@ -143,7 +144,7 @@ public class TypeRestrictionMgrUi extends JPanel
          }
          
          builder.appendRow("pref");
-         builder.add(new JScrollPane(table(stateCmds)));
+         builder.add(new JScrollPane(commandtable(stateCmds)));
          builder.appendRelatedComponentsGapRow();
          builder.nextLine(2);
       }
@@ -164,10 +165,18 @@ public class TypeRestrictionMgrUi extends JPanel
       return builder.getPanel();
    }
 
-   private JTable fieldtable(final List fields)
+   private JTable table(TableModel model)
    {
       JTable table = new JTable();
-      table.setModel(new AbstractTableModel()
+      table.setModel(model);
+      Dimension preferredScrollSize = table.getPreferredScrollableViewportSize();
+      preferredScrollSize.height = table.getRowHeight() * table.getRowCount();
+      table.setPreferredScrollableViewportSize(preferredScrollSize);
+      return table;
+   }
+   private JTable fieldtable(final List fields)
+   {
+      JTable table = table(new AbstractTableModel()
       {
          public int getRowCount() { return fields.size(); }
          public int getColumnCount() { return _mgr.getRoles().getSize() + 1; }
@@ -224,16 +233,11 @@ public class TypeRestrictionMgrUi extends JPanel
          roleColumn.setCellEditor(new DefaultCellEditor(comboBox));
       }
 
-      Dimension preferredScrollSize = table.getPreferredScrollableViewportSize();
-      preferredScrollSize.height = table.getRowHeight() * table.getRowCount();
-      table.setPreferredScrollableViewportSize(preferredScrollSize);
-      
       return table;
    }
-   private JTable table(final Onion commands)
+   private JTable commandtable(final Onion commands)
    {
-      JTable table = new JTable();
-      table.setModel(new AbstractTableModel()
+      return table(new AbstractTableModel()
       {
          public int getRowCount() { return commands.size(); }
          public int getColumnCount() { return _mgr.getRoles().getSize() + 1; }
@@ -279,12 +283,6 @@ public class TypeRestrictionMgrUi extends JPanel
             return role.getName() + " role";
          }
       });
-      
-      Dimension preferredScrollSize = table.getPreferredScrollableViewportSize();
-      preferredScrollSize.height = table.getRowHeight() * table.getRowCount();
-      table.setPreferredScrollableViewportSize(preferredScrollSize);
-      
-      return table;
    }
    
    private JPanel buttonPnl()
