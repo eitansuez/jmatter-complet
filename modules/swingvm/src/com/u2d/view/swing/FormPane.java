@@ -16,6 +16,7 @@ public class FormPane extends JPanel implements Scrollable
 {
    public FormPane()
    {
+      super();
       setOpaque(true);
    }
    
@@ -24,6 +25,16 @@ public class FormPane extends JPanel implements Scrollable
    public Dimension getPreferredScrollableViewportSize()
    {
       Dimension p = getPreferredSize();
+      
+      if (getScrollableTracksViewportWidth())
+      {
+         p.width += 20;
+      }
+      if (getScrollableTracksViewportHeight())
+      {
+         p.height += 20;
+      }
+      
       p.height = Math.min(p.height, MAXSIZE.height);
       p.width = Math.min(p.width, MAXSIZE.width);
       return p;
