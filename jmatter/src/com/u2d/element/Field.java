@@ -365,7 +365,7 @@ public abstract class Field extends Member
    public Title title() { return _title; }
 
    protected boolean _readOnly = false;
-   public boolean isReadOnly() { return _readOnly; }
+   public boolean isReadOnly() { return _readOnly || restrictReadOnly(); }
    public void setReadOnly(boolean readOnly) { _readOnly = readOnly; }
 
    protected final BooleanEO _hidden = new BooleanEO(false);

@@ -12,6 +12,7 @@ import com.u2d.model.*;
 import com.u2d.pattern.*;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.view.*;
+import com.u2d.reflection.Fld;
 
 /**
  * @author Eitan Suez
@@ -78,6 +79,8 @@ public class AggregateField extends CompositeField implements FieldParent
 
    private final RelationalList _subFields = new RelationalList(Field.class);
    public static Class subFieldsType = Field.class;
+   
+   @Fld(persist=false)
    public RelationalList getSubFields() { return _subFields; }
 
 

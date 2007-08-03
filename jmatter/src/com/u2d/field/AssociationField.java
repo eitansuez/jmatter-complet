@@ -206,6 +206,13 @@ public class AssociationField extends Field implements Bidi, Associable
       if (parent.isTransientState())
       {
          ComplexEObject defaultValue = getDefaultValue();
+         
+         if (defaultValue == null && _specValid)
+         {
+            defaultValue = resolveSpec();
+            _defaultValue = defaultValue;
+         }
+         
          if (ceo instanceof NullComplexEObject  && defaultValue != null)
          {
             association(parent).set(defaultValue);
@@ -213,16 +220,7 @@ public class AssociationField extends Field implements Bidi, Associable
       }
    }
 
-   public ComplexEObject getDefaultValue()
-   {
-      if (_defaultValue == null && _specValid)
-         _defaultValue = resolveSpec();
-      
-/*      if (_defaultValue == null)
-         _defaultValue = type().getDefaultValue();
-*/      
-      return _defaultValue;
-   }
+   public ComplexEObject getDefaultValue() { return _defaultValue; }
    public void setDefaultValue(ComplexEObject defaultValue)
    {
       ComplexEObject oldValue = _defaultValue;

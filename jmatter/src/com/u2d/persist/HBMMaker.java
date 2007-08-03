@@ -293,7 +293,6 @@ public class HBMMaker
       Element elem = parentElem.addElement("many-to-one");
       elem.addAttribute("name", field.name());
       
-      // hack:
       if (Member.class.isAssignableFrom(field.getJavaClass()))
       {
          elem.addAttribute("cascade", "save-update");
