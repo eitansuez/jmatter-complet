@@ -29,12 +29,11 @@ import com.u2d.css4swing.style.ComponentStyle;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.PanelBuilder;
-import org.jdesktop.swingx.JXFrame;
 
 /**
  * @author Eitan Suez
  */
-public class AppFrame extends JXFrame
+public class AppFrame extends JFrame
 {
    private AppSession _appSession;
    private Application _app;
@@ -202,11 +201,10 @@ public class AppFrame extends JXFrame
    }
 
    /* ** public interface ** */
-   public JInternalFrame addLoginDialog(JInternalFrame loginDialog)
+   public void addLoginDialog(LoginDialog loginDialog)
    {
-      addFrame(loginDialog, Positioning.CENTERED);
-      loginDialog.setLayer(JLayeredPane.MODAL_LAYER);
-      return loginDialog;
+      _desktopPane.add(loginDialog, JLayeredPane.MODAL_LAYER);
+      UIUtils.center(_desktopPane, loginDialog);
    }
 
    public JInternalFrame addFrame(JInternalFrame frame)
@@ -335,6 +333,8 @@ public class AppFrame extends JXFrame
    }
    class AboutDlg extends JDialog implements ActionListener
    {
+      JButton closeBtn;
+      
       AboutDlg()
       {
          super(AppFrame.this, "About "+_app.getName(), true);
@@ -345,6 +345,19 @@ public class AppFrame extends JXFrame
          pack();
          Point center = UIUtils.computeCenter(AppFrame.this, AboutDlg.this);
          setLocation(center);
+         addComponentListener(new ComponentAdapter()
+         {
+            public void componentShown(ComponentEvent e)
+            {
+               SwingUtilities.invokeLater(new Runnable()
+               {
+                  public void run()
+                  {
+                     closeBtn.requestFocus();
+                  }
+               });
+            }
+         });
       }
       private void laymeout()
       {
@@ -369,7 +382,7 @@ public class AppFrame extends JXFrame
          link.render(new URI(_app.getHelpContentsUrl()));
          builder.add(link, cc.xy(1, 5));
          
-         JButton closeBtn = new JButton("OK");
+         closeBtn = new JButton("OK");
          closeBtn.addActionListener(AboutDlg.this);
          builder.add(closeBtn, cc.xy(1, 7, "center, center"));
          

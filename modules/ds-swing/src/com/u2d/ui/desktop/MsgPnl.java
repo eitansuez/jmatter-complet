@@ -30,6 +30,7 @@ public class MsgPnl extends JXPanel
       setVisible(false);
       
       _label = new JLabel();
+      ComponentStyle.setIdent(_label, "msg-label");
       
       setLayout(new BorderLayout());
       add(_label, BorderLayout.CENTER);

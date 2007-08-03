@@ -18,7 +18,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/styles.css" afterPath="$PROJECT_DIR$/resources/styles.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/contactmgr/PersonContact.java" afterPath="$PROJECT_DIR$/src/com/u2d/contactmgr/PersonContact.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ContactMgr.iws" afterPath="$PROJECT_DIR$/ContactMgr.iws" />
     </list>
@@ -138,8 +137,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -316,7 +315,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Favorites="false" PackagesPane="false" Scope="false" ProjectPane="false" />
+      <showStructure ProjectPane="false" PackagesPane="false" Scope="false" Favorites="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -377,16 +376,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <module name="" />
-    </configuration>
     <configuration default="true" type="groovy.configuration.type" factoryName="Groovy">
       <option name="SCRIPT_PATH" value="" />
       <option name="VM_PARAMETERS" value="" />
@@ -394,12 +383,17 @@
       <option name="WORKING_DIRECTORY_PATH" value="file://$PROJECT_DIR$" />
       <module name="" />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
@@ -420,17 +414,22 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="/usr/local/IntelliJ-IDEA-4.5/bin/appletviewer.policy" />
       <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <module name="" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="false" name="Application" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
@@ -536,7 +535,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="20" width="1288" height="760" extended-state="6" />
+    <frame x="-4" y="20" width="1288" height="760" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -692,13 +691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/contactmgr/PersonContact.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="52" selection-start="1304" selection-end="1304" vertical-scroll-proportion="0.8421927">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/AppFrame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="81" column="0" selection-start="2426" selection-end="2426" vertical-scroll-proportion="-2.8424656">
@@ -786,6 +778,13 @@
     <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/desktop/MsgPnl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="0" selection-start="490" selection-end="490" vertical-scroll-proportion="0.16749585">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/contactmgr/PersonContact.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="0" selection-start="1388" selection-end="1388" vertical-scroll-proportion="0.8504983">
           <folding />
         </state>
       </provider>

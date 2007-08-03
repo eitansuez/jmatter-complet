@@ -12,6 +12,7 @@ import com.u2d.field.Association;
 import com.u2d.find.CompositeQuery;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.desktop.Positioning;
+import com.u2d.ui.UIUtils;
 import com.u2d.view.*;
 import com.u2d.view.swing.atom.*;
 import com.u2d.view.swing.calendar.fancy.CalEventView;
@@ -129,8 +130,8 @@ public class SwingViewMechanism implements ViewMechanism
                _appFrame.addLoginDialog(_loginDialog);
             }
 
-            _appFrame.centerFrame(_loginDialog);
             _loginDialog.clear();
+            UIUtils.center(_appFrame, _loginDialog);
          }
       });
    }

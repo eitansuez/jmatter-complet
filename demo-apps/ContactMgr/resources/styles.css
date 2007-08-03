@@ -1,10 +1,36 @@
 @namespace jm com.u2d.view.swing
 @namespace types com.u2d.view.swing.atom
 
-/* a way to override the default font size.. */
+JComponent
+{
+  font-family: "Verdana", "Arial", sans-serif;
+}
 JPanel, jm|IconView, jm|ListItemView, JMenuItem
 {
-  font-size: 12pt;
+  font-size: 11pt;
+}
+
+jm|LoginDialog
+{
+  border-radius: 15px;
+  border: 1px solid black;
+  color: black;
+  background-color: white;
+  opacity: 0.7;
+  padding: 20px 40px;
+}
+.login-innerpnl
+{
+  padding: 10px 0px;
+  border-top: 1px solid black;
+}
+#login-okbtn
+{
+  color: white;
+  background-color: black;
+  opacity: 0.7;
+  border: 1px solid black;
+  border-radius: 4px;
 }
 
 JDesktopPane
@@ -56,13 +82,16 @@ jm|FieldCaption
 
 .feedback-pane
 {
-  color: white;
   background-color: black;
-  font-size: 24pt;
-  font-weight: bold;
   padding: 30px;
   border-radius: 24px;
   opacity: 0.7;
+}
+#msg-label
+{
+  color: white;
+  font-weight: bold;
+  font-size:  24pt;
 }
 
 #aboutPnl
