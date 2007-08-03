@@ -1,6 +1,12 @@
 @namespace jm com.u2d.view.swing
 @namespace types com.u2d.view.swing.atom
 
+/* a way to override the default font size.. */
+JPanel, jm|IconView, jm|ListItemView, JMenuItem
+{
+  font-size: 12pt;
+}
+
 JDesktopPane
 {
   background-color: #7684FF;
