@@ -18,6 +18,7 @@ public class ExceptionFrame extends CloseableJInternalFrame
    {
       super("Exception", true, true, false, true);
       JPanel contentPane = (JPanel) getContentPane();
+      contentPane.setLayout(new BorderLayout());
       
       if (ex instanceof InvocationTargetException)
       {
@@ -32,12 +33,35 @@ public class ExceptionFrame extends CloseableJInternalFrame
       
       StringWriter sw = new StringWriter();
       ex.printStackTrace(new PrintWriter(sw));
-      JTextArea details = new JTextArea(sw.toString());
-      details.setBackground(getBackground());
-      details.setEditable(false);
-      JScrollPane scrollPane = new JScrollPane(details);
-      scrollPane.setBorder(BorderFactory.createTitledBorder("Exception Details"));
-      contentPane.add(scrollPane, BorderLayout.CENTER);
+      JTextArea details = new JTextArea(sw.toString())
+      {
+         { 
+            setOpaque(false);
+            setEditable(false);
+            setBorder(BorderFactory.createTitledBorder("Exception Details"));
+         }
+
+         private Dimension MAXSIZE = new Dimension(700,450);
+   
+         public Dimension getPreferredScrollableViewportSize()
+         {
+            Dimension p = getPreferredSize();
+            p.height = Math.min(p.height, MAXSIZE.height);
+            p.width = Math.min(p.width, MAXSIZE.width);
+            return p;
+         }
+         public boolean getScrollableTracksViewportHeight()
+         {
+            if (getParent() instanceof JViewport)
+            {
+               JViewport viewport = (JViewport) getParent();
+               int vpheight = viewport.getHeight();
+               return (vpheight > getPreferredSize().height || vpheight == 0);
+            }
+            return false;
+         }
+      };
+      contentPane.add(new JScrollPane(details), BorderLayout.CENTER);
       
       pack();
    }
