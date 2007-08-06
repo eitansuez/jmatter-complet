@@ -192,7 +192,6 @@ public class AppFrame extends JFrame
    public void addLoginDialog(LoginDialog loginDialog)
    {
       _desktopPane.add(loginDialog, JLayeredPane.MODAL_LAYER);
-      UIUtils.center(_desktopPane, loginDialog);
    }
 
    public JInternalFrame addFrame(JInternalFrame frame)

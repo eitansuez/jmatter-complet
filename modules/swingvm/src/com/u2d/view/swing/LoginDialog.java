@@ -29,6 +29,7 @@ public class LoginDialog extends JXPanel
       setupFields();
       layItOut();
       setFocusCycleRoot(true);
+      new MovableSupport(this);
    }
    
    private String lookup(String key)

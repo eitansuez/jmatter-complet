@@ -23,33 +23,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/l2fprod-common-outlookbar.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/AppleJavaExtensions.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/Date_selector.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="file://$MODULE_DIR$/../ds-swing/build/classes" />
         </CLASSES>
         <JAVADOC />
@@ -62,6 +35,15 @@
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/../ds-wizard/build/classes" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/forms-1.1.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -133,26 +115,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/css4swing.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/forms-1.1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../thirdparty/jgoodies/forms-1.1.0/src/core" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/json.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -171,7 +133,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/spin.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/swingx.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -180,18 +142,61 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../tests/swingtests/lib/formsrt.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/AppleJavaExtensions.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../../apps/abeilleforms/abeille-2.0-src/src" />
-        </SOURCES>
+        <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/swingx.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/formsrt.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/Date_selector.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/css4swing.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/l2fprod-common-outlookbar.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/jexplose.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/spin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

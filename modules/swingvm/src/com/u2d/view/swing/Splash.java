@@ -21,7 +21,6 @@ public class Splash extends JWindow implements AppEventListener
 {
    private static final String WAIT_MSG =  ComplexType.localeLookupStatic("launching_application");
 
-   private int fromX, fromY;
    private Timer timer;
    private StringBuffer dots = new StringBuffer(".    ");
    private boolean forward = true;
@@ -79,23 +78,7 @@ public class Splash extends JWindow implements AppEventListener
       });
       timer.setRepeats(true);
 
-      addMouseListener(new MouseAdapter()
-      {
-         public void mousePressed(MouseEvent evt)
-         {
-            fromX = evt.getX();
-            fromY = evt.getY();
-         }
-      });
-
-      addMouseMotionListener(new MouseMotionAdapter()
-      {
-         public void mouseDragged(MouseEvent e)
-         {
-            setLocation(getLocation().x + e.getX() - fromX,
-                        getLocation().y + e.getY() - fromY);
-         }
-      });
+      new MovableSupport(this);
       
       pack();
       if (getWidth() < 200)

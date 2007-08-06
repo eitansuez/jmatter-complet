@@ -124,10 +124,18 @@ public class SwingViewMechanism implements ViewMechanism
             {
                _loginDialog = new LoginDialog(_appSession);
                _appFrame.addLoginDialog(_loginDialog);
+               
+               SwingUtilities.invokeLater(new Runnable()
+               {
+                  public void run()
+                  {
+                     UIUtils.center(_appFrame, _loginDialog);
+                  }
+               });
+                  
             }
 
             _loginDialog.clear();
-            UIUtils.center(_appFrame, _loginDialog);
          }
       });
    }
