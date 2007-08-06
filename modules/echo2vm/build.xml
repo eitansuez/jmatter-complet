@@ -6,7 +6,7 @@
    <property name="srcdir" location="src" />
    <property name="builddir" location="build" />
    <property name="buildclassesdir" location="build/classes" />
-   <property name="libdir" location="lib" />
+   <property name="libdir" location="../../jmatter/lib/runtime/echo2vm" />
    <property name="distdir" location="dist" />
 
    <property name="test.dir" location="test" />
@@ -17,11 +17,12 @@
 
    <path id="class.path">
       <fileset dir="${libdir}" includes="*.jar" />
+      <fileset dir="lib" includes="servlet*.jar" />
       <pathelement location="${buildclassesdir}" />
       <pathelement location="../../jmatter/build/classes" />
-      <fileset dir="../../jmatter/lib/runtime/" includes="jibx-run.jar,hibernate3.jar,spring/*.jar" />
       <pathelement location="../ds-swing/build/classes" />
       <pathelement location="../ds-wizard/build/classes" />
+      <fileset dir="../../jmatter/lib/runtime/" includes="jibx-run.jar,hibernate3.jar,spring/*.jar" />
    </path>
 
    <path id="test.classpath">
