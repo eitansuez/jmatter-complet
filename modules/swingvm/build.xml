@@ -6,7 +6,7 @@
    <property name="srcdir" location="src" />
    <property name="builddir" location="build" />
    <property name="buildclassesdir" location="build/classes" />
-   <property name="libdir" location="lib" />
+   <property name="libdir" location="../../jmatter/lib/runtime/swingvm" />
    <property name="distdir" location="dist" />
 
    <property name="test.dir" location="test" />
@@ -19,16 +19,13 @@
       <fileset dir="${libdir}" includes="*.jar" />
       <pathelement location="${buildclassesdir}" />
       <pathelement location="../../jmatter/build/classes" />
-      <fileset dir="../../jmatter/lib/runtime/" includes="css4swing.jar" />
-      <fileset dir="../../jmatter/lib/runtime/" includes="jibx-run.jar" />
-      <fileset dir="../../jmatter/lib/runtime/" includes="hibernate3.jar" />
-      <fileset dir="../../jmatter/lib/runtime/swingvm" includes="swingx*.jar" />
-      <!-- for edt testing 
-      <fileset dir="../../jmatter/lib/runtime/" includes="spin.jar" />
-       -->
-      <fileset dir="../../jmatter/lib/runtime/spring" includes="*.jar" />
       <pathelement location="../ds-swing/build/classes" />
       <pathelement location="../ds-wizard/build/classes" />
+      <fileset dir="../../jmatter/lib/runtime/" includes="jibx-run.jar" />
+      <!-- hbmpracticetool uses this: -->
+      <fileset dir="../../jmatter/lib/runtime/" includes="hibernate3.jar" />
+      <!-- entrypoint references spring -->
+      <fileset dir="../../jmatter/lib/runtime/spring" includes="*.jar" />
    </path>
 
    <path id="test.classpath">

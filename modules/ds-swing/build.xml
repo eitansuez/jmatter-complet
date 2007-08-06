@@ -6,7 +6,7 @@
    <property name="srcdir" location="src" />
    <property name="builddir" location="build" />
    <property name="buildclassesdir" location="build/classes" />
-   <property name="libdir" location="lib" />
+   <property name="libdir" location="../../jmatter/lib/runtime/swingvm" />
    <property name="distdir" location="dist" />
 
    <property name="test.dir" location="test" />
@@ -18,8 +18,7 @@
    <path id="class.path">
       <fileset dir="${libdir}" includes="*.jar" />
       <pathelement location="${buildclassesdir}" />
-      <fileset dir="../../jmatter/lib/runtime/" includes="css4swing.jar" />
-      <fileset dir="../../jmatter/lib/runtime/swingvm" includes="swingx*.jar" />
+      <fileset dir="lib" includes="skinlf.jar" />
    </path>
 
    <path id="test.classpath">

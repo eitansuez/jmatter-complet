@@ -4,12 +4,8 @@
 JComponent
 {
   font-family: "Verdana", "Arial", sans-serif;
+  font-size: 14pt;
 }
-JPanel, jm|IconView, jm|ListItemView, JMenuItem
-{
-  font-size: 11pt;
-}
-
 jm|LoginDialog
 {
   border-radius: 15px;

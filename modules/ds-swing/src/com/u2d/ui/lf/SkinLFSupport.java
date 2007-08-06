@@ -5,7 +5,6 @@ package com.u2d.ui.lf;
 
 
 import javax.swing.*;
-
 import java.awt.event.*;
 import java.util.*;
 import com.l2fprod.gui.plaf.skin.*;
