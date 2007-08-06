@@ -52,7 +52,6 @@ public class SwingViewMechanism implements ViewMechanism
    private ReportingInterface _reportingInterface;
 
    private AppSession _appSession;
-   private String _lfname;
 
    public SwingViewMechanism()
    {
@@ -86,9 +85,6 @@ public class SwingViewMechanism implements ViewMechanism
    
    public void setAppSession(AppSession appSession) { _appSession = appSession; }
 
-   public String getLfname() { return _lfname; }
-   public void setLfname(String lfname) { _lfname = lfname; }
-   
    private boolean labelEditorLayoutHorizontal = true;
    public void setLabelEditorLayoutHorizontal(boolean value)
    {
@@ -112,7 +108,7 @@ public class SwingViewMechanism implements ViewMechanism
       {
          public void run()
          {
-            _appFrame = new AppFrame(_appSession, _lfname);
+            _appFrame = new AppFrame(_appSession);
             _appFrame.setVisible(true);
          }
       });

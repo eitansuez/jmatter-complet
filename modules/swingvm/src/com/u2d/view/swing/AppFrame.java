@@ -13,7 +13,6 @@ import java.util.*;
 import com.u2d.ui.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
-import com.u2d.ui.lf.*;
 import com.u2d.view.swing.dnd.*;
 import com.u2d.view.swing.list.CommandsMenuView;
 import com.u2d.view.swing.atom.URIRenderer;
@@ -55,7 +54,6 @@ public class AppFrame extends JFrame
    });
    
    private JPanel _centerPane;
-   private LookAndFeelSupport _lfSupport;
    private OutlookFolderView _classBar = new OutlookFolderView();
    private ClassMenu _classMenu = new ClassMenu();
 
@@ -66,7 +64,7 @@ public class AppFrame extends JFrame
    private ImageIcon _appIcon = new ImageIcon(_imgURL);
    
    
-   public AppFrame(AppSession appSession, String lfname)
+   public AppFrame(AppSession appSession)
    {
       _appSession = appSession;
       _app = _appSession.getApp();
@@ -86,7 +84,6 @@ public class AppFrame extends JFrame
 
       contentPane.add(_centerPane, BorderLayout.CENTER);
 
-      _lfSupport.setLF(lfname);
       setSize(800, 600);
       UIUtils.centerOnScreen(this);
       setupQuitHooks();
@@ -164,7 +161,6 @@ public class AppFrame extends JFrame
    {
       _menuBar = new JMenuBar();
       _menuBar.add(fileMenu());
-      _menuBar.add(lookAndFeelMenu());
       _menuBar.add(helpMenu());
       setJMenuBar(_menuBar);
    }
@@ -173,14 +169,6 @@ public class AppFrame extends JFrame
       JMenu fileMenu = configMenu("menubar.file");
       fileMenu.add(new QuitAction());
       return fileMenu;
-   }
-   private JMenu lookAndFeelMenu()
-   {
-      Component[] topLevelContainers =
-         new Component[] {this, _desktopPane.getContextMenu()};
-      _lfSupport = new BasicLFSupport(topLevelContainers,
-            new BasicLFSupport.SystemLFProvider(), _lfSupport);
-      return _lfSupport.getMenu();
    }
    private JMenu helpMenu()
    {
@@ -493,7 +481,6 @@ public class AppFrame extends JFrame
    private void serialize(XMLEncoder enc)
    {
       enc.writeObject(getBounds());
-      enc.writeObject(_lfSupport.getCurrentLFName());
 
       JInternalFrame[] frames = _desktopPane.getAllFrames();
       java.util.List<CloseableJInternalFrame> framesToSave = new ArrayList<CloseableJInternalFrame>();
@@ -529,9 +516,7 @@ public class AppFrame extends JFrame
    private void deserialize(XMLDecoder dec)
    {
       Rectangle bounds = (Rectangle) dec.readObject();
-      String userLF = (String) dec.readObject();
       if (bounds != null) setBounds(bounds);
-      if (userLF != null) _lfSupport.setLF(userLF);
 
       int numFrames = (Integer) dec.readObject();
       for (int i=0; i<numFrames; i++)
