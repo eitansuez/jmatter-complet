@@ -338,8 +338,7 @@ public class AppFrame extends JFrame
          laymeout();
          
          pack();
-         Point center = UIUtils.computeCenter(AppFrame.this, AboutDlg.this);
-         setLocation(center);
+         UIUtils.center(AppFrame.this, AboutDlg.this, true);
          addComponentListener(new ComponentAdapter()
          {
             public void componentShown(ComponentEvent e)
@@ -366,20 +365,20 @@ public class AppFrame extends JFrame
          CellConstraints cc = new CellConstraints();
          JLabel titleView = new JLabel(_app.title(), _appIcon, JLabel.LEFT);
          ComponentStyle.addClass(titleView, "title");
-         builder.add(titleView, cc.xy(1, 1));
+         builder.add(titleView, cc.rc(1, 1));
          
          JTextArea descriptionArea = new JTextArea(_app.getDescription(), 5, 40);
          descriptionArea.setEditable(false);
          descriptionArea.setOpaque(false);
-         builder.add(new JScrollPane(descriptionArea), cc.xy(1, 3));
+         builder.add(new JScrollPane(descriptionArea), cc.rc(3, 1));
          
          URIRenderer link = new URIRenderer();
          link.render(new URI(_app.getHelpContentsUrl()));
-         builder.add(link, cc.xy(1, 5));
+         builder.add(link, cc.rc(5, 1));
          
          closeBtn = new JButton("OK");
          closeBtn.addActionListener(AboutDlg.this);
-         builder.add(closeBtn, cc.xy(1, 7, "center, center"));
+         builder.add(closeBtn, cc.rc(7, 1, "center, center"));
          
          JPanel mainArea = builder.getPanel();
          ComponentStyle.setIdent(mainArea, "aboutPnl");
