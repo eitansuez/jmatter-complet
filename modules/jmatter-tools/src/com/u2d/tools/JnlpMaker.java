@@ -72,7 +72,9 @@ public class JnlpMaker extends Task
             String basepath = _jarbasepath.getAbsolutePath() + File.separator;
             int index = relativePath.indexOf(basepath);
             relativePath = relativePath.substring(index + basepath.length());
-            list.add(relativePath);
+            // reviewed spec and entries are url's:  that is the path separators must be foreslashes
+            // (thanks to lex for catching this) 
+            list.add(relativePath.replace('\\', '/'));
          }
          else if (paths[i].isDirectory())
          {
