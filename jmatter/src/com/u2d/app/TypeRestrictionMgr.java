@@ -10,7 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.awt.image.BufferedImage;
+import java.awt.*;
+
 import org.hibernate.Session;
+
+import javax.swing.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -111,7 +116,20 @@ public class TypeRestrictionMgr
 
 
    public String iconLgResourceRef() { return "images/Restriction32.png"; }
+
+   public Icon iconLg()
+   {
+      ImageIcon lgIcon = (ImageIcon) super.iconLg();
+      ImageIcon smIcon = (ImageIcon) _type.iconSm();
+      BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+      Graphics g = bi.getGraphics();
+      g.drawImage(lgIcon.getImage(), 0, 0, null);
+      g.drawImage(smIcon.getImage(), 16, 16, null);
+      return new ImageIcon(bi);
+   }
+
    public String iconSmResourceRef() { return "images/Restriction16.png"; }
+   
 
    public Title title()
    {
