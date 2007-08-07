@@ -4,11 +4,12 @@
 package com.u2d.model;
 
 import java.util.*;
+import java.util.List;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import javax.swing.Icon;
+import javax.swing.*;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -16,7 +17,9 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
-import java.awt.Color;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.awt.datatransfer.DataFlavor;
 import java.beans.IntrospectionException;
 import com.u2d.app.*;
@@ -132,7 +135,21 @@ public class ComplexType extends AbstractComplexEObject
       
       _iconLg = IconLoader.loadIcon(_iconLgResourceRef);
       _iconSm = IconLoader.loadIcon(_iconSmResourceRef);
+      
       _iconsLg = IconLoader.loadIcon(_iconsLgResourceRef);
+      
+      // customize lg icon (if no custom image already provided) ..
+      if (_iconsLgResourceRef.endsWith(IconResolver.LISTICON_LG))
+      {
+         ImageIcon lgIcon = (ImageIcon) _iconsLg;
+         ImageIcon smIcon = (ImageIcon) _iconSm;
+         BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+         Graphics g = bi.getGraphics();
+         g.drawImage(lgIcon.getImage(), 0, 0, null);
+         g.drawImage(smIcon.getImage(), 16, 16, null);
+         _iconsLg = new ImageIcon(bi);
+      }
+      
       _iconsSm = IconLoader.loadIcon(_iconsSmResourceRef);
 
       harvest();
