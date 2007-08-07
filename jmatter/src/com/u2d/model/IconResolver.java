@@ -63,7 +63,8 @@ public class IconResolver
          type = type.superType();
          if (type == null)
             break;
-         path = type.name() + size;
+         
+         path = namer.name(type) + size;
          icon = iconRef(path);
       }
       
