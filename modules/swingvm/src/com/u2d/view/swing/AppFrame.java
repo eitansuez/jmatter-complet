@@ -189,9 +189,17 @@ public class AppFrame extends JFrame
    }
 
    /* ** public interface ** */
-   public void addLoginDialog(LoginDialog loginDialog)
+   public void addLoginDialog(final LoginDialog loginDialog)
    {
       _desktopPane.add(loginDialog, JLayeredPane.MODAL_LAYER);
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            Point point = UIUtils.computeCenter(_desktopPane, loginDialog);
+            loginDialog.setLocation(10, point.y);  // left align..
+         }
+      });
    }
 
    public JInternalFrame addFrame(JInternalFrame frame)
