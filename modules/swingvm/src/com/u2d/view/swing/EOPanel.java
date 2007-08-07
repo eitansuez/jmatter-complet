@@ -64,6 +64,7 @@ public class EOPanel extends JPanel
             });
          }
       };
+      _ceo.addChangeListener(this);
       _ceo.addPostChangeListener(_sizeUpdater);
    }
    
@@ -96,6 +97,7 @@ public class EOPanel extends JPanel
       _ceo.removeValidationListener(_statusPanel);
       _titleView.detach();
       _view.detach();
+      _ceo.removeChangeListener(this);
       _ceo.removePostChangeListener(_sizeUpdater);
       // keyboardfocusmanager will hold a reference to eoframe preventing it from
       // begin garbage-collected, thus:
@@ -105,7 +107,12 @@ public class EOPanel extends JPanel
    public EView getView() { return _view; }
    
    public void propertyChange(PropertyChangeEvent evt) {}
-   public void stateChanged(javax.swing.event.ChangeEvent evt) { }
+
+   public void stateChanged(javax.swing.event.ChangeEvent evt)
+   {
+      if (!_ceo.isEditableState())
+         _statusPanel.reset();
+   }
 
    public EObject getEObject() { return _view.getEObject(); }
    public boolean isMinimized() { return false; }
@@ -160,6 +167,7 @@ public class EOPanel extends JPanel
                }
             }
          });
+         _sizeUpdater.stateChanged(null);
       }
       
    }
@@ -170,8 +178,6 @@ public class EOPanel extends JPanel
    public void setEditable(boolean editable)
    {
       ((Editor) _view).setEditable(editable);
-      if (!isEditable())
-         _statusPanel.reset();
    }
    public boolean isEditable() { return ((Editor) _view).isEditable(); }
    
