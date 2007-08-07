@@ -197,7 +197,7 @@
 
 
   <path id="newprojectui.classpath">
-    <fileset dir="${runtime.lib.dir}" includes="css4swing.jar,swingvm/swingx*.jar,antlr-runtime*.jar" />
+    <fileset dir="${runtime.lib.dir}" includes="swingvm/css4swing.jar,swingvm/swingx*.jar,swingvm/antlr-runtime*.jar" />
     <fileset dir="${tools.lib.dir}" includes="newprojectui.jar" />
   </path>
 
