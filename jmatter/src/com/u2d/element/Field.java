@@ -404,6 +404,10 @@ public abstract class Field extends Member
    public IntEO getColsize() { return _colsize; }
    public int colsize() { return _colsize.intValue(); }
 
+   private final StringEO _colname = new StringEO();
+   public StringEO getColname() { return _colname; }
+   public String colname() { return _colname.stringValue(); }
+
    private final IntEO _displaysize = new IntEO();
    public IntEO getDisplaysize() { return _displaysize; }
    public int displaysize() { return _displaysize.intValue(); }
@@ -455,6 +459,9 @@ public abstract class Field extends Member
          
          if (!StringEO.isEmpty(fat.description()))
             getDescription().setValue(fat.description());
+         
+         if (!StringEO.isEmpty(fat.colname()))
+            getColname().setValue(fat.colname());
          
          if (fat.colsize() > 0)
             getColsize().setValue(fat.colsize());

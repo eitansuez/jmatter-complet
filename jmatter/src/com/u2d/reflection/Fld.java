@@ -32,6 +32,11 @@ public @interface Fld
    public String description() default "";
 
    /**
+    * @return a way to override the database column name for a field
+    */
+   public String colname() default "";
+   
+   /**
     * @return a way to control the size of the corresponding database table field
     */
    public int colsize() default 0;

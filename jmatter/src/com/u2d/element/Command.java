@@ -13,6 +13,7 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
+import com.u2d.reflection.Fld;
 import com.u2d.pattern.Filter;
 import com.u2d.pattern.Callback;
 import java.util.Arrays;
@@ -67,6 +68,7 @@ public abstract class Command extends Member
     * difficult.  A ui is advised to make it difficult for an 
     * end user to inadvertantly invoke the command.
     */
+   @Fld(colname="is_sensitive")
    public BooleanEO getSensitive() { return _sensitive; }
    public boolean sensitive() { return _sensitive.booleanValue(); }
 

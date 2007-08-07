@@ -493,8 +493,17 @@ public class HBMMaker
       }
       catch (Exception ex)  // common case:
       {
-         if (prefix != null)
+         if (prefix == null)
+         {
+            if (!field.getColname().isEmpty())
+            {
+               propElem.addAttribute("column", field.colname());
+            }
+         }
+         else
+         {
             propElem.addAttribute("column", prefix + "_" + field.getName());
+         }
       }
       
       if (field.colsize() > 0)
