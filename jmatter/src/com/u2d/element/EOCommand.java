@@ -212,4 +212,19 @@ public class EOCommand extends Command
 //      return true;
 //   }
 
+
+   // need a way to distinguish the commands in an overloaded command
+   // e.g. ComplexType.New has two versions..
+   // specifically, AnnotationsReflector.reflectCommand() invokes:
+   //  _commandCache.containsKey(cmd) which must return false in the case
+   //  over two commands with the same name, same full path.
+   public boolean equals(Object obj)
+   {
+      if (!super.equals(obj))
+         return false;
+      if (!(obj instanceof EOCommand))
+         return false;
+      EOCommand cmd = (EOCommand) obj;
+      return _params.length == cmd.paramInfo().length;
+   }
 }
