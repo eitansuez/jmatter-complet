@@ -93,6 +93,8 @@ public abstract class AbstractListEO extends AbstractEObject
    
    public abstract ComplexType type();
    public abstract Class getJavaClass();
+   // temporary hack (see paramlistview):
+   public ComplexType baseType() { return type(); }
 
    public String toString() { return title().toString(); }
 
