@@ -15395,7 +15395,7 @@ We can augment a field's getter method with the
 \begin_layout Standard
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="3">
+<lyxtabular version="3" rows="10" columns="3">
 <features>
 <column alignment="left" valignment="top" leftline="true" width="1in">
 <column alignment="left" valignment="top" leftline="true" width="0.75in">
@@ -15519,6 +15519,37 @@ String
 \begin_layout Standard
 The field's description.
  Used as the contents of a tooltip on the field.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+colname
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+String
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+A means to override the name of the database column corresponding to this
+ field.
+ By default, the column name is automatically derived from the field name.
 \end_layout
 
 \end_inset
