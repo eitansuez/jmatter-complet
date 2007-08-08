@@ -258,10 +258,4 @@ public class AssociationField extends Field implements Bidi, Associable
       return null;
    }
 
-   public boolean isInterfaceType() { return _clazz.isInterface(); }
-   public boolean isAbstract()
-   {
-      return _clazz.isInterface() || 
-            Modifier.isAbstract(_clazz.getModifiers());
-   }
 }
