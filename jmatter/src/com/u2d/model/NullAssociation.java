@@ -4,8 +4,8 @@
 package com.u2d.model;
 
 import com.u2d.element.CommandInfo;
+import com.u2d.element.Field;
 import com.u2d.field.Association;
-import com.u2d.field.AssociationField;
 import com.u2d.field.IndexedField;
 import com.u2d.pattern.Onion;
 import com.u2d.view.View;
@@ -24,7 +24,7 @@ public class NullAssociation extends NullComplexEObject
       this((IndexedField) leo.field(), leo.parentObject());
    }
 
-   public NullAssociation(AssociationField field, ComplexEObject parent)
+   public NullAssociation(Field field, ComplexEObject parent)
    {
       super(field.fieldtype());
       setField(field, parent);
@@ -36,13 +36,6 @@ public class NullAssociation extends NullComplexEObject
       super(association.type());
       setField(association.field(), association.parent());
       _association = association;
-   }
-
-   public NullAssociation(IndexedField field, ComplexEObject parent)
-   {
-      super(field.fieldtype());
-      setField(field, parent);
-      _association = parent.association(field.name());
    }
 
 //   public Title title() { return _association.title(); }
