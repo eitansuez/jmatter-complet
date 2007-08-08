@@ -119,7 +119,7 @@ public class Application implements AppEventNotifier
          IBindingFactory bfact = BindingDirectory.getFactory(Folder.class);
          IUnmarshallingContext context = bfact.createUnmarshallingContext();
 
-         InputStream stream = getClass().getResourceAsStream("/com/u2d/class-list.xml");
+         InputStream stream = getClass().getResourceAsStream("/class-list.xml");
          Folder templateFolder = (Folder) context.unmarshalDocument(stream, null);
          templateFolder.getName().setValue(TEMPLATE_CLASSBAR);
          return templateFolder;
