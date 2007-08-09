@@ -2491,7 +2491,7 @@ Similar to the task of specifying which types to persist to the database,
 \begin_layout Standard
 The way to predefine the default classbar items is to edit 
 \emph on
-src/com/u2d/class-list.xml
+src/class-list.xml
 \emph default
 :
 \end_layout
@@ -3073,7 +3073,7 @@ src/persistClasses.st
 \emph default
  and 
 \emph on
-src/com/u2d/class-list.xml
+src/class-list.xml
 \emph default
  and know a little about how to configure them;
 \end_layout
@@ -4243,7 +4243,7 @@ Technically there is no configuration left to do.
  Again, this is optional.
  The file to edit is 
 \emph on
-src/com/u2d/class-list.xml
+src/class-list.xml
 \emph default
 .
  Here's a sample that'll do nicely:
@@ -6115,7 +6115,7 @@ resources/images
 \begin_layout Enumerate
 for startup ease, specify the fully-qualified type name in 
 \emph on
-src/com/u2dclass-list.xml
+src/class-list.xml
 \end_layout
 
 \begin_layout Subsection
@@ -17154,7 +17154,7 @@ This requires some explanation.
 \begin_layout Standard
 
 \emph on
-src/com/u2d/class-list.xml
+src/class-list.xml
 \end_layout
 
 \end_inset
