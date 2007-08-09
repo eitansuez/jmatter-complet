@@ -440,8 +440,8 @@ JMatter promises to empower developers to work on the task at hand without
  having to build a foundation.
  At the time of this writing, JMatter provides most of the listed orthogonal
  services.
- Authorization implementation is well on its way, though not yet complete.
- Reporting has not yet been implemented.
+ The implementation of a built-in, generic Authorization system has recently
+ been completed.
 \end_layout
 
 \begin_layout Standard

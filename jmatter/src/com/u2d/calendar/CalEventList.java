@@ -106,7 +106,7 @@ public class CalEventList extends AbstractListEO
    
    private void fetchCurrentSpan()
    {
-      Tracing.tracer().info("CalEventList:  fetching events for time span: "+_span);
+      Tracing.tracer().fine("CalEventList:  fetching events for time span: "+_span);
       
       Criteria timeconstrained = constrainBySpan();
       java.util.List items = timeconstrained.list();

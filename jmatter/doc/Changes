@@ -2,6 +2,75 @@ Changes File
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+August 09 2007 Release
+-----------------------
+
+ - class-list.xml default location moved from src/com/u2d/class-list.xml
+   to src/class-list.xml, for consistency with other xml config files
+ - updated default stylesheet styles.css (in project resources/ directory)
+ - this release is the first implementation of jmatter that contains
+   an implementation of authorization.  by default, when a jmatter application
+   starts up, the initial roles "Default" and "Admin" will be created,
+   along with two users:  admin/admin and johndoe/johndoe (a member of
+   the default role).  you'll also notice a new command on types: manage
+   restrictions for type, whereby [as an administrator] you will be able 
+   to manage permissioning on both fields and commands.  for an example
+   on how to set permissioning programmatically, see 
+    com.u2d.app.Role#initializePermissions()
+ - the login dialog was reimplemented as a JPanel (was a jinternalframe)
+   and looks a little nicer
+ - default icons for lists are now enhanced, customized as a composition
+   of an icon representing a list, and one representing the list item type
+ - the bundled css4swing jar has seen enhancements, with support for
+   border-radius and opacity properties (css3) on swingx components.
+ - also, not entirely related to jmatter, css4swing does a much better
+   job now at dynamically restyling a ui (this feature is not used in
+   jmatter) than before
+ - added a new @Fld annotation attribute: colname() to override the
+   field's corresponding database column name.  this resolves an issue
+   specific to mysql and the fact that the word 'sensitive' is reserved.
+ - fixed some reported minor issues with the generated jnlp file for
+   deployment to java web start
+ - removed look and feel menu from application menubar.  this didn't
+   work well.  will likely replace in the future with a list of alternate
+   css-driven themes
+ - updated h2 database jar file
+ - updated swingx jar file
+ - added a new ant target "seed-database" which can be used after
+   a schema export to create base users and roles without launching
+   the application
+ - fixed a bug with "open in new tab/replace existing view" windowing
+   navigation options (obtained when holding down shift while invoking
+   a command) that manifested itself in java 6
+ - defined the new keyboard shortcut ctrl-/ for opening focused comopnents
+   context menu as an alternative to using the mouse
+ - commands can now return a JComponent, which jmatter will wrap in a 
+   jinternalframe and display 
+ - there's now a second, much simpler way to use calendaring within
+   your application without having to implement any interfaces.  if
+   a type has a field of type TimeSpan and if it extends CalEvent,
+   the type command "Browse In Calendar" will automatically be exposed
+   on the type in question.
+ - added some integration with the abeille forms designer (see
+   abeille.dev.java.net) to allow for the customization of a form's
+   layout.  this feature relies on conventions.  see description
+   of this feature in more detail at:
+     http://groups.google.com/group/jmatter/browse_thread/thread/3b68c7235d35adde
+ - applications now sport that standard about dialog, invoked via the menubar
+   (help->about);  likewise you can now easily link to your application's documentation
+   through a url (specified in applicationContext.xml) and invoked via help->contents
+ - class bar's functionality is now also exposed alternately through the menubar
+ - updated jgoodies forms jar to version 1.1.0
+ - added a new demo-app named "Self" that illustrates another way to plug in
+   custom swing views into jmatter
+ - fixed a bug where a read only association field could be dissociated
+ - there's now an alternative set of build files written in gant (groovy-ant)
+   though the default build file remains build.xml
+ - calendar cell resolution can now be controlled using the scrollwheel, 
+   while holding down the ctrl key
+
+
+
 June 13 2007 Release
 --------------------
 
