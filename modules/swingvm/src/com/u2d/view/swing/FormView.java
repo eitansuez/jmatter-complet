@@ -180,7 +180,7 @@ public class FormView extends JPanel implements ComplexEView, Editor
 
       JComponent comp = (JComponent) view;
       FieldCaption caption = new FieldCaption(field, comp);
-
+      
       return (SwingViewMechanism.getInstance().isLabelEditorLayoutHorizontal()) ?
             fieldViewPanelHoriz(caption, comp, vPnl) :
             fieldViewPanelVert(caption, comp, vPnl) ;
@@ -193,9 +193,18 @@ public class FormView extends JPanel implements ComplexEView, Editor
       DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
       CellConstraints cc = new CellConstraints();
 
-      builder.add(vPnl, cc.xy(3,3));
-      builder.add(caption, cc.xy(1,1));
-      builder.add(comp, cc.xy(1,3));
+      if (comp instanceof TableView || comp instanceof CompositeTableView)
+      {
+         builder.add(caption, cc.rc(1,1));
+         builder.add(vPnl, cc.rc(1,3));
+         builder.add(comp, cc.rcw(3,1,3));
+      }
+      else
+      {
+         builder.add(caption, cc.rc(1,1));
+         builder.add(comp, cc.rc(3,1));
+         builder.add(vPnl, cc.rc(3,3));
+      }
 
       return builder.getPanel();
    }
@@ -206,9 +215,9 @@ public class FormView extends JPanel implements ComplexEView, Editor
       DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
       CellConstraints cc = new CellConstraints();
 
-      builder.add(vPnl, cc.xy(3,1));
-      builder.add(caption, cc.xy(1,3));
-      builder.add(comp, cc.xy(3,3));
+      builder.add(vPnl, cc.rc(1,3));
+      builder.add(caption, cc.rc(3,1));
+      builder.add(comp, cc.rc(3,3));
 
       return builder.getPanel();
    }
@@ -272,7 +281,7 @@ public class FormView extends JPanel implements ComplexEView, Editor
                           JComponent vPnl)
    {
       builder.appendRow("pref");
-      builder.add(vPnl, cc.xy(3, builder.getRow()));
+      builder.add(vPnl, cc.rc(builder.getRow(), 3));
       builder.nextLine();
 
       appendItem(builder, cc, caption, comp);
@@ -289,25 +298,25 @@ public class FormView extends JPanel implements ComplexEView, Editor
       if (comp instanceof TableView || comp instanceof CompositeTableView)
       {
          builder.appendRow("bottom:pref");
-         builder.add(caption, cc.xyw(1, builder.getRow(), 3));
+         builder.add(caption, cc.rcw(builder.getRow(), 1, 3));
          builder.nextLine();
 
          builder.appendRow("top:pref");
          if (comp instanceof JTable)
          {
-            builder.add(new JScrollPane(comp), cc.xyw(1, builder.getRow(), 3));
+            builder.add(new JScrollPane(comp), cc.rcw(builder.getRow(), 1, 3));
          }
          else
          {
-            builder.add(comp, cc.xyw(1, builder.getRow(), 3));
+            builder.add(comp, cc.rcw(builder.getRow(), 1, 3));
          }
          builder.nextLine();
       }
       else
       {
          builder.appendRow("pref");
-         builder.add(caption, cc.xy(1, builder.getRow()));
-         builder.add(comp, cc.xy(3, builder.getRow()));
+         builder.add(caption, cc.rc(builder.getRow(), 1));
+         builder.add(comp, cc.rc(builder.getRow(), 3));
          builder.nextLine();
       }
    }
