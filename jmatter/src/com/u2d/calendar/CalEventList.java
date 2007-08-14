@@ -12,7 +12,9 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.view.EView;
 import com.u2d.app.Tracing;
+import com.u2d.persist.HBMBlock;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Expression;
 import javax.swing.event.ListDataListener;
@@ -106,16 +108,22 @@ public class CalEventList extends AbstractListEO
    
    private void fetchCurrentSpan()
    {
-      Tracing.tracer().fine("CalEventList:  fetching events for time span: "+_span);
-      
-      Criteria timeconstrained = constrainBySpan();
-      java.util.List items = timeconstrained.list();
-
-      for (int i=0; i<items.size(); i++)
+      hbmPersistor().transaction(new HBMBlock()
       {
-         ((ComplexEObject) items.get(i)).onLoad();
-      }
-      setItems(items);
+         public void invoke(Session session)
+         {
+            Tracing.tracer().fine("CalEventList:  fetching events for time span: "+_span);
+      
+            Criteria timeconstrained = constrainBySpan();
+            java.util.List items = timeconstrained.list();
+
+            for (int i=0; i<items.size(); i++)
+            {
+               ((ComplexEObject) items.get(i)).onLoad();
+            }
+            setItems(items);
+         }
+      });
    }
 
    public void fetchSpan(TimeSpan span)

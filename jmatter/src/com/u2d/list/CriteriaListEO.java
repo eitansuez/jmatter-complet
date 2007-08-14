@@ -17,10 +17,12 @@ import com.u2d.find.QueryReceiver;
 import com.u2d.type.atom.StringEO;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import static com.u2d.pubsub.AppEventType.*;
+import com.u2d.persist.HBMBlock;
 
 /**
  * @author Eitan Suez
@@ -120,23 +122,21 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
 
    private void fetchCurrentPage()
    {
-      try
+      hbmPersistor().transaction(new HBMBlock()
       {
-         _criteria.setFirstResult(_position);
-         java.util.List items = _criteria.list();
-
-         // leakage of persistence concerns..
-         for (int i=0; i<items.size(); i++)
+         public void invoke(Session session)
          {
-            ((ComplexEObject) items.get(i)).onLoad();
+            _criteria.setFirstResult(_position);
+            java.util.List items = _criteria.list();
+
+            // leakage of persistence concerns..
+            for (int i=0; i<items.size(); i++)
+            {
+               ((ComplexEObject) items.get(i)).onLoad();
+            }
+            setItems(items);
          }
-         setItems(items);
-      }
-      catch (HibernateException ex)
-      {
-         System.err.println("HibernateException ex: "+ex.getMessage());
-         ex.printStackTrace();
-      }
+      });
    }
 
    public void fetchPage(int pageNum)

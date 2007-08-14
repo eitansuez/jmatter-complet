@@ -61,7 +61,7 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
    }
 
 
-   public void transaction(HBMBlock block)
+   public Object transactionReturn(HBMReturnBlock block)
    {
       try
       {
@@ -71,9 +71,11 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
             Session session = getSession();
             tx = session.beginTransaction();
 
-            block.invoke(session);
+            Object result = block.invoke(session);
             
             tx.commit();
+            
+            return result;
          }
          catch (HibernateException ex)
          {
@@ -88,17 +90,24 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
          throw ex;
       }
    }
-
-   public void saveMany(java.util.Set ceos)
+   public void transaction(final HBMBlock block)
    {
-      try
+      transactionReturn(new HBMReturnBlock()
       {
-         Transaction tx = null;
-         try
+         public Object invoke(Session session)
          {
-            Session session = getSession();
-            tx = session.beginTransaction();
+            block.invoke(session);
+            return null;
+         }
+      });
+   }
 
+   public void saveMany(final java.util.Set ceos)
+   {
+      transaction(new HBMBlock()
+      {
+         public void invoke(Session session)
+         {
             for (Iterator itr = ceos.iterator(); itr.hasNext(); )
             {
                ComplexEObject ceo = (ComplexEObject) itr.next();
@@ -106,63 +115,34 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
                ceo.onBeforeSave();
                session.save(ceo);
             }
-            tx.commit();
-
-            for (Iterator itr = ceos.iterator(); itr.hasNext(); )
-            {
-               ComplexEObject ceo = (ComplexEObject) itr.next();
-               if (ceo.isTransientState()) ceo.onCreate();
-               else ceo.onSave();
-            }
          }
-         catch (HibernateException ex)
-         {
-            if (tx != null) tx.rollback();
-            throw ex;
-         }
-      }
-      catch (HibernateException ex)
+      });
+      for (Iterator itr = ceos.iterator(); itr.hasNext(); )
       {
-         ex.printStackTrace();
-         newSession();
-         throw ex;
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         if (ceo.isTransientState()) ceo.onCreate();
+         else ceo.onSave();
       }
    }
    
-   public void deleteMany(java.util.Set ceos)
+   public void deleteMany(final java.util.Set ceos)
    {
-      try
+      transaction(new HBMBlock()
       {
-         Transaction tx = null;
-         try
+         public void invoke(Session session)
          {
-            Session session = getSession();
-            tx = session.beginTransaction();
-
             for (Iterator itr = ceos.iterator(); itr.hasNext(); )
             {
                ComplexEObject ceo = (ComplexEObject) itr.next();
                session.delete(ceo);
             }
-            tx.commit();
-
-            for (Iterator itr = ceos.iterator(); itr.hasNext(); )
-            {
-               ComplexEObject ceo = (ComplexEObject) itr.next();
-               ceo.onDelete();
-            }
          }
-         catch (HibernateException ex)
-         {
-            if (tx != null) tx.rollback();
-            throw ex;
-         }
-      }
-      catch (HibernateException ex)
+      });
+         
+      for (Iterator itr = ceos.iterator(); itr.hasNext(); )
       {
-         ex.printStackTrace();
-         newSession();
-         throw ex;
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         ceo.onDelete();
       }
    }
 
@@ -173,63 +153,62 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       return path + "schema.sql";
    }
 
-   public AbstractListEO hql(String hql)
+   public AbstractListEO hql(final String hql)
    {
-      return hqlQuery(getSession().createQuery(hql));
+      Object result = transactionReturn(new HBMReturnBlock()
+      {
+         public Object invoke(Session session)
+         {
+            return hqlQuery(session.createQuery(hql));
+         }
+      });
+      return (AbstractListEO) result;
    }
 
-   public AbstractListEO hqlQuery(Query query)
+   public AbstractListEO hqlQuery(final Query query)
    {
-      try
+      Object result = transactionReturn(new HBMReturnBlock()
       {
-         java.util.List results = query.list();
-
-         if (results.isEmpty())
+         public Object invoke(Session session)
          {
-            return null;
+            return query.list();
          }
-         else
-         {
-            for (int i = 0; i < results.size(); i++)
-            {
-               ((ComplexEObject) results.get(i)).onLoad();
-            }
+      });
+      java.util.List results = (java.util.List) result;
 
-            /* this is not correct all the time.
-              the right way to do this is to use the hibernate
-              hql parser and ask it for the cls
-            */
-            Class cls = ((ComplexEObject) results.get(0)).type().getJavaClass();
-            return new PlainListEObject(cls, results);
-         }
-      }
-      catch (HibernateException ex)
+      if (results.isEmpty())
       {
-         System.err.println("hbm query failed: " + ex.getMessage());
-         System.err.println("Query was: " + query.getQueryString());
-         newSession();
-         ex.printStackTrace();
+         return null;
       }
-      return null;
+      else
+      {
+         for (int i = 0; i < results.size(); i++)
+         {
+            ((ComplexEObject) results.get(i)).onLoad();
+         }
+
+         /* this is not correct all the time.
+           the right way to do this is to use the hibernate
+           hql parser and ask it for the cls
+         */
+         Class cls = ((ComplexEObject) results.get(0)).type().getJavaClass();
+         return new PlainListEObject(cls, results);
+      }
    }
 
-   public ComplexEObject fetch(String hql)
+   public ComplexEObject fetch(final String hql)
    {
-      try
+      Object result = transactionReturn(new HBMReturnBlock()
       {
-         ComplexEObject ceo = (ComplexEObject) getSession().createQuery(hql).uniqueResult();
-         if (ceo == null) return null;
-         ceo.onLoad();
-         return ceo;
-      }
-      catch (HibernateException ex)
-      {
-         System.err.println("hbm query failed: " + ex.getMessage());
-         System.err.println("Query was: " + hql);
-         newSession();
-         ex.printStackTrace();
-      }
-      return null;
+         public Object invoke(Session session)
+         {
+            return session.createQuery(hql).uniqueResult();
+         }
+      });
+      ComplexEObject ceo = (ComplexEObject) result;
+      if (ceo == null) return null;
+      ceo.onLoad();
+      return ceo;
    }
 
    public void refresh(ComplexEObject eo)
@@ -252,30 +231,28 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       return parent;
    }
    
-   public AbstractListEO browse(ComplexType type)
+   public AbstractListEO browse(final ComplexType type)
    {
       return new PagedList(new SimpleQuery(type));
    }
 
-   public PlainListEObject list(Class clazz)
+   public PlainListEObject list(final Class clazz)
    {
-      try
+      Object result = transactionReturn(new HBMReturnBlock()
       {
-         Criteria criteria = getSession().createCriteria(clazz);
-         List items = criteria.list();
-
-         for (int i = 0; i < items.size(); i++)
+         public Object invoke(Session session)
          {
-            ((ComplexEObject) items.get(i)).onLoad();
+            Criteria criteria = session.createCriteria(clazz);
+            return criteria.list();
          }
-         return new PlainListEObject(clazz, items);
-      }
-      catch (HibernateException ex)
+      });
+      List items = (List) result;
+
+      for (int i = 0; i < items.size(); i++)
       {
-         ex.printStackTrace();
-         newSession();
-         throw ex;
+         ((ComplexEObject) items.get(i)).onLoad();
       }
+      return new PlainListEObject(clazz, items);
    }
 
    public PlainListEObject list(ComplexType type)
@@ -285,101 +262,82 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       return list;
    }
 
-   public boolean authenticate(String username, String password)
+   public boolean authenticate(final String username, final String password)
    {
-      try
+      Object result = transactionReturn(new HBMReturnBlock()
       {
-         Session session = getSession();
-         String queryString = "select user.password from com.u2d.app.User as user " + 
-               " where user.username = :username";
-         Query query = session.createQuery(queryString);
-         query.setString("username", username);
-         Password hash = (Password) query.uniqueResult();
-         if (hash == null) return false; // no such user
-         return Password.match(hash.hashValue(), password);
-      }
-      catch (HibernateException ex)
-      {
-         System.err.println("HibernateException: " + ex.getMessage());
-         ex.printStackTrace();
-         newSession();
-         return false; // TODO: throw an exception that translates into a
-                       // truthful message to the end user
-      }
+         public Object invoke(Session session)
+         {
+            String queryString = "select user.password from com.u2d.app.User as user " + 
+                  " where user.username = :username";
+            Query query = session.createQuery(queryString);
+            query.setString("username", username);
+            Password hash = (Password) query.uniqueResult();
+            if (hash == null) return false; // no such user
+            return Password.match(hash.hashValue(), password);
+         }
+      });
+      return ((Boolean) result).booleanValue();
    }
 
-   public com.u2d.type.Choice lookup(Class clazz, String code)
+   public com.u2d.type.Choice lookup(final Class clazz, final String code)
    {
-      try
+      Object result = transactionReturn(new HBMReturnBlock()
       {
-         Criteria criteria = getSession().createCriteria(clazz).add(
-               Expression.eq("code", code));
-         List items = criteria.list();
-         if (items.isEmpty()) return null;
-         ComplexEObject ceo = (ComplexEObject) items.iterator().next();
-         ceo.onLoad();
-         return (Choice) ceo;
-      }
-      catch (HibernateException ex)
-      {
-         ex.printStackTrace();
-         newSession();
-         throw ex;
-      }
+         public Object invoke(Session session)
+         {
+            Criteria criteria = session.createCriteria(clazz).add(
+                  Expression.eq("code", code));
+            return criteria.list();
+         }
+      });
+      List items = (List) result;
+      if (items.isEmpty()) return null;
+      ComplexEObject ceo = (ComplexEObject) items.iterator().next();
+      ceo.onLoad();
+      return (Choice) ceo;
    }
    
-   public ComplexEObject lookup(Class clazz, String uniqueFieldName, String value)
+   public ComplexEObject lookup(final Class clazz, final String uniqueFieldName, final String value)
    {
-      Criteria criteria = getSession().createCriteria(clazz);
-      criteria.add(Expression.eq(uniqueFieldName, value));
-      List list = criteria.list();
+      Object result = transactionReturn(new HBMReturnBlock()
+      {
+         public Object invoke(Session session)
+         {
+            Criteria criteria = session.createCriteria(clazz);
+            criteria.add(Expression.eq(uniqueFieldName, value));
+            return criteria.list();
+         }
+      });
+      List list = (List) result;
       if (list.isEmpty()) return null;
       ComplexEObject ceo = (ComplexEObject) list.iterator().next();
       ceo.onLoad();
       return ceo;
    }
    
-   public void delete(ComplexEObject ceo)
+   public void delete(final ComplexEObject ceo)
    {
-      Session session = getSession();
-      try
+      transaction(new HBMBlock()
       {
-         Transaction tx = null;
-         try
+         public void invoke(Session session)
          {
-            tx = session.beginTransaction();
             session.delete(ceo);
-            tx.commit();
-
-            ceo.onDelete();
          }
-         catch (HibernateException ex)
-         {
-            if (tx != null) tx.rollback();
-            throw ex;
-         }
-      }
-      catch (HibernateException ex)
-      {
-         ex.printStackTrace();
-         newSession();
-         throw ex;
-      }
+      });
+      ceo.onDelete();
    }
 
-   public void updateAssociation(ComplexEObject one, ComplexEObject two)
+   public void updateAssociation(final ComplexEObject one, final ComplexEObject two)
    {
       _tracer.fine("Updating association between " + one + " and " + two);
-      Session session = getSession();
-      try
+      transaction(new HBMBlock()
       {
-         Transaction tx = null;
-         try
+         public void invoke(Session session)
          {
-            tx = session.beginTransaction();
-
-            while (one.field() != null && one.field().isAggregate())
-               one = one.parentObject();
+            ComplexEObject first = one;
+            while (first.field() != null && first.field().isAggregate())
+               first = first.parentObject();
 
             // terrible hack:  Field types map to db as value types, not an entity
             if (!Field.class.isAssignableFrom(one.getClass()))
@@ -390,66 +348,47 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
             {
                session.save(two);
             }
-
-            tx.commit();
-
-            one.onSave();
-            two.onSave();
          }
-         catch (HibernateException ex)
+      });
+      one.onSave();
+      two.onSave();
+   }
+
+   public ComplexEObject fetchSingle(final Class clazz)
+   {
+      Object result = transactionReturn(new HBMReturnBlock()
+      {
+         public Object invoke(Session session)
          {
-            if (tx != null) tx.rollback();
-            throw ex;
+            Criteria criteria = session.createCriteria(clazz);
+            return criteria.list();
          }
-      }
-      catch (HibernateException ex)
-      {
-         ex.printStackTrace();
-         newSession();
-         throw ex;
-      }
+      });
+      List list = (List) result;
+
+      if (list.isEmpty())
+         return null;
+
+      ComplexEObject ceo = (ComplexEObject) list.get(0);
+      ceo.onLoad();
+      return ceo;
    }
 
-   public ComplexEObject fetchSingle(Class clazz)
+   public ComplexEObject load(final Class clazz, final Long id)
    {
-      try
+      Object result = transactionReturn(new HBMReturnBlock()
       {
-         Criteria criteria = getSession().createCriteria(clazz);
-         List list = criteria.list();
-
-         if (list.isEmpty())
-            return null;
-
-         ComplexEObject ceo = (ComplexEObject) list.get(0);
-         ceo.onLoad();
-         return ceo;
-      }
-      catch (HibernateException ex)
-      {
-         System.err.println("failed to fetch singleton for class: " + clazz.getName());
-         ex.printStackTrace();
-         throw ex;
-      }
+         public Object invoke(Session session)
+         {
+            return session.load(clazz, id);
+         }
+      });
+      ComplexEObject ceo = (ComplexEObject) result;
+      ceo.onLoad();
+      return ceo;
    }
 
-   public ComplexEObject load(Class clazz, Long id)
-   {
-      try
-      {
-         ComplexEObject ceo = (ComplexEObject) getSession().load(clazz, id);
-         ceo.onLoad();
-         return ceo;
-      }
-      catch (HibernateException ex)
-      {
-         System.err.println("failed to load "+clazz.getName()+" instance with id: "+id);
-         ex.printStackTrace();
-         newSession();
-         throw ex;
-      }
-   }
-
-   public void save(ComplexEObject ceo)
+   public void save(final ComplexEObject ceo)
    {
       // this is not necessarily the right course of action:
       //  problem statement:  when saving something, if it has an association
@@ -501,40 +440,20 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       _tracer.info("Saving " + ceo.type() + ": " + ceo);
       ceo.onBeforeSave();
 
-      try
+      transaction(new HBMBlock()
       {
-         Transaction tx = null;
-         Session session = getSession();
-         try
+         public void invoke(Session session)
          {
-            tx = session.beginTransaction();
-
             ComplexEObject parent = selfOrParentIfAggregate(ceo);
-
             if (ceo.isTransientState()) ceo.onBeforeCreate();
-
             session.saveOrUpdate(parent);
-
-            tx.commit();
-
-            if (ceo.isTransientState())
-               ceo.onCreate();
-            else
-               ceo.onSave();
-
          }
-         catch (HibernateException ex)
-         {
-            if (tx != null) tx.rollback();
-            throw ex;
-         }
-      }
-      catch (HibernateException ex)
-      {
-         ex.printStackTrace();
-         newSession();
-         throw ex;
-      }
+      });
+
+      if (ceo.isTransientState())
+         ceo.onCreate();
+      else
+         ceo.onSave();
    }
 
    // == tool-related ==
