@@ -336,8 +336,6 @@ public class Onion implements ListChangeNotifier
    {
       for (Iterator oitr = deepIterator(); oitr.hasNext(); )
       {
-         // interface should now require argument to be of type complexeobject!
-         // TODO: fix;
          block.each((ComplexEObject) oitr.next());
       }
    }

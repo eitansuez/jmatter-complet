@@ -111,17 +111,15 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
             for (Iterator itr = ceos.iterator(); itr.hasNext(); )
             {
                ComplexEObject ceo = (ComplexEObject) itr.next();
-               if (ceo.isTransientState()) ceo.onBeforeCreate();
-               ceo.onBeforeSave();
-               session.save(ceo);
+               onBeforePersist(ceo);
+               session.saveOrUpdate(ceo);
             }
          }
       });
       for (Iterator itr = ceos.iterator(); itr.hasNext(); )
       {
          ComplexEObject ceo = (ComplexEObject) itr.next();
-         if (ceo.isTransientState()) ceo.onCreate();
-         else ceo.onSave();
+         onPersist(ceo);
       }
    }
    
@@ -342,16 +340,16 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
             // terrible hack:  Field types map to db as value types, not an entity
             if (!Field.class.isAssignableFrom(one.getClass()))
             {
-               session.save(one);
+               session.saveOrUpdate(one);
             }
             if (!Field.class.isAssignableFrom(two.getClass()))
             {
-               session.save(two);
+               session.saveOrUpdate(two);
             }
          }
       });
-      one.onSave();
-      two.onSave();
+      onPersist(one);
+      onPersist(two);
    }
 
    public ComplexEObject fetchSingle(final Class clazz)
@@ -438,18 +436,29 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       }
 
       _tracer.info("Saving " + ceo.type() + ": " + ceo);
-      ceo.onBeforeSave();
 
       transaction(new HBMBlock()
       {
          public void invoke(Session session)
          {
             ComplexEObject parent = selfOrParentIfAggregate(ceo);
-            if (ceo.isTransientState()) ceo.onBeforeCreate();
+            onBeforePersist(ceo);
             session.saveOrUpdate(parent);
          }
       });
 
+      onPersist(ceo);
+   }
+   
+   private void onBeforePersist(ComplexEObject ceo)
+   {
+      if (ceo.isTransientState())
+         ceo.onBeforeCreate();
+      else
+         ceo.onBeforeSave();
+   }
+   private void onPersist(ComplexEObject ceo)
+   {
       if (ceo.isTransientState())
          ceo.onCreate();
       else

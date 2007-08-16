@@ -3,7 +3,8 @@
  */
 package com.u2d.persist;
 
-import org.hibernate.*;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 
 /**
  * @author Eitan Suez

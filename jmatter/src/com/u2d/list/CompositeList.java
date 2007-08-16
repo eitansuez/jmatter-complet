@@ -8,9 +8,9 @@ import com.u2d.model.Harvester;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
 import com.u2d.pattern.State;
-import com.u2d.pattern.Block;
 import com.u2d.app.Tracing;
 import java.util.logging.Logger;
+import java.util.Iterator;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 import java.beans.PropertyDescriptor;
@@ -24,7 +24,6 @@ public class CompositeList extends SimpleListEO
 {
    private transient boolean _fixedSize = false;
    private ComplexEObject _parent;
-   private String _parentFldname;
    private Method _setterMethod;
 
    private transient Logger _tracer = Tracing.tracer();
@@ -41,16 +40,15 @@ public class CompositeList extends SimpleListEO
    private void workoutSetter(ComplexEObject parent, String parentFldname)
    {
       _parent = parent;
-      _parentFldname = parentFldname;
       try
       {
-         PropertyDescriptor descriptor = new PropertyDescriptor(_parentFldname, _clazz, null,
-                                                                Harvester.makeSetterName(_parentFldname));
+         PropertyDescriptor descriptor = new PropertyDescriptor(parentFldname, _clazz, null,
+                                                                Harvester.makeSetterName(parentFldname));
          _setterMethod = descriptor.getWriteMethod();
       }
       catch (IntrospectionException e)
       {
-         String msg = String.format("failed to find write method for field %s on type %s", _parentFldname, _clazz);
+         String msg = String.format("failed to find write method for field %s on type %s", parentFldname, _clazz);
          _tracer.info(msg);
          e.printStackTrace();
       }
@@ -96,13 +94,11 @@ public class CompositeList extends SimpleListEO
 
    public void setState(final State state)
    {
-      forEach(new Block()
+      for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
-         public void each(ComplexEObject ceo)
-         {
-            ceo.setState(state);
-         }
-      });
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         ceo.setState(state);
+      }
    }
 
    public ComplexEObject addNew()
@@ -115,25 +111,21 @@ public class CompositeList extends SimpleListEO
 
    public void onBeforeSave()
    {
-      forEach(new Block()
+      for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
-         public void each(ComplexEObject ceo)
-         {
-            ceo.onBeforeSave();
-         }
-      });
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         ceo.onBeforeSave();
+      }
    }
 
    public void onLoad()
    {
-      forEach(new Block()
+      for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
-         public void each(ComplexEObject ceo)
-         {
-            setParent(ceo);
-            ceo.onLoad();
-         }
-      });
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         setParent(ceo);
+         ceo.onLoad();
+      }
    }
 
    public void setParent(ComplexEObject ceo)

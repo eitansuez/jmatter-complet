@@ -20,6 +20,7 @@ import com.u2d.app.*;
 import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.persist.HBMSingleSession;
+import com.u2d.persist.HibernatePersistor;
 import com.u2d.pattern.Filter;
 import com.u2d.element.Command;
 import com.u2d.utils.Launcher;
@@ -473,6 +474,12 @@ public class AppFrame extends JFrame
       enc.close();
       User currentUser = _appSession.getUser();
       currentUser.getDesktop().setValue(baos.toString());
+      
+      // currentuser lives for entire session.  if obtain a new session, must attach
+      // object to new session;  this is not always the cause but a good precaution.
+      // actually avoids an exception in certain circumstances.
+      HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) _app.getPersistenceMechanism();
+      hbm.getSession().update(currentUser);
       currentUser.save();
    }
 

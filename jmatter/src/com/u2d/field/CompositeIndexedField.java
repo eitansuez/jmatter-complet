@@ -1,11 +1,12 @@
 package com.u2d.field;
 
-import com.u2d.model.*;
 import com.u2d.list.CompositeList;
-import com.u2d.pattern.Block;
-
-import java.beans.PropertyDescriptor;
+import com.u2d.model.ComplexEObject;
+import com.u2d.model.EObject;
+import com.u2d.model.FieldParent;
 import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.util.Iterator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,14 +33,11 @@ public class CompositeIndexedField extends IndexedField
    public EObject get(ComplexEObject parent)
    {
       final CompositeList list = (CompositeList) super.get(parent);
-      list.forEach(new Block()
+      for (Iterator itr = list.iterator(); itr.hasNext(); )
       {
-         public void each(ComplexEObject ceo)
-         {
-            ceo.setField(CompositeIndexedField.this, list.parentObject());
-         }
-      });
-         
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         ceo.setField(CompositeIndexedField.this, list.parentObject());
+      }
       return list;
    }
 
@@ -55,12 +53,10 @@ public class CompositeIndexedField extends IndexedField
    {
       super.restore(parent, value);
       final CompositeList list = (CompositeList) super.get(parent);
-      list.forEach(new Block()
+      for (Iterator itr = list.iterator(); itr.hasNext(); )
       {
-         public void each(ComplexEObject ceo)
-         {
-            list.setParent(ceo);
-         }
-      });
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         list.setParent(ceo);
+      }
    }
 }

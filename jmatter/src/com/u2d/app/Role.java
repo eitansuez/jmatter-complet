@@ -3,21 +3,22 @@
  */
 package com.u2d.app;
 
-import com.u2d.list.RelationalList;
-import com.u2d.model.AbstractComplexEObject;
-import com.u2d.model.Title;
-import com.u2d.model.ComplexType;
-import com.u2d.model.ComplexEObject;
-import com.u2d.restrict.*;
-import com.u2d.type.atom.*;
-import com.u2d.type.composite.LoggedEvent;
-import com.u2d.element.Member;
 import com.u2d.element.Command;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.Field;
-import com.u2d.pattern.Block;
+import com.u2d.element.Member;
+import com.u2d.list.RelationalList;
+import com.u2d.model.AbstractComplexEObject;
+import com.u2d.model.ComplexType;
+import com.u2d.model.Title;
+import com.u2d.pattern.Onion;
 import com.u2d.reflection.Cmd;
-import java.util.*;
+import com.u2d.restrict.*;
+import com.u2d.type.atom.StringEO;
+import com.u2d.type.composite.LoggedEvent;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @author Eitan Suez
@@ -203,15 +204,11 @@ public class Role extends AbstractComplexEObject implements Authorizer
             addCmdRestriction().on(restrictionType.instanceCommand("Edit"));
             
             // disallow manipulation of metadata:  restrict commands on Fields
-            ComplexType.forClass(Member.class).commands(ReadState.class).forEach(
-                  new Block()
-                  {
-                     public void each(ComplexEObject ceo)
-                     {
-                        addCmdRestriction().on((Command) ceo);
-                     }
-                  }
-            );
+            Onion memberCmds = ComplexType.forClass(Member.class).commands(ReadState.class);
+            for (Iterator itr = memberCmds.deepIterator(); itr.hasNext(); )
+            {
+               addCmdRestriction().on((Command) itr.next());
+            }
             // i don't like this..
             Command forbidForRole = 
                   ComplexType.forClass(Command.class).instanceCommand("ForbidForRole");
@@ -220,15 +217,12 @@ public class Role extends AbstractComplexEObject implements Authorizer
             addCmdRestriction().on(roleType.instanceCommand("ManageRestrictionsForType"));
             addCmdRestriction().on(roleType.instanceCommand("AddCmdRestriction"));
             
-            ComplexType.persistedTypes().forEach(new Block()
+            for (Iterator itr = ComplexType.persistedTypes().iterator(); itr.hasNext(); )
             {
-               public void each(ComplexEObject ceo)
-               {
-                  ComplexType type = (ComplexType) ceo;
+                  ComplexType type = (ComplexType) itr.next();
                   addCmdRestriction().on(type.command("Open"));
                   addCmdRestriction().on(type.command("ManageRestrictions"));
-               }
-            });
+            }
             ComplexType types = ComplexType.forClass(ComplexType.class);
             addCmdRestriction().on(types.instanceCommand("Open"));
             addCmdRestriction().on(types.instanceCommand("ManageRestrictions"));

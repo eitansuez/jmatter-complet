@@ -3,19 +3,24 @@
  */
 package com.u2d.app;
 
-import javax.swing.Icon;
 import com.u2d.element.CommandInfo;
-import com.u2d.type.atom.*;
-import com.u2d.type.composite.*;
 import com.u2d.model.AbstractComplexEObject;
-import com.u2d.model.Title;
 import com.u2d.model.ComplexEObject;
-import com.u2d.pattern.*;
+import com.u2d.model.Title;
+import com.u2d.pattern.State;
 import com.u2d.reflection.Arg;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Fld;
+import com.u2d.type.atom.*;
+import com.u2d.type.composite.Folder;
+import com.u2d.type.composite.LoggedEvent;
+import com.u2d.type.composite.Name;
+import org.hibernate.Session;
+
+import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -72,38 +77,33 @@ public class User extends AbstractComplexEObject implements Authorizer
    private void copyClassBarFromAppTemplate()
    {
       Folder templateClassBar = app().getClassBar();
+      final Session session = hbmPersistor().getSession();
+      session.update(templateClassBar);  // a precaution in case a new session was obtained
+        // since templateClassBar was loaded
       _classBar.getName().setValue("Class Bar");
-      templateClassBar.getItems().forEach(new Block()
+      for (Iterator itr = templateClassBar.getItems().iterator(); itr.hasNext(); )
       {
-         public void each(ComplexEObject ceo)
+         Folder subFolder = (Folder) itr.next();
+         final Folder mySubfolder = new Folder();
+         mySubfolder.getName().setValue(subFolder.getName());
+         hbmPersistor().getSession().saveOrUpdate(mySubfolder);
+         _classBar.addItem(mySubfolder);
+         for (Iterator subItr = subFolder.getItems().iterator(); subItr.hasNext(); )
          {
-            Folder subFolder = (Folder) ceo;
-            final Folder mySubfolder = new Folder();
-            mySubfolder.getName().setValue(subFolder.getName());
-            hbmPersistor().getSession().save(mySubfolder);
-            _classBar.addItem(mySubfolder);
-            subFolder.getItems().forEach(new Block()
-            {
-               public void each(ComplexEObject ceo)
-               {
-                  mySubfolder.addItem(ceo);
-               }
-            });
+            ComplexEObject ceo = (ComplexEObject) subItr.next();
+            mySubfolder.addItem(ceo);
          }
-      });
+      }
    }
    private void deleteClassBarFolders()
    {
       final Set itemsToDelete = new HashSet();
-      _classBar.getItems().forEach(new Block()
+      for (Iterator itr = _classBar.getItems().iterator(); itr.hasNext(); )
       {
-         public void each(ComplexEObject ceo)
-         {
-            Folder subFolder = (Folder) ceo;
-            subFolder.clearItems();
-            itemsToDelete.add(subFolder);
-         }
-      });
+         Folder subFolder = (Folder) itr.next();
+         subFolder.clearItems();
+         itemsToDelete.add(subFolder);
+      }
       hbmPersistor().deleteMany(itemsToDelete);
    }
 
