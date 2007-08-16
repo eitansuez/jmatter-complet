@@ -83,11 +83,9 @@ public class HBMMaker
    
    private void produceFieldMapping(Element parentElem, FieldParent fieldParent, String prefix)
    {
-      Iterator itr = fieldParent.fields().iterator();
-      Field field = null;
-      while (itr.hasNext())
+      for (Iterator itr = fieldParent.fields().iterator(); itr.hasNext(); )
       {
-         field = (Field) itr.next();
+         Field field = (Field) itr.next();
          
          if (_joinedSubclass && prefix == null && field.isInherited())
             continue;
