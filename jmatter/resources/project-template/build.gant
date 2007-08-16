@@ -290,10 +290,11 @@ target (jwsDist : 'create java webstart distribution')
 
 void makeJnlpFile()
 {
-  def fs = Ant.fileset ( dir : jwsDistDir, includes : '**/*.jar' , excludes : 'contactmgr.jar' )
+  def fs = Ant.fileset ( dir : jwsDistDir, includes : '**/*.jar' )
   def ds = fs.getDirectoryScanner(Ant.project)
-  def jars = new HashSet(ds.getIncludedFiles().toList());
-  def binding = ['jars' : jars];
+  def jars = new HashSet(ds.getIncludedFiles().toList())
+  jars.remove('lib/swingvm.jar')
+  def binding = ['jars' : jars]
   
   def props = new Properties()
   props.load(new FileInputStream('resources/jws/dynamic/project.properties'))

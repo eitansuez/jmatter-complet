@@ -204,7 +204,7 @@
    <make-jnlp template="resources/jws/dynamic/project-jnlp.st" 
               props="resources/jws/dynamic/project.properties"
               jarbasepath="${jws-dist.dir}"
-              excludejar="${jar.file}"
+              excludejar="swingvm.jar"
               tofile="${jws-dist.dir}/project.jnlp" />
 
    <signjar alias="unknown" storepass="public" keystore="tempKeystore">
