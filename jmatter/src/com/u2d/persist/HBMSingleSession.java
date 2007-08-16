@@ -25,7 +25,6 @@ public class HBMSingleSession extends HibernatePersistor
 
    public void newSession()
    {
-
       if (_session != null)
       {
          try
@@ -49,10 +48,9 @@ public class HBMSingleSession extends HibernatePersistor
       catch (HibernateException ex)
       {
          ex.printStackTrace();
-         System.err.println("Error attempting to initialize hibernate");
+         System.err.println("Error attempting to obtain a new hibernate sessino");
          throw ex;
       }
-      
    }
 
 }
