@@ -8,7 +8,6 @@ import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.GradientPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionListener;
@@ -39,12 +38,13 @@ public class ExpandableView2
       setOpaque(false);
       setBorder(BorderFactory.createLineBorder(Color.black));
       
-      FormLayout layout = new FormLayout("fill:pref:grow, right:pref", "top:pref:grow, top:3dlu, top:pref:grow");
+      FormLayout layout = new FormLayout("fill:pref:grow, right:pref", 
+                                         "top:pref:grow, top:pref:grow");
       setLayout(layout);
       cc = new CellConstraints();
       
       _toggleBtn = new ExpandableView2.ExpandCollapseButton();
-      add(_toggleBtn, cc.xy(2, 1));
+      add(_toggleBtn, cc.rc(1, 2));
       _toggleBtn.addActionListener( new ActionListener()
          {
             public void actionPerformed(ActionEvent evt)
@@ -74,9 +74,7 @@ public class ExpandableView2
       p.setLayout(new BorderLayout());
       p.add(_handle);
       
-      add(p, cc.xy(1, 1));
-      Component separator = DefaultComponentFactory.getInstance().createSeparator("");
-      add(separator, cc.xyw(1,3,2));
+      add(p, cc.rc(1, 1));
 
       if (_toggleBtn.isExpanded() != expanded)
          _toggleBtn.doClick();
@@ -98,7 +96,10 @@ public class ExpandableView2
 
    private FormView leaf()
    {
-      if (_leaf == null) _leaf = new FormView(_ceo, true);
+      if (_leaf == null)
+      {
+         _leaf = new FormView(_ceo, true);
+      }
       return _leaf;
    }
    
@@ -119,7 +120,7 @@ public class ExpandableView2
 	{
       if (expand && _toggleBtn.isCollapsed())
       {
-         add(leaf(), cc.xyw(1, 3, 2));
+         add(leaf(), cc.rcw(2, 1, 2));
       }
       else if (!expand && _toggleBtn.isExpanded())
       {
