@@ -21,7 +21,7 @@
 
  <resources>
    <j2se version="1.5+" />
-   <jar href="MyTunes.jar" main="true" />
+   <jar href="lib/swingvm.jar" main="true" />
    $jars:{jar|
    <jar href="$jar$" />
    }$

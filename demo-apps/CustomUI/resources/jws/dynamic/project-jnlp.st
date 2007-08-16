@@ -20,8 +20,8 @@
  </security>
 
  <resources>
-   <j2se version="1.4+" />
-   <jar href="customui.jar" main="true" />
+   <j2se version="1.5+" />
+   <jar href="lib/swingvm.jar" main="true" />
    $jars:{jar|
    <jar href="$jar$" />
    }$
