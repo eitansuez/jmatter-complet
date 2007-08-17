@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class AtomicType
 {
-   private static transient Map _typeCache = new HashMap();
+   private static transient Map<Class, AtomicType> _typeCache = new HashMap<Class, AtomicType>();
 
    public static AtomicType forClass(Class targetClass)
    {
