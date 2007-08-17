@@ -7,7 +7,6 @@ import com.u2d.reflection.Cmd;
 import com.u2d.reporting.ReportFormat;
 import com.u2d.reporting.Reportable;
 import com.u2d.type.composite.Person;
-import com.u2d.wizard.DomainWizard;
 import com.u2d.wizard.details.Wizard;
 import javax.swing.table.TableModel;
 import java.util.Properties;
@@ -28,11 +27,14 @@ public class PersonContact extends Person
 //       return new Wizard(new NewPersonWizard());
       
       // New Alternative:
-      DomainWizard wizard = new DomainWizard(PersonContact.class,
-         new String[][]{{"name"},{"contact.address"},{"contact"}});
-      wizard.setLastPropertyCommits( true );
-      wizard.ready();
-      return new Wizard( wizard );
+//      DomainWizard wizard = new DomainWizard(PersonContact.class,
+//         new String[][]{{"name"},{"contact.address"},{"contact"}});
+//      wizard.setLastPropertyCommits( true );
+//      wizard.ready();
+//      return new Wizard( wizard );
+      
+      // Third alternative, using Groovy Builder for JMatter Wizards:
+      return new com.u2d.contactmgr.groovy.NewPersonWizard().wizard();
    }
    
    

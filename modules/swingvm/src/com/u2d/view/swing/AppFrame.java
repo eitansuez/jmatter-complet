@@ -20,7 +20,6 @@ import com.u2d.app.*;
 import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.persist.HBMSingleSession;
-import com.u2d.persist.HibernatePersistor;
 import com.u2d.pattern.Filter;
 import com.u2d.element.Command;
 import com.u2d.utils.Launcher;

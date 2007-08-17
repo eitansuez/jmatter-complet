@@ -18,9 +18,9 @@
    <path id="class.path">
       <fileset dir="${libdir}" includes="*.jar" />
       <pathelement location="${buildclassesdir}" />
-      <fileset dir="../swingvm/lib/" includes="forms*.jar,l2f*.jar" />
       <pathelement location="../../jmatter/build/classes" />
       <pathelement location="../ds-swing/build/classes" />
+      <fileset dir="../../jmatter/lib/runtime/" includes="groovy*.jar,commons-lang-*.jar" />
    </path>
 
    <path id="test.classpath">
