@@ -17,7 +17,6 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/AppFrame.java" />
     </list>
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
@@ -391,7 +390,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure Favorites="false" Scope="false" PackagesPane="false" ProjectPane="false" />
+      <showStructure PackagesPane="false" Scope="false" Favorites="false" ProjectPane="false" />
       <autoscrollToSource PackagesPane="false" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -400,8 +399,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -581,8 +580,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="20" width="1288" height="760" extended-state="0" />
-    <editor active="false" />
+    <frame x="-4" y="20" width="1288" height="760" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" order="8" />
@@ -600,7 +599,7 @@
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32923833" order="3" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6217949" order="8" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27051178" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27051178" order="0" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24939074" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
@@ -771,15 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/app/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="16" selection-start="2842" selection-end="2842" vertical-scroll-proportion="0.3322314">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/app/AppSession.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="124" column="24" selection-start="3369" selection-end="3378" vertical-scroll-proportion="0.3322034">
@@ -805,6 +795,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="479" column="38" selection-start="13722" selection-end="13722" vertical-scroll-proportion="0.40661156">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/app/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="10" selection-start="2087" selection-end="2091" vertical-scroll-proportion="0.034710743">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

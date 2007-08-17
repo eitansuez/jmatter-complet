@@ -29,5 +29,9 @@
       <property name="pagesize" value="15" />
       <property name="persistenceMechanism" ref="persistor" />
    </bean>
-   
+
+   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+      <property name="basename" value="model-metadata" />
+   </bean>
+ 
 </beans>

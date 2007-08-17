@@ -1,10 +1,11 @@
 package com.u2d.app;
 
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ApplicationContext;
-import org.springframework.beans.BeansException;
 import com.u2d.pubsub.*;
-import static com.u2d.pubsub.AppEventType.*;
+import static com.u2d.pubsub.AppEventType.APP_READY;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
 
 /**
  * Created by IntelliJ IDEA.
@@ -49,6 +50,11 @@ public class Context implements ApplicationContextAware, AppEventNotifier
    {
       if (_applicationContext == null) return _nullvmech;
       return (ViewMechanism) _applicationContext.getBean("view-mechanism");
+   }
+
+   public MessageSource getMessageSource()
+   {
+      return (MessageSource) _applicationContext.getBean("messageSource");
    }
 
    // ---

@@ -1,20 +1,21 @@
 package com.u2d.contactmgr;
 
-import com.u2d.type.composite.Person;
-import com.u2d.wizard.details.Wizard;
 import com.u2d.element.CommandInfo;
-import com.u2d.reporting.Reportable;
-import com.u2d.reporting.ReportFormat;
 import com.u2d.model.ComplexType;
-import com.u2d.reflection.Cmd;
 import com.u2d.persist.Persist;
+import com.u2d.reflection.Cmd;
+import com.u2d.reporting.ReportFormat;
+import com.u2d.reporting.Reportable;
+import com.u2d.type.composite.Person;
+import com.u2d.wizard.DomainWizard;
+import com.u2d.wizard.details.Wizard;
 import javax.swing.table.TableModel;
 import java.util.Properties;
 
 @Persist
 public class PersonContact extends Person
 {
-   // an example of how to override the default command for a single type..
+   // An example of how to override the default command for a single type..
    static
    {
       ComplexType.forClass(PersonContact.class).setDefaultCommandName("NewPersonWizard");
@@ -23,9 +24,18 @@ public class PersonContact extends Person
    @Cmd
    public static Wizard NewPersonWizard(CommandInfo cmdInfo)
    {
-      return new Wizard(new NewPersonWizard());
+      // was:
+//       return new Wizard(new NewPersonWizard());
+      
+      // New Alternative:
+      DomainWizard wizard = new DomainWizard(PersonContact.class,
+         new String[][]{{"name"},{"contact.address"},{"contact"}});
+      wizard.setLastPropertyCommits( true );
+      wizard.ready();
+      return new Wizard( wizard );
    }
-
+   
+   
    @Cmd
    public static Reportable Report(CommandInfo cmdInfo)
    {
