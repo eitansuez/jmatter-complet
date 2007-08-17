@@ -34,7 +34,7 @@ public class PersonContact extends Person
 //      return new Wizard( wizard );
       
       // Third alternative, using Groovy Builder for JMatter Wizards:
-      return new com.u2d.contactmgr.groovy.NewPersonWizard().wizard();
+      return PersonWizardBuilder.wizard();
    }
    
    

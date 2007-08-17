@@ -1,25 +1,20 @@
-package com.u2d.contactmgr.groovy
+package com.u2d.contactmgr
 
 import com.u2d.type.composite.*
 import com.u2d.model.*
 import com.u2d.view.swing.FormView
-import com.u2d.wizard.details.Wizard
 import com.u2d.wizard.builder.*
-import com.u2d.contactmgr.PersonContact
+import com.u2d.wizard.details.Wizard
 
-class NewPersonWizard
+class PersonWizardBuilder
 {
-   Wizard wizard
-
-   NewPersonWizard()
+   static Wizard wizard()
    {
-      def builder = new WizardBuilder()
-
       def _name = ComplexType.forClass(Name.class).instance()
       def _address = ComplexType.forClass(USAddress.class).instance()
       def _contact = ComplexType.forClass(Contact.class).instance()
 
-      wizard = builder.wizard( "New Person Wizard" )
+      new WizardBuilder().wizard( "New Person Wizard" )
       {
          step( title: "Name Information",
                description: "Enter Person's Name" )
@@ -46,6 +41,4 @@ class NewPersonWizard
          }
       }
    }
-   
-   Wizard wizard() { wizard }
 }
