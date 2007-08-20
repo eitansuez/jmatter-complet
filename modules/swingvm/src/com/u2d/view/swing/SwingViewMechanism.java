@@ -21,6 +21,7 @@ import com.u2d.reporting.Reportable;
 import com.u2d.reporting.ReportingInterface;
 import com.u2d.type.AbstractChoiceEO;
 import com.u2d.type.composite.Folder;
+import com.u2d.type.composite.USAddress;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.view.*;
@@ -372,7 +373,9 @@ public class SwingViewMechanism implements ViewMechanism
       {
          public void run()
          {
-            JInternalFrame frame = new CloseableJInternalFrame("", true, true, true, true);
+            Object titleObj = component.getClientProperty("title");
+            String title = titleObj == null ? "" : titleObj.toString();
+            JInternalFrame frame = new CloseableJInternalFrame(title, true, true, true, true);
             frame.setContentPane(component);
             frame.pack();
             _appFrame.addFrame(frame, positioning);
@@ -833,6 +836,12 @@ public class SwingViewMechanism implements ViewMechanism
 
    public ComplexEView getQueryView(CompositeQuery query) { return new QueryView(query); }
 
+   public Object getAddressViewOnMap(USAddress addr)
+   {
+      return new AddressViewOnMap(addr);
+   }
+   
+   
 
    public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr)
    {

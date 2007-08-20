@@ -3,25 +3,25 @@
 <project name="swingvm" default="jar">
    <description>Swing View Mechanism Implementation for JMatter</description>
    
-   <property name="srcdir" location="src" />
-   <property name="builddir" location="build" />
-   <property name="buildclassesdir" location="build/classes" />
-   <property name="libdir" location="../../jmatter/lib/runtime/swingvm" />
-   <property name="distdir" location="dist" />
+   <property name="src.dir" location="src" />
+   <property name="build.dir" location="build" />
+   <property name="build.classes.dir" location="build/classes" />
+   <property name="lib.dir" location="../../jmatter/lib/runtime/swingvm" />
+   <property name="dist.dir" location="dist" />
 
    <property name="test.dir" location="test" />
    <property name="test.src.dir" location="${test.dir}" />
-   <property name="test.classes.dir" location="${buildclassesdir}" />
+   <property name="test.classes.dir" location="${build.classes.dir}" />
    <property name="test.lib.dir" location="lib/test" />
-   <property name="test.reports.dir" location="${builddir}/reports" />
+   <property name="test.reports.dir" location="${build.dir}/reports" />
 
    <path id="class.path">
-      <fileset dir="${libdir}" includes="*.jar" />
-      <pathelement location="${buildclassesdir}" />
+      <fileset dir="${lib.dir}" includes="*.jar" />
+      <pathelement location="${build.classes.dir}" />
       <pathelement location="../../jmatter/build/classes" />
       <pathelement location="../ds-swing/build/classes" />
       <pathelement location="../ds-wizard/build/classes" />
-      <fileset dir="../../jmatter/lib/runtime/" includes="jibx-run.jar,hibernate3.jar,spring/*.jar" />
+      <fileset dir="../../jmatter/lib/runtime/" includes="*.jar,spring/*.jar" />
    </path>
 
    <path id="test.classpath">
@@ -32,29 +32,40 @@
 
 
    <target name="init">
-      <mkdir dir="${buildclassesdir}" />
-      <mkdir dir="${distdir}" />
+      <mkdir dir="${build.classes.dir}" />
+      <mkdir dir="${dist.dir}" />
       <tstamp />
    </target>
    
    <target name="clean" description="delete build artifacts">
-      <delete dir="${builddir}" />
-      <delete dir="${distdir}" />
+      <delete dir="${build.dir}" />
+      <delete dir="${dist.dir}" />
    </target>
 
    <target name="compile" depends="init" description="compile">
-      <javac debug="on" 
-             srcdir="${srcdir}" 
-             destdir="${buildclassesdir}" 
+      <!-- <javac debug="on" 
+             srcdir="${src.dir}" 
+             destdir="${build.classes.dir}" 
              target="1.5"
-             classpathref="class.path" />
-      <copy todir="${buildclassesdir}">
-        <fileset dir="${srcdir}" includes="**/*.jfrm" />
+             classpathref="class.path" />  -->
+
+      <java classname="org.codehaus.groovy.ant.Groovyc" fork="true" maxmemory="128M">
+          <classpath>
+             <path refid="class.path" />
+             <fileset dir="../../jmatter/lib/tools" includes="*.jar" />
+          </classpath>
+          <arg value="${build.classes.dir}"/> <!-- destination -->
+          <arg value="${src.dir}"/> <!-- source -->
+          <arg value="-j"/>
+      </java>
+      
+      <copy todir="${build.classes.dir}">
+        <fileset dir="${src.dir}" includes="**/*.jfrm" />
       </copy>
    </target>
 
    <target name="jar" depends="compile" description="jar">
-      <jar destfile="${distdir}/${ant.project.name}.jar" basedir="${buildclassesdir}"
+      <jar destfile="${dist.dir}/${ant.project.name}.jar" basedir="${build.classes.dir}"
         includes="**/*" />
    </target>
 
