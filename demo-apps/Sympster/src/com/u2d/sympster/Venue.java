@@ -9,10 +9,13 @@ import com.u2d.persist.Persist;
 @Persist
 public abstract class Venue extends AbstractComplexEObject
 {
+   public static String defaultSearchPath = "name";
+   public static String[] fieldOrder = {"name", "rooms"};
+   
    protected final StringEO name = new StringEO();
+
    protected final RelationalList rooms = new RelationalList(Room.class);
    public static Class roomsType = Room.class;
-   public static String defaultSearchPath = "name";
    
    public StringEO getName() { return name; }
    public RelationalList getRooms() { return rooms; }
