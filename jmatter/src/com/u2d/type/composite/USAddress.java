@@ -3,10 +3,13 @@
  */
 package com.u2d.type.composite;
 
+import com.u2d.element.CommandInfo;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
+import com.u2d.reflection.Cmd;
 import com.u2d.type.USState;
-import com.u2d.type.atom.*;
+import com.u2d.type.atom.StringEO;
+import com.u2d.type.atom.USZipCode;
 
 /**
  * @author Eitan Suez
@@ -61,7 +64,15 @@ public class USAddress extends AbstractComplexEObject
 //      return count;
 //   }
    
-	public Title title()
+   
+   @Cmd(mnemonic='a')
+   public Object ViewOnMap(CommandInfo cmdInfo)
+   {
+      return vmech().getAddressViewOnMap(this);
+   }
+   
+   
+   public Title title()
 	{
 		return _addressLine1.title().append(",", _city).append(_stateCode.getCode()).append(_zipCode);
 	}
@@ -85,6 +96,12 @@ public class USAddress extends AbstractComplexEObject
       
       return line1 + "\n" + line2 + "\n" + line3;
    }
+   
+   public String googlemapString()
+   {
+      return _addressLine1.stringValue() + " " + _addressLine2.stringValue() + " " +
+            _city.stringValue() + " " + _stateCode.code() + " " + _zipCode.stringValue();
+   }
 
    public boolean equals(Object obj)
    {
@@ -101,5 +118,5 @@ public class USAddress extends AbstractComplexEObject
    {
       return _addressLine1.hashCode() + 31 * _zipCode.hashCode();
    }
-
+   
 }

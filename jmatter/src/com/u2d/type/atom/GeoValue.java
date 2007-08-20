@@ -30,6 +30,7 @@ public class GeoValue extends AbstractAtomicEO implements Searchable
    {
       return _seconds / 3600 /* seconds per degree */ * RADIANS_PER_DEGREE;
    }
+   public double degreesValue() { return _seconds / 3600; }
    
    public void setValue(double value)
    {

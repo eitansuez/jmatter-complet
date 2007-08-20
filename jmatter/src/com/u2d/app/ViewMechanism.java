@@ -3,20 +3,22 @@
  */
 package com.u2d.app;
 
-import com.u2d.calendar.*;
+import com.u2d.calendar.CalEvent;
+import com.u2d.calendar.CalEventList;
+import com.u2d.calendar.Calendrier;
+import com.u2d.calendar.Schedule;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.EOCommand;
 import com.u2d.field.Association;
 import com.u2d.find.CompositeQuery;
 import com.u2d.list.RelationalList;
 import com.u2d.model.*;
-import com.u2d.reporting.*;
+import com.u2d.reporting.Reportable;
 import com.u2d.type.AbstractChoiceEO;
+import com.u2d.type.composite.USAddress;
+import com.u2d.ui.desktop.Positioning;
 import com.u2d.view.*;
 import com.u2d.wizard.details.Wizard;
-import com.u2d.model.AtomicEditor;
-import com.u2d.model.AtomicRenderer;
-import com.u2d.ui.desktop.Positioning;
 
 /**
  * @author Eitan Suez
@@ -57,6 +59,8 @@ public interface ViewMechanism
    public ComplexEView getFolderView(ComplexEObject ceo);
    public ComplexEView getOutlookView(ComplexEObject ceo);
    public ComplexEView getQueryView(CompositeQuery query);
+   
+   public Object getAddressViewOnMap(USAddress addr);
 
    public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr);
    public EView getRoleTypeRestrictionMgrUi(RoleTypeRestrictionMgr mgr);
