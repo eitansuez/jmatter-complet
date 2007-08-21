@@ -16,6 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/map/AddressViewOnMap.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/map/AddressViewOnMap.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/map/MapView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/map/MapView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
     </list>
@@ -139,37 +140,7 @@
     </subPane>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="MapView.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/map/MapView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="121" column="113" selection-start="3398" selection-end="3398" vertical-scroll-proportion="0.50838923">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MappableView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/map/MappableView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="13" selection-start="1137" selection-end="1137" vertical-scroll-proportion="0.68456376">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddressViewOnMap.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/map/AddressViewOnMap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="28" selection-start="1956" selection-end="1956" vertical-scroll-proportion="0.5218121">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -250,7 +221,7 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.ui" />
+          <option name="myItemId" value="com.u2d.type.composite" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -268,98 +239,8 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/eitan/work/jmatter-complet/jmatter/lib/runtime/swingvm/swingx-ws.jar!/org/jdesktop/swingx" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/usr/lib/j2sdk1.6-sun/jre/lib/rt.jar!/javax/swing/border" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/usr/lib/j2sdk1.6-sun/jre/lib/rt.jar!/java/awt" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/eitan/work/jmatter-complet/jmatter/lib/runtime/swingvm/forms-1.1.0.jar!/com/jgoodies/forms/layout" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/eitan/work/jmatter-complet/jmatter/lib/runtime/swingvm/forms-1.1.0.jar!/com/jgoodies/forms/factories" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/eitan/work/jmatter-complet/jmatter/lib/runtime/swingvm/forms-1.1.0.jar!/com/jgoodies/forms/builder" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+          <option name="myItemId" value="com.u2d.app" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
       <PATH>
@@ -383,6 +264,20 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="com.u2d.view.swing.map" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="swingvm" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="com.u2d.view.swing" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -554,8 +449,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -609,20 +504,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <module name="" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -639,6 +520,20 @@
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="wholeProject" />
       </option>
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <module name="" />
       <method>
         <option name="Make" value="true" />
       </method>
@@ -756,7 +651,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32216907" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2461161" order="1" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24570024" order="1" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39886272" order="0" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32923833" order="3" />
@@ -856,103 +751,110 @@
     <option name="myLastEditedConfigurable" value="IDE Profiles" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/ListItemView.java">
+    <entry file="file:///home/eitan/work/thirdparty/swingx-ws-2007_08_12-src/src/java/org/jdesktop/swingx/mapviewer/TileFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="0" selection-start="1560" selection-end="1560" vertical-scroll-proportion="0.8808725">
+        <state line="18" column="22" selection-start="385" selection-end="385" vertical-scroll-proportion="0.10067114">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/thirdparty/swingx-ws-2007_08_12-src/src/java/org/jdesktop/swingx/JXMapKit.java">
+    <entry file="jar:///usr/lib/j2sdk1.6-sun/src.zip!/java/util/concurrent/ThreadFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="4" selection-start="2188" selection-end="2188" vertical-scroll-proportion="0.53872633">
+        <state line="30" column="17" selection-start="904" selection-end="904" vertical-scroll-proportion="0.54697984">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/j2sdk1.6-sun/src.zip!/java/awt/Component.java">
+    <entry file="jar:///usr/lib/j2sdk1.6-sun/src.zip!/java/util/concurrent/ExecutorService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2752" column="15" selection-start="94664" selection-end="94664" vertical-scroll-proportion="0.7969019">
+        <state line="230" column="14" selection-start="9101" selection-end="9101" vertical-scroll-proportion="0.33221477">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/thirdparty/swingx-ws-2007_08_12-src/src/java/org/jdesktop/swingx/mapviewer/DefaultTileFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="348" column="26" selection-start="11263" selection-end="11263" vertical-scroll-proportion="0.3545611">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file:///home/eitan/work/thirdparty/swingx-ws-2007_08_12-src/src/java/org/jdesktop/swingx/JXMapViewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="779" column="26" selection-start="29655" selection-end="29655" vertical-scroll-proportion="0.848537">
+        <state line="69" column="4" selection-start="3146" selection-end="3146" vertical-scroll-proportion="-0.61962134">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/NormalButton.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/map/Pointy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="177" selection-end="177" vertical-scroll-proportion="0.20134228">
+        <state line="10" column="17" selection-start="383" selection-end="383" vertical-scroll-proportion="0.25167784">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/DefaultButton.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/map/Mappable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="42" selection-start="196" selection-end="196" vertical-scroll-proportion="0.20134228">
+        <state line="10" column="17" selection-start="196" selection-end="196" vertical-scroll-proportion="0.25167784">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/ds-swing/src/com/u2d/ui/IconButton.java">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/map/MapLayout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="4" selection-start="458" selection-end="458" vertical-scroll-proportion="0.40268457">
+        <state line="15" column="13" selection-start="329" selection-end="329" vertical-scroll-proportion="-1.2583892">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///home/eitan/work/jmatter-complet/jmatter/lib/runtime/swingvm/forms-1.1.0.jar!/com/jgoodies/forms/layout/CellConstraints.class">
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/map/EOWaypoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="65" selection-start="551" selection-end="551" vertical-scroll-proportion="0.20654045">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///home/eitan/work/jmatter-complet/jmatter/lib/runtime/swingvm/forms-1.1.0.jar!/com/jgoodies/forms/builder/PanelBuilder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="35" selection-start="575" selection-end="575" vertical-scroll-proportion="0.28399312">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///home/eitan/work/jmatter-complet/jmatter/lib/runtime/swingvm/forms-1.1.0.jar!/com/jgoodies/forms/factories/Borders.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="49" selection-start="295" selection-end="295" vertical-scroll-proportion="0.07745267">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/j2sdk1.6-sun/src.zip!/javax/swing/border/EmptyBorder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="40" selection-start="1793" selection-end="1793" vertical-scroll-proportion="0.6979866">
+        <state line="12" column="13" selection-start="276" selection-end="276" vertical-scroll-proportion="0.25167784">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/map/MappableView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="13" selection-start="1137" selection-end="1137" vertical-scroll-proportion="0.68456376">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="24" column="13" selection-start="679" selection-end="679" vertical-scroll-proportion="-0.30872482">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/SwingViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="842" column="0" selection-start="25753" selection-end="25753" vertical-scroll-proportion="0.40771812">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/app/ViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="0" selection-start="1960" selection-end="1960" vertical-scroll-proportion="0.33221477">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/composite/USAddress.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="39" selection-start="2115" selection-end="2115" vertical-scroll-proportion="0.35738254">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/map/AddressViewOnMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="28" selection-start="1956" selection-end="1956" vertical-scroll-proportion="0.5218121">
+        <state line="63" column="22" selection-start="2212" selection-end="2212" vertical-scroll-proportion="0.55369127">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/map/MapView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="121" column="113" selection-start="3398" selection-end="3398" vertical-scroll-proportion="0.50838923">
-          <folding />
+        <state line="90" column="0" selection-start="2191" selection-end="2191" vertical-scroll-proportion="0.30704698">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

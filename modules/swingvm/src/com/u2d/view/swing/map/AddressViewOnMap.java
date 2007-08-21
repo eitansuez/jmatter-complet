@@ -58,6 +58,13 @@ public class AddressViewOnMap extends MapView
                   {
                      _kit.setCenterPosition(geoPosition);
                      addWaypoint(new EOWaypoint(geoPosition, _address));
+                     
+                     // a less than ideal way to address an issue with initial positioning of markers..
+                     SwingUtilities.invokeLater(new Runnable()
+                     {
+                        public void run() { revalidateMarkerOverlay(); }
+                     });
+                     
                   }
                });
             }

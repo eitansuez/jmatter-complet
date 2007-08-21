@@ -25,7 +25,7 @@ import java.net.URL;
 public class MapView extends JLayeredPane implements PropertyChangeListener
 {
    protected JXMapKit _kit;
-   protected JXPanel _waypointOverlay;
+   protected JXPanel _markerOverlay;
    protected JXPanel _bubbleOverlay;
    
    public MapView()
@@ -35,14 +35,15 @@ public class MapView extends JLayeredPane implements PropertyChangeListener
    
    public MapView(JXMapKit kit)
    {
+      _kit = kit;
+
       OverlayLayout overlay = new OverlayLayout(this);
       setLayout(overlay);
       
-      _kit = kit;
       addLayer(_kit, JLayeredPane.DEFAULT_LAYER.intValue());
       
-      _waypointOverlay = new GeoPanel();
-      addLayer(_waypointOverlay, 50);
+      _markerOverlay = new GeoPanel();
+      addLayer(_markerOverlay, 50);
       
       _bubbleOverlay = new LayerPanel();
       addLayer(_bubbleOverlay, 55);
@@ -53,12 +54,12 @@ public class MapView extends JLayeredPane implements PropertyChangeListener
 
    public void propertyChange(PropertyChangeEvent evt)
    {
-      revalidateWaypointOverlay();
+      revalidateMarkerOverlay();
    }
 
-   protected void revalidateWaypointOverlay()
+   protected void revalidateMarkerOverlay()
    {
-      _waypointOverlay.revalidate();  // gives layout manager a change to properly position waypoints
+      _markerOverlay.revalidate();  // gives layout manager a change to properly position waypoints
    }
 
    class GeoPanel extends JXPanel
@@ -86,7 +87,7 @@ public class MapView extends JLayeredPane implements PropertyChangeListener
    
    public void addWaypoint(JComponent component, Mappable constraints)
    {
-      _waypointOverlay.add(component, constraints);
+      _markerOverlay.add(component, constraints);
    }
    
    // convenience:  providing a default "renderer" for waypoint..
