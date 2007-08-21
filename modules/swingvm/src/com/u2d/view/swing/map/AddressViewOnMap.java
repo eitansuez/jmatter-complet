@@ -1,9 +1,12 @@
-package com.u2d.view.swing;
+package com.u2d.view.swing.map;
 
 import com.u2d.type.composite.USAddress;
-import org.jdesktop.swingx.JXMapKit;
-import org.jdesktop.swingx.mapviewer.*;
+import org.jdesktop.swingx.mapviewer.DefaultTileFactory;
+import org.jdesktop.swingx.mapviewer.GeoPosition;
+import org.jdesktop.swingx.mapviewer.TileFactoryInfo;
 import org.jdesktop.swingx.mapviewer.util.GeoUtil;
+
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
@@ -13,10 +16,9 @@ import java.io.IOException;
  * @author Andres Almiray
  * @see <a href="http://www.jroller.com/aalmiray/entry/embedding_googlemaps_into_jmatter">here</a>
  */
-public class AddressViewOnMap extends JXMapKit
+public class AddressViewOnMap extends MapView
 {
    private USAddress _address;
-   private WaypointPainter _wpPainter;
    
    public AddressViewOnMap(USAddress addr)
    {
@@ -25,7 +27,7 @@ public class AddressViewOnMap extends JXMapKit
       
       String tileurl = "http://mt.google.com/mt?w=2.43";
       TileFactoryInfo tfi = new TileFactoryInfo(0, 20, 17, 256, true, true, tileurl, "x", "y", "zoom");
-      setTileFactory(new DefaultTileFactory(tfi));
+      _kit.setTileFactory(new DefaultTileFactory(tfi));
 
       // alternative, but unbearably slow and without street maps..
 //      WMSService wms = new WMSService()
@@ -33,11 +35,9 @@ public class AddressViewOnMap extends JXMapKit
 //      wms.setBaseUrl("http://wms.jpl.nasa.gov/wms.cgi?");
 //      this.tileFactory = new WMSTileFactory(wms)
 
-      _wpPainter = new WaypointPainter();
-      getMainMap().setOverlayPainter(_wpPainter);
-      setCenterPosition(new GeoPosition(0, 0));
-      setZoom(2);
-      setPreferredSize(new Dimension(400,400));
+      _kit.setCenterPosition(new GeoPosition(0, 0));
+      _kit.setZoom(2);
+      _kit.setPreferredSize(new Dimension(600,400));
       
       new Thread()
       {
@@ -45,13 +45,21 @@ public class AddressViewOnMap extends JXMapKit
          {
             try
             {
-               GeoPosition geoPosition = GeoUtil.getPositionForAddress(
+               final GeoPosition geoPosition = GeoUtil.getPositionForAddress(
                   _address.getAddressLine1().stringValue(), 
                      _address.getCity().stringValue(), 
                      _address.getStateCode().code()
                );
-               _wpPainter.getWaypoints().add(new Waypoint(geoPosition));
-               setCenterPosition(geoPosition);
+               
+               
+               SwingUtilities.invokeLater(new Runnable()
+               {
+                  public void run()
+                  {
+                     _kit.setCenterPosition(geoPosition);
+                     addWaypoint(new EOWaypoint(geoPosition, _address));
+                  }
+               });
             }
             catch (IOException e)
             {

@@ -43,21 +43,21 @@
    </target>
 
    <target name="compile" depends="init" description="compile">
-      <!-- <javac debug="on" 
+      <javac debug="on" 
              srcdir="${src.dir}" 
              destdir="${build.classes.dir}" 
              target="1.5"
-             classpathref="class.path" />  -->
+             classpathref="class.path" />
 
-      <java classname="org.codehaus.groovy.ant.Groovyc" fork="true" maxmemory="128M">
+      <!-- <java classname="org.codehaus.groovy.ant.Groovyc" fork="true" maxmemory="128M">
           <classpath>
              <path refid="class.path" />
              <fileset dir="../../jmatter/lib/tools" includes="*.jar" />
           </classpath>
-          <arg value="${build.classes.dir}"/> <!-- destination -->
-          <arg value="${src.dir}"/> <!-- source -->
+          <arg value="${build.classes.dir}"/>
+          <arg value="${src.dir}"/>
           <arg value="-j"/>
-      </java>
+      </java> -->
       
       <copy todir="${build.classes.dir}">
         <fileset dir="${src.dir}" includes="**/*.jfrm" />

@@ -37,6 +37,7 @@ import com.u2d.view.swing.find.QueryView;
 import com.u2d.view.swing.list.*;
 import com.u2d.view.swing.restrict.RoleTypeRestrictionMgrUi;
 import com.u2d.view.swing.restrict.TypeRestrictionMgrUi;
+import com.u2d.view.swing.map.AddressViewOnMap;
 import com.u2d.wizard.details.Wizard;
 import com.u2d.wizard.ui.WizardPane;
 //import spin.over.CheckingRepaintManager;
