@@ -1,13 +1,14 @@
 package com.u2d.view.swing.map;
 
+import com.u2d.ui.IconButton;
 import org.jdesktop.swingx.JXMapKit;
 import org.jdesktop.swingx.JXPanel;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
@@ -93,19 +94,21 @@ public class MapView extends JLayeredPane
    // convenience:  providing a default "renderer" for waypoint..
    public void addWaypoint(EOWaypoint waypoint)
    {
-      JLabel marker = new WaypointMarker(waypoint);
+      JButton marker = new WaypointMarker(waypoint);
       addWaypoint(marker, waypoint);
    }
    
    
    
-   class WaypointMarker extends JLabel implements Pointy
+   class WaypointMarker extends IconButton
+         implements Pointy
    {
       private MappableView _view;
    
       public WaypointMarker(EOWaypoint waypoint)
       {
          super(new ImageIcon(MapView.markerImg));
+         setFocusable(false);
          _view = new MappableView(waypoint.getEObject());
          _view.setSize(_view.getPreferredSize());
          
@@ -122,9 +125,9 @@ public class MapView extends JLayeredPane
                
          _bubbleOverlay.add(_view);
       
-         addMouseListener(new MouseAdapter()
+         addActionListener(new ActionListener()
          {
-            public void mouseClicked(MouseEvent e)
+            public void actionPerformed(ActionEvent e)
             {
                _view.setVisible(true);
             }

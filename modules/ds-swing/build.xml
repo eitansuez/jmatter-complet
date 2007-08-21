@@ -46,7 +46,7 @@
              target="1.5"
              classpathref="class.path" />
       <copy todir="${buildclassesdir}">
-        <fileset dir="${srcdir}" includes="**/*.xml,**/*.txt" />
+        <fileset dir="${srcdir}" includes="**/*.xml,**/*.txt,**/*.png" />
       </copy>
    </target>
 
