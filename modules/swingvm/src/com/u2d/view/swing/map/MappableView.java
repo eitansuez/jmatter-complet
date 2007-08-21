@@ -1,13 +1,15 @@
 package com.u2d.view.swing.map;
 
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.ui.CloseButton;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import org.jdesktop.swingx.JXPanel;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
@@ -30,10 +32,11 @@ public class MappableView extends JXPanel
    {
       _ceo = ceo;
       
-      FormLayout formLayout = new FormLayout("5px, left:pref:grow, right:pref",
-                                             "pref, pref:grow, 5px");
+      FormLayout formLayout = new FormLayout("left:pref:grow, right:pref",
+                                             "pref, pref:grow");
       CellConstraints cc = new CellConstraints();
       setLayout(formLayout);
+      setBorder(Borders.DLU2_BORDER);
       
       JButton closeButton = new CloseButton();
       closeButton.addActionListener(new ActionListener()
@@ -45,8 +48,8 @@ public class MappableView extends JXPanel
       });
       JLabel label = new JLabel(_ceo.title().toString(), _ceo.iconLg(), SwingConstants.LEFT);
       
-      add(closeButton, cc.rc(1, 3));
-      add(label, cc.rc(2,2));
+      add(closeButton, cc.rc(1, 2));
+      add(label, cc.rc(2,1));
       
       _cmdsView = new CommandsContextMenuView();
       _cmdsView.bind(_ceo, this);
