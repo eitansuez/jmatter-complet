@@ -2,7 +2,6 @@ package com.u2d.view.swing.map;
 
 import org.jdesktop.swingx.JXMapKit;
 import org.jdesktop.swingx.JXMapViewer;
-import org.jdesktop.swingx.mapviewer.GeoPosition;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -32,30 +31,31 @@ public class MapLayout implements LayoutManager2
       {
          _kit.setBounds(parent.getBounds());
 
-         // taken from WaypointPainter implementation..
          JXMapViewer map = _kit.getMainMap();
-      
-         Rectangle viewportBounds = map.getViewportBounds();
+         
+         // The following, taken from the implementation of WaypointPainter in swingx-ws..
          int zoom = map.getZoom();
          Dimension sizeInTiles = map.getTileFactory().getMapSize(zoom);
          int tileSize = map.getTileFactory().getTileSize(zoom);
          Dimension sizeInPixels = new Dimension(sizeInTiles.width*tileSize, sizeInTiles.height*tileSize);
 
+         Rectangle viewportBounds = map.getViewportBounds();
          double vpx = viewportBounds.getX();
          // normalize the left edge of the viewport to be positive
          while(vpx < 0) {
              vpx += sizeInPixels.getWidth();
          }
          // normalize the left edge of the viewport to no wrap around the world
-         while(vpx > sizeInPixels.getWidth()) {
-             vpx -= sizeInPixels.getWidth();
-         }
+         vpx %= sizeInPixels.getWidth();
         
-         // create two new viewports next to eachother
-         Rectangle2D vp2 = new Rectangle2D.Double(vpx,
-                 viewportBounds.getY(),viewportBounds.getWidth(),viewportBounds.getHeight());
-         Rectangle2D vp3 = new Rectangle2D.Double(vpx-sizeInPixels.getWidth(),
-                 viewportBounds.getY(),viewportBounds.getWidth(),viewportBounds.getHeight());
+         // create two new viewports next to each other
+         Rectangle2D vp2 = 
+               new Rectangle2D.Double(vpx, viewportBounds.getY(),
+                                      viewportBounds.getWidth(), viewportBounds.getHeight());
+         
+         Rectangle2D vp3 = 
+               new Rectangle2D.Double(vpx-sizeInPixels.getWidth(), viewportBounds.getY(),
+                                      viewportBounds.getWidth(), viewportBounds.getHeight());
          
          for (int i=0; i<_components.size(); i++)
          {
@@ -63,32 +63,41 @@ public class MapLayout implements LayoutManager2
             Mappable mappable = (Mappable) _mappables.get(i);
             
             Point2D point = map.getTileFactory().geoToPixel(mappable.getPosition(), map.getZoom());
-            Point location = null;
-            if (vp2.contains(point)) {
-               int x = (int)(point.getX() - vp2.getX());
-               int y = (int)(point.getY() - vp2.getY());
-               location = new Point(x, y);
+            if (vp2.contains(point))
+            {
+               positionWithRespectToViewport(vp2, comp, point);
             }
-            if (vp3.contains(point)) {
-               int x = (int)(point.getX() - vp3.getX());
-               int y = (int)(point.getY() - vp3.getY());
-               location = new Point(x, y);
+            else if (vp3.contains(point))
+            {
+               positionWithRespectToViewport(vp3, comp, point);
+            }
+            else
+            {  // point is outside viewport.
+               if (comp.isVisible())
+                  comp.setVisible(false);
             }
 
-            if (location != null)
-            {
-               if (comp instanceof Pointy)
-               {
-                  Dimension delta = ((Pointy) comp).endPosition();
-                  location.translate(-delta.width, -delta.height);
-               }
-               comp.setBounds(new Rectangle(location, comp.getPreferredSize()));
-            }
          }
+         
       }
    }
-   
-   
+
+   private void positionWithRespectToViewport(Rectangle2D viewport, Component comp, Point2D point)
+   {
+      if (!comp.isVisible())
+         comp.setVisible(true);
+      int x = (int) (point.getX() - viewport.getX());
+      int y = (int) (point.getY() - viewport.getY());
+      Point location = new Point(x, y);
+      if (comp instanceof Pointy)
+      {
+         Dimension delta = ((Pointy) comp).endPosition();
+         location.translate(-delta.width, -delta.height);
+      }
+      comp.setBounds(new Rectangle(location, comp.getPreferredSize()));
+   }
+
+
    public void addLayoutComponent(Component comp, Object constraints)
    {
       synchronized (comp.getTreeLock())

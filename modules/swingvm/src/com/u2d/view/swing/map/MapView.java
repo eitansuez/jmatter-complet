@@ -22,7 +22,7 @@ import java.net.URL;
  * Date: Aug 20, 2007
  * Time: 3:49:40 PM
  */
-public class MapView extends JLayeredPane
+public class MapView extends JLayeredPane implements PropertyChangeListener
 {
    protected JXMapKit _kit;
    protected JXPanel _waypointOverlay;
@@ -44,26 +44,16 @@ public class MapView extends JLayeredPane
       _waypointOverlay = new GeoPanel();
       addLayer(_waypointOverlay, 50);
       
-      _bubbleOverlay = new JXPanel();
-      _bubbleOverlay.setOpaque(false);
-      _bubbleOverlay.setLayout(null);
+      _bubbleOverlay = new LayerPanel();
       addLayer(_bubbleOverlay, 55);
       
-      _kit.getMainMap().addPropertyChangeListener("zoom", new PropertyChangeListener()
-      {
-         public void propertyChange(PropertyChangeEvent evt)
-         {
-            revalidateWaypointOverlay();
-         }
-      });
-      _kit.getMainMap().addPropertyChangeListener("centerPosition", new PropertyChangeListener()
-      {
-         public void propertyChange(PropertyChangeEvent evt)
-         {
-            revalidateWaypointOverlay();
-         }
-      });
-      
+      _kit.getMainMap().addPropertyChangeListener("zoom", this);
+      _kit.getMainMap().addPropertyChangeListener("centerPosition", this);
+   }
+
+   public void propertyChange(PropertyChangeEvent evt)
+   {
+      revalidateWaypointOverlay();
    }
 
    protected void revalidateWaypointOverlay()
@@ -73,10 +63,18 @@ public class MapView extends JLayeredPane
 
    class GeoPanel extends JXPanel
    {
-      public GeoPanel()
+      GeoPanel()
       {
          setLayout(new MapLayout(_kit));
          setOpaque(false);
+      }
+   }
+   class LayerPanel extends JXPanel
+   {
+      LayerPanel()
+      {
+         setOpaque(false);
+         setLayout(null);  // "absolute" layout
       }
    }
    
@@ -104,6 +102,7 @@ public class MapView extends JLayeredPane
          implements Pointy
    {
       private MappableView _view;
+      private boolean _viewVisible = true;
    
       public WaypointMarker(EOWaypoint waypoint)
       {
@@ -139,7 +138,22 @@ public class MapView extends JLayeredPane
       {
          return new Dimension(getWidth()/2, getHeight());
       }
-   
+
+      // turn off accompanying marker bubble when request setvisible false..
+      // and also when turn it back on, if it was on when it went off..
+      public void setVisible(boolean aFlag)
+      {
+         super.setVisible(aFlag);
+         if (aFlag)
+         {
+            _view.setVisible(_viewVisible);
+         }
+         else
+         {
+            _viewVisible = _view.isVisible();
+            _view.setVisible(false);
+         }
+      }
    }
    
    static BufferedImage markerImg;
