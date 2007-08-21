@@ -119,7 +119,8 @@ public class MapView extends JLayeredPane
                Point viewLocation = e.getComponent().getLocation();
                // adjust for height of _view and add a slight vertical margin:
                viewLocation.translate(0, -(_view.getHeight()+5));
-               _view.setLocation(viewLocation);
+               // force a resize.. we're using a null layout manager.  so it doesn't resize properly unless we do
+               _view.setBounds(new Rectangle(viewLocation, _view.getPreferredSize()));
             }
          });
                
