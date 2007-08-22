@@ -165,14 +165,7 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 
    public AbstractListEO hqlQuery(final Query query)
    {
-      Object result = transactionReturn(new HBMReturnBlock()
-      {
-         public Object invoke(Session session)
-         {
-            return query.list();
-         }
-      });
-      java.util.List results = (java.util.List) result;
+      java.util.List results = query.list();
 
       if (results.isEmpty())
       {
@@ -196,14 +189,7 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 
    public ComplexEObject fetch(final String hql)
    {
-      Object result = transactionReturn(new HBMReturnBlock()
-      {
-         public Object invoke(Session session)
-         {
-            return session.createQuery(hql).uniqueResult();
-         }
-      });
-      ComplexEObject ceo = (ComplexEObject) result;
+      ComplexEObject ceo = (ComplexEObject) getSession().createQuery(hql).uniqueResult();
       if (ceo == null) return null;
       ceo.onLoad();
       return ceo;
@@ -236,15 +222,7 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 
    public PlainListEObject list(final Class clazz)
    {
-      Object result = transactionReturn(new HBMReturnBlock()
-      {
-         public Object invoke(Session session)
-         {
-            Criteria criteria = session.createCriteria(clazz);
-            return criteria.list();
-         }
-      });
-      List items = (List) result;
+      List items = getSession().createCriteria(clazz).list();
 
       for (int i = 0; i < items.size(); i++)
       {
@@ -262,34 +240,18 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 
    public boolean authenticate(final String username, final String password)
    {
-      Object result = transactionReturn(new HBMReturnBlock()
-      {
-         public Object invoke(Session session)
-         {
-            String queryString = "select user.password from com.u2d.app.User as user " + 
-                  " where user.username = :username";
-            Query query = session.createQuery(queryString);
-            query.setString("username", username);
-            Password hash = (Password) query.uniqueResult();
-            if (hash == null) return false; // no such user
-            return Password.match(hash.hashValue(), password);
-         }
-      });
-      return ((Boolean) result).booleanValue();
+      String queryString = "select user.password from com.u2d.app.User as user " + 
+            " where user.username = :username";
+      Query query = getSession().createQuery(queryString);
+      query.setString("username", username);
+      Password hash = (Password) query.uniqueResult();
+      if (hash == null) return false; // no such user
+      return Password.match(hash.hashValue(), password);
    }
 
    public com.u2d.type.Choice lookup(final Class clazz, final String code)
    {
-      Object result = transactionReturn(new HBMReturnBlock()
-      {
-         public Object invoke(Session session)
-         {
-            Criteria criteria = session.createCriteria(clazz).add(
-                  Expression.eq("code", code));
-            return criteria.list();
-         }
-      });
-      List items = (List) result;
+      List items = getSession().createCriteria(clazz).add(Expression.eq("code", code)).list();
       if (items.isEmpty()) return null;
       ComplexEObject ceo = (ComplexEObject) items.iterator().next();
       ceo.onLoad();
@@ -298,16 +260,9 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
    
    public ComplexEObject lookup(final Class clazz, final String uniqueFieldName, final String value)
    {
-      Object result = transactionReturn(new HBMReturnBlock()
-      {
-         public Object invoke(Session session)
-         {
-            Criteria criteria = session.createCriteria(clazz);
-            criteria.add(Expression.eq(uniqueFieldName, value));
-            return criteria.list();
-         }
-      });
-      List list = (List) result;
+      Criteria criteria = getSession().createCriteria(clazz);
+      criteria.add(Expression.eq(uniqueFieldName, value));
+      List list = criteria.list();
       if (list.isEmpty()) return null;
       ComplexEObject ceo = (ComplexEObject) list.iterator().next();
       ceo.onLoad();
@@ -354,15 +309,7 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 
    public ComplexEObject fetchSingle(final Class clazz)
    {
-      Object result = transactionReturn(new HBMReturnBlock()
-      {
-         public Object invoke(Session session)
-         {
-            Criteria criteria = session.createCriteria(clazz);
-            return criteria.list();
-         }
-      });
-      List list = (List) result;
+      List list = getSession().createCriteria(clazz).list();
 
       if (list.isEmpty())
          return null;
@@ -374,14 +321,7 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 
    public ComplexEObject load(final Class clazz, final Long id)
    {
-      Object result = transactionReturn(new HBMReturnBlock()
-      {
-         public Object invoke(Session session)
-         {
-            return session.load(clazz, id);
-         }
-      });
-      ComplexEObject ceo = (ComplexEObject) result;
+      ComplexEObject ceo = (ComplexEObject) getSession().load(clazz, id);
       ceo.onLoad();
       return ceo;
    }
