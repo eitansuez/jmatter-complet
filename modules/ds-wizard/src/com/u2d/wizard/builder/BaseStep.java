@@ -2,6 +2,7 @@ package com.u2d.wizard.builder;
 
 import groovy.lang.Closure;
 import javax.swing.JComponent;
+import com.u2d.type.atom.BooleanEO;
 import com.u2d.wizard.details.BasicStep;
 
 public class BaseStep extends BasicStep
@@ -9,6 +10,7 @@ public class BaseStep extends BasicStep
    private String _description;
    private String _title;
    private Closure _view;
+   private Closure _viewDirty;
 
    public BaseStep( String title, String description )
    {
@@ -32,4 +34,27 @@ public class BaseStep extends BasicStep
    public Closure getViewClosure() { return _view; }
    public void setView( Closure view ) { _view = view; }
 
+   public Closure getViewDirtyClosure() { return _viewDirty; }
+   public void setViewDirty( Closure viewDirty ) { _viewDirty = viewDirty; }
+   public boolean viewDirty()
+   {
+      if( _viewDirty != null )
+      {
+         Object dirty = _viewDirty.call();
+         if( dirty instanceof Boolean )
+         {
+            return ((Boolean)dirty).booleanValue();
+         }
+         else if( dirty instanceof BooleanEO )
+         {
+            return ((BooleanEO)dirty).booleanValue();
+         }
+         else
+         {
+            // did not return a boolean or BooleanEO
+            // no further processing, will return false
+         }
+      }
+      return false;
+   }
 }

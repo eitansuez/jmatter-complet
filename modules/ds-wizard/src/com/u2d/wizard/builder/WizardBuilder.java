@@ -163,6 +163,22 @@ public class WizardBuilder extends GroovyObjectSupport
       return closure;
    }
 
+   public Closure viewDirty( Closure closure )
+   {
+      Step top = stepStack.peek();
+      if( top instanceof BaseCommitStep )
+      {
+         ((BaseCommitStep) top).setViewDirty( closure );
+         return closure;
+      }
+      else if( top instanceof BaseStep )
+      {
+         ((BaseStep) top).setViewDirty( closure );
+         return closure;
+      }
+      throw new IllegalStateException( "Can't assign viewDirty() here" );
+   }
+
    public Wizard wizard( String title, Closure closure )
    {
       if( !stepStack.isEmpty() )
