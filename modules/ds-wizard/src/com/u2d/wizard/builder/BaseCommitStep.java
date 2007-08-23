@@ -2,7 +2,6 @@ package com.u2d.wizard.builder;
 
 import groovy.lang.Closure;
 import javax.swing.JComponent;
-import com.u2d.type.atom.BooleanEO;
 import com.u2d.wizard.details.CommitStep;
 
 public class BaseCommitStep extends CommitStep
@@ -48,10 +47,6 @@ public class BaseCommitStep extends CommitStep
          if( dirty instanceof Boolean )
          {
             return ((Boolean)dirty).booleanValue();
-         }
-         else if( dirty instanceof BooleanEO )
-         {
-            return ((BooleanEO)dirty).booleanValue();
          }
          else
          {
