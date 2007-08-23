@@ -27,6 +27,7 @@ public class MapView extends JLayeredPane implements PropertyChangeListener
    protected JXMapKit _kit;
    protected JXPanel _markerOverlay;
    protected JXPanel _bubbleOverlay;
+   private int currentLayer = 50;
    
    public MapView()
    {
@@ -43,10 +44,10 @@ public class MapView extends JLayeredPane implements PropertyChangeListener
       addLayer(_kit, JLayeredPane.DEFAULT_LAYER.intValue());
       
       _markerOverlay = new GeoPanel();
-      addLayer(_markerOverlay, 50);
+      addLayer(_markerOverlay, currentLayer++);
       
       _bubbleOverlay = new LayerPanel();
-      addLayer(_bubbleOverlay, 55);
+      addLayer(_bubbleOverlay, currentLayer++);
       
       _kit.getMainMap().addPropertyChangeListener("zoom", this);
       _kit.getMainMap().addPropertyChangeListener("centerPosition", this);
@@ -81,8 +82,14 @@ public class MapView extends JLayeredPane implements PropertyChangeListener
    
    private void addLayer(JComponent panel, int layer)
    {
+      if (panel.isOpaque()) panel.setOpaque(false);
       add(panel);
       setLayer(panel, layer);
+   }
+   
+   protected void addMapLayer(JComponent panel)
+   {
+      addLayer(panel, currentLayer++);
    }
    
    public void addWaypoint(JComponent component, Mappable constraints)
