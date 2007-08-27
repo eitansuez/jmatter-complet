@@ -84,7 +84,9 @@ public class AppFrame extends JFrame
 
       contentPane.add(_centerPane, BorderLayout.CENTER);
 
-      setSize(800, 600);
+      setPreferredSize(new Dimension(800, 600));
+      setSize(getPreferredSize());
+      
       UIUtils.centerOnScreen(this);
       setupQuitHooks();
 

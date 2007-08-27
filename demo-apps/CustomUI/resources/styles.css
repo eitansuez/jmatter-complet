@@ -93,8 +93,16 @@ jm|FieldCaption
 
 #aboutPnl
 {
-  margin: 5px;
+  background-color: white;
+  padding: 5px;
 }
+#aboutPnl JTextArea
+{
+  color: #300;
+  font-size: 10pt;
+  padding: 10px;
+}
+
 types|URIRenderer
 {
   cursor: pointer;
