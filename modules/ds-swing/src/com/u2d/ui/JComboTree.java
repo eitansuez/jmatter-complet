@@ -45,7 +45,13 @@ public class JComboTree extends JPanel implements ActionListener
       _trigger = trigger;
       add(_trigger, BorderLayout.CENTER);
 
+      // this is a trick i picked up from reading BasicDatePickerUI:
+      JComboBox box = new JComboBox();
+      Object preventHide = box.getClientProperty("doNotCancelPopup");
+      _trigger.putClientProperty("doNotCancelPopup", preventHide);
+
       _model = model;
+
       _menu = new JPopupMenu();
       
       populateMenu(_menu, startPath());
@@ -56,7 +62,14 @@ public class JComboTree extends JPanel implements ActionListener
 
    public void actionPerformed(ActionEvent e)
    {
-      _menu.show(JComboTree.this, 0, _trigger.getSize().height);
+      if (_menu.isVisible())
+      {
+         _menu.setVisible(false);
+      }
+      else
+      {
+         _menu.show(JComboTree.this, 0, _trigger.getSize().height);
+      }
    }
 
    private LinkedList startPath()
