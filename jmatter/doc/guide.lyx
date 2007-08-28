@@ -20654,7 +20654,7 @@ Keyboard Shortcuts
 \begin_layout Standard
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="11" columns="2">
+<lyxtabular version="3" rows="13" columns="2">
 <features islongtable="true">
 <column alignment="center" valignment="top" leftline="true" width="0">
 <column alignment="block" valignment="top" leftline="true" rightline="true" width="3.5in">
@@ -20774,6 +20774,27 @@ New
 \begin_inset Text
 
 \begin_layout Standard
+Ctrl-f
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+A shortcut that is active in listings, that places the focus on the search
+ field
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
 F12
 \end_layout
 
@@ -20881,7 +20902,7 @@ In the context of a calendar window, can change the resolution of the calendar
 \begin_inset Text
 
 \begin_layout Standard
-Alt /
+Alt-/
 \end_layout
 
 \end_inset
@@ -20890,7 +20911,28 @@ Alt /
 \begin_inset Text
 
 \begin_layout Standard
-Focus on first item in Class Bar
+Focus on selected item in Class Bar
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Ctrl-/
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Open currently selected view's context menu.
+ A keyboard equivalent for right-clicking.
 \end_layout
 
 \end_inset
