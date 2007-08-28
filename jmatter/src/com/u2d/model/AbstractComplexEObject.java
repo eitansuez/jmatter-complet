@@ -177,7 +177,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       return (_currentState instanceof EditableState);
    }
-
+   public boolean isReadableState()
+   {
+      return (_currentState instanceof ReadState);
+   }
+   
    public boolean isNullState() { return _currentState == _nullState; }
    public void setNullState() { setState(_nullState); }
 
@@ -484,6 +488,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          return false;
       }
 
+      fireValidationException("");  // reset any validation messages from last attempt
       errorCount = validate();
       if (errorCount > 0)
       {
@@ -595,11 +600,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       @Cmd(mnemonic='s', blocks=true)
       public String Save(CommandInfo cmdInfo)
       {
-//         System.out.println("Transient.save");
          try
          {
             if (doSave())
-               log(LoggedEvent.INFO, cmdInfo.getCommand(), "New Object Created/Persisted");
+               log(LoggedEvent.INFO, cmdInfo.getCommand(), 
+                   "Created new " + type() + " object - " + title());
             return null;
          }
          catch (org.hibernate.exception.ConstraintViolationException ex)
@@ -617,7 +622,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       @Cmd(mnemonic='c')
       public void Cancel(CommandInfo cmdInfo)
       {
-//         System.out.println("Transient.cancel");
          setNullState();
       }
       @Cmd
@@ -674,7 +678,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       @Cmd(mnemonic='e')
       public ComplexEObject Edit(CommandInfo cmdInfo)
       {
-//         System.out.println("Read.edit");
          refresh();
 
          saveCopy();
@@ -691,10 +694,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       @Cmd(sensitive = true)
       public String Delete(CommandInfo cmdInfo)
       {
-//         System.out.println("Read.delete");
          try
          {
             delete();
+            log(LoggedEvent.INFO, cmdInfo.getCommand(), 
+                "Deleted " + type() + " object - " + title());
             return null;
          }
          catch (org.hibernate.exception.ConstraintViolationException ex)
@@ -738,11 +742,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       @Cmd(mnemonic='s', blocks=true)
       public String Save(CommandInfo cmdInfo)
       {
-//         System.out.println("Edit.save");
          try
          {
             if (doSave())
-               log(LoggedEvent.INFO, cmdInfo.getCommand(), "Object updated");
+               log(LoggedEvent.INFO, cmdInfo.getCommand(), 
+                   "Updated " + type() + " object - " + title());
             return null;
          }
          catch (org.hibernate.exception.ConstraintViolationException ex)
@@ -759,7 +763,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       @Cmd(mnemonic='c')
       public void Cancel(CommandInfo cmdInfo)
       {
-//         System.out.println("Edit.cancel");
          restoreCopy();
          popState();
       }
