@@ -45,7 +45,9 @@ public class JComboTree extends JPanel implements ActionListener
       _trigger = trigger;
       add(_trigger, BorderLayout.CENTER);
 
-      // this is a trick i picked up from reading BasicDatePickerUI:
+      // prevent mouse press on button from hiding popup, which messes up
+      // ability to setup trigger as a toggle button.
+      // see implementation of BasicPopupMenuUI in JDK
       JComboBox box = new JComboBox();
       Object preventHide = box.getClientProperty("doNotCancelPopup");
       _trigger.putClientProperty("doNotCancelPopup", preventHide);
