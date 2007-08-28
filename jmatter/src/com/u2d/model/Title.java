@@ -106,6 +106,14 @@ public class Title
       return this;
    }
 
+   public Title appendChar(char singleChar)
+   {
+      if (string.length() > 0)
+      {
+         string.append(singleChar);
+      }
+      return this;
+   }
    public Title appendWrapped(String open, String close, String text)
    {
       return appendSpace().concat(open).concat(text).concat(close);
