@@ -17379,9 +17379,9 @@ Selectors
 \end_layout
 
 \begin_layout Standard
-JMatter's CSS implementation at this time supports simple selectors: the
- specification for matching a component by any of the following, or a combinatio
-n thereof:
+JMatter's CSS implementation supports both simple and composite selectors.
+ Simple selectors match a component by any of the following, or a combination
+ thereof:
 \end_layout
 
 \begin_layout Enumerate
@@ -17400,6 +17400,23 @@ an id
 In the web world, a component type is designated by its corresponding tag
  name, such as <h1> or <p>.
  In Swing it's designated by its class name, for example: JLabel.
+\end_layout
+
+\begin_layout Standard
+Composite selectors allow the expression of a path.
+ They're composed of two or more simple selectors, related through a combinator:
+\end_layout
+
+\begin_layout Enumerate
+the Child combinator (denoted by the character >)
+\end_layout
+
+\begin_layout Enumerate
+the Sibling combinator (denoted by the character +)
+\end_layout
+
+\begin_layout Enumerate
+the Descendant combinator (denoted with a space)
 \end_layout
 
 \begin_layout Subsection
