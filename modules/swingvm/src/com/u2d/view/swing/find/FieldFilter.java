@@ -64,6 +64,21 @@ public class FieldFilter extends JPanel
       }
    }
 
+   /**
+    * this is a little convoluted but worth it.
+    * ctrl-F focuses on most likely place you want to be for a search..
+    */
+   public void focusValueComponent()
+   {
+      Component comp = _valueSpot.getComponent(0);
+      if (comp == null) return;
+      if (comp instanceof AtomicView)
+      {
+         comp = (Component) ((AtomicView) comp).getEditor();
+      }
+      comp.requestFocusInWindow();
+   }
+
    public FieldFilter(ComplexType type, QuerySpecification spec)
    {
       this(type);

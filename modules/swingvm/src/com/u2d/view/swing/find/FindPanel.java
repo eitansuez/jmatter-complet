@@ -4,14 +4,15 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.u2d.ui.DefaultButton;
+import com.u2d.ui.Platform;
 import com.u2d.find.QueryReceiver;
 import com.u2d.model.ComplexType;
-
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -43,7 +44,25 @@ public class FindPanel extends JPanel
       builder.add(findBtn(), cc.xy(3, 1));
 
       setBorder(BorderFactory.createEtchedBorder());
+      setupKeyStrokes();
    }
+   
+   static String MAP_KEY = "focus-findpanel";
+   static KeyStroke COMMAND_F = 
+         KeyStroke.getKeyStroke(KeyEvent.VK_F, Platform.mask());
+
+   private void setupKeyStrokes()
+   {
+      getInputMap(WHEN_IN_FOCUSED_WINDOW).put(COMMAND_F, MAP_KEY);
+      getActionMap().put(MAP_KEY, new AbstractAction()
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+            _filter.focusValueComponent();
+         }
+      });
+   }
+   
 
    private void updateResultsDynamically()
    {
