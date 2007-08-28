@@ -28,6 +28,7 @@ public class IdentityInequality
    {
       _inequalities = new ArrayList<Inequality>();
       _inequalities.add(new Equals());
+      _inequalities.add(new NotEquals());
    }
    
    public IdentityInequality(ComplexType type)
@@ -93,6 +94,36 @@ public class IdentityInequality
       }
    }
 
+   public class NotEquals extends AbstractInequality
+   {
+      public void addExpression(Criteria criteria, Field field, EObject eo)
+      {
+         if (field.isChoice())
+         {
+            String code = ((Choice) eo).code();
+            Criterion criterion = Expression.ne(field.getCleanPath()+".code", code);
+            criteria.add(criterion);
+         }
+         else
+         {
+            Criterion criterion = Expression.ne(field.getCleanPath(), eo);
+            criteria.add(criterion);
+         }
+      }
+
+      public String toString() { return ComplexType.localeLookupStatic("is_not"); }
+
+      public EView getValueEditor() { return _ineqView; }
+      public EObject getValue()
+      {
+         if (_ineqView instanceof Editor)
+            ((Editor) _ineqView).transferValue();
+         EObject eo = _ineqView.getEObject();
+         if (eo.isEmpty())
+            eo = null;
+         return eo;
+      }
+   }
    public class TypeInequality extends AbstractInequality
    {
       EView _picker;
