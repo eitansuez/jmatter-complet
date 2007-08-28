@@ -18615,18 +18615,8 @@ Additional enhancements for CSS support in JMatter are planned.
 \end_layout
 
 \begin_layout Enumerate
-Expose the JMatter UI to CSS even further through additional targetable
- semantic style names
-\end_layout
-
-\begin_layout Enumerate
 Produce multiple alternative stylesheets that can be used as themes to skin
  JMatter applications
-\end_layout
-
-\begin_layout Enumerate
-Complete selector language support: mainly the ability to specify a selector
- as a sequence of sibling, child, or descendent selectors
 \end_layout
 
 \begin_layout Enumerate
@@ -18659,10 +18649,6 @@ include
 
 \begin_layout Enumerate
 Possibly adding support for applicable CSS pseudo classes and pseudo elements
-\end_layout
-
-\begin_layout Enumerate
-Ensuring that stylesheet errors produce only warnings and are not fatal
 \end_layout
 
 \begin_layout Standard
