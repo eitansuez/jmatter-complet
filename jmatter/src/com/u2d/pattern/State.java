@@ -25,6 +25,7 @@ public abstract class State
    }
    
    public String getName() { return _name; }
+   public void onTransition() {}
    
    public String toString() { return getName(); }
    
