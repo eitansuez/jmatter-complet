@@ -17,13 +17,14 @@ public class AppEventSupport implements AppEventNotifier
       _source = source;
    }
    
-   Map<AppEventType, HashSet<AppEventListener>> listeners = new HashMap<AppEventType, HashSet<AppEventListener>>();
+   Map<AppEventType, IdentityHashSet<AppEventListener>> listeners = 
+         new HashMap<AppEventType, IdentityHashSet<AppEventListener>>();
    
    public synchronized void addAppEventListener(AppEventType evtType, AppEventListener l)
    {
       if (listeners.get(evtType) == null)
       {
-         listeners.put(evtType, new HashSet<AppEventListener>());
+         listeners.put(evtType, new IdentityHashSet<AppEventListener>());
       }
       Set<AppEventListener> set = listeners.get(evtType);
       set.add(l);
@@ -46,7 +47,7 @@ public class AppEventSupport implements AppEventNotifier
       if (listeners.get(evtType) == null) return;
       synchronized(this)
       {
-         HashSet set = listeners.get(evtType);
+         IdentityHashSet set = listeners.get(evtType);
          Set targets = (Set) set.clone();
          AppEvent evt = new AppEvent(_source, evtType, target);
          for (Iterator itr = targets.iterator(); itr.hasNext(); )
