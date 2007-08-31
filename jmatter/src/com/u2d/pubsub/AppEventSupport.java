@@ -57,4 +57,6 @@ public class AppEventSupport implements AppEventNotifier
       }
    }
    
+   public int getListenerCount() { return listeners.size(); }
+   
 }
