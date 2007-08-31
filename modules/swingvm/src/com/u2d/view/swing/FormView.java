@@ -3,35 +3,41 @@
  */
 package com.u2d.view.swing;
 
-import java.awt.*;
+import com.jeta.forms.components.panel.FormPanel;
+import com.jeta.forms.gui.form.FormAccessor;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import javax.swing.*;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import java.util.*;
-import java.util.List;
-import java.beans.*;
-import java.io.File;
+import com.u2d.app.Tracing;
 import com.u2d.element.Field;
-import com.u2d.field.CompositeField;
 import com.u2d.field.AggregateField;
-import com.u2d.model.*;
-import com.u2d.validation.ValidationNotifier;
-import com.u2d.view.*;
-import com.u2d.view.swing.list.TableView;
-import com.u2d.view.swing.list.CompositeTableView;
+import com.u2d.field.CompositeField;
+import com.u2d.model.ComplexEObject;
+import com.u2d.model.EObject;
+import com.u2d.model.Editor;
 import com.u2d.ui.CustomTabbedPane;
 import com.u2d.ui.UIUtils;
-import com.u2d.app.Tracing;
-import com.jeta.forms.components.panel.FormPanel;
-import com.jeta.forms.gui.form.FormAccessor;
+import com.u2d.validation.ValidationNotifier;
+import com.u2d.view.ComplexEView;
+import com.u2d.view.EView;
+import com.u2d.view.swing.list.CompositeTableView;
+import com.u2d.view.swing.list.TableView;
+import org.jdesktop.swingx.JXPanel;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Eitan Suez
  */
-public class FormView extends JPanel implements ComplexEView, Editor
+public class FormView extends JXPanel implements ComplexEView, Editor
 {
    private ComplexEObject _ceo;
    private boolean _leafContext;

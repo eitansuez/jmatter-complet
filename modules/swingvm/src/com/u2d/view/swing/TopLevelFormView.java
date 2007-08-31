@@ -1,14 +1,15 @@
 package com.u2d.view.swing;
 
-import com.u2d.view.CompositeView;
-import com.u2d.view.ComplexEView;
-import com.u2d.view.EView;
-import com.u2d.view.swing.list.CommandsButtonView;
+import com.u2d.element.Field;
+import com.u2d.model.AtomicEObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
-import com.u2d.model.AtomicEObject;
 import com.u2d.model.Editor;
-import com.u2d.element.Field;
+import com.u2d.view.ComplexEView;
+import com.u2d.view.CompositeView;
+import com.u2d.view.EView;
+import com.u2d.view.swing.list.CommandsButtonView;
+import org.jdesktop.swingx.JXPanel;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
@@ -20,7 +21,7 @@ import java.beans.PropertyChangeEvent;
  * Date: Mar 24, 2006
  * Time: 3:26:11 PM
  */
-public class TopLevelFormView extends JPanel
+public class TopLevelFormView extends JXPanel
       implements CompositeView, ComplexEView, Editor
 {
    private ComplexEObject _ceo;

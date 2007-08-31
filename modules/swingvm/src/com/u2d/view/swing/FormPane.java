@@ -3,16 +3,14 @@
  */
 package com.u2d.view.swing;
 
+import org.jdesktop.swingx.JXPanel;
+import javax.swing.*;
 import java.awt.*;
-import javax.swing.JPanel;
-import javax.swing.JViewport;
-import javax.swing.Scrollable;
-import javax.swing.SwingConstants;
 
 /**
  * @author Eitan Suez
  */
-public class FormPane extends JPanel implements Scrollable
+public class FormPane extends JXPanel implements Scrollable
 {
    public FormPane()
    {
