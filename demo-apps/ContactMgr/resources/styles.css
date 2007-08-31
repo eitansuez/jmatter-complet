@@ -37,8 +37,15 @@ JDesktopPane
 
 jm|FormPane
 {
+  background-image: resource("images/duke.gif") centered;
   background-color: #fffaf0;
   padding: 5px;
+}
+/* no background image for nested FormPanes..  */
+jm|FormPane jm|FormPane
+{
+  background-image: none;
+  background-color: transparent;
 }
 
 .command
