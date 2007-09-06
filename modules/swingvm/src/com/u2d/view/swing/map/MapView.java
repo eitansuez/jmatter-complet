@@ -63,20 +63,46 @@ public class MapView extends JLayeredPane implements PropertyChangeListener
       _markerOverlay.revalidate();  // gives layout manager a change to properly position waypoints
    }
 
-   class GeoPanel extends JXPanel
+   class OverlayPanel extends JXPanel
+   {
+      public OverlayPanel()
+      {
+         setOpaque(false);
+      }
+
+      // a trick to make the lower layer's cursor show through.. (thanks frc)
+      public boolean contains(int x, int y)
+      {
+         return super.contains(x, y) && achildcontains(x, y);
+      }
+      private boolean achildcontains(int x, int y)
+      {
+         for (int i=0; i<getComponentCount(); i++)
+         {
+            Component ic = getComponent(i);
+            int translatedx = x - ic.getX();
+            int translatedy = y - ic.getY();
+            if (ic.contains(translatedx, translatedy))
+            {
+               return true;
+            }
+         }
+         return false;
+      }
+
+   }
+   class LayerPanel extends OverlayPanel
+   {
+      LayerPanel()
+      {
+         setLayout(null);  // "absolute" layout
+      }
+   }
+   class GeoPanel extends OverlayPanel
    {
       GeoPanel()
       {
          setLayout(new MapLayout(_kit));
-         setOpaque(false);
-      }
-   }
-   class LayerPanel extends JXPanel
-   {
-      LayerPanel()
-      {
-         setOpaque(false);
-         setLayout(null);  // "absolute" layout
       }
    }
    
