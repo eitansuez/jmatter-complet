@@ -77,7 +77,7 @@ public class User extends AbstractComplexEObject implements Authorizer
    private void copyClassBarFromAppTemplate()
    {
       Folder templateClassBar = app().getClassBar();
-      final Session session = hbmPersistor().getSession();
+      Session session = hbmPersistor().getSession();
       session.update(templateClassBar);  // a precaution in case a new session was obtained
         // since templateClassBar was loaded
       _classBar.getName().setValue("Class Bar");
@@ -86,7 +86,7 @@ public class User extends AbstractComplexEObject implements Authorizer
          Folder subFolder = (Folder) itr.next();
          final Folder mySubfolder = new Folder();
          mySubfolder.getName().setValue(subFolder.getName());
-         hbmPersistor().getSession().saveOrUpdate(mySubfolder);
+         session.saveOrUpdate(mySubfolder);
          _classBar.addItem(mySubfolder);
          for (Iterator subItr = subFolder.getItems().iterator(); subItr.hasNext(); )
          {
