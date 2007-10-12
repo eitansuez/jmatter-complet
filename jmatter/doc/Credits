@@ -26,12 +26,14 @@ contributions to JMatter, though this list is not exhaustive.
 
     http://www.mattpayne.org/blog/category/programming/java/swing/jmatter/ 
 
- 4. A number of developers have been active on the mailing list and
+ 4. Christian Gruber:  BigDecimalEO and Editors
+
+ 5. A number of developers have been active on the mailing list and
     have answered others' questions about JMatter, or filed a bug
     on the jmatter Trac (http://trac.jmatter.org/ ).  Thank you for
     your contributions.  These include users "mnutall" and "tobe"
 
- 5. I would also like to thank all the bloggers who have written about
+ 6. I would also like to thank all the bloggers who have written about
     JMatter.  These include John Reynolds, Glenn Vanderburg, Neal
     Ford, Jared Richardson, Venkat Subramaniam, and many others.
 

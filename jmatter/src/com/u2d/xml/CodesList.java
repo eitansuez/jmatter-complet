@@ -4,10 +4,6 @@ import com.u2d.list.PlainListEObject;
 import com.u2d.app.PersistenceMechanism;
 import com.u2d.app.HBMPersistenceMechanism;
 import com.u2d.app.Context;
-import com.u2d.type.USState;
-import com.u2d.type.Sex;
-import com.u2d.type.MarritalStatus;
-import com.u2d.type.composite.ContactMethod;
 import com.u2d.json.JSON;
 import com.u2d.model.AbstractListEO;
 import com.u2d.persist.HBMBlock;
@@ -58,10 +54,36 @@ public class CodesList
 
    public static void populateCodes(PersistenceMechanism pmech, Set<Class> classList)
    {
-      populateCodesFor(pmech, classList, USState.class, "usstates.xml");
-      populateCodesFor(pmech, classList, ContactMethod.class, "contactmethods.xml");
-      populateCodesFor(pmech, classList, Sex.class, "sexes.xml");
-      populateCodesFor(pmech, classList, MarritalStatus.class, "marritalstati.xml");
+      for (Iterator iter = classList.iterator(); iter.hasNext();) {
+		Class clazz = (Class) iter.next();
+		String resourceNameSingular = clazz.getSimpleName().toLowerCase();
+
+		//Singular->Plural
+		String resourceNamePlural = null;
+		// category->categories 
+		if (resourceNameSingular.endsWith("y")) {
+			resourceNamePlural = resourceNameSingular.substring(0, resourceNameSingular.length() -1) + "ies"; 
+		} else if (resourceNameSingular.endsWith("status")) {
+			resourceNamePlural = resourceNameSingular.substring(0, resourceNameSingular.length() -6) + "stati"; 
+		//sex->sexes
+		} else if (resourceNameSingular.endsWith("x")) {
+			resourceNamePlural = resourceNameSingular + "es";
+		//usstate -> usstates
+		} else {
+			resourceNamePlural = resourceNameSingular + "s";
+		}
+
+		String resourceName = resourceNamePlural + ".xml";
+		//System.out.println("************ Finding resource: " + resourceName);
+		if ( getStreamForResource(resourceName) != null) {
+			//System.out.println("************ Resource found!");
+			populateCodesFor(pmech, classList, clazz, resourceName);
+		}
+	}
+//  	populateCodesFor(pmech, classList, USState.class, "usstates.xml");
+//      populateCodesFor(pmech, classList, ContactMethod.class, "contactmethods.xml");
+//      populateCodesFor(pmech, classList, Sex.class, "sexes.xml");
+//      populateCodesFor(pmech, classList, MarritalStatus.class, "marritalstati.xml");
    }
    
    private static void populateCodesFor(PersistenceMechanism pmech,

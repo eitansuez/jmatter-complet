@@ -7,7 +7,6 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.type.atom.StringEO;
-import com.u2d.view.swing.FormView;
 import com.u2d.wizard.details.BasicStep;
 import com.u2d.wizard.details.CommitStep;
 import com.u2d.wizard.details.CompositeStep;
@@ -267,7 +266,8 @@ public class DomainWizard extends CompositeStep
       Object value = _fieldValues.get( fieldName );
       if( value instanceof ComplexEObject )
       {
-         return new FormView( (ComplexEObject) value );
+          ComplexEObject ceo = (ComplexEObject) value;
+          return (JComponent) ceo.getMainView();
       }
       else
       {

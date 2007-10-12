@@ -670,6 +670,13 @@ public class SwingViewMechanism implements ViewMechanism
       return editor;
    }
    public AtomicEditor getFloatEditor() { return new FloatEditor(); }
+   public AtomicRenderer getBigDecimalRenderer()
+   {
+	  BigDecimalEditor editor = new BigDecimalEditor();
+      editor.setEditable(false);
+      return editor;
+   }
+   public AtomicEditor getBigDecimalEditor() { return new BigDecimalEditor(); }
 
    public AtomicRenderer getPercentRenderer() { return new StringRenderer(); }
    public AtomicEditor getPercentEditor() { return new PercentEditor(); }

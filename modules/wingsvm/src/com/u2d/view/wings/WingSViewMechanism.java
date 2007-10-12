@@ -10,6 +10,7 @@ import com.u2d.reporting.Reportable;
 import com.u2d.model.*;
 import com.u2d.find.CompositeQuery;
 import com.u2d.field.Association;
+import com.u2d.type.composite.USAddress;
 import com.u2d.type.AbstractChoiceEO;
 import com.u2d.calendar.Calendrier;
 import com.u2d.calendar.Schedule;
@@ -22,7 +23,6 @@ import com.u2d.list.CompositeList;
 import org.wings.SInternalFrame;
 import org.wings.SContainer;
 import org.wings.SComponent;
-
 import java.util.logging.Logger;
 
 /**
@@ -249,6 +249,8 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ComplexEView getQueryView(CompositeQuery query) { return null; }
 
+    public Object getAddressViewOnMap(USAddress addr) {return null;}
+
    public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr) { return null; }
    public EView getRoleTypeRestrictionMgrUi(RoleTypeRestrictionMgr mgr) { return null; }
 
@@ -344,6 +346,14 @@ public class WingSViewMechanism implements ViewMechanism
       return editor;
    }
    public AtomicEditor getFloatEditor() { return new FloatEditor(); }
+
+   public AtomicRenderer getBigDecimalRenderer()
+   {
+      BigDecimalEditor editor = new BigDecimalEditor();
+      editor.setEditable(false);
+      return editor;
+   }
+   public AtomicEditor getBigDecimalEditor() { return new BigDecimalEditor(); }
 
    public AtomicRenderer getPercentRenderer() { return getStringRenderer(); }
    public AtomicEditor getPercentEditor() { return new PercentEditor(); }

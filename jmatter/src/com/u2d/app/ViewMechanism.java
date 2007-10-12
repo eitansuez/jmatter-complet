@@ -110,6 +110,9 @@ public interface ViewMechanism
    public AtomicRenderer getFloatRenderer();
    public AtomicEditor getFloatEditor();
 
+   public AtomicRenderer getBigDecimalRenderer();
+   public AtomicEditor getBigDecimalEditor();
+
    public AtomicRenderer getPercentRenderer();
    public AtomicEditor getPercentEditor();
 
