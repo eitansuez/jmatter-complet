@@ -37,7 +37,7 @@ JDesktopPane
 
 jm|FormPane
 {
-  background-image: resource("images/duke.gif") centered;
+/*  background-image: resource("images/duke.gif") centered; */
   background-color: #fffaf0;
   padding: 5px;
 }
