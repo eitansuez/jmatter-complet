@@ -53,11 +53,14 @@ public class AnnotationsReflector implements Reflector
       if (parent == null)  // hack for lists..(temporary)
          return cmd;
       
-      if (!_commandCache.containsKey(cmd))
+      synchronized(this)
       {
-         _commandCache.put(cmd, cmd);
+         if (!_commandCache.containsKey(cmd))
+         {
+            _commandCache.put(cmd, cmd);
+         }
+         return _commandCache.get(cmd);
       }
-      return _commandCache.get(cmd);
    }
 
    private ParameterInfo[] parameterInfo(Method method)

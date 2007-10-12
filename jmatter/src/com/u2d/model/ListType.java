@@ -22,7 +22,7 @@ public class ListType
    private static transient Map<Class, Map<Class, ListType>> _listtypeMap = 
          new HashMap<Class, Map<Class, ListType>>();
    
-   public static ListType forClass(Class listClass, Class itemClass)
+   public static synchronized ListType forClass(Class listClass, Class itemClass)
    {
       if (!(AbstractListEO.class.isAssignableFrom(listClass)))
       {

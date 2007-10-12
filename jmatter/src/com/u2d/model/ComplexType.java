@@ -86,7 +86,7 @@ public class ComplexType extends AbstractComplexEObject
 
    private static Color DEFAULT_COLOR = new Color(215, 211, 140);
 
-   public static ComplexType forClass(Class targetClass)
+   public static synchronized ComplexType forClass(Class targetClass)
    {
       if (!(ComplexEObject.class.isAssignableFrom(targetClass)))
       {
