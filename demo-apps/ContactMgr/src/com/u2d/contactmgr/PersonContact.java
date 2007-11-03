@@ -20,7 +20,7 @@ public class PersonContact extends Person
       ComplexType.forClass(PersonContact.class).setDefaultCommandName("NewPersonWizard");
    }
    
-   @Cmd
+   @Cmd(shortcut="control Z")
    public static Wizard NewPersonWizard(CommandInfo cmdInfo)
    {
       // was:

@@ -25,7 +25,7 @@ import java.lang.reflect.InvocationTargetException;
 public abstract class Command extends Member 
 {
    
-   public static String[] fieldOrder = {"name", "fullPath", "label", "mnemonic", "description", "sensitive"};
+   public static String[] fieldOrder = {"name", "fullPath", "label", "mnemonic", "description", "sensitive", "shortcut"};
    public static String[] readOnly = {"name", "fullPath"};
    public static String[] identities = {"fullPath"};
 
@@ -78,7 +78,13 @@ public abstract class Command extends Member
     */
    public boolean blocks() { return _blocks; }
    public void blocks(boolean blocks) { _blocks = blocks; }
-   
+
+
+   protected final StringEO _shortcut = new StringEO();
+   public StringEO getShortcut() { return _shortcut; }
+   public boolean hasShortcut() { return !_shortcut.isEmpty(); }
+   public String shortcut() { return _shortcut.stringValue(); }
+    
 
    public String localizedLabel(Localized l)
    {

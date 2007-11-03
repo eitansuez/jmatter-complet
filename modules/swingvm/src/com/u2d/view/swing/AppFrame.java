@@ -3,31 +3,41 @@
  */
 package com.u2d.view.swing;
 
+import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+import com.u2d.app.*;
+import com.u2d.css4swing.style.ComponentStyle;
+import com.u2d.element.Command;
+import com.u2d.model.ComplexType;
+import com.u2d.pattern.Filter;
+import com.u2d.pattern.Onion;
+import com.u2d.persist.HBMSingleSession;
+import com.u2d.pubsub.AppEventListener;
+import static com.u2d.pubsub.AppEventType.LOGIN;
+import static com.u2d.pubsub.AppEventType.LOGOUT;
+import com.u2d.type.atom.URI;
+import com.u2d.type.composite.Folder;
+import com.u2d.ui.Platform;
+import com.u2d.ui.UIUtils;
+import com.u2d.ui.desktop.CloseableJInternalFrame;
+import com.u2d.ui.desktop.Positioning;
+import com.u2d.utils.Launcher;
+import com.u2d.view.swing.atom.URIRenderer;
+import com.u2d.view.swing.dnd.EODesktopPane;
+import com.u2d.view.swing.list.CommandsMenuView;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
-import javax.swing.*;
-import java.io.*;
-import java.util.*;
-import com.u2d.ui.*;
-import com.u2d.ui.desktop.Positioning;
-import com.u2d.ui.desktop.CloseableJInternalFrame;
-import com.u2d.view.swing.dnd.*;
-import com.u2d.view.swing.list.CommandsMenuView;
-import com.u2d.view.swing.atom.URIRenderer;
-import com.u2d.app.*;
-import com.u2d.pubsub.*;
-import static com.u2d.pubsub.AppEventType.*;
-import com.u2d.persist.HBMSingleSession;
-import com.u2d.pattern.Filter;
-import com.u2d.element.Command;
-import com.u2d.utils.Launcher;
-import com.u2d.type.atom.URI;
-import com.u2d.css4swing.style.ComponentStyle;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.builder.PanelBuilder;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @author Eitan Suez
@@ -97,17 +107,72 @@ public class AppFrame extends JFrame
    
    private void setupKeyboardShorcuts()
    {
-      JPanel contentPane = (JPanel) getContentPane();
-         
-      contentPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
-            put(KeyStroke.getKeyStroke("alt SLASH"), "focus-classbar");
-      contentPane.getActionMap().put("focus-classbar", new AbstractAction()
+      bindKeyStroke("alt SLASH", "focus-classbar", new AbstractAction()
          {
             public void actionPerformed(ActionEvent e)
             {
                _classBar.focusItem();
             }
          });
+   }
+   
+   private void bindKeyStroke(String shortcut, String key, Action action)
+   {
+      JPanel contentPane = (JPanel) getContentPane();
+      contentPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
+            put(KeyStroke.getKeyStroke(shortcut), key);
+      contentPane.getActionMap().put(key, action);
+   }
+   private void detachKeyStroke(String key)
+   {
+      JPanel contentPane = (JPanel) getContentPane();
+      contentPane.getActionMap().remove(key);
+   }
+   
+   private Set<String> keybindings = new HashSet<String>();
+   
+   private void bindTypeKeyboardShortcuts(Folder userClassBar)
+   {
+      keybindings = new HashSet<String>();
+      for (int i=0; i<userClassBar.size(); i++)
+      {
+         Object item = userClassBar.get(i);
+         if (item instanceof Folder)
+         {
+            Folder folder = (Folder) item;
+            for (int j=0; j<folder.size(); j++)
+            {
+               Object subItem = folder.get(j);
+               if (subItem instanceof ComplexType)
+               {
+                  ComplexType type = (ComplexType) subItem;
+                  Onion typeCommands = type.commands();
+                  for (Iterator itr = typeCommands.deepIterator(); itr.hasNext(); )
+                  {
+                     Command cmd = (Command) itr.next();
+                     if (cmd.hasShortcut())
+                     {
+                        String key = keyFor(type, cmd);
+                        bindKeyStroke(cmd.shortcut(), key, new CommandAdapter(cmd, null));
+                        keybindings.add(key);
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+   private void detachTypeKeyboardShortcuts()
+   {
+      for (String key : keybindings)
+      {
+         detachKeyStroke(key);
+      }
+   }
+   
+   private String keyFor(ComplexType type, Command cmd)
+   {
+      return String.format("%s-%s", type.name(), cmd.name());
    }
 
    private void listenForUserEvents()
@@ -231,8 +296,11 @@ public class AppFrame extends JFrame
             public void run()
             {
                User currentUser = _appSession.getUser();
-               _classBar.bind(currentUser.getClassBar());
-               _classMenu.bind(currentUser.getClassBar(), _menuBar, _menuBar.getComponentCount() - 2);
+               Folder userClassBar = currentUser.getClassBar();
+               _classBar.bind(userClassBar);
+               _classMenu.bind(userClassBar, _menuBar, _menuBar.getComponentCount() - 2);
+               
+               bindTypeKeyboardShortcuts(userClassBar);
                
                _centerPane.add(_classBar, BorderLayout.WEST);
                _classBar.focusItem();
@@ -248,6 +316,7 @@ public class AppFrame extends JFrame
             {
                _classBar.detach();
                _classMenu.detach();
+               detachTypeKeyboardShortcuts();
                _centerPane.remove(_classBar);
                _centerPane.revalidate(); _centerPane.repaint();
             }

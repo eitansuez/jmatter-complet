@@ -48,7 +48,9 @@ public class AnnotationsReflector implements Reflector
          
       if (!StringEO.isEmpty(at.description()))
          cmd.getDescription().setValue(at.description());
-         
+      
+      if (!StringEO.isEmpty(at.shortcut()))
+        cmd.getShortcut().setValue(at.shortcut());
       
       if (parent == null)  // hack for lists..(temporary)
          return cmd;

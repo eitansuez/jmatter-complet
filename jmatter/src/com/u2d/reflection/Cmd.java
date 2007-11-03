@@ -11,6 +11,8 @@ import java.lang.annotation.ElementType;
 public @interface Cmd
 {
    public char mnemonic() default '\0';
+    
+   public String shortcut() default "";
    
    /**
     * @return a way to override the caption/label for a field.  i prefer natural labels, 
