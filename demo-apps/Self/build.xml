@@ -1,12 +1,12 @@
 <project name="Self" default="run">
 
- <description><!-- TODO: enter project description here --></description>
+ <description>A simple application that demonstrates a simple, easy way to integrate a graphical, custom view for a model object</description>
 
  <property name="build.dir" location="build" />
  <property name="build.classes.dir" location="${build.dir}/classes" />
  <property name="src.dir" location="src" />
 
- <property name="framework.dir" location="/home/eitan/work/jmatter-complet/jmatter" />
+ <property name="framework.dir" location="../../jmatter" />
  <property name="framework.classes.dir" location="${framework.dir}/build/classes" />
  <property name="lib.basedir" location="${framework.dir}/lib" />
 
