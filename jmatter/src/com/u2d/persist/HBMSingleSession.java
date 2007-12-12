@@ -49,7 +49,7 @@ public class HBMSingleSession extends HibernatePersistor
       catch (HibernateException ex)
       {
          ex.printStackTrace();
-         System.err.println("Error attempting to obtain a new hibernate sessino");
+         System.err.println("Error attempting to obtain a new hibernate session");
          throw ex;
       }
    }

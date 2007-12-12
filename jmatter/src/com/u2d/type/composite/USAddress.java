@@ -44,7 +44,7 @@ public class USAddress extends AbstractComplexEObject
       _zipCode.setValue(new USZipCode(zipcode));
    }
    
-	public StringEO getAddressLine1() { return _addressLine1; }
+   public StringEO getAddressLine1() { return _addressLine1; }
    public StringEO getAddressLine2() { return _addressLine2; }
    public StringEO getCity() { return _city; }
    public USState getStateCode() { return _stateCode; }
