@@ -11,7 +11,7 @@ import java.awt.event.InputEvent;
 public class Platform
 {
    public static boolean APPLE =
-         (System.getProperty("mrj.version") != null);
+         System.getProperty("os.name").toLowerCase().startsWith("mac os x");
 
    public static int mask()
    {
