@@ -6,6 +6,8 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import java.awt.event.*;
+import java.awt.*;
+
 import com.u2d.app.*;
 import com.u2d.ui.*;
 import com.u2d.model.ComplexType;
@@ -131,11 +133,13 @@ public class LoginDialog extends JXPanel
       _userNameFld.setText("");
       _pwdField.setText("");
       _msg.setText(msg);
-      revalidate(); repaint();
-      setSize(getPreferredSize());
-      UIUtils.center(this, getParent());
-      setVisible(true);
       getfocus();
+   }
+   
+   public void position() {
+      setSize(getPreferredSize());
+      Point p = new Point(10, UIUtils.computeCenter(this).y);
+      setLocation(p);  // left align..
    }
    
    public void clear() { reset(lookup("logindlg.msg.login")); }

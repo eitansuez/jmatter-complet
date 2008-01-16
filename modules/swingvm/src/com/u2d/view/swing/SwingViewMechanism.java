@@ -24,6 +24,7 @@ import com.u2d.type.composite.Folder;
 import com.u2d.type.composite.USAddress;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.desktop.Positioning;
+import com.u2d.ui.UIUtils;
 import com.u2d.view.*;
 import com.u2d.view.swing.atom.*;
 import com.u2d.view.swing.calendar.fancy.CalEventView;
@@ -130,9 +131,10 @@ public class SwingViewMechanism implements ViewMechanism
             {
                _loginDialog = new LoginDialog(_appSession);
                _appFrame.addLoginDialog(_loginDialog);
+               _loginDialog.position();
             }
-
             _loginDialog.clear();
+            _loginDialog.setVisible(true);
          }
       });
    }
