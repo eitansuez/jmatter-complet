@@ -341,6 +341,7 @@
           <option name="METHOD" value="true" />
           <option name="CLASS" value="true" />
           <option name="PARAMETER" value="true" />
+          <option name="REPORT_PARAMETER_FOR_PUBLIC_METHODS" value="true" />
           <option name="INJECTION_ANNOS">
             <value>
               <list size="0" />
@@ -809,6 +810,13 @@
     <RUBY_DOC NAME="DEFAULTS" VALUE="TRUE" />
     <RUBY_DOC NAME="NUMBER" VALUE="0" />
   </component>
+  <component name="ResourceManagerContainer">
+    <option name="myResourceBundles">
+      <value>
+        <list size="0" />
+      </value>
+    </option>
+  </component>
   <component name="RmicSettings">
     <option name="IS_EANABLED" value="false" />
     <option name="DEBUGGING_INFO" value="true" />
@@ -820,6 +828,7 @@
     <mapping directory="" vcs="" />
     <mapping directory="$PROJECT_DIR$" vcs="svn" />
   </component>
+  <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="com.intellij.jsf.UserDefinedFacesConfigs">
     <option name="USER_DEFINED_CONFIGS">
       <value>
