@@ -14,6 +14,7 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.element.Field;
 import com.u2d.ui.IconButton;
 import com.u2d.ui.JComboTree;
+import com.u2d.ui.KeyPressAdapter;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexType;
@@ -196,16 +197,13 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
                itemSelected();
             }
          });
-         _list.addKeyListener(new KeyAdapter()
+         _list.addKeyListener(new KeyPressAdapter(new KeyAdapter()
          {
             public void keyPressed(KeyEvent e)
             {
-               if (e.getKeyCode() == KeyEvent.VK_ENTER)
-               {
-                  itemSelected();
-               }
+               itemSelected();
             }
-         });
+         }, KeyEvent.VK_ENTER));
 
          _popup = new JPopupMenu();
          _popup.add((JComponent) _view);
