@@ -34,8 +34,14 @@ public class UIUtils
    {
       return computeCenter(parent.getSize(), child.getSize());
    }
+
+   /* Assume parent is already wired */
+   public static Point computeCenter(Component child)
+   {
+      return computeCenter(child.getParent(), child);
+   }
 	
-	public static Point computeCenter(Dimension parentSize, Dimension childSize)
+   public static Point computeCenter(Dimension parentSize, Dimension childSize)
 	{
 		int xpos = (parentSize.width - childSize.width) / 2;
 		int ypos = (parentSize.height - childSize.height) / 2;
