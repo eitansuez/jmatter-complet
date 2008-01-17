@@ -12,6 +12,8 @@ import com.u2d.pattern.*;
 import com.u2d.type.Choice;
 import com.u2d.validation.Required;
 import com.u2d.view.*;
+import com.u2d.find.QuerySpecification;
+import com.u2d.find.CompositeQuery;
 import org.hibernate.HibernateException;
 
 /**
@@ -29,6 +31,8 @@ public class AssociationField extends Field implements Bidi, Associable
    
    protected transient Method _associator, _dissociator;
    
+   protected transient Method _associationConstraint;
+   
    public AssociationField() {}
    
    public AssociationField(FieldParent parent, String name) 
@@ -39,6 +43,7 @@ public class AssociationField extends Field implements Bidi, Associable
       _inverseFieldName =
          (String) Harvester.introspectField(parent.getJavaClass(),
                                             name() + "InverseFieldName");
+      checkForAssociationConstraint();
    }
    
    public AssociationField(FieldParent parent, PropertyDescriptor descriptor) 
@@ -48,6 +53,41 @@ public class AssociationField extends Field implements Bidi, Associable
       _inverseFieldName =
          (String) Harvester.introspectField(parent.getJavaClass(),
                                             name() + "InverseFieldName");
+      checkForAssociationConstraint();
+   }
+   
+
+   private void checkForAssociationConstraint()
+   {
+      try
+      {
+         String methodName = String.format("%sOptions", name());
+         _associationConstraint = _parent.getJavaClass().getMethod(methodName);
+      }
+      catch (NoSuchMethodException e)
+      {
+         // ignore
+      }
+   }
+   public boolean hasAssociationConstraint() { return _associationConstraint != null; }
+   private boolean isQueryType()
+   {
+      return _associationConstraint.getReturnType().equals(QuerySpecification.class);
+   }
+   public void bindConstraintTo(CompositeQuery query, Object instance)
+   {
+      if (!hasAssociationConstraint()) return;
+      if (!isQueryType()) return;
+      try
+      {
+         QuerySpecification spec = (QuerySpecification) _associationConstraint.invoke(instance);
+         if (spec == null) return;
+         query.addSpecification(spec);
+      }
+      catch (Exception e)
+      {
+         // ignore
+      }
    }
    
    private void introspectAssociator()
