@@ -64,6 +64,19 @@
            dname="CN=Anonymous Signature, OU=unknown, o=unknown, c=unknown" />
  </target>
  
+ <!-- some default for the pkg name.. -->
+ <property name="reveng-pkgname" value="org.jmatter.app" />
+   
+ <target name="reveng-db" depends="init,compile-framework"
+       description="Reverse Engineer an existing database schema that hibernate.properties resource file points to.  Pass in -Dreveng-pkgname to override default pkgname of org.jmatter.app">
+    <java classname="com.u2d.persist.ReverseEngineer" classpathref="class.path" fork="true">
+       <arg line="${reveng-pkgname} resources/${hbprops}.properties" />
+    </java>
+    <!-- todo:
+       run schema-update target afterwards
+       revise jmatter to not necessitate the next step of producing and running the sql update script
+     -->
+ </target>
 
  <taskdef name="make-persistclasses" classname="com.u2d.tools.AntPersistClassesMaker" classpathref="libtools.path" />
 

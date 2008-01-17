@@ -5,7 +5,31 @@ Eitan Suez is the principal author of JMatter.  I would like
 to extend my thanks to the following individuals for their
 contributions to JMatter, though this list is not exhaustive.
 
- 1. Ryan Ramage
+ - Jim Slack
+
+      Jan 2008:  Jim contributes the program "ReverseEngineer"
+      which reverse engineers an existing database schema 
+      to generate its corresponding JMatter source code.
+ 
+ - Andres Almiray
+ 
+      Andres has been evangelizing JMatter since our meeting
+      at the Desktop Matters conference in the Spring of 2007.
+      He's developed a groovy builder for JMatter wizards that
+      illustrates the value of combining JMatter with groovy.
+      Andres has also shown how to integrate JMatter with
+      SwingX mapping-enabled components, which is now partly
+      integrated into JMatter.
+      
+        See http://www.jroller.com/aalmiray/
+        
+ - David McPaul and Justin
+ 
+      David and Justin were some of the earliest adopters of
+      JMatter and employ the technology in-house at their
+      company down under.
+      
+ - Ryan Ramage
 
       Ryan is the author of UltraViolet, a JMatter UML
       design tool.  He also wrote UMLC, a JMatter uml
@@ -13,27 +37,27 @@ contributions to JMatter, though this list is not exhaustive.
 
         http://ryan.ramage.googlepages.com/ultravioletandumlc2
 
- 2. Felix Torre
+ - Felix Torre
 
       Felix and myself co-developed localization in JMatter:
       the ability to work with JMatter in languages other
       than English.
 
- 3. Matt Payne
+ - Matt Payne
 
     Matt has embraced JMatter and has been evangelizing it.
     His weblog has a subcategory dedicated to JMatter.  See:
 
     http://www.mattpayne.org/blog/category/programming/java/swing/jmatter/ 
 
- 4. Christian Gruber:  BigDecimalEO and Editors
+ - Christian Gruber:  BigDecimalEO and Editors
 
- 5. A number of developers have been active on the mailing list and
+ -  A number of developers have been active on the mailing list and
     have answered others' questions about JMatter, or filed a bug
     on the jmatter Trac (http://trac.jmatter.org/ ).  Thank you for
     your contributions.  These include users "mnutall" and "tobe"
 
- 6. I would also like to thank all the bloggers who have written about
+ -  I would also like to thank all the bloggers who have written about
     JMatter.  These include John Reynolds, Glenn Vanderburg, Neal
     Ford, Jared Richardson, Venkat Subramaniam, and many others.
 
