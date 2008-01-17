@@ -354,7 +354,7 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 //            return;
 //         }
 //      }
-      // the other way to go is to through a validation exception and let the user
+      // the other way to go is to throw a validation exception and let the user
       // decide.  this might be cleaner.
       if (ceo.isTransientState())
       {

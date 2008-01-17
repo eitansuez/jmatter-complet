@@ -36,7 +36,7 @@ public class BidiAssociationStrategy
       {
          _otherSide.set(value, parent());
 
-         AppEventType signal = (parent().isTransientState() ? BEFORECREATE : BEFORESAVE);
+         AppEventType signal = (value.isTransientState() ? BEFORECREATE : BEFORESAVE);
          value.addAppEventListener(signal, new AppEventListener()
             {
                public void onEvent(AppEvent evt)
