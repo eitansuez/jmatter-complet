@@ -202,7 +202,7 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
    public ListEView getAlternateView()
    {
       /* a table view assumes all table elements have the same structure, which is not a correct
-        assumption for a list of objects that have a common interface or that are part of f
+        assumption for a list of objects that have a common interface or that are part of a
         class hierarchy.
        */
       if (type().isAbstract())
@@ -225,6 +225,11 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
       return vmech().getPaginableView(vmech().getListView(this));
    }
 
+   public ListEView getPickView()
+   {
+      return vmech().getPaginableView(super.getPickView());
+   }
+
    public void removeListDataListener(ListDataListener l)
    {
       super.removeListDataListener(l);
@@ -241,12 +246,6 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
       }
    }
    
-   public ListEView getPickView()
-   {
-      ListEView pickView = super.getPickView();
-      return vmech().getPaginableView(pickView);
-   }
-
    /* ** ===== TableModel implementation ===== ** */
 
    // must use an inner class because i want to extend from AbstractTableModel
