@@ -449,7 +449,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue)
    {
-      firePropertyChange(propertyName, new Boolean(oldValue), new Boolean(newValue));
+      firePropertyChange(propertyName, Boolean.valueOf(oldValue), Boolean.valueOf(newValue));
    }
 
    public void addPropertyChangeListener(PropertyChangeListener listener)

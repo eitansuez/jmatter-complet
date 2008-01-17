@@ -29,7 +29,7 @@ public class BooleanEOUserType extends BaseUserType
       throws HibernateException, java.sql.SQLException
    {
       boolean booleanValue = (value==null) ? false : ((BooleanEO) value).booleanValue();
-      Hibernate.BOOLEAN.nullSafeSet(pstmt, new Boolean(booleanValue), index);
+      Hibernate.BOOLEAN.nullSafeSet(pstmt, Boolean.valueOf(booleanValue), index);
    }
 
    public Class returnedClass() { return BooleanEO.class; }

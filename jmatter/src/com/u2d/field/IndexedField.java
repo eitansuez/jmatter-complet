@@ -149,15 +149,15 @@ public class IndexedField extends Field implements Bidi, Associable
          {
             java.lang.reflect.Field f = _parent.getJavaClass().getField(getName()+"RelationType");
             int relationType = ((Integer) f.get(null)).intValue();
-            _manyToMany = new Boolean(relationType == PersistenceMechanism.MANY_TO_MANY);
+            _manyToMany = Boolean.valueOf(relationType == PersistenceMechanism.MANY_TO_MANY);
          }
          catch (NoSuchFieldException ex)
          {
-            _manyToMany = new Boolean(false);
+            _manyToMany = Boolean.FALSE;
          }
          catch (IllegalAccessException ex)
          {
-            _manyToMany = new Boolean(false);
+            _manyToMany = Boolean.FALSE;
          }
       }
       return _manyToMany.booleanValue();
