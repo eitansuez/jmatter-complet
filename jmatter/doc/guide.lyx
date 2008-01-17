@@ -1,5 +1,5 @@
-#LyX 1.4.3 created this file. For more info see http://www.lyx.org/
-\lyxformat 245
+#LyX 1.5.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
 \begin_document
 \begin_header
 \textclass book
@@ -13,7 +13,14 @@
 \end_preamble
 \language english
 \inputencoding auto
-\fontscheme default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
 \graphics default
 \float_placement H
 \paperfontsize default
@@ -21,6 +28,7 @@
 \papersize custom
 \use_geometry true
 \use_amsmath 1
+\use_esint 0
 \cite_engine basic
 \use_bibtopic false
 \paperorientation portrait
@@ -42,7 +50,8 @@
 \papersides 2
 \paperpagestyle fancy
 \tracking_changes false
-\output_changes true
+\output_changes false
+\author "" 
 \end_header
 
 \begin_body
@@ -60,7 +69,7 @@ Eitan Suez
 \end_layout
 
 \begin_layout Standard
-\begin_inset LatexCommand \tableofcontents{}
+\begin_inset LatexCommand tableofcontents
 
 \end_inset
 
@@ -113,7 +122,8 @@ The principal advantage of developing a business software application with
 \begin_layout Standard
 Take for example, the Issue Manager demo application described in chapter
  
-\begin_inset LatexCommand \vref{cha:Issue-Manager}
+\begin_inset LatexCommand vref
+reference "cha:Issue-Manager"
 
 \end_inset
 
@@ -136,17 +146,23 @@ n that can be used for day-to-day tracking and management of software issues.
 This Issue Manager software application was implemented by a single developer
  in roughly four hours.
  Contrast this to comparable systems such as 
-\begin_inset LatexCommand \htmlurl[Bugzilla]{http://www.bugzilla.org/}
+\begin_inset LatexCommand htmlurl
+name "Bugzilla"
+target "http://www.bugzilla.org/"
 
 \end_inset
 
 , 
-\begin_inset LatexCommand \htmlurl[JIRA]{http://jira.atlassian.com/}
+\begin_inset LatexCommand htmlurl
+name "JIRA"
+target "http://jira.atlassian.com/"
 
 \end_inset
 
 , and 
-\begin_inset LatexCommand \htmlurl[trac]{http://www.edgewall.com/trac}
+\begin_inset LatexCommand htmlurl
+name "trac"
+target "http://www.edgewall.com/trac"
 
 \end_inset
 
@@ -495,7 +511,8 @@ status collapsed
 
 \begin_layout Standard
 see 
-\begin_inset LatexCommand \url{http://hibernate.org/}
+\begin_inset LatexCommand url
+target "http://hibernate.org/"
 
 \end_inset
 
@@ -549,7 +566,8 @@ Virtual Private Network
 To automate the task of installing clients on multiple workstations, and
  of keeping these installations up to date, JMatter leverages Java WebStart.
  Chapter 
-\begin_inset LatexCommand \ref{cha:Deploying-your-Application}
+\begin_inset LatexCommand ref
+reference "cha:Deploying-your-Application"
 
 \end_inset
 
@@ -579,7 +597,8 @@ Here's what lays ahead in the upcoming chapters: we'll walk through installing
 Contact Manager
 \emph default
  (Chapter 
-\begin_inset LatexCommand \ref{cha:A-Short-Tour}
+\begin_inset LatexCommand ref
+reference "cha:A-Short-Tour"
 
 \end_inset
 
@@ -635,7 +654,8 @@ Java Standard Edition, version 5 (JSE 5) or later
 JMatter is a Java-based framework and thus requires Java Standard Edition
  from Sun Microsystems.
  Download a copy from 
-\begin_inset LatexCommand \htmlurl{http://java.sun.com}
+\begin_inset LatexCommand htmlurl
+target "http://java.sun.com"
 
 \end_inset
 
@@ -653,7 +673,8 @@ Ant is a Java build tool which JMatter heavily relies upon.
 ant
 \emph default
  from 
-\begin_inset LatexCommand \htmlurl{http://ant.apache.org/}
+\begin_inset LatexCommand htmlurl
+target "http://ant.apache.org/"
 
 \end_inset
 
@@ -687,7 +708,8 @@ Installation
 
 \begin_layout Standard
 Visit the JMatter web site at 
-\begin_inset LatexCommand \url{http://jmatter.org/}
+\begin_inset LatexCommand url
+target "http://jmatter.org/"
 
 \end_inset
 
@@ -826,7 +848,8 @@ If applicable, place a copy of the JDBC driver
 lib/runtime/jdbc
 \emph default
  subdirectory (see Appendix 
-\begin_inset LatexCommand \ref{cha:Database-Setup}
+\begin_inset LatexCommand ref
+reference "cha:Database-Setup"
 
 \end_inset
 
@@ -839,7 +862,8 @@ That's it.
 
 \begin_layout Chapter
 A Short Tour
-\begin_inset LatexCommand \label{cha:A-Short-Tour}
+\begin_inset LatexCommand label
+name "cha:A-Short-Tour"
 
 \end_inset
 
@@ -938,7 +962,8 @@ JMatter applications are designed to be multi-user applications, running
  The framework supports the task of deploying applications using Sun's Java
  WebStart technology.
  Please refer to chapter 
-\begin_inset LatexCommand \ref{cha:Deploying-your-Application}
+\begin_inset LatexCommand ref
+reference "cha:Deploying-your-Application"
 
 \end_inset
 
@@ -948,7 +973,8 @@ JMatter applications are designed to be multi-user applications, running
 \begin_layout Standard
 If you prefer to configure your own MySQL or PostgresQL database, please
  refer to appendix 
-\begin_inset LatexCommand \ref{cha:Database-Setup}
+\begin_inset LatexCommand ref
+reference "cha:Database-Setup"
 
 \end_inset
 
@@ -962,7 +988,8 @@ The Tour
 \begin_layout Standard
 OK, we've just launched our first JMatter application.
  We should be greeted with the login screen shown in figure 
-\begin_inset LatexCommand \ref{cap:Contact-Manager-Login}
+\begin_inset LatexCommand ref
+reference "cap:Contact-Manager-Login"
 
 \end_inset
 
@@ -988,12 +1015,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Contact-Manager-Login}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Contact-Manager-Login"
 
 \end_inset
 
 Contact Manager Login Screen
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1018,7 +1054,8 @@ Go ahead and login.
 desktop
 \emph default
  (see figure 
-\begin_inset LatexCommand \ref{cap:Contact-Manager-Desktop}
+\begin_inset LatexCommand ref
+reference "cap:Contact-Manager-Desktop"
 
 \end_inset
 
@@ -1044,12 +1081,21 @@ status open
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Contact-Manager-Desktop}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Contact-Manager-Desktop"
 
 \end_inset
 
 Contact Manager Application Desktop
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1156,7 +1202,8 @@ Users
 \emph default
 .
  You should see something similar to figure 
-\begin_inset LatexCommand \ref{cap:Users}
+\begin_inset LatexCommand ref
+reference "cap:Users"
 
 \end_inset
 
@@ -1182,12 +1229,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Users}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Users"
 
 \end_inset
 
 Users
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1252,7 +1308,8 @@ New
 
 \begin_layout Standard
 Your screen should now look like figure 
-\begin_inset LatexCommand \ref{cap:New-Person}
+\begin_inset LatexCommand ref
+reference "cap:New-Person"
 
 \end_inset
 
@@ -1278,12 +1335,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:New-Person}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:New-Person"
 
 \end_inset
 
 Creating a new Person
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1559,7 +1625,8 @@ Save Query.
 
 \emph default
  At this point your screen should look something similar to figure 
-\begin_inset LatexCommand \ref{cap:Query-1}
+\begin_inset LatexCommand ref
+reference "cap:Query-1"
 
 \end_inset
 
@@ -1585,12 +1652,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Query-1}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Query-1"
 
 \end_inset
 
 Performing and Saving a Query
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1626,7 +1702,8 @@ Queries
 \emph default
  in the Class Bar) and you'll see your new query show up in the list (see
  figure 
-\begin_inset LatexCommand \ref{cap:Browsing-Queries}
+\begin_inset LatexCommand ref
+reference "cap:Browsing-Queries"
 
 \end_inset
 
@@ -1652,12 +1729,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Browsing-Queries}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Browsing-Queries"
 
 \end_inset
 
 Browsing Queries
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1777,7 +1863,8 @@ Log
  in the Class Bar.
  Browse the list of log entries and you'll see a screen that looks like
  figure 
-\begin_inset LatexCommand \ref{cap:Log-Listing}
+\begin_inset LatexCommand ref
+reference "cap:Log-Listing"
 
 \end_inset
 
@@ -1853,12 +1940,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Log-Listing}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Log-Listing"
 
 \end_inset
 
 Log Listing
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1906,7 +2002,8 @@ We'll talk about authorization and other mechanisms to make information
 
 ).
  You can also see in figure 
-\begin_inset LatexCommand \ref{cap:Log-Listing}
+\begin_inset LatexCommand ref
+reference "cap:Log-Listing"
 
 \end_inset
 
@@ -1936,7 +2033,8 @@ Person
 \emph default
 s) and click on the icon with the yellow star in it.
  You should see something similar to figure 
-\begin_inset LatexCommand \ref{cap:Icon-Alternate-View}
+\begin_inset LatexCommand ref
+reference "cap:Icon-Alternate-View"
 
 \end_inset
 
@@ -1962,12 +2060,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Icon-Alternate-View}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Icon-Alternate-View"
 
 \end_inset
 
 Icon Alternate List View
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2004,7 +2111,8 @@ For single objects, say a single contact, you will likewise find alternate
  So for example, we can lookup a log entry about someone logging in to the
  system and view that entry in a composite tree view, as shown in figure
  
-\begin_inset LatexCommand \ref{cap:Composite-Tree-View}
+\begin_inset LatexCommand ref
+reference "cap:Composite-Tree-View"
 
 \end_inset
 
@@ -2041,12 +2149,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Composite-Tree-View}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Composite-Tree-View"
 
 \end_inset
 
 Composite Tree View for a Log Object
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2059,12 +2176,14 @@ So this composite tree view is actually a wonderful way to explore and quickly
  learn the way information is modeled in a system, the various associations
  between types of objects, and how to traverse them.
  In chapters 
-\begin_inset LatexCommand \ref{cha:MyTunes-Under-200}
+\begin_inset LatexCommand ref
+reference "cha:MyTunes-Under-200"
 
 \end_inset
 
  and 
-\begin_inset LatexCommand \ref{cha:A-Conference-Manager}
+\begin_inset LatexCommand ref
+reference "cha:A-Conference-Manager"
 
 \end_inset
 
@@ -2073,7 +2192,8 @@ So this composite tree view is actually a wonderful way to explore and quickly
 
 \begin_layout Subsubsection
 Custom Views
-\begin_inset LatexCommand \label{sub:Custom-Views}
+\begin_inset LatexCommand label
+name "sub:Custom-Views"
 
 \end_inset
 
@@ -2086,7 +2206,8 @@ Going back to the notion that we can have multiple different and complementary
  custom views, specific to that type.
  For example the Class Bar is nothing but a custom view of a folder of folders.
  Although I won't show you how to do this until section 
-\begin_inset LatexCommand \ref{sec:Custom-Views-Revisited}
+\begin_inset LatexCommand ref
+reference "sec:Custom-Views-Revisited"
 
 \end_inset
 
@@ -2103,7 +2224,8 @@ Class Bar
 
 \begin_layout Standard
 Figure 
-\begin_inset LatexCommand \ref{cap:Three-Views}
+\begin_inset LatexCommand ref
+reference "cap:Three-Views"
 
 \end_inset
 
@@ -2149,8 +2271,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Three-Views}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Three-Views"
 
 \end_inset
 
@@ -2159,6 +2285,11 @@ Three Views of the
 Class List
 \emph default
  Folder: A tree, an icon list, and the class bar
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2220,7 +2351,8 @@ Tutorial Applications
 
 \begin_layout Chapter
 A Zero-Code Contact Manager
-\begin_inset LatexCommand \label{cha:tut_contactmgr}
+\begin_inset LatexCommand label
+name "cha:tut_contactmgr"
 
 \end_inset
 
@@ -2285,9 +2417,18 @@ status open
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 New Project User Interface
-\begin_inset LatexCommand \label{fig:newprojectui}
+\begin_inset LatexCommand label
+name "fig:newprojectui"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -2359,9 +2500,9 @@ We would normally proceed by modeling our application: identifying the entities,
  As such, JMatter predefines a number of common types of business objects,
  including persons, their contact information, addresses, and businesses.
  In this chapter we'll reuse the predefined implementations of Person and
- Business, whose fully-qualified class names are
+ Business, whose fully-qualified class names are 
 \emph on
- com.u2d.type.composite.Person
+com.u2d.type.composite.Person
 \emph default
  and 
 \emph on
@@ -2438,7 +2579,8 @@ status collapsed
 You may of course create your own, say, PostgresQL or MySQL database and
  configure your application to work with it.
  Appendix 
-\begin_inset LatexCommand \ref{cha:Database-Setup}
+\begin_inset LatexCommand ref
+reference "cha:Database-Setup"
 
 \end_inset
 
@@ -2589,7 +2731,8 @@ That's it.
  We now have a working contact manager application.
  Go ahead and exercise it: create new person objects, etc..
  (see figure 
-\begin_inset LatexCommand \ref{cap:Classlist-organized}
+\begin_inset LatexCommand ref
+reference "cap:Classlist-organized"
 
 \end_inset
 
@@ -2615,8 +2758,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Classlist-organized}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Classlist-organized"
 
 \end_inset
 
@@ -2634,9 +2781,15 @@ Administrative
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Custom Views Revisited
-\begin_inset LatexCommand \label{sec:Custom-Views-Revisited}
+\begin_inset LatexCommand label
+name "sec:Custom-Views-Revisited"
 
 \end_inset
 
@@ -2645,7 +2798,8 @@ Custom Views Revisited
 
 \begin_layout Standard
 In subsection 
-\begin_inset LatexCommand \ref{sub:Custom-Views}
+\begin_inset LatexCommand ref
+reference "sub:Custom-Views"
 
 \end_inset
 
@@ -2720,7 +2874,8 @@ Manager
 \begin_layout Standard
 We have just added a type to the class list.
  Our class bar should now resemble figure 
-\begin_inset LatexCommand \ref{cap:Class-Bar-Customized}
+\begin_inset LatexCommand ref
+reference "cap:Class-Bar-Customized"
 
 \end_inset
 
@@ -2746,12 +2901,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Class-Bar-Customized}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Class-Bar-Customized"
 
 \end_inset
 
 Class Bar Customized with an Additional Type: Contact Methods
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2839,7 +3003,8 @@ build/classes
 
 \begin_layout Enumerate
 When deploying your application with Java Web Start (see chapter 
-\begin_inset LatexCommand \ref{cha:Deploying-your-Application}
+\begin_inset LatexCommand ref
+reference "cha:Deploying-your-Application"
 
 \end_inset
 
@@ -3006,7 +3171,8 @@ Here we see that JMatter has a built-in understanding of types such as a
 \begin_layout Standard
 If you take a close look at the generated database schema for our application
  in figure 
-\begin_inset LatexCommand \ref{cap:Generated-Database-Schema}
+\begin_inset LatexCommand ref
+reference "cap:Generated-Database-Schema"
 
 \end_inset
 
@@ -3043,7 +3209,8 @@ Components
 We'll learn more about ways of modeling relationships between objects in
  the next chapter.
  Chapter 
-\begin_inset LatexCommand \ref{cha:model-objs-ref}
+\begin_inset LatexCommand ref
+reference "cha:model-objs-ref"
 
 \end_inset
 
@@ -3110,7 +3277,8 @@ With the basics for setting up, configuring, and running projects under
 
 \begin_layout Chapter
 MyTunes in under 200 Lines of Code
-\begin_inset LatexCommand \label{cha:MyTunes-Under-200}
+\begin_inset LatexCommand label
+name "cha:MyTunes-Under-200"
 
 \end_inset
 
@@ -3167,7 +3335,8 @@ So far so good.
 
 \begin_layout Section
 Setup your Project in an IDE
-\begin_inset LatexCommand \label{sec:Setup-your-IDE}
+\begin_inset LatexCommand label
+name "sec:Setup-your-IDE"
 
 \end_inset
 
@@ -3184,17 +3353,23 @@ Technically, this step is optional.
 
 \begin_layout Standard
 At the time of this writing, the three major IDEs for Java are 
-\begin_inset LatexCommand \htmlurl[Eclipse]{http://www.eclipse.org/}
+\begin_inset LatexCommand htmlurl
+name "Eclipse"
+target "http://www.eclipse.org/"
 
 \end_inset
 
 , 
-\begin_inset LatexCommand \htmlurl[IntelliJ IDEA]{http://www.jetbrains.com/idea/}
+\begin_inset LatexCommand htmlurl
+name "IntelliJ IDEA"
+target "http://www.jetbrains.com/idea/"
 
 \end_inset
 
 , and 
-\begin_inset LatexCommand \htmlurl[NetBeans]{http://www.netbeans.org/}
+\begin_inset LatexCommand htmlurl
+name "NetBeans"
+target "http://www.netbeans.org/"
 
 \end_inset
 
@@ -3473,7 +3648,8 @@ status collapsed
 
 \begin_layout Standard
 See section 
-\begin_inset LatexCommand \ref{sec:Must-Extend}
+\begin_inset LatexCommand ref
+reference "sec:Must-Extend"
 
 \end_inset
 
@@ -3519,7 +3695,8 @@ status collapsed
 
 \begin_layout Standard
 See section 
-\begin_inset LatexCommand \ref{sec:ValueHolder-vs-POJO}
+\begin_inset LatexCommand ref
+reference "sec:ValueHolder-vs-POJO"
 
 \end_inset
 
@@ -4344,7 +4521,8 @@ ant run
 
 \begin_layout Standard
 After logging in we should see something that looks like figure 
-\begin_inset LatexCommand \ref{cap:MyTunes-FirstLook}
+\begin_inset LatexCommand ref
+reference "cap:MyTunes-FirstLook"
 
 \end_inset
 
@@ -4370,12 +4548,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:MyTunes-FirstLook}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:MyTunes-FirstLook"
 
 \end_inset
 
 A first look at MyTunes
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -4482,7 +4669,8 @@ ClassName
 ]32.png for each class.
  But that's not the whole story on icons.
  For a complete description of the icon conventions, see section 
-\begin_inset LatexCommand \ref{sub:Icons}
+\begin_inset LatexCommand ref
+reference "sub:Icons"
 
 \end_inset
 
@@ -4492,13 +4680,16 @@ ClassName
 \begin_layout Standard
 If, like me, producing icons is not your forte, then I highly recommend
  
-\begin_inset LatexCommand \htmlurl[the incors professional icons collection]{http://www.iconexperience.com/}
+\begin_inset LatexCommand htmlurl
+name "the incors professional icons collection"
+target "http://www.iconexperience.com/"
 
 \end_inset
 
 .
  Ok, now things should look a little bit nicer (see figure 
-\begin_inset LatexCommand \ref{cap:MyTunes-with-Icons}
+\begin_inset LatexCommand ref
+reference "cap:MyTunes-with-Icons"
 
 \end_inset
 
@@ -4524,12 +4715,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:MyTunes-with-Icons}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:MyTunes-with-Icons"
 
 \end_inset
 
 MyTunes with Icons
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -4796,7 +4996,8 @@ status collapsed
 
 \begin_layout Standard
 See chapter 
-\begin_inset LatexCommand \ref{cha:Styling-the-UI}
+\begin_inset LatexCommand ref
+reference "cha:Styling-the-UI"
 
 \end_inset
 
@@ -4820,7 +5021,8 @@ The user interface will automatically display validation error messages
 
 \begin_layout Standard
 Figure 
-\begin_inset LatexCommand \ref{cap:Validation}
+\begin_inset LatexCommand ref
+reference "cap:Validation"
 
 \end_inset
 
@@ -4846,8 +5048,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Validation}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Validation"
 
 \end_inset
 
@@ -4859,18 +5065,24 @@ Validation
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 I attempted to create a new Artist, leaving the name blank.
  So JMatter is pre-wired to support validation.
  This mechanism we just specified is the simple way, for required fields.
- There's an additional method
+ There's an additional method 
 \emph on
- validate()
+validate()
 \emph default
  that we can override in any of our types to specify more complex validation
  rules that have dependencies on multiple fields.
  For a more complete treatment of validation in JMatter, see chapter 
-\begin_inset LatexCommand \ref{cha:Validation}
+\begin_inset LatexCommand ref
+reference "cha:Validation"
 
 \end_inset
 
@@ -5191,7 +5403,8 @@ Amour Perdu
 Adamo
 \emph default
  (see figure 
-\begin_inset LatexCommand \ref{cap:Playing-Amour-Perdu}
+\begin_inset LatexCommand ref
+reference "cap:Playing-Amour-Perdu"
 
 \end_inset
 
@@ -5217,14 +5430,23 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Playing-Amour-Perdu}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Playing-Amour-Perdu"
 
 \end_inset
 
 Playing 
 \emph on
 Amour Perdu
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -5558,7 +5780,8 @@ $ ant run
 
 \begin_layout Standard
 Figure 
-\begin_inset LatexCommand \ref{cap:Songs-after-import}
+\begin_inset LatexCommand ref
+reference "cap:Songs-after-import"
 
 \end_inset
 
@@ -5588,12 +5811,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Songs-after-import}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Songs-after-import"
 
 \end_inset
 
 Song Listing after Import
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -5685,7 +5917,8 @@ The point here is that JMatter frees you to work on the important things,
 \begin_layout Standard
 In very little time, we created a basic music player with Smart Lists.
  Figure 
-\begin_inset LatexCommand \ref{cap:That-Special-Song}
+\begin_inset LatexCommand ref
+reference "cap:That-Special-Song"
 
 \end_inset
 
@@ -5716,12 +5949,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:That-Special-Song}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:That-Special-Song"
 
 \end_inset
 
 That One Special Song..
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -5874,7 +6116,8 @@ Polymorphic modeling support including interface-based modeling
 
 \begin_layout Chapter
 A Conference Manager
-\begin_inset LatexCommand \label{cha:A-Conference-Manager}
+\begin_inset LatexCommand label
+name "cha:A-Conference-Manager"
 
 \end_inset
 
@@ -6058,7 +6301,8 @@ $ cd ../Sympster
 
 \begin_layout Standard
 Go ahead and setup your project in your favorite IDE (see section 
-\begin_inset LatexCommand \ref{sec:Setup-your-IDE}
+\begin_inset LatexCommand ref
+reference "sec:Setup-your-IDE"
 
 \end_inset
 
@@ -6857,7 +7101,8 @@ admin
 admin
 \emph default
  credentials and you should see a screen similar to figure 
-\begin_inset LatexCommand \ref{cap:Conf-Mgr-Firstlook}
+\begin_inset LatexCommand ref
+reference "cap:Conf-Mgr-Firstlook"
 
 \end_inset
 
@@ -6883,9 +7128,18 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 First Look at our Conference Manager
-\begin_inset LatexCommand \label{cap:Conf-Mgr-Firstlook}
+\begin_inset LatexCommand label
+name "cap:Conf-Mgr-Firstlook"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -6913,7 +7167,8 @@ New
  Alternatively, you can create a talk separately and then drag and drop
  the talk onto the speaker's talks listing.
  Figure 
-\begin_inset LatexCommand \ref{cap:Speaker-Talk}
+\begin_inset LatexCommand ref
+reference "cap:Speaker-Talk"
 
 \end_inset
 
@@ -6939,9 +7194,18 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 A Speaker and Associated Talk
-\begin_inset LatexCommand \label{cap:Speaker-Talk}
+\begin_inset LatexCommand label
+name "cap:Speaker-Talk"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -7009,8 +7273,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Creating and associating a Session
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -7118,7 +7390,8 @@ Speaker
 \emph default
  instances so we'd have something to look at.
  Figure 
-\begin_inset LatexCommand \ref{cap:Speaker-Icon-using}
+\begin_inset LatexCommand ref
+reference "cap:Speaker-Icon-using"
 
 \end_inset
 
@@ -7145,9 +7418,18 @@ status open
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Speaker Icon using Photo Property
-\begin_inset LatexCommand \label{cap:Speaker-Icon-using}
+\begin_inset LatexCommand label
+name "cap:Speaker-Icon-using"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -7240,7 +7522,8 @@ Technically, we need to extend our model to make this work in the field:
 \begin_layout Standard
 For now we're going to keep the venue constant.
  We'll extend the model to support multiple types of venues in section 
-\begin_inset LatexCommand \ref{sec:Polymorphism}
+\begin_inset LatexCommand ref
+reference "sec:Polymorphism"
 
 \end_inset
 
@@ -7534,7 +7817,8 @@ CalendarEO
 \emph default
 .
  We see a calendar widget, similar to the one shown in figure 
-\begin_inset LatexCommand \ref{cap:Symposium-Calendar}
+\begin_inset LatexCommand ref
+reference "cap:Symposium-Calendar"
 
 \end_inset
 
@@ -7561,9 +7845,18 @@ status open
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Symposium Calendar, along with a few Sessions
-\begin_inset LatexCommand \label{cap:Symposium-Calendar}
+\begin_inset LatexCommand label
+name "cap:Symposium-Calendar"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -7731,7 +8024,8 @@ One area worth researching JVM-compatible programming languages which support
 
 \begin_layout Section
 Inheritance-Based Polymorphism
-\begin_inset LatexCommand \label{sec:Polymorphism}
+\begin_inset LatexCommand label
+name "sec:Polymorphism"
 
 \end_inset
 
@@ -7996,7 +8290,8 @@ Venue
 \emph default
  is an abstract base type.
  Figure 
-\begin_inset LatexCommand \ref{cap:Sympster-Polymorphic}
+\begin_inset LatexCommand ref
+reference "cap:Sympster-Polymorphic"
 
 \end_inset
 
@@ -8058,9 +8353,18 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Sympster Extended with Venues
-\begin_inset LatexCommand \label{cap:Sympster-Polymorphic}
+\begin_inset LatexCommand label
+name "cap:Sympster-Polymorphic"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -8332,8 +8636,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Polymorphic Queries: Listing Events
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -8364,8 +8676,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Polymorphic Instantiation: Creating a new Event
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -8395,8 +8715,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Events Calendar
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -8512,7 +8840,8 @@ In the next chapter we're finally going to take a look at the Issue Manager
 
 \begin_layout Chapter
 Issue Manager
-\begin_inset LatexCommand \label{cha:Issue-Manager}
+\begin_inset LatexCommand label
+name "cha:Issue-Manager"
 
 \end_inset
 
@@ -9712,7 +10041,8 @@ IssueAccepted32.png
  state of the object you're viewing.
  I have specified custom icons for each of Issue's five states.
  Here's (figure 
-\begin_inset LatexCommand \ref{cap:State-Specific-Icon-Support}
+\begin_inset LatexCommand ref
+reference "cap:State-Specific-Icon-Support"
 
 \end_inset
 
@@ -9742,9 +10072,18 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 State-Specific Icon Support
-\begin_inset LatexCommand \label{cap:State-Specific-Icon-Support}
+\begin_inset LatexCommand label
+name "cap:State-Specific-Icon-Support"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -10339,7 +10678,8 @@ List Closed Issues
 
 \begin_layout Standard
 Figure 
-\begin_inset LatexCommand \ref{cap:The-Issue-Manager}
+\begin_inset LatexCommand ref
+reference "cap:The-Issue-Manager"
 
 \end_inset
 
@@ -10370,9 +10710,18 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 The Issue Manager
-\begin_inset LatexCommand \label{cap:The-Issue-Manager}
+\begin_inset LatexCommand label
+name "cap:The-Issue-Manager"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -11269,8 +11618,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 CSV Export Viewed in Gnumeric
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -11296,7 +11653,8 @@ JFreeReport Integration
 
 \begin_layout Standard
 JFreeReport is an open source Java API for reporting; its home page is 
-\begin_inset LatexCommand \url{http://www.jfree.org/jfreereport/}
+\begin_inset LatexCommand url
+target "http://www.jfree.org/jfreereport/"
 
 \end_inset
 
@@ -11678,8 +12036,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 PDF produced with JFreeReport
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -11783,7 +12149,8 @@ Address
  laid out.
  The default form view is nice.
  Figure 
-\begin_inset LatexCommand \ref{cap:Standard-Form-View}
+\begin_inset LatexCommand ref
+reference "cap:Standard-Form-View"
 
 \end_inset
 
@@ -11817,13 +12184,22 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Standard Form View the 
 \emph on
 Contact.address
 \emph default
  Field
-\begin_inset LatexCommand \label{cap:Standard-Form-View}
+\begin_inset LatexCommand label
+name "cap:Standard-Form-View"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -11852,7 +12228,8 @@ zip
 \emph default
  fields all on the same line, instead of having them appear one below the
  other, as shown in Figure 
-\begin_inset LatexCommand \ref{cap:Desired-view}
+\begin_inset LatexCommand ref
+reference "cap:Desired-view"
 
 \end_inset
 
@@ -11878,9 +12255,18 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Desired view for Addresses
-\begin_inset LatexCommand \label{cap:Desired-view}
+\begin_inset LatexCommand label
+name "cap:Desired-view"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -13065,7 +13451,7 @@ User.password=Mot de passe
 \end_layout
 
 \begin_layout LyX-Code
-User.locked=Verrouillé
+User.locked=VerrouillÃ©
 \end_layout
 
 \begin_layout LyX-Code
@@ -13073,11 +13459,11 @@ User.photo=Photographe
 \end_layout
 
 \begin_layout LyX-Code
-User.role=rôle
+User.role=rÃ´le
 \end_layout
 
 \begin_layout LyX-Code
-User.desktop=Écriture-bureau
+User.desktop=Ã‰criture-bureau
 \end_layout
 
 \begin_layout Standard
@@ -13211,12 +13597,14 @@ And uncomment the
  line and set its value accordingly.
  We've included a couple of snapshots of the resulting localized application
  (figures 
-\begin_inset LatexCommand \ref{fig:login_localized}
+\begin_inset LatexCommand ref
+reference "fig:login_localized"
 
 \end_inset
 
  and 
-\begin_inset LatexCommand \ref{fig:partiallocalization}
+\begin_inset LatexCommand ref
+reference "fig:partiallocalization"
 
 \end_inset
 
@@ -13241,9 +13629,18 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Login dialog localized for French 
-\begin_inset LatexCommand \label{fig:login_localized}
+\begin_inset LatexCommand label
+name "fig:login_localized"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -13273,9 +13670,18 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Partially localized Sympster Application (French) 
-\begin_inset LatexCommand \label{fig:partiallocalization}
+\begin_inset LatexCommand label
+name "fig:partiallocalization"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -13299,9 +13705,9 @@ Nom
 \emph default
  and 
 \emph on
-title 
+title
 \emph default
-becomes 
+ becomes 
 \emph on
 titre
 \emph default
@@ -13335,7 +13741,8 @@ Framework Reference
 
 \begin_layout Chapter
 Dichotomy of a Model Object
-\begin_inset LatexCommand \label{cha:model-objs-ref}
+\begin_inset LatexCommand label
+name "cha:model-objs-ref"
 
 \end_inset
 
@@ -13444,9 +13851,9 @@ Here are some conventions:
 Our class must extends the base type 
 \emph on
 AbstractComplexEObject.
- 
+
 \emph default
-This base class is a partial implementation of the 
+ This base class is a partial implementation of the 
 \emph on
 ComplexEObject
 \emph default
@@ -14361,7 +14768,8 @@ public class FieldRestrictionType extends ChoiceEO
 
 \begin_layout Standard
 We also wrote a ChoiceEO in chapter 
-\begin_inset LatexCommand \ref{cha:Issue-Manager}
+\begin_inset LatexCommand ref
+reference "cha:Issue-Manager"
 
 \end_inset
 
@@ -14553,9 +14961,9 @@ public String ChangePassword(CommandInfo cmdInfo,
 \begin_layout Standard
 In this case, when an end-user invokes this command (by pressing the 
 \emph on
-Change Password 
+Change Password
 \emph default
-button on an instance of a user), he or she will first be prompted to enter
+ button on an instance of a user), he or she will first be prompted to enter
  a password.
  The framework does it all.
  Once the password is entered, the framework proceeds to invoke the command
@@ -14564,7 +14972,8 @@ button on an instance of a user), he or she will first be prompted to enter
  before the method is ever invoked.
  So there's no need to perform any additional validation.
  See chapter 
-\begin_inset LatexCommand \ref{cha:Validation}
+\begin_inset LatexCommand ref
+reference "cha:Validation"
 
 \end_inset
 
@@ -14662,7 +15071,8 @@ Color coding is generally a very effective tool for improving a user interface.
 
 \begin_layout Subsection
 Icons
-\begin_inset LatexCommand \label{sub:Icons}
+\begin_inset LatexCommand label
+name "sub:Icons"
 
 \end_inset
 
@@ -14737,7 +15147,8 @@ UserLocked32.png
  users can easily spot the locked user.
  The IssueManager demo application also leverages this feature (see chapter
  
-\begin_inset LatexCommand \ref{cha:Issue-Manager}
+\begin_inset LatexCommand ref
+reference "cha:Issue-Manager"
 
 \end_inset
 
@@ -14781,9 +15192,9 @@ iconLg() and iconSm()
  Simply override the implementations in your classes.
  JMatter provides a utility class: 
 \emph on
-PhotoIconAssistant, 
+PhotoIconAssistant,
 \emph default
-that takes the work out of properly scaling the photo to the right size
+ that takes the work out of properly scaling the photo to the right size
  for an icon, on your behalf.
  Here's an example of how this is done:
 \end_layout
@@ -15024,8 +15435,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Hierarchical Display of Aggregates
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -15119,7 +15538,8 @@ Alt-3
 
 \begin_layout Subsection
 Default Search Path
-\begin_inset LatexCommand \label{sub:dflt-searchpath}
+\begin_inset LatexCommand label
+name "sub:dflt-searchpath"
 
 \end_inset
 
@@ -15732,7 +16152,8 @@ If you wish to revise the date and time format throughout the application
 model-metadata.properties
 \emph default
  file (see subsection 
-\begin_inset LatexCommand \ref{sub:model-metadata.properties}
+\begin_inset LatexCommand ref
+reference "sub:model-metadata.properties"
 
 \end_inset
 
@@ -15986,7 +16407,8 @@ public String ChangePassword(CommandInfo cmdInfo,
 
 \begin_layout Subsection
 The model-metadata.properties file
-\begin_inset LatexCommand \label{sub:model-metadata.properties}
+\begin_inset LatexCommand label
+name "sub:model-metadata.properties"
 
 \end_inset
 
@@ -16267,7 +16689,8 @@ In fact, we saw an example in the IssueMgr sample application where we wanted
 
 \begin_layout Chapter
 Validation
-\begin_inset LatexCommand \label{cha:Validation}
+\begin_inset LatexCommand label
+name "cha:Validation"
 
 \end_inset
 
@@ -16424,12 +16847,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{fig:Zip-Code-Validation}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "fig:Zip-Code-Validation"
 
 \end_inset
 
 Zip Code Validation
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -16806,18 +17238,20 @@ Creating Child Projects
 The framework has its own build file, used to compile the framework itself.
  This build file contains a target: 
 \emph on
-new-project-ui 
+new-project-ui
 \emph default
-that automates the creation of a JMatter project.
+ that automates the creation of a JMatter project.
  We walked through using this target in chapter 
-\begin_inset LatexCommand \ref{cha:tut_contactmgr}
+\begin_inset LatexCommand ref
+reference "cha:tut_contactmgr"
 
 \end_inset
 
 .
  Invoking this target brings up a simple user interface, shown in figure
  
-\begin_inset LatexCommand \vref{fig:newprojectui}
+\begin_inset LatexCommand vref
+reference "fig:newprojectui"
 
 \end_inset
 
@@ -17010,7 +17444,8 @@ styles.css
 \begin_layout Standard
 Default stylesheet for JMatter; governs how the JMatter user interface is
  styled (see 
-\begin_inset LatexCommand \ref{cha:Styling-the-UI}
+\begin_inset LatexCommand ref
+reference "cha:Styling-the-UI"
 
 \end_inset
 
@@ -17327,7 +17762,8 @@ Also, if you're working with a dependent project, any changes to the framework
 
 \begin_layout Standard
 Chapter 
-\begin_inset LatexCommand \vref{cha:Deploying-your-Application}
+\begin_inset LatexCommand vref
+reference "cha:Deploying-your-Application"
 
 \end_inset
 
@@ -17336,7 +17772,8 @@ Chapter
 
 \begin_layout Chapter
 Styling the UI with CSS
-\begin_inset LatexCommand \label{cha:Styling-the-UI}
+\begin_inset LatexCommand label
+name "cha:Styling-the-UI"
 
 \end_inset
 
@@ -18680,7 +19117,8 @@ If you produce a stylesheet that you find does a good job at styling the
 
 \begin_layout Chapter
 Deploying your Application
-\begin_inset LatexCommand \label{cha:Deploying-your-Application}
+\begin_inset LatexCommand label
+name "cha:Deploying-your-Application"
 
 \end_inset
 
@@ -18833,7 +19271,8 @@ We should now be ready to give our application a try.
  Sit at a client machine and visit the web page in question (perhaps http://loca
 l-server/ContactMgr).
  You'll see a page that looks like figure 
-\begin_inset LatexCommand \ref{cap:Java-Web-Start}
+\begin_inset LatexCommand ref
+reference "cap:Java-Web-Start"
 
 \end_inset
 
@@ -18860,12 +19299,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:Java-Web-Start}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:Java-Web-Start"
 
 \end_inset
 
 Java Web Start Launch Page
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -18878,7 +19326,8 @@ Click on the link and Java Web Start will launch and begin downloading your
  application.
  Before permitting you to proceed, you will be prompted to accept the certificat
 e used to sign the code (see figure 
-\begin_inset LatexCommand \ref{cap:JWS-Security}
+\begin_inset LatexCommand ref
+reference "cap:JWS-Security"
 
 \end_inset
 
@@ -18904,12 +19353,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:JWS-Security}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:JWS-Security"
 
 \end_inset
 
 Java Web Start Security Prompt
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -18998,7 +19456,8 @@ More About JWS
 
 \begin_layout Standard
 Figure 
-\begin_inset LatexCommand \ref{cap:JWS-MacClient}
+\begin_inset LatexCommand ref
+reference "cap:JWS-MacClient"
 
 \end_inset
 
@@ -19027,12 +19486,21 @@ status open
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:JWS-MacClient}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:JWS-MacClient"
 
 \end_inset
 
 Java Web Start - Launched Application on a MacOSX Client
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -19101,6 +19569,121 @@ Tooling
 \begin_layout Standard
 This chapter attempts to answer the question: are tools available specifically
  for assisting developers in writing JMatter applications?
+\end_layout
+
+\begin_layout Section
+Reverse Engineering an Existing Schema
+\end_layout
+
+\begin_layout Standard
+Jim Slack graciously contributed this code to the JMatter project.
+ Here is a brief description of this tool from Jim:
+\end_layout
+
+\begin_layout Quote
+I became very interested in JMatter after reading your book and playing
+ around with the demos, but was disappointed in the lack of a way to use
+ a legacy database.
+ Therefore, I just finished writing a Java program that creates JMatter
+ Java source files from a database.
+ It seems to work fine, although using it is a bit tricky because it involves
+ a few manual steps: run the program, update the schema, then run an SQL
+ script.
+ 
+\end_layout
+
+\begin_layout Standard
+So here are the instructions for how to use it.
+\end_layout
+
+\begin_layout Enumerate
+Make a backup copy of your database
+\end_layout
+
+\begin_layout Enumerate
+Create a new project as usual using the ant target 
+\emph on
+new-project-ui
+\end_layout
+
+\begin_layout Enumerate
+Navigate (cd) to your newly created project and edit the file 
+\emph on
+resources/hibernate.properties
+\emph default
+ to point to the database schema in question
+\end_layout
+
+\begin_layout Enumerate
+Invoke the ant target 
+\emph on
+reveng-db
+\emph default
+ which stands for 
+\emph on
+Reverse Engineer Database
+\emph default
+.
+ You have the option of specifying the name of the Java package that the
+ generated source code will belong to with 
+\emph on
+-Dreveng-pkgname=my.pkg.name
+\emph default
+ (otherwise the code will default to 
+\emph on
+org.jmatter.app
+\emph default
+)
+\end_layout
+
+\begin_layout Enumerate
+You can now invoke the 
+\emph on
+schema-update
+\emph default
+ target which will do two things: [a] it will invoke the genhbm target that
+ will generate the hibernate mapping files from the generated source code;
+ and [b] it will update the existing database schema to include version
+ and createdOn columns and additional jmatter-specific tables that are required
+ by JMatter.
+\end_layout
+
+\begin_layout Enumerate
+At the present time, there's one other simple matter to address.
+ JMatter does not deal well with null default values for the version and
+ createdOn columns.
+ Step [4] above creates the sql script aptly named 
+\emph on
+reveng_update_script.sql
+\emph default
+ that you can manually invoke to rectify this issue.
+ Here's an example of how I do this with postgres:
+\end_layout
+
+\begin_layout LyX-Code
+psql databasename
+\end_layout
+
+\begin_layout LyX-Code
+$ 
+\backslash
+i reveng_update_script
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+q
+\end_layout
+
+\begin_layout Standard
+That's it.
+ You're now ready to either run your JMatter application and to layer behavior
+ on to your existing application.
+\end_layout
+
+\begin_layout Standard
+Jim: Thank you very much!
 \end_layout
 
 \begin_layout Section
@@ -19444,8 +20027,16 @@ status open
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Ultraviolet
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -19481,12 +20072,14 @@ ation.
 \begin_layout Standard
 Both Ultraviolet and umlc were developed entirely by Ryan Ramage.
  This tool is open source and has its own home page: 
-\begin_inset LatexCommand \url{http://code.google.com/p/umlc/}
+\begin_inset LatexCommand url
+target "http://code.google.com/p/umlc/"
 
 \end_inset
 
  and 
-\begin_inset LatexCommand \url{http://code.google.com/p/umlc/}
+\begin_inset LatexCommand url
+target "http://code.google.com/p/umlc/"
 
 \end_inset
 
@@ -19661,7 +20254,8 @@ There are many situations where one will want to override the default and,
 
 \begin_layout Standard
 In figure 
-\begin_inset LatexCommand \ref{fig:nav1}
+\begin_inset LatexCommand ref
+reference "fig:nav1"
 
 \end_inset
 
@@ -19687,9 +20281,18 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Invoking the Open command, holding down the Shift key
-\begin_inset LatexCommand \label{fig:nav1}
+\begin_inset LatexCommand label
+name "fig:nav1"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -19703,7 +20306,8 @@ Invoking the Open command, holding down the Shift key
 
 \begin_layout Standard
 Figure 
-\begin_inset LatexCommand \ref{fig:nav2}
+\begin_inset LatexCommand ref
+reference "fig:nav2"
 
 \end_inset
 
@@ -19729,7 +20333,10 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 \begin_inset Quotes eld
 \end_inset
 
@@ -19738,7 +20345,13 @@ Open in new tab
 \end_inset
 
  Option
-\begin_inset LatexCommand \label{fig:nav2}
+\begin_inset LatexCommand label
+name "fig:nav2"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -19772,8 +20385,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Resulting View
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -19805,8 +20426,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Tab Detach Option
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -19937,8 +20566,16 @@ status open
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Paging a Conference's Sessions
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -20029,8 +20666,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Associating a Speaker to a talk
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -20059,7 +20704,8 @@ public static String defaultSearchPath = "name.first";
 
 \begin_layout Standard
 See section 
-\begin_inset LatexCommand \ref{sub:dflt-searchpath}
+\begin_inset LatexCommand ref
+reference "sub:dflt-searchpath"
 
 \end_inset
 
@@ -20140,8 +20786,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Copy on Instance Title View
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -20151,7 +20805,8 @@ Copy on Instance Title View
 
 \begin_layout Standard
 You'll also find it on aggregate objects' nodes as shown in figure 
-\begin_inset LatexCommand \ref{fig:copypage2}
+\begin_inset LatexCommand ref
+reference "fig:copypage2"
 
 \end_inset
 
@@ -20176,9 +20831,18 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Copy on Aggregate Node View
-\begin_inset LatexCommand \label{fig:copypage2}
+\begin_inset LatexCommand label
+name "fig:copypage2"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -20213,8 +20877,16 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
 Copy on Tab Title View
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -20612,9 +21284,9 @@ I sincerely believe that JMatter is not just another framework.
 Anyone that's attempted to build more than one business software application
  realizes that there exist many commonalities between the various applications,
  and wishes that somehow these commonalities were refactored.
- We often find ourselves either hearing or saying
+ We often find ourselves either hearing or saying 
 \emph on
- 
+
 \begin_inset Quotes eld
 \end_inset
 
@@ -20988,7 +21660,8 @@ Quit the application
 
 \begin_layout Chapter
 Database Setup
-\begin_inset LatexCommand \label{cha:Database-Setup}
+\begin_inset LatexCommand label
+name "cha:Database-Setup"
 
 \end_inset
 
@@ -21017,7 +21690,8 @@ O/R Mapping
 
 \begin_layout Standard
 JMatter is tested primarily with PostgresQL and H2 (see 
-\begin_inset LatexCommand \htmlurl{http://www.h2database.org/}
+\begin_inset LatexCommand htmlurl
+target "http://www.h2database.org/"
 
 \end_inset
 
@@ -21046,7 +21720,8 @@ Configuring your own database for the ContactMgr Tutorial Application
 
 \begin_layout Subsection
 Create a Database
-\begin_inset LatexCommand \label{sub:Create-a-Database}
+\begin_inset LatexCommand label
+name "sub:Create-a-Database"
 
 \end_inset
 
@@ -21100,7 +21775,8 @@ $ createuser -U postgres contactmgr
 
 \begin_layout Subsection
 Specify the Database Connection Information
-\begin_inset LatexCommand \label{sub:Specify-DB-ConnInfo}
+\begin_inset LatexCommand label
+name "sub:Specify-DB-ConnInfo"
 
 \end_inset
 
@@ -21307,7 +21983,8 @@ Checking out the code
 
 \begin_layout Standard
 The JMatter subversion repository is located at 
-\begin_inset LatexCommand \url{http://svn.jmatter.org/}
+\begin_inset LatexCommand url
+target "http://svn.jmatter.org/"
 
 \end_inset
 
@@ -21627,7 +22304,8 @@ Expose
 
 \begin_layout Section
 Must Extend A Base Class
-\begin_inset LatexCommand \label{sec:Must-Extend}
+\begin_inset LatexCommand label
+name "sec:Must-Extend"
 
 \end_inset
 
@@ -21662,7 +22340,8 @@ java.lang.Object
 ValueHolder
 \emph default
  Types vs POJO's
-\begin_inset LatexCommand \label{sec:ValueHolder-vs-POJO}
+\begin_inset LatexCommand label
+name "sec:ValueHolder-vs-POJO"
 
 \end_inset
 
@@ -21718,11 +22397,7 @@ java.lang.String
 \emph on
 TextString
 \emph default
- or a
-\emph on
- 
-\emph default
-JMatter 
+ or a JMatter 
 \emph on
 StringEO
 \emph default
@@ -21797,11 +22472,8 @@ AbstractComplexEObject
 \emph on
 AbstractComplexEObject
 \emph default
- and
-\emph on
+ and add a new command like you would any model object (marked with the
  
-\emph default
-add a new command like you would any model object (marked with the 
 \emph on
 @Cmd
 \emph default
@@ -21845,7 +22517,8 @@ If you're in the business of developing commercial software solutions, buy
 \begin_layout Enumerate
 If you're doing open source development, consider donating to this project
  (see 
-\begin_inset LatexCommand \url{http://jmatter.org/pages/donate}
+\begin_inset LatexCommand url
+target "http://jmatter.org/pages/donate"
 
 \end_inset
 
@@ -21873,8 +22546,11 @@ These are only a few ways in which you can make a visible and noticeable
 \end_layout
 
 \begin_layout Bibliography
+\begin_inset LatexCommand bibitem
+key "Mat&Paw"
 
-\bibitem {Mat&Paw}
+\end_inset
+
 Richard Pawson and Robert Matthews.
  
 \emph on
@@ -21885,8 +22561,11 @@ Naked Objects
 \end_layout
 
 \begin_layout Bibliography
+\begin_inset LatexCommand bibitem
+key "Raskin"
 
-\bibitem {Raskin}
+\end_inset
+
 Jef Raskin.
  
 \emph on
@@ -21897,8 +22576,11 @@ The Humane Interface: New Directions for Designing Interactive Systems
 \end_layout
 
 \begin_layout Bibliography
+\begin_inset LatexCommand bibitem
+key "Lewis"
 
-\bibitem {Lewis}
+\end_inset
+
 Simon Lewis.
  
 \emph on
