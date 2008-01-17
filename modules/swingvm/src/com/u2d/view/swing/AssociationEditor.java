@@ -70,6 +70,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       _tf.getDocument().addDocumentListener(this);
 
       final IconButton iconButton = new IconButton(PICK_ICON, PICK_ROLLOVER);
+      iconButton.setFocusable(false);
       final JComboTree fieldPicker = new JComboTree(_type.searchTreeModel(), iconButton);
       fieldPicker.addActionListener(new ActionListener()
       {
@@ -77,7 +78,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
          {
             FieldPath fp = new FieldPath(fieldPicker.getSelectedPath());
             _searchByField = Field.forPath(fp.getPathString());
-            _tf.requestFocus();
+            _tf.requestFocusInWindow();
             _tf.selectAll();
          }
       });
@@ -114,24 +115,14 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       add(fieldPicker);
       add(_tf);
       add(showListButton);
-      
-//      _tf.addFocusListener(new FocusAdapter()
-//      {
-//         public void focusLost(FocusEvent e)
-//         {
-//            boolean innerFocus = SwingUtilities.isDescendingFrom(e.getOppositeComponent(), AssociationEditor.this);
-//            if (!innerFocus)
-//            {
-//               cancelEdit();
-//            }
-//         }
-//      });
-      
-      SwingUtilities.invokeLater(new Runnable()
-      {
+   }
+   
+   public void focus()
+   {
+      SwingUtilities.invokeLater(new Runnable() {
          public void run()
          {
-            _tf.requestFocus();
+            _tf.requestFocusInWindow();
             _tf.selectAll();
          }
       });
@@ -230,7 +221,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
 
       _popup.show(_tf, 0, _tf.getSize().height);
       _list.setSelectedIndex(0);
-      _tf.requestFocus();
+      _tf.requestFocusInWindow();
    }
 
    private void itemSelected()

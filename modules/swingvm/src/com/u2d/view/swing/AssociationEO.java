@@ -28,6 +28,11 @@ public class AssociationEO extends JPanel implements ComplexEView
       _association = association;
       _editor = new AssociationEditor(_association);
 
+      add(_editor);
+   }
+   
+   public void updateState()
+   {
       if (_association.isEmpty())
       {
          _editor.clearValue();
@@ -36,7 +41,7 @@ public class AssociationEO extends JPanel implements ComplexEView
       {
          _editor.renderValue(_association.get());
       }
-      add(_editor);
+      _editor.focus();
    }
    
    Insets _insets = new Insets(0, 0, 0, 0);

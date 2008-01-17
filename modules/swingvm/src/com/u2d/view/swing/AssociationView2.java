@@ -46,20 +46,23 @@ public class AssociationView2 extends CardPanel implements ComplexEView
       add(_associatedPnl, _associatedPnl.name());
       _dissociatedPnl = new DissociatedPanel();
       add(_dissociatedPnl, _dissociatedPnl.name());
-      // work in progress:
-//      
-//      setFocusable(true);
-//      addFocusListener(new FocusAdapter()
-//      {
-//         public void focusGained(FocusEvent e)
-//         {
-//            if (_association.isEditableState())
-//            {
-//               AssocStateView stateView = (_association.isEmpty()) ? (AssocStateView) _dissociatedPnl : _associatedPnl;
-//               stateView.enterEditState();
-//            }
-//         }
-//      });
+
+      setFocusable(true);
+      addFocusListener(new FocusAdapter()
+      {
+         public void focusGained(FocusEvent e)
+         {
+            if (_association.isEditableState())
+            {
+               AssocStateView stateView = (_association.isEmpty()) ? (AssocStateView) _dissociatedPnl : _associatedPnl;
+               Component lostComponent = e.getOppositeComponent();
+               if (!SwingUtilities.isDescendingFrom(lostComponent, (Container) stateView))
+               {
+                  stateView.enterEditState();
+               }
+            }
+         }
+      });
 
       setView();
    }
@@ -338,6 +341,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
                }
             });
          }
+         _editableComp.updateState();
          return _editableComp;
       }
 
