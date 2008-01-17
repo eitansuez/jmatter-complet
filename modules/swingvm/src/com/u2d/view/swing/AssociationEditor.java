@@ -2,12 +2,10 @@ package com.u2d.view.swing;
 
 import com.u2d.view.ListEView;
 import com.u2d.view.ActionNotifier;
-import com.u2d.view.swing.list.PaginableView;
+import com.u2d.view.CompositeView;
 import com.u2d.field.Association;
-import com.u2d.find.QuerySpecification;
-import com.u2d.find.FieldPath;
-import com.u2d.find.Inequality;
-import com.u2d.find.SimpleQuery;
+import com.u2d.field.AssociationField;
+import com.u2d.find.*;
 import com.u2d.find.inequalities.TextualInequalities;
 import com.u2d.list.CriteriaListEO;
 import com.u2d.type.atom.StringEO;
@@ -44,13 +42,15 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
    private Field _searchByField;
    private ComplexType _type;
    private ComplexEObject _selectedItem;
+   private Association _association;
 
-   public AssociationEditor(Field field)
+   public AssociationEditor(Association association)
    {
+      _association = association;
       setLayout(new FlowLayout(FlowLayout.LEFT, 3, 0));
       setOpaque(false);
 
-      _type = field.fieldtype();
+      _type = association.type();
 
       if (_type.hasDefaultSearchPath())
       {
@@ -62,9 +62,9 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       }
 
       _tf = new JTextField(6);
-      if (field.displaysize() > 0)
+      if (_association.field().displaysize() > 0)
       {
-         _tf.setColumns(field.displaysize());
+         _tf.setColumns(_association.field().displaysize());
       }
       
       _tf.getDocument().addDocumentListener(this);
@@ -170,7 +170,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
    {
       if (_view != null) _view.detach();
    }
-
+   
    private void updateModel()
    {
       if (_ignoreChange) return;
@@ -182,12 +182,20 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       {
          Inequality startsWith = new TextualInequalities(_searchByField).new TextStarts();
          _spec = new QuerySpecification(fp, startsWith, _value);
-         SimpleQuery _query = new SimpleQuery(_type, _spec);
-         _leo = new CriteriaListEO(_query);
+         CompositeQuery query = new CompositeQuery(_type);
+         AssociationField field = (AssociationField) _association.field();
+         field.bindConstraintTo(query, _association.parent());
+         query.addSpecification(_spec);
+         
+         _leo = new CriteriaListEO(query);
          _view = _leo.getAssociationView();
 
-         PaginableView pageView = (PaginableView) _view;
-         _list = (JList) (pageView).getInnerView();
+         if (_view instanceof CompositeView) {
+            CompositeView pageView = (CompositeView) _view;
+            _list = (JList) pageView.getInnerView();
+         } else {
+            _list = (JList) _view;
+         }
          _list.setVisibleRowCount(6);
          
          _list.addMouseListener(new MouseAdapter()
@@ -212,8 +220,12 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       {
          _spec.getFieldPath().setValue(fp);
          _spec.setValue(_value);
-         SimpleQuery _query = new SimpleQuery(_type, _spec);
-         _leo.setQuery(_query);
+
+         CompositeQuery query = new CompositeQuery(_type);
+         AssociationField field = (AssociationField) _association.field();
+         field.bindConstraintTo(query, _association.parent());
+         query.addSpecification(_spec);
+         _leo.setQuery(query);
       }
 
       _popup.show(_tf, 0, _tf.getSize().height);

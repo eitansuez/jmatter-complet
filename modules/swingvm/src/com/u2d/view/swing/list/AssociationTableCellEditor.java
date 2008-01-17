@@ -55,7 +55,7 @@ public class AssociationTableCellEditor extends AbstractCellEditor
       Field field = assoc.field();
       if (_editorMap.get(field) == null)
       {
-         AssociationEditor editor = new AssociationEditor(field);
+         AssociationEditor editor = new AssociationEditor(assoc);
          editor.setOpaque(true);
          editor.setBackground(UIManager.getColor("Table.background"));
          editor.setForeground(UIManager.getColor("Table.foreground"));
