@@ -7,6 +7,12 @@ import com.u2d.calendar.CalendarEO;
 import com.u2d.persist.Persist;
 import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
+import com.u2d.element.Field;
+import com.u2d.find.QuerySpecification;
+import com.u2d.find.FieldPath;
+import com.u2d.find.Inequality;
+import com.u2d.find.inequalities.IdentityInequality;
+
 import java.awt.Color;
 
 @Persist
@@ -14,8 +20,11 @@ public class Symposium extends CalendarEO
 {
    private final StringEO name = new StringEO();
    private Venue venue;
+   private City city;
 
    public static Color colorCode = new Color(0x04b144);
+   
+   public static String[] fieldOrder = {"name", "city", "venue"};
 
    public Symposium() {}
 
@@ -27,6 +36,22 @@ public class Symposium extends CalendarEO
       Venue oldVenue = this.venue;
       this.venue = venue;
       firePropertyChange("venue", oldVenue, this.venue);
+   }
+   public QuerySpecification venueOptions()
+   {
+      if (venue == null || city == null) return null;
+      Field cityField = venue.field("city");
+      FieldPath fp = new FieldPath(cityField.fullPath());
+      Inequality equals = new IdentityInequality(cityField).new Equals();
+      return new QuerySpecification(fp, equals, getCity());
+   }
+   
+   public City getCity() { return city; }
+   public void setCity(City city)
+   {
+      City oldCity = this.city;
+      this.city = city;
+      firePropertyChange("city", oldCity, this.city);
    }
    
    public Title title() { return name.title(); }
