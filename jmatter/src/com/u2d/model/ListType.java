@@ -50,6 +50,7 @@ public class ListType
       _commands = Harvester.simpleHarvestCommands(listClass, new Onion(), false, null);
       
       ComplexType itemType = ComplexType.forClass(itemClass);
+      _commands.wrap(itemType.listCommands());
       
       // exclude RelationalList and CompositeList
       if (listClass == RelationalList.class || listClass == CompositeList.class)

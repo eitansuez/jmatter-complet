@@ -14,8 +14,8 @@ import com.u2d.view.*;
  */
 public class EOCommand extends Command
 {
-   private Method _method;
-   private ParameterInfo[] _params;
+   protected Method _method;
+   protected ParameterInfo[] _params;
    
    public EOCommand() {}
 
@@ -30,6 +30,12 @@ public class EOCommand extends Command
    {
       this(method, parent);
       _mnemonic.setValue(mnemonic);
+   }
+   
+   public EOCommand(Method method, ComplexType parent, ParameterInfo[] params)
+   {
+      this(method, parent);
+      _params = params;
    }
 
    public EOCommand(Method method, ComplexType parent,
@@ -54,7 +60,7 @@ public class EOCommand extends Command
       setPositioningHint(viewPosition);
    }
 
-   private Positioning _positioningHint = Positioning.NEARMOUSE;
+   protected Positioning _positioningHint = Positioning.NEARMOUSE;
    public Positioning getPositioningHint() { return _positioningHint; }
    public void setPositioningHint(Positioning hint) { _positioningHint = hint; }
 

@@ -110,6 +110,7 @@ public class ComplexType extends AbstractComplexEObject
    private String _className, _shortName, _naturalName, _pluralName;
    private Class _clazz;
    private transient Map<Class, Onion> _commands = new HashMap<Class, Onion>();
+   private transient Onion _listCommands = new Onion();
    private transient Onion _typeCommands = new Onion();
    private List _fields = new ArrayList();
    private Map _fieldsMap = new HashMap();
@@ -193,6 +194,7 @@ public class ComplexType extends AbstractComplexEObject
       {
          _commands = Harvester.harvestCommands(_clazz, this);
          _typeCommands = Harvester.simpleHarvestCommands(_clazz, new Onion(), true, this);
+         _listCommands = Harvester.harvestListCommands(_clazz, new Onion(), this);
 
          if (isMetaType())  // no support for dynamic type creation!  we're in javaland afterall..
          {
@@ -377,6 +379,7 @@ public class ComplexType extends AbstractComplexEObject
 
 
    public Onion commands() { return _typeCommands; }
+   public Onion listCommands() { return _listCommands; }
 
    public Onion filteredCommands()
    {

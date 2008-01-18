@@ -10,6 +10,9 @@ import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
 import com.u2d.utils.Launcher;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class EmailMessage
       extends AbstractComplexEObject
 {
@@ -19,6 +22,9 @@ public class EmailMessage
    private final FileEO _attachment = new FileEO();
    
    public static String[] fieldOrder = {"to", "subject", "body", "attachment"};
+   
+   // temporary hack until lists can deal with plain old eobjects (not just complexeobjects)
+   private List<String> to_addresses = new ArrayList<String>();
    
    public EmailMessage()
    {
@@ -58,6 +64,20 @@ public class EmailMessage
    }
 
 
+   public void addRecipient(String emailAddress)
+   {
+      to_addresses.add(emailAddress);
+   }
+   private String addresses()
+   {
+      // comma-separate list of addresses..
+      StringBuffer buf = new StringBuffer(_to.stringValue());
+      for (String email : to_addresses) {
+         buf.append(",").append(email);
+      }
+      return buf.toString();
+   }
+   
    // mailto:eitan@u2d.com?subject=test&body=see attachment&attachment=/home/eitan/beryl-settings.Profile
    @Cmd(mnemonic='a')
    public void OpenInEmailApp(CommandInfo cmdInfo)
@@ -67,7 +87,7 @@ public class EmailMessage
    
    public String mailtoURL()
    {
-      String mailto = "mailto:" + _to + "?subject=" + _subject;
+      String mailto = "mailto:" + addresses() + "?subject=" + _subject;
       if (!_body.isEmpty())
       {
          mailto += "&body=" + _body;

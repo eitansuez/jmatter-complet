@@ -15,13 +15,14 @@ import java.util.Iterator;
  * Date: Jan 18, 2008
  * Time: 6:58:44 PM
  */
-public class ListCommand extends EOCommand
+public class BatchableCommand
+      extends EOCommand
 {
    private EOCommand _instanceCmd;
    
-   public ListCommand() {}
+   public BatchableCommand() {}
    
-   public ListCommand(EOCommand instanceCmd)
+   public BatchableCommand(EOCommand instanceCmd)
    {
       _instanceCmd = instanceCmd;
    }

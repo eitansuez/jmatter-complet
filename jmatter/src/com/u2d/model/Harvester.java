@@ -12,6 +12,7 @@ import com.u2d.field.*;
 import com.u2d.list.CompositeList;
 import com.u2d.pattern.*;
 import com.u2d.reflection.Reflector;
+import com.u2d.reflection.AnnotationsReflector;
 
 /**
  * @author Eitan Suez
@@ -135,6 +136,84 @@ public class Harvester
                                       parent);
       }
    }
+
+   /*
+    * Chose for now to reproduce a version of simpleharvestcommands for lists
+    * instead of refactoring an already complex method to handle an additional
+    * parameter indicating the kind of command i'm trying to harvest.
+    */
+   public static Onion harvestListCommands(Class clazz, Onion commands, ComplexType parent)
+   {
+      if (!(ComplexType.reflector() instanceof AnnotationsReflector))
+      {
+         System.err.println("Warning:  list commands supported only by annotations reflector");
+         // warn:  list commands supported only by annotations reflector
+         return commands;
+      }
+      AnnotationsReflector reflector = (AnnotationsReflector) ComplexType.reflector();
+      
+      Method[] methods = clazz.getDeclaredMethods();
+
+      Map<String, Command> cmdMap = new HashMap<String, Command>();
+      for (int i=0; i<methods.length; i++)
+      {
+         if (reflector.isListCommand(methods[i]))
+         {
+            boolean methodIsStatic = Modifier.isStatic(methods[i].getModifiers());
+            
+            final EOCommand cmd = reflector.reflectListCommand(methods[i], parent);
+            if (methodIsStatic)
+            {
+               // if onion contains a command that
+               //  overrides the one i'm about to add, then don't add
+               //  the command to the onion (since building onion starting with
+               //  leaf types and moving back to supertypes, then the one already
+               //  contained is the overriding command:  overriden one shouldn't
+               //  be added).
+               if (commands.contains(new SimpleFinder() {
+                  public boolean found(Object candidate)
+                     {
+                        return ((Command) candidate).overrides(cmd);
+                     }
+                  }))
+               {
+                  continue;
+               }
+               
+               if (cmdMap.containsKey(cmd.name()))
+               {
+                  EOCommand firstCmd = (EOCommand) cmdMap.get(cmd.name());
+                  EOCommand overloadedCmd = firstCmd.overload(cmd);
+                  cmdMap.put(cmd.name(), overloadedCmd);
+               }
+               else
+               {
+                  cmdMap.put(cmd.name(), cmd);
+               }
+            }
+         }
+      }
+      List<Command> cmdList = new ArrayList<Command>(cmdMap.values());
+      commands.addAll(cmdList);
+
+      commands = commands.reduce();  // don't add an extraneous layer..
+
+      Class superClass = clazz.getSuperclass();
+
+      if (clazz.isInterface() ||
+            superClass.isAssignableFrom(Object.class) )
+      {
+         Onion outerLayer = new Onion(commands);
+         return simpleHarvestCommands(ComplexType.class, outerLayer, false, parent);
+      }
+      else
+      {
+         Onion outerLayer = new Onion(commands);
+         return harvestListCommands(superClass, outerLayer, parent);
+      }
+   }
+
+   
 
    public static Set harvestStateClasses(Class clazz)
    {

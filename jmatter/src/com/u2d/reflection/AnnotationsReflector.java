@@ -2,6 +2,7 @@ package com.u2d.reflection;
 
 import com.u2d.element.EOCommand;
 import com.u2d.element.ParameterInfo;
+import com.u2d.element.ListCommand;
 import com.u2d.model.ComplexType;
 import com.u2d.type.atom.StringEO;
 import java.lang.reflect.Method;
@@ -24,6 +25,10 @@ public class AnnotationsReflector implements Reflector
    public boolean isCommand(Method method)
    {
       return method.isAnnotationPresent(Cmd.class);
+   }
+   public boolean isListCommand(Method method)
+   {
+      return method.isAnnotationPresent(ListCmd.class);
    }
    
    private static transient Map<EOCommand, EOCommand> _commandCache = 
@@ -65,6 +70,10 @@ public class AnnotationsReflector implements Reflector
          }
          return _commandCache.get(cmd);
       }
+   }
+   public EOCommand reflectListCommand(Method method, ComplexType parent)
+   {
+      return new ListCommand(method, parent, parameterInfo(method));
    }
 
    private ParameterInfo[] parameterInfo(Method method)

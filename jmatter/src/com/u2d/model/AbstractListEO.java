@@ -76,10 +76,10 @@ public abstract class AbstractListEO extends AbstractEObject
    public Onion commands()
    {
       Onion commands = listtype().commands();
-      if (isEmpty()) return commands;
+      if (getSize()<2) return commands;
       
       Onion batchableInstanceCmds = 
-            ((ComplexEObject) getElementAt(0)).commands().filter(new Filter() {
+            ((EObject) getElementAt(0)).commands().filter(new Filter() {
          public boolean exclude(Object item)
          {
             Command cmd = (Command) item;
@@ -94,7 +94,7 @@ public abstract class AbstractListEO extends AbstractEObject
          Command cmd = (Command) itr.next();
          // not yet supporting commands other than eocommands..
          if (cmd instanceof EOCommand) {
-            batchedInstanceCommands.add(new ListCommand((EOCommand) cmd));
+            batchedInstanceCommands.add(new BatchableCommand((EOCommand) cmd));
          }
       }
       
