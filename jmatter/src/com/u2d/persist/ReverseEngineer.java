@@ -8,6 +8,9 @@ import java.util.*;
 import java.util.regex.*;
 import java.text.SimpleDateFormat;
 
+/**
+ * @author Jim Slack
+ */
 public class ReverseEngineer {
   public static final int MAX_STRING_LEN = 255;
   public static final int MAX_DISPLAY_STRING_LEN = 50;
