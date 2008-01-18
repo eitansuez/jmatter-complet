@@ -90,7 +90,7 @@ public class EOCommand extends Command
       }
    }
    
-   private boolean haveParameters()
+   protected boolean haveParameters()
    {
       return _method.getParameterTypes().length > 1;
    }

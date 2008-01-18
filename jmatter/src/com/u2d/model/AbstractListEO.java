@@ -7,10 +7,8 @@ import java.util.*;
 import javax.swing.ListModel;
 import javax.swing.Icon;
 import javax.swing.event.*;
-import com.u2d.element.CommandInfo;
-import com.u2d.element.Field;
-import com.u2d.element.Command;
-import com.u2d.element.ListCommand;
+
+import com.u2d.element.*;
 import com.u2d.field.Association;
 import com.u2d.field.AssociationField;
 import com.u2d.field.CompositeField;
@@ -94,7 +92,10 @@ public abstract class AbstractListEO extends AbstractEObject
       for (Iterator itr=batchableInstanceCmds.deepIterator(); itr.hasNext(); )
       {
          Command cmd = (Command) itr.next();
-         batchedInstanceCommands.add(new ListCommand(cmd));
+         // not yet supporting commands other than eocommands..
+         if (cmd instanceof EOCommand) {
+            batchedInstanceCommands.add(new ListCommand((EOCommand) cmd));
+         }
       }
       
       commands = new Onion(commands);

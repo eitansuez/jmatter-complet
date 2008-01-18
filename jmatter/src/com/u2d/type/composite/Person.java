@@ -7,6 +7,7 @@ import com.u2d.element.CommandInfo;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Arg;
 import com.u2d.type.atom.StringEO;
 
 /**
@@ -77,7 +78,13 @@ public class Person extends AbstractComplexEObject implements Emailable
    public void Email(CommandInfo cmdInfo)
    {
       EmailMessage msg = new EmailMessage(this, new StringEO());
-      msg.OpenInEmailApp(null);
+      msg.OpenInEmailApp(cmdInfo);
+   }
+   @Cmd(batchable=true)
+   public void EmailWithSubject(CommandInfo cmdInfo, @Arg("Subject") StringEO subject)
+   {
+      EmailMessage msg = new EmailMessage(this, subject);
+      msg.OpenInEmailApp(cmdInfo);
    }
    
 }
