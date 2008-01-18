@@ -10,6 +10,7 @@ import javax.swing.event.*;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.Field;
 import com.u2d.element.Command;
+import com.u2d.element.ListCommand;
 import com.u2d.field.Association;
 import com.u2d.field.AssociationField;
 import com.u2d.field.CompositeField;
@@ -17,6 +18,7 @@ import com.u2d.list.CSVExport;
 import com.u2d.pattern.ListChangeNotifier;
 import com.u2d.pattern.Onion;
 import com.u2d.pattern.Block;
+import com.u2d.pattern.Filter;
 import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.reporting.Reportable;
@@ -73,7 +75,33 @@ public abstract class AbstractListEO extends AbstractEObject
       return _listtype;
    }
 
-   public Onion commands() { return listtype().commands(); }
+   public Onion commands()
+   {
+      Onion commands = listtype().commands();
+      if (isEmpty()) return commands;
+      
+      Onion batchableInstanceCmds = 
+            ((ComplexEObject) getElementAt(0)).commands().filter(new Filter() {
+         public boolean exclude(Object item)
+         {
+            Command cmd = (Command) item;
+            return ! cmd.batchable();
+         }
+      });
+      if (batchableInstanceCmds.isEmpty()) return commands;
+
+      List batchedInstanceCommands = new ArrayList();
+      for (Iterator itr=batchableInstanceCmds.deepIterator(); itr.hasNext(); )
+      {
+         Command cmd = (Command) itr.next();
+         batchedInstanceCommands.add(new ListCommand(cmd));
+      }
+      
+      commands = new Onion(commands);
+      commands.addAll(batchedInstanceCommands);
+      return commands;
+   }
+
    public Command command(String commandName) { return listtype().command(commandName); }
    public Onion filteredCommands()
    {
@@ -483,6 +511,7 @@ public abstract class AbstractListEO extends AbstractEObject
       add(ceo);
    }
    
+   public ListEView getAssociationView() { return vmech().getListView(this); }
    public ListEView getPickView() { return vmech().getPickView(this); }
    
    

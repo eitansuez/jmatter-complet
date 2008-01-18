@@ -55,10 +55,9 @@ public class ListType
       if (listClass == RelationalList.class || listClass == CompositeList.class)
          return;
 
-      
-      // no dynamic type creation at runtime! :-)
-      if (itemClass != ComplexType.class)
+      if (itemClass != ComplexType.class) // no dynamic type creation at runtime! :-)
       {
+         // Add type.new command
          Command newCmd = itemType.command("New");
          newCmd.getLabel().setValue("New "+itemType.getNaturalName());
          _commands.add(newCmd);

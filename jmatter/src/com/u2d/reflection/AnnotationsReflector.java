@@ -43,6 +43,8 @@ public class AnnotationsReflector implements Reflector
                                     at.sensitive(),
                                     at.viewPosition());
       cmd.blocks(at.blocks());
+      cmd.batchable(at.batchable());
+      
       if (!StringEO.isEmpty(at.label()))
          cmd.getLabel().setValue(at.label());
          

@@ -22,7 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * @author Eitan Suez
  */
-public abstract class Command extends Member 
+public abstract class Command extends Member
 {
    
    public static String[] fieldOrder = {"name", "fullPath", "label", "mnemonic", "description", "sensitive", "shortcut"};
@@ -78,7 +78,10 @@ public abstract class Command extends Member
     */
    public boolean blocks() { return _blocks; }
    public void blocks(boolean blocks) { _blocks = blocks; }
-
+   
+   private boolean _batchable;
+   public boolean batchable() { return _batchable; }
+   public void batchable(boolean batchable) { _batchable = batchable; }
 
    protected final StringEO _shortcut = new StringEO();
    public StringEO getShortcut() { return _shortcut; }

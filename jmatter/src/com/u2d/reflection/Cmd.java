@@ -32,4 +32,10 @@ public @interface Cmd
     * @return whether to disable the command's view through the duration of invocation
     */
    public boolean blocks() default false;
+
+   /**
+    * @return whether command can be exposed on lists to invoke on multiple instances
+    * i.e. list.items { item -> item.@cmd }
+    */
+   public boolean batchable() default false;
 }
