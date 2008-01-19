@@ -8,6 +8,8 @@ import com.u2d.type.atom.StringEO;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -79,20 +81,27 @@ public class AnnotationsReflector implements Reflector
    private ParameterInfo[] parameterInfo(Method method)
    {
       int length = method.getParameterTypes().length;
-      ParameterInfo[] paramInfo = new ParameterInfo[length-1];
-      for (int i=1; i<length; i++)
+      List<ParameterInfo> paramInfo = new ArrayList<ParameterInfo>(length -1);
+      int startIndex = 1; // skip commandInfo argument
+      
+      if (isListCommand(method)) // second argument is list to operate on
+      {
+         startIndex = 2;
+      }
+         
+      for (int i=startIndex; i<length; i++)
       {
          if (method.getParameterAnnotations()[i].length > 0)
          {
             Arg pat = (Arg) method.getParameterAnnotations()[i][0];
-            paramInfo[i-1] = new ParameterInfo(method.getParameterTypes()[i], pat.value());
+            paramInfo.add(new ParameterInfo(method.getParameterTypes()[i], pat.value()));
          }
          else
          {
-            paramInfo[i-1] = new ParameterInfo(method.getParameterTypes()[i]);
+            paramInfo.add(new ParameterInfo(method.getParameterTypes()[i]));
          }
       }
-      return paramInfo;
+      return paramInfo.toArray(new ParameterInfo[paramInfo.size()]);
    }
 
 }

@@ -33,7 +33,6 @@ public class ListCommand extends EOCommand
 
       if (haveParameters())
       {
-         // TODO: retrofit to work for lists..
          View paramsView = vmech().getParamListView(this, value, cmdInfo);
          vmech().displayView(paramsView, Positioning.NEARMOUSE);
       }

@@ -7,7 +7,6 @@ import com.u2d.element.CommandInfo;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.model.AbstractListEO;
-import com.u2d.model.EObject;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.reflection.ListCmd;
@@ -95,6 +94,21 @@ public class Person extends AbstractComplexEObject implements Emailable
       if (list.isEmpty()) return "List is empty";
       Person first = (Person) list.first();
       EmailMessage msg = new EmailMessage(first, new StringEO());
+      for (int i=1; i<list.getSize(); i++)
+      {
+         Person person = (Person) list.get(i);
+         msg.addRecipient(person.emailAddress());
+      }
+      msg.OpenInEmailApp(cmdInfo);
+      return null;
+   }
+   @ListCmd
+   public static String EmailAllWithSubject(CommandInfo cmdInfo, AbstractListEO list, 
+                                            @Arg("Subject") StringEO subject)
+   {
+      if (list.isEmpty()) return "List is empty";
+      Person first = (Person) list.first();
+      EmailMessage msg = new EmailMessage(first, subject);
       for (int i=1; i<list.getSize(); i++)
       {
          Person person = (Person) list.get(i);
