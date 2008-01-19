@@ -14998,8 +14998,8 @@ So we have two types of commands: instance commands and type commands.
 \emph on
 ComplexType
 \emph default
- represents or models represents a metatype, in the same way that the class
- java.lang.Class is an instance's type.
+ represents or models a metatype, in the same way that the class java.lang.Class
+ is an instance's type.
  You will also find @Cmd definitions in 
 \emph on
 ComplexType
@@ -15087,7 +15087,11 @@ Invoking the Email command in batch will open multiple compose windows,
 \end_layout
 
 \begin_layout Standard
-The additional command: EmailWithSubject, defined like this:
+The additional command: 
+\emph on
+EmailWithSubject
+\emph default
+, defined like this:
 \end_layout
 
 \begin_layout LyX-Code
@@ -15100,7 +15104,7 @@ public void EmailWithSubject(CommandInfo cmdInfo, @Arg("Subject") StringEO
 \end_layout
 
 \begin_layout Standard
-..prompts you for a subject line and then launches your email client's compose
+prompts you for a subject line and then launches your email client's compose
  command.
  Note that this command is also marked as batchable.
  JMatter is smart enough to ask you for the subject line once, irrespective
@@ -15153,6 +15157,14 @@ public static String EmailAllWithSubject(CommandInfo cmdInfo, AbstractListEO
 
 \begin_layout LyX-Code
                                          @Arg("Subject") StringEO subject)
+\end_layout
+
+\begin_layout Standard
+Note that list commands must be denoted as 
+\emph on
+static
+\emph default
+.
 \end_layout
 
 \begin_layout Section
