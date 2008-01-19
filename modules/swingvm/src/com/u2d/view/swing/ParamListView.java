@@ -8,6 +8,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.EOCommand;
+import com.u2d.element.ListCommand;
 import com.u2d.element.ParameterInfo;
 import com.u2d.model.*;
 import com.u2d.validation.ValidationNotifier;
@@ -24,6 +25,11 @@ import java.lang.reflect.Method;
 
 /**
  * @author Eitan Suez
+ * 
+ * TODO: ParamListView is a sort of informal FormView.  Whereas formview
+ *  operates on a type that has as its parameters a list of fields, here
+ *  the list of fields is the method's parameters.  Perhaps some of the
+ *  common logic can be refactored?
  */
 public class ParamListView extends JPanel implements View 
 {
@@ -164,6 +170,10 @@ public class ParamListView extends JPanel implements View
             // walk eviews:  eview.getEObject --> add to list
             final java.util.List<Object> parms = new ArrayList<Object>();
             parms.add(_cmdInfo);
+            if (_cmd instanceof ListCommand)
+            {
+               parms.add(_value);
+            }
             
             EObject eo;
             EView view;
