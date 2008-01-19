@@ -14981,6 +14981,180 @@ reference "cha:Validation"
  for more information.
 \end_layout
 
+\begin_layout Subsection
+Types of Commands
+\end_layout
+
+\begin_layout Standard
+So we see that with the @Cmd annotation, we can expose a method to the user
+ interface.
+ Also note the subtlety of adding the static modifier to define a command
+ on a different object: the instance's type, rather than the instance itself.
+\end_layout
+
+\begin_layout Standard
+So we have two types of commands: instance commands and type commands.
+ In the JMatter framework, the Java class 
+\emph on
+ComplexType
+\emph default
+ represents or models represents a metatype, in the same way that the class
+ java.lang.Class is an instance's type.
+ You will also find @Cmd definitions in 
+\emph on
+ComplexType
+\emph default
+.
+ So the JMatter framework uses many of the concepts that it defines for
+ application development internally, to build itself.
+ Also this should make you realize that a type command on a given object
+ is nothing more than an instance command on its type instance.
+\end_layout
+
+\begin_layout Standard
+Please note also that atomic types can have their own commands as well.
+ They can be invoked from the UI by right-clicking on the value.
+ For example, 
+\emph on
+StringEO
+\emph default
+ has the command 
+\emph on
+Capitalize()
+\emph default
+.
+\end_layout
+
+\begin_layout Subsubsection
+List Commands
+\end_layout
+
+\begin_layout Standard
+Aside from type and instance commands, there is a third type of command:
+ list commands.
+ List commands can be defined in several ways.
+\end_layout
+
+\begin_layout Standard
+First, if an instance command is given the annotation attribute 
+\emph on
+batchable
+\emph default
+ as shown here:
+\end_layout
+
+\begin_layout LyX-Code
+@Cmd(batchable=true)
+\end_layout
+
+\begin_layout LyX-Code
+public void Email(CommandInfo cmdInfo) ...
+\end_layout
+
+\begin_layout Standard
+This is an indication that the command can be invoked 
+\emph on
+in batch
+\emph default
+, so to speak; that is, given a list of instances (perhaps search results
+ from a query done via the ui), you will be able to invoke that command
+ on all the items in the list.
+ The logic basically iterates over all instances in the list and invokes
+ the command on each instance.
+\end_layout
+
+\begin_layout Standard
+There actually exists a command 
+\emph on
+Email
+\emph default
+ on the type 
+\emph on
+Person
+\emph default
+ in JMatter.
+ It basically launches your default email client and opens a compose window
+ with the destination address prefilled with the person's email address
+ information.
+ You can try this from the ContactMgr demo application.
+ To invoke it in batch mode, just bring up a list of contacts and right-click
+ on the list-view's title, which will bring up its context menu.
+\end_layout
+
+\begin_layout Standard
+Invoking the Email command in batch will open multiple compose windows,
+ one for each recipient on the list.
+\end_layout
+
+\begin_layout Standard
+The additional command: EmailWithSubject, defined like this:
+\end_layout
+
+\begin_layout LyX-Code
+@Cmd(batchable=true)
+\end_layout
+
+\begin_layout LyX-Code
+public void EmailWithSubject(CommandInfo cmdInfo, @Arg("Subject") StringEO
+ subject)
+\end_layout
+
+\begin_layout Standard
+..prompts you for a subject line and then launches your email client's compose
+ command.
+ Note that this command is also marked as batchable.
+ JMatter is smart enough to ask you for the subject line once, irrespective
+ of the number of times the command is invoked.
+\end_layout
+
+\begin_layout Standard
+What if we wanted the behavior of the command to be smarter.
+ That is, we wish to write a separate implementation of Email, perhaps named
+ EmailAll, that opened a single composition window, but specified in the
+ 
+\emph on
+To:
+\emph default
+ field multiple addresses: the addresses of each of the persons on the list?
+\end_layout
+
+\begin_layout Standard
+To do that, define a list command, like this:
+\end_layout
+
+\begin_layout LyX-Code
+@ListCmd
+\end_layout
+
+\begin_layout LyX-Code
+public static String EmailAll(CommandInfo cmdInfo, AbstractListEO list)
+ ...
+\end_layout
+
+\begin_layout Standard
+The command will be exposed on the list and the method will be invoked,
+ passing in the list reference as an argument to the method.
+ You can now iterate over the list items to grab all the email addresses,
+ but implement the method such that a single email message is composed.
+\end_layout
+
+\begin_layout Standard
+Finally, List Commands also allow multiple parameters, here's an example:
+\end_layout
+
+\begin_layout LyX-Code
+@ListCmd
+\end_layout
+
+\begin_layout LyX-Code
+public static String EmailAllWithSubject(CommandInfo cmdInfo, AbstractListEO
+ list, 
+\end_layout
+
+\begin_layout LyX-Code
+                                         @Arg("Subject") StringEO subject)
+\end_layout
+
 \begin_layout Section
 Metadata
 \end_layout
@@ -16202,7 +16376,7 @@ Here is a summary of the optional parameters that the
 \begin_layout Standard
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="5" columns="3">
+<lyxtabular version="3" rows="7" columns="3">
 <features>
 <column alignment="left" valignment="top" leftline="true" width="1in">
 <column alignment="left" valignment="top" leftline="true" width="0.75in">
@@ -16361,6 +16535,67 @@ Delete
  against inadvertent invocation of the command.
  This is done in the Swing view mechanism by disabling the command's button.
  A small lock on the button can be clicked on to enable the action.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+shortcut
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+String
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Applies only to type commands (commands marked static).
+ Specify a keyboard shortcut (an accelerator).
+ Example: "control Z"
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+batchable
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+boolean
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Whether the command can be invoked in list context (composed across a number
+ of instances)
 \end_layout
 
 \end_inset
