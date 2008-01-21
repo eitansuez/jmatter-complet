@@ -69,6 +69,7 @@ public class IconView extends Caption implements ComplexEView
 
    public void detach()
    {
+      if (_ceo == null) return;
       _ceo.removeChangeListener(this);
       _ceo.removePropertyChangeListener(this);
 

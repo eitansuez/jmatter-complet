@@ -4,7 +4,7 @@ import com.u2d.view.EView;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.ui.UIUtils;
-import com.u2d.field.AssociationField;
+import com.u2d.field.Association;
 import com.u2d.interaction.Instruction;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -26,6 +26,7 @@ public class InstructionView extends JPanel implements EView
    private Instruction ins;
    private Timer dismissTimer;
    private JTextField _tf;
+   private SimpleAssociationView _targetView;
 
    {
       dismissTimer = new Timer(2000, new ActionListener() {
@@ -52,9 +53,9 @@ public class InstructionView extends JPanel implements EView
    {
       setLayout(new BorderLayout());
       
-      AssociationField targetField = (AssociationField) ins.field("target");
-      JComponent targetView = (JComponent) targetField.getView(ins);
-      add(targetView, BorderLayout.CENTER);
+      Association association = ins.association("target");
+      _targetView = new SimpleAssociationView(association);
+      add(_targetView, BorderLayout.CENTER);
 
       _tf = new JTextField(12);
       _tf.getDocument().addDocumentListener(new DocumentListener() {
@@ -130,6 +131,7 @@ public class InstructionView extends JPanel implements EView
       else
       {
          _tf.setText("");
+         _targetView.clear();
       }
       setVisible(ins.active());
    }
