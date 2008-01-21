@@ -24,7 +24,6 @@ import com.u2d.type.composite.Folder;
 import com.u2d.type.composite.USAddress;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.desktop.Positioning;
-import com.u2d.ui.UIUtils;
 import com.u2d.view.*;
 import com.u2d.view.swing.atom.*;
 import com.u2d.view.swing.calendar.fancy.CalEventView;
@@ -41,6 +40,7 @@ import com.u2d.view.swing.restrict.TypeRestrictionMgrUi;
 import com.u2d.view.swing.map.AddressViewOnMap;
 import com.u2d.wizard.details.Wizard;
 import com.u2d.wizard.ui.WizardPane;
+import com.u2d.interaction.Instruction;
 //import spin.over.CheckingRepaintManager;
 import javax.swing.*;
 import java.awt.*;
@@ -850,8 +850,12 @@ public class SwingViewMechanism implements ViewMechanism
    {
       return new AddressViewOnMap(addr);
    }
-   
-   
+
+
+   public EView getInstructionView(Instruction instruction)
+   {
+      return new InstructionView(instruction);
+   }
 
    public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr)
    {

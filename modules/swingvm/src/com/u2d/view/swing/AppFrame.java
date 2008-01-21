@@ -26,7 +26,7 @@ import com.u2d.utils.Launcher;
 import com.u2d.view.swing.atom.URIRenderer;
 import com.u2d.view.swing.dnd.EODesktopPane;
 import com.u2d.view.swing.list.CommandsMenuView;
-
+import com.u2d.interaction.Instruction;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -99,10 +99,18 @@ public class AppFrame extends JFrame
       
       UIUtils.centerOnScreen(this);
       setupQuitHooks();
-
-      listenForUserEvents();
       
+      setupInstructionView();
+      listenForUserEvents();
       setupKeyboardShorcuts();
+   }
+   
+   InstructionView _instructionView = new InstructionView(Instruction.getInstance());
+   
+   private void setupInstructionView() {
+      ComponentStyle.setIdent(_instructionView, "command-panel");
+      _desktopPane.add(_instructionView, JLayeredPane.POPUP_LAYER);
+      UIUtils.center(_desktopPane, _instructionView);
    }
    
    private void setupKeyboardShorcuts()
@@ -114,13 +122,32 @@ public class AppFrame extends JFrame
                _classBar.focusItem();
             }
          });
+      bindKeyStroke(KeyStroke.getKeyStroke('W', Platform.mask()), "close-window", new AbstractAction() {
+         public void actionPerformed(ActionEvent e)
+         {
+            JInternalFrame jif = _desktopPane.getSelectedFrame();
+            if (jif != null && jif instanceof CloseableJInternalFrame)
+            {
+               ((CloseableJInternalFrame) jif).close();
+            }
+         }
+      });
+      bindKeyStroke(KeyStroke.getKeyStroke('I', Platform.mask()), "invoke-instruction", new AbstractAction() {
+         public void actionPerformed(ActionEvent e)
+         {
+            Instruction.getInstance().activate();
+         }
+      });
    }
    
    private void bindKeyStroke(String shortcut, String key, Action action)
    {
+      bindKeyStroke(KeyStroke.getKeyStroke(shortcut), key, action);
+   }
+   private void bindKeyStroke(KeyStroke kstroke, String key, Action action)
+   {
       JPanel contentPane = (JPanel) getContentPane();
-      contentPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
-            put(KeyStroke.getKeyStroke(shortcut), key);
+      contentPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(kstroke, key);
       contentPane.getActionMap().put(key, action);
    }
    private void detachKeyStroke(String key)
@@ -146,22 +173,28 @@ public class AppFrame extends JFrame
                if (subItem instanceof ComplexType)
                {
                   ComplexType type = (ComplexType) subItem;
-                  Onion typeCommands = type.commands();
-                  for (Iterator itr = typeCommands.deepIterator(); itr.hasNext(); )
-                  {
-                     Command cmd = (Command) itr.next();
-                     if (cmd.hasShortcut())
-                     {
-                        String key = keyFor(type, cmd);
-                        bindKeyStroke(cmd.shortcut(), key, new CommandAdapter(cmd, null));
-                        keybindings.add(key);
-                     }
-                  }
+                  bindTypeCommands(type);
                }
             }
          }
       }
    }
+
+   private void bindTypeCommands(ComplexType type)
+   {
+      Onion typeCommands = type.commands();
+      for (Iterator itr = typeCommands.deepIterator(); itr.hasNext(); )
+      {
+         Command cmd = (Command) itr.next();
+         if (cmd.hasShortcut())
+         {
+            String key = keyFor(type, cmd);
+            bindKeyStroke(cmd.shortcut(), key, new CommandAdapter(cmd, null));
+            keybindings.add(key);
+         }
+      }
+   }
+
    private void detachTypeKeyboardShortcuts()
    {
       for (String key : keybindings)

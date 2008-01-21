@@ -30,9 +30,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ds-swing.ipr" afterPath="$PROJECT_DIR$/ds-swing.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ds-swing.iws" afterPath="$PROJECT_DIR$/ds-swing.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/u2d/ui/KeyPressAdapter.java" />
     </list>
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
@@ -175,19 +173,7 @@
     <option name="myCurrentFavoritesList" value="ds-swing" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="KeyPressAdapter.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/u2d/ui/KeyPressAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="0" selection-start="559" selection-end="559" vertical-scroll-proportion="0.37185928">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>

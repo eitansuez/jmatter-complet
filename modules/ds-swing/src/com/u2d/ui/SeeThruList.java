@@ -66,6 +66,7 @@ public class SeeThruList extends JList
 	}
    private void dispatch(KeyEvent evt)
    {
+      // dispatch key event down..
       int index = getSelectedIndex();
       if (index < 0) return;
       

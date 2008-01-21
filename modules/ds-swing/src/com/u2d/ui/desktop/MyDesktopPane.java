@@ -23,7 +23,7 @@ public class MyDesktopPane extends JDesktopPane
       super();
       setDesktopManager(new BetterDesktopManager());
       
-      getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
+      getInputMap(WHEN_IN_FOCUSED_WINDOW).
             put(KeyStroke.getKeyStroke("alt BACK_QUOTE"), "switch-next-frame");
       getActionMap().put("switch-next-frame", new AbstractAction()
          {
@@ -32,7 +32,7 @@ public class MyDesktopPane extends JDesktopPane
                rotateLeft();
             }
          });
-      getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
+      getInputMap(WHEN_IN_FOCUSED_WINDOW).
             put(KeyStroke.getKeyStroke("shift alt BACK_QUOTE"), "switch-previous-frame");
       getActionMap().put("switch-previous-frame", new AbstractAction()
          {

@@ -19,6 +19,7 @@ import com.u2d.type.composite.USAddress;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.view.*;
 import com.u2d.wizard.details.Wizard;
+import com.u2d.interaction.Instruction;
 
 /**
  * @author Eitan Suez
@@ -184,6 +185,8 @@ public interface ViewMechanism
 
    public ListEView getAlternateListView(AbstractListEO leo, String[] viewNames);
    public ComplexEView getAlternateView(ComplexEObject ceo, String[] viewNames);
+   
+   public EView getInstructionView(Instruction instruction);
 
    public void setEditable(Editor editor, boolean editable);
    

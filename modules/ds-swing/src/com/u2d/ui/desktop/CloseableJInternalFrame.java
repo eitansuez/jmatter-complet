@@ -3,13 +3,11 @@
  */
 package com.u2d.ui.desktop;
 
-import com.u2d.ui.Platform;
 import java.awt.*;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetDragEvent;
-import java.awt.event.*;
 import javax.swing.*;
 import java.beans.*;
 import java.util.TooManyListenersException;
@@ -34,19 +32,8 @@ public class CloseableJInternalFrame extends JInternalFrame
       init();
    }
 
-   static String CLOSEWINDOW_MAP_KEY = "CLOSE_WINDOW";
-   static KeyStroke COMMAND_W = KeyStroke.getKeyStroke(KeyEvent.VK_W, Platform.mask());
-
    private void init()
    {
-      getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(COMMAND_W, CLOSEWINDOW_MAP_KEY);
-      getActionMap().put(CLOSEWINDOW_MAP_KEY, new AbstractAction()
-      {
-         public void actionPerformed(ActionEvent evt)
-         {
-            close();
-         }
-      });
       setupToFocusOnDragEnter();
    }
 
@@ -55,7 +42,6 @@ public class CloseableJInternalFrame extends JInternalFrame
    public void removeNotify()
    {
       super.removeNotify();
-      getActionMap().remove(CLOSEWINDOW_MAP_KEY);
    }
 
    public static void closeFrame(JInternalFrame jif)

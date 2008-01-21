@@ -31,12 +31,6 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sympster.iws" afterPath="$PROJECT_DIR$/Sympster.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run.sh" afterPath="$PROJECT_DIR$/run.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sympster.ipr" afterPath="$PROJECT_DIR$/Sympster.ipr" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/City.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Symposium.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Symposium.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/sympster/Venue.java" afterPath="$PROJECT_DIR$/src/com/u2d/sympster/Venue.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sympster.iml" afterPath="$PROJECT_DIR$/Sympster.iml" />
     </list>
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
@@ -160,8 +154,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -196,17 +190,7 @@
     <option name="myCurrentFavoritesList" value="Sympster" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Harvester.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/Harvester.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="217" column="0" selection-start="8133" selection-end="8133" vertical-scroll-proportion="0.33136094">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -371,10 +355,11 @@
     </navigator>
   </component>
   <component name="PropertiesComponent">
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web" value="/tmp/webExplodedDir35876tmp" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="false" />
+    <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web3" value="/tmp/webExplodedDir37929tmp" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web2" value="/tmp/webExplodedDir34049tmp" />
@@ -558,7 +543,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25020307" order="1" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" order="1" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40127388" order="4" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40127388" order="4" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
@@ -697,116 +682,114 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/OutlookFolderView.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/persist/HibernatePersistor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="12" selection-start="2339" selection-end="2339" vertical-scroll-proportion="0.72315437">
+        <state line="389" column="0" selection-start="11059" selection-end="11059" vertical-scroll-proportion="0.31360948">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/Speaker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="1600" selection-end="1600" vertical-scroll-proportion="0.38255033">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/Hotel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="20" selection-start="124" selection-end="124" vertical-scroll-proportion="0.1758794">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/City.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="4" selection-start="310" selection-end="310" vertical-scroll-proportion="0.30150753">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/Venue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="41" selection-start="742" selection-end="742" vertical-scroll-proportion="0.47738692">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/list/SimpleListEO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="245" selection-end="245" vertical-scroll-proportion="0.20100503">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/find/QuerySpecification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="15" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.5477387">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/find/SimpleQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="35" selection-start="2258" selection-end="2258" vertical-scroll-proportion="0.81072026">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/find/CompositeQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="4" selection-start="1896" selection-end="1896" vertical-scroll-proportion="0.020100502">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/element/ProgrammingElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="28" selection-start="326" selection-end="326" vertical-scroll-proportion="0.2512563">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/AssociationView2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="328" column="10" selection-start="9185" selection-end="9185" vertical-scroll-proportion="0.92268044">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/AssociationEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="20" selection-start="863" selection-end="880" vertical-scroll-proportion="0.2512563">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/sympster/Symposium.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="0" selection-start="1084" selection-end="1084" vertical-scroll-proportion="0.49367088">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/field/AssociationField.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="57" selection-start="1829" selection-end="1829" vertical-scroll-proportion="0.14551084">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/ComplexType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="201" column="39" selection-start="6321" selection-end="6321" vertical-scroll-proportion="0.7678019">
+        <state line="1110" column="0" selection-start="32502" selection-end="32502" vertical-scroll-proportion="0.3126935">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/Harvester.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractEObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="217" column="0" selection-start="8133" selection-end="8133" vertical-scroll-proportion="0.33136094">
+        <state line="44" column="0" selection-start="1232" selection-end="1232" vertical-scroll-proportion="0.33136094">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/RelationalListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="9" selection-start="1346" selection-end="1346" vertical-scroll-proportion="0.33136094">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/EditableListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="0" selection-start="4100" selection-end="4100" vertical-scroll-proportion="0.9481865">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/field/AssociationStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="443" selection-end="443" vertical-scroll-proportion="0.703125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/field/Association.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="0" selection-start="1476" selection-end="1476" vertical-scroll-proportion="0.33125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/NullAssociation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="0" selection-start="1355" selection-end="1355" vertical-scroll-proportion="0.33136094">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/pubsub/AppEventSupport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="0" selection-start="740" selection-end="740" vertical-scroll-proportion="0.33125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/app/ViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="179" column="0" selection-start="6103" selection-end="6103" vertical-scroll-proportion="1.06875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/SwingViewMechanism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="792" column="29" selection-start="24357" selection-end="24357" vertical-scroll-proportion="0.5532544">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/list/RelationalList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="59" selection-start="767" selection-end="767" vertical-scroll-proportion="0.75443786">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/thirdparty/hibernate-3.2/src/org/hibernate/secure/HibernatePermission.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="30" selection-start="199" selection-end="199" vertical-scroll-proportion="0.33136094">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/ComplexEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="0" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.33136094">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/field/BidiAssociationStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="0" selection-start="2230" selection-end="2230" vertical-scroll-proportion="0.5769231">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractComplexEObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="0" selection-start="3613" selection-end="3613" vertical-scroll-proportion="0.33126935">
           <folding />
         </state>
       </provider>
