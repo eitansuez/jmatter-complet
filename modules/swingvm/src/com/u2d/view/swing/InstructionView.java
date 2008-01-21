@@ -23,29 +23,30 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class InstructionView extends JPanel implements EView
 {
-   private Instruction ins;
-   private Timer dismissTimer;
+   private Instruction _instruction;
+   private Timer _dismissTimer;
    private JTextField _tf;
    private SimpleAssociationView _targetView;
 
    {
-      dismissTimer = new Timer(2000, new ActionListener() {
+      _dismissTimer = new Timer(3000, new ActionListener() {
          public void actionPerformed(ActionEvent e)
          {
             new Thread() {
                public void run()
                {
-                  ins.getActive().setValue(false);
+                  _instruction.getActive().setValue(false);
                }
             }.start();
          }
       });
-      dismissTimer.setRepeats(false);
-      dismissTimer.setCoalesce(true);
+      _dismissTimer.setRepeats(false);
+      _dismissTimer.setCoalesce(true);
    }
+   
    public InstructionView(Instruction instruction)
    {
-      ins = instruction;
+      _instruction = instruction;
       configure();
    }
    
@@ -53,7 +54,7 @@ public class InstructionView extends JPanel implements EView
    {
       setLayout(new BorderLayout());
       
-      Association association = ins.association("target");
+      Association association = _instruction.association("target");
       _targetView = new SimpleAssociationView(association);
       add(_targetView, BorderLayout.CENTER);
 
@@ -66,13 +67,13 @@ public class InstructionView extends JPanel implements EView
       _tf.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e)
          {
-            ComplexEObject eo = ins.getTarget();
+            ComplexEObject eo = _instruction.getTarget();
             if (eo != null)
             {
                try
                {
                   eo.defaultCommand().execute(eo, InstructionView.this);
-                  ins.deactivate();
+                  _instruction.deactivate();
                }
                catch (InvocationTargetException e1)
                {
@@ -86,7 +87,7 @@ public class InstructionView extends JPanel implements EView
          {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
             {
-               ins.deactivate();
+               _instruction.deactivate();
                e.consume();
             }
          }
@@ -95,7 +96,7 @@ public class InstructionView extends JPanel implements EView
       
       setVisibility();
       
-      ins.getActive().addChangeListener(new ChangeListener() {
+      _instruction.getActive().addChangeListener(new ChangeListener() {
          public void stateChanged(ChangeEvent e)
          {
             SwingUtilities.invokeLater(new Runnable() {
@@ -110,13 +111,13 @@ public class InstructionView extends JPanel implements EView
    
    private void updateTarget()
    {
-      dismissTimer.restart();
-      ins.matchText(_tf.getText());
+      _dismissTimer.restart();
+      _instruction.matchText(_tf.getText());
    }
    
    private void setVisibility()
    {
-      if (ins.active())
+      if (_instruction.active())
       {
          setSize(getPreferredSize());
          setLocation(UIUtils.computeCenter(this.getParent(), this));
@@ -126,17 +127,17 @@ public class InstructionView extends JPanel implements EView
                _tf.requestFocusInWindow();
             }
          });
-         dismissTimer.start();
+         _dismissTimer.start();
       }
       else
       {
          _tf.setText("");
          _targetView.clear();
       }
-      setVisible(ins.active());
+      setVisible(_instruction.active());
    }
 
-   public EObject getEObject() { return ins; }
+   public EObject getEObject() { return _instruction; }
    public void detach() { }
    public void stateChanged(ChangeEvent e) { }
 }

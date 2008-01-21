@@ -30,7 +30,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/images/Command16.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/images/Command32.gif" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/images/Commands32.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/images/Commands16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/images/Command16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/images/Command32.png" />
     </list>
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />

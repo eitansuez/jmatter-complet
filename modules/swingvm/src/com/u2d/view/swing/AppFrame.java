@@ -47,6 +47,7 @@ public class AppFrame extends JFrame
    private AppSession _appSession;
    private Application _app;
    private JMenuBar _menuBar;
+
    private CommandsMenuView _userMenu = new CommandsMenuView(new Filter()
    {
       String[] validCmds = {"ResetClassBar", "EditPreferences", "LogOut", 
@@ -102,15 +103,13 @@ public class AppFrame extends JFrame
       
       setupInstructionView();
       listenForUserEvents();
-      setupKeyboardShorcuts();
    }
    
-   InstructionView _instructionView = new InstructionView(Instruction.getInstance());
-   
    private void setupInstructionView() {
-      ComponentStyle.setIdent(_instructionView, "command-panel");
-      _desktopPane.add(_instructionView, JLayeredPane.POPUP_LAYER);
-      UIUtils.center(_desktopPane, _instructionView);
+      InstructionView instructionView = new InstructionView(Instruction.getInstance());
+      ComponentStyle.setIdent(instructionView, "command-panel");
+      _desktopPane.add(instructionView, JLayeredPane.POPUP_LAYER);
+      UIUtils.center(_desktopPane, instructionView);
    }
    
    private void setupKeyboardShorcuts()
@@ -154,6 +153,12 @@ public class AppFrame extends JFrame
    {
       JPanel contentPane = (JPanel) getContentPane();
       contentPane.getActionMap().remove(key);
+   }
+   private void detachKeystrokes()
+   {
+      detachKeyStroke("focus-classbar");
+      detachKeyStroke("close-window");
+      detachKeyStroke("invoke-instruction");
    }
    
    private Set<String> keybindings = new HashSet<String>();
@@ -221,6 +226,7 @@ public class AppFrame extends JFrame
                   showClassBar();
                   showUserMenu();
                   _desktopPane.setEnabled(true); // enable context menu
+                  setupKeyboardShorcuts();
                   restoreUserDesktop();
                }
             });
@@ -238,6 +244,7 @@ public class AppFrame extends JFrame
                   _desktopPane.closeAllChildren();
                   hideClassBar();
                   hideUserMenu();
+                  detachKeystrokes();
                   _desktopPane.setEnabled(false); // disable context menu
 
                   new Thread()
