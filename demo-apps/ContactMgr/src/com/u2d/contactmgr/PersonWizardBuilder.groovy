@@ -6,6 +6,9 @@ import com.u2d.view.swing.FormView
 import com.u2d.wizard.builder.*
 import com.u2d.wizard.details.Wizard
 
+/**
+ * Example and Implementation courtesy of Andres Almiray
+ */
 class PersonWizardBuilder
 {
    static Wizard wizard()
