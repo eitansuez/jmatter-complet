@@ -337,9 +337,7 @@ public abstract class Command extends Member
    
    public Title title()
    {
-      if (_parent == null) return super.title();
-      // TODO: refactor as naturalName property, similar to how field does it.
-      return(_name.title().append(((ComplexType) _parent).getPluralName()));
+      return _name.title();
    }
    
    @Cmd(mnemonic='f')
