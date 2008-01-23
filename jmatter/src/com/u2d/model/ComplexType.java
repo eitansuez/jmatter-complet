@@ -796,7 +796,7 @@ public class ComplexType extends AbstractComplexEObject
       if (obj == this) return true;
       if (!(obj instanceof ComplexType)) return false;
       ComplexType ct = (ComplexType) obj;
-      return _className.equals(ct.getQualifiedName());
+      return _clazz.equals(ct.getJavaClass());
    }
 
    public int hashCode() { return 31 * _clazz.hashCode(); }

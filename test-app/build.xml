@@ -6,7 +6,7 @@
  <property name="build.classes.dir" location="${build.dir}/classes" />
  <property name="src.dir" location="src" />
 
- <property name="framework.dir" location="/home/eitan/work/jmatter-complet/jmatter" />
+ <property name="framework.dir" location="../jmatter" />
  <property name="framework.classes.dir" location="${framework.dir}/build/classes" />
  <property name="lib.basedir" location="${framework.dir}/lib" />
 

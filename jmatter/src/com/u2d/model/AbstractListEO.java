@@ -228,8 +228,8 @@ public abstract class AbstractListEO extends AbstractEObject
       {
          ComplexEObject ceo = (ComplexEObject) item;
          ceo.removeAppEventListener(DELETE, this);
-         _items.remove(ceo);
       }
+      _items.clear();
       fireIntervalRemoved(this, 0, size);
    }
    

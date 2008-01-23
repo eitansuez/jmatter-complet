@@ -595,7 +595,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/runtime/css4swing.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/swingvm/css4swing.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -614,6 +614,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/runtime/jibx-run.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/test/junit.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

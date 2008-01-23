@@ -11,15 +11,17 @@ import com.u2d.reflection.Cmd;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.view.EView;
 import com.u2d.list.PlainListEObject;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator;
+import com.u2d.list.SimpleListEO;
+
+import java.util.*;
 
 @Persist
 public class Instruction
       extends AbstractComplexEObject
 {
    private ComplexEObject target;
+   private final SimpleListEO _targetMatches = new SimpleListEO(ComplexEObject.class);
+   
    private Command action;
    private final BooleanEO active = new BooleanEO();
    
@@ -43,8 +45,14 @@ public class Instruction
       for (Iterator itr = types.iterator(); itr.hasNext(); )
       {
          ComplexType type = (ComplexType) itr.next();
-         typesMap.put(type.getNaturalName().toLowerCase(), type);
+         typesMap.put(type.title().toString().toLowerCase(), type);
       }
+   }
+   
+   public void clear()
+   {
+      setTarget(null);
+      setAction(null);
    }
 
    public ComplexEObject getTarget() { return target; }
@@ -52,19 +60,52 @@ public class Instruction
    {
       ComplexEObject oldTarget = this.target;
       this.target = target;
+      setAction(target == null ? null : target.defaultCommand());
       firePropertyChange("target", oldTarget, this.target);
    }
    
-   public void matchText(String text)
+   private SortedSet<Match> matchedItems = new TreeSet<Match>();
+   public synchronized void matchText(String text)
    {
-      String textLower = text.toLowerCase();
+      matchedItems.clear();
+      if (text == null || text.length() == 0)
+      {
+         _targetMatches.clear();
+         return;
+      }
+      
+      text = text.toLowerCase();
       for (String name : typesMap.keySet() )
       {
-         if (name.startsWith(textLower))
+         int cost = Match.cost(name, text);
+         if (cost >= 0)
          {
-            setTarget(typesMap.get(name));
+            ComplexType type = typesMap.get(name);
+            matchedItems.add(new Match(cost, type));
          }
       }
+      if (matchedItems.isEmpty())
+      {
+         setTarget(null);
+      }
+      else
+      {
+         Match bestmatch = matchedItems.first();
+         setTarget(bestmatch.eo());
+         matchedItems.remove(bestmatch);
+         
+         List matchObjs = new ArrayList();
+         for (Match match : matchedItems)
+         {
+            matchObjs.add(match.eo());
+         }
+         _targetMatches.setItems(matchObjs);
+      }
+   }
+   public Set matchedItems() { return matchedItems; }
+   public SimpleListEO getTargetMatches()
+   {
+      return _targetMatches;
    }
    
    public Command getAction() { return action; }

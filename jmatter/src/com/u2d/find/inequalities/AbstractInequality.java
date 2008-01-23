@@ -37,8 +37,8 @@ public abstract class AbstractInequality extends AbstractEObject
    {
       Class parentClass = clazz.getDeclaringClass();
       Object parentInstance = parentClass.newInstance();
-      Method method = parentClass.getMethod("getInequalities", null);
-      List inequalities = (List) method.invoke(parentInstance, null);
+      Method method = parentClass.getMethod("getInequalities");
+      List inequalities = (List) method.invoke(parentInstance);
       Iterator itr = inequalities.iterator();
       Inequality ineq = null;
       while (itr.hasNext())

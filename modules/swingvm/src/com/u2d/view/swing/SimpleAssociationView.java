@@ -4,15 +4,11 @@ import com.u2d.view.ComplexEView;
 import com.u2d.field.Association;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
-import com.u2d.pubsub.AppEventListener;
-import com.u2d.pubsub.AppEvent;
-import static com.u2d.pubsub.AppEventType.DELETE;
-import com.u2d.css4swing.style.ComponentStyle;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeEvent;
 import java.awt.*;
+import org.jdesktop.swingx.JXPanel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,28 +16,35 @@ import java.awt.*;
  * Date: Sep 7, 2005
  * Time: 1:04:42 PM
  */
-public class SimpleAssociationView extends JPanel implements ComplexEView, AppEventListener
+public class SimpleAssociationView extends JXPanel
+      implements ComplexEView
 {
    private Association _association;
    private IconView iconView = new IconView();
 
    public SimpleAssociationView()
    {
-      setOpaque(false);
-      setLayout(new BorderLayout());
-      add(iconView, BorderLayout.CENTER);
-      ComponentStyle.setIdent(iconView, "command-icon-view");
+      init();
    }
    public SimpleAssociationView(Association a)
    {
-      this();
+      init();
       bind(a);
+   }
+   
+   private void init()
+   {
+      setOpaque(false);
+      setLayout(new GridLayout(1,1));
+      add(iconView);
    }
 
    public void bind(Association a)
    {
       if (_association != null)
+      {
          detach();
+      }
       _association = a;
       _association.addPropertyChangeListener(this);
       bindIconView();
@@ -49,17 +52,7 @@ public class SimpleAssociationView extends JPanel implements ComplexEView, AppEv
    public void detach()
    {
       _association.removePropertyChangeListener(this);
-      ComplexEObject value = (ComplexEObject) getEObject();
-      if (!value.isEmpty())
-      {
-         value.removeAppEventListener(DELETE, this);
-      }
       iconView.detach();
-   }
-   
-   public void clear()
-   {
-      _association.set(null);
    }
    
    public void propertyChange(PropertyChangeEvent evt)
@@ -80,17 +73,7 @@ public class SimpleAssociationView extends JPanel implements ComplexEView, AppEv
    {
       iconView.detach();
       ComplexEObject value = (ComplexEObject) getEObject();
-      if (!value.isEmpty())
-      {
-         value.addAppEventListener(DELETE, this);
-      }
       iconView.bind(value);
-   }
-
-   public void onEvent(AppEvent evt)
-   {
-      ((ComplexEObject) iconView.getEObject()).removeAppEventListener(DELETE, this);
-      _association.set(null);
    }
 
    public void stateChanged(ChangeEvent e) { }
