@@ -28,7 +28,7 @@ public class LockedButton extends JButton implements ActionListener
    
    private void initialize()
    {
-      setHorizontalAlignment(SwingConstants.LEFT);
+      setHorizontalAlignment(SwingConstants.CENTER);
       _lock = new LockToggle(this);
       setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
       Dimension min = new Dimension(0,0);

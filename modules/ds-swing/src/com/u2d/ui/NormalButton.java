@@ -4,14 +4,13 @@
 package com.u2d.ui;
 
 import org.jdesktop.swingx.JXButton;
-
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * @author Eitan Suez
  */
-public class NormalButton extends JXButton
+public class NormalButton extends JButton
 {
 	public NormalButton()
 	{
