@@ -208,18 +208,20 @@ public class SimpleAssociationView extends JXPanel
    
    class InvisibleTextField extends JTextField implements FocusListener
    {
+      
+      InvisibleTextField()
       {
          addFocusListener(this);
       }
-      protected void paintComponent(Graphics g)
+
+      protected void paintBorder(Graphics g)
       {
-         // paint nothing.
+         
       }
 
-      Dimension NODIM = new Dimension(0, 0);
-      public Dimension getPreferredSize()
+      protected void paintComponent(Graphics g)
       {
-         return NODIM;
+         
       }
 
       Color focusBg = new Color(0x554cff);
