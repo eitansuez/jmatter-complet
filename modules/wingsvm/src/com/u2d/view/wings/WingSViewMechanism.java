@@ -20,6 +20,7 @@ import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
 import com.u2d.list.CompositeList;
+import com.u2d.interaction.Instruction;
 import org.wings.SInternalFrame;
 import org.wings.SContainer;
 import org.wings.SComponent;
@@ -555,5 +556,8 @@ public class WingSViewMechanism implements ViewMechanism
       return (SInternalFrame) parent;
    }
 
-   
+   public EView getInstructionView(Instruction instruction)
+   {
+      return null;
+   }
 }
