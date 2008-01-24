@@ -38,4 +38,15 @@ public @interface Cmd
     * i.e. list.items { item -> item.@cmd }
     */
    public boolean batchable() default false;
+
+   /**
+    * convention is that all images are placed in images/ resource
+    * folder and that icon ref value is specified without this base
+    * path and without a suffix.  i.e. the framework looks for a .png
+    * and falls back to a .gif.  example: pencil2 resolves to 
+    * images/pencil2.png
+    * 
+    * @return an optional icon to use for the command
+    */
+   public String iconref() default "";
 }

@@ -4,6 +4,8 @@ import com.u2d.element.EOCommand;
 import com.u2d.element.ParameterInfo;
 import com.u2d.element.ListCommand;
 import com.u2d.model.ComplexType;
+import com.u2d.model.IconLoader;
+import com.u2d.model.IconResolver;
 import com.u2d.type.atom.StringEO;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -58,6 +60,9 @@ public class AnnotationsReflector implements Reflector
       if (!StringEO.isEmpty(at.description()))
          cmd.getDescription().setValue(at.description());
       
+      if (!StringEO.isEmpty(at.iconref()))
+         cmd.iconref(at.iconref());
+
       if (!StringEO.isEmpty(at.shortcut()))
         cmd.getShortcut().setValue(at.shortcut());
       

@@ -88,6 +88,12 @@ public abstract class Command extends Member
    public boolean hasShortcut() { return !_shortcut.isEmpty(); }
    public String shortcut() { return _shortcut.stringValue(); }
     
+   
+   
+   protected transient String _iconref;
+   public void iconref(String iconref) { _iconref = iconref; }
+   public String iconref() { return _iconref; }
+   public boolean hasIconref() { return !StringEO.isEmpty(_iconref); }
 
    public String localizedLabel(Localized l)
    {

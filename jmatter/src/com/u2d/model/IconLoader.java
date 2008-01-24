@@ -1,5 +1,7 @@
 package com.u2d.model;
 
+import com.u2d.element.Command;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -22,6 +24,10 @@ public class IconLoader
    public static Icon pluralIcon(ComplexType type, String size)
    {
       return loadIcon(IconResolver.pluralIconRef(type, size));
+   }
+   public static Icon cmdIcon(Command command)
+   {
+      return loadIcon(IconResolver.cmdIconRef(command.iconref()));
    }
    
    public static Icon loadIcon(String resourcePath)

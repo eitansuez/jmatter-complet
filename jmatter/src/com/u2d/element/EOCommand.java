@@ -187,8 +187,10 @@ public class EOCommand extends Command
 
    public OverloadedEOCmd overload(EOCommand secondCmd)
    {
-      return new OverloadedEOCmd(_method, (ComplexType) _parent, _mnemonic.charValue(),
+      OverloadedEOCmd ocmd = new OverloadedEOCmd(_method, (ComplexType) _parent, _mnemonic.charValue(),
             _params, sensitive(), _positioningHint, secondCmd);
+      ocmd.iconref(iconref());
+      return ocmd;
    }
    
 //   public boolean overrides(Command cmd)

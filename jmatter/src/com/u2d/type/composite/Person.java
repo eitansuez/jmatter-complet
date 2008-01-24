@@ -76,7 +76,7 @@ public class Person extends AbstractComplexEObject implements Emailable
       return _name.hashCode() + 31 * _contact.hashCode();
    }
    
-   @Cmd(mnemonic='a', batchable=true)
+   @Cmd(mnemonic='a', batchable=true, iconref="mail-send")
    public void Email(CommandInfo cmdInfo)
    {
       EmailMessage msg = new EmailMessage(this, new StringEO());

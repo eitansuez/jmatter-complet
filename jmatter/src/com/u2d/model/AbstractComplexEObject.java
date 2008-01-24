@@ -597,7 +597,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public class TransientState extends EditableState
    {
-      @Cmd(mnemonic='s', blocks=true)
+      @Cmd(mnemonic='s', blocks=true, iconref="save")
       public String Save(CommandInfo cmdInfo)
       {
          try
@@ -624,7 +624,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       {
          setNullState();
       }
-      @Cmd
+      @Cmd(iconref="copy")
       public void Copy(CommandInfo cmdInfo)
       {
          ComplexEObject copy = (ComplexEObject) makeCopy();
@@ -668,14 +668,14 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          return AbstractComplexEObject.this;
       }
       
-      @Cmd
+      @Cmd(iconref="copy")
       public void Copy(CommandInfo cmdInfo)
       {
          ComplexEObject copy = (ComplexEObject) makeCopy();
          type().bufferCopy(copy);
       }
 
-      @Cmd(mnemonic='e')
+      @Cmd(mnemonic='e', iconref="pencil")
       public ComplexEObject Edit(CommandInfo cmdInfo)
       {
          refresh();
@@ -691,7 +691,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          return AbstractComplexEObject.this;
       }
 
-      @Cmd(sensitive = true)
+      @Cmd(sensitive = true, iconref="delete2")
       public String Delete(CommandInfo cmdInfo)
       {
          try
@@ -720,7 +720,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          return file.fileValue().getName() + " created.";
       }
       
-      @Cmd(mnemonic='r')
+      @Cmd(mnemonic='r', iconref="refresh")
       public void Refresh(CommandInfo cmdInfo)
       {
          refresh();
@@ -739,7 +739,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public class EditState extends EditableState
    {
-      @Cmd(mnemonic='s', blocks=true)
+      @Cmd(mnemonic='s', blocks=true, iconref="save")
       public String Save(CommandInfo cmdInfo)
       {
          try

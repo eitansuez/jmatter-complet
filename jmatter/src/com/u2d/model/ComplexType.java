@@ -691,7 +691,7 @@ public class ComplexType extends AbstractComplexEObject
       return persistor().list(this);
    }
 
-   @Cmd
+   @Cmd(iconref="new16")
    public ComplexEObject New(CommandInfo cmdInfo)
    {
       try
@@ -713,7 +713,7 @@ public class ComplexType extends AbstractComplexEObject
       }
       return null;  // TODO: consider throwing instead of catching both exceptions 
    }
-   @Cmd
+   @Cmd(iconref="new16")
    public ComplexEObject New(CommandInfo cmdInfo, ComplexType type)
    {
       return type.New(cmdInfo);
@@ -725,7 +725,7 @@ public class ComplexType extends AbstractComplexEObject
       return null;
    }
 
-   @Cmd
+   @Cmd(iconref="find16")
    public View Find(CommandInfo cmdInfo)
    {
       return vmech().getFindView2(this);
@@ -738,7 +738,7 @@ public class ComplexType extends AbstractComplexEObject
       return query;
    }
 
-   @Cmd
+//   @Cmd
    public /* ComplexEObject */ String ImportFromXML(CommandInfo info)
    {
       // a. pick xml file to import from

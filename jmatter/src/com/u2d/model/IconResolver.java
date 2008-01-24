@@ -28,6 +28,10 @@ public class IconResolver
    {
       return icon(type, size, pluralStrategy);
    }
+   public static String cmdIconRef(String iconName)
+   {
+      return iconRef(iconName);
+   }
    
    private static String BASE = "images/";
    private static String iconRef(String iconPath)
