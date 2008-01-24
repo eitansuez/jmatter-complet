@@ -116,8 +116,8 @@ public class CustomIconView
                                          getIconTextGap());
       
       
-      int x = (int) textR.getX() - 10;
-      int y = (int) textR.getY() - 10;
+      int x = (int) textR.getX() - getX();
+      int y = (int) textR.getY() - getY();
 
       g2.setColor(highlightColor);
       
@@ -133,8 +133,8 @@ public class CustomIconView
       }
       
       g2.setColor(getForeground());
-      x = (int) textR.getX() - 10;
-      y = (int) textR.getY() + g2.getFontMetrics().getAscent() - 10;
+      x = (int) textR.getX() - getX();
+      y = (int) textR.getY() + g2.getFontMetrics().getAscent() - getY();
       g2.drawString(getText(), x, y);
       
    }
