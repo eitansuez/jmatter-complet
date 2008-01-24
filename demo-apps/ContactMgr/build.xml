@@ -68,20 +68,22 @@
  <taskdef name="make-persistclasses" classname="com.u2d.tools.AntPersistClassesMaker" classpathref="libtools.path" />
 
  <target name="compile" description="compile code" depends="init,compile-framework">
-   <!-- <javac srcdir="${src.dir}"
+<!--
+   <javac srcdir="${src.dir}"
           destdir="${build.classes.dir}"
           classpathref="class.path"
           listfiles="true"
-          debug="on" deprecation="on" /> -->
-   <java classname="org.codehaus.groovy.ant.Groovyc" fork="true" maxmemory="128M">  
-       <classpath>  
-          <path refid="class.path" />
-          <path refid="libtools.path" />
-       </classpath>  
-       <arg value="${build.classes.dir}"/> <!-- destination -->  
-       <arg value="${src.dir}"/> <!-- source -->  
-       <arg value="-j"/>  
-   </java>
+          debug="on" deprecation="on" />
+-->
+
+   <taskdef name="groovyc"
+            classname="org.codehaus.groovy.ant.Groovyc"
+            classpathref="class.path" />
+
+   <groovyc srcdir="${src.dir}" destdir="${build.classes.dir}"
+            classpathref="class.path">
+     <javac debug="on" deprecation="on" />
+   </groovyc>
     
    <make-persistclasses template="${src.dir}/persistClasses.st"
         target="${build.classes.dir}/persistClasses.xml"
