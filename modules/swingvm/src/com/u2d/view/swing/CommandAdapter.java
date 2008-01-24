@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import com.u2d.element.Command;
 import com.u2d.view.*;
 import com.u2d.type.atom.StringEO;
+import com.u2d.model.IconLoader;
 
 /**
  * Adapter for javax.swing.Action
@@ -32,6 +33,10 @@ public class CommandAdapter extends AbstractAction
       putValue(Action.ACTION_COMMAND_KEY, _command.name());
       updateMnemonic();
       updateDescription();
+      if (_command.hasIconref())
+      {
+         putValue(Action.SMALL_ICON, IconLoader.cmdIcon(_command));
+      }
    }
    
    public void updateCaption()
