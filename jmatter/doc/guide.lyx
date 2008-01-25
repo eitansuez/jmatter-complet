@@ -20920,7 +20920,7 @@ Please pardon the sarcasm
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -20978,6 +20978,182 @@ reference "sub:dflt-searchpath"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+Visual Command Interface
+\end_layout
+
+\begin_layout Standard
+JMatter sports a feature inspired by blacktree software's 
+\emph on
+QuickSilver
+\emph default
+, and more recently, 
+\emph on
+Gnome Do
+\emph default
+.
+ Briefly, these applications provide a visual command interface for desktops.
+ For a desktop management application, most commands involve launching applicati
+ons or bringing them up in the terminal or the file manager.
+ The end user composes an instruction by first specifying the target application
+ and second the specific command to invoke on that application.
+ Its primary use is for launching applications.
+ Applications are specified by typing, and identified via a text matching
+ algorithm.
+\end_layout
+
+\begin_layout Standard
+It turns out that these applications adhere to the noun-verb metaphor which
+ is a strong part of JMatter's general philosophy.
+ Every operation in JMatter boils down to the invocation of a command on
+ a target object (and optionally specifying command arguments).
+ JMatter's implementation of a visual command interface now provides an
+ additional, alternative visual mechanism to invoke commands.
+\end_layout
+
+\begin_layout Standard
+I will illustrate how this interface works via an example.
+ Let's take the Sympster demonstration application.
+ Let's say we wish to create a new speaker.
+ We typically do this by right-clicking on the Speaker icon in the class
+ bar (the visual representation of its type) and selecting the command 
+\begin_inset Quotes eld
+\end_inset
+
+New
+\begin_inset Quotes erd
+\end_inset
+
+ from its context menu.
+ Now, you can also:
+\end_layout
+
+\begin_layout Enumerate
+Press Ctrl-I (Cmd-I on the mac) to invoke the visual command interface,
+\end_layout
+
+\begin_layout Enumerate
+Type 
+\emph on
+Spe
+\emph default
+, press the tab key, and type 
+\emph on
+New
+\end_layout
+
+\begin_layout Enumerate
+Press the 
+\emph on
+Enter
+\emph default
+ key
+\end_layout
+
+\begin_layout Standard
+In step 2, we first searched for a type matching 
+\emph on
+Speakers
+\emph default
+, and then did the same thing: searched for the command named 
+\emph on
+New
+\emph default
+.
+ We don't have to type the full name, just enough characters to match the
+ item (the object) we're looking for.
+ Optionally, you can press the down-arrow key to see other matches and select
+ the appropriate one.
+ The escape key dismisses the visual command interface.
+ In the above case, invoking the command causes the visual command interface
+ to auto-dismiss.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset LatexCommand ref
+reference "fig:visual-cmd"
+
+\end_inset
+
+ shows JMatter's visual command interface in action.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/visual-cmd-interface.png
+	lyxscale 40
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+JMatter's visual command interface in action
+\end_layout
+
+\end_inset
+
+
+\begin_inset LatexCommand label
+name "fig:visual-cmd"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Many desktop users have become habituated to this type of command interface
+ and prefer it.
+ First, this is a testament that noun-verb types of user interfaces are
+ a good match for the way we tend to go about doing things.
+ Second, it provides a uniform way of invoking any command.
+ Finally, you don't have to take your fingers off of the keyboard.
+\end_layout
+
+\begin_layout Standard
+At the moment this feature will match types defined in your application.
+ Here are a few ways this feature can be enhanced further, perhaps with
+ your help:
+\end_layout
+
+\begin_layout Enumerate
+Support matching any target object, not just types.
+ So for example, you might type the name of a contact person to bring up
+ their contact information.
+ In MyTunes, you could look up and play a song through this interface, for
+ example.
+\end_layout
+
+\begin_layout Enumerate
+Perhaps support specifying command arguments through the same visual interface,
+ instead of having a separate window prompt for the arguments.
 \end_layout
 
 \begin_layout Section
@@ -21615,7 +21791,7 @@ Keyboard Shortcuts
 \begin_layout Standard
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="13" columns="2">
+<lyxtabular version="3" rows="14" columns="2">
 <features islongtable="true">
 <column alignment="center" valignment="top" leftline="true" width="0">
 <column alignment="block" valignment="top" leftline="true" rightline="true" width="3.5in">
@@ -21894,6 +22070,26 @@ Ctrl-/
 \begin_layout Standard
 Open currently selected view's context menu.
  A keyboard equivalent for right-clicking.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Ctrl-I
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Invoke JMatter's visual command interface (similar to quicksilver or gnome-do)
 \end_layout
 
 \end_inset
