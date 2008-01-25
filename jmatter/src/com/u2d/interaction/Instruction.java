@@ -56,6 +56,7 @@ public class Instruction
       ComplexEObject oldTarget = this.target;
       this.target = target;
       setAction(target == null ? null : target.defaultCommand());
+      matchActionText("");  // default show all commands in options listing
       firePropertyChange("target", oldTarget, this.target);
    }
    
