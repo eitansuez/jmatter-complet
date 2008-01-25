@@ -95,6 +95,16 @@ public abstract class Command extends Member
    public String iconref() { return _iconref; }
    public boolean hasIconref() { return !StringEO.isEmpty(_iconref); }
 
+   public String iconSmResourceRef()
+   {
+      return IconResolver.cmdIconRef(this, "16");
+   }
+
+   public String iconLgResourceRef()
+   {
+      return IconResolver.cmdIconRef(this, "32");
+   }
+
    public String localizedLabel(Localized l)
    {
       String key = "Command." + name();

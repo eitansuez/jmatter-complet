@@ -25,10 +25,6 @@ public class IconLoader
    {
       return loadIcon(IconResolver.pluralIconRef(type, size));
    }
-   public static Icon cmdIcon(Command command)
-   {
-      return loadIcon(IconResolver.cmdIconRef(command.iconref()));
-   }
    
    public static Icon loadIcon(String resourcePath)
    {

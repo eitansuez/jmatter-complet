@@ -691,7 +691,7 @@ public class ComplexType extends AbstractComplexEObject
       return persistor().list(this);
    }
 
-   @Cmd(iconref="new16")
+   @Cmd(iconref="new")
    public ComplexEObject New(CommandInfo cmdInfo)
    {
       try
@@ -713,7 +713,7 @@ public class ComplexType extends AbstractComplexEObject
       }
       return null;  // TODO: consider throwing instead of catching both exceptions 
    }
-   @Cmd(iconref="new16")
+   @Cmd(iconref="new")
    public ComplexEObject New(CommandInfo cmdInfo, ComplexType type)
    {
       return type.New(cmdInfo);
@@ -725,7 +725,7 @@ public class ComplexType extends AbstractComplexEObject
       return null;
    }
 
-   @Cmd(iconref="find16")
+   @Cmd(iconref="find")
    public View Find(CommandInfo cmdInfo)
    {
       return vmech().getFindView2(this);

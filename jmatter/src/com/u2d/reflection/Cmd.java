@@ -42,9 +42,12 @@ public @interface Cmd
    /**
     * convention is that all images are placed in images/ resource
     * folder and that icon ref value is specified without this base
-    * path and without a suffix.  i.e. the framework looks for a .png
-    * and falls back to a .gif.  example: pencil2 resolves to 
-    * images/pencil2.png
+    * path and without a suffix.  also, img name must end with 16/32
+    * but reference should specify only base name.
+    * i.e. the framework looks for a .png
+    * and falls back to a .gif.  example: 'pencil' resolves to 
+    * images/pencil16.png for the small icon and images/pencil32.png
+    * for the larger one.
     * 
     * @return an optional icon to use for the command
     */

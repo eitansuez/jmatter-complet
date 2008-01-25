@@ -691,7 +691,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          return AbstractComplexEObject.this;
       }
 
-      @Cmd(sensitive = true, iconref="delete2")
+      @Cmd(sensitive = true, iconref="delete")
       public String Delete(CommandInfo cmdInfo)
       {
          try

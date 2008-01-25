@@ -1,5 +1,7 @@
 package com.u2d.model;
 
+import com.u2d.element.Command;
+
 /**
  * Created by IntelliJ IDEA.
  * User: eitan
@@ -8,6 +10,15 @@ package com.u2d.model;
  */
 public class IconResolver
 {
+   public static String cmdIconRef(Command command, String size)
+   {
+      if (command.hasIconref())
+      {
+         return iconRef(command.iconref() + size);
+      }
+      return stateIconRef(command, size);
+   }
+
    public static String stateIconRef(ComplexEObject eo, String size)
    {
       ComplexType type = eo.type();
@@ -27,10 +38,6 @@ public class IconResolver
    public static String pluralIconRef(ComplexType type, String size)
    {
       return icon(type, size, pluralStrategy);
-   }
-   public static String cmdIconRef(String iconName)
-   {
-      return iconRef(iconName);
    }
    
    private static String BASE = "images/";
