@@ -612,6 +612,7 @@ public class HBMMaker
       return AbstractComplexEObject.class.equals(cls) ||
             AbstractChoiceEO.class.equals(cls) ||
             CalEvent.class.equals(cls) ||
+            AbstractComplexMappableEObject.class.equals(cls) ||
             ScheduleEO.class.equals(cls) ||
             CalendarEO.class.equals(cls);
    }

@@ -77,6 +77,11 @@ public interface ViewMechanism
    public ComplexEView getScheduleView(Schedule schedule);
    public ComplexEView getCalEventView(CalEvent event);
    public ComplexEView getCalEventView(CalEvent event, Schedule schedule);
+   
+   /* TODO: retrofit to return an EView */
+   public Object getMapView(MappableEO mappable);
+   /* TODO: retrofit to return a ListEView */
+   public Object getListViewOnMap(AbstractListEO leo);
 
    // for commands
    public View getParamListView(EOCommand cmd, Object value, CommandInfo cmdInfo);
@@ -171,6 +176,7 @@ public interface ViewMechanism
    public ListEView getListViewAsIcons(AbstractListEO leo);
    public ListEView getListViewAsTree(AbstractListEO leo);
    public ListEView getListViewAsCalendar(CalEventList list);
+   
    public ListEView getOmniListView(AbstractListEO leo);
    public ListEView getToolbarView(String name, AbstractListEO leo);
    public ListEView getRelationalListView(RelationalList leo);

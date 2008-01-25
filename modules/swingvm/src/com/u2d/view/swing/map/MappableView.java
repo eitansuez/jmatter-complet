@@ -3,7 +3,6 @@ package com.u2d.view.swing.map;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.ui.CloseButton;
 import com.u2d.view.ComplexEView;
@@ -25,12 +24,12 @@ import java.beans.PropertyChangeEvent;
 public class MappableView extends JXPanel
       implements ComplexEView
 {
-   private ComplexEObject _ceo;
+   private EObject _eo;
    private transient CommandsContextMenuView _cmdsView;
    
-   public MappableView(ComplexEObject ceo)
+   public MappableView(EObject eo)
    {
-      _ceo = ceo;
+      _eo = eo;
       
       FormLayout formLayout = new FormLayout("left:pref:grow, right:pref",
                                              "pref, pref:grow");
@@ -46,16 +45,16 @@ public class MappableView extends JXPanel
             MappableView.this.setVisible(false);
          }
       });
-      JLabel label = new JLabel(_ceo.title().toString(), _ceo.iconLg(), SwingConstants.LEFT);
+      JLabel label = new JLabel(_eo.title().toString(), _eo.iconLg(), SwingConstants.LEFT);
       
       add(closeButton, cc.rc(1, 2));
       add(label, cc.rc(2,1));
       
       _cmdsView = new CommandsContextMenuView();
-      _cmdsView.bind(_ceo, this);
+      _cmdsView.bind(_eo, this);
    }
    
-   public EObject getEObject() { return _ceo; }
+   public EObject getEObject() { return _eo; }
    public boolean isMinimized() { return true; }
 
    public void propertyChange(PropertyChangeEvent evt) { }

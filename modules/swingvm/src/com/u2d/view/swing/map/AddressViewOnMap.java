@@ -1,6 +1,8 @@
 package com.u2d.view.swing.map;
 
 import com.u2d.type.composite.USAddress;
+import com.u2d.view.swing.SwingViewMechanism;
+import com.u2d.view.swing.SwingAction;
 import org.jdesktop.swingx.mapviewer.DefaultTileFactory;
 import org.jdesktop.swingx.mapviewer.GeoPosition;
 import org.jdesktop.swingx.mapviewer.TileFactoryInfo;
@@ -39,41 +41,40 @@ public class AddressViewOnMap extends MapView
       _kit.setZoom(2);
       _kit.setPreferredSize(new Dimension(600,400));
       
-      new Thread()
+      SwingViewMechanism.invokeSwingAction(new SwingAction()
       {
-         public void run()
+         GeoPosition geoPosition;
+         
+         public void offEDT()
          {
             try
             {
-               final GeoPosition geoPosition = GeoUtil.getPositionForAddress(
-                  _address.getAddressLine1().stringValue(), 
-                     _address.getCity().stringValue(), 
-                     _address.getStateCode().code()
-               );
-               
-               
-               SwingUtilities.invokeLater(new Runnable()
-               {
-                  public void run()
-                  {
-                     _kit.setCenterPosition(geoPosition);
-                     addWaypoint(new EOWaypoint(geoPosition, _address));
-                     
-                     // a less than ideal way to address an issue with initial positioning of markers..
-                     SwingUtilities.invokeLater(new Runnable()
-                     {
-                        public void run() { revalidateMarkerOverlay(); }
-                     });
-                     
-                  }
-               });
+               geoPosition = GeoUtil.getPositionForAddress(
+                        _address.getAddressLine1().stringValue(), 
+                        _address.getCity().stringValue(), 
+                        _address.getStateCode().code()
+                  );
             }
             catch (IOException e)
             {
                e.printStackTrace();
             }
          }
-      }.start();
+
+         public void backOnEDT()
+         {
+            if (geoPosition == null) return;
+            
+            _kit.setCenterPosition(geoPosition);
+            addWaypoint(new EOWaypoint(geoPosition, _address));
+                     
+            // a less than ideal way to address an issue with initial positioning of markers..
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               public void run() { revalidateMarkerOverlay(); }
+            });
+         }
+      });
    }
    
 }

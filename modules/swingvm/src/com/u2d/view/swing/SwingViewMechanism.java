@@ -38,6 +38,8 @@ import com.u2d.view.swing.list.*;
 import com.u2d.view.swing.restrict.RoleTypeRestrictionMgrUi;
 import com.u2d.view.swing.restrict.TypeRestrictionMgrUi;
 import com.u2d.view.swing.map.AddressViewOnMap;
+import com.u2d.view.swing.map.ListMapView;
+import com.u2d.view.swing.map.EOMapView;
 import com.u2d.wizard.details.Wizard;
 import com.u2d.wizard.ui.WizardPane;
 import com.u2d.interaction.Instruction;
@@ -604,6 +606,12 @@ public class SwingViewMechanism implements ViewMechanism
    {
       return new CalendarView(calendar);
    }
+
+   public Object getMapView(MappableEO mappable)
+   {
+      return new EOMapView(mappable);
+   }
+
    public ComplexEView getScheduleView(Schedule schedule)
    {
       return new ScheduleView(schedule);
@@ -744,6 +752,12 @@ public class SwingViewMechanism implements ViewMechanism
    {
       return new CalendarListView(list);
    }
+   public Object getListViewOnMap(AbstractListEO leo)
+   {
+      return new ListMapView(leo);
+   }
+
+   
 
    public ListEView getOmniListView(AbstractListEO leo) { return new OmniListView(leo); }
    public ListEView getToolbarView(String name, AbstractListEO leo) { return new ToolbarView(name, leo); }

@@ -12,6 +12,7 @@ import java.util.List;
 public class GeoValue extends AbstractAtomicEO implements Searchable
 {
    public static final double RADIANS_PER_DEGREE = Math.PI / 180;
+   public static final double SECONDS_PER_DEGREE = 3600;
 
    private double _seconds;  // 1/3600 of a degree
    // direction encoded as either a positive or negative value
@@ -28,7 +29,7 @@ public class GeoValue extends AbstractAtomicEO implements Searchable
    public double doubleValue() { return _seconds; }
    public double radianValue()
    {
-      return _seconds / 3600 /* seconds per degree */ * RADIANS_PER_DEGREE;
+      return _seconds / SECONDS_PER_DEGREE * RADIANS_PER_DEGREE;
    }
    public double degreesValue() { return _seconds / 3600; }
    
@@ -53,7 +54,7 @@ public class GeoValue extends AbstractAtomicEO implements Searchable
 
    private String formattedValue()
    {
-      return ""+_seconds;  // for now..
+      return String.valueOf(degreesValue());
    }
 
    public String toString()
