@@ -224,7 +224,7 @@ public class SimpleAssociationView extends JXPanel
          
       }
 
-      Color focusBg = new Color(0x554cff);
+      Color focusBg = new Color(0x534C80);
       Color bgCol = new Color(0x666666);
       
       public void focusGained(FocusEvent e)

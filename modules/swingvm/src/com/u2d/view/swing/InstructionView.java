@@ -27,6 +27,7 @@ public class InstructionView extends JPanel
    
    private SimpleAssociationView _targetView, _cmdView;
    private Timer _dismissTimer;
+   private final static String TIP_START_TEXT = "Type to start matching a type";
    private JLabel _tipLabel = new JLabel();
 
    public InstructionView(Instruction instruction)
@@ -103,7 +104,7 @@ public class InstructionView extends JPanel
       
       add(_targetView, cc.rc(1, 1));
       add(_cmdView, cc.rc(1, 2));
-      _tipLabel.setText("Type to start matching a type");
+      _tipLabel.setText(TIP_START_TEXT);
       add(_tipLabel, cc.rcw(2, 1, 2));
       
       setVisibility();
@@ -128,6 +129,7 @@ public class InstructionView extends JPanel
       {
          _targetView.clear();
          _instruction.clear();
+         _tipLabel.setText(TIP_START_TEXT);
       }
       setVisible(_instruction.active());
    }

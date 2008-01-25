@@ -31,8 +31,8 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swingvm.iws" afterPath="$PROJECT_DIR$/swingvm.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/CustomIconView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/CustomIconView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/InstructionView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/InstructionView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/u2d/view/swing/SimpleAssociationView.java" afterPath="$PROJECT_DIR$/src/com/u2d/view/swing/SimpleAssociationView.java" />
     </list>
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
@@ -448,7 +448,7 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <showStructure PackagesPane="false" Scope="false" Favorites="false" ProjectPane="false" />
+      <showStructure ProjectPane="false" Scope="false" PackagesPane="false" Favorites="false" />
       <autoscrollToSource PackagesPane="false" />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -457,8 +457,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -789,15 +789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/SimpleAssociationView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="225" column="0" selection-start="6016" selection-end="6016" vertical-scroll-proportion="0.69849247">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/list/ListView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="4" selection-start="490" selection-end="490" vertical-scroll-proportion="0.2512563">
@@ -868,15 +859,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/CustomIconView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="38" selection-start="3397" selection-end="3397" vertical-scroll-proportion="0.6231156">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/element/Member.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="107" column="19" selection-start="3076" selection-end="3076" vertical-scroll-proportion="0.33333334">
@@ -893,10 +875,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/InstructionView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="0" selection-start="2417" selection-end="2417" vertical-scroll-proportion="0.24623115">
+        <state line="28" column="17" selection-start="763" selection-end="763" vertical-scroll-proportion="0.33333334">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/CustomIconView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="26" selection-start="582" selection-end="582" vertical-scroll-proportion="0.5728643">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/u2d/view/swing/SimpleAssociationView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="228" column="6" selection-start="6107" selection-end="6107" vertical-scroll-proportion="0.79899496">
+          <folding />
         </state>
       </provider>
     </entry>
