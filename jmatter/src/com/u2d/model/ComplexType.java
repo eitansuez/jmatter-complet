@@ -646,7 +646,7 @@ public class ComplexType extends AbstractComplexEObject
 
 
    // type commands:
-   @Cmd
+   @Cmd(iconref="view")
    public AbstractListEO Browse(CommandInfo cmdInfo)
    {
       if (isMetaType())
