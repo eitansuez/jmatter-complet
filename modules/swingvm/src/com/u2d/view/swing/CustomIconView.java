@@ -121,7 +121,8 @@ public class CustomIconView
 
       g2.setColor(highlightColor);
       
-      String matchText = getFilterDocText();
+      String matchText = getFilterDocText().toLowerCase();
+      lblText = lblText.toLowerCase();
       for (int i=0; i<lblText.length(); i++)
       {
          Rectangle2D r = fm.getStringBounds(lblText, i, i+1, g2);

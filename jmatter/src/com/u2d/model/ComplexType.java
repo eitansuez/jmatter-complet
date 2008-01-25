@@ -751,7 +751,10 @@ public class ComplexType extends AbstractComplexEObject
       return "[tbd]";
    }
 
-   @Cmd
+   // description specification as a string is weak, and flawed.
+   // supporting a ManageRestrictionsDescription() method would be much more powerful and self-similar
+   // then could do:  return String.format("Manage restrictions for %s (authorization)", this);
+   @Cmd(description="Manage restrictions for type (authorization)")
    public TypeRestrictionMgr ManageRestrictions(CommandInfo cmdInfo)
    {
       return new TypeRestrictionMgr(this);

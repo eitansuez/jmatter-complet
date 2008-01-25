@@ -2,8 +2,10 @@ package com.u2d.view.swing;
 
 import com.u2d.view.ComplexEView;
 import com.u2d.model.EObject;
+import com.u2d.model.ComplexType;
 import com.u2d.ui.UIUtils;
 import com.u2d.interaction.Instruction;
+import com.u2d.element.Command;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import javax.swing.*;
@@ -12,22 +14,21 @@ import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import org.jdesktop.swingx.JXPanel;
-
 /**
  * Created by IntelliJ IDEA.
  * User: eitan
  * Date: Dec 26, 2007
  * Time: 10:05:28 PM
  */
-public class InstructionView extends JXPanel
+public class InstructionView extends JPanel
       implements ComplexEView
 {
    private Instruction _instruction;
    
    private SimpleAssociationView _targetView, _cmdView;
    private Timer _dismissTimer;
-   
+   private JLabel _tipLabel = new JLabel();
+
    public InstructionView(Instruction instruction)
    {
       _instruction = instruction;
@@ -77,6 +78,23 @@ public class InstructionView extends JXPanel
             _cmdView.clear();
          }
       });
+      _instruction.addPropertyChangeListener("action", new PropertyChangeListener()
+      {
+         public void propertyChange(PropertyChangeEvent evt)
+         {
+            Command cmd = _instruction.getAction();
+            if (cmd == null || cmd.parent() == null) return;
+            if (!cmd.getDescription().isEmpty())
+            {
+               _tipLabel.setText(cmd.description());
+               return;
+            }
+            
+            String parentPluralName = ((ComplexType) cmd.parent()).getPluralName();
+            String helpText = cmd.title().append(parentPluralName).toString();
+            _tipLabel.setText(helpText);
+         }
+      });
          
 
       FormLayout layout = new FormLayout("180px, 180px", "fill:180px, pref");
@@ -85,8 +103,8 @@ public class InstructionView extends JXPanel
       
       add(_targetView, cc.rc(1, 1));
       add(_cmdView, cc.rc(1, 2));
-      JLabel placeHolder = new JLabel("[tbd] Tooltip will go in here perhaps..");
-      add(placeHolder, cc.rcw(2, 1, 2));
+      _tipLabel.setText("Type to start matching a type");
+      add(_tipLabel, cc.rcw(2, 1, 2));
       
       setVisibility();
    }

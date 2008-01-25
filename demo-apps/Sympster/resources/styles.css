@@ -125,16 +125,13 @@ jmaps|MappableView
   background-color: black;
   opacity: 0.7;
   padding: 10px;
+  color: white;
+  font-weight: normal;
+  font-size: 12pt;
 }
 #command-panel jm|SimpleAssociationView
 {
   margin: 7px;
   background-color: #666;
-}
-#command-panel jm|CustomIconView
-{
-  color: white;
-  font-weight: normal;
-  font-size: 12pt;
 }
 

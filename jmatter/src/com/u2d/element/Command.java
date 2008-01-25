@@ -353,7 +353,7 @@ public abstract class Command extends Member
    
    public Title title()
    {
-      return _name.title();
+      return _label.title();
    }
    
    @Cmd(mnemonic='f')
