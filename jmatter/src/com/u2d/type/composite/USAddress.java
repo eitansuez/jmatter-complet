@@ -65,7 +65,7 @@ public class USAddress extends AbstractComplexEObject
 //   }
    
    
-   @Cmd(mnemonic='a')
+   @Cmd(mnemonic='a',iconref="compass")
    public Object ViewOnMap(CommandInfo cmdInfo)
    {
       return vmech().getAddressViewOnMap(this);
