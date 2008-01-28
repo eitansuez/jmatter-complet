@@ -37,7 +37,7 @@ public class ViewInfo
    
    public ViewInfo(String iconName, String rolloverIconName, String factoryName)
    {
-      ClassLoader loader = getClass().getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       
       URL url = loader.getResource("images/" + iconName);
       _icon = new ImageIcon(url);
@@ -55,7 +55,7 @@ public class ViewInfo
       Class[] paramTypes = {AbstractListEO.class};
       Method factory = vmech.getClass().getMethod(_factoryName, paramTypes);
 
-      return (ListEView) factory.invoke(vmech, new Object[] {leo});
+      return (ListEView) factory.invoke(vmech, leo);
    }
    
    public ComplexEView getView(ComplexEObject ceo) throws NoSuchMethodException,
@@ -65,7 +65,7 @@ public class ViewInfo
       
       Class[] paramTypes = {ComplexEObject.class};
       Method factory = vmech.getClass().getMethod(_factoryName, paramTypes);
-      return (ComplexEView) factory.invoke(vmech, new Object[] {ceo});
+      return (ComplexEView) factory.invoke(vmech, ceo);
    }
    
    public Icon getIcon() { return _icon; }

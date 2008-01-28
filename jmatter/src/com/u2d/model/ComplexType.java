@@ -59,7 +59,7 @@ public class ComplexType extends AbstractComplexEObject
    private static Properties metadata = null;
    static
    {
-      ClassLoader loader = ComplexType.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       InputStream stream = loader.getResourceAsStream("model-metadata.properties");
       if (stream == null)
       {

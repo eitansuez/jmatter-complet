@@ -78,7 +78,7 @@ public class ImgEO extends AbstractAtomicEO
       {
          try
          {
-            ClassLoader loader = Photo.class.getClassLoader();
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
             java.net.URL imgurl = loader.getResource(nullIconResourcePath());
             NULL_ICON = new LocatableIcon(imgurl);
          }

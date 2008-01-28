@@ -36,7 +36,7 @@ public class DateEditor extends JPanel
    private static Icon CAL_ICON, CAL_ROLLOVER_ICON;
    static
    {
-      ClassLoader loader = DateEditor.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       URL calIconURL = loader.getResource("images/calendar.png");
       CAL_ICON = new ImageIcon(calIconURL);
       calIconURL = loader.getResource("images/calendar_rollover.png");

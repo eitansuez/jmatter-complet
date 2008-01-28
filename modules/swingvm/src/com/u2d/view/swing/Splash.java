@@ -122,7 +122,7 @@ public class Splash extends JWindow implements AppEventListener
    {
       String[] suffixes = {"png", "jpg", "gif"};
       int i=0;
-      ClassLoader loader = getClass().getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       URL url = null;
       while ( (i < suffixes.length) &&
               ( (url = loader.getResource("images/splash."+suffixes[i])) == null )

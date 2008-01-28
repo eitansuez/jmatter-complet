@@ -15,7 +15,7 @@ public class KeycapsDetector extends JLabel
 	String capsOnMsg = "Key Caps On";
 	ImageIcon icon = null;
 	{
-		ClassLoader loader = getClass().getClassLoader();
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		java.net.URL imgurl = loader.getResource("images/lock.png");
 		icon = new ImageIcon(imgurl);
 	}

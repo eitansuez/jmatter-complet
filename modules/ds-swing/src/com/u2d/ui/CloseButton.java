@@ -19,7 +19,7 @@ public class CloseButton extends IconButton
    {
       try
       {
-         ClassLoader loader = CloseButton.class.getClassLoader();
+         ClassLoader loader = Thread.currentThread().getContextClassLoader();
          URL url = loader.getResource("com/u2d/ui/x_close.png");
          closeImg = ImageIO.read(url);
       }

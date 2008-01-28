@@ -84,7 +84,7 @@ public class IconPanel extends JPanel implements Scrollable
 
 		IconPanel pnl = new IconPanel();
 
-		ClassLoader loader = IconLayout.class.getClassLoader();
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		java.net.URL url = loader.getResource("images/Clinic32.gif");
 		ImageIcon icon = new ImageIcon(url);
 

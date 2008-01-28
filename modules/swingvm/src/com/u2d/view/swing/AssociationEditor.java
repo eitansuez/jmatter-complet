@@ -244,7 +244,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
    public static ImageIcon PICK_ICON, PICK_ROLLOVER;
    static
    {
-      ClassLoader loader = AssociationView2.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       java.net.URL imgURL = loader.getResource("images/fieldpick.png");
       PICK_ICON = new ImageIcon(imgURL);
       imgURL = loader.getResource("images/fieldpick-hover.png");

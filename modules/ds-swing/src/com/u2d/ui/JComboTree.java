@@ -178,7 +178,7 @@ public class JComboTree extends JPanel implements ActionListener
    public static Icon EXPAND_ICON;
    static
    {
-      ClassLoader loader = JComboTree.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       URL imgURL = loader.getResource("images/open.png");
       EXPAND_ICON = new ImageIcon(imgURL);
    }

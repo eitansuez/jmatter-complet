@@ -159,9 +159,10 @@ public class TableSortSupport
    static Icon ASC_ICON, DESC_ICON;
    static
    {
-      URL url = TableSortSupport.class.getClassLoader().getResource(asc_resource);
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      URL url = loader.getResource(asc_resource);
       ASC_ICON = new ImageIcon(url);
-      url = TableSortSupport.class.getClassLoader().getResource(desc_resource);
+      url = loader.getResource(desc_resource);
       DESC_ICON = new ImageIcon(url);
    }
 

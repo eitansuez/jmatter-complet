@@ -19,7 +19,7 @@ public class NavPanel extends JPanel implements ActionListener
    public static ImageIcon NEXT_ICON, PREV_ICON, NEXT_ROLLOVER, PREV_ROLLOVER;
    static
    {
-      ClassLoader loader = NavPanel.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       java.net.URL imgURL = loader.getResource("images/next.png");
       NEXT_ICON = new ImageIcon(imgURL);
       imgURL = loader.getResource("images/next_rollover.png");

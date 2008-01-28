@@ -19,7 +19,7 @@ class LockToggle extends JToggleButton
       ICON_UNLOCKED_ROLLOVER;
    static
    {
-      ClassLoader loader = LockedButton.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       java.net.URL imgurl = loader.getResource("images/locked-16.png");
       ICON_LOCKED = new ImageIcon(imgurl);
       imgurl = loader.getResource("images/unlocked-16.png");

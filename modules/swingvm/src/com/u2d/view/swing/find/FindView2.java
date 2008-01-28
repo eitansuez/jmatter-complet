@@ -67,7 +67,7 @@ public class FindView2 extends JSplitPane implements View
    private static Icon ICONSM, ICONLG;
    static
    {
-      ClassLoader loader = FindForm.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       java.net.URL imgURL = loader.getResource("images/find16.png");
       ICONSM = new ImageIcon(imgURL);
       imgURL = loader.getResource("images/find32.png");

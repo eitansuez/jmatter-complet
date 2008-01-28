@@ -113,7 +113,7 @@ public class ExpandableView extends JPanel implements ListEView
    static ImageIcon EXPAND_ROLLOVER, COLLAPSE_ROLLOVER;
 	static
 	{
-		ClassLoader loader = ExpandableView.class.getClassLoader();
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		java.net.URL imgURL = loader.getResource("images/expand.gif");
 		EXPAND_ICON = new ImageIcon(imgURL);
 		imgURL = loader.getResource("images/collapse.gif");

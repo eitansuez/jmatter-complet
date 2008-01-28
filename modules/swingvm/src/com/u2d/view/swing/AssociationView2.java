@@ -300,7 +300,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
    public static ImageIcon ASSOCIATE_ICON, DISSOCIATE_ICON, ASSOCIATE_ROLLOVER, DISSOCIATE_ROLLOVER;
    static
    {
-      ClassLoader loader = AssociationView2.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       java.net.URL imgURL = loader.getResource("images/list-add.png");
       ASSOCIATE_ICON = new ImageIcon(imgURL);
       imgURL = loader.getResource("images/list-add-hover.png");

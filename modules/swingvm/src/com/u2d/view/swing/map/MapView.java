@@ -195,7 +195,7 @@ public class MapView extends JLayeredPane implements PropertyChangeListener
    {
       try
       {
-         ClassLoader loader = MapView.class.getClassLoader();
+         ClassLoader loader = Thread.currentThread().getContextClassLoader();
          URL url = loader.getResource("org/jdesktop/swingx/mapviewer/resources/standard_waypoint.png");
          markerImg = ImageIO.read(url);
       }

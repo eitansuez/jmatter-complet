@@ -137,7 +137,7 @@ public class PopupButton2 extends JToggleButton implements PopupMenuListener, It
    static Icon PICK_ICON, PICK_ROLLOVER_ICON;
    static
    {
-      ClassLoader loader = JComboTree.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       URL imgURL = loader.getResource("images/open.png");
       PICK_ICON = new ImageIcon(imgURL);
       imgURL = loader.getResource("images/open_rollover.png");

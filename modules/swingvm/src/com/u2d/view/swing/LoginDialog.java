@@ -121,7 +121,7 @@ public class LoginDialog extends JXPanel
    static Icon LOGIN_ICON_SMALL, LOGIN_ICON;
    static
    {
-      ClassLoader loader = LoginDialog.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       java.net.URL imgURL = loader.getResource("images/login16.png");
       LOGIN_ICON_SMALL = new ImageIcon(imgURL);
       imgURL = loader.getResource("images/login32.png");

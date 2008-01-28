@@ -32,7 +32,7 @@ public class PropertyHelper
 	
 	private PropertyHelper(String propertyResource) throws IOException
 	{
-		ClassLoader loader = this.getClass().getClassLoader();
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		InputStream is = loader.getResourceAsStream(propertyResource);
       if (is == null)
       {

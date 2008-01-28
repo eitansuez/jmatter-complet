@@ -201,7 +201,7 @@ public class QueryView extends JPanel implements ComplexEView, Editor
    public static ImageIcon ADD_ICON, DEL_ICON, ADD_ROLLOVER, DEL_ROLLOVER;
    static
    {
-      ClassLoader loader = QueryView.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       java.net.URL imgURL = loader.getResource("images/add.png");
       ADD_ICON = new ImageIcon(imgURL);
       imgURL = loader.getResource("images/add-hover.png");

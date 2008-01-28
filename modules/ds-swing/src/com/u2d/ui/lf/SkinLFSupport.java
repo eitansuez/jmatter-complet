@@ -68,7 +68,7 @@ public class SkinLFSupport implements LookAndFeelSupport
 
       JRadioButtonMenuItem skinItem = null;
       String resourceName;
-      ClassLoader loader = getClass().getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       /*
        * problem: loading themepacks takes much time and resources and many
        * themes may never be used. furthermore delays startup time considerably.

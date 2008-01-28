@@ -177,7 +177,7 @@ public class ExpandableView2
    static ImageIcon EXPAND_ROLLOVER, COLLAPSE_ROLLOVER;
    static
    {
-      ClassLoader loader = ExpandableView2.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       java.net.URL imgURL = loader.getResource("images/navigate_open.png");
       EXPAND_ICON = new ImageIcon(imgURL);
       imgURL = loader.getResource("images/navigate_close.png");

@@ -55,7 +55,7 @@ public class NavPane extends JPanel
    public static ImageIcon NAV_LEFT, NAV_RIGHT;
    static
    {
-      ClassLoader loader = NavPane.class.getClassLoader();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       java.net.URL imgURL = loader.getResource("images/navigate_left.png");
       NAV_LEFT = new ImageIcon(imgURL);
       imgURL = loader.getResource("images/navigate_right.png");

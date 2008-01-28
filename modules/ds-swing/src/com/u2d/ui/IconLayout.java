@@ -151,7 +151,7 @@ public class IconLayout implements LayoutManager
 
 		JPanel pnl = new JPanel(new IconLayout());
 
-		ClassLoader loader = IconLayout.class.getClassLoader();
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		java.net.URL url = loader.getResource("images/Clinic32.gif");
 		ImageIcon icon = new ImageIcon(url);
 

@@ -145,7 +145,8 @@ public class FormView extends JXPanel implements ComplexEView, Editor
    {
       String clsName = ceo.getClass().getName();
       String formName = clsName.replace('.', File.separatorChar) + ".jfrm";
-      return (getClass().getClassLoader().getResource(formName) == null) ? null : formName;
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      return (loader.getResource(formName) == null) ? null : formName;
    }
    
    private JPanel layoutCustomForm(ComplexEObject ceo, String layoutFormPath)
