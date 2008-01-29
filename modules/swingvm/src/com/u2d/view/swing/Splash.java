@@ -4,6 +4,8 @@ import com.u2d.model.ComplexType;
 import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
 import com.u2d.ui.UIUtils;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.CellConstraints;
 import javax.swing.*;
 import java.net.URL;
 import java.awt.*;
@@ -40,7 +42,9 @@ public class Splash extends JWindow implements AppEventListener
    
    private void layMeOut()
    {
-      JPanel contentPane = new ContentPane();
+      FormLayout layout = new FormLayout("max(300px;pref)", "pref, pref");
+      CellConstraints cc = new CellConstraints();
+      JPanel contentPane = new ContentPane(layout);
       _messageLabel = new MessageLabel();
       
       if (_imgURL == null)
@@ -52,9 +56,9 @@ public class Splash extends JWindow implements AppEventListener
       {
          JLabel imgLabel = new JLabel(new ImageIcon(_imgURL));
          imgLabel.setOpaque(false);
-         contentPane.add(imgLabel, BorderLayout.CENTER);
+         contentPane.add(imgLabel, cc.rc(1, 1, "center, center"));
       }
-      contentPane.add(_messageLabel, BorderLayout.SOUTH);
+      contentPane.add(_messageLabel, cc.rc(2, 1, "center, left"));
       setContentPane(contentPane);
 
       timer = new Timer(500, new ActionListener()
@@ -145,9 +149,9 @@ public class Splash extends JWindow implements AppEventListener
    
    static class ContentPane extends JPanel
    {
-      public ContentPane()
+      public ContentPane(LayoutManager layout)
       {
-         super(new BorderLayout());
+         super(layout);
          setBackground(Color.white);
          setOpaque(true);
          setBorder(BorderFactory.createLineBorder(Color.BLACK));
