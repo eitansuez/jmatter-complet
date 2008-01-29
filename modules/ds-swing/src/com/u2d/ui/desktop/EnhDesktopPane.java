@@ -303,7 +303,7 @@ public class EnhDesktopPane extends MyDesktopPane
       };
       Toolkit.getDefaultToolkit().addAWTEventListener(mouseMotionListener, AWTEvent.MOUSE_MOTION_EVENT_MASK);
 
-      iframe.setLocation(eventLocation);
+      iframe.setLocation(offsetPoint(eventLocation));
       addJIF(iframe);
 
       SwingUtilities.invokeLater(new Runnable()
