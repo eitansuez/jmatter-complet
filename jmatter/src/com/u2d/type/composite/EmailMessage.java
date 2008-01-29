@@ -87,16 +87,72 @@ public class EmailMessage
    
    public String mailtoURL()
    {
-      String mailto = "mailto:" + addresses() + "?subject=" + _subject;
+      String mailto = "mailto:" + escape(addresses()) + "?subject=" + escape(_subject.stringValue());
       if (!_body.isEmpty())
       {
-         mailto += "&body=" + _body;
+         mailto += "&body=" + escape(_body.stringValue());
       }
       if (!_attachment.isEmpty())
       {
-         mailto += "&attachment=" + _attachment;
+         mailto += "&attachment=" + escape(_attachment.toString());
       }
       return mailto;
    }
+   
+   private static String escape(String text) 
+   {
+      String retValue = text;
+      retValue = replaceAll(retValue, "%", "%25");
+      retValue = replaceAll(retValue, " ", "%20");
+      retValue = replaceAll(retValue, "!", "%21");
+      retValue = replaceAll(retValue, "\"", "%22");
+      retValue = replaceAll(retValue, "#", "%23");
+      retValue = replaceAll(retValue, "$", "%24");
+      retValue = replaceAll(retValue, "&", "%26");
+      retValue = replaceAll(retValue, "'", "%27");
+      retValue = replaceAll(retValue, "*", "%2A");
+      retValue = replaceAll(retValue, "+", "%2B");
+      retValue = replaceAll(retValue, ",", "%2C");
+      retValue = replaceAll(retValue, ".", "%2E");
+      retValue = replaceAll(retValue, "/", "%2F");
+      retValue = replaceAll(retValue, ":", "%3A");
+      retValue = replaceAll(retValue, ";", "%3B");
+      retValue = replaceAll(retValue, "<", "%3C");
+      retValue = replaceAll(retValue, "=", "%3D");
+      retValue = replaceAll(retValue, ">", "%3E");
+      retValue = replaceAll(retValue, "?", "%3F");
+      retValue = replaceAll(retValue, "@", "%40");
+      retValue = replaceAll(retValue, "[", "%5B");
+      retValue = replaceAll(retValue, "\\", "%5C");
+      retValue = replaceAll(retValue, "]", "%5D");
+      retValue = replaceAll(retValue, "^", "%5E");
+      retValue = replaceAll(retValue, "_", "%5F");
+      retValue = replaceAll(retValue, "`", "%60");
+      retValue = replaceAll(retValue, "{", "%7B");
+      retValue = replaceAll(retValue, "|", "%7C");
+      retValue = replaceAll(retValue, "}", "%7D");
+      retValue = replaceAll(retValue, "~", "%7E");
+
+      retValue = replaceAll(retValue, "\r", "%0A");
+      retValue = replaceAll(retValue, "\n", "%0D");
+		
+      return retValue;
+   }
+   public static String replaceAll(String source, String toReplace, String replacement) 
+   {
+      int idx = source.lastIndexOf(toReplace);
+      if (idx != -1) 
+      {
+         StringBuffer ret = new StringBuffer(source);
+         ret.replace(idx, idx+toReplace.length(), replacement);
+         while ((idx=source.lastIndexOf(toReplace, idx-1)) != -1) 
+         {
+            ret.replace(idx, idx+toReplace.length(), replacement);
+         }
+         source = ret.toString();
+      }
+      return source;
+   }
+   
 
 }
