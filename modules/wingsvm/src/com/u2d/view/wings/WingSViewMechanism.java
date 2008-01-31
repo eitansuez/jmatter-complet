@@ -250,7 +250,10 @@ public class WingSViewMechanism implements ViewMechanism
 
    public ComplexEView getQueryView(CompositeQuery query) { return null; }
 
-    public Object getAddressViewOnMap(USAddress addr) {return null;}
+   public Object getMapView(MappableEO mappable) { return null; }
+   public Object getListViewOnMap(AbstractListEO leo) { return null; }
+
+   public Object getAddressViewOnMap(USAddress addr) {return null;}
 
    public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr) { return null; }
    public EView getRoleTypeRestrictionMgrUi(RoleTypeRestrictionMgr mgr) { return null; }
