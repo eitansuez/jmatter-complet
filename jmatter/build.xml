@@ -250,7 +250,7 @@
    </target>
 
    <target name="ultraviolet" description="Launch UltraViolet design tool" depends="bind">
-      <ant antfile="tools/ultraviolet/run.xml" inheritAll="false" />
+      <ant antfile="tools/ultraviolet/build.xml" inheritAll="false" />
    </target> 
 
    
