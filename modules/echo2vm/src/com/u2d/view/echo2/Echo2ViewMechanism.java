@@ -165,6 +165,9 @@ public class Echo2ViewMechanism implements ViewMechanism
    public ComplexEView getFolderView(ComplexEObject folder) { return null; }
    public ComplexEView getOutlookView(ComplexEObject folder) { return null; }
 
+   public Object getMapView(MappableEO mappable) { return null; } 
+   public Object getListViewOnMap(AbstractListEO leo) { return null; }
+
    public EView getTypeRestrictionMgrUi(TypeRestrictionMgr mgr) { return null; }
    public EView getRoleTypeRestrictionMgrUi(RoleTypeRestrictionMgr mgr) { return null; }
 
