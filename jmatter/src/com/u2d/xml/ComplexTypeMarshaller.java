@@ -70,7 +70,8 @@ public class ComplexTypeMarshaller
       
       try
       {
-         return ComplexType.forClass(Class.forName(clsName));
+         Class cls = Thread.currentThread().getContextClassLoader().loadClass(clsName);
+         return ComplexType.forClass(cls);
       }
       catch (ClassNotFoundException ex)
       {

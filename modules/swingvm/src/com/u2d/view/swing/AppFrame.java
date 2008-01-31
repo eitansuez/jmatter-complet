@@ -8,6 +8,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.u2d.app.*;
 import com.u2d.css4swing.style.ComponentStyle;
+import com.u2d.css4swing.CSSEngine;
 import com.u2d.element.Command;
 import com.u2d.model.ComplexType;
 import com.u2d.pattern.Filter;
@@ -20,6 +21,7 @@ import com.u2d.type.atom.URI;
 import com.u2d.type.composite.Folder;
 import com.u2d.ui.Platform;
 import com.u2d.ui.UIUtils;
+import com.u2d.ui.CardPanel;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.utils.Launcher;
@@ -38,6 +40,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.net.URL;
+import java.net.MalformedURLException;
 
 /**
  * @author Eitan Suez
@@ -47,6 +51,7 @@ public class AppFrame extends JFrame
    private AppSession _appSession;
    private Application _app;
    private JMenuBar _menuBar;
+   private ImageIcon _appIcon;
 
    private CommandsMenuView _userMenu = new CommandsMenuView(new Filter()
    {
@@ -69,40 +74,86 @@ public class AppFrame extends JFrame
    private ClassMenu _classMenu = new ClassMenu();
 
    private EODesktopPane _desktopPane;
+   private CardPanel _cardPanel;
 
-   private ClassLoader _loader = Thread.currentThread().getContextClassLoader();
-   private java.net.URL _imgURL = _loader.getResource("images/App32.png");
-   private ImageIcon _appIcon = new ImageIcon(_imgURL);
-   
-   
    public AppFrame(AppSession appSession)
    {
-      _appSession = appSession;
-      _app = _appSession.getApp();
-
-      setTitle(_app.getName());
-      setIconImage(_appIcon.getImage());
+      setupUI();
+      if (appSession != null)
+      {
+         setupApp(appSession);
+      }
+   }
+   
+   public void appLoaded(AppSession appSession)
+   {
+//      CSSEngine.getInstance().restyle((JPanel) getContentPane());
+      setupApp(appSession);
+   }
+   public void appUnloaded()
+   {
+      _appSession.removeAppEventListener(LOGIN, _loginListener);
+      _appSession.removeAppEventListener(LOGOUT, _logoutListener);
+      _appSession = null;
+      _cardPanel.show("app-off");
+   }
+   private void setupUI()
+   {
+      setTitle("JMatter");
+      setupAppIcon();
 
       JPanel contentPane = (JPanel) getContentPane();
+
       _centerPane = new JPanel(new BorderLayout());
 
+      _cardPanel = new CardPanel();
+      _cardPanel.add(new AppLoaderPanel(), "app-off");
+      _cardPanel.add(_centerPane, "app-on");
+      _cardPanel.show("app-off");
+      
       _desktopPane = new EODesktopPane();
-      _desktopPane.getContextMenu().addSeparator();
-      _desktopPane.getContextMenu().add(new QuitAction());
+      // TODO: re-enable these two lines:
+//      _desktopPane.getContextMenu().addSeparator();
+//      _desktopPane.getContextMenu().add(new QuitAction());
       _desktopPane.setEnabled(false);
       _centerPane.add(_desktopPane, BorderLayout.CENTER);
-      setupMenu();
-
-      contentPane.add(_centerPane, BorderLayout.CENTER);
-
+      contentPane.add(_cardPanel, BorderLayout.CENTER);
+      
       setPreferredSize(new Dimension(800, 600));
       setSize(getPreferredSize());
       
       UIUtils.centerOnScreen(this);
       setupQuitHooks();
-      
-      setupInstructionView();
+   }
+   
+   private void setupApp(AppSession appSession)
+   {
+      _appSession = appSession;
+      _app = _appSession.getApp();
+
+      setTitle(_app.getName());
+      setupAppIcon();
+
       listenForUserEvents();
+      setupInstructionView();  // TODO:  support multiple app loadings (unbind/bind instrview)
+
+      // NEEDS WORK
+      setupMenu();  // TODO:  needs work to update itself when app is loaded
+      // in general:  create a JMatterApp application object and just bind the ui
+      // to a different app object.
+      
+      _cardPanel.show("app-on");
+   }
+   
+   private void setupAppIcon()
+   {
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      java.net.URL imgURL = loader.getResource("images/App32.png");
+      if (imgURL != null)
+      {
+         _appIcon = new ImageIcon(imgURL);
+         setIconImage(_appIcon.getImage());
+      }
    }
    
    private void setupInstructionView() {
@@ -213,9 +264,10 @@ public class AppFrame extends JFrame
       return String.format("%s-%s", type.name(), cmd.name());
    }
 
+   AppEventListener _loginListener, _logoutListener;
    private void listenForUserEvents()
    {
-      _appSession.addAppEventListener(LOGIN, new AppEventListener()
+      _loginListener = new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {
@@ -231,8 +283,10 @@ public class AppFrame extends JFrame
                }
             });
          }
-      });
-      _appSession.addAppEventListener(LOGOUT, new AppEventListener()
+      };
+      _appSession.addAppEventListener(LOGIN, _loginListener);
+      
+      _logoutListener = new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {
@@ -247,7 +301,7 @@ public class AppFrame extends JFrame
                   detachKeystrokes();
                   _desktopPane.setEnabled(false); // disable context menu
 
-                  new Thread()
+                  AppLoader.getInstance().newThread(new Runnable()
                   {
                      public void run()
                      {
@@ -257,11 +311,12 @@ public class AppFrame extends JFrame
                            ((HBMSingleSession) pmech).newSession();
                         }
                      }
-                  }.start();
+                  }).start();
                }
             });
          }
-      });
+      };
+      _appSession.addAppEventListener(LOGOUT, _logoutListener);
    }
 
    private void setupMenu()
@@ -536,7 +591,7 @@ public class AppFrame extends JFrame
 
    private void quit()
    {
-      if (_appSession.getUser() != null) _appSession.onLogout();
+      if (_appSession != null && _appSession.getUser() != null) _appSession.onLogout();
       System.exit(0);
    }
 
@@ -649,6 +704,41 @@ public class AppFrame extends JFrame
          catch (InstantiationException ex) { ex.printStackTrace(); }
          catch (IllegalAccessException ex) { ex.printStackTrace(); }
       }
+   }
+   
+   
+   class AppLoaderPanel extends JPanel
+   {
+      JTextField tf;
+      
+      public AppLoaderPanel()
+      {
+         setLayout(new FlowLayout(FlowLayout.CENTER));
+         JLabel lbl = new JLabel("App URL:");
+         tf = new JTextField("", 40);
+         lbl.setLabelFor(tf);
+         JButton loadBtn = new JButton("Load App");
+         loadBtn.addActionListener(new ActionListener()
+         {
+            public void actionPerformed(ActionEvent e)
+            {
+               try
+               {
+                  URL url = new URL(tf.getText());
+                  AppLoader.getInstance().loadApplication(url);
+               }
+               catch (MalformedURLException ex)
+               {
+                  ex.printStackTrace();
+               }
+            }
+         });
+            
+         add(lbl);
+         add(tf);
+         add(loadBtn);
+      }
+      
    }
    
 }

@@ -17,7 +17,6 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.datatransfer.DataFlavor;
@@ -27,7 +26,6 @@ import com.u2d.element.*;
 import com.u2d.field.*;
 import com.u2d.find.CompositeQuery;
 import com.u2d.find.QueryCommandAdapter;
-import com.u2d.find.SimpleQuery;
 import com.u2d.list.*;
 import com.u2d.pattern.*;
 import com.u2d.persist.*;
@@ -36,8 +34,6 @@ import com.u2d.reflection.*;
 import com.u2d.type.Choice;
 import com.u2d.type.atom.*;
 import com.u2d.pubsub.AppEventType;
-import com.u2d.calendar.CalEvent;
-import com.u2d.calendar.CalEventList;
 
 /**
  * @author Eitan Suez
@@ -46,18 +42,15 @@ public class ComplexType extends AbstractComplexEObject
                          implements FieldParent, Localized
 {
    private static PropertyResourceBundle localeBundle = null;
+   private static Properties metadata = null;
+
    static
    {
-      try
-      {
-         localeBundle = (PropertyResourceBundle)
-               ResourceBundle.getBundle("locale-metadata", Locale.getDefault());
-      }
-      catch (MissingResourceException ex) {}
+      loadMetadataProperties();
+      loadLocaleBundle();
    }
    
-   private static Properties metadata = null;
-   static
+   public static void loadMetadataProperties()
    {
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
       InputStream stream = loader.getResourceAsStream("model-metadata.properties");
@@ -78,6 +71,16 @@ public class ComplexType extends AbstractComplexEObject
             ex.printStackTrace();
          }
       }
+   }
+   public static void loadLocaleBundle()
+   {
+      try
+      {
+         ClassLoader loader = Thread.currentThread().getContextClassLoader();
+         localeBundle = (PropertyResourceBundle)
+               ResourceBundle.getBundle("locale-metadata", Locale.getDefault(), loader);
+      }
+      catch (MissingResourceException ex) {}
    }
    
    

@@ -1,12 +1,6 @@
 package com.u2d.view.swing;
 
-import com.u2d.app.AppSession;
-import com.u2d.app.Application;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import static com.u2d.pubsub.AppEventType.*;
+import java.net.URL;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,22 +17,23 @@ public class EntryPoint
 
       try
       {
-         Logger.getLogger("org.springframework").setLevel(Level.WARNING);
-         ApplicationContext context = 
-               new ClassPathXmlApplicationContext("applicationContext.xml");
+         ClassLoader loader = Thread.currentThread().getContextClassLoader();
+         URL applicationContext = loader.getResource("applicationContext.xml");
       
-         Application app = (Application) context.getBean("application");
-         app.addAppEventListener(MESSAGE, splash);
-      
-         app.seedDatabase();
-      
-         AppSession session = (AppSession) context.getBean("app-session");
-         session.launch();
+         if (applicationContext == null)
+         {
+            SwingViewMechanism.getInstance().launch();
+         }
+         else
+         {
+            AppLoader.getInstance().launchApp(splash);
+         }
       }
       finally
       {
          splash.dispose();
       }
+
    }
 
 }

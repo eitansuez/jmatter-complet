@@ -49,20 +49,21 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.InvocationTargetException;
 
-//import spin.over.CheckingRepaintManager;
-
 /**
  * @author Eitan Suez
  */
 public class SwingViewMechanism implements ViewMechanism
 {
+   private static SwingViewMechanism vmech = new SwingViewMechanism();
+   public static SwingViewMechanism getInstance() { return vmech; }
+   
    private AppFrame _appFrame;
    private LoginDialog _loginDialog;
    private ReportingInterface _reportingInterface;
 
    private AppSession _appSession;
 
-   public SwingViewMechanism()
+   private SwingViewMechanism()
    {
       setupAntiAliasing();
       // Checks for EDT violations..
@@ -70,7 +71,7 @@ public class SwingViewMechanism implements ViewMechanism
       CSSEngine.initialize();
       Toolkit.getDefaultToolkit().addAWTEventListener(_inputTracker, AWTEvent.MOUSE_EVENT_MASK);
    }
-   
+
    InputTracker _inputTracker = new InputTracker();
    boolean _isShiftDown = false;
    
@@ -87,12 +88,32 @@ public class SwingViewMechanism implements ViewMechanism
 
    public static void setupAntiAliasing()
    {
-      String antialising = "swing.aatext";
-      if (null == System.getProperty(antialising))
-         System.setProperty(antialising, "true");
+      String antialias_text = "swing.aatext";
+      if (null == System.getProperty(antialias_text))
+         System.setProperty(antialias_text, "true");
    }
-   
-   public void setAppSession(AppSession appSession) { _appSession = appSession; }
+
+   public void setAppSession(AppSession appSession)
+   {
+      _appSession = appSession;
+      
+      if (_appSession.getApp() == null) return;
+      
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            if (_appSession == null)
+            {
+               _appFrame.appUnloaded();
+            }
+            else
+            {
+               _appFrame.appLoaded(_appSession);
+            }
+         }
+      });
+   }
 
    private boolean labelEditorLayoutHorizontal = true;
    public void setLabelEditorLayoutHorizontal(boolean value)
@@ -496,13 +517,13 @@ public class SwingViewMechanism implements ViewMechanism
       // it's time to bring out the aop..[tbd]
       if (ceo.isNullState())
       {
-         Thread t = new Thread()
+         Thread t = AppLoader.getInstance().newThread(new Runnable()
          {
             public void run()
             {
                ceo.restoreState();
             }
-         };
+         });
          t.start();
          try  // must wait for state update before producing the
                // view so the right commands show up in the ui
@@ -957,22 +978,11 @@ public class SwingViewMechanism implements ViewMechanism
       }
    }
    
-   public static SwingViewMechanism getInstance()
-   {
-      ViewMechanism vmech = Context.getInstance().getViewMechanism();
-      if (! (vmech instanceof SwingViewMechanism) )
-      {
-         throw new RuntimeException("Application is not configured to run with Swing View Mechanism");
-      }
-      return (SwingViewMechanism) vmech;
-   }
-   
-   
    // Utility:
    public static void invokeSwingAction(final SwingAction action)
    {
       SwingViewMechanism.getInstance().setWaitCursor();
-      new Thread()
+      AppLoader.getInstance().newThread(new Runnable()
       {
         public void run()
         {
@@ -992,7 +1002,7 @@ public class SwingViewMechanism implements ViewMechanism
               });
            }
         }
-      }.start();
+      }).start();
    }
 
 }

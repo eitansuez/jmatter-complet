@@ -238,7 +238,7 @@ public class ParamListView extends JPanel implements View
                return;
             }
             
-            new Thread()
+            AppLoader.getInstance().newThread(new Runnable()
             {
                public void run()
                {
@@ -252,7 +252,7 @@ public class ParamListView extends JPanel implements View
                      ex.printStackTrace();
                   }
                }
-            }.start();
+            }).start();
                
             jif.dispose();
                

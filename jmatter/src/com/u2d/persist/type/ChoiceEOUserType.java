@@ -33,7 +33,7 @@ public class ChoiceEOUserType implements CompositeUserType
       ChoiceEO eo = null;
       try
       {
-         Class clazz = Class.forName(classname);
+         Class clazz = Thread.currentThread().getContextClassLoader().loadClass(classname);
          eo = (ChoiceEO) clazz.newInstance();
          eo.setValue(code);
       }

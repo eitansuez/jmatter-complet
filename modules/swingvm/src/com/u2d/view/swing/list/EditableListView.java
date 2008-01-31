@@ -4,6 +4,7 @@ import com.u2d.view.ListEView;
 import com.u2d.view.CompositeView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.CommandAdapter;
+import com.u2d.view.swing.AppLoader;
 import com.u2d.view.swing.dnd.DropTargetHandler;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
@@ -97,13 +98,13 @@ public class EditableListView extends JPanel
       {
          public void actionPerformed(ActionEvent e)
          {
-            new Thread()
+            AppLoader.getInstance().newThread(new Runnable()
             {
                public void run()
                {
                   dissociateItem();
                }
-            }.start();
+            }).start();
          }
       });
 

@@ -39,7 +39,7 @@ public class AtomicUserTypeDelegate implements UserType
       AtomicEObject aeo = null;
       try
       {
-         Class clazz = Class.forName(classname);
+         Class clazz = Thread.currentThread().getContextClassLoader().loadClass(classname);
          // 1. instantiate it:
          aeo = (AtomicEObject) clazz.newInstance();
          

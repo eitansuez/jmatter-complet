@@ -5,6 +5,8 @@ import com.u2d.calendar.CalEvent;
 import com.u2d.calendar.EventMaker;
 import com.u2d.element.Field;
 import com.u2d.model.ComplexType;
+import com.u2d.view.swing.AppLoader;
+
 import javax.swing.*;
 import java.util.Iterator;
 
@@ -41,7 +43,7 @@ public class CalendarDropHandler implements DropListener
          {
             field.set(calEvent, evt.getTransferObject());
 
-            new Thread()
+            AppLoader.getInstance().newThread(new Runnable()
             {
                public void run()
                {
@@ -54,7 +56,7 @@ public class CalendarDropHandler implements DropListener
                      }
                   });
                }
-            }.start();
+            }).start();
 
             return;
          }

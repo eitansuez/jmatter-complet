@@ -67,9 +67,6 @@ public class Application implements AppEventNotifier
 
       // set repaintmanager for debugging EDT issues:
 //      RepaintManager.setCurrentManager(new spin.over.CheckingRepaintManager());
-
-      String launchingMsg = String.format("Launching %s", _name);
-      message(launchingMsg);
    }
    
    private static final String TEMPLATE_CLASSBAR = "Template Class Bar";
@@ -119,7 +116,8 @@ public class Application implements AppEventNotifier
          IBindingFactory bfact = BindingDirectory.getFactory(Folder.class);
          IUnmarshallingContext context = bfact.createUnmarshallingContext();
 
-         InputStream stream = getClass().getResourceAsStream("/class-list.xml");
+         ClassLoader loader = Thread.currentThread().getContextClassLoader();
+         InputStream stream = loader.getResourceAsStream("class-list.xml");
          Folder templateFolder = (Folder) context.unmarshalDocument(stream, null);
          templateFolder.getName().setValue(TEMPLATE_CLASSBAR);
          return templateFolder;
@@ -133,7 +131,7 @@ public class Application implements AppEventNotifier
       return null;
    }
 
-   private void message(String msg)
+   public void message(String msg)
    {
       Tracing.tracer().info(msg);
       fireAppEventNotification(MESSAGE, msg);

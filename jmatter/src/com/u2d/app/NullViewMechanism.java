@@ -31,6 +31,8 @@ import com.u2d.interaction.Instruction;
 public class NullViewMechanism implements ViewMechanism
 {
    public void launch() { }
+   public void setAppSession(AppSession session) { }
+
    public void showLogin() { } 
    public void dismissLogin() { }
    public void loginInvalid() { } 

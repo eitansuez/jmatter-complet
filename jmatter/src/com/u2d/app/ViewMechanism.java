@@ -27,6 +27,7 @@ import com.u2d.interaction.Instruction;
 public interface ViewMechanism
 {
    public void launch();
+   public void setAppSession(AppSession session);
 
    // login-related
    public void showLogin();

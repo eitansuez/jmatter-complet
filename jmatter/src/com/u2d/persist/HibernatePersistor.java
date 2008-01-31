@@ -51,11 +51,14 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       // reduce verboseness of hibernate logger..
       Logger.getLogger("org.hibernate").setLevel(Level.WARNING);
       _cfg = new Configuration();
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
       
       for (Class cls : _classes)
       {
          _tracer.fine("Adding class "+cls.getName()+" to hibernate configuration");
-         _cfg.addClass(cls);
+         String resource = cls.getName().replace( '.', '/' ) + ".hbm.xml";
+         _cfg.addResource(resource, loader);
+//         _cfg.addClass(cls);
       }
       _cfg.addClass(ComplexType.class);
    }

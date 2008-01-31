@@ -12,6 +12,7 @@ import com.u2d.view.*;
 import com.u2d.view.swing.dnd.*;
 import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.view.swing.FlexiFrame;
+import com.u2d.view.swing.AppLoader;
 import com.u2d.app.*;
 import com.u2d.list.PlainListEObject;
 import com.u2d.model.ComplexEObject;
@@ -76,7 +77,7 @@ public class HBMPracticeTool extends JFrame
                {
             public void actionPerformed(ActionEvent evt)
             {
-               new Thread()
+               AppLoader.getInstance().newThread(new Runnable()
                {
                   public void run()
                   {
@@ -129,7 +130,7 @@ public class HBMPracticeTool extends JFrame
                         }
                      }
                   }
-               }.start();
+               }).start();
 
             }
                });

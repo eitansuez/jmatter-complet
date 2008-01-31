@@ -5,6 +5,7 @@ import com.u2d.view.ListEView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.swing.FlexiFrame;
+import com.u2d.view.swing.AppLoader;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexType;
@@ -117,7 +118,7 @@ public class ListEOPanel  extends JPanel
    {
       final Class listItemType = (Class) dec.readObject();
       final int pageNum = (Integer) dec.readObject();
-      new Thread()
+      AppLoader.getInstance().newThread(new Runnable()
       {
          public void run()
          {
@@ -131,6 +132,6 @@ public class ListEOPanel  extends JPanel
                   }
                });
          }
-      }.start();
+      }).start();
    }
 }

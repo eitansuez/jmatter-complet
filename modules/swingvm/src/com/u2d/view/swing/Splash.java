@@ -4,11 +4,11 @@ import com.u2d.model.ComplexType;
 import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
 import com.u2d.ui.UIUtils;
+import com.u2d.css4swing.style.ComponentStyle;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import javax.swing.*;
 import java.net.URL;
-import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -21,7 +21,7 @@ import java.awt.event.*;
  */
 public class Splash extends JWindow implements AppEventListener
 {
-   private static final String WAIT_MSG =  ComplexType.localeLookupStatic("launching_application");
+   private static String WAIT_MSG = ComplexType.localeLookupStatic("launching_application");
 
    private Timer timer;
    private StringBuffer dots = new StringBuffer(".    ");
@@ -44,8 +44,13 @@ public class Splash extends JWindow implements AppEventListener
    {
       FormLayout layout = new FormLayout("max(300px;pref)", "pref, pref");
       CellConstraints cc = new CellConstraints();
-      JPanel contentPane = new ContentPane(layout);
-      _messageLabel = new MessageLabel();
+      JPanel contentPane = new JPanel(layout);
+      ComponentStyle.addClass(contentPane, "splash-pane");
+      _messageLabel = new JLabel();
+      ComponentStyle.addClass(_messageLabel, "message-label");
+      if (WAIT_MSG == null) WAIT_MSG = "Launching Application";
+      _messageLabel.setText(WAIT_MSG);
+      
       
       if (_imgURL == null)
       {
@@ -144,29 +149,6 @@ public class Splash extends JWindow implements AppEventListener
             Splash.super.dispose();
          }
       });
-   }
-   
-   
-   static class ContentPane extends JPanel
-   {
-      public ContentPane(LayoutManager layout)
-      {
-         super(layout);
-         setBackground(Color.white);
-         setOpaque(true);
-         setBorder(BorderFactory.createLineBorder(Color.BLACK));
-      }
-   }
-   static class MessageLabel extends JLabel
-   {
-      Insets _insets = new Insets(15, 15, 15, 15);
-      public MessageLabel()
-      {
-         super(WAIT_MSG);
-         setFont(new Font("SansSerif", Font.ITALIC, 12));
-         setOpaque(false);
-      }
-      public Insets getInsets(Insets insets) { return _insets; }
    }
    
 }

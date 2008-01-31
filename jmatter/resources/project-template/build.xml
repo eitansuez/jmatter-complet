@@ -116,6 +116,9 @@
     <!-- to test localization, uncomment this..
      <sysproperty key="user.language" value="fr" />
       -->
+    <!-- to customize look and feel, uncomment this..
+     <jvmarg line="-Dswing.defaultlaf=com.jgoodies.looks.plastic.PlasticXPLookAndFeel" />
+      -->
    </java>
  </target>
 

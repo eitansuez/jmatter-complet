@@ -341,7 +341,7 @@ public class FormView extends JXPanel implements ComplexEView, Editor
             {
                // this sucks but it works (turns out to be known bug, posted
                //  against java1.4.2)
-               new Thread()
+               AppLoader.getInstance().newThread(new Runnable()
                {
                   public void run()
                   {
@@ -353,7 +353,7 @@ public class FormView extends JXPanel implements ComplexEView, Editor
                         }
                      });
                   }
-               }.start();
+               }).start();
             }
          });
       }

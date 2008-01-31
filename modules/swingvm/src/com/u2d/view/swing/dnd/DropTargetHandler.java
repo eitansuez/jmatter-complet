@@ -9,6 +9,7 @@ import javax.swing.*;
 import com.u2d.field.Association;
 import com.u2d.model.*;
 import com.u2d.view.EView;
+import com.u2d.view.swing.AppLoader;
 import com.u2d.app.Tracing;
 import com.u2d.list.RelationalList;
 
@@ -53,7 +54,7 @@ public class DropTargetHandler extends TransferHandler
             if (ceo.isTransientState())
                return false;
 
-            new Thread()
+            AppLoader.getInstance().newThread(new Runnable()
             {
                public void run()
                {
@@ -71,7 +72,7 @@ public class DropTargetHandler extends TransferHandler
                      System.out.println("target type: "+target.getClass().getName());
                   }
                }
-            }.start();
+            }).start();
             return true;
          }
          catch (UnsupportedFlavorException ufe)

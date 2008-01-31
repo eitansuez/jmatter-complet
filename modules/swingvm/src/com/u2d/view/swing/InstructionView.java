@@ -52,15 +52,16 @@ public class InstructionView extends JPanel
    
    private void configureTimer()
    {
-      _dismissTimer = new Timer(3000, new ActionListener() {
+      _dismissTimer = new Timer(5000, new ActionListener() {
          public void actionPerformed(ActionEvent e)
          {
-            new Thread() {
+            AppLoader.getInstance().newThread(new Runnable()
+            {
                public void run()
                {
                   _instruction.deactivate();
                }
-            }.start();
+            }).start();
          }
       });
       _dismissTimer.setRepeats(false);

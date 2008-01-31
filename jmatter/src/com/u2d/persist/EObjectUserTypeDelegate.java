@@ -44,7 +44,7 @@ public class EObjectUserTypeDelegate implements UserType
       EObject eo = null;
       try
       {
-         Class clazz = Class.forName(classname);
+         Class clazz = Thread.currentThread().getContextClassLoader().loadClass(classname);
          if (AtomicEObject.class.isAssignableFrom(clazz))
          {
             // 1. instantiate it:

@@ -319,7 +319,8 @@ public abstract class Command extends Member
       try
       {
          String[] parts = path.split("#");  // split on fullpath's # separator
-         Class cls = Class.forName(parts[0]);
+         ClassLoader loader = Thread.currentThread().getContextClassLoader();
+         Class cls = loader.loadClass(parts[0]);
          ComplexType type = ComplexType.forClass(cls);
          String commandName = parts[1];
          
@@ -327,7 +328,7 @@ public abstract class Command extends Member
          if (parts.length == 3)
          {
             String stateClassName = parts[2];
-            Class stateClass = Class.forName(stateClassName);
+            Class stateClass = loader.loadClass(stateClassName);
             cmd = type.command(commandName, stateClass);
          }
          else

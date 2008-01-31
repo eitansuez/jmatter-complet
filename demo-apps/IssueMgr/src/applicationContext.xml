@@ -13,7 +13,8 @@
       <property name="viewMechanism" ref="view-mechanism" />
    </bean>
    
-   <bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism">
+   <bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism"
+         factory-method="getInstance">
       <property name="appSession" ref="app-session" />
    </bean>
    

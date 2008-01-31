@@ -340,11 +340,12 @@ public abstract class Field extends Member
    public static Field forPath(String fieldPath)
    {
       if (fieldPath == null) return null;
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
       try
       {
          String[] parts = fieldPath.split("#");  // split on fullpath's # separator
-         Class cls = Class.forName(parts[0]);
+         Class cls = loader.loadClass(parts[0]);
          ComplexType type = ComplexType.forClass(cls);
          parts = parts[1].split("\\."); // split the fields
          Field field = type.field(parts[0]);

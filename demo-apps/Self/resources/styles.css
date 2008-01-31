@@ -140,4 +140,16 @@ jmaps|MappableView
 {
   font-size: 16pt;
 }
+.message-label
+{
+  padding: 15px;
+  font-style:  italic;
+  opacity: 0.0;
+}
+.splash-pane
+{
+  background-color: white;
+  opacity: 0.0;
+  border: 1px solid black;   
+}
 

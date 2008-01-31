@@ -70,7 +70,6 @@ public class SimpleAssociationView extends JXPanel
    
    private void setupTextfield()
    {
-      //_matcherField = new JTextField(12);
       _matcherField = new InvisibleTextField();
       _matcherField.getDocument().addDocumentListener(new DocumentListener() {
          public void insertUpdate(DocumentEvent e) { updateAssociation(); }

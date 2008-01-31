@@ -38,7 +38,8 @@ public class ReportingInterface
    {
       try
       {
-         java.net.URL layoutURL = getClass().getResource(reportable.reportName());
+         ClassLoader loader = Thread.currentThread().getContextClassLoader();
+         java.net.URL layoutURL = loader.getResource(reportable.reportName());
          JFreeReport report = null;
          if (layoutURL == null)
          {

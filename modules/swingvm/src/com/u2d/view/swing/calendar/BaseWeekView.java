@@ -6,6 +6,7 @@ import com.u2d.type.atom.TimeInterval;
 import com.u2d.calendar.DateTimeBounds;
 import com.u2d.calendar.CalEvent;
 import com.u2d.view.swing.calendar.simple.TimeSheet;
+import com.u2d.view.swing.AppLoader;
 import com.u2d.model.ComplexEObject;
 
 import javax.swing.event.ChangeListener;
@@ -255,7 +256,7 @@ public abstract class BaseWeekView
                   calEvent.timeSpan(moved);  // update time span for cal event
                   calEvent.fireStateChanged();
 
-                  new Thread()
+                  AppLoader.getInstance().newThread(new Runnable()
                   {
                      public void run()
                      {
@@ -268,7 +269,7 @@ public abstract class BaseWeekView
                            }
                         });
                      }
-                  }.start();
+                  }).start();
 
                }
                else if (transferObject instanceof ComplexEObject)

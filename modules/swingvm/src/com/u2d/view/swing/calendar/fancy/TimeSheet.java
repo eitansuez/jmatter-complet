@@ -13,6 +13,7 @@ import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
 import com.u2d.view.swing.CommandAdapter;
+import com.u2d.view.swing.AppLoader;
 import com.u2d.view.swing.calendar.*;
 import com.u2d.view.EView;
 import com.u2d.ui.CustomTabbedPane;
@@ -93,9 +94,12 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
       
       getWeekView().getSpan().addChangeListener(this);
       
-      new Thread() { public void run() {
-         stateChanged(null);
-         } }.start();
+      AppLoader.getInstance().newThread(new Runnable()
+      {
+         public void run() {
+            stateChanged(null);
+         }
+      }).start();
    }
    
    public TimeSheet(EventManager mgr, DateTimeBounds bounds, Component c)

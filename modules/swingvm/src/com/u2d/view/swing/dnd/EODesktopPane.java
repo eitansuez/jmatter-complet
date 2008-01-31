@@ -9,6 +9,7 @@ import com.u2d.field.Association;
 import com.u2d.field.ListItemAssociation;
 import com.u2d.field.Dissociable;
 import com.u2d.app.Tracing;
+import com.u2d.view.swing.AppLoader;
 
 /**
  * An EODesktopPane is currently defined as a desktop pane that can
@@ -53,13 +54,13 @@ public class EODesktopPane extends com.u2d.ui.desktop.EnhDesktopPane
          {
             final Dissociable d = (Dissociable) t.getTransferData(flavor);
                
-            new Thread()
+            AppLoader.getInstance().newThread(new Runnable()
             {
                public void run()
                {
                   d.dissociate();
                }
-            }.start();
+            }).start();
             return true;
          }
          catch (UnsupportedFlavorException ufe)

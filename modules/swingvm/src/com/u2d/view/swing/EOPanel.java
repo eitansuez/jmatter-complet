@@ -212,7 +212,7 @@ public class EOPanel extends JPanel
    {
       final Class ceoType = (Class) dec.readObject();
       final Long id = (Long) dec.readObject();
-      new Thread()
+      AppLoader.getInstance().newThread(new Runnable()
       {
          public void run()
          {
@@ -226,6 +226,6 @@ public class EOPanel extends JPanel
                }
             });
          }
-      }.start();
+      }).start();
    }
 }

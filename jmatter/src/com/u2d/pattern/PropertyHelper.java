@@ -48,12 +48,14 @@ public class PropertyHelper
 		String classListStr = (String) _propMap.get(propertyName);
 		String[] classNames = classListStr.split(",");
       
-		for (int i=0; i<classNames.length; i++)
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      
+      for (int i=0; i<classNames.length; i++)
 		{
 			if ("".equals(classNames[i].trim())) continue;
 			try
 			{
-				Class cls = Class.forName(classNames[i]);
+				Class cls = loader.loadClass(classNames[i]);
 				masher.mash(cls);
 			}
 			catch (ClassNotFoundException ex)
@@ -85,12 +87,14 @@ public class PropertyHelper
 	
 	public Class getClassValue(String propertyName)
 	{
-		String clsName = (String) _propMap.get(propertyName);
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      
+      String clsName = (String) _propMap.get(propertyName);
 		if (clsName == null || "".equals(clsName.trim()))
 			return null;
 		try
 		{
-         return Class.forName(clsName);
+         return loader.loadClass(clsName);
 		}
 		catch (ClassNotFoundException ex)
 		{

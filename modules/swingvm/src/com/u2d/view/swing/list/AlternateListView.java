@@ -24,6 +24,7 @@ import com.u2d.view.*;
 import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.view.swing.SwingAction;
+import com.u2d.view.swing.AppLoader;
 import com.u2d.element.Command;
 
 /**
@@ -84,7 +85,7 @@ public class AlternateListView extends JPanel
    public void addNotify()
    {
       super.addNotify();
-      new Thread()
+      AppLoader.getInstance().newThread(new Runnable()
       {
          public void run()
          {
@@ -96,7 +97,7 @@ public class AlternateListView extends JPanel
                }
             });
          }
-      }.start();
+      }).start();
    }
    
    private String firstViewName() { return _viewNames[0]; }

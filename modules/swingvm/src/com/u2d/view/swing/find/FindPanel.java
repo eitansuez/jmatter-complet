@@ -7,6 +7,8 @@ import com.u2d.ui.DefaultButton;
 import com.u2d.ui.Platform;
 import com.u2d.find.QueryReceiver;
 import com.u2d.model.ComplexType;
+import com.u2d.view.swing.AppLoader;
+
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -91,13 +93,13 @@ public class FindPanel extends JPanel
    
    private void updateResults()
    {
-      new Thread()
+      AppLoader.getInstance().newThread(new Runnable()
       {
          public void run()
          {
             _queryReceiver.setQuery(_filter.getQuery());
          }
-      }.start();
+      }).start();
    }
    
    ChangeListener _changeListener = new ChangeListener()

@@ -70,12 +70,11 @@
            listfiles="false"
            target="1.5"
            destdir="${build.classes.dir}">
-      <compilerarg line="-Xmaxwarns 0" />
       <src path="${src.dir}" />
       <src path="${build.gen.dir}" />
     </javac>
     <copy todir="${build.classes.dir}">
-      <fileset dir="${resource.dir}" includes="images/*.gif,images/*.png" />
+      <fileset dir="${resource.dir}" includes="styles.css,images/*.gif,images/*.png,images/*.jpg" />
       <fileset dir="${resource.dir}" includes="jfreereport.properties" />
       <fileset dir="${resource.dir}/data" includes="*.xml" />
       <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- wizard fsm -->
@@ -108,6 +107,16 @@
     <copy file="../modules/${module.name}/dist/${module.name}.jar" todir="${runtime.lib.dir}" />
   </target>
    
+
+ <target name="run" description="run jmatter application browser" depends="compile">
+   <java classname="com.u2d.view.swing.EntryPoint" classpathref="class.path"
+         fork="true" maxmemory="192m">
+    <!-- to test localization, uncomment this..
+     <sysproperty key="user.language" value="it" />
+      -->
+   </java>
+ </target>
+
  
   <target name="just-jar" description="just jar jmatter framework (assume compiled)">
     <jar basedir="${build.classes.dir}" file="${dist.dir}/${ant.project.name}.jar">

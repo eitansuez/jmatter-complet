@@ -21,6 +21,7 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.view.swing.calendar.RowHeaderCellRenderer;
 import com.u2d.view.swing.calendar.CalDropEvent;
 import com.u2d.view.swing.calendar.BaseTimeIntervalView;
+import com.u2d.view.swing.AppLoader;
 
 /**
  * @author Eitan Suez
@@ -189,7 +190,7 @@ public class DayView extends BaseTimeIntervalView
 
                   calEvent.fireStateChanged();
 
-                  new Thread()
+                  AppLoader.getInstance().newThread(new Runnable()
                   {
                      public void run()
                      {
@@ -202,7 +203,7 @@ public class DayView extends BaseTimeIntervalView
                            }
                         });
                      }
-                  }.start();
+                  }).start();
                }
                else if (transferObject instanceof ComplexEObject)
                {

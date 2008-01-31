@@ -3,6 +3,7 @@ package com.u2d.view.swing.list;
 import com.u2d.view.ListEView;
 import com.u2d.view.CompositeView;
 import com.u2d.view.EView;
+import com.u2d.view.swing.AppLoader;
 import com.u2d.list.CompositeList;
 import com.u2d.model.EObject;
 import com.u2d.ui.IconButton;
@@ -80,7 +81,7 @@ public class CompositeTableView extends JPanel
       {
          public void actionPerformed(ActionEvent e)
          {
-            new Thread()
+            AppLoader.getInstance().newThread(new Runnable()
             {
                public void run()
                {
@@ -93,7 +94,7 @@ public class CompositeTableView extends JPanel
                      }
                   });
                }
-            }.start();
+            }).start();
          }
       });
       stateChanged(null);  // set enabled = fn(editable)
@@ -109,7 +110,7 @@ public class CompositeTableView extends JPanel
       {
          public void actionPerformed(ActionEvent e)
          {
-            new Thread()
+            AppLoader.getInstance().newThread(new Runnable()
             {
                public void run()
                {
@@ -122,7 +123,7 @@ public class CompositeTableView extends JPanel
                      }
                   });
                }
-            }.start();
+            }).start();
          }
       });
 

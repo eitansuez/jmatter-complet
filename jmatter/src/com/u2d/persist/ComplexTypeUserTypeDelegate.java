@@ -43,7 +43,7 @@ public class ComplexTypeUserTypeDelegate implements UserType
       
       try
       {
-         Class targetClass = Class.forName(className);
+         Class targetClass = Thread.currentThread().getContextClassLoader().loadClass(className);
          return ComplexType.forClass(targetClass);
       }
       catch (ClassNotFoundException ex)

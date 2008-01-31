@@ -109,9 +109,11 @@ public class LoginDialog extends JXPanel
          {
             final String username = _userNameFld.getText();
             final String pwd = new String(_pwdField.getPassword());
-            new Thread() { public void run() {
-               _authMgr.onLogin(username, pwd);
-            } }.start();
+            AppLoader.getInstance().newThread(new Runnable() {
+               public void run() {
+                  _authMgr.onLogin(username, pwd);
+               }
+            }).start();
          }
       });
       
