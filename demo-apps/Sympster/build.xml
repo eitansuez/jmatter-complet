@@ -231,7 +231,7 @@
    
    <target name="find-drvname">
       <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
-         classpathref="class.path" />
+         classpathref="libtools.path" />
       <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
       <echo message="jdbcdrivername is ${jdbcdrivername}" />
    </target>
