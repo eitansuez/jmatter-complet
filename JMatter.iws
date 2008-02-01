@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project relativePaths="false" version="4">
+  <component name="ChangeListManager">
+    <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/src/com/u2d/css4swing/selector/SimpleSelector.java" afterPath="/home/eitan/work/css4swing/src/com/u2d/css4swing/selector/SimpleSelector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jmatter/Core.iml" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/src/com/u2d/css4swing/style/CSSPainter.java" afterPath="/home/eitan/work/css4swing/src/com/u2d/css4swing/style/CSSPainter.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/jmatter/JMatter.ipr" afterPath="" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/css4swing.iml" afterPath="/home/eitan/work/css4swing/css4swing.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd/JMNewProjectFrontEnd.ipr" afterPath="" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/src/com/u2d/css4swing/StyleMenuBar.java" afterPath="/home/eitan/work/css4swing/src/com/u2d/css4swing/StyleMenuBar.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/ds-swing/ds-swing.iws" afterPath="" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/resources/sample2.css" afterPath="/home/eitan/work/css4swing/resources/sample2.css" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.ipr" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/demo-apps/Self/Self.iws" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" afterPath="$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/wingsvm/wingsvm.ipr" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/JMatter.iws" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/ds-wizard/ds-wizard.ipr" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/echo2vm/echo2vm.iml" afterPath="$PROJECT_DIR$/modules/echo2vm/echo2vm.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/swingvm/swingvm.iws" afterPath="" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/src/com/u2d/css4swing/Utils.java" afterPath="/home/eitan/work/css4swing/src/com/u2d/css4swing/Utils.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/jmatter-tools/jmatter-tools.iws" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd/JMNewProjectFrontEnd.iml" afterPath="$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd/JMNewProjectFrontEnd.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/echo2vm/echo2vm.ipr" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iml" afterPath="$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iml" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/test/com/u2d/css4swing/SampleTest.java" afterPath="/home/eitan/work/css4swing/test/com/u2d/css4swing/SampleTest.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/jmatter/JMatter.iws" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd/JMNewProjectFrontEnd.iws" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/wingsvm/wingsvm.iws" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/Self/Self.iml" afterPath="$PROJECT_DIR$/demo-apps/Self/Self.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/demo-apps/Sympster/Sympster.iws" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/demo-apps/Self/Self.ipr" afterPath="" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/css4swing.iws" afterPath="/home/eitan/work/css4swing/css4swing.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" afterPath="$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/lib/tools/jmatter-tools.jar" afterPath="$PROJECT_DIR$/jmatter/lib/tools/jmatter-tools.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/swingvm.iml" afterPath="$PROJECT_DIR$/modules/swingvm/swingvm.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" afterPath="$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/src/com/u2d/css4swing/CSSEngine.java" afterPath="/home/eitan/work/css4swing/src/com/u2d/css4swing/CSSEngine.java" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/test/com/u2d/css4swing/SampleTest2.java" afterPath="/home/eitan/work/css4swing/test/com/u2d/css4swing/SampleTest2.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/demo-apps/Sympster/Sympster.ipr" afterPath="" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/css4swing.ipr" afterPath="/home/eitan/work/css4swing/css4swing.ipr" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/echo2vm/echo2vm.iws" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/JMatter.ipr" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iws" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/jmatter-tools/jmatter-tools.ipr" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/Sympster/Sympster.iml" afterPath="$PROJECT_DIR$/demo-apps/Sympster/Sympster.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/ds-swing/ds-swing.ipr" afterPath="" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/src/com/u2d/css4swing/border/Edge.java" afterPath="/home/eitan/work/css4swing/src/com/u2d/css4swing/border/Edge.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/swingvm/swingvm.ipr" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/jmatter-tools/jmatter-tools.iml" afterPath="$PROJECT_DIR$/modules/jmatter-tools/jmatter-tools.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iws" afterPath="" />
+    </list>
+    <ignored path="JMatter.iws" />
+    <ignored path=".idea/workspace.xml" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+    <option name="REVERSE_PATCH" value="false" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
+  <component name="ErrorTreeViewConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="HIDE_WARNINGS" value="false" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="JMatter" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="HierarchyBrowserManager">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="SORT_ALPHABETICALLY" value="false" />
+    <option name="HIDE_CLASSES_WHERE_METHOD_NOT_IMPLEMENTED" value="false" />
+  </component>
+  <component name="ModuleEditorState">
+    <option name="LAST_EDITED_MODULE_NAME" />
+    <option name="LAST_EDITED_TAB_NAME" />
+  </component>
+  <component name="PackagesPane">
+    <subPane>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Self" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </subPane>
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkin" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectPane">
+    <subPane>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JMatter" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </subPane>
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="0.16666667" version="1" splitterProportion="0.5">
+      <flattenPackages PackagesPane="true" />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <showStructure PackagesPane="false" ProjectPane="false" />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web" value="/tmp/webExplodedDir56733tmp" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="false" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_ContactMgr/web/Web2" value="/tmp/webExplodedDir56737tmp" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_ContactMgr/web/Web3" value="/tmp/webExplodedDir56736tmp" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web3" value="/tmp/webExplodedDir56735tmp" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web2" value="/tmp/webExplodedDir56734tmp" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_ContactMgr/web/Web" value="/tmp/webExplodedDir56729tmp" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
+  </component>
+  <component name="RunManager" selected="Application.Self">
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <envs />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="/opt/idea-5766/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="false" name="Self" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/demo-apps/Self/" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Self" />
+      <envs />
+      <RunnerSettings RunnerId="JProfiler">
+        <option name="WINDOW" value="false" />
+        <option name="JVMPI" value="false" />
+        <option name="INTERPRETED" value="false" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="Run Ant target" value="true" />
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Application.Self" />
+    </list>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_MODE" value="true" />
+    <option name="AUTOSCROLL_FROM_SOURCE" value="false" />
+    <option name="ACTIVE_ACTIONS" value="" />
+  </component>
+  <component name="SvnConfiguration">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="UPDATE_RUN_STATUS" value="false" />
+    <option name="UPDATE_RECURSIVELY" value="true" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <configuration useDefault="true">/home/eitan/.subversion</configuration>
+    <upgradeMode>none</upgradeMode>
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="24" width="1278" height="744" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
+      <window_info id="Ant Build" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24979524" order="1" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="1" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="3" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32850242" order="8" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
+      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
+      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
+      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24897625" order="0" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
+      <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" order="2" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="5" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
+      <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="4" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
+    </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="false" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="false" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" value="svn" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+    <buildFile url="file://$PROJECT_DIR$/demo-apps/Self/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/modules/ds-wizard/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+    <buildFile url="file:///home/eitan/work/css4swing/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/jmatter/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/demo-apps/ContactMgr/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/modules/ds-swing/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/modules/jmatter-tools/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/modules/echo2vm/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/modules/swingvm/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/modules/wingsvm/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/demo-apps/Sympster/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/modules/ds-wizard/src/com/u2d/wizard/builder/WizardBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="26" selection-start="452" selection-end="465" vertical-scroll-proportion="-0.039577838">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/app/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="35" selection-start="585" selection-end="585" vertical-scroll-proportion="-1.8205805">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/jmatter-tools/src/com/u2d/tools/BasicTemplateTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="0" selection-start="171" selection-end="171" vertical-scroll-proportion="0.15254237">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/jmatter-tools/src/com/u2d/tools/JnlpMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="386" selection-end="386" vertical-scroll-proportion="0.2542373">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/jmatter-tools/src/com/u2d/tools/STUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="35" selection-start="505" selection-end="505" vertical-scroll-proportion="0.38135594">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/jmatter-tools/src/com/u2d/tools/ShellScriptMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="13" selection-start="296" selection-end="296" vertical-scroll-proportion="0.2542373">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/jmatter-tools/src/com/u2d/tools/ProjectMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="406" selection-end="406" vertical-scroll-proportion="0.30508474">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo-apps/ContactMgr/src/com/u2d/contactmgr/PersonWizardBuilder.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="512" selection-end="512" vertical-scroll-proportion="-0.3580902">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo-apps/ContactMgr/src/com/u2d/contactmgr/NewPersonWizard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="201" selection-end="201" vertical-scroll-proportion="0.10169491">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/jmatter-tools/src/com/u2d/tools/AntPersistClassesMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="40" selection-start="1861" selection-end="1861" vertical-scroll-proportion="0.24745762">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/jmatter-tools/src/com/u2d/tools/DriverPropertySetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="320" selection-end="320" vertical-scroll-proportion="0.2542373">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/tools/HBMPracticeTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="500" selection-end="500" vertical-scroll-proportion="-0.16779661">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AppLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="43" selection-start="72" selection-end="72" vertical-scroll-proportion="0.050847456">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/app/AppSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="13" selection-start="925" selection-end="925" vertical-scroll-proportion="0.53846157">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo-apps/Self/src/applicationContext.xml">
+      <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="775" selection-end="775" vertical-scroll-proportion="0.3322884">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo-apps/Self/src/hbmGeneratorContext.xml">
+      <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="23" selection-start="670" selection-end="670" vertical-scroll-proportion="0.51724136">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

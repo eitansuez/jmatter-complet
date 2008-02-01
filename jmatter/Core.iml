@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module relativePaths="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/build/classes" />
+    <exclude-output />
+    <output-test url="file://$MODULE_DIR$/build/classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/build/gen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Core Dependencies">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/runtime/jfreereport-0.8.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/statemap.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/commons-pool-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/xpp3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/iText.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/hibernate3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jibx-run.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/jibx-extras.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/commons-lang-2.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/json.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/groovy-all-1.5.1.jar!/" />
+          <root url="file://$MODULE_DIR$/lib/runtime/jdbc" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib/runtime/jdbc" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="ds-swing" />
+    <orderEntry type="module" module-name="ds-wizard" />
+    <orderEntry type="library" name="JUnit" level="project" />
+    <orderEntry type="library" name="Spring" level="project" />
+    <orderEntry type="library" name="Hibernate" level="project" />
+    <orderEntry type="library" name="JFreeReport" level="project" />
+    <orderEntry type="library" name="JiBX" level="project" />
+    <orderEntryProperties />
+  </component>
+</module>
+
