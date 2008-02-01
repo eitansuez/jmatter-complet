@@ -4,7 +4,6 @@ import org.apache.tools.ant.Task;
 import org.apache.tools.ant.BuildException;
 import org.antlr.stringtemplate.StringTemplate;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 /**
