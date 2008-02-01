@@ -31,8 +31,16 @@ public class GeoValue extends AbstractAtomicEO implements Searchable
    {
       return _seconds / SECONDS_PER_DEGREE * RADIANS_PER_DEGREE;
    }
-   public double degreesValue() { return _seconds / 3600; }
-   
+
+   public double degreesValue()
+   {
+      return _seconds / 3600;
+   }
+   public static double degreesToSeconds(double degrees)
+   {
+      return degrees * SECONDS_PER_DEGREE;
+   }
+
    public void setValue(double value)
    {
       _seconds = value;
@@ -72,18 +80,14 @@ public class GeoValue extends AbstractAtomicEO implements Searchable
 
    public int hashCode() { return new Double(_seconds).hashCode(); }
 
-   public AtomicRenderer getRenderer() { return vmech().getPercentRenderer(); }
-   public AtomicEditor getEditor() { return vmech().getPercentEditor(); }
+   public AtomicRenderer getRenderer() { return vmech().getDegreeRenderer(); }
+   public AtomicEditor getEditor() { return vmech().getDegreeEditor(); }
 
+   // assume value is entered/specified in degrees..
    public void parseValue(String stringValue) throws ParseException
    {
-      int idx = stringValue.length() - 1;
-      String direction = stringValue.substring(idx).toLowerCase();
-      String value = stringValue.substring(0, idx);
-      double seconds = Double.parseDouble(value);
-      if ( "e".equals(direction) || "s".equals(direction) )
-         seconds *= -1;
-      setValue(seconds);
+      double degrees = Double.parseDouble(stringValue);
+      setValue(degreesToSeconds(degrees));
    }
 
    public EObject makeCopy()

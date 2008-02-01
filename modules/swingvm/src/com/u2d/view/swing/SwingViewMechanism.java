@@ -712,6 +712,9 @@ public class SwingViewMechanism implements ViewMechanism
    public AtomicRenderer getPercentRenderer() { return new StringRenderer(); }
    public AtomicEditor getPercentEditor() { return new PercentEditor(); }
 
+   public AtomicRenderer getDegreeRenderer() { return new StringRenderer(); }
+   public AtomicEditor getDegreeEditor() { return new DegreeEditor(); }
+
    public AtomicRenderer getEmailRenderer() { return new StringRenderer(); }
    public AtomicEditor getEmailEditor() { return new EmailEditor(); }
 

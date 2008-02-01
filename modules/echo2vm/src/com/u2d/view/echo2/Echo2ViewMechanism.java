@@ -282,44 +282,20 @@ public class Echo2ViewMechanism implements ViewMechanism
       return null;
    }
 
-   public AtomicRenderer getLongRenderer()
-   {
-      return null;
-   }
+   public AtomicRenderer getLongRenderer() { return null; } 
+   public AtomicEditor getLongEditor() { return null; }
 
-   public AtomicEditor getLongEditor()
-   {
-      return null;
-   }
+   public AtomicRenderer getFloatRenderer() { return null; } 
+   public AtomicEditor getFloatEditor() { return null; }
 
-   public AtomicRenderer getFloatRenderer()
-   {
-      return null;
-   }
+   public AtomicRenderer getBigDecimalRenderer() { return null; }
+   public AtomicEditor getBigDecimalEditor() { return null; }
 
-   public AtomicEditor getFloatEditor()
-   {
-      return null;
-   }
-   public AtomicRenderer getBigDecimalRenderer()
-   {
-      return null;
-   }
+   public AtomicRenderer getPercentRenderer() { return null; }
+   public AtomicEditor getPercentEditor() { return null; }
 
-   public AtomicEditor getBigDecimalEditor()
-   {
-      return null;
-   }
-
-   public AtomicRenderer getPercentRenderer()
-   {
-      return null;
-   }
-
-   public AtomicEditor getPercentEditor()
-   {
-      return null;
-   }
+   public AtomicRenderer getDegreeRenderer() { return null; }
+   public AtomicEditor getDegreeEditor() { return null; }
 
    public AtomicRenderer getEmailRenderer()
    {

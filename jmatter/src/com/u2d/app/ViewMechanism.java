@@ -123,6 +123,9 @@ public interface ViewMechanism
    public AtomicRenderer getPercentRenderer();
    public AtomicEditor getPercentEditor();
 
+   public AtomicRenderer getDegreeRenderer();
+   public AtomicEditor getDegreeEditor();
+
    public AtomicRenderer getEmailRenderer();
    public AtomicEditor getEmailEditor();
 

@@ -47,8 +47,10 @@ public class ListMapView extends BaseMapView
       double centerlat = (maxlat + minlat) / 2.0;
       _kit.setCenterPosition(new GeoPosition(centerlat, centerlon));
       
-      // TODO: set the zoom to a proper value
-//            setZoom(??);
+      double zoomdistance = 1.5 * (maxlon - minlon);
+      double zoomValue = ( Math.log10(zoomdistance) + 2.2 ) / 0.3;
+      int zoom = (int) Math.round(zoomValue);
+      _kit.setZoom(zoom);
       
    }
 }

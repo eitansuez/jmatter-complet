@@ -31,6 +31,8 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="JUnit" level="project" />
+    <orderEntry type="module" module-name="ds-swing" />
+    <orderEntry type="module" module-name="ds-wizard" />
     <orderEntryProperties />
   </component>
 </module>

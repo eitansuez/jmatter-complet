@@ -362,6 +362,9 @@ public class WingSViewMechanism implements ViewMechanism
    public AtomicRenderer getPercentRenderer() { return getStringRenderer(); }
    public AtomicEditor getPercentEditor() { return new PercentEditor(); }
 
+   public AtomicRenderer getDegreeRenderer() { return getStringRenderer(); }
+   public AtomicEditor getDegreeEditor() { return getFloatEditor(); }
+
    public AtomicRenderer getEmailRenderer() { return new StringRenderer(); }
    public AtomicEditor getEmailEditor() { return new EmailEditor(); }
 

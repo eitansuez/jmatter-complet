@@ -16,7 +16,9 @@
           <root url="file://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../../thirdparty/swingx-ws-2008_01_20-bin/swingx-ws-2008_01_27-src/src/java" />
+        </SOURCES>
         <jarDirectory url="file://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm" recursive="false" />
       </library>
     </orderEntry>
