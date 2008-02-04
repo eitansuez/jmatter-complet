@@ -108,7 +108,11 @@ public class NullViewMechanism implements ViewMechanism
    public AtomicRenderer getBigDecimalRenderer() { return null; } 
    public AtomicEditor getBigDecimalEditor() { return null; } 
    public AtomicRenderer getPercentRenderer() { return null; } 
-   public AtomicEditor getPercentEditor() { return null; } 
+   public AtomicEditor getPercentEditor() { return null; }
+
+   public AtomicRenderer getDegreeRenderer() { return null; }
+   public AtomicEditor getDegreeEditor() { return null; }
+
    public AtomicRenderer getEmailRenderer() { return null; } 
    public AtomicEditor getEmailEditor() { return null; } 
    public AtomicRenderer getURIRenderer() { return null; } 
