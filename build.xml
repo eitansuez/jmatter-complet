@@ -45,7 +45,7 @@
    <copy tofile="${build.dir}/Release_notes">
      <fileset dir="${jmatter.dir}/doc" includes="Changes" />
    </copy>
-   <exec dir="${basedir}" executable="markdown" output="${build.dir}/Release_notes.html">
+   <exec dir="${build.dir}" executable="markdown" output="${build.dir}/Release_notes.html">
      <arg line="Release_notes" />
    </exec>
 
