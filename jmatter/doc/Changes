@@ -2,6 +2,228 @@ Changes File
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Feb 4 2008
+
+JMatter 2008-02 release notes
+=============================
+
+This release contains many small improvements and bug fixes.
+Below we list the main enhancements to JMatter in the Feb 2008 release
+(since the previous release from Aug 2007), in chronological order.
+
+
+1. JMatter Wizards Enhancements
+
+    JMatter Wizards is a subframework within JMatter that removes the need
+    to write the UI relating to a software wizard.
+    
+    This release introduces a number of additional ways to create wizards
+    that further simplify matters.  Examples are provided as part of
+    the ContactMgr demo application;  see the class PersonContact.
+    
+    JMatter now has a groovy builder for wizards.  If you're familiar with
+    some of the groovy language's other builders (swingbuilder, graphicsbuilder),
+    then you probably already appreciate this feature.
+    
+    Written and Contributed by:  Andres Almiray
+    
+2. Introductory support for Geographical Maps
+
+   Initially inspired by Andres' blog on adding google maps to JMatter
+   apps, JMatter now provides basic integration with the swingx-ws project from
+   swinglabs.org.
+   
+   This integration allows you to use geographical maps as a new means of
+   viewing objects.  Objects are displayed as markers on the map in question.
+   The map is both zoomable and pannable, thanks to swingx-ws.
+   
+   For an example, run the ContactMgr sample application, open a contact,
+   and right-click their physical address, and finally invoke the command:
+   "View On Map" which will display the address in question on a map.
+   
+   A generic mechanism is provided for exposing types on a map.  Part of this
+   mechanism includes implementing the interface "MappableEO" in which an
+   object formally exposes its lat/lon geographic position.  The simplest
+   way to integrate this feature with your types is to extend the base class:
+      AbstractComplexMappableEObject
+   which will automatically lend the command "View on Map" both on instances
+   and on lists of the type in question.
+
+3. css4swing now supports complex selectors.  i.e. selectors that imply
+   matching a specific containment hierarchy.  e.g.:
+     #aboutPnl JTextArea
+   will target all swing jtextareas (and their subclasses) that are
+   descendants of the component with the identifier "aboutPnl".
+   direct child relationship (>) is likewise supported.
+  
+4. JMatter now supports a new atomic type:  BigDecimalEO, backed by a Java
+   BigDecimal, for arbitrary-precision decimal numbers.
+
+   Written and Contributed by:  Christian Gruber
+
+5. Added feature whereby type commands (static commands) can be given an 
+   application-level keyboard shortcut (accelerator);  see example in 
+   ContactMgr where wizard can be invoked with the shortcut "control z"
+
+6. Added basic support for constrained associations.  An example usage 
+   was added to the Sympster demo application.  The model was extended
+   such that a City type was added, as well as a Symposium City field.
+   Also venue's now have a city field.
+   
+   When selecting a venu for a Symposium, the association now lists only venue
+   options that match the symposium's city.
+   
+   To illustrate how this works, here's the implementation from Sympster:
+   
+   public Venue getVenue() { return venue; }
+   public void setVenue(Venue venue)
+   {
+      Venue oldVenue = this.venue;
+      this.venue = venue;
+      firePropertyChange("venue", oldVenue, this.venue);
+   }
+   public QuerySpecification venueOptions()
+   {
+      if (venue == null || city == null) return null;
+      Field cityField = venue.field("city");
+      FieldPath fp = new FieldPath(cityField.fullPath());
+      Inequality equals = new IdentityInequality(cityField).new Equals();
+      return new QuerySpecification(fp, equals, getCity());
+   }
+   
+   so by exposing a method with the right name "${associationname}Options()"
+   the framework will use the returned query specification to construct
+   the proper query to show the valid association options.
+
+
+7. Support for starting a JMatter project from an existing Database Schema
+
+   Support for generating the JMatter source code and accompanying
+   hibernate mapping files from an existing database schema.
+
+   See section 16.1 of the JMatter manual, titled
+   "Reverse Engineering an Existing Schema"
+   (http://jmatter.org/documentation/html/chap16.html#tth_sEc16.1)
+   for complete details.
+   
+   Written and Contributed by:  Jim Slack
+
+8. List Commands
+
+   JMatter now supports list commands.  This feature is fully documented in the
+   JMatter manual.  See chapter 11 on commands and types of commands
+   ( http://jmatter.org/documentation/html/chap11.html#tth_sEc11.3.1 ).
+   
+   List commands provides the means for improving the usability of a software
+   application by making it easy to expose an instance command on an
+   entire list of instances of a given type (or writing a custom command
+   implementation for lists of a specified type).
+   
+   For example, if a type "Product" has a command "AugmentPriceByPercentage",
+   the command can now easily be exposed on all lists of type Product, removing
+   the tedium of having to perform multiple gestures on each of a number of
+   instances in the user interface.  The command can be invoked once and applied 
+   to all instances in the list (search results included).
+
+9. Visual Command Interface
+
+  Over the past year, a new type of interface to a desktop has emerged.
+  On macosx, many users are now using a visual command interface by the name
+  of "QuickSilver."  On linux a similar such feature is "Gnome Do."
+  JMatter now sports the same sort of visual command interface.
+  
+  It is fully documented in the JMatter manual in Chapter 17 ("The power user").
+
+  http://jmatter.org/documentation/html/chap17.html#tth_sEc17.4
+
+
+12. Command icons
+
+  JMatter now supports the ability to specify icons for commands through
+  a new Cmd annotation attribute.
+  
+  Here's a simple ficticious example:
+  
+      @Cmd(iconref="money")
+      public void AugmentPrice(CommandInfo cmdInfo) ...
+
+  In the above command we specify a reference to an icon name.
+  In your resources/images folder place a corresponding money32.png and money16.png
+  (or gif), and you're done.  Now throughout your application buttons and
+  menu items containing the command to invoke will now be decorated with the
+  specified icon.
+  
+  JMatter itself was updated to include many basic command icons out of the box
+  for commands such as "find", "browse", "edit", "delete", etc..
+
+
+13. Preview implementation of the JMatter Application Browser
+
+  We're in the process of developing an alternative deployment mechanism
+  for JMatter applications.  JMatter will soon be available as a standalone
+  downloadable application with a standard multiplatform installer.
+  The application will act as an application browser, allowing
+  end users to dynamically load remote applications in a manner analogous
+  to the way that a web browser downloads and runs remote web applications.
+  
+  There are several major benefits to this new deployment mechanism:
+    - users will not have to install jmatter applications any longer, only the browser;
+    - developers will be able to update their applications' at any time, without
+      requiring clients to make any changes on their end;
+    - application downloads will be relatively tiny:  in the order of 50KB-500KB.
+
+  The fundamental changes necessary to support this feature are already
+  in the february release, though this feature is not yet complete.
+  
+  To try out this feature, follow these instructions:
+  ----------------------------------------  
+    1. let's use sympster again as the example app
+    2. revise hibernate.properties' h2 database settings to specify
+       a database with a fully qualified path:
+
+        hibernate.connection.url=jdbc:h2:file:db/h2db
+         becomes:
+        hibernate.connection.url=jdbc:h2:file:///home/eitan/tmp/db/h2db
+         (for example)
+
+    3. revise sympster's build.xml "jar" target to exclude the jmatter base
+       code
+
+       i.e. this:
+         <fileset dir="${build.classes.dir}" includes="**/*" />
+         <fileset dir="${framework.classes.dir}" includes="**/*" />
+       </jar>
+
+       becomes this:
+         <fileset dir="${build.classes.dir}" includes="**/*" />
+    <!--     <fileset dir="${framework.classes.dir}" includes="**/*" /> -->
+       </jar>
+
+    4. jar up sympster:  ant clean jar
+       you should end up with jws-dist/Sympster.jar at about 76KB
+
+       also if the db doesn't exist yet, schema-export it
+
+    5. go to the jmatter directory:
+        Sympster$ cd ../../jmatter
+       and invoke:  ant run
+
+    you'll be prompted for an app url.  this was the url on my box:
+
+    file:///home/eitan/work/jmatter-complet/demo-apps/Sympster/jws-dist/Sympster.jar
+
+    and click on 'Load App'.  the application is url-classloaded.
+    try this with an http-loaded jar file.
+  ----------------------------------------  
+
+
+~~~~~~~~~~~~~~
+For a complete list of changes in this Feb 2008 release, invoke this command
+against subversion:
+  svn log --revision {2007-08-09}:HEAD
+
+
+
 August 09 2007 Release
 -----------------------
 
