@@ -135,6 +135,7 @@ public class LoginDialog extends JXPanel
       _userNameFld.setText("");
       _pwdField.setText("");
       _msg.setText(msg);
+      setSize(getPreferredSize());
       getfocus();
    }
    
