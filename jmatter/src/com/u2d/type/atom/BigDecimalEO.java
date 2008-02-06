@@ -8,10 +8,8 @@ import com.u2d.find.Searchable;
 import com.u2d.find.inequalities.NumericalInequalities;
 import com.u2d.model.*;
 import com.u2d.reflection.Cmd;
-
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 
 /**
  * @author Eitan Suez
@@ -48,7 +46,7 @@ public class BigDecimalEO extends AbstractAtomicEO
 
    public Title title()
    {
-       if (_value == null) return new Title("empty");
+      if (_value == null) return new Title("empty");
       return new Title(format.format(_value.doubleValue()));
    }
 
@@ -62,11 +60,11 @@ public class BigDecimalEO extends AbstractAtomicEO
       if (obj == null) return false;
       if (obj == this) return true;
       if (!(obj instanceof BigDecimalEO)) return false;
-      return _value.doubleValue() == ((BigDecimalEO) obj).doubleValue();
+      BigDecimalEO other = (BigDecimalEO) obj;
+      return _value.equals(other.getValue());
    }
 
    public int hashCode() { return _value.hashCode(); }
-
 
    public AtomicRenderer getRenderer() { return vmech().getBigDecimalRenderer(); }
    public AtomicEditor getEditor() { return vmech().getBigDecimalEditor(); }
@@ -80,28 +78,13 @@ public class BigDecimalEO extends AbstractAtomicEO
 
    public void parseValue(String stringValue)
    {
-      try
-      {
-    	 BigDecimal doubleVal = new BigDecimal(stringValue.replace(',', '.'));
-         setValue(doubleVal);
-      }
-      catch (NumberFormatException ex)
-      {
-//         try
-//         {
-//            double doubleVal = format.parse(stringValue).doubleValue();
-//            setValue(doubleVal);
-//         }
-//         catch (ParseException e)
-//         {
-            throw new RuntimeException(ex);
-//         }
-      }
+      BigDecimal value = new BigDecimal(stringValue);
+      setValue(value);
    }
 
    public EObject makeCopy()
    {
-      return new BigDecimalEO(this._value);
+      return new BigDecimalEO(_value);
    }
 
    // =====
