@@ -22,7 +22,7 @@ public class AppLoader implements ThreadMaker
    public static AppLoader _appLoader = new AppLoader();
    public static AppLoader getInstance() { return _appLoader; }
 
-   private ClassLoader _cl = ClassLoader.getSystemClassLoader();
+   private ClassLoader _cl = Thread.currentThread().getContextClassLoader();
    
    private AppLoader() {}
    
