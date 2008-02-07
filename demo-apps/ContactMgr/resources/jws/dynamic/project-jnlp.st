@@ -5,14 +5,14 @@
       href="project.jnlp">
 
  <information>
-   <title>Contact Mgr</title> <!-- TODO: revise title appropriately -->
-   <vendor>UptoData, Inc.</vendor> <!-- TODO: plug in vendor name here -->
+   <title>Contact Mgr</title>
+   <vendor>JMatterSoft, LLC</vendor>
    <homepage href="index.html" />
    <description kind="one-line">ContactMgr App</description>
    <description kind="short">ContactMgr App</description>
    <description kind="tooltip">ContactMgr App</description>
    <icon href="leaf.jpg" />
-   <icon kind="splash" href="leaf.jpg" /> <!-- TODO: plug in splash image here -->
+   <icon kind="splash" href="splash.png" />
  </information>
 
  <security>
