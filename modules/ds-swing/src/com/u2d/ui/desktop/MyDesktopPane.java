@@ -181,11 +181,9 @@ public class MyDesktopPane extends JDesktopPane
 
       public void iconifyFrame(JInternalFrame f)
       {
-         JInternalFrame.JDesktopIcon desktopIcon;
-         Container c;
+         JInternalFrame.JDesktopIcon desktopIcon = f.getDesktopIcon();
          boolean findNext = f.isSelected();
 
-         desktopIcon = f.getDesktopIcon();
          if (!wasIcon(f))
          {
             Rectangle r = getBoundsForIconOf(f);
@@ -193,8 +191,7 @@ public class MyDesktopPane extends JDesktopPane
             setWasIcon(f, Boolean.TRUE);
          }
 
-         c = f.getParent();
-
+         Container c = f.getParent();
          if (c == null) return;
 
          if (c instanceof JLayeredPane)
@@ -203,15 +200,8 @@ public class MyDesktopPane extends JDesktopPane
             int layer = lp.getLayer((Component) f);
             JLayeredPane.putLayer(desktopIcon, layer);
          }
-         if (f.isMaximum())
-         {
-            try
-            {
-               f.setMaximum(false);
-            }
-            catch (PropertyVetoException e2)
-            {
-            }
+         if (!f.isMaximum()) {
+             f.setNormalBounds(f.getBounds());
          }
          c.remove(f);
          c.add(desktopIcon);
