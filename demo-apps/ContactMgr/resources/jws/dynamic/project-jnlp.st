@@ -11,7 +11,7 @@
    <description kind="one-line">ContactMgr App</description>
    <description kind="short">ContactMgr App</description>
    <description kind="tooltip">ContactMgr App</description>
-   <icon href="leaf.jpg" />
+   <icon href="splash.png" />
    <icon kind="splash" href="splash.png" />
  </information>
 
@@ -29,7 +29,6 @@
 
  <application-desc main-class="com.u2d.view.swing.EntryPoint">
    <argument>-Xdock:name=ContactMgr</argument>
-   <argument>-Xdock:icon=icons.icns</argument>
  </application-desc>
 
 </jnlp>
