@@ -2,6 +2,21 @@ Changes File
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Feb 11 2008
+
+JMatter 2008-02-11 release notes
+================================
+
+This release is a patch release that fixes these issues discovered
+in last week's release:
+
+  1. a rendering issue with the login panel
+  2. issue with persisting BigDecimalEO's
+  3. a bug in minimizing a maximized internal frame (reported by alexcrown (thx))
+  4. a classloader issue that manifested itself with a webstart-deployed app
+
+----------
+
 Feb 4 2008
 
 JMatter 2008-02 release notes
