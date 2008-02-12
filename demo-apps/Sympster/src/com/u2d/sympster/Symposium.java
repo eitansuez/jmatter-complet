@@ -24,11 +24,10 @@ public class Symposium extends CalendarEO
    private final USDollar registrationPrice = new USDollar();
    private Venue venue;
    private City city;
-   private final BigDecimalEO bigD = new BigDecimalEO();
 
    public static Color colorCode = new Color(0x04b144);
    
-   public static String[] fieldOrder = {"name", "city", "venue", "registrationPrice", "bigD"};
+   public static String[] fieldOrder = {"name", "city", "venue", "registrationPrice"};
 
    public Symposium() {}
 
@@ -59,7 +58,6 @@ public class Symposium extends CalendarEO
    }
    
    public USDollar getRegistrationPrice() { return registrationPrice; }
-   public BigDecimalEO getBigD() { return bigD; }
    
    public Title title() { return name.title(); }
    public static String pluralName() { return "Symposia"; }
