@@ -43,7 +43,7 @@ public class PersonContact extends Person
    {
       return new Reportable()
       {
-         public String reportName() { return "/com/u2d/contactmgr/Basic.xml"; }
+         public String reportName() { return "com/u2d/contactmgr/Basic.xml"; }
          public Properties properties() { return new Properties(); }
          public ReportFormat reportFormat() { return ReportFormat.PDF; }
 
