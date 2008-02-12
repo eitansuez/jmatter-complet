@@ -8,6 +8,8 @@ import com.u2d.find.inequalities.TextualInequalities;
 import com.u2d.model.AtomicRenderer;
 import com.u2d.model.AtomicEditor;
 import com.u2d.model.*;
+import java.net.URL;
+import java.net.MalformedURLException;
 
 /**
  * @author Eitan Suez
@@ -21,7 +23,20 @@ public class URI extends AbstractAtomicEO implements Searchable
    
    public Object getValue() { return _value; }
    public String stringValue() { return _value; }
-   
+
+   public URL urlValue()
+   {
+      try
+      {
+         return new URL(_value);
+      }
+      catch (MalformedURLException e)
+      {
+         e.printStackTrace();
+         throw new RuntimeException("Bad url value: "+_value);
+      }
+   }
+
    public void setValue(String value)
    {
       _value = value;
@@ -85,7 +100,15 @@ public class URI extends AbstractAtomicEO implements Searchable
 
    public void parseValue(String stringValue)
    {
-      setValue(stringValue);
+      try
+      {
+         new URL(stringValue);
+         setValue(stringValue);
+      }
+      catch (MalformedURLException e)
+      {
+         throw new ParseException(e.getMessage(), e);
+      }
    }
 
    public EObject makeCopy()

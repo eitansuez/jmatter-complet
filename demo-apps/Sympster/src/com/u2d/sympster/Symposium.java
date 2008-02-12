@@ -3,6 +3,8 @@ package com.u2d.sympster;
 import com.u2d.model.Title;
 import com.u2d.model.AbstractListEO;
 import com.u2d.type.atom.StringEO;
+import com.u2d.type.atom.USDollar;
+import com.u2d.type.atom.BigDecimalEO;
 import com.u2d.calendar.CalendarEO;
 import com.u2d.persist.Persist;
 import com.u2d.reflection.Cmd;
@@ -19,12 +21,14 @@ import java.awt.Color;
 public class Symposium extends CalendarEO
 {
    private final StringEO name = new StringEO();
+   private final USDollar registrationPrice = new USDollar();
    private Venue venue;
    private City city;
+   private final BigDecimalEO bigD = new BigDecimalEO();
 
    public static Color colorCode = new Color(0x04b144);
    
-   public static String[] fieldOrder = {"name", "city", "venue"};
+   public static String[] fieldOrder = {"name", "city", "venue", "registrationPrice", "bigD"};
 
    public Symposium() {}
 
@@ -53,6 +57,9 @@ public class Symposium extends CalendarEO
       this.city = city;
       firePropertyChange("city", oldCity, this.city);
    }
+   
+   public USDollar getRegistrationPrice() { return registrationPrice; }
+   public BigDecimalEO getBigD() { return bigD; }
    
    public Title title() { return name.title(); }
    public static String pluralName() { return "Symposia"; }

@@ -3,6 +3,8 @@ package com.u2d.view.swing.atom;
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
 import com.u2d.type.atom.URI;
+import com.u2d.type.atom.ParseException;
+
 import javax.swing.*;
 
 /**
@@ -26,8 +28,16 @@ public class URIEditor extends JTextField implements AtomicEditor
    public int bind(AtomicEObject value)
    {
       URI eo = (URI) value;
-      eo.parseValue(getText());
-      return 0;
+      try
+      {
+         eo.parseValue(getText());
+         return 0;
+      }
+      catch (ParseException ex)
+      {
+         eo.fireValidationException(ex.getMessage());
+         return 1;
+      }
    }
 
    public void passivate() { }
