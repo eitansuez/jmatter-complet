@@ -33,11 +33,7 @@ public class Splash extends JWindow implements AppEventListener
 
    public Splash()
    {
-      super();
-      SwingUtilities.invokeLater(new Runnable()
-      {
-         public void run() { layMeOut(); }
-      });
+      layMeOut();
    }
    
    private void layMeOut()

@@ -1,16 +1,12 @@
 package com.u2d.interaction;
 
-import com.u2d.model.AbstractComplexEObject;
-import com.u2d.model.Title;
-import com.u2d.model.ComplexEObject;
-import com.u2d.model.ComplexType;
+import com.u2d.model.*;
 import com.u2d.persist.Persist;
 import com.u2d.element.Command;
 import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.view.EView;
-import com.u2d.list.PlainListEObject;
 import com.u2d.list.SimpleListEO;
 import com.u2d.field.Association;
 import java.util.*;
@@ -20,14 +16,10 @@ import java.lang.reflect.InvocationTargetException;
 public class Instruction
       extends AbstractComplexEObject
 {
-   private static Instruction _instance = new Instruction();
-   public static Instruction getInstance() { return _instance; }
-
    public static String[] fieldOrder = {"target", "action"};
    
    private ComplexEObject target;
    private final SimpleListEO _targetMatches = new SimpleListEO(ComplexEObject.class);
-   private Map<String, ComplexEObject> typesMap = new HashMap<String, ComplexEObject>();
    
    private Command action;
    private final SimpleListEO _actionMatches = new SimpleListEO(ComplexEObject.class);
@@ -37,17 +29,6 @@ public class Instruction
    
    public Instruction()
    {
-      buildTypesMap();
-   }
-   
-   private void buildTypesMap()
-   {
-      PlainListEObject types = ComplexType.persistedTypes();
-      for (Iterator itr = types.iterator(); itr.hasNext(); )
-      {
-         ComplexType type = (ComplexType) itr.next();
-         typesMap.put(type.title().toString().toLowerCase(), type);
-      }
    }
    
    public ComplexEObject getTarget() { return target; }
@@ -99,13 +80,12 @@ public class Instruction
    }
    
 
-   private SortedSet<Match> matchedItems = new TreeSet<Match>();
    private synchronized void matchText(Association association,
                                       SimpleListEO matchesList, 
                                       Map<String, ComplexEObject> optMap,
                                       String text)
    {
-      matchedItems.clear();
+      SortedSet<Match> matchedItems = new TreeSet<Match>();
       if (text == null) text = "";
       
       text = text.toLowerCase();
@@ -140,7 +120,7 @@ public class Instruction
    }
    public void matchTargetText(String text)
    {
-      matchText(association("target"), _targetMatches, typesMap, text);
+      matchText(association("target"), _targetMatches, app().getIndex(), text);
    }
    public void matchActionText(String text)
    {
@@ -152,9 +132,13 @@ public class Instruction
          cmdOptions.put(cmd.title().toString().toLowerCase(), cmd);
       }
       matchText(association("action"), _actionMatches, cmdOptions, text);
+      // favor default action if matched..
+      if (_actionMatches.contains(target.defaultCommand()))
+      {
+         setAction(target.defaultCommand());
+      }
    }
    
-   public Set matchedItems() { return matchedItems; }
    public SimpleListEO getTargetMatches()
    {
       return _targetMatches;

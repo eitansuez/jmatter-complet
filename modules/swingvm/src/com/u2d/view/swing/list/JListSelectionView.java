@@ -26,15 +26,29 @@ public class JListSelectionView
    
    private Map<Object, EView> _views = new HashMap<Object, EView>();
    
+   public JListSelectionView()
+   {
+      setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+      setCellRenderer(this);
+   }
    public JListSelectionView(AbstractListEO leo)
    {
+      this();
+      bind(leo);
+   }
+   
+   public void bind(AbstractListEO leo)
+   {
+      if (_leo != null)
+      {
+         detach();
+      }
+      
       _leo = leo;
-      setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       setVisibleRowCount(leo.getSize());
       
       _leoProxy = new ProxyListModel(_leo);
       setModel(_leoProxy);
-      setCellRenderer(this);
       
       _leo.addListDataListener(this);
       

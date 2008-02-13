@@ -10,7 +10,6 @@ import com.u2d.ui.MessagePanel;
 import com.u2d.ui.MyTextArea;
 import com.u2d.view.*;
 import com.u2d.view.swing.dnd.*;
-import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.view.swing.FlexiFrame;
 import com.u2d.view.swing.AppLoader;
 import com.u2d.app.*;
@@ -32,7 +31,6 @@ public class HBMPracticeTool extends JFrame
 
    public HBMPracticeTool()
    {
-      SwingViewMechanism.setupAntiAliasing();
       ApplicationContext context =
             new ClassPathXmlApplicationContext("applicationContext.xml");
 

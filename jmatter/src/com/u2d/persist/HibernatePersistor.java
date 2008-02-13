@@ -25,7 +25,9 @@ import java.util.logging.Level;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.List;
+import java.util.Properties;
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -50,19 +52,43 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
    {
       // reduce verboseness of hibernate logger..
       Logger.getLogger("org.hibernate").setLevel(Level.WARNING);
+      
       _cfg = new Configuration();
+
+      /*
+      Must load properties specifically for a second application
+        with a different set of properties to reload properly.
+        Otherwise the hibernate.properties from the initial application
+        "stick" (new resource is never loaded)
+       */
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      Properties properties = new Properties();
+      try
+      {
+         properties.load(loader.getResourceAsStream("hibernate.properties"));
+         _cfg.setProperties(properties);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+         throw new RuntimeException("Failed to load hibernate.properties configuration");
+      }
       
       for (Class cls : _classes)
       {
          _tracer.fine("Adding class "+cls.getName()+" to hibernate configuration");
          String resource = cls.getName().replace( '.', '/' ) + ".hbm.xml";
          _cfg.addResource(resource, loader);
-//         _cfg.addClass(cls);
       }
       _cfg.addClass(ComplexType.class);
    }
 
+   public void close()
+   {
+      getSession().close();
+      _sessionFactory.close();
+      _cfg = null;
+   }
 
    public Object transactionReturn(HBMReturnBlock block)
    {

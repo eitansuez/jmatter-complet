@@ -32,7 +32,7 @@ public class AppBookmark
    public AppBookmark()
    {
    }
-
+   
    public URI getUrl() { return url; }
    public StringEO getName() { return name; } 
    public TextEO getDescription() { return description; }
@@ -42,7 +42,8 @@ public class AppBookmark
    {
       AppLoader.getInstance().loadApplication(url.urlValue());
    }
-   
+
+   public String defaultCommandName() { return "Launch"; }
 
    public Title title() { return name.title(); }
    

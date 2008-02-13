@@ -37,15 +37,16 @@ public class AppSession implements AuthManager, AppEventNotifier
       _fsm = new AppSessionContext(this);
    }
    
-   public void launch()
-   {
-      _vmech.launch();
-      _fsm.onBegin();
-   }
    public void begin()
    {
-      _vmech.setAppSession(this);
       _fsm.onBegin();
+      _vmech.setAppSession(this);
+   }
+   public void end()
+   {
+      onLogout();
+      _vmech.setAppSession(null);
+      ((HBMPersistenceMechanism) pmech()).close();
    }
    
    public Application getApp() { return _app; }

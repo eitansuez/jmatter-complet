@@ -29,4 +29,6 @@ public interface HBMPersistenceMechanism extends PersistenceMechanism
    
    public void transaction(HBMBlock block);
    
+   public void close();
+   
 }

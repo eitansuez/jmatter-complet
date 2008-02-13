@@ -60,12 +60,12 @@ public class TimeEO extends AbstractAtomicEO
    }
    public static SimpleDateFormat stdTimeFormat() { return DISPLAY_FORMAT; }
    
-   public void parseValue(String stringValue) throws ParseException
+   public void parseValue(String stringValue) throws java.text.ParseException
    {
       parse(formatter(), stringValue);
    }
    
-   private void parse(DateFormat format, String value) throws ParseException
+   private void parse(DateFormat format, String value) throws java.text.ParseException
    {
       try
       {
@@ -75,7 +75,7 @@ public class TimeEO extends AbstractAtomicEO
       catch (ParseException ex)
       {
          if (format.equals(PARSE_FORMAT))
-            throw new ParseException("Failed to parse value "+value, 0);
+            throw new java.text.ParseException("Failed to parse value "+value, 0);
          parse(PARSE_FORMAT, value);
       }
    }

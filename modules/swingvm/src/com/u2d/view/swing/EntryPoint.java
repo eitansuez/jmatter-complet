@@ -1,5 +1,6 @@
 package com.u2d.view.swing;
 
+import javax.swing.*;
 import java.net.URL;
 
 /**
@@ -12,28 +13,13 @@ public class EntryPoint
 {
    public static void main(String[] args)
    {
-      SwingViewMechanism.setupAntiAliasing();
-      Splash splash = new Splash();
-
-      try
+      SwingUtilities.invokeLater(new Runnable()
       {
-         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-         URL applicationContext = loader.getResource("applicationContext.xml");
-      
-         if (applicationContext == null)
+         public void run()
          {
             SwingViewMechanism.getInstance().launch();
          }
-         else
-         {
-            AppLoader.getInstance().launchApp(splash);
-         }
-      }
-      finally
-      {
-         splash.dispose();
-      }
-
+      });
    }
 
 }

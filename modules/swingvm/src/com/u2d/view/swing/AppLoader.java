@@ -3,7 +3,6 @@ package com.u2d.view.swing;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import javax.swing.*;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import com.u2d.app.Application;
@@ -22,12 +21,21 @@ public class AppLoader implements ThreadMaker
    public static AppLoader _appLoader = new AppLoader();
    public static AppLoader getInstance() { return _appLoader; }
 
-   private ClassLoader _cl = Thread.currentThread().getContextClassLoader();
+   private ClassLoader initialClassLoader = Thread.currentThread().getContextClassLoader();
+   private ClassLoader _cl = initialClassLoader;
+   
+   private AppSession _currentSession = null;
    
    private AppLoader() {}
    
    public void loadApplication(final URL url)
    {
+      if (_currentSession != null)
+      {
+         _currentSession.end();
+         _currentSession = null;
+      }
+      
       if (SwingUtilities.isEventDispatchThread())
       {
          loadApp(url);
@@ -46,7 +54,7 @@ public class AppLoader implements ThreadMaker
    
    private void loadApp(URL url)
    {
-      ClassLoader cl = URLClassLoader.newInstance(new URL[] { url }, ClassLoader.getSystemClassLoader());
+      ClassLoader cl = new URLFirstClassLoader(new URL[] { url }, initialClassLoader);
       updateContextClassLoader(cl);
       loadApp();
    }
@@ -61,16 +69,15 @@ public class AppLoader implements ThreadMaker
 
    private void loadApp()
    {
+      final Splash splash = new Splash();
+
       newThread(new Runnable()
       {
          public void run()
          {
-            Splash splash = new Splash();
-
             try
             {
-               AppSession session = initializeApp(splash);
-               session.begin();
+               initializeApp(splash);
             }
             finally
             {
@@ -82,26 +89,33 @@ public class AppLoader implements ThreadMaker
    
    public void launchApp(Splash splash)
    {
-      AppSession session = initializeApp(splash);
-      session.launch();
+      URL applicationContext = _cl.getResource("applicationContext.xml");
+      if (applicationContext != null)
+      {
+         initializeApp(splash);
+      }
    }
    
-   private AppSession initializeApp(Splash splash)
+   private void initializeApp(Splash splash)
    {
       Logger.getLogger("org.springframework").setLevel(Level.WARNING);
-      ComplexType.loadMetadataProperties();
-      ComplexType.loadLocaleBundle();
-      
-      ClassPathXmlApplicationContext context = 
-            new ClassPathXmlApplicationContext("applicationContext.xml");
-      
+      ComplexType.reset();
+
+      ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
       Application app = (Application) context.getBean("application");
       app.addAppEventListener(MESSAGE, splash);
 
       app.message(String.format("Launching %s", app.getName()));
-      app.seedDatabase();
+      app.postInitialize();
       
-      return (AppSession) context.getBean("app-session");
+      _currentSession = (AppSession) context.getBean("app-session");
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            _currentSession.begin();
+         }
+      });
    }
    
    public Thread newThread()

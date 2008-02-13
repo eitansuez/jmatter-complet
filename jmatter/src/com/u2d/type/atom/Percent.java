@@ -77,7 +77,7 @@ public class Percent extends AbstractAtomicEO
    public AtomicRenderer getRenderer() { return vmech().getPercentRenderer(); }
    public AtomicEditor getEditor() { return vmech().getPercentEditor(); }
 
-   public void parseValue(String stringValue) throws ParseException
+   public void parseValue(String stringValue) throws java.text.ParseException
    {
       Number number = _percentFormat.parse(stringValue);
       setValue(number.doubleValue());

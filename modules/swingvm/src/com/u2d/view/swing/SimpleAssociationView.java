@@ -16,7 +16,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
-
 import org.jdesktop.swingx.JXPanel;
 
 /**
@@ -36,8 +35,10 @@ public class SimpleAssociationView extends JXPanel
    private JPopupMenu _popup;
    private JListSelectionView _matchesList;
 
+   private String _assocFieldName;
    private boolean targetAssociation;
    private AbstractListEO matches;
+   private CommandAdapter invokeAction;
 
 
    public SimpleAssociationView()
@@ -49,14 +50,15 @@ public class SimpleAssociationView extends JXPanel
       init();
       bind(a);
    }
+   public SimpleAssociationView(String assocFieldName)
+   {
+      init();
+      _assocFieldName = assocFieldName;
+   }
    public SimpleAssociationView(Instruction instruction, String assocFieldName)
    {
-      _instruction = instruction;
-      targetAssociation = ("target".equals(assocFieldName));
-      matches = targetAssociation ? _instruction.getTargetMatches() : 
-                                          _instruction.getActionMatches();
-      init();
-      bind(instruction.association(assocFieldName));
+      this(assocFieldName);
+      bind(instruction);
    }
    
    private void init()
@@ -76,7 +78,6 @@ public class SimpleAssociationView extends JXPanel
          public void removeUpdate(DocumentEvent e) { updateAssociation(); }
          public void changedUpdate(DocumentEvent e) { updateAssociation(); }
       });
-      _matcherField.addActionListener(new CommandAdapter(_instruction.command("Invoke"), _instruction, this));
       _matcherField.addKeyListener(new KeyPressAdapter(new KeyAdapter() {
             public void keyPressed(KeyEvent e)
             {
@@ -97,7 +98,7 @@ public class SimpleAssociationView extends JXPanel
    private void setupPopup()
    {
       _popup = new JPopupMenu("Matches");
-      _matchesList = new JListSelectionView(matches);
+      _matchesList = new JListSelectionView();
       _popup.add(_matchesList);
 
       _matcherField.addKeyListener(new KeyPressAdapter(new KeyAdapter()
@@ -165,16 +166,40 @@ public class SimpleAssociationView extends JXPanel
    {
       if (_association != null)
       {
-         detach();
+         detachAssociation();
       }
       _association = a;
       _association.addPropertyChangeListener(this);
       bindIconView();
    }
-   public void detach()
+   
+   public void bind(Instruction instruction)
+   {
+      if (_instruction != null)
+      {
+         detach();
+      }
+      _instruction = instruction;
+      targetAssociation = ("target".equals(_assocFieldName));
+      matches = targetAssociation ? _instruction.getTargetMatches() : 
+                                          _instruction.getActionMatches();
+      
+      _matchesList.bind(matches);
+
+      invokeAction = new CommandAdapter(_instruction.command("Invoke"), _instruction, this);
+      _matcherField.addActionListener(invokeAction);
+
+      bind(instruction.association(_assocFieldName));
+   }
+   
+   private void detachAssociation()
    {
       _association.removePropertyChangeListener(this);
       iconView.detach();
+   }
+   public void detach()
+   {
+      _matcherField.removeActionListener(invokeAction);
    }
    
    public void propertyChange(PropertyChangeEvent evt)

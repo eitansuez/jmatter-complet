@@ -26,7 +26,7 @@ public class HBMSingleSession extends HibernatePersistor
 
    public void newSession()
    {
-      if (_session != null)
+      if (_session != null && _session.isOpen())
       {
          try
          {

@@ -162,7 +162,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    private static int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
    
 
-   public void parseValue(String stringValue) throws ParseException
+   public void parseValue(String stringValue) throws java.text.ParseException
    {
       if (StringEO.isEmpty(stringValue))
       {
@@ -174,7 +174,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
       {
          for (int i=0; i<strategyFallbackHierarchy.length; i++)
             if (strategyFallbackHierarchy[i].parse(stringValue, this)) return;
-         throw new ParseException(ComplexType.localeLookupStatic("error.date")+": "+stringValue, 0);
+         throw new java.text.ParseException(ComplexType.localeLookupStatic("error.date")+": "+stringValue, 0);
       }
       else
       {
@@ -197,16 +197,16 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
          {
             return tryParse(stringValue, target);
          }
-         catch (ParseException ex)
+         catch (java.text.ParseException ex)
          {
             return false;
          }
       }
-      protected abstract boolean tryParse(String stringValue, DateEO target) throws ParseException;
+      protected abstract boolean tryParse(String stringValue, DateEO target) throws java.text.ParseException;
    }
    static class StandardStrategy extends BaseDateFormatStrategy
    {
-      public boolean tryParse(String stringValue, DateEO target) throws ParseException
+      public boolean tryParse(String stringValue, DateEO target) throws java.text.ParseException
       {
          Date value = STANDARD.parse(stringValue);
          Calendar cal = Calendar.getInstance();
@@ -224,7 +224,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
       DateFormat _fmt;
       SimpleDateFormatStrategy(DateFormat fmt) { _fmt = fmt; }
       
-      public boolean tryParse(String stringValue, DateEO target) throws ParseException
+      public boolean tryParse(String stringValue, DateEO target) throws java.text.ParseException
       {
          target.setValue(_fmt.parse(stringValue));
          return true;
@@ -232,7 +232,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    }
    static class NoYearStrategy extends BaseDateFormatStrategy
    {
-      public boolean tryParse(String stringValue, DateEO target) throws ParseException
+      public boolean tryParse(String stringValue, DateEO target) throws java.text.ParseException
       {
          Date value = NOYEAR.parse(stringValue);
          Calendar cal = Calendar.getInstance();
@@ -244,7 +244,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    }
    static class NoDelimsStrategy extends BaseDateFormatStrategy
    {
-      public boolean tryParse(String stringValue, DateEO target) throws ParseException
+      public boolean tryParse(String stringValue, DateEO target) throws java.text.ParseException
       {
          if (stringValue.length() == 7)  // zero-padding for parse
             stringValue = "0" + stringValue;

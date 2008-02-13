@@ -33,6 +33,10 @@ public class LoginDialog extends JXPanel
       setFocusCycleRoot(true);
       new MovableSupport(this);
    }
+   public void setAuthMgr(AuthManager authMgr)
+   {
+      _authMgr = authMgr;
+   }
    
    private String lookup(String key)
    {

@@ -29,15 +29,16 @@ public class InstructionView extends JPanel
    private Timer _dismissTimer;
    private final static String TIP_START_TEXT = "Type to start matching a type";
    private JLabel _tipLabel = new JLabel();
+   private ChangeListener _activeChangeListener;
+   private PropertyChangeListener targetChangeListener;
+   private PropertyChangeListener actionChangeListener;
 
-   public InstructionView(Instruction instruction)
+   public InstructionView()
    {
-      _instruction = instruction;
-      
       configureTimer();
       configureView();
       
-      _instruction.getActive().addChangeListener(new ChangeListener() {
+      _activeChangeListener = new ChangeListener() {
          public void stateChanged(ChangeEvent e)
          {
             SwingUtilities.invokeLater(new Runnable() {
@@ -47,7 +48,36 @@ public class InstructionView extends JPanel
                }
             });
          }
-      });
+      };
+   }
+   public InstructionView(Instruction instruction)
+   {
+      this();
+      bind(instruction);
+   }
+   
+   public void bind(Instruction instruction)
+   {
+      if (_instruction != null)
+      {
+         detach();
+      }
+      
+      _instruction = instruction;
+      _instruction.getActive().addChangeListener(_activeChangeListener);
+      _targetView.bind(_instruction);
+      _cmdView.bind(_instruction);
+      _instruction.addPropertyChangeListener("target", targetChangeListener);
+      _instruction.addPropertyChangeListener("action", actionChangeListener);
+      setVisibility();
+   }
+   public void detach()
+   {
+      _instruction.getActive().removeChangeListener(_activeChangeListener);
+      _instruction.removePropertyChangeListener("target", targetChangeListener);
+      _instruction.removePropertyChangeListener("action", actionChangeListener);
+      _targetView.detach();
+      _cmdView.detach();
    }
    
    private void configureTimer()
@@ -70,17 +100,17 @@ public class InstructionView extends JPanel
    
    private void configureView()
    {
-      _targetView = new SimpleAssociationView(_instruction, "target");
-      _cmdView = new SimpleAssociationView(_instruction, "action");
-      
-      _instruction.addPropertyChangeListener("target", new PropertyChangeListener()
+      _targetView = new SimpleAssociationView("target");
+      _cmdView = new SimpleAssociationView("action");
+
+      targetChangeListener = new PropertyChangeListener()
       {
          public void propertyChange(PropertyChangeEvent evt)
          {
             _cmdView.clear();
          }
-      });
-      _instruction.addPropertyChangeListener("action", new PropertyChangeListener()
+      };
+      actionChangeListener = new PropertyChangeListener()
       {
          public void propertyChange(PropertyChangeEvent evt)
          {
@@ -96,8 +126,7 @@ public class InstructionView extends JPanel
             String helpText = cmd.title().append(parentPluralName).toString();
             _tipLabel.setText(helpText);
          }
-      });
-         
+      };
 
       FormLayout layout = new FormLayout("180px, 180px", "fill:180px, pref");
       CellConstraints cc = new CellConstraints();
@@ -107,8 +136,6 @@ public class InstructionView extends JPanel
       add(_cmdView, cc.rc(1, 2));
       _tipLabel.setText(TIP_START_TEXT);
       add(_tipLabel, cc.rcw(2, 1, 2));
-      
-      setVisibility();
    }
    
    
@@ -136,7 +163,6 @@ public class InstructionView extends JPanel
    }
 
    public EObject getEObject() { return _instruction; }
-   public void detach() { }
    public void stateChanged(ChangeEvent e) { }
 
    public void propertyChange(PropertyChangeEvent evt) { }

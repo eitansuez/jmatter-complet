@@ -45,9 +45,12 @@ import com.u2d.wizard.ui.WizardPane;
 import com.u2d.interaction.Instruction;
 //import spin.over.CheckingRepaintManager;
 import javax.swing.*;
+import javax.swing.event.SwingPropertyChangeSupport;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.InvocationTargetException;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * @author Eitan Suez
@@ -70,6 +73,7 @@ public class SwingViewMechanism implements ViewMechanism
 //      RepaintManager.setCurrentManager(new CheckingRepaintManager());
       CSSEngine.initialize();
       Toolkit.getDefaultToolkit().addAWTEventListener(_inputTracker, AWTEvent.MOUSE_EVENT_MASK);
+      _appFrame = new AppFrame();
    }
 
    InputTracker _inputTracker = new InputTracker();
@@ -86,7 +90,7 @@ public class SwingViewMechanism implements ViewMechanism
       }
    }
 
-   public static void setupAntiAliasing()
+   private void setupAntiAliasing()
    {
       String antialias_text = "swing.aatext";
       if (null == System.getProperty(antialias_text))
@@ -96,23 +100,24 @@ public class SwingViewMechanism implements ViewMechanism
    public void setAppSession(AppSession appSession)
    {
       _appSession = appSession;
-      
-      if (_appSession.getApp() == null) return;
-      
-      SwingUtilities.invokeLater(new Runnable()
+
+      if (_loginDialog != null)
       {
-         public void run()
+         _loginDialog.setAuthMgr(_appSession);
+      }
+      
+      if (_appSession == null)
+      {
+         _appFrame.appUnloaded();
+      }
+      else
+      {
+         if (_appSession.getApp() != null) // hack
          {
-            if (_appSession == null)
-            {
-               _appFrame.appUnloaded();
-            }
-            else
-            {
-               _appFrame.appLoaded(_appSession);
-            }
+            _appFrame.appLoaded(_appSession);
          }
-      });
+      }
+      
    }
 
    private boolean labelEditorLayoutHorizontal = true;
@@ -134,11 +139,18 @@ public class SwingViewMechanism implements ViewMechanism
    
    public void launch()
    {
-      SwingUtilities.invokeLater(new Runnable()
+      final Splash splash = new Splash();
+      
+      invokeSwingAction(new SwingAction()
       {
-         public void run()
+         public void offEDT()
          {
-            _appFrame = new AppFrame(_appSession);
+            AppLoader.getInstance().launchApp(splash);
+         }
+
+         public void backOnEDT()
+         {
+            splash.dispose();
             _appFrame.setVisible(true);
          }
       });
@@ -150,14 +162,18 @@ public class SwingViewMechanism implements ViewMechanism
       {
          public void run()
          {
-            if (_loginDialog == null)
+            synchronized(this)
             {
-               _loginDialog = new LoginDialog(_appSession);
-               _appFrame.addLoginDialog(_loginDialog);
-               _loginDialog.position();
+               if (_loginDialog == null)
+               {
+                  _loginDialog = new LoginDialog(_appSession);
+                  _appFrame.addLoginDialog(_loginDialog);
+                  _loginDialog.position();
+               }
+               _loginDialog.clear();
+               _loginDialog.setVisible(true);
+               
             }
-            _loginDialog.clear();
-            _loginDialog.setVisible(true);
          }
       });
    }
@@ -1008,4 +1024,44 @@ public class SwingViewMechanism implements ViewMechanism
       }).start();
    }
 
+   
+   /* ** PropertyChangeSupport "Support" ** */
+   protected transient SwingPropertyChangeSupport _changeSupport = new SwingPropertyChangeSupport(this);
+
+   public void firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      _changeSupport.firePropertyChange(propertyName, oldValue, newValue);
+   }
+   public void firePropertyChange(PropertyChangeEvent event)
+   {
+      _changeSupport.firePropertyChange(event);
+   }
+   public void firePropertyChange(String propertyName, int oldValue, int newValue)
+   {
+      firePropertyChange(propertyName, new Integer(oldValue), new Integer(newValue));
+   }
+   public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue)
+   {
+      firePropertyChange(propertyName, Boolean.valueOf(oldValue), Boolean.valueOf(newValue));
+   }
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
+   {
+      _changeSupport.addPropertyChangeListener(listener);
+   }
+   public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
+   {
+      _changeSupport.addPropertyChangeListener(propertyName, listener);
+   }
+
+   public void removePropertyChangeListener(PropertyChangeListener listener)
+   {
+      _changeSupport.removePropertyChangeListener(listener);
+   }
+   public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener)
+   {
+      _changeSupport.removePropertyChangeListener(propertyName, listener);
+   }
+
+   
 }

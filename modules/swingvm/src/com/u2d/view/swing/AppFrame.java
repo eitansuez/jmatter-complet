@@ -8,7 +8,6 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.u2d.app.*;
 import com.u2d.css4swing.style.ComponentStyle;
-import com.u2d.css4swing.CSSEngine;
 import com.u2d.element.Command;
 import com.u2d.model.ComplexType;
 import com.u2d.pattern.Filter;
@@ -52,6 +51,8 @@ public class AppFrame extends JFrame
    private Application _app;
    private JMenuBar _menuBar;
    private ImageIcon _appIcon;
+   private Instruction instruction;
+   private InstructionView instructionView;
 
    private CommandsMenuView _userMenu = new CommandsMenuView(new Filter()
    {
@@ -72,24 +73,20 @@ public class AppFrame extends JFrame
    private JPanel _centerPane;
    private OutlookFolderView _classBar = new OutlookFolderView();
    private ClassMenu _classMenu = new ClassMenu();
-
    private EODesktopPane _desktopPane;
    private CardPanel _cardPanel;
 
-   public AppFrame(AppSession appSession)
+   public AppFrame()
    {
       setupUI();
-      if (appSession != null)
-      {
-         setupApp(appSession);
-      }
+      setupLoginLogoutListeners();
    }
-   
-   public void appLoaded(AppSession appSession)
+   public AppFrame(AppSession appSession)
    {
-//      CSSEngine.getInstance().restyle((JPanel) getContentPane());
+      this();
       setupApp(appSession);
    }
+   
    public void appUnloaded()
    {
       _appSession.removeAppEventListener(LOGIN, _loginListener);
@@ -97,6 +94,11 @@ public class AppFrame extends JFrame
       _appSession = null;
       _cardPanel.show("app-off");
    }
+   public void appLoaded(AppSession appSession)
+   {
+      setupApp(appSession);
+   }
+
    private void setupUI()
    {
       setTitle("JMatter");
@@ -112,12 +114,21 @@ public class AppFrame extends JFrame
       _cardPanel.show("app-off");
       
       _desktopPane = new EODesktopPane();
+      
       // TODO: re-enable these two lines:
+      /* (discussion: quitaction looks up a resource which is bundled with the app
+          which may not have been loaded yet.  solution is to separate generic resources
+          from app-specific resources so that the ones referenced by quitaction are always
+          accessible)
+       */
 //      _desktopPane.getContextMenu().addSeparator();
 //      _desktopPane.getContextMenu().add(new QuitAction());
+      
       _desktopPane.setEnabled(false);
       _centerPane.add(_desktopPane, BorderLayout.CENTER);
       contentPane.add(_cardPanel, BorderLayout.CENTER);
+      
+      setupInstructionView();
       
       setPreferredSize(new Dimension(800, 600));
       setSize(getPreferredSize());
@@ -131,17 +142,16 @@ public class AppFrame extends JFrame
       _appSession = appSession;
       _app = _appSession.getApp();
 
+      _appSession.addAppEventListener(LOGIN, _loginListener);
+      _appSession.addAppEventListener(LOGOUT, _logoutListener);
+
       setTitle(_app.getName());
       setupAppIcon();
-
-      listenForUserEvents();
-      setupInstructionView();  // TODO:  support multiple app loadings (unbind/bind instrview)
-
-      // NEEDS WORK
-      setupMenu();  // TODO:  needs work to update itself when app is loaded
-      // in general:  create a JMatterApp application object and just bind the ui
-      // to a different app object.
+      setupMenu();
       
+      instruction = new Instruction();
+      instructionView.bind(instruction);
+
       _cardPanel.show("app-on");
    }
    
@@ -157,7 +167,7 @@ public class AppFrame extends JFrame
    }
    
    private void setupInstructionView() {
-      InstructionView instructionView = new InstructionView(Instruction.getInstance());
+      instructionView = new InstructionView();
       ComponentStyle.setIdent(instructionView, "command-panel");
       _desktopPane.add(instructionView, JLayeredPane.POPUP_LAYER);
       UIUtils.center(_desktopPane, instructionView);
@@ -185,7 +195,7 @@ public class AppFrame extends JFrame
       bindKeyStroke(KeyStroke.getKeyStroke('I', Platform.mask()), "invoke-instruction", new AbstractAction() {
          public void actionPerformed(ActionEvent e)
          {
-            Instruction.getInstance().activate();
+            instruction.activate();
          }
       });
    }
@@ -265,7 +275,8 @@ public class AppFrame extends JFrame
    }
 
    AppEventListener _loginListener, _logoutListener;
-   private void listenForUserEvents()
+   
+   private void setupLoginLogoutListeners()
    {
       _loginListener = new AppEventListener()
       {
@@ -284,8 +295,6 @@ public class AppFrame extends JFrame
             });
          }
       };
-      _appSession.addAppEventListener(LOGIN, _loginListener);
-      
       _logoutListener = new AppEventListener()
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
@@ -301,6 +310,12 @@ public class AppFrame extends JFrame
                   detachKeystrokes();
                   _desktopPane.setEnabled(false); // disable context menu
 
+                  /*
+                  cannot move this out of appframe because this code must take place
+                   _after_ appframe finishes:  it uses the db to save the user desktop.
+                   if i setup a logout listener somewhere else, then i have no control
+                   over which gets called first.
+                   */
                   AppLoader.getInstance().newThread(new Runnable()
                   {
                      public void run()
@@ -316,7 +331,6 @@ public class AppFrame extends JFrame
             });
          }
       };
-      _appSession.addAppEventListener(LOGOUT, _logoutListener);
    }
 
    private void setupMenu()
@@ -432,8 +446,6 @@ public class AppFrame extends JFrame
             }
          });
       }
-
-
 
    //===
 

@@ -64,7 +64,7 @@ public class DateTime extends AbstractAtomicEO implements Searchable
    public AtomicRenderer getRenderer() { return vmech().getDateTimeRenderer(); }
    public AtomicEditor getEditor() { return vmech().getDateTimeEditor(); }
 
-   public void parseValue(String stringValue) throws ParseException
+   public void parseValue(String stringValue) throws java.text.ParseException
    {
       if (StringEO.isEmpty(stringValue))
       {
@@ -83,7 +83,7 @@ public class DateTime extends AbstractAtomicEO implements Searchable
          }
          setValue(value);
       }
-      catch (ParseException ex)
+      catch (java.text.ParseException ex)
       {
          Date value = _noyear.parse(stringValue);
          Calendar cal = Calendar.getInstance();

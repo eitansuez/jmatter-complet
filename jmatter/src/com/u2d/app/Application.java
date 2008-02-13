@@ -5,6 +5,8 @@ package com.u2d.app;
 
 import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
+import com.u2d.model.ComplexEObject;
+import com.u2d.model.AbstractListEO;
 import com.u2d.type.composite.Folder;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.type.LogEventType;
@@ -19,12 +21,10 @@ import org.hibernate.*;
 import org.jibx.runtime.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import java.io.InputStream;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * @author Eitan Suez
@@ -35,7 +35,10 @@ public class Application implements AppEventNotifier
    protected int _pagesize;
    protected PersistenceMechanism _pmech;
    private Folder _classBar;
+   
+   private transient Map<String, ComplexEObject> index = new HashMap<String, ComplexEObject>();
 
+   
    public Application() {}
    
    public String getName() { return _name; }
@@ -68,6 +71,30 @@ public class Application implements AppEventNotifier
       // set repaintmanager for debugging EDT issues:
 //      RepaintManager.setCurrentManager(new spin.over.CheckingRepaintManager());
    }
+   
+   public void postInitialize()
+   {
+      seedDatabase();
+      addTypesToIndex();
+   }
+
+   private void addTypesToIndex()
+   {
+      contributeToIndex(ComplexType.persistedTypes());
+   }
+   
+   public void contributeToIndex(AbstractListEO items)
+   {
+      for (Iterator itr = items.iterator(); itr.hasNext(); )
+      {
+         ComplexEObject item = (ComplexEObject) itr.next();
+         index.put(item.title().toString().toLowerCase(), item);
+      }
+   }
+   
+   public Map<String, ComplexEObject> getIndex() { return index; }
+   
+   
    
    private static final String TEMPLATE_CLASSBAR = "Template Class Bar";
    public void seedDatabase()

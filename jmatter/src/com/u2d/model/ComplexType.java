@@ -46,6 +46,12 @@ public class ComplexType extends AbstractComplexEObject
 
    static
    {
+      reset();
+   }
+   
+   public static void reset()
+   {
+      resetPersistedTypes();
       loadMetadataProperties();
       loadLocaleBundle();
    }
@@ -671,6 +677,7 @@ public class ComplexType extends AbstractComplexEObject
    }
 
    private static PlainListEObject _persistedTypes;
+   public static void resetPersistedTypes() { _persistedTypes = null; }
    public static PlainListEObject persistedTypes()
    {
       if (_persistedTypes == null)
