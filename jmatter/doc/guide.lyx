@@ -1,4 +1,4 @@
-#LyX 1.5.1 created this file. For more info see http://www.lyx.org/
+#LyX 1.5.3 created this file. For more info see http://www.lyx.org/
 \lyxformat 276
 \begin_document
 \begin_header
@@ -11813,7 +11813,7 @@ public static Reportable Report(CommandInfo cmdInfo)
 \end_layout
 
 \begin_layout LyX-Code
-         return "/com/u2d/contactmgr/Basic.xml";
+         return "com/u2d/contactmgr/Basic.xml";
 \end_layout
 
 \begin_layout LyX-Code
