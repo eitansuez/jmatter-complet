@@ -16,6 +16,7 @@
  <property name="jws-dist.dir" location="jws-dist" />
  <property name="dist.dir" location="dist" />
  <property name="jar.file" location="${jws-dist.dir}/${ant.project.name}.jar" />
+ <property name="model-jar.file" location="${dist.dir}/${ant.project.name}.jar" />
  <property name="war.file" location="${dist.dir}/${ant.project.name}.war" />
 
  <property name="test.dir" location="test" />
@@ -123,6 +124,16 @@
      </manifest>
      <fileset dir="${build.classes.dir}" includes="**/*" />
      <fileset dir="${framework.classes.dir}" includes="**/*" />
+   </jar>
+ </target>
+
+ <target name="jar-model" description="jar just the model" depends="clean,genhbm">
+   <jar file="${model-jar.file}">
+     <manifest>
+       <attribute name="Created-By" value="jMatter" />
+       <attribute name="Main-Class" value="${main.class}" />
+     </manifest>
+     <fileset dir="${build.classes.dir}" includes="**/*" />
    </jar>
  </target>
 
