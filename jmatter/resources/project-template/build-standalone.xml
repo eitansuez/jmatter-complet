@@ -69,6 +69,7 @@
           destdir="${build.classes.dir}"
           classpathref="class.path"
           listfiles="true"
+          target="1.5"
           debug="on" deprecation="on" />
    <make-persistclasses template="${src.dir}/persistClasses.st"
         target="${build.classes.dir}/persistClasses.xml"

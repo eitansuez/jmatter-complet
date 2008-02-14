@@ -73,6 +73,7 @@
           destdir="${build.classes.dir}"
           classpathref="class.path"
           listfiles="true"
+          target="1.5"
           debug="on" deprecation="on" />
 -->
 
@@ -82,7 +83,7 @@
 
    <groovyc srcdir="${src.dir}" destdir="${build.classes.dir}"
             classpathref="class.path">
-     <javac debug="on" deprecation="on" />
+     <javac debug="on" deprecation="on" target="1.5" />
    </groovyc>
     
    <make-persistclasses template="${src.dir}/persistClasses.st"
