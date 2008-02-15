@@ -53,6 +53,7 @@ public class AppFrame extends JFrame
    private ImageIcon _appIcon;
    private Instruction instruction;
    private InstructionView instructionView;
+   private AboutDlg aboutDlg;
 
    private CommandsMenuView _userMenu = new CommandsMenuView(new Filter()
    {
@@ -147,6 +148,8 @@ public class AppFrame extends JFrame
 
       setTitle(_app.getName());
       setupAppIcon();
+
+      if (aboutDlg != null) aboutDlg.rebind();
       setupMenu();
       
       instruction = new Instruction();
@@ -343,6 +346,10 @@ public class AppFrame extends JFrame
    private JMenu fileMenu()
    {
       JMenu fileMenu = configMenu("menubar.file");
+      if (!_app.getName().equals("JMatter App Browser"))
+      {
+         fileMenu.add(new BackToAppBrowserAction());
+      }
       fileMenu.add(new QuitAction());
       return fileMenu;
    }
@@ -449,6 +456,18 @@ public class AppFrame extends JFrame
 
    //===
 
+   class BackToAppBrowserAction extends AbstractAction
+   {
+      public BackToAppBrowserAction()
+      {
+         putValue(javax.swing.Action.NAME, "Unload Application");
+      }
+
+      public void actionPerformed(ActionEvent e)
+      {
+         AppLoader.getInstance().loadApplication(null);
+      }
+   }
    class QuitAction extends AbstractAction
    {
       public QuitAction()
@@ -479,8 +498,6 @@ public class AppFrame extends JFrame
    }
    
    
-   private JDialog aboutDlg;
-   
    class AboutAction extends AbstractAction
    {
       public AboutAction()
@@ -499,7 +516,10 @@ public class AppFrame extends JFrame
    class AboutDlg extends JDialog implements ActionListener
    {
       JButton closeBtn;
-      
+      private JLabel titleView;
+      private JTextArea descriptionArea;
+      private URIRenderer link;
+
       AboutDlg()
       {
          super(AppFrame.this, "About "+_app.getName(), true);
@@ -533,16 +553,16 @@ public class AppFrame extends JFrame
          
          PanelBuilder builder = new PanelBuilder(layout);
          CellConstraints cc = new CellConstraints();
-         JLabel titleView = new JLabel(_app.title(), _appIcon, JLabel.LEFT);
+         titleView = new JLabel(_app.title(), _appIcon, JLabel.LEFT);
          ComponentStyle.addClass(titleView, "title");
          builder.add(titleView, cc.rc(1, 1));
-         
-         JTextArea descriptionArea = new JTextArea(_app.getDescription(), 5, 40);
+
+         descriptionArea = new JTextArea(_app.getDescription(), 5, 40);
          descriptionArea.setEditable(false);
          descriptionArea.setOpaque(false);
          builder.add(new JScrollPane(descriptionArea), cc.rc(3, 1));
-         
-         URIRenderer link = new URIRenderer();
+
+         link = new URIRenderer();
          link.render(new URI(_app.getHelpContentsUrl()));
          builder.add(link, cc.rc(5, 1));
          
@@ -553,6 +573,16 @@ public class AppFrame extends JFrame
          JPanel mainArea = builder.getPanel();
          ComponentStyle.setIdent(mainArea, "aboutPnl");
          contentPane.add(mainArea, BorderLayout.CENTER);
+      }
+      
+      private String title() { return String.format("About %s", _app.getName()); }
+      public void rebind()
+      {
+         setTitle(title());
+         titleView.setText(_app.title());
+         titleView.setIcon(_appIcon);
+         descriptionArea.setText(_app.getDescription());
+         link.render(new URI(_app.getHelpContentsUrl()));
       }
 
       public void actionPerformed(ActionEvent e)

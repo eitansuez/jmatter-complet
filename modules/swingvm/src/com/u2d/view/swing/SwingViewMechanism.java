@@ -72,11 +72,9 @@ public class SwingViewMechanism implements ViewMechanism
       // Checks for EDT violations..
 //      RepaintManager.setCurrentManager(new CheckingRepaintManager());
       CSSEngine.initialize();
-      Toolkit.getDefaultToolkit().addAWTEventListener(_inputTracker, AWTEvent.MOUSE_EVENT_MASK);
-      _appFrame = new AppFrame();
    }
 
-   InputTracker _inputTracker = new InputTracker();
+   InputTracker _inputTracker;
    boolean _isShiftDown = false;
    
    class InputTracker implements AWTEventListener
@@ -88,6 +86,11 @@ public class SwingViewMechanism implements ViewMechanism
             _isShiftDown = ((InputEvent) event).isShiftDown();
          }
       }
+   }
+   private void setupInputTracker()
+   {
+      _inputTracker = new InputTracker();
+      Toolkit.getDefaultToolkit().addAWTEventListener(_inputTracker, AWTEvent.MOUSE_EVENT_MASK);
    }
 
    private void setupAntiAliasing()
@@ -140,14 +143,17 @@ public class SwingViewMechanism implements ViewMechanism
    public void launch()
    {
       final Splash splash = new Splash();
-      
+
+      _appFrame = new AppFrame();
+      setupInputTracker();
+
       invokeSwingAction(new SwingAction()
       {
          public void offEDT()
          {
             AppLoader.getInstance().launchApp(splash);
          }
-
+         
          public void backOnEDT()
          {
             splash.dispose();

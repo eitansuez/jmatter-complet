@@ -54,7 +54,11 @@ public class AppLoader implements ThreadMaker
    
    private void loadApp(URL url)
    {
-      ClassLoader cl = new URLFirstClassLoader(new URL[] { url }, initialClassLoader);
+      ClassLoader cl = initialClassLoader;
+      if (url != null)
+      {
+         cl = new URLFirstClassLoader(new URL[] { url }, initialClassLoader);
+      }
       updateContextClassLoader(cl);
       loadApp();
    }
@@ -70,21 +74,11 @@ public class AppLoader implements ThreadMaker
    private void loadApp()
    {
       final Splash splash = new Splash();
-
-      newThread(new Runnable()
+      SwingViewMechanism.invokeSwingAction(new SwingAction()
       {
-         public void run()
-         {
-            try
-            {
-               initializeApp(splash);
-            }
-            finally
-            {
-               splash.dispose();
-            }
-         }
-      }).start();
+         public void offEDT() { initializeApp(splash); }
+         public void backOnEDT() { splash.dispose(); }
+      });
    }
    
    public void launchApp(Splash splash)

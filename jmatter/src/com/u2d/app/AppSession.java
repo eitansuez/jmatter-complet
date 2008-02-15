@@ -44,7 +44,10 @@ public class AppSession implements AuthManager, AppEventNotifier
    }
    public void end()
    {
-      onLogout();
+      if (_fsm.getState() == AppSessionContext.AuthMap.LoggedInState)
+      {
+         onLogout();
+      }
       _vmech.setAppSession(null);
       ((HBMPersistenceMechanism) pmech()).close();
    }
