@@ -75,7 +75,7 @@ public class SpaceView extends JPanel implements View
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
       
       // draw background..
-      g2.setColor(Color.lightGray);
+      g2.setColor(Color.white);
       g2.fillRect(0, 0, getWidth()-1, getHeight()-1);
       // draw a border..
       BasicStroke stroke = new BasicStroke(3);
