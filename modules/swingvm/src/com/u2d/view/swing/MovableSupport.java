@@ -1,6 +1,5 @@
 package com.u2d.view.swing;
 
-import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -20,8 +19,7 @@ public class MovableSupport
    {
       target.addMouseListener(new MouseAdapter()
       {
-         public void mousePressed(MouseEvent
-         evt)
+         public void mousePressed(MouseEvent evt)
          {
             fromX = evt.getX();
             fromY = evt.getY();

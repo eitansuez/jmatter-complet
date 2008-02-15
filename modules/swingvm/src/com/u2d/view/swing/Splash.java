@@ -24,9 +24,8 @@ public class Splash extends JWindow implements AppEventListener
    private static String WAIT_MSG = ComplexType.localeLookupStatic("launching_application");
 
    private Timer timer;
-   private StringBuffer dots = new StringBuffer(".    ");
-   private boolean forward = true;
-   private int position = 0;
+   private String[] dotsarray = {".", "..", "...", "....", "...", ".."};
+   private int arrayindex = 0;
 
    private JLabel _messageLabel;
    private URL _imgURL = resolveSplashURL();
@@ -67,18 +66,7 @@ public class Splash extends JWindow implements AppEventListener
          public void actionPerformed(ActionEvent evt)
          {
             if (_msg != null && _msg.length() > 0) return;
-
-            position = (forward) ? position + 1 : position - 1;
-            char c = (forward) ? '.' : ' ';
-            dots.setCharAt(position, c);
-
-            if ((position >= 4 && forward) || (position <= 0 && !forward))
-            {
-               position = (forward) ? position + 1 : position - 1;
-               forward = !forward;
-            }
-
-            _messageLabel.setText(WAIT_MSG + dots);
+            _messageLabel.setText(WAIT_MSG + dotsarray[arrayindex++ % dotsarray.length]);
          }
       });
       timer.setRepeats(true);
@@ -86,10 +74,6 @@ public class Splash extends JWindow implements AppEventListener
       new MovableSupport(this);
       
       pack();
-      if (getWidth() < 200)
-      {
-         setSize(getWidth()+100, getHeight());
-      }
       UIUtils.centerOnScreen(this);
       timer.start();
       setVisible(true);
