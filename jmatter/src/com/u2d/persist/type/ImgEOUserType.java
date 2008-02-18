@@ -5,6 +5,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Hibernate;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.H2Dialect;
+import org.hibernate.dialect.MySQLDialect;
 
 import javax.swing.*;
 
@@ -44,15 +45,28 @@ public class ImgEOUserType extends BaseUserType
 
    public Class returnedClass() { return ImgEO.class; }
 
-   private static int[] TYPES = { java.sql.Types.VARBINARY };
-   // h2 defaults to producing a varbinary(255) which is too small;  longvarbinary on 
-   // the other hand works fine.  on the other hand, postgres fails (doesn't support type -4)
-   // with longvarbinary so..
+   // varbinary seems to work generally
+   // h2 however produces a varbinary(255) which is too small;
+   // mysql produces a tinyblob which also is too small
    private static int[] H2_TYPES = { java.sql.Types.LONGVARBINARY };
+   private static int[] MYSQL_TYPES = { java.sql.Types.BLOB };
+   private static int[] REST_TYPES = { java.sql.Types.VARBINARY };
    
    public int[] sqlTypes()
    {
-      return (Dialect.getDialect() instanceof H2Dialect) ? H2_TYPES : TYPES;
+      Dialect dialect = Dialect.getDialect();
+      if (dialect instanceof H2Dialect)
+      {
+         return H2_TYPES;
+      }
+      else if (dialect instanceof MySQLDialect)
+      {
+         return MYSQL_TYPES;
+      }
+      else
+      {
+         return REST_TYPES;
+      }
    }
 
 }
