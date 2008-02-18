@@ -15,8 +15,6 @@
 
  <property name="jws-dist.dir" location="jws-dist" />
  <property name="dist.dir" location="dist" />
- <property name="jar.file" location="${jws-dist.dir}/${ant.project.name}.jar" />
- <property name="model-jar.file" location="${dist.dir}/${ant.project.name}.jar" />
  <property name="war.file" location="${dist.dir}/${ant.project.name}.war" />
 
  <property name="test.dir" location="test" />
@@ -100,7 +98,7 @@
       <fileset dir="resources" includes="styles.css" />
       <fileset dir="resources/data" includes="*.xml,*.json" /> <!-- codes files -->
       <!-- <fileset dir="resources" includes="log4j.properties" /> -->
-      <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- jfree report xmls -->
+      <fileset dir="${src.dir}" includes="**/*.xml" />
       <fileset dir="${src.dir}" includes="**/*.gif,**/*.png" />  <!-- any images referenced by jfree report xmls -->
    </copy>
    <copy file="resources/${hbprops}.properties" tofile="${build.classes.dir}/hibernate.properties" />
@@ -140,25 +138,26 @@
  </target>
 
  <target name="jar" description="jar it" depends="clean,genhbm">
-   <jar file="${jar.file}">
+   <jar file="${jws-dist.dir}/${ant.project.name}.jar">
      <manifest>
        <attribute name="Created-By" value="jMatter" />
        <attribute name="Main-Class" value="${main.class}" />
      </manifest>
-     <fileset dir="${build.classes.dir}" includes="**/*" />
+     <fileset dir="${build.classes.dir}" includes="**/*" excludes="hbmGeneratorContext.xml" />
      <fileset dir="${framework.classes.dir}" includes="**/*" />
    </jar>
  </target>
 
  <target name="jar-model" description="jar just the model" depends="clean,genhbm">
-   <jar file="${model-jar.file}">
+   <jar file="${dist.dir}/${ant.project.name}.jar">
      <manifest>
        <attribute name="Created-By" value="jMatter" />
        <attribute name="Main-Class" value="${main.class}" />
      </manifest>
-     <fileset dir="${build.classes.dir}" includes="**/*" />
+     <fileset dir="${build.classes.dir}" includes="**/*" excludes="hbmGeneratorContext.xml" />
    </jar>
  </target>
+
 
  <target name="schema-export" description="export schema to db">
     <antcall target="schema-x">
@@ -259,12 +258,12 @@
    	    basedir="${jws-dist.dir}" />
  </target>
    
-   <target name="find-drvname">
-      <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
-         classpathref="libtools.path" />
-      <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
-      <echo message="jdbcdrivername is ${jdbcdrivername}" />
-   </target>
+ <target name="find-drvname">
+    <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
+       classpathref="libtools.path" />
+    <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
+    <echo message="jdbcdrivername is ${jdbcdrivername}" />
+ </target>
    
  <target name="copylibs" depends="find-drvname">
     <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
@@ -275,6 +274,20 @@
        <fileset dir="${lib.dir}"
                 includes="jdbc/${jdbcdrivername}" />
     </copy>
+ </target>
+
+ <target name="macappbundle" description="create macosx app bundle" depends="jar,find-drvname">
+   <taskdef name="jarbundler" classname="net.sourceforge.jarbundler.JarBundler"
+            classpath="${lib.tools.dir}/jarbundler-1.9.jar" />
+   <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
+   <mkdir dir="appbundle" />
+   <jarbundler dir="appbundle" name="${ant.project.name}" mainclass="${main.class}">
+      <jarfileset dir="${lib.dir}"
+                  includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,${vmname}.jar,${vmname}/*.jar" />
+      <jarfileset dir="${lib.dir}"
+                  includes="jdbc/${jdbcdrivername}" />
+      <jarfileset dir="${jws-dist.dir}" includes="${ant.project.name}.jar" />
+   </jarbundler>
  </target>
 
  <!-- targets pertaining to junit testing -->
