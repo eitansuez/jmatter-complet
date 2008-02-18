@@ -74,7 +74,7 @@
       <src path="${build.gen.dir}" />
     </javac>
     <copy todir="${build.classes.dir}">
-      <fileset dir="${resource.dir}" includes="styles.css,images/*.gif,images/*.png,images/*.jpg" />
+      <fileset dir="${resource.dir}" includes="styles.css,images/*.gif,images/*.png,images/*.jpg,app/*" />
       <fileset dir="${resource.dir}" includes="jfreereport.properties" />
       <fileset dir="${resource.dir}/data" includes="*.xml" />
       <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- wizard fsm -->

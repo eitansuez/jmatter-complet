@@ -144,8 +144,8 @@ public class LoginDialog extends JXPanel
    }
    
    public void position() {
-      setSize(getPreferredSize());
       ((JComponent) this.getParent()).revalidate();
+      setSize(getPreferredSize());
       Point p = new Point(10, UIUtils.computeCenter(this).y);
       setLocation(p);  // left align..
    }

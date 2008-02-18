@@ -116,14 +116,8 @@ public class AppFrame extends JFrame
       
       _desktopPane = new EODesktopPane();
       
-      // TODO: re-enable these two lines:
-      /* (discussion: quitaction looks up a resource which is bundled with the app
-          which may not have been loaded yet.  solution is to separate generic resources
-          from app-specific resources so that the ones referenced by quitaction are always
-          accessible)
-       */
-//      _desktopPane.getContextMenu().addSeparator();
-//      _desktopPane.getContextMenu().add(new QuitAction());
+      _desktopPane.getContextMenu().addSeparator();
+      _desktopPane.getContextMenu().add(new QuitAction());
       
       _desktopPane.setEnabled(false);
       _centerPane.add(_desktopPane, BorderLayout.CENTER);

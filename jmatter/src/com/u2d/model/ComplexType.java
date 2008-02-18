@@ -41,8 +41,8 @@ import com.u2d.pubsub.AppEventType;
 public class ComplexType extends AbstractComplexEObject
                          implements FieldParent, Localized
 {
-   private static PropertyResourceBundle localeBundle = null;
-   private static Properties metadata = null;
+   private static PropertyResourceBundle localeBundle, appLocaleBundle;
+   private static Properties metadata;
 
    static
    {
@@ -58,18 +58,26 @@ public class ComplexType extends AbstractComplexEObject
    
    public static void loadMetadataProperties()
    {
+      metadata = loadProperties("app/model-metadata.properties");
+      metadata = loadProperties("model-metadata.properties", metadata);
+   }
+   private static Properties loadProperties(String ref)
+   {
+      return loadProperties(ref, new Properties());
+   }
+   private static Properties loadProperties(String resourceRef, Properties props)
+   {
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      InputStream stream = loader.getResourceAsStream("model-metadata.properties");
+      InputStream stream = loader.getResourceAsStream(resourceRef);
       if (stream == null)
       {
-         Tracing.tracer().info("No model-metadata properties file..");
+         Tracing.tracer().info(String.format("No %s properties file..", resourceRef));
       }
       else
       {
-         metadata = new Properties();
          try
          {
-            metadata.load(stream);
+            props.load(stream);
          }
          catch (IOException ex)
          {
@@ -77,12 +85,15 @@ public class ComplexType extends AbstractComplexEObject
             ex.printStackTrace();
          }
       }
+      return props;
    }
    public static void loadLocaleBundle()
    {
       try
       {
          ClassLoader loader = Thread.currentThread().getContextClassLoader();
+         appLocaleBundle = (PropertyResourceBundle)
+               ResourceBundle.getBundle("app/locale-metadata", Locale.getDefault(), loader);
          localeBundle = (PropertyResourceBundle)
                ResourceBundle.getBundle("locale-metadata", Locale.getDefault(), loader);
       }
@@ -561,18 +572,28 @@ public class ComplexType extends AbstractComplexEObject
    }
    public static String localeLookupStatic(String key)
    {
-      if (localeBundle == null) return null;
+      String result = parametrizedLookup(localeBundle, key);
+      if (result == null)
+      {
+         result = parametrizedLookup(appLocaleBundle, key);
+      }
+      return result;
+   }
+   private static String parametrizedLookup(ResourceBundle bundle, String key)
+   {
+      if (bundle == null) return null;
       try
       {
-         return localeBundle.getString(key);
+         return bundle.getString(key);
       }
-      catch (MissingResourceException ex) {}
-      return null;
+      catch (MissingResourceException ex)
+      {
+         return null;
+      }
    }
 
    private void localize()
    {
-      if (localeBundle == null) return;
       localizeLabel();
       localizeFields();
       localizeCommands();
@@ -580,12 +601,10 @@ public class ComplexType extends AbstractComplexEObject
    
    private void localizeLabel()
    {
-      try
-      {
-         _naturalName = localeBundle.getString(_shortName);
-         _pluralName = localeBundle.getString(derivePluralName(_shortName));
-      }
-      catch (MissingResourceException ex) {}
+      String localizedName = localeLookup(_shortName);
+      if (localizedName != null) _naturalName = localizedName;
+      String pluralName = localeLookup(derivePluralName(_shortName));
+      if (pluralName != null) _pluralName = pluralName;
    }
    private void localizeFields()
    {
