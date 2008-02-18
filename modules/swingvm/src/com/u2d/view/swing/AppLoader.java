@@ -1,10 +1,15 @@
 package com.u2d.view.swing;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.HeadMethod;
 import javax.swing.*;
 import java.net.URL;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.io.IOException;
 import com.u2d.app.Application;
 import com.u2d.app.AppSession;
 import static com.u2d.pubsub.AppEventType.MESSAGE;
@@ -28,8 +33,32 @@ public class AppLoader implements ThreadMaker
    
    private AppLoader() {}
    
-   public void loadApplication(final URL url)
+   private void verifyUrl(URL url) throws IOException
    {
+      HttpClient client = new HttpClient();
+      HeadMethod method = new HeadMethod(url.toString());
+      try
+      {
+         int statusCode = client.executeMethod(method);
+         if (statusCode != HttpStatus.SC_OK)
+         {
+            String msg = String.format( "%s (%d)", method.getStatusText(), method.getStatusCode() );
+            throw new HttpException(msg);
+         }
+      }
+      finally
+      {
+         method.releaseConnection();
+      }
+   }
+   
+   public void loadApplication(final URL url) throws IOException
+   {
+      if (url != null && !url.getProtocol().startsWith("file"))
+      {
+         verifyUrl(url);
+      }
+
       if (_currentSession != null)
       {
          _currentSession.end();
@@ -99,7 +128,7 @@ public class AppLoader implements ThreadMaker
       Application app = (Application) context.getBean("application");
       app.addAppEventListener(MESSAGE, splash);
 
-      app.message(String.format("Launching %s", app.getName()));
+      app.message(String.format("%s %s", ComplexType.localeLookupStatic("launching"), app.getName()));
       app.postInitialize();
       
       _currentSession = (AppSession) context.getBean("app-session");

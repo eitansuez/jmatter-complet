@@ -9,6 +9,8 @@ import com.u2d.persist.Persist;
 import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
 import com.u2d.view.swing.AppLoader;
+import java.net.URL;
+import java.io.IOException;
 
 @Persist
 public class AppBookmark
@@ -38,9 +40,18 @@ public class AppBookmark
    public TextEO getDescription() { return description; }
    
    @Cmd(mnemonic='l')
-   public void Launch(CommandInfo cmdInfo)
+   public String Launch(CommandInfo cmdInfo)
    {
-      AppLoader.getInstance().loadApplication(url.urlValue());
+      try
+      {
+         URL urlValue = url.urlValue();
+         AppLoader.getInstance().loadApplication(urlValue);
+         return null;
+      }
+      catch (IOException e)
+      {
+         return e.getMessage();  // e.g. "404 - not found"
+      }
    }
 
    public String defaultCommandName() { return "Launch"; }
