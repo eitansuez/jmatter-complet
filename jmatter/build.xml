@@ -107,17 +107,6 @@
     <copy file="../modules/${module.name}/dist/${module.name}.jar" todir="${runtime.lib.dir}" />
   </target>
    
-
- <target name="run" description="run jmatter application browser" depends="compile">
-   <java classname="com.u2d.view.swing.EntryPoint" classpathref="class.path"
-         fork="true" maxmemory="192m">
-    <!-- to test localization, uncomment this..
-     <sysproperty key="user.language" value="it" />
-      -->
-   </java>
- </target>
-
- 
   <target name="just-jar" description="just jar jmatter framework (assume compiled)">
     <jar basedir="${build.classes.dir}" file="${dist.dir}/${ant.project.name}.jar">
       <manifest>

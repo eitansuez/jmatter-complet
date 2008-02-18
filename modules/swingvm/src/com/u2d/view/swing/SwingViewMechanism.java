@@ -168,20 +168,21 @@ public class SwingViewMechanism implements ViewMechanism
       {
          public void run()
          {
-            synchronized(this)
-            {
-               if (_loginDialog == null)
-               {
-                  _loginDialog = new LoginDialog(_appSession);
-                  _appFrame.addLoginDialog(_loginDialog);
-                  _loginDialog.position();
-               }
-               _loginDialog.clear();
-               _loginDialog.setVisible(true);
-               
-            }
+            ensureLoginDialog();
+            _loginDialog.clear();
+            _loginDialog.setVisible(true);
          }
       });
+   }
+   
+   private synchronized void ensureLoginDialog()
+   {
+      if (_loginDialog == null)
+      {
+         _loginDialog = new LoginDialog(_appSession);
+         _appFrame.addLoginDialog(_loginDialog);
+         _loginDialog.position();
+      }
    }
 
    public void dismissLogin()
@@ -190,6 +191,7 @@ public class SwingViewMechanism implements ViewMechanism
       {
          public void run()
          {
+            ensureLoginDialog();
             _loginDialog.setVisible(false);
          }
       });

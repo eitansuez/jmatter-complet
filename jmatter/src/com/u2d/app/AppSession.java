@@ -39,15 +39,12 @@ public class AppSession implements AuthManager, AppEventNotifier
    
    public void begin()
    {
-      _fsm.onBegin();
       _vmech.setAppSession(this);
+      _fsm.onBegin();
    }
    public void end()
    {
-      if (_fsm.getState() == AppSessionContext.AuthMap.LoggedInState)
-      {
-         onLogout();
-      }
+      _fsm.onEnd();
       _vmech.setAppSession(null);
       ((HBMPersistenceMechanism) pmech()).close();
    }
@@ -137,6 +134,11 @@ public class AppSession implements AuthManager, AppEventNotifier
       fireAppEventNotification(LOGOUT);
       setUser(null);
    }
+
+   protected String _autologinas = null;
+   public void setAutologinas(String username) { _autologinas = username; }
+   public boolean autologin() { return _autologinas != null; }
+   public String autologinusername() { return _autologinas; }
 
    public boolean authenticate(final String username, final String password)
    {

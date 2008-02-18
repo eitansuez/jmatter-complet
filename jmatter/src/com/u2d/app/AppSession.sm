@@ -7,6 +7,7 @@
 %%
 InitState
 {
+  onBegin() [ctxt.autologin()] LoggedInState { setupUser(ctxt.autologinusername()); }
   onBegin() LoggedOutState {}
 }
 
@@ -14,6 +15,7 @@ LoggedInState
 Exit { clearUser(); }
 {
   onLogout LoggedOutState {}
+  onEnd InitState { }
 }
 
 LoggedOutState
@@ -26,6 +28,7 @@ Exit { dismissLoginDialog(); }
   onLogin(username: String, password: String) [ctxt.tooManyBadAttempts(username)] nil 
       { lock(username); displayLockedDialog(); }
   onLogin(username: String, password: String) nil { loginInvalid(); }
+  onEnd InitState { }
 }
 
 %%

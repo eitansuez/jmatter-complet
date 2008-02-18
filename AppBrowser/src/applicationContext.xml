@@ -11,6 +11,7 @@
    <bean id="app-session" class="com.u2d.app.AppSession">
       <property name="app" ref="application" />
       <property name="viewMechanism" ref="view-mechanism" />
+      <property name="autologinas" value="admin" />
    </bean>
    
    <bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism"

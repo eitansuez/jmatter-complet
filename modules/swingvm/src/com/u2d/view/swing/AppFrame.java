@@ -39,8 +39,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.net.URL;
-import java.net.MalformedURLException;
+
+import org.jdesktop.swingx.JXPanel;
 
 /**
  * @author Eitan Suez
@@ -749,38 +749,12 @@ public class AppFrame extends JFrame
    }
    
    
-   class AppLoaderPanel extends JPanel
+   class AppLoaderPanel extends JXPanel
    {
-      JTextField tf;
-      
       public AppLoaderPanel()
       {
-         setLayout(new FlowLayout(FlowLayout.CENTER));
-         JLabel lbl = new JLabel("App URL:");
-         tf = new JTextField("", 40);
-         lbl.setLabelFor(tf);
-         JButton loadBtn = new JButton("Load App");
-         loadBtn.addActionListener(new ActionListener()
-         {
-            public void actionPerformed(ActionEvent e)
-            {
-               try
-               {
-                  URL url = new URL(tf.getText());
-                  AppLoader.getInstance().loadApplication(url);
-               }
-               catch (MalformedURLException ex)
-               {
-                  ex.printStackTrace();
-               }
-            }
-         });
-            
-         add(lbl);
-         add(tf);
-         add(loadBtn);
+         ComponentStyle.setIdent(this, "appload-pnl");
       }
-      
    }
    
 }

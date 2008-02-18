@@ -152,4 +152,8 @@ jmaps|MappableView
   opacity: 0.0;
   border: 1px solid black;   
 }
-
+#appload-pnl
+{
+  background-image: resource("images/splash.png") centered;
+  background-color: white;
+}

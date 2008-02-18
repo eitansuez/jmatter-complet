@@ -31,7 +31,7 @@ public class MovableSupport
          public void mouseDragged(MouseEvent e)
          {
             target.setLocation(target.getLocation().x + e.getX() - fromX,
-                        target.getLocation().y + e.getY() - fromY);
+                               target.getLocation().y + e.getY() - fromY);
          }
       });
    }
