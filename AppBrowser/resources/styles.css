@@ -1,6 +1,7 @@
 @namespace jm com.u2d.view.swing
 @namespace types com.u2d.view.swing.atom
 @namespace jmaps com.u2d.view.swing.map
+@namespace ui com.u2d.ui
 
 JComponent
 {
@@ -157,3 +158,21 @@ jmaps|MappableView
   background-image: resource("images/splash.png") centered;
   background-color: white;
 }
+
+.exception ui|GradientPanel
+{
+  padding: 2px 0px 2px 7px;
+}
+.exception-summary
+{
+  font-size: 14pt;
+}
+.exception-detail
+{
+  background-color: white;
+}
+jm|ExpandableView2 ui|GradientPanel
+{
+  padding: 0px 0px 0px 5px;
+}
+

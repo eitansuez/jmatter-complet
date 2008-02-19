@@ -1,6 +1,8 @@
 @namespace jm com.u2d.view.swing
 @namespace types com.u2d.view.swing.atom
 @namespace jmaps com.u2d.view.swing.map
+@namespace ui com.u2d.ui
+
 
 JComponent
 {
@@ -164,4 +166,7 @@ jmaps|MappableView
 {
   background-color: white;
 }
-
+jm|ExpandableView2 ui|GradientPanel
+{
+  padding: 0px 0px 0px 5px;
+}

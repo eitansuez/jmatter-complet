@@ -6,12 +6,7 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.GradientPanel;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
-import javax.swing.*;
 import javax.swing.event.ChangeEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.*;
 
 /**
@@ -24,34 +19,15 @@ import java.awt.*;
  * @author Eitan Suez
  */
 public class ExpandableView2
-      extends JPanel
+      extends GenericExpandableView
       implements ComplexEView, Editor
 {
 	private ComplexEObject _ceo;
-	private ExpandableView2.ExpandCollapseButton _toggleBtn;
 	private ListItemView _handle;
 	private FormView _leaf;
-   private CellConstraints cc;
    
 	public ExpandableView2()
 	{
-      setOpaque(false);
-      setBorder(BorderFactory.createLineBorder(Color.black));
-      
-      FormLayout layout = new FormLayout("fill:pref:grow, right:pref", 
-                                         "top:pref:grow, top:pref:grow");
-      setLayout(layout);
-      cc = new CellConstraints();
-      
-      _toggleBtn = new ExpandableView2.ExpandCollapseButton();
-      add(_toggleBtn, cc.rc(1, 2));
-      _toggleBtn.addActionListener( new ActionListener()
-         {
-            public void actionPerformed(ActionEvent evt)
-            {
-               expandCollapse(evt.getActionCommand());
-            }
-         });
    }
    
    public void bind(ComplexEObject ceo)
@@ -68,14 +44,15 @@ public class ExpandableView2
    public void bind(ComplexEObject ceo, boolean expanded)
    {
       _ceo = ceo;
-
       _handle = (ListItemView) _ceo.getListItemView();
-      GradientPanel p = new GradientPanel(new Color(0x5171FF), false);
-      p.setLayout(new BorderLayout());
-      p.add(_handle);
-      
-      add(p, cc.rc(1, 1));
 
+      GradientPanel gp = new GradientPanel(new Color(0x5171FF), false);
+      gp.setLayout(new BorderLayout());
+      gp.add(_handle, BorderLayout.CENTER);
+      gp.add(_toggleBtn, BorderLayout.EAST);
+      
+      add(gp, cc.rc(1, 1));
+      
       if (_toggleBtn.isExpanded() != expanded)
          _toggleBtn.doClick();
    }
@@ -92,7 +69,6 @@ public class ExpandableView2
          _leaf = null; // for now, until formviews become poolable
       }
    }
-   
 
    private FormView leaf()
    {
@@ -111,16 +87,11 @@ public class ExpandableView2
    
    public boolean isExpanded() { return _toggleBtn.isExpanded(); }
    
-   private void expandCollapse(String which)
-   {
-      expandCollapse("+".equals(which)); 
-   }
-   
-   private synchronized void expandCollapse(boolean expand)
+   protected synchronized void expandCollapse(boolean expand)
 	{
       if (expand && _toggleBtn.isCollapsed())
       {
-         add(leaf(), cc.rcw(2, 1, 2));
+         add(leaf(), cc.rc(2, 1));
       }
       else if (!expand && _toggleBtn.isExpanded())
       {
@@ -130,59 +101,9 @@ public class ExpandableView2
       CloseableJInternalFrame.updateSize(this);
 	}
 	
-	class ExpandCollapseButton extends JButton
-	{
-		ExpandCollapseButton()
-		{
-         setOpaque(false);
-			setIcon(EXPAND_ICON);
-			setActionCommand("+");
-			setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
-			setContentAreaFilled(false);  // causes no painting of background of button when pressed
-			// icon change is now visual cue of press so no need for content
-         // area filling (looks kind of out of place when set to true)
-			setFocusPainted(false);
-         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		}
-		
-		void toggle()
-      {
-         String newActionCommand = (isCollapsed()) ? "-" : "+";
-         ImageIcon icon = (isCollapsed()) ? COLLAPSE_ICON : EXPAND_ICON;
-         setIcon(icon);
-         setActionCommand(newActionCommand);
-      }
-      
-      void toggle(boolean expanded)
-      {
-         if (expanded != isExpanded())
-            toggle();
-      }
-      
-      boolean isExpanded() { return "-".equals(getActionCommand()); }
-      boolean isCollapsed() { return !isExpanded(); }
-		String getState() { return getActionCommand(); }
-		
-		private Insets _insets = new Insets(2,5,2,5);
-		public Insets getInsets() { return _insets; }
-	}
-
    public EObject getEObject() { return _ceo; }
    public boolean isMinimized() { return true; }
    public void propertyChange(java.beans.PropertyChangeEvent evt) { }
    public void stateChanged(ChangeEvent evt) { }
-
-	
-   static ImageIcon EXPAND_ICON, COLLAPSE_ICON;
-   static ImageIcon EXPAND_ROLLOVER, COLLAPSE_ROLLOVER;
-   static
-   {
-      ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      java.net.URL imgURL = loader.getResource("images/navigate_open.png");
-      EXPAND_ICON = new ImageIcon(imgURL);
-      imgURL = loader.getResource("images/navigate_close.png");
-      COLLAPSE_ICON = new ImageIcon(imgURL);
-   }
-	
 
 }

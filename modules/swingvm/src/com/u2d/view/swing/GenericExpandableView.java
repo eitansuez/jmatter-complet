@@ -17,30 +17,21 @@ import java.awt.*;
  */
 public class GenericExpandableView extends JPanel
 {
-   private ExpandCollapseButton _toggleBtn;
-   private JComponent _leaf;
+   protected ExpandCollapseButton _toggleBtn;
+   protected JComponent _leaf;
+   protected CellConstraints cc;
 
-   public GenericExpandableView(JComponent handle, JComponent leaf)
+   public GenericExpandableView()
    {
-      this(handle, leaf, new Color(0x5171FF));
-   }
-   public GenericExpandableView(JComponent handle, JComponent leaf, Color handlerBg)
-   {
-      _leaf = leaf;
-      
       setOpaque(false);
       setBorder(BorderFactory.createLineBorder(Color.black));
    
       FormLayout layout = new FormLayout("fill:pref:grow", 
                                          "top:pref:grow, top:pref:grow");
       setLayout(layout);
-      CellConstraints cc = new CellConstraints();
+      cc = new CellConstraints();
       
-      GradientPanel p = new GradientPanel(handlerBg, false);
-      p.setLayout(new BorderLayout());
-      p.add(handle, BorderLayout.CENTER);
       _toggleBtn = new ExpandCollapseButton();
-      p.add(_toggleBtn, BorderLayout.EAST);
       _toggleBtn.addActionListener( new ActionListener()
          {
             public void actionPerformed(ActionEvent evt)
@@ -48,8 +39,23 @@ public class GenericExpandableView extends JPanel
                expandCollapse(evt.getActionCommand());
             }
          });
+   }
+
+   public GenericExpandableView(JComponent handle, JComponent leaf)
+   {
+      this(handle, leaf, new Color(0x5171FF));
+   }
+   public GenericExpandableView(JComponent handle, JComponent leaf, Color handlerBg)
+   {
+      this();
+      _leaf = leaf;
       
-      add(p, cc.rc(1, 1));
+      GradientPanel gp = new GradientPanel(handlerBg, false);
+      gp.setLayout(new BorderLayout());
+      gp.add(handle, BorderLayout.CENTER);
+      gp.add(_toggleBtn, BorderLayout.EAST);
+      
+      add(gp, cc.rc(1, 1));
       add(leaf, cc.rc(2, 1));
       
       expandCollapse(false);
@@ -57,12 +63,12 @@ public class GenericExpandableView extends JPanel
 
    public boolean isExpanded() { return _toggleBtn.isExpanded(); }
 
-   private void expandCollapse(String which)
+   protected void expandCollapse(String which)
    {
       expandCollapse("+".equals(which)); 
    }
 
-   private synchronized void expandCollapse(boolean expand)
+   protected synchronized void expandCollapse(boolean expand)
    {
       _leaf.setVisible(expand);
       _toggleBtn.toggle(expand);
