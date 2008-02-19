@@ -152,4 +152,16 @@ jmaps|MappableView
   opacity: 0.0;
   border: 1px solid black;   
 }
+.exception ui|GradientPanel
+{
+  padding: 2px 0px 2px 7px;
+}
+.exception-summary
+{
+  font-size: 14pt;
+}
+.exception-detail
+{
+  background-color: white;
+}
 

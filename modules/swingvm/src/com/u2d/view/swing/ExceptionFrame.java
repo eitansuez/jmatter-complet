@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.io.*;
 import java.lang.reflect.*;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
+import com.u2d.css4swing.style.ComponentStyle;
 
 /**
  * @author Eitan Suez
@@ -25,45 +26,54 @@ public class ExceptionFrame extends CloseableJInternalFrame
          InvocationTargetException indirect = (InvocationTargetException) ex;
          ex = indirect.getCause();
       }
-      
+
       JLabel msgLabel = new JLabel("Exception:  " + ex.getMessage());
       Font font = msgLabel.getFont().deriveFont(Font.BOLD, 14.0f);
       msgLabel.setFont(font);
-      contentPane.add(msgLabel, BorderLayout.NORTH);
-      
+
       StringWriter sw = new StringWriter();
       ex.printStackTrace(new PrintWriter(sw));
-      JTextArea details = new JTextArea(sw.toString())
-      {
-         { 
-            setOpaque(false);
-            setEditable(false);
-            setBorder(BorderFactory.createTitledBorder("Exception Details"));
-         }
-
-         private Dimension MAXSIZE = new Dimension(700,450);
-   
-         public Dimension getPreferredScrollableViewportSize()
-         {
-            Dimension p = getPreferredSize();
-            p.height = Math.min(p.height, MAXSIZE.height);
-            p.width = Math.min(p.width, MAXSIZE.width);
-            return p;
-         }
-         public boolean getScrollableTracksViewportHeight()
-         {
-            if (getParent() instanceof JViewport)
-            {
-               JViewport viewport = (JViewport) getParent();
-               int vpheight = viewport.getHeight();
-               return (vpheight > getPreferredSize().height || vpheight == 0);
-            }
-            return false;
-         }
-      };
-      contentPane.add(new JScrollPane(details), BorderLayout.CENTER);
+      JTextArea details = new CustomTextArea(sw.toString());
+      JScrollPane detailsPane = new JScrollPane(details);
       
+      contentPane.add(new GenericExpandableView(msgLabel, detailsPane, new Color(0xFF3F0A)), BorderLayout.CENTER);
+      ComponentStyle.addClass(contentPane, "exception");
+      ComponentStyle.addClass(details, "exception-detail");
+      ComponentStyle.addClass(msgLabel, "exception-summary");
+
       pack();
+   }
+   
+   class CustomTextArea extends JTextArea
+   {
+      CustomTextArea(String value)
+      { 
+         super(value);
+         
+         setOpaque(false);
+         setEditable(false);
+         setBorder(BorderFactory.createTitledBorder("Exception Details"));
+      }
+
+      private Dimension MAXSIZE = new Dimension(700,450);
+   
+      public Dimension getPreferredScrollableViewportSize()
+      {
+         Dimension p = getPreferredSize();
+         p.height = Math.min(p.height, MAXSIZE.height);
+         p.width = Math.min(p.width, MAXSIZE.width);
+         return p;
+      }
+      public boolean getScrollableTracksViewportHeight()
+      {
+         if (getParent() instanceof JViewport)
+         {
+            JViewport viewport = (JViewport) getParent();
+            int vpheight = viewport.getHeight();
+            return (vpheight > getPreferredSize().height || vpheight == 0);
+         }
+         return false;
+      }
    }
 
 }

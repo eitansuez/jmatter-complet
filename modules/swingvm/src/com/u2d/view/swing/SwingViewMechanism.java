@@ -224,6 +224,10 @@ public class SwingViewMechanism implements ViewMechanism
    {
       if (value == null) return;
 
+      if (value instanceof Throwable)
+      {
+         displayFrame(new ExceptionFrame((Throwable) value), positioningHint);
+      }
       if (value instanceof Viewable)
       {
          EView view = ((Viewable) value).getMainView();

@@ -70,7 +70,7 @@ public class ExpandableView2
       _ceo = ceo;
 
       _handle = (ListItemView) _ceo.getListItemView();
-      GradientPanel p = new GradientPanel(new Color(0x89FF68), false);
+      GradientPanel p = new GradientPanel(new Color(0x5171FF), false);
       p.setLayout(new BorderLayout());
       p.add(_handle);
       

@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import com.u2d.element.Command;
 import com.u2d.view.*;
 import com.u2d.type.atom.StringEO;
+import com.u2d.ui.desktop.Positioning;
 
 /**
  * Adapter for javax.swing.Action
@@ -95,7 +96,7 @@ public class CommandAdapter extends AbstractAction
             }
             catch (java.lang.reflect.InvocationTargetException ex)
             {
-               SwingViewMechanism.getInstance().displayFrame(new ExceptionFrame(ex));
+               SwingViewMechanism.getInstance().displayViewFor(ex.getCause(), _source, Positioning.NEARMOUSE);
             }
          }
          public void backOnEDT()
