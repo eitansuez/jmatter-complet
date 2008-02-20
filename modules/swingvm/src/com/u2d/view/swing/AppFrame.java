@@ -35,6 +35,7 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -459,7 +460,14 @@ public class AppFrame extends JFrame
 
       public void actionPerformed(ActionEvent e)
       {
-         AppLoader.getInstance().loadApplication(null);
+         try
+         {
+            AppLoader.getInstance().loadApplication(null);
+         }
+         catch (IOException ioex)
+         {
+            ioex.printStackTrace();
+         }
       }
    }
    class QuitAction extends AbstractAction
