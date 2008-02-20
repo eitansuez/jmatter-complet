@@ -235,6 +235,7 @@ public class SimpleAssociationView extends JXPanel
       
       InvisibleTextField()
       {
+         setOpaque(false);
          addFocusListener(this);
       }
 
