@@ -117,6 +117,8 @@
       -->
     <!-- to customize look and feel, uncomment this..
      <jvmarg line="-Dswing.defaultlaf=com.jgoodies.looks.plastic.PlasticXPLookAndFeel" />
+     comment:  nimbus in its current state (2008/02) pretty much kills the app
+     <jvmarg line="-Dswing.defaultlaf=org.jdesktop.swingx.plaf.nimbus.NimbusLookAndFeel" />
       -->
    </java>
  </target>
