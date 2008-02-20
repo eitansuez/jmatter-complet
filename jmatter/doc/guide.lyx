@@ -8,7 +8,7 @@
 \usepackage{mathpazo}
 \usepackage[scaled=0.9]{helvet}
 \usepackage[scaled=0.75]{beramono}
-\usepackage[bookmarks, bookmarksopen=true, bookmarksopenlevel=0, bookmarksnumbered=true, colorlinks=true, linkcolor=blue, pdftitle={JMatter Framework Manual}, pdfauthor={Eitan Suez}]{hyperref}
+\usepackage[bookmarks, bookmarksopen=true, bookmarksopenlevel=0, bookmarksnumbered=true, colorlinks=true, linkcolor=blue, pdftitle={Building Software Applications with JMatter}, pdfauthor={Eitan Suez}]{hyperref}
 \raggedbottom
 \end_preamble
 \language english
@@ -58,11 +58,9 @@
 \begin_body
 
 \begin_layout Title
-The 
+Building Software Applications with 
 \emph on
 JMatter
-\emph default
- Framework
 \end_layout
 
 \begin_layout Author
