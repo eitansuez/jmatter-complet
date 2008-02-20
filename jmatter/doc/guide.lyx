@@ -16936,6 +16936,264 @@ In fact, we saw an example in the IssueMgr sample application where we wanted
 \end_layout
 
 \begin_layout Chapter
+Authentication & Authorization
+\end_layout
+
+\begin_layout Standard
+JMatter comes built-in with authentication and authorization services.
+\end_layout
+
+\begin_layout Standard
+When launching a JMatter application for the first time, the framework will
+ create two roles (administrative and default) and two corresponding users:
+ admin (with admin privileges), and 'johndoe' with default privileges, as
+ shown in the figure 38.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/users-and-roles.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Standard
+Initial Users and Roles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The framework itself comes with the implementation.
+ If you browse the framework source code you will find two model objects:
+ User.java and Role.java, that are constructed according to JMatter's own
+ conventions for model objects.
+ The icons used for these types follow the same convention: you will find
+ in the path 
+\emph on
+jmatter/resources/images
+\emph default
+ the corresponding icons used by the framework.
+ In the case of User, you will find three variants: an icon for a single
+ user, a plural version, and a state-specific icon for locked users (UserLocked3
+2.png).
+\end_layout
+
+\begin_layout Standard
+Users and Roles are modeled in a bidirectional one-to-many association.
+ By default, when creating a new user, the user will be associated to the
+ default role.
+\end_layout
+
+\begin_layout Standard
+Passwords are hashed using the MD5 algorightm, and it is this hash which
+ is stored in the database.
+\end_layout
+
+\begin_layout Standard
+Upon application launch, the application is in 
+\emph on
+logged out
+\emph default
+ state, and a login dialog is presented.
+ Three invalid login attempts by default will cause the user account in
+ question to lock, requiring an administrator to reset the user's password.
+ Password resetting is implemented as a JMatter Command (
+\emph on
+@Cmd
+\emph default
+) and so is accessible directly from the user interface (assuming you have
+ the proper permission).
+\end_layout
+
+\begin_layout Standard
+Upon successful login, the user's classbar is fetched from database (upon
+ initial login, the classbar is defined from the template file 
+\emph on
+class-list.xml
+\emph default
+) and presented in the user interface.
+\end_layout
+
+\begin_layout Standard
+Again, assuming the proper permissions, one can create new users, new roles,
+ assign users to a role, and go about performing whatever activities are
+ necessary to manage this information.
+\end_layout
+
+\begin_layout Section
+Autologin
+\end_layout
+
+\begin_layout Standard
+In some situations, one might be interested in developing a application
+ that does not care for or require authentication.
+ For such cases, JMatter can be configured to automatically log in as a
+ specific user upon launch, removing the need for users to manually authenticate.
+\end_layout
+
+\begin_layout Standard
+To configure a JMatter application with autologin, edit the application's
+ 
+\emph on
+src/applicationContext.xml
+\emph default
+ as follows:
+\end_layout
+
+\begin_layout LyX-Code
+   <bean id="app-session" class="com.u2d.app.AppSession">
+\end_layout
+
+\begin_layout LyX-Code
+      <property name="app" ref="application" />
+\end_layout
+
+\begin_layout LyX-Code
+      <property name="viewMechanism" ref="view-mechanism" />
+\end_layout
+
+\begin_layout LyX-Code
+
+\emph on
+      <property name="autologinas" value="admin" />
+\end_layout
+
+\begin_layout LyX-Code
+   </bean>
+\end_layout
+
+\begin_layout Standard
+The important line is the 
+\emph on
+autologinas
+\emph default
+ property, which directs JMatter to turn on autologin and to automatically
+ log the user in as the user 
+\emph on
+admin
+\emph default
+, in this particular case.
+\end_layout
+
+\begin_layout Section
+Authorization
+\end_layout
+
+\begin_layout Standard
+Authorization governs who can perform what actions.
+ Authorization in JMatter is specified by role.
+ JMatter comes complete with an authorization implementation, all driven
+ from the user interface.
+\end_layout
+
+\begin_layout Standard
+The starting point is an application where everything is permitted.
+ Authorization is specified then by applying a series of restrictions from
+ this initial state.
+ When a user logs in, the set of restrictions corresponding to the user's
+ role are fetched from the database and applied to the system.
+ Upon logout, the restrictions are lifted, and reapplied on subsequent login,
+ again according to the new logged in user's role's restrictions.
+\end_layout
+
+\begin_layout Standard
+Restrictions can be applied to both commands and fields.
+ Commands can be disabled, in which case, they disappear from the user interface
+: from context menus, from the button panels on form views.
+ Fields can be marked hidden or read-only, per role.
+\end_layout
+
+\begin_layout Standard
+To specify the authorization policy, JMatter defines the command 
+\emph on
+Manage Restrictions,
+\emph default
+ defined on all types, as shown in figure 39.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/manage-restrictions.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Managing Restrictions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Just like Form Views are dynamically rendered, based on the structure of
+ model objects, so is this view.
+ When a new role is created, a new column will appear in this view.
+ When a new command or field is added, a new row will be added to the correspond
+ing table.
+\end_layout
+
+\begin_layout Standard
+Here we see that existing administrative commands are already marked restricted
+ for the 'default' role.
+ For example, the ability to create a new role, to edit or delete roles,
+ is prohibited.
+ Furthermore the ability to define restrictions on roles is likewise prohibited.
+ Finally, the role type's 
+\emph on
+Open
+\emph default
+ command is prohibited as well, restricting access to inspection of the
+ type's metadata from the user interface.
+\end_layout
+
+\begin_layout Chapter
 Validation
 \begin_inset LatexCommand label
 name "cha:Validation"
@@ -19825,6 +20083,323 @@ normal
 \end_layout
 
 \begin_layout Chapter
+Deployment, Take II: The Application Browser
+\end_layout
+
+\begin_layout Standard
+Deploying JMatter applications with Java WebStart works well enough.
+ It's certainly what people term the 
+\emph on
+fat client
+\emph default
+ model, where the client application is quite sizable, in the order of 20
+ Megabytes, primarily due to the large number of dependent libraries required
+ to support the application.
+\end_layout
+
+\begin_layout Standard
+The web model on the other hand is seen as a more lightweight approach,
+ and termed the 
+\emph on
+thin client
+\emph default
+ model.
+\end_layout
+
+\begin_layout Standard
+In a manner directly analogous to the web, JMatter now supports a 
+\emph on
+thin client
+\emph default
+ model for deploying your applications, thereby deriving the same set of
+ benefits typically associated with web:
+\end_layout
+
+\begin_layout Itemize
+Smaller downloads
+\end_layout
+
+\begin_layout Itemize
+Dynamic application loading
+\end_layout
+
+\begin_layout Itemize
+No installation required (just visit a URL)
+\end_layout
+
+\begin_layout Standard
+Here is how it works.
+ JMatter comes equipped with an application named the 
+\emph on
+Application Browser
+\emph default
+.
+ You will find it in the base directory of the JMatter distribution.
+ This application consists of a single model object: the 
+\emph on
+Application Bookmark
+\emph default
+.
+ Roughly speaking, this application is to JMatter applications what the
+ Firefox web browser is to web applications: it's an application that allows
+ you to load applications by specifying or entering a URL.
+\end_layout
+
+\begin_layout Standard
+The Application Browser can be packaged and deployed using the traditional
+ Java WebStart mechanism, or perhaps through the more traditional mechanism
+ of using an automated installer.
+ By virtue of being implemented entirely in Java, this application is by
+ definition cross-platform.
+\end_layout
+
+\begin_layout Section
+How it works, by example
+\end_layout
+
+\begin_layout Standard
+Allow me to illustrate how this deployment mechanism works by example: let's
+ take deploy the Sympster application.
+ Here are the steps we need to follow:
+\end_layout
+
+\begin_layout Enumerate
+Package the application
+\end_layout
+
+\begin_layout Enumerate
+Copy the packaged application to a web server so it can be http-loaded
+\end_layout
+
+\begin_layout Enumerate
+Launch the application browser
+\end_layout
+
+\begin_layout Enumerate
+Specify the url for the application and launch the application
+\end_layout
+
+\begin_layout Standard
+For the first task, you will find a new JMatter ant target named 
+\emph on
+jar-model
+\emph default
+ that will produce the packaged artifact.
+ The output of this target is the file 
+\emph on
+dist/Sympster.jar
+\emph default
+ which consists strictly of the compiled object model and supporting classes
+ (if any), the application resources and configuration files (images, class-list.
+xml, hibernate mapping files, database connection setings, and spring configurat
+ion files).
+\end_layout
+
+\begin_layout Standard
+We can now upload the artifact to a web server, say for example, to the
+ jmatter.org web site perhaps at the url: 
+\emph on
+http://jmatter.org/demo-apps/Sympster.jar
+\end_layout
+
+\begin_layout Standard
+We now launch the application browser.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/app-browser.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+The JMatter Application Browser
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In Figure 44, we see that I've defined an application bookmark for the Sympster
+ demo application that I've deployed to jmatter.org.
+ I can now click on the 
+\emph on
+Launch
+\emph default
+ button to launch the application.
+\end_layout
+
+\begin_layout Standard
+The jar file is downloaded, and class-loaded into the client application's
+ virtual machine.
+ The application configuration is read and the application is loaded.
+ Its splash screen appears, and we are finally presented with a login dialog.
+ Upon logging in, we see the Sympster application's class bar show up on
+ the left hand side and we're ready to start using our application: perhaps
+ defining new talks, creating a new session schedule for an upcoming symposium,
+ etc..
+\end_layout
+
+\begin_layout Standard
+When we're finished with our Sympster application session, we can either
+ quit the application, or unload it (from the menu: File -> Unload Application),
+ reload the Application Browser, where you can choose to launch an entirely
+ different application from a different URL.
+\end_layout
+
+\begin_layout Standard
+The application model remains two-tier, with the application talking directly
+ to its back-end database.
+ But it is worthwhile at this time to examine the benefits of this method
+ of deployment:
+\end_layout
+
+\begin_layout Itemize
+We have turned a fat client into a thin client
+\end_layout
+
+\begin_layout Itemize
+The size of our download has shrunk from 20MB to 80KB (it's worth stressing
+ that many web 
+\emph on
+pages
+\emph default
+ today are larger than 80KB)
+\end_layout
+
+\begin_layout Itemize
+No installation was necessary
+\end_layout
+
+\begin_layout Itemize
+Developers are free to work on enhanced versions of the application, drop
+ a new copy on the web server, and thereby upgrading the application, in
+ a manner that is transparent to clients (end users)
+\end_layout
+
+\begin_layout Section
+Dealing with dependencies
+\end_layout
+
+\begin_layout Standard
+The MyTunes demo application is a good example of an application that has
+ dependencies on third party libraries that are not bundled with the Application
+ Browser.
+ How can we deploy MyTunes along with these necessary dependencies?
+\end_layout
+
+\begin_layout Standard
+The answer turns out to be very simple.
+ All that is necessary is to properly cite the dependencies in the jar file's
+ manifest.
+ Here is MyTune's ant target 
+\emph on
+jar-model
+\emph default
+:
+\end_layout
+
+\begin_layout LyX-Code
+<target name="jar-model" description="jar just the model"
+\end_layout
+
+\begin_layout LyX-Code
+        depends="clean,genhbm">
+\end_layout
+
+\begin_layout LyX-Code
+   <jar file="${model-jar.file}">
+\end_layout
+
+\begin_layout LyX-Code
+     <manifest>
+\end_layout
+
+\begin_layout LyX-Code
+       <attribute name="Created-By" value="jMatter" />
+\end_layout
+
+\begin_layout LyX-Code
+       <attribute name="Main-Class" value="${main.class}" />
+\end_layout
+
+\begin_layout LyX-Code
+       <attribute name="Class-Path" value="JID3.jar jl1.0.jar" />
+\end_layout
+
+\begin_layout LyX-Code
+     </manifest>
+\end_layout
+
+\begin_layout LyX-Code
+     <fileset dir="${build.classes.dir}" includes="**/*" />
+\end_layout
+
+\begin_layout LyX-Code
+   </jar>
+\end_layout
+
+\begin_layout LyX-Code
+</target>
+\end_layout
+
+\begin_layout Standard
+The interesting part here is how we've added the two libraries 
+\emph on
+JID3.jar
+\emph default
+ and 
+\emph on
+jl1.0.jar
+\emph default
+ (responsible for playing mp3's) using the jar manifest's Class-Path attribute.
+ All we do next is make sure to put these libraries alongside MyTunes.jar
+ on our web server, the rest is transparent: the associated jar files are
+ fetched alongside the application.
+ In this case our application is 300KB in size, including the dependencies.
+\end_layout
+
+\begin_layout Section
+Looking Ahead
+\end_layout
+
+\begin_layout Standard
+We're thinking about further enhancing the application browser to allow
+ multiple applications to be loaded in separate tabs, in a manner similar
+ to the way that web browsers today feature tabbed-browsing.
+ We're also beginning to contemplate developing a way to run JMatter application
+s using a three-tier model: by splitting the application logic between client
+ and application server.
+\end_layout
+
+\begin_layout Chapter
 Tooling
 \end_layout
 
@@ -21086,7 +21661,7 @@ reference "fig:visual-cmd"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \noindent
@@ -21154,6 +21729,163 @@ Support matching any target object, not just types.
 \begin_layout Enumerate
 Perhaps support specifying command arguments through the same visual interface,
  instead of having a separate window prompt for the arguments.
+\end_layout
+
+\begin_layout Subsection
+Extending the Index
+\end_layout
+
+\begin_layout Standard
+The visual command interface at the moment is populated with an application's
+ types and commands.
+ That is, you can match types and then invoke a specific command on a given
+ type, for example: 
+\emph on
+Person Contacts -> Browse
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+It would be nice however if we could interact with instances of a given
+ type in addition.
+ For example, with the contact manager, it'd be nice to match a contact
+ by name directly from the visual command interface.
+ Likewise, in MyTunes, it'd be nice to direclty match a song by title.
+\end_layout
+
+\begin_layout Standard
+The visual command interface provides a mechanism for you to add items to
+ its index.
+ The ContactMgr application has recently been enhanced to show you how.
+\end_layout
+
+\begin_layout Standard
+Here's a description of how this is done..
+\end_layout
+
+\begin_layout Standard
+First, we subclass com.u2d.app.Application and override the 
+\emph on
+postInitialize()
+\emph default
+ method:
+\end_layout
+
+\begin_layout LyX-Code
+public class Application extends com.u2d.app.Application
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public void postInitialize()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      super.postInitialize();
+\end_layout
+
+\begin_layout LyX-Code
+      AbstractListEO bookmarks =
+\end_layout
+
+\begin_layout LyX-Code
+         getPersistenceMechanism().list(PersonContact.class);
+\end_layout
+
+\begin_layout LyX-Code
+      contributeToIndex(bookmarks);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Here what I do is fetch all contacts and call the method 
+\emph on
+contributeToIndex()
+\emph default
+ passing in the fetched items.
+\end_layout
+
+\begin_layout Standard
+Next we need to revise our spring configuration file to specify our subclass
+ as the application's Application bean.
+ We edit the file 
+\emph on
+src/applicationContext.xml
+\emph default
+ as follows:
+\end_layout
+
+\begin_layout LyX-Code
+ <bean id="application" class="com.u2d.contactmgr.Application">
+\end_layout
+
+\begin_layout LyX-Code
+    <property name="name" value="Contact Manager" />
+\end_layout
+
+\begin_layout LyX-Code
+    <property name="version" value="1.0" />
+\end_layout
+
+\begin_layout LyX-Code
+    <property name="description" value="A simple contact manager (demo JMatter
+ application)" />
+\end_layout
+
+\begin_layout LyX-Code
+    <property name="helpContentsUrl" value="http://jmatter.org/documentation/html
+/index.html" />
+\end_layout
+
+\begin_layout LyX-Code
+    <property name="pagesize" value="15" />
+\end_layout
+
+\begin_layout LyX-Code
+    <property name="persistenceMechanism" ref="persistor" />
+\end_layout
+
+\begin_layout LyX-Code
+ </bean>
+\end_layout
+
+\begin_layout Standard
+Notice how the bean's class above references our subclass.
+ That's it.
+ Now when we launch the contact manager, assuming we have a contact named
+ 
+\emph on
+John Doe
+\emph default
+, we can invoke the visual command interface, start typing 
+\emph on
+John
+\emph default
+ and the instance will be matched.
+ We can then invoke any of a number of commands, for example 
+\emph on
+Open
+\emph default
+ or 
+\emph on
+Edit
+\emph default
+.
 \end_layout
 
 \begin_layout Section
