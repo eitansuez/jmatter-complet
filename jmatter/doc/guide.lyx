@@ -58,9 +58,33 @@
 \begin_body
 
 \begin_layout Title
-Building Software Applications with 
+
+\size larger
+Building Software Applications
+\size normal
+
+\newline
+with
+\size huge
 \emph on
+
+\newline
 JMatter
+\size default
+
+\newline
+
+\newline
+
+\newline
+
+\begin_inset Graphics
+	filename logo.png
+	scale 50
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Author
