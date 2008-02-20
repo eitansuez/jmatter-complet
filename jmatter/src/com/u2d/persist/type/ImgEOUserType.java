@@ -45,18 +45,20 @@ public class ImgEOUserType extends BaseUserType
 
    public Class returnedClass() { return ImgEO.class; }
 
-   // Types.BLOB works for h2 and mysql but not for other rdbms's, so...
-   // h2 however produces a varbinary(255) which is too small;
-   // mysql produces a tinyblob which also is too small
-   private static int[] BLOB_TYPE = { java.sql.Types.BLOB };
-   private static int[] TYPES = { java.sql.Types.VARBINARY };
-   
+   private static int[] TYPES = { java.sql.Types.VARBINARY};
+   private static int[] H2TYPES = { java.sql.Types.LONGVARBINARY};
+   private static int[] MYSQLTYPES = { java.sql.Types.BLOB };
+
    public int[] sqlTypes()
    {
       Dialect dialect = Dialect.getDialect();
-      if (dialect instanceof H2Dialect || dialect instanceof MySQLDialect)
+      if (dialect instanceof H2Dialect)
       {
-         return BLOB_TYPE;
+         return H2TYPES;
+      }
+      else if (dialect instanceof MySQLDialect)
+      {
+         return MYSQLTYPES;
       }
       else
       {
