@@ -2,7 +2,7 @@ Changes File
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Feb xx 2008
+Feb 20 2008
 
 JMatter 2008-02-11 release notes
 ================================
@@ -10,11 +10,11 @@ JMatter 2008-02-11 release notes
 New Features:
 
   1. support for autologin:  configuring an application so that no authentication is required 
-       see [ref to documentation]
+       see http://jmatter.org/documentation/html/chap12.html#tth_sEc12.1
   2. alternative deployment model:  first release of the jmatter application browser
-       see [ref to documentation]
+       see http://jmatter.org/documentation/html/chap17.html#tth_chAp17
   3. ability to contribute instances to visual command interface index
-       see [ref to documentation]
+       see http://jmatter.org/documentation/html/chap19.html#tth_sEc19.4.1
   4. refactoring: separated model metadata and locale metadata into two parts:  framework-specific entries, 
        (which now live in resources/app) and application-specific entries.
   5. revised demo-app build files to compile with target jvm -1.5 (thanks to Corey Puffalt for catching this)
