@@ -2,9 +2,9 @@ Changes File
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Feb 20 2008
+Feb 21 2008
 
-JMatter 2008-02-11 release notes
+JMatter 2008-02-21 release notes
 ================================
 
 New Features:
@@ -20,8 +20,10 @@ New Features:
   5. revised demo-app build files to compile with target jvm -1.5 (thanks to Corey Puffalt for catching this)
   6. updated default postgres jdbc driver to v8.3, updated mysql jdbc driver to v5.0.8, 
        updated groovy binary to version 1.5.4
-  7. revised image type database mapping for mysql.  varbinary maps to tinyblob which is toosmall and
+  7. revised image type database mapping for mysql.  varbinary maps to tinyblob which is too small and
      longvarbinary does not work, so falling back to blob type.
+  8. added two new chapters to the jmatter manual:  on authentication and authorization, and on
+     deployment using the application browser
 
 ----------
 
@@ -45,7 +47,6 @@ Feb 4 2008
 JMatter 2008-02 release notes
 =============================
 
-This release contains many small improvements and bug fixes.
 Below we list the main enhancements to JMatter in the Feb 2008 release
 (since the previous release from Aug 2007), in chronological order.
 
