@@ -31,7 +31,10 @@ public class Echo2EntryPoint extends WebContainerServlet
       
          AppSession session = (AppSession) context.getBean("app-session");
        
-         session.launch();
+         // launch process for webapps needs to be retrofitted.
+         // disabled for the time being:
+
+//         session.launch();
          return ((Echo2ViewMechanism) session.getViewMechanism()).getAppFrame();
       }
    }

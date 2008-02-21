@@ -19,8 +19,11 @@ public class WingSEntryPoint
       ApplicationContext context = 
             WebApplicationContextUtils.getWebApplicationContext(servletContext);
       
-      AppSession session = (AppSession) context.getBean("app-session");
-      session.launch();
+      // launch process for webapps needs to be retrofitted.
+      // disabled for the time being:
+      
+//      AppSession session = (AppSession) context.getBean("app-session");
+//      session.launch();
    }
 
 }

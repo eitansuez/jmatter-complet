@@ -33,6 +33,7 @@
     <orderEntry type="library" name="JUnit" level="project" />
     <orderEntry type="module" module-name="ds-swing" />
     <orderEntry type="module" module-name="ds-wizard" />
+    <orderEntry type="library" name="Spring" level="project" />
     <orderEntryProperties />
   </component>
 </module>
