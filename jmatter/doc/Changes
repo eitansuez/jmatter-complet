@@ -32,7 +32,7 @@ Feb 11 2008
 JMatter 2008-02-11 release notes
 ================================
 
-This release is a patch release that fixes these issues discovered
+This release is a *patch* release that fixes these issues discovered
 in last week's release:
 
   1. a rendering issue with the login panel
