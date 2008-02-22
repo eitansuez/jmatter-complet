@@ -283,7 +283,7 @@
             classpath="${lib.tools.dir}/jarbundler-1.9.jar" />
    <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
    <jarbundler dir="${dist.dir}" name="${ant.project.name}" mainclass="${main.class}"
-               jvmversion="1.5+">
+               jvmversion="1.5+" icon="resources/ContactMgr.icns">
       <javaproperty name="swing.defaultlaf" value="javax.swing.plaf.metal.MetalLookAndFeel" />
       <jarfileset dir="${lib.dir}"
                   includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,swingvm.jar,swingvm/*.jar" />
