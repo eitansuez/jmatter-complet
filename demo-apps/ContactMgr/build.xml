@@ -284,8 +284,9 @@
    <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
    <mkdir dir="appbundle" />
    <jarbundler dir="appbundle" name="${ant.project.name}" mainclass="${main.class}">
+      <javaproperty name="swing.defaultlaf" value="javax.swing.plaf.metal.MetalLookAndFeel" />
       <jarfileset dir="${lib.dir}"
-                  includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,${vmname}.jar,${vmname}/*.jar" />
+                  includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,swingvm.jar,swingvm/*.jar" />
       <jarfileset dir="${lib.dir}"
                   includes="jdbc/${jdbcdrivername}" />
       <jarfileset dir="${jws-dist.dir}" includes="${ant.project.name}.jar" />
