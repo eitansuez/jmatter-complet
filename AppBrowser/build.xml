@@ -264,7 +264,6 @@
    <taskdef name="jarbundler" classname="net.sourceforge.jarbundler.JarBundler"
             classpath="${lib.tools.dir}/jarbundler-1.9.jar" />
    <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
-   <mkdir dir="appbundle" />
    <jarbundler dir="${dist.dir}" name="${ant.project.name}" mainclass="${main.class}"
                jvmversion="1.5+" icon="resources/jmatter.icns">
       <javaproperty name="swing.defaultlaf" value="javax.swing.plaf.metal.MetalLookAndFeel" />
