@@ -17,6 +17,15 @@ public class EntryPoint
       {
          public void run()
          {
+            try {
+               // feel free to replace with a different look and feel
+
+               // making this explicit so will be default on platforms such as macosx,
+               // where at the moment there are rendering issues with mac system look and feel
+               UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            } catch (Exception e) { }
+
+            
             SwingViewMechanism.getInstance().launch();
          }
       });
