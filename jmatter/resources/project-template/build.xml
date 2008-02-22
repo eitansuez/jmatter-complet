@@ -271,6 +271,21 @@
     </copy>
  </target>
 
+ <target name="macappbundle" description="create macosx app bundle" depends="jar,find-drvname">
+   <taskdef name="jarbundler" classname="net.sourceforge.jarbundler.JarBundler"
+            classpath="${lib.tools.dir}/jarbundler-1.9.jar" />
+   <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
+   <mkdir dir="appbundle" />
+   <jarbundler dir="appbundle" name="${ant.project.name}" mainclass="${main.class}">
+      <javaproperty name="swing.defaultlaf" value="javax.swing.plaf.metal.MetalLookAndFeel" />
+      <jarfileset dir="${lib.dir}"
+                  includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,swingvm.jar,swingvm/*.jar" />
+      <jarfileset dir="${lib.dir}"
+                  includes="jdbc/${jdbcdrivername}" />
+      <jarfileset dir="${jws-dist.dir}" includes="${ant.project.name}.jar" />
+   </jarbundler>
+ </target>
+
  <!-- targets pertaining to junit testing -->
 
  <target name="test-init">
