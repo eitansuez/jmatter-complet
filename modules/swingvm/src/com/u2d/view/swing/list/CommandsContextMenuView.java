@@ -9,11 +9,14 @@ import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
 import com.u2d.css4swing.style.ComponentStyle;
+import com.u2d.ui.Platform;
+
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.*;
 import java.util.Map;
 import java.util.HashMap;
@@ -46,7 +49,7 @@ public class CommandsContextMenuView
       _target.addMouseListener(_listener);
       
       _target.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
-            put(KeyStroke.getKeyStroke("ctrl SLASH"), "popup-contextmenu");
+            put(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, Platform.mask()), "popup-contextmenu");
       _target.getActionMap().put("popup-contextmenu", new AbstractAction()
          {
             public void actionPerformed(ActionEvent e)

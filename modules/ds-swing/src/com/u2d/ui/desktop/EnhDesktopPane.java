@@ -5,6 +5,8 @@ package com.u2d.ui.desktop;
 
 import com.u2d.ui.ContextMenu;
 import com.u2d.ui.UIUtils;
+import com.u2d.ui.Platform;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -87,7 +89,8 @@ public class EnhDesktopPane extends MyDesktopPane
    {
       if (_mouseTracker != null &&
           _mouseTracker.mouseEvent != null &&
-          _mouseTracker.mouseEvent.isControlDown())
+          ( ( Platform.APPLE && _mouseTracker.mouseEvent.isMetaDown() ) ||
+            ( !Platform.APPLE && _mouseTracker.mouseEvent.isControlDown() ) ))
       {
          placeHovering(frame, _mouseTracker.lastMouseClickLocation);
       }
