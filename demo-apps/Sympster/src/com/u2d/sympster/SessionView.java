@@ -64,19 +64,29 @@ public class SessionView extends JPanel implements ComplexEView
          Talk talk = (Talk) _session.getEvent();
          Speaker speaker = talk.getSpeaker();
          
-         FormLayout formlayout = new FormLayout("pref, 5px, pref:grow", "pref, pref");
+         FormLayout formlayout = new FormLayout("pref, 5px, pref:grow", "pref:grow");
          DefaultFormBuilder builder = new DefaultFormBuilder(formlayout, speakerPnl);
          CellConstraints cc = new CellConstraints();
          
-         builder.add(new JLabel(speaker.getPhoto().imageValue()), cc.rchw(1, 1, 2, 1));
-         builder.add(new JLabel(speaker.getName().stringValue()), cc.rc(1, 3, "t, l"));
-         builder.add(new JLabel(speaker.getTitle().stringValue()), cc.rc(2, 3, "t, l"));
+         builder.add(new JLabel(speaker.getPhoto().imageValue()), cc.rc(1, 1));
+         builder.add(speakerInfoPnl(speaker), cc.rc(1, 3, "t, l"));
       }
       else if (_session.getEvent() instanceof BOF)
       {
          // tbd
       }
       return speakerPnl;
+   }
+   private JPanel speakerInfoPnl(Speaker speaker)
+   {
+      FormLayout formlayout = new FormLayout("pref", "pref, pref, pref:grow");
+      DefaultFormBuilder builder = new DefaultFormBuilder(formlayout);
+      CellConstraints cc = new CellConstraints();
+      builder.add(new JLabel(speaker.getName().stringValue()), cc.rc(1, 1));
+      builder.add(new JLabel(speaker.getTitle().stringValue()), cc.rc(2, 1));
+      JPanel pnl = builder.getPanel();
+      pnl.setOpaque(false);
+      return pnl;
    }
    private JPanel logisticsPnl()
    {
