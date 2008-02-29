@@ -70,9 +70,26 @@ public class AssociationField extends Field implements Bidi, Associable
       }
    }
    public boolean hasAssociationConstraint() { return _associationConstraint != null; }
-   private boolean isQueryType()
+   public boolean isQueryType()
    {
       return _associationConstraint.getReturnType().equals(QuerySpecification.class);
+   }
+   public AbstractListEO associationOptions(Object instance)
+   {
+      if ( ! AbstractListEO.class.isAssignableFrom(_associationConstraint.getReturnType()) )
+      {
+         throw new RuntimeException("association options method must return a jmatter list type (for association field "+this+")"); 
+      }
+
+      try
+      {
+         return (AbstractListEO) _associationConstraint.invoke(instance);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+         throw new RuntimeException("Likely invalid method signation on options for association field "+this, e);
+      }
    }
    public void bindConstraintTo(CompositeQuery query, Object instance)
    {
