@@ -8,6 +8,7 @@ import com.u2d.field.AssociationField;
 import com.u2d.find.*;
 import com.u2d.find.inequalities.TextualInequalities;
 import com.u2d.list.CriteriaListEO;
+import com.u2d.list.SimpleListEO;
 import com.u2d.type.atom.StringEO;
 import com.u2d.element.Field;
 import com.u2d.ui.IconButton;
@@ -16,6 +17,8 @@ import com.u2d.ui.KeyPressAdapter;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexType;
+import com.u2d.model.AbstractListEO;
+
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
@@ -34,7 +37,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
 {
    private JTextField _tf;
    private QuerySpecification _spec;
-   private CriteriaListEO _leo;
+   private AbstractListEO _leo;
    private JPopupMenu _popup;
    private ListEView _view;
    private JList _list;
@@ -171,57 +174,92 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
 
       if (_leo == null)
       {
-         Inequality startsWith = new TextualInequalities(_searchByField).new TextStarts();
-         _spec = new QuerySpecification(fp, startsWith, _value);
-         CompositeQuery query = new CompositeQuery(_type);
          AssociationField field = (AssociationField) _association.field();
-         field.bindConstraintTo(query, _association.parent());
-         query.addSpecification(_spec);
-         
-         _leo = new CriteriaListEO(query);
-         _view = _leo.getAssociationView();
-
-         if (_view instanceof CompositeView) {
-            CompositeView pageView = (CompositeView) _view;
-            _list = (JList) pageView.getInnerView();
-         } else {
-            _list = (JList) _view;
+         if (field.hasAssociationConstraint() && !field.isQueryType())
+         {
+            AbstractListEO leo = field.associationOptions(_association.parent());
+            _leo = simpleFilter(leo);
          }
-         _list.setVisibleRowCount(6);
+         else
+         {
+            Inequality startsWith = new TextualInequalities(_searchByField).new TextStarts();
+            _spec = new QuerySpecification(fp, startsWith, _value);
+            CompositeQuery query = new CompositeQuery(_type);
+            field.bindConstraintTo(query, _association.parent());
+            query.addSpecification(_spec);
          
-         _list.addMouseListener(new MouseAdapter()
-         {
-            public void mouseClicked(MouseEvent e)
-            {
-               itemSelected();
-            }
-         });
-         _list.addKeyListener(new KeyPressAdapter(new KeyAdapter()
-         {
-            public void keyPressed(KeyEvent e)
-            {
-               itemSelected();
-            }
-         }, KeyEvent.VK_ENTER));
+            _leo = new CriteriaListEO(query);
+         }
 
-         _popup = new JPopupMenu();
-         _popup.add((JComponent) _view);
+         _view = _leo.getAssociationView();
+         setupListPopupView();
       }
       else
       {
-         _spec.getFieldPath().setValue(fp);
-         _spec.setValue(_value);
+         if (_leo instanceof CriteriaListEO)
+         {
+            _spec.getFieldPath().setValue(fp);
+            _spec.setValue(_value);
 
-         CompositeQuery query = new CompositeQuery(_type);
-         AssociationField field = (AssociationField) _association.field();
-         field.bindConstraintTo(query, _association.parent());
-         query.addSpecification(_spec);
-         _leo.setQuery(query);
+            CompositeQuery query = new CompositeQuery(_type);
+            AssociationField field = (AssociationField) _association.field();
+            field.bindConstraintTo(query, _association.parent());
+            query.addSpecification(_spec);
+            ((CriteriaListEO) _leo).setQuery(query);
+         }
+         else
+         {
+            //??
+         }
       }
 
       _popup.show(_tf, 0, _tf.getSize().height);
       _list.setSelectedIndex(0);
       _tf.requestFocusInWindow();
+   }
+   
+   private AbstractListEO simpleFilter(AbstractListEO leo)
+   {
+      SimpleListEO filtered = new SimpleListEO();
+      for (int i=0; i<leo.getSize(); i++)
+      {
+         ComplexEObject eo = (ComplexEObject) leo.getElementAt(i);
+         String fieldValue = _searchByField.get(eo).toString();
+         if (fieldValue.startsWith(_value.stringValue()))
+         {
+            filtered.add(eo);
+         }
+      }
+      return filtered;
+   }
+
+   private void setupListPopupView()
+   {
+      if (_view instanceof CompositeView) {
+         CompositeView pageView = (CompositeView) _view;
+         _list = (JList) pageView.getInnerView();
+      } else {
+         _list = (JList) _view;
+      }
+      _list.setVisibleRowCount(6);
+
+      _list.addMouseListener(new MouseAdapter()
+      {
+         public void mouseClicked(MouseEvent e)
+         {
+            itemSelected();
+         }
+      });
+      _list.addKeyListener(new KeyPressAdapter(new KeyAdapter()
+      {
+         public void keyPressed(KeyEvent e)
+         {
+            itemSelected();
+         }
+      }, KeyEvent.VK_ENTER));
+
+      _popup = new JPopupMenu();
+      _popup.add((JComponent) _view);
    }
 
    private void itemSelected()
