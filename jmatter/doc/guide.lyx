@@ -10,6 +10,9 @@
 \usepackage[scaled=0.75]{beramono}
 \usepackage[bookmarks, bookmarksopen=true, bookmarksopenlevel=0, bookmarksnumbered=true, colorlinks=true, linkcolor=blue, pdftitle={Building Software Applications with JMatter}, pdfauthor={Eitan Suez}]{hyperref}
 \raggedbottom
+\title{Building Software Applications with JMatter}
+\author{Eitan Suez}
+\date{ }
 \end_preamble
 \language english
 \inputencoding auto
@@ -42,13 +45,13 @@
 \headsep 0.5in
 \footskip 0.8in
 \secnumdepth 3
-\tocdepth 3
+\tocdepth 1
 \paragraph_separation skip
 \defskip medskip
 \quotes_language english
 \papercolumns 1
 \papersides 2
-\paperpagestyle fancy
+\paperpagestyle empty
 \tracking_changes false
 \output_changes false
 \author "" 
@@ -57,29 +60,145 @@
 
 \begin_body
 
-\begin_layout Title
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+frontmatter
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 1in*
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
 
 \size larger
 Building Software Applications
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
 \size normal
-
-\newline
 with
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
+\series bold
+\size giant
+JM
+\noun on
+atter
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
+\size larger
+\begin_inset VSpace 1in*
+\end_inset
+
+
+\lyxline
+Building Software Applications
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
+\size normal
+with
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
+\series bold
+\size giant
+JM
+\noun on
+atter
+\series default
 \size huge
+\noun default
+
+\lyxline
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align right
+
+\size large
 \emph on
+Eitan Suez
+\size huge
+\emph default
 
-\newline
-JMatter
-\size default
+\begin_inset VSpace vfill
+\end_inset
 
-\newline
 
-\newline
+\end_layout
 
-\newline
+\begin_layout Standard
+\noindent
+\align center
+February 2008
+\end_layout
 
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
 \begin_inset Graphics
 	filename logo.png
+	lyxscale 50
 	scale 50
 
 \end_inset
@@ -87,12 +206,188 @@ JMatter
 
 \end_layout
 
-\begin_layout Author
-Eitan Suez
+\begin_layout Standard
+
+\size footnotesize
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+copyright
+\end_layout
+
+\end_inset
+
+ \InsetSpace \space{}
+2008 JMatterSoft LLC.
+ All rights reserved.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+
+\lyxline
+On the Cover
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+The sport of windsurfing conveys qualities of speed and agility, qualities
+ that I believe are also born by the software framework JMatter in the field
+ of software development.
+ A sincere thanks goes to the StarBoard company, to the rider, and to the
+ photographer, for the permission to use the photograph on the cover of
+ this book.
+ Photo Details:
+\end_layout
+
+\begin_layout Itemize
+
+\size footnotesize
+Board: 2008 StarBoard Evo XTV
+\end_layout
+
+\begin_layout Itemize
+
+\size footnotesize
+Rider: Kevin Pritchard
+\end_layout
+
+\begin_layout Itemize
+
+\size footnotesize
+Photographer: Tiesda You
+\end_layout
+
+\begin_layout Standard
+
+\lyxline
+
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+This book was typeset and produced using Open Source software.
+ LyX was used for typesetting and layout.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+
+\lyxline
+
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+Suez, Eitan
+\newline
+Building Software Applications with JMatter
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+Bibliography.
+\newline
+ISBN: This publication is not yet registered with an ISBN Agency
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+\InsetSpace ~
+
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+\InsetSpace ~
+
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+
+\lyxline
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+pagestyle{plain}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+mainmatter 
+\backslash
+pagestyle{headings}
+\end_layout
 
 \end_inset
 
@@ -671,6 +966,16 @@ Prerequisites
 
 \begin_layout Subsection
 Java Standard Edition, version 5 (JSE 5) or later
+\begin_inset OptArg
+status open
+
+\begin_layout Standard
+Java SE v5 or later
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -18662,6 +18967,8 @@ A subset of the CSS defined properties is supported at this time.
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 cursor
 \end_layout
 
@@ -18670,14 +18977,20 @@ cursor
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 color
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 background-color
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 background-image
 \end_layout
 
@@ -18686,22 +18999,32 @@ background-image
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 font-family
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 font-size
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 font-weight
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 font-style
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 font
 \end_layout
 
@@ -18710,21 +19033,29 @@ font
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 border-color, border-left-color, border-right-color, border-top-color, border-bo
 ttom-color
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 border-style, border-left-style, border-right-style, border-top-style, border-bo
 ttom-style
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 border-width, border-left-width, border-right-width, border-top-width, border-bo
 ttom-width
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 border
 \end_layout
 
@@ -18733,10 +19064,14 @@ border
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 margin, margin-left, margin-right, margin-top, margin-bottom
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 padding, padding-left, padding-right, padding-top, padding-bottom
 \end_layout
 
@@ -18747,14 +19082,20 @@ JMatter's CSS implementation also supports these CSS3 properties, but only
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 opacity
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 border-radius
 \end_layout
 
 \begin_layout LyX-Code
+
+\size small
 border-top-left-radius, border-top-right-radius, border-bottom-left-radius,
  border-bottom-right-radius
 \end_layout
@@ -19826,7 +20167,7 @@ reference "cap:Java-Web-Start"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -20019,9 +20360,8 @@ status open
 \align center
 \begin_inset Graphics
 	filename figures/JWS-3.png
-	lyxscale 50
-	scale 40
-	keepAspectRatio
+	lyxscale 40
+	scale 35
 
 \end_inset
 
@@ -20240,7 +20580,7 @@ status open
 \begin_inset Graphics
 	filename figures/app-browser.png
 	lyxscale 50
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -21865,13 +22205,19 @@ src/applicationContext.xml
 \end_layout
 
 \begin_layout LyX-Code
-    <property name="description" value="A simple contact manager (demo JMatter
- application)" />
+    <property name="description" 
 \end_layout
 
 \begin_layout LyX-Code
-    <property name="helpContentsUrl" value="http://jmatter.org/documentation/html
-/index.html" />
+              value="A simple contact manager" />
+\end_layout
+
+\begin_layout LyX-Code
+    <property name="helpContentsUrl" 
+\end_layout
+
+\begin_layout LyX-Code
+              value="http://jmatter.org/documentation/html/index.html" />
 \end_layout
 
 \begin_layout LyX-Code
@@ -22061,7 +22407,7 @@ Finally, you'll find it on the context menus for individual tab title views,
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -22554,6 +22900,8 @@ Keyboard Shortcuts
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 ShortCut
 \end_layout
 
@@ -22563,6 +22911,8 @@ ShortCut
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Description
 \end_layout
 
@@ -22574,6 +22924,8 @@ Description
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Alt-`
 \end_layout
 
@@ -22595,6 +22947,8 @@ Analogous to the alt-tab mechanism for switching between windows on your
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Alt-1, Alt-2, etc..
 \end_layout
 
@@ -22615,6 +22969,8 @@ In a window with multiple tabs, switch to the first, second, [etc..] tab
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Ctrl-w
 \end_layout
 
@@ -22635,6 +22991,8 @@ Closes the currently focused window
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Ctrl-n
 \end_layout
 
@@ -22665,6 +23023,8 @@ New
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Ctrl-f
 \end_layout
 
@@ -22686,6 +23046,8 @@ A shortcut that is active in listings, that places the focus on the search
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 F12
 \end_layout
 
@@ -22717,6 +23079,8 @@ Expose,
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Ctrl-command
 \end_layout
 
@@ -22748,6 +23112,8 @@ pin
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Shift-Command
 \end_layout
 
@@ -22771,6 +23137,8 @@ When invoking a command that generates a view, holding down the Shift key
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Ctrl-Scrollwheel
 \end_layout
 
@@ -22793,6 +23161,8 @@ In the context of a calendar window, can change the resolution of the calendar
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Alt-/
 \end_layout
 
@@ -22813,6 +23183,8 @@ Focus on selected item in Class Bar
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Ctrl-/
 \end_layout
 
@@ -22834,6 +23206,8 @@ Open currently selected view's context menu.
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Ctrl-I
 \end_layout
 
@@ -22854,6 +23228,8 @@ Invoke JMatter's visual command interface (similar to quicksilver or gnome-do)
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 Ctrl-q
 \end_layout
 
@@ -22934,6 +23310,16 @@ jmatter/lib/runtime/jdbc
 
 \begin_layout Section
 Configuring your own database for the ContactMgr Tutorial Application
+\begin_inset OptArg
+status open
+
+\begin_layout Standard
+Configuring your own database
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -23339,7 +23725,11 @@ One cannot help making the observation that the applications we're developing
 \end_layout
 
 \begin_layout Section
-Dreaming of a Better [Virtual] World
+Dreaming of a Better 
+\emph on
+Virtual
+\emph default
+ World
 \end_layout
 
 \begin_layout Standard
@@ -23753,9 +24143,9 @@ If you're a software developer, contribute bug fixes, features, enhancements
 \end_layout
 
 \begin_layout Enumerate
-This manual will soon be available in print from lulu.com.
- Consider buying a copy.
- A small fraction of the price of the book goes back to the developers.
+Consider buying a print copy of this book from lulu.com (follow the link
+ from the jmatter.org web site).
+ A fraction of the price of the book goes back to the developers.
 \end_layout
 
 \begin_layout Standard
