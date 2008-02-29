@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.EventListenerList;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
@@ -70,7 +71,12 @@ public abstract class BaseTimeIntervalView extends JPanel
    {
       _scrollPane.getVerticalScrollBar().addAdjustmentListener(l);
    }
-   
+
+   public void addColumnModelListener(TableColumnModelListener l)
+   {
+      _table.getColumnModel().addColumnModelListener(l);
+   }
+
    protected abstract void buildTable();
    protected abstract void setupDropHandler();
 

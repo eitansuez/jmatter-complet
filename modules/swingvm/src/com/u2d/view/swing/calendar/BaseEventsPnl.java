@@ -25,6 +25,7 @@ public abstract class BaseEventsPnl
       setOpaque(false);
 
       _view.addAdjustmentListener(this);
+      _view.addColumnModelListener(this);
       _view.getSpan().addChangeListener(this);
    }
 
