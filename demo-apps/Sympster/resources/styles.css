@@ -2,6 +2,7 @@
 @namespace types com.u2d.view.swing.atom
 @namespace jmaps com.u2d.view.swing.map
 @namespace ui com.u2d.ui
+@namespace sympster com.u2d.sympster
 
 
 JComponent
@@ -169,4 +170,32 @@ jmaps|MappableView
 jm|ExpandableView2 ui|GradientPanel
 {
   padding: 0px 0px 0px 5px;
+}
+
+
+/* custom for session view .. */
+
+sympster|SessionView
+{
+  background-color: white;
+  padding: 10px;
+}
+#session-title
+{
+  font-size: 36pt;
+  text-align: left;
+  border-bottom: 2px solid black;
+  margin-bottom: 10px;
+}
+#logistics-pnl
+{
+  margin-left: 5px;
+  background-color: #D9E5F1;
+  padding: 3px;
+  border-radius: 5px;
+  border: 1px solid #D9E5F1;
+}
+#speaker-pnl
+{
+  background-color: white;
 }
