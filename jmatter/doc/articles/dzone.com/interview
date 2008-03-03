@@ -1,0 +1,309 @@
+
+1 Thanks for taking this interview Eitan, can you tell us what is the JMatter framework?
+----
+
+  JMatter is software that implements many of the pieces
+  that make up business applications, generically.
+
+  A core belief behind JMatter is:
+    ultimately, what is unique about a business application
+    is its domain, its business logic
+    
+  As we all know, it takes much more than implementing an object model
+  to be able to deliver a finished solution.
+  The domain requires an infrastructure, it needs a harness that is often
+  not there.
+  
+  In my experience a very small fraction of a project's budget ends 
+  up being truly dedicated to implementing the business logic.
+  A far greater share is spent building the infrastructure.
+  
+  What does that infrastructure consist of?  An application will
+  often require these more "generic" facets:
+    - security
+      - authentication:  restricting access to the application
+      - authorization: fine-grained access control over an application
+    - a user interface:  the means to interact with the domain
+      - crud:  the ability, for example, to enter a new customer 
+          in the system, or edit a customer's information
+    - persistence:  the need to save/remember acticity
+    - search:  the ability to mine data in various ways, to locate information
+    - remoting:  accessing an application's service remotely
+    - reporting
+    ...
+
+  [aside: I am personally very interested in finding out more precise
+    data on what fraction of a project's budget is spent on implementing
+   what I refer to as the application's "harness."]
+  
+  What makes JMatter somewhat different from traditional frameworks
+  is that an application's user interface is considered to be part
+  of that infrastructure.
+  
+  So now I am in a position to answer your question:
+  
+    JMatter aims to reduce the construction of a new software
+    application to what is truly unique about it:  the implementation
+    of the domain model.  All the other pieces are provided by
+    the framework.
+  
+  The consequences are dramatic:
+    - large time savings
+    - a specific application's codebase shrinks dramatically
+    - a clean separation between application development and infrastructure development
+    - large degree of code reuse
+    - developers become more agile
+    - you end up with very consistent applications
+    - given enough time and effort spent building a solid infrastructure,
+      you end up with high quality applications (less bugs)
+    - certain fundamental rules of software application development
+      no longer hold.  specifically, this rule:
+      
+        the cost of making a change to a software system late
+        in the life of a software project is much higher.
+        conversely, it's cheaper to make changes early on,
+        when less software has been built upon requirements
+        that may change.
+      
+      so the assumption here is that a software system is inherently
+      not DRY.  i.e. that if i revise my business logic in some
+      way, that it will have repercussions to the user interface
+      (forms will have to be revised to reflect a new field, for example),
+      repercussions to the way reports are constructed, ripple
+      effects to the database schema, the authorization system might have
+      to be revised to take a new action into account, and the list
+      goes on.  the entire application has to be retrofitted to take the 
+      change into account.
+
+      with jmatter, when you alter your business logic, there are
+      no repercussions.  the database schema derives from
+      the domain model, the user interface, the authorization system,
+      the search system, etc.. all reflect the domain model.
+      
+      that's the essence of jmatter (sorry it took so long for me
+      to describe)
+
+
+1.1 If the database schema depends on the domain, how does the framework cope 
+    with new properties on existing domain classes ?
+
+It's a fact of life that systems change over time, reflecting
+the dynamic nature of processes.  Perhaps the nature of a business
+changes, perhaps a regulation mandates keeping track of information
+that was not essential before.  In simpler cases, the need for an
+additional field may arise, or perhaps the converse:  an existing
+field may no longer be needed.  Sometimes a field is simply renamed
+perhaps to better reflect the prevalent business terminology.
+
+How are such issues addressed today?  The field is added both to
+the domain class and to its corresponding database table.
+In the rails world, the database is updated and rails infers
+a new domain property from the updated database schema.
+In JMatter's case, you add the field to the domain object in
+question and ask JMatter to perform the corresponding schema update.
+So JMatter is domain-centric, it is domain-driven.
+
+
+1.2 What about pre-existing databases? is there a migration path ?
+
+Up until recently there wasn't, mainly because I haven't had
+the need in my own work to address this particular scenario.
+
+Over the last year or two I have had several requests
+to address the issue:  can we construct a JMatter application
+based on an existing schema?
+
+I'm glad to say that an independent JMatter user/developer in
+Minnesota recently contributed code to do just this.  And I've
+taken the time prior to this last release to integrate the
+code into JMatter.  The program in question (which is now available
+in JMatter as an ant target) analyzes an existing database schema, 
+from which it derives the source code (Java) for the domain model,
+making certain assumptions.
+
+So now there is a migration path from an existing schema.
+
+I have personally not taken the time to think long and hard
+about this problem.  I prefer to study a business process and
+do the object modeling first.  I believe it to be very important
+to "get the model right," so to speak.  It seems to me the more 
+natural approach.
+
+I've been in many environments where the database schema had
+grown haphazardly, bit by bit, mainly by pressures to meet
+a deadline or a specific need.  These schema usually have
+limited virtues in terms of being an elegant way to model 
+systems.  I believe many of us in the community know that
+the current picture is not so rosy.  Database schema are typically
+vigilantly guarded against change.  In the long term this mentality
+does a disservice to a system, forcing developers to bend over
+backwards to accommodate a structure that may no longer make
+sense.  Just as we refactor code, I believe our schema could
+use more frequent and vigilant refactorings, that perhaps 
+march in lockstep with domain changes.
+
+
+2 What made you begin writing the framework ?
+
+  I recall being introduced to these ideas when I attended
+  a talk given by Dave Thomas (of Pragmatic fame) on this
+  framework named NakedObjects.  This was several years ago.
+  I bought the book, tried out the code, and got hooked.
+  I couldn't let go of the ideas.  Here was a way of building 
+  software that resonated with me.
+  
+  It's fair to say that I was infected by these ideas, and
+  that I couldn't let go of them.  That forced me onto the path
+  of writing JMatter.
+
+3 Can you tell us more about the Naked Objects pattern ?
+
+  Abbreviated from the [wikipedia entry](http://en.wikipedia.org/wiki/Naked_objects),
+  the pattern is defined by these three principles:
+   - All business logic should be encapsulated onto the domain objects
+   - The user interface should be a direct representation of the domain objects
+   - The user interface should be created 100% automatically from the definition of the domain objects
+  
+
+4 The project site mentions Swing, have you thought in supporting other view technologies like SWT ?
+
+  As JMatter has grown, so has the implementation of its view mechanism.
+  JMatter's current view mechanism leverages Swing, and sports many
+  features, including:
+    - home-grown scheduling / calendaring components,
+    - custom layout managers,
+    - form views, tree views, table views (the latest version even includes geographical mapping views)
+    - a ui library for consructing wizards
+    - a css library for swing
+    - a visual command interface, similar to [gnome do](http://do.davebsd.com/) 
+       or [quicksilver](http://www.blacktree.com/)
+    - an expose-like feature from jayasoft named [jexplose](http://www.jaya.free.fr/jexplose.html).
+  
+  Adapting the framework to another widget toolkit is no small undertaking.
+  So I have to carefully weight the cost of such an implementation to the
+  value that might be derived from it.
+  
+  The big question in my opinion is whether or not to implement a web-based 
+  view mechanism.
+  In my mind, the principal advantage of a web "front-end" is free remoting.
+  I'm trying hard to keep separate the two ideas of remoting and widget toolkit, 
+  and am asking myself the question:
+  
+    do we really want a web front-end, or do we want to be able to 
+    proxy some of the application logic behind an application server?
+
+  That said, I did build an alpha implementation of a web-based view mechanism
+  as a proof of concept.  The concept was validated.
+  
+  The nakedobjects framework provides three alternative front-ends:
+   - the first used a java-based widget toolkit,
+   - a command line interface, and
+   - a web-based interface
+
+  I personally would rather build on one, though I may not be able to ignore
+  the web much longer.
+
+4.1 the web concept was validated, what about the proxy concept ?
+
+So basically JMatter today is a two-tier solution.  The proxy 
+concept entails breaking the application logic in two,
+where all database-related work would be performed on the server-side
+behind an application server while the rest of the logic would remain
+on the client.  The result would be a more "traditional" three tier
+system (client, app server, database).
+
+The dominant practice today appears to be web services:  marshalling
+calls from one end to the other, whether it be using a binary serialization
+mechanism, or text-based:  xml / json.  This approach is
+tried and true, but it's not generic, and seems tedious:  it's the hard
+road to take.
+
+I've looked at existing solutions.  Let me start by taking Canoo ULC
+as an example.  This particular product does something interesting.
+It implements something known as the half-object pattern for user
+interface components.  This basically means that a user interface 
+component has one foot on each end of the wire.  When a user clicks
+on a button for example, the event is propagated to a handler method
+on the server side.  In the reverse direction, when invoking a ui component
+method from the server side, that signal is propagated to the client.
+In this manner the "business logic" can be kept on the server
+while user interface (which supposedly contains no business logic) is 
+remoted to end users.  Several relatively modern web frameworks do 
+something similar:  perhaps WingS, Echo, ZK?
+
+I think the right answer is to apply the half object pattern not
+to the user interface components, but to the domain objects themselves.
+I've looked at one specific product that really intrigues me:  Terracotta,
+which allows for an object to be shared across multiple virtual machines.
+So changing, say, a property on a domain object on the server is immediately
+reflected on the client.  This product however today seems to be focused
+on solving more traditional problems, such as replicating session state
+across a cluster.
+
+Recently, I've stumbled across an entirely different approach which 
+really excites me.  I've started working on it;  you'll find a very 
+preliminary implementation in the latest release of JMatter.
+
+Today, JMatter applications are deployed via Java Web Start:
+an ant target bundles the whole application for you, and even creates 
+the html page with the link to the generated jnlp file that autodownloads
+the client to the user machine.  From there, java web start takes care
+of making sure the client application is kept up to date.
+
+The download can easily reach 20MB.  What fascinates me is that only
+perhaps 100KB of that 20MB (0.5%) is unique application code.  The rest
+is generic:  The JMatter libraries plus a litany of supporting libraries.
+So I've decided to apply the fundamental idea behind JMatter to deployment:
+rather than download 20MB for each application (of which 99.5% of the 
+code is duplicated), why not turn JMatter into a browser:
+  - users download a generic JMatter application browser once (the client container)
+   (the application can be made to self-update if necessary)
+  - enter a url to a jar file and 100KB are downloaded across the wire,
+    and dynamically classloaded into the virtual machine.
+    your application is dynamically launched:  the splash screen comes up,
+    you log in, and start interacting with the application.
+    
+this mechanism has the following benefits (web apps have the same benefits):
+ - nothing to install
+ - the application logic can be updated at any time 
+    (posted as a jar file to a web server)
+ - the application footprint is tiny, even compared to web standards.
+   let's look at some numbers:  in a web app, each page in an application
+   can easily take up 100KB.  here the entire application is 100KB.
+
+and we haven't even begun working on providing offline functionality
+for which there's a path to implementation, thanks to all-java rdbms's
+such as h2.
+
+the main issue with this approach of course is confronting yet another
+industry taboo:  that applications shouldn't talk directly to 
+their back-end databases.
+
+
+5 What can you tell about the framework's future?
+
+As you can probably tell from this interview, I'm very passionate
+about JMatter and the ideas it embodies.  As a developer I'm tired of
+the way we currently build applications.  I believe JMatter holds
+great promise.
+
+The feedback we've gotten from our community of users is simply
+second to none.  Take a look at some of the comments we've received
+from users and developers at:  http://jmatter.org/pages/quotes
+This feedback is encouraging, and energizing.  I feel that many
+other developers echo my sentiments about software development.
+
+In terms of product development, it's never dull.  There always seem to
+exist more terriffic, game-changing ideas than we have the resources 
+to develop.
+
+Judging from the JMatter users mailing list, our community has slowly 
+grown over time to a couple of hundred subscribers.  We're starting
+to get more active participation from the community.  I'm very proud
+that our last release had three code contributions from the community.
+
+My focus in 2008 will be to increase awareness of JMatter.
+At the same time, I'm committed to steadily improving the 
+product through regular and frequent releases.
+
+

@@ -1,0 +1,383 @@
+Summer 2007
+
+by Eitan Suez
+---
+*Eitan Suez is the author of [JMatter](http://jmatter.org/), a Java framework [open-sourced](http://jmatter.org/articles/2006/06/18/jmatter-now-available-open-source) in late June of 2006.*
+
+![JMatter Logo](images/logo.png)
+
+[THIS ARTICLE IS STILL A DRAFT]
+
+What's the matter with JMatter?
+===============================
+
+It has been approximately a year since the [first article](../clientjava.com/cjarticle.html) on JMatter was published, and a year is a long time for a successful open-source project.  Many things have changed;  I'd like to give you an update.  My last article was an introduction to JMatter;  it's time we tackled something more advanced.
+
+Allow me to begin with a very brief, orienting description of JMatter:
+
+> JMatter proposes that you, the developer of a small business application, concern yourself primarily with the business logic, or the domain in question  (Say we're developing a solution for a school, perhaps to administer or manage a curriculum.  Alternatively, perhaps we're trying to write a system to better manage parts at an automotive shop, or perhaps we're dealing with real estate properties for sale.  You get the picture).
+
+> JMatter further proposes that you consider most software-development tasks that are not directly related to the business domain (such as persistence, writing the user interface, authentication, deployment, and more) as plumbing:  it's someone else's job.  In fact it's JMatter's job.
+
+> Applications developed with JMatter sport user interfaces built on top of the Java Swing toolkit.  They are deployed over Java Web Start.  For persistence, JMatter leverages Hibernate Core, and so is compatible with any database system supported by Hibernate.
+
+
+To give you further insight into the nature of this framework, let's walk through the construction of a non-trivial JMatter application.
+
+
+Let's build an App!
+-------------------
+
+The JMatter framework comes with a half dozen demonstration applications that are designed to teach various aspects the framework.
+
+For this article, let's develop an application that illustrates some of JMatter's object-oriented capabilities.  Whether we've attended it or not, many of us are familiar with the JavaOne annual conference in San Francisco.  Let us then develop an application for managing the JavaOne conference.  This application somewhat resembles the "Sympster" demo application that comes with JMatter.  A complete application with all use cases is of course a little beyond the time and space that we have for this article, so we'll build the foundation for such an application.  I'll let you be the judge of the degree of leverage JMatter provides.
+
+
+###Initial Modeling
+
+I happen to have a copy of the brochure for JavaOne 2006 underneath a stack of papers on my desk.  After perusing through it, I made the following observations:
+
+>  JavaOne is a conference, an event, where many talks are given.  There seem to be a number of different types of events such as technical sessions (TS), which are the meat of the conference.  Let's not forget Keynote speeches, and the popular Birds of a Feather (BOF) sessions at night.
+  
+>  Both the BOFs and technical sessions have a unique code such as TS-1234 or BOF-2332 while Keynote sessions do not.  BOF's and TS's are also categorized by track, and there appear to be five tracks:  Java SE, Java EE, Java ME, Tools, and Cool Stuff.  All talks have a speaker and a topic, and description.
+  
+>  Some speakers are distinguished as "rock star" speakers, some are Java champions, or both.  Let's term such accolades *Speaker Recognitions*.
+  
+>  Typically a distinction is made between the definition of a talk, and the scheduling of a specific talk at a specific time and location.  This distinction doesn't appear to be necessary for this application.
+  
+>  Finally, talks are scheduled for different rooms.  We might want to keep track of the seating capacity for each room, which would be important if we wanted to manage registration for specific talks.
+  
+Here then is a tentative initial model for our application:  Talk (with subclasses: Keynote, BOF, and Technical Session), Speaker (and SpeakerRecognition), Room, and Track.  Let's go ahead and throw in an additional categorization for a talk:  a Talk Level (perhaps with three levels:  Beginner, Intermediate, and Advanced) to help us ascertain the expertise level expected of attendees.
+
+###Creating our Project
+
+  Download JMatter from [http://jmatter.org/](http://jmatter.org/) and unzip (or untar) the distribution.
+  Assuming you've got [ant](http://ant.apache.org/) installed, from the command line, cd into `jmatter/` and issue the following command to create a new project:
+
+    ant new-project-ui
+
+![GUI for creating new JMatter projects](images/app-newproject.png)
+
+
+Give your project a name (JavaOneMgr).  You have the choice between creating a standalone versus dependent project.  In standalone projects, all the necessary dependencies are bundled into your project.  It doesn't matter too much which you pick here.  Dependent projects are simpler to work with if you're making changes to both your project and to the underlying framework.
+
+After creating your project, quit this little app and `cd` to `../JavaOneMgr`, your new project's base directory (feel free to move your new project to another parent directory).  The project is already equipped with a build file and base directory structure.
+
+###Project Directory Structure and Configuration
+
+The project's directory structure is fairly self-explanatory:
+
+  1. `src/` This is where JMatter will expect to find your source code.
+  2. `test/` Place any JUnit tests you write in this directory
+  3. `resources/` This directory contains a variety of application resources.  The `images/` folder is where you place various image resources:  a splash screen, and icons representing your model objects that will be used by the JMatter's user interface.  `hibernate.properties` is where you configure your application's database connection (among other hibernate-related concerns).  Some model metadata can be specified in the file `model-metadata.properties` (more [here](http://jmatter.org/documentation/html/chap11.html#tth_sEc11.6.3)); the application's localization resources are also located here.
+  4. `doc/` Place any documentation specific to your application in this directory
+
+For standalone projects, you will also find a `lib/` folder containing all of your application's dependencies.  Dependent projects' build files reference dependencies in your jmatter installation.
+
+You'll be using the generated ant build file to compile your code, generate your database schema, to "test-run" your application, run unit tests, and your application is ready, to produce the artifacts necessary to deploy it over Java Web Start.
+
+To configure your project with an IDE, you typically must communicate these pieces of information:
+
+  1. Where your source code is located (specify the `src/` folder)
+  2. Where to output compiled code (to match the ant build file, specify `build/classes`, though we'll typically use the build file for compilation)
+  3. Where dependencies are located (for dependent projects, that would be all the jars in `jmatter/lib/runtime`, and the directory `jmatter/build/classes`)
+
+JMatter requires Java SE version 5 or higher.
+
+We're going to start coding soon, so go ahead and configure your working environment to your tastes.
+
+###JMatter's Conventions
+
+  We need to translate our model into actual code.  JMatter relies on code conventions to construct a generic metamodel from our object model.  Here are some of them:
+
+  - Our types must extend the base class `AbstractComplexEObject`, an implementation of the `ComplexEObject` interface, which gives our objects a number of capabilities
+
+  - JMatter supplies a long list of what it calls *Atomic Types* that you must use to model basic types (that we usually use primitives for) such as strings, numbers, etc..
+
+  - We model associations using the javabeans bound property conventions:  that is, supply both a getter and setter method, and fire a property change event in the setter
+
+  - We model aggregation of atomic or complex types using [value objects](http://jmatter.org/articles/2006/08/04/tip-of-the-week-value-objects):  by defining only a getter method for the member in question, and marking the backing field `final.`
+
+  - We use conventions to associate icons to types:  for a class named `Speaker`, we supply the icon files `Speaker32.png` (32x32) and `Speaker16.png` (16x16).  JMatter will use these icons in its user interface.  Similarly, JMatter will automatically pick up and use a file named "splash.png" (or gif or jpg) as the image for the splash screen for your application.
+
+This certainly sounds like a lot of imposition.  In exchange for adhering to these conventions, JMatter promises to do a lot of the work of building a small business application for you:
+
+   - You won't have to develop a user interface for your application
+   - Most persistence concerns are taken care of
+
+There's another issue:  having to write classes according to these conventions by hand gets tedious.  IDEs help us here, by providing the ability, for example, to generate getters and setters for a specified field.  JMatter provides a set of IntelliJ IDEA live templates that automatically expand a few keystrokes into the necessary code:  it takes the tedium out of writing the classes (see [here](http://jmatter.org/pages/ideatool) and [here](http://jmatter.org/articles/2006/07/13/intellij-idea-support)).  These templates facilitate the definition of JMatter commands, fields, associations, and metadata.
+
+An independent JMatter user, Ryan Ramage, went much further with this, and developed a tool named [Ultraviolet](http://jmatter.org/articles/2006/09/02/ultraviolet-a-light-uml-editor-for-jmatter):  a specialization and extension of [Cay Horstmann's violet](http://horstmann.com/violet/) UML design tool for designing and producing JMatter applications.  [Ultraviolet](http://jmatter.org/pages/tools) is now bundled with and integrated into the JMatter distribution.  Once finished modeling, UltraViolet will generate your entire project for you, ready to run (actually it can run it too).
+
+
+###A First Model Object
+
+  First, create a java package in which to place your code.  I'll be using the package name *org.jmatter* (feel free to use a package name suitable for your organization).
+
+  Let's start with a very simple model object.  [Here's](listings/Track.java.html) the implementation for the type `Track`.
+
+  Let's do a quick analysis
+  
+  We see the base type is specified.  The `@Persist` annotation tells JMatter we want to persist instances to database (JMatter bundles a copy of both [H2](http://h2database.com/) and [hsqldb](http://hsqldb.org/) to help you get started with a minimum of fuss).
+  
+  Note the usage of the atomic type `StringEO` for the track's name, modeled as .  Also note how it's modeled as a value object, with a getter method.  We also use a little metadata:  the `identities` static field, to relate to JMatter that the name field should be unique.
+  
+  Finally, we supply an implementation of the `title()` method, which is a bit of text that represents an instance, somewhat similar to the `toString()` method we're all familiar with.  `Title` is nothing more than a helper that assists with field concatenation.  In fact the `title()` method takes care of `toString()` for you (i.e. you don't need to implement that).
+
+  This is a good time to supply an accompanying icon pair for our type.  Place image resources in the directory `./resources/images`.  Your project's build file will automatically copy the images to the build class path.  In fact, let me show you my icon selections for the types we're going to develop in this application (note that I didn't supply an icon for Speaker Recognitions;  we'll be using custom per-instance icons for each type of recognition (more on this later)).
+
+![Application Icons](images/iconset.png)
+
+  At this point, we can technically run our application and begin to get a feel for what JMatter does.  Most of our model is still missing, but it might this is nevertheless a good time to get more familiar with JMatter.  We first need to get acquainted with the ant targets in our project.
+
+
+###JMatter Project `ant` Mechanics
+
+The two main targets we concern ourselves with are:  `schema-export` and `run`.  That is, from our model, we can auto-generate our database schema.  The `schema-export` target relies on hibernate's schema generation capabilities, but note that JMatter auto-generates hibernate's mapping files.  When we invoke `schema-export`, we're first compiling our code base, then invoking a target named `genhbm` to generate the mappings, and finally sending hibernate the instructions to export the schema to the database we specify in the file `resources/hibernate.properties`.  This latter hibernate configuration file defaults to using an embedded H2 database, so that no configuration is required on your part.
+
+Side note:  To view the contents of the H2 database, you can launch the H2 database server with the command `java -jar h2.jar` and then point your web browser to `http://localhost:8082/`.  Also, you can verify that a mapping file was generated for the type Track by inspecting the contents of the directory `build/classes/com/u2d/j1mgr`, and specifically the file `Track.hbm.xml`.
+
+Side note:  JMatter has been in the works for some time.  When this project started out, JPA implementations did not yet exist.  One area where JMatter needs to catch up is to realign its persistence implementation with the new JPA standard (Java Persistence API).  JMatter today still uses auto-generated Hibernate hbm.xml mapping files.  Using JPA would not only adhere to the new expected standard, but would also allow more flexibility in terms of overriding the default persistence mapping settings.
+
+During development, and when starting out, it's simplest to run everything locally, even though the deployed application will have remote clients talking to a back-end database.
+
+Not having written a single line of GUI code, and not having really given much thought to persistence, we're now ready to run our app:
+
+      ant run
+
+
+Side note:  Another target, named `shellscript`, will produce either a `run.bat` or `run.sh` wrapper script if you need to launch the app directly from the command line.
+
+Log in using the credentials 'admin/admin'.
+
+For a more thorough overview of the user interface that's before us, refer to [Chapter 3](http://jmatter.org/documentation/html/chap3.html#tth_chAp3) in the [JMatter manual](http://jmatter.org/pages/documentation).
+
+Let's begin by visually configuring the toolbar on the left hand side, which in JMatter is termed the *class bar*.  It's a sort of dock for types.  This type of component is often called an OutlookBar (due to its debut in the Outlook application) or an Accordion (in Ajax contexts).  It has two tabs.  Click on the second tab: 'Admin' and right-click *Browse* on the type `Types`.
+
+You should see a listing of types, including the member `Track`.  One way to add `Tracks` to our class bar (in the `Model` tab) is to:
+
+   1. expand the tab in question, and 
+   2. drag and drop the Track type's icon onto an empty spot inside that tab
+
+Alternatively, we can specify the composition of the class bar once in the configuration file located at `src/class-list.xml` (an example is supplied further in this article).
+
+Let's walk through some basics.  You can right-click *Browse* on `Track`.  Since our database is brand new, there are no entries.  To create a new instance, you can either right-click *New* on `Track` or on the listing's header, which has its own context menu, or with the keystroke `Ctrl-N` (on an apple substitute control for its meta key, the command key).  Among other things, JMatter supports creating, editing, updating, and deleting instances.  For navigation between windows, the shortcut Alt-` (alt-backtick) is similar to the familiar alt-tab shortcut.  Also, F12 invokes an apple *Expos&#233;*-like feature which scales and spreads all your windows across the screen so they're all easily visible and selectable.
+
+Feel free to peruse the user interface further.
+
+###Developing the Entire Model
+
+####Speaker
+
+Let's take a look at the [listing](listings/Speaker.java.html) for the implementation of the type `Speaker.`
+
+The first thing to notice are the basic members of Speaker:  name, bio, and photo.
+
+       private final StringEO name = new StringEO();
+       private final TextEO bio = new TextEO();
+       private final ImgEO photo = new ImgEO();
+
+
+Name is a string type.  The field bio on the other hand is marked as a `TextEO`, which signals to the framework that we want to use a text area for its user interface representation, and a large text field to persist the information (that a varchar(255) won't do).  Finally we can store blobs right along other fields.  The photo field is of type `ImgEO`.  JMatter provides editors and renderers for many basic types (as well as formatters, parsers and validators for zip codes, dates, ssn's and more), and they can all be customized if necessary.  For each member field we supply a getter method.
+
+The two other members are a one-many relationships:  talks, and speaker recognitions (e.g.: a speaker is both a JavaOne rock star and a Java champion).
+
+       private final RelationalList talks = new RelationalList(Talk.class);
+       public static Class talksType = Talk.class;
+       public static String talksInverseFieldName = "speaker";
+       
+       private final RelationalList recognitions = new RelationalList(SpeakerRecognition.class);
+       public static Class recognitionsType = SpeakerRecognition.class;
+
+For to-many associations, we use the JMatter `RelationalList` list type.  There's also a slight wrinkle here in that we're required to provide a way for JMatter to statically infer the list item type.  That's the reason for the metafields `talksType` and `recognitionsType`.  If defining a bidirectional relationship (that is, if Talk points back to speaker), we signify this with another meta field (talksInverseFieldName), again helping JMatter knit it all together.
+
+Here's some optional metadata for controlling the field display order in the user interface:
+
+       public static String[] fieldOrder = {"name", "recognitions", "talks"};
+       public static String[] tabViews = {"photo", "bio"};
+
+The metafield `tavViews` specifies that the fields `photo` and `bio` should be displayed in separate tabs.
+
+Finally, here's another interesting customization:
+
+       private transient PhotoIconAssistant assistant = new PhotoIconAssistant(this, photo);
+       public Icon iconLg() { return assistant.iconLg(); }
+       public Icon iconSm() { return assistant.iconSm(); }
+
+Here we're overriding the two methods that control what icon to use for this instance.  Since we have a photo field with a picture of the speaker, a per-instance icon based on the speaker's photo is even better than a generic speaker icon.  The class `PhotoIconAssistant` makes sure that we use the speaker's photo only if one is provided.  It also makes sure to provide versions of the photo scaled to the appropriate size.
+
+
+Here's [the listing](listings/SpeakerRecognition.java.html) for the class `SpeakerRecognition`.
+
+We've identified two possible recognitions:  Java rock star and Java champion.  Each has its own unique icon in the brochure.  So let's model this type simply with two fields:  `name`, and `icon`.  Again, we want to use the icon as a per-instance icon, overriding whatever default icon is supplied for this type.
+
+####Room
+
+Let's take a look at the [implementation for the class `Room`](listings/Room.java.html).
+
+Two fields are defined:  the room name, and its capacity (an `IntEO`).
+
+This class illustrates one feature we haven't yet seen:  the ability to initialize some values by overriding the `initialize()` method:
+
+       public void initialize()
+       {
+          super.initialize();
+          capacity.setValue(500);
+       }
+
+####The Talk Type Hierarchy
+
+Next, let's look at the [implementation for the base class `Talk`](listings/Talk.java.html).
+
+We define a talk topic, its span (e.g. from 11:00 am to 11:45 am), description.  There are also to-one associations to the talk's speaker and location (room).  We setup the default duration for talks to 45 minutes, and supply the necessary accessor methods.
+
+Unlike our other type definitions that extends `AbstractComplexEObject`, this class extends the JMatter class `CalEvent`.  By subclassing `CalEvent` we specify that talks are events that can show up in a calendar.  As such, they must bear a TimeSpan-type field, which we do through the field `span`, and which JMatter dynamically locates.
+
+A future version of JMatter will likely automatically know to expose a calendar view for the type Talk, simply by virtue that Talks bear a field of type TimeSpan, without requiring the subclassing of `CalEvent.`  We're trying to be a little more duck-typed.
+
+Side note:  JMatter has a second, more sophisticated version of calendaring which supports viewing events in multiple locations side by side on the same day view, with strong support for drag and drop.  The Sympster demo application which is bundled with JMatter, is an illustration of this version.  In it, dropping a talk onto a day view of a calendar automatically creates a Session at the designated time and location.  Dragging the view of the session from one column to another automatically updates the talk's location.  It's a very visual way of manipulating information.
+
+Now to define the three specializations of Talk:  keynotes, tech sessions, and BOFs.  [Keynote](listings/Keynote.java.html) is the simplest as it requires essentially no specialization.
+
+The next one, [BOF](listings/BOF.java.html), adds the field `code` (e.g. BOF-2344) and the corresponding accessor.  We also mark the code field as unique through the `identities` metafield.
+
+       private final StringEO code = new StringEO();
+       public StringEO getCode() { return code; }
+
+       public static String[] identities = {"code"};
+
+For tech sessions, which are more structured, we need to supply the track for the talk, and a talk level (beginner, intermediate, etc..) ([Here is the listing](listings/TechSession.java.html)).
+
+Finally, the [TalkLevel](listings/TalkLevel.java.html) type is very similar to how we modeled a Track.  It's very simple.  JMatter recently defined a new annotation: *@EditWithCombo*, that customizes the editor in a field context to make it easier to pick.
+
+       @Persist
+       @EditWithCombo
+       public class TalkLevel extends AbstractComplexEObject
+       {
+       ...
+
+
+####Putting it together
+
+We never typically build anything linearly.  I developed this sample application over a couple of sessions, iteratively.  However, it's difficult to relay the experience in writing.
+
+It's easier to understand how all this works, and how the pieces fit together when we start dealing with examples:  let's stop talking about types and start looking at instances.
+
+This time around, rather than customize the classbar from the user interface, let's edit the file [class-list.xml](listings/class-list.xml) directly.
+
+To run our application, we must first export the schema and then invoke the `run` target:
+
+      ant schema-export
+      ant run
+
+Rather than fill this article with screenshots, I went ahead and recorded a [screencast of a session with our JavaOneMgr application](screencast/JmatterScreencast.html).
+
+Our base application, the JavaOneMgr, in its entirety consists of less than 500 lines of source code.  This metric illustrates some of the leverage that JMatter affords developers.
+
+There's much that can be built on top this base application.  Some use cases include:
+
+  * extending the model to include attendees, and allow them to manage their personalized schedule.
+  * Adding the ability to register for talks.  Such behavior can ensure that the room's capacity is not exceeded before registering an attendee.
+  * printing summary reports of all talks, organized by track.  Perhaps [JasperReports](http://jasperforge.org/sf/projects/jasperreports) can be used on top of the basic application to design and produce the report.  At a lower level, iText can come in handy to produce PDFs.
+  
+Exposing custom behavior into the application is very simple and straightforward, by defining a method marked with the @Cmd annotation.
+
+There are many more features to this framework than we have space for in this article.  Here are a few features of JMatter that we did not discuss:
+
+  * built-in validation support,
+  * a sub-framework for constructing wizards,
+  * support for objects with states
+
+JMatter also automates the production of your Java Web Start war file.  Please refer to [Chapter 15](http://jmatter.org/documentation/html/chap15.html#tth_chAp15) in JMatter's manual for the details.
+
+
+Let's switch gears and discuss how this project has evolved over the last twelve months.
+
+
+What's new?
+-----------
+
+A year after being open sourced, I am proud to say that this project is alive and active.
+Something I am most proud about is the JMatter community, whose presence is most felt on our [mailing list](http://groups.google.com/group/jmatter).  We've had many very interesting discussions and we recently crossed message number one thousand.  Our mailing list has slowly but steadily grown and stands today at 123 members (our [developers' mailing list](http://groups.google.com/group/jmatter-dev) stands at 20 members).
+
+As with many software projects, with time, many bugs have been discovered and squashed.  Our [trac issue manager](http://trac.jmatter.org/trac) documents many of them.  Some were not so formally documented and are documented on our mailing list.  For a detailed listing of changes, I invite you to review the project's [release notes](http://jmatter.org/pages/changes).
+
+One of the first requested enhancements was to include a lightweight or embedded database (such as [hsqldb](http://hsqldb.org/)) so that no database configuration and setup would be required of users.  Today JMatter bundles both hsqldb and the [H2 database](http://h2database.com/) (the default) and all six bundled demo applications require no configuration to run.
+
+We've had approximately a half dozen [formal releases](http://jmatter.org/pages/download).  Going forward, I intend to produce at least a dozen formal releases per year.
+
+Many enhancement requests were implemented.  The calendaring implementation has been recently refactored and improved (but we're not done yet).  Recent calendaring mprovements include:
+
+  - making it more a seamless part of the system requiring little or no configuration
+  - making it more powerful, the ability to easily filter events in a list view via adhoc queries, like list views work now.
+
+I have written an implementation of [CSS for Swing](http://jmatter.org/documentation/html/chap14.html#tth_chAp14) and integrated it into JMatter.  JMatter applications can now be customized and styled using CSS.
+
+Many aspects of an application's metadata can now be specified via annotations.  Many pieces of metadata were requested that didn't exist a year ago and that now have been incorporated into the framework.  See the [metadata section of the JMatter manual](http://jmatter.org/documentation/html/chap11.html#tth_sEc11.4) for complete details.
+
+From the start, JMatter has embraced convention over configuration, and very little configuration was required:
+
+  1. specifying which types to persist (in an xml file)
+  2. specifying which types to expose to the user interface.
+
+Now, an annotation replaces the first configuration task while the second can be performed directly from the user interface so that configuration is optional.
+
+We've also made progress in the direction of persisting application metadata:  metadata can now be specified directly from the user interface (instead of doing this in the code).  In fact, metatypes can be manipulated to some extent directly from the ui (think "turtles all the way down").
+
+We've very recently completed the generic implementation of authorization-related services in JMatter.  This means that, out of the box, you can define users, roles, and assign restrictions to roles.  Commands can be marked forbidden, fields can be marked read-only or hidden.  The specification and management of authorization policy can now be performed directly from the user interface.
+
+The project has received a number of contributions from independent developers in a number of areas.  Among other features, JMatter is now fully localized thanks to Felix Torre of Spain and Marco Meschieri of Italy.
+
+Our project now has a [logo](http://jmatter.org/images/theme/jmatter.png).  I've recently redesigned our [web site](http://jmatter.og/).  The site runs on the excellent [typo](http://typosphere.org/) ruby content management system.  I've developed a custom JMatter theme for typo (that now incorporates the obligatory [rico accordion](http://openrico.org/demos?demo=accordion)).
+
+Our [documentation](http://jmatter.org/pages/documentation), which originally stood at 130 pages, has been expanded to over 200 pages and has been kept up to date with changes in the framework.  Furthermore, this documentation is [now available in print](http://www.lulu.com/content/710734) (buy the book!).  Electronic copies are freely available in both PDF and html formats.
+
+We're seriously considering embracing the groovy language in a major way.  After meeting expert Swing and Groovy developer Andres Almiray at the Desktop Matters conference, I'm happy to say that Andres is actively participating in discussions on the mailing list and has committed to helping JMatter progress in that direction.
+
+###Outstanding..
+
+One major item which has been on my task list is still lingering:  the development of a second, web-based view mechanism as an alternative to the existing swing-based view mechanism.  Such a task is not a light undertaking, as you can probably tell from the extensive amount of work that has already been invested in JMatter's current, Swing-based user interface.
+
+The field of internet application construction is today in as much flux as ever.  Ajax frameworks are maturing and now we see efforts (such as [qooxdoo](http://qooxdoo.org/)) provide a complete widget toolkit that can be rendered in the browser.  Some frameworks, such as [Canoo ULC](http://canoo.com/ulc/), are going beyond AJAX by providing the ability to remote a Swing user interface.  We're also seeing the rise of rich internet applications platforms such as Adobe AIR.
+
+Perhaps in a future article we'll have an update on the status of our efforts in this area.
+
+
+A few myths..
+-------------
+
+###Myth #1:  JMatter is not truly open-source
+
+Nothing could be further from the truth.  JMatter is available under the GPL (see [license](http://jmatter.org/pages/license)).
+
+Beyond licensing, the JMatter project is maintained in a truly open fashion.  The various instruments necessary to run the JMatter project the open-source way are in place:  the project has a web site, a weblog, an issue manager, mailing lists, top-notch documentation, and has had perhaps a half dozen formal releases in the last year.
+
+A commercial license is available for those parties that, for whatever reasons, cannot accept the terms of the GPL.  You'll find this commercial license to be among the least restrictive around.  There are no restrictions on the number of applications developed, or the scale of deployment.  Furthermore the pricing for a commercial license of JMatter is ridiculously low.  In fact I computed that break-even for a Java developer should be under one week, making it affordable not only for larger firms, but also for independent consultants.
+
+
+###Myth #2:  JMatter is a data-centric product
+
+There exist a good number of products for building database-backed software applications.  These data-centric products provide a user interface for defining a schema, and perhaps then let you define some forms for data entry, and finally they provide a mechanism to navigate to each of these forms through some kind of hierarchical menuing system.  It's a very traditional approach.  The end-result is termed a software application.  These products often target non-programmers, or novices.  A lightweight scripting language is provided for those who want to perform more advanced customizations.
+
+JMatter was born out of both enlightenment and need.  JMatter is an **object-centric** system.  Unlike database products, you won't find graphical tools for constructing your schema.  In fact you do no such thing.  You don't design forms either.  And finally, no mechanism is provided for you to define a navigation hierarchy.  I personally regard JMatter as being very non-traditional.  JMatter targets Java developers, not novices.
+
+JMatter is grounded in extreme refactoring.  In fact, having to define a schema has problematic overlap with the definition of an object model.  Having to define a user interface is likewise problematic, for the same reasons:  overlap, duplication of a schema definition.  Whether we like it or not, a user interface does relate a certain structure, a certain language:  a schema.
+
+One dilemma I've seen over and over again on software projects is the task of dealing with a schema change.  They involve the symptoms that go along with a non-refactored solution:  a single change request implies that the developer has to make changes in multiple places:  the database schema must be changed, the object model must be revised, and finally, the changes have repercussions to a number of facets of the UI's implementation, which must now be revised.  In fact, these problems are directly related to the accepted notion that making a change late in a project is much more costly than doing so early on.
+
+With JMatter, you define just the object model, representing a single language for your domain.  The model encapsulates more than just a schema:  it's data and behavior.  The other pieces:  the database schema and the user interface are artifacts.  They reflect the underlying model.  Many benefits derive from this, and some are described in the book [NakedObjects](http://nakedobjects.org/book/content.html).
+
+In fact, JMatter subscribes to many of the ideas of the [NakedObjects architectural pattern](http://nakedobjects.org/wiki/Naked_Objects_Pattern).  These ideas are congruent with those described by Eric Evans in [Domain Driven Design](http://domaindrivendesign.org/).  In fact, my take is that NakedObjects-like implementations make DDD a reality:  they provide an implementation whereby the ideas are extended beyond design to implementation:  Domain Driven Implementation.
+
+The problem I faced perhaps three years ago with the actual NakedObjects framework is that it wasn't finished, it wasn't complete.  JMatter ended up being my independent implementation of the same ideas, and has evolved from there.
+
+
+Summary
+--------
+
+JMatter provides a significant amount of leverage for developing an entire class of business applications.  The framework's approach is not a rehash of older data-centric systems such as ms-access, but a novel approach, one that subscribes to the ideas behind NakedObjects.
+
+JMatter addresses what a major dilemma in our industry:  that the construction of a complete business application requires a diversity of skills that goes well beyond business application development skills.  It requires expertise with many much lower-level technologies.  JMatter proposes to bridge this gap, and to provide the infrastructure that business application developers need to be productive, and to deliver their projects on time and within budget.
+
+The JMatter framework has matured since being open-sourced a year ago.  Our community has grown and many new features have been added.  I invite you to come and be a part of it at [http://jmatter.org/](http://jmatter.org/).
+

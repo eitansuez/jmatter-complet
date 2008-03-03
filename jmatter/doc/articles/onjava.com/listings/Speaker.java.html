@@ -1,0 +1,72 @@
+
+<html>
+<head>
+<title>Speaker.java</title>
+<meta name="generator" content="java2html 0.9.2">
+<meta name="date" content="2007-08-08T21:42:34+00:00">
+</head>
+
+<body bgcolor="#FFFFFF">
+<pre width="110"><a name="line1">  1: </a>package org.jmatter.j1mgr;
+
+<a name="line3">  3: </a><font color="#228B22">import com.u2d.model.*;</font>
+<a name="line4">  4: </a><font color="#228B22">import com.u2d.type.atom.StringEO;</font>
+<a name="line5">  5: </a><font color="#228B22">import com.u2d.type.atom.TextEO;</font>
+<a name="line6">  6: </a><font color="#228B22">import com.u2d.type.atom.ImgEO;</font>
+<a name="line7">  7: </a><font color="#228B22">import com.u2d.type.atom.PhotoIconAssistant;</font>
+<a name="line8">  8: </a><font color="#228B22">import com.u2d.persist.Persist;</font>
+<a name="line9">  9: </a><font color="#228B22">import com.u2d.list.RelationalList;</font>
+<a name="line10"> 10: </a><font color="#228B22">import com.u2d.view.FieldViewHandler;</font>
+<a name="line11"> 11: </a><font color="#228B22">import com.u2d.view.EView;</font>
+<a name="line12"> 12: </a><font color="#228B22">import com.u2d.view.swing.StateCardPanel;</font>
+<a name="line13"> 13: </a><font color="#228B22">import javax.swing.*;</font>
+<a name="line14"> 14: </a><font color="#228B22">import org.jmatter.j1mgr.ui.RecognitionsPanel;</font>
+
+<a name="line16"> 16: </a>@Persist
+<a name="line17"> 17: </a><strong><font color="#4169E1"><a name="Speaker"></a>public class Speaker extends AbstractComplexEObject</font></strong>
+<a name="line18"> 18: </a>{
+<a name="line19"> 19: </a>   private final StringEO name = new StringEO();
+<a name="line20"> 20: </a>   private final TextEO bio = new TextEO();
+<a name="line21"> 21: </a>   private final ImgEO photo = new ImgEO();
+<a name="line22"> 22: </a>   
+<a name="line23"> 23: </a>   private final RelationalList talks = new RelationalList(Talk.class);
+<a name="line24"> 24: </a>   public static Class talksType = Talk.class;
+<a name="line25"> 25: </a>   public static String talksInverseFieldName = <font color="#666666">"speaker"</font>;
+<a name="line26"> 26: </a>   
+<a name="line27"> 27: </a>   private final RelationalList recognitions = new RelationalList(SpeakerRecognition.class);
+<a name="line28"> 28: </a>   public static Class recognitionsType = SpeakerRecognition.class;
+<a name="line29"> 29: </a>   
+<a name="line30"> 30: </a>   public static String[] fieldOrder = {<font color="#666666">"name"</font>, <font color="#666666">"recognitions"</font>, <font color="#666666">"talks"</font>};
+<a name="line31"> 31: </a>   public static String[] tabViews = {<font color="#666666">"photo"</font>, <font color="#666666">"bio"</font>};
+<a name="line32"> 32: </a>   
+<a name="line33"> 33: </a>   static
+<a name="line34"> 34: </a>   {
+<a name="line35"> 35: </a>      ComplexType.forClass(Speaker.class).field(<font color="#666666">"recognitions"</font>).setViewHandler(new FieldViewHandler()
+<a name="line36"> 36: </a>      {
+<a name="line37"> 37: </a><strong><font color="#4169E1">         public EView getView(EObject value, EView defaultView)</font></strong>
+<a name="line38"> 38: </a>         {
+<a name="line39"> 39: </a>            <font color="#4169E1">return</font> new StateCardPanel(new RecognitionsPanel((AbstractListEO) value), defaultView);
+<a name="line40"> 40: </a>         }
+<a name="line41"> 41: </a>      });
+<a name="line42"> 42: </a>   }
+<a name="line43"> 43: </a>   
+<a name="line44"> 44: </a><strong><font color="#4169E1">   public Speaker()</font></strong>
+<a name="line45"> 45: </a>   {
+<a name="line46"> 46: </a>   }
+
+<a name="line48"> 48: </a><strong><font color="#4169E1">   public StringEO getName()</font></strong> { <font color="#4169E1">return</font> name; }
+<a name="line49"> 49: </a><strong><font color="#4169E1">   public TextEO getBio()</font></strong> { <font color="#4169E1">return</font> bio; }
+<a name="line50"> 50: </a><strong><font color="#4169E1">   public ImgEO getPhoto()</font></strong> { <font color="#4169E1">return</font> photo; }
+<a name="line51"> 51: </a><strong><font color="#4169E1">   public RelationalList getTalks()</font></strong> { <font color="#4169E1">return</font> talks; }
+<a name="line52"> 52: </a><strong><font color="#4169E1">   public RelationalList getRecognitions()</font></strong> { <font color="#4169E1">return</font> recognitions; }
+<a name="line53"> 53: </a>   
+<a name="line54"> 54: </a>   private transient PhotoIconAssistant assistant = new PhotoIconAssistant(this, photo);
+<a name="line55"> 55: </a><strong><font color="#4169E1">   public Icon iconLg()</font></strong> { <font color="#4169E1">return</font> assistant.iconLg(); }
+<a name="line56"> 56: </a><strong><font color="#4169E1">   public Icon iconSm()</font></strong> { <font color="#4169E1">return</font> assistant.iconSm(); }
+<a name="line57"> 57: </a>   
+<a name="line58"> 58: </a><strong><font color="#4169E1">   public Title title()</font></strong> { <font color="#4169E1">return</font> name.title(); }
+<a name="line59"> 59: </a>}
+</pre>
+</body>
+
+</html>
