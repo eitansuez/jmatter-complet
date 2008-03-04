@@ -5,6 +5,9 @@ import com.u2d.model.AbstractListEO;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.calendar.CalEvent;
 import com.u2d.persist.Persist;
+import com.u2d.view.EView;
+import com.u2d.view.swing.CustomReadView;
+
 import java.awt.Color;
 
 @Persist
@@ -72,9 +75,8 @@ public class Session extends CalEvent
 
    public static String schedulableFieldname = "location";
 
-   // tbd:
-//   public EView getMainView()
-//   {
-//      return new SessionView(this);
-//   }
+   public EView getMainView()
+   {
+      return new CustomReadView(new SessionView(this));
+   }
 }

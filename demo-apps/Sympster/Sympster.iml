@@ -124,6 +124,8 @@
         <jarDirectory url="file://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="swingvm" />
+    <orderEntry type="module" module-name="ds-swing" />
     <orderEntryProperties />
   </component>
 </module>
