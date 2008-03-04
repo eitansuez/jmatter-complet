@@ -126,6 +126,15 @@
     </orderEntry>
     <orderEntry type="module" module-name="swingvm" />
     <orderEntry type="module" module-name="ds-swing" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/jasperreports-2.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
 </module>

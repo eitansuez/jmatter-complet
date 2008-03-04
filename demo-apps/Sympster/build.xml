@@ -89,7 +89,7 @@
       <fileset dir="resources" includes="styles.css" />
       <fileset dir="resources/data" includes="*.xml,*.json" /> <!-- codes files -->
       <!-- <fileset dir="resources" includes="log4j.properties" /> -->
-      <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- jfree report xmls -->
+      <fileset dir="${src.dir}" includes="**/*.xml,**/*.jasper" />  <!-- report definitions -->
       <fileset dir="${src.dir}" includes="**/*.gif,**/*.png" />  <!-- any images referenced by jfree report xmls -->
    </copy>
    <copy file="resources/${hbprops}.properties" tofile="${build.classes.dir}/hibernate.properties" />
