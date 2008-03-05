@@ -5,6 +5,8 @@ import com.u2d.calendar.CellResChoice;
 import com.u2d.calendar.Schedulable;
 import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.css4swing.style.ComponentStyle;
+import com.u2d.ui.Platform;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.EventListenerList;
@@ -132,7 +134,7 @@ public abstract class BaseTimeIntervalView extends JPanel
       {
          public void mouseWheelMoved(MouseWheelEvent e)
          {
-            if (e.isControlDown())
+            if ((e.getModifiers() & Platform.mask()) != 0)
             {
                _prevCellResMinutes = cellRes().minutes();
                _prevPt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), _table);
