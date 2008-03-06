@@ -83,12 +83,15 @@ public class Application implements AppEventNotifier
       contributeToIndex(ComplexType.persistedTypes());
    }
    
+   public void contributeToIndex(ComplexEObject eo)
+   {
+      index.put(eo.title().toString().toLowerCase(), eo);
+   }
    public void contributeToIndex(AbstractListEO items)
    {
       for (Iterator itr = items.iterator(); itr.hasNext(); )
       {
-         ComplexEObject item = (ComplexEObject) itr.next();
-         index.put(item.title().toString().toLowerCase(), item);
+         contributeToIndex((ComplexEObject) itr.next());
       }
    }
    
