@@ -109,6 +109,20 @@ public class Symposium extends CalendarEO
       String sympoTitle = String.format("%s schedule", this);
       paramMap.put("symposium_title", sympoTitle);
 
+      
+      /*
+      alternative:  embed the query (parametrized) directly into the jrxml.
+      something along these lines:
+        <parameter name="symposium_id" class="java.lang.Long" />
+        <queryString language="hql"><![CDATA[
+          from Session s where s.symposium.id = $P{symposium_id}) order by s.time, s.event
+          ]]></queryString>
+        <field ... /> (fields used in report must be specified)
+      and:
+          paramMap.put(JRHibernateQueryExecuterFactory.PARAMETER_HIBERNATE_SESSION, session);
+          paramMap.put("symposium_id", getID());
+       */
+      
       String reportName = "com/u2d/sympster/SessionsReport.jasper";
       try
       {

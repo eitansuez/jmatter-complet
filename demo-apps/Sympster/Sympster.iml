@@ -132,7 +132,9 @@
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/jasperreports-2.0.4.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../../thirdparty/jasperreports-2.0.4/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntryProperties />
