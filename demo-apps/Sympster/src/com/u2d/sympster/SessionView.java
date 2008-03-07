@@ -44,15 +44,22 @@ public class SessionView extends JPanel implements ComplexEView
    {
       final JLabel lbl = new JLabel();
       ComponentStyle.setIdent(lbl, "session-title");
-      lbl.setText(_session.getEvent().getTitle().stringValue());
-      titleChangeListener = new ChangeListener()
+      if (_session.getEvent() == null)
       {
-         public void stateChanged(ChangeEvent e)
-         {
-            lbl.setText(_session.getEvent().getTitle().stringValue());
-         }
-      };
-      _session.getEvent().getTitle().addChangeListener(titleChangeListener);
+          lbl.setText(_session.title().toString());
+      }
+      else
+      {
+          lbl.setText(_session.getEvent().getTitle().stringValue());
+          titleChangeListener = new ChangeListener()
+          {
+             public void stateChanged(ChangeEvent e)
+             {
+                lbl.setText(_session.getEvent().getTitle().stringValue());
+             }
+          };
+          _session.getEvent().getTitle().addChangeListener(titleChangeListener);
+      }
       return lbl;
    }
    private JPanel speakerPnl()
@@ -114,9 +121,17 @@ public class SessionView extends JPanel implements ComplexEView
       builder.appendGlueRow();
       Room room = _session.getLocation();
       JLabel roomLbl = new JLabel();
-      roomLbl.setOpaque(true);
-      roomLbl.setBackground(room.getColor().colorValue());
-      roomLbl.setText(room.title().toString());
+      if (room == null)
+      {
+          roomLbl.setOpaque(false);
+          roomLbl.setText("--");
+      }
+      else
+      {
+          roomLbl.setOpaque(true);
+          roomLbl.setBackground(room.getColor().colorValue());
+          roomLbl.setText(room.title().toString());
+      }
       builder.append(roomLbl);
       builder.appendGlueRow();
       
