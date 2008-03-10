@@ -120,7 +120,9 @@
      comment:  nimbus in its current state (2008/02) pretty much kills the app
      <jvmarg line="-Dswing.defaultlaf=org.jdesktop.swingx.plaf.nimbus.NimbusLookAndFeel" />
       -->
-     <sysproperty key="pple.awt.textantialiasing" value="on" />
+     <sysproperty key="apple.awt.textantialiasing" value="on" />
+<!-- experimenting ..
+     <sysproperty key="apple.awt.graphics.UseQuartz" value="false" /> -->
    </java>
  </target>
 
@@ -285,7 +287,7 @@
    <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
    <jarbundler dir="${dist.dir}" name="${ant.project.name}" mainclass="${main.class}"
                jvmversion="1.5+" icon="resources/ContactMgr.icns">
-      <javaproperty name="swing.defaultlaf" value="javax.swing.plaf.metal.MetalLookAndFeel" />
+      <javaproperty name="apple.awt.textantialiasing" value="on" />
       <jarfileset dir="${lib.dir}"
                   includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,swingvm.jar,swingvm/*.jar" />
       <jarfileset dir="${lib.dir}"
