@@ -120,6 +120,7 @@
     <!-- to customize look and feel, uncomment this..
      <jvmarg line="-Dswing.defaultlaf=com.jgoodies.looks.plastic.PlasticXPLookAndFeel" />
       -->
+     <sysproperty key="apple.awt.textantialiasing" value="on" />
    </java>
  </target>
 

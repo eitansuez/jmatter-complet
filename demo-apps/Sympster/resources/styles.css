@@ -136,7 +136,9 @@ jmaps|MappableView
 {
   margin: 7px;
   background-color: #666;
+/*
   border-radius: 10px;
+*/
   border: 1px solid black;
 }
 #command-panel jm|CustomIconView

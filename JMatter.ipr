@@ -17,13 +17,6 @@
       <maximumHeapSize value="128" />
       <properties />
     </buildFile>
-    <buildFile url="file:///home/eitan/work/css4swing/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <properties />
-    </buildFile>
     <buildFile url="file://$PROJECT_DIR$/jmatter/build.xml">
       <additionalClassPath />
       <antReference projectDefault="true" />
@@ -225,6 +218,13 @@
               <file url="file://$PROJECT_DIR$/AppBrowser/resources/wings/WEB-INF/web.xml" />
             </files>
           </module>
+          <module name="MyTunes">
+            <files>
+              <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/echo2/WEB-INF/web.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/jws/web.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/wings/WEB-INF/web.xml" />
+            </files>
+          </module>
         </modules>
       </facet-type>
       <facet-type id="Spring">
@@ -249,6 +249,17 @@
               <file url="file://$PROJECT_DIR$/AppBrowser/src/applicationContext.xml" />
               <file url="file://$PROJECT_DIR$/AppBrowser/src/hbmGeneratorContext.xml" />
               <file url="file://$PROJECT_DIR$/AppBrowser/src/persistorContext.xml" />
+            </files>
+          </module>
+          <module name="MyTunes">
+            <files>
+              <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/echo2/WEB-INF/webapplicationContext.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/echo2/WEB-INF/webpersistorContext.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/wings/WEB-INF/webapplicationContext.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/wings/WEB-INF/webpersistorContext.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/src/applicationContext.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/src/hbmGeneratorContext.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/src/persistorContext.xml" />
             </files>
           </module>
         </modules>
@@ -551,9 +562,10 @@
       <module fileurl="file://$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iml" filepath="$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iml" />
       <module fileurl="file://$PROJECT_DIR$/jmatter//Core.iml" filepath="$PROJECT_DIR$/jmatter//Core.iml" />
       <module fileurl="file://$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd//JMNewProjectFrontEnd.iml" filepath="$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd//JMNewProjectFrontEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-apps/MyTunes//MyTunes.iml" filepath="$PROJECT_DIR$/demo-apps/MyTunes//MyTunes.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/Self//Self.iml" filepath="$PROJECT_DIR$/demo-apps/Self//Self.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/Sympster//Sympster.iml" filepath="$PROJECT_DIR$/demo-apps/Sympster//Sympster.iml" />
-      <module fileurl="file:///home/eitan/work/css4swing/css4swing.iml" filepath="/home/eitan/work/css4swing/css4swing.iml" />
+      <module fileurl="file:///Users/eitan/work/css4swing/css4swing.iml" filepath="/Users/eitan/work/css4swing/css4swing.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" filepath="$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" filepath="$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/echo2vm/echo2vm.iml" filepath="$PROJECT_DIR$/modules/echo2vm/echo2vm.iml" />
@@ -562,7 +574,7 @@
       <module fileurl="file://$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" filepath="$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="RUBY_DOC_SETTINGS">
@@ -642,7 +654,7 @@
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="file:///home/eitan/work/thirdparty/hibernate-3.2/src" />
+        <root url="file:///Users/eitan/work/thirdparty/hibernate-3.2/src" />
       </SOURCES>
       <jarDirectory url="file://$PROJECT_DIR$/jmatter/lib/runtime/hb" recursive="false" />
     </library>

@@ -12,10 +12,7 @@ import com.u2d.type.composite.LoggedEvent;
 import com.u2d.type.LogEventType;
 import com.u2d.element.EOCommand;
 import com.u2d.xml.CodesList;
-import com.u2d.pubsub.AppEventNotifier;
-import com.u2d.pubsub.AppEventSupport;
-import com.u2d.pubsub.AppEventListener;
-import com.u2d.pubsub.AppEventType;
+import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
 import org.hibernate.*;
 import org.jibx.runtime.*;
@@ -93,6 +90,27 @@ public class Application implements AppEventNotifier
       {
          contributeToIndex((ComplexEObject) itr.next());
       }
+   }
+   public void contributeToIndex(Class... types)
+   {
+      for (Class type : types)
+      {
+         contributeToIndex(type);
+      }
+   }
+   private void contributeToIndex(Class type)
+   {
+      AbstractListEO contacts = getPersistenceMechanism().list(type);
+      contributeToIndex(contacts);
+
+      ComplexType.forClass(type).addAppEventListener(AppEventType.CREATE,
+              new AppEventListener()
+              {
+                 public void onEvent(AppEvent evt)
+                 {
+                    contributeToIndex((ComplexEObject) evt.getEventInfo());
+                 }
+              });
    }
    
    public Map<String, ComplexEObject> getIndex() { return index; }

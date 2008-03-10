@@ -120,6 +120,7 @@
      comment:  nimbus in its current state (2008/02) pretty much kills the app
      <jvmarg line="-Dswing.defaultlaf=org.jdesktop.swingx.plaf.nimbus.NimbusLookAndFeel" />
       -->
+     <sysproperty key="pple.awt.textantialiasing" value="on" />
    </java>
  </target>
 

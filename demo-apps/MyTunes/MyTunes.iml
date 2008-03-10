@@ -41,15 +41,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/src/jl1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="module" module-name="Core" />
+    <orderEntry type="module" module-name="ds-swing" />
+    <orderEntry type="module" module-name="swingvm" />
+    <orderEntry type="library" name="Hibernate" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -59,9 +54,15 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="Core" />
-    <orderEntry type="module" module-name="ds-swing" />
-    <orderEntry type="module" module-name="swingvm" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/src/jl1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
 </module>

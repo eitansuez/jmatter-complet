@@ -1,16 +1,15 @@
-package com.u2d.contactmgr;
+package com.u2d.sympster;
 
 /**
- * Created by IntelliJ IDEA.
  * User: eitan
- * Date: Feb 14, 2008
- * Time: 9:49:45 AM
+ * Date: Mar 10, 2008
  */
 public class Application extends com.u2d.app.Application
 {
    public void postInitialize()
    {
       super.postInitialize();
-      contributeToIndex(PersonContact.class);
+      contributeToIndex(Talk.class, Speaker.class);
    }
+
 }
