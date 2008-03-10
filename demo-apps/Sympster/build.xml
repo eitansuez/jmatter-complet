@@ -106,6 +106,7 @@
     <!-- to test localization, uncomment this..
      <sysproperty key="user.language" value="fr" />
       -->
+  <sysproperty key="apple.awt.textantialiasing" value="on" />
    </java>
  </target>
 
@@ -255,7 +256,7 @@
    <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
    <jarbundler dir="${dist.dir}" name="${ant.project.name}" mainclass="${main.class}"
                jvmversion="1.5+">
-      <javaproperty name="swing.defaultlaf" value="javax.swing.plaf.metal.MetalLookAndFeel" />
+      <javaproperty name="apple.awt.textantialiasing" value="on" />
       <jarfileset dir="${lib.dir}"
                   includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,swingvm.jar,swingvm/*.jar" />
       <jarfileset dir="${lib.dir}"
