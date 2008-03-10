@@ -100,7 +100,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
             if (e.getKeyCode() == KeyEvent.VK_DOWN ||
                 e.getKeyCode() == KeyEvent.VK_UP)
             {
-               _list.dispatchEvent(e);
+               if (_list != null) _list.dispatchEvent(e);
             }
             else if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
             {
