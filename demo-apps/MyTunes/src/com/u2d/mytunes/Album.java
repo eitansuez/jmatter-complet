@@ -2,10 +2,13 @@ package com.u2d.mytunes;
 
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.ImgEO;
+import com.u2d.type.atom.PhotoIconAssistant;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.list.RelationalList;
 import com.u2d.persist.Persist;
+
+import javax.swing.*;
 
 @Persist
 public class Album extends AbstractComplexEObject
@@ -25,6 +28,10 @@ public class Album extends AbstractComplexEObject
    public StringEO getName() { return _name; }
    public RelationalList getSongs() { return _songs; }
    public ImgEO getCover() { return _cover; }
+
+   private transient PhotoIconAssistant assistant = new PhotoIconAssistant(this, _cover);
+   public Icon iconLg() { return assistant.iconLg(); }
+   public Icon iconSm() { return assistant.iconSm(); }
 
    public Title title() { return _name.title(); }
 }

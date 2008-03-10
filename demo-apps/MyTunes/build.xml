@@ -106,6 +106,7 @@
     <!-- to test localization, uncomment this..
      <sysproperty key="user.language" value="fr" />
       -->
+     <sysproperty key="apple.awt.textantialiasing" value="on" />
    </java>
  </target>
 
