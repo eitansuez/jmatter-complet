@@ -55,6 +55,11 @@ public class CardBuffer extends JPanel
       else
          return two;
    }
+   
+   public Component[] getItems()
+   {
+      return new Component[] { one, two };
+   }
 
    public Dimension getPreferredSize()
    {

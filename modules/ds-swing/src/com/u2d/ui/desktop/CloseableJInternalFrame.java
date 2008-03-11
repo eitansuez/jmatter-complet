@@ -42,6 +42,7 @@ public class CloseableJInternalFrame extends JInternalFrame
    public void removeNotify()
    {
       super.removeNotify();
+      setDropTarget(null);  // release ref to allow gc..
    }
 
    public static void closeFrame(JInternalFrame jif)

@@ -93,7 +93,19 @@ public class OmniListView extends JSplitPane
    }
 
    public EObject getEObject() { return _leo; }
-   public void detach() { _list.detach(); }
+
+   public void detach()
+   {
+      _list.detach();
+      Component[] items = _cardBuffer.getItems();
+      for (Component item : items)
+      {
+         if (item != null && item instanceof EView)
+         {
+            ((EView) item).detach();
+         }
+      }
+   }
 
    public Dimension getMinimumSize()
    {

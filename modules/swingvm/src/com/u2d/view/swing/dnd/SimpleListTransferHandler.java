@@ -41,5 +41,10 @@ public class SimpleListTransferHandler extends TransferHandler
    {
       // noop
    }
+   
+   public void detach()
+   {
+      _listview = null;
+   }
 }
    

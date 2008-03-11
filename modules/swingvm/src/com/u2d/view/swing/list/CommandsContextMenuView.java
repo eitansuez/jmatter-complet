@@ -10,13 +10,9 @@ import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
 import com.u2d.css4swing.style.ComponentStyle;
 import com.u2d.ui.Platform;
-
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.*;
 import java.util.Map;
 import java.util.HashMap;

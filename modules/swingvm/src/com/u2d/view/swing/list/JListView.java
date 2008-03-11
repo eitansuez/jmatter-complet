@@ -45,7 +45,9 @@ public class JListView extends SeeThruList
             });
          }
       };
-   
+   private RelationalListDropTarget _rlDropTarget;
+   private SimpleListTransferHandler _transferHandler;
+
    public JListView(AbstractListEO leo)
    {
       this(leo, false);
@@ -154,6 +156,8 @@ public class JListView extends SeeThruList
       _leo.removeListDataListener(this);
       _leoProxy.detach();
       detachItems();
+      if (_rlDropTarget != null) _rlDropTarget.detach();
+      if (_transferHandler != null) _transferHandler.detach();
       firePropertyChange("model", _leo, null);  // get BasicListUI$Handler
       // to stop listening;  jprofiler tells me it still is.
    }
@@ -172,11 +176,13 @@ public class JListView extends SeeThruList
    public void setupTransferHandler()
    {
       setDragEnabled(true);
-      setTransferHandler(new SimpleListTransferHandler(this));
+      _transferHandler = new SimpleListTransferHandler(this);
+      setTransferHandler(_transferHandler);
       if (_leo instanceof RelationalList)
       {
          RelationalList rl = (RelationalList) _leo;
-         setDropTarget(new RelationalListDropTarget(rl));
+         _rlDropTarget = new RelationalListDropTarget(rl);
+         setDropTarget(_rlDropTarget);
       }
    }
       

@@ -74,4 +74,9 @@ public class RelationalListDropTarget extends DropTarget
         ex.printStackTrace();
       }
    }
+
+   public void detach()
+   {
+      _leo = null;
+   }
 }
