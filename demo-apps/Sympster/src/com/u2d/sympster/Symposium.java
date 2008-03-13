@@ -86,7 +86,7 @@ public class Symposium extends CalendarEO
 
    public Class defaultCalEventType() { return Session.class; }
 
-   @Cmd
+   @Cmd(mnemonic='l')
    public Object ShowCalendar(CommandInfo cmdInfo)
    {
       if (schedulables() == null || schedulables().isEmpty())
