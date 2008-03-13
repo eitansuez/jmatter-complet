@@ -5,6 +5,7 @@ import com.u2d.model.AtomicEditor;
 import com.u2d.ui.UIUtils;
 
 import javax.swing.*;
+import java.text.NumberFormat;
 
 /**
  * Date: Jun 8, 2005
@@ -37,8 +38,11 @@ public class USDollarEditor extends JTextField implements AtomicEditor
       try
       {
          String text = getText().trim();
-         if (!text.startsWith("$"))
-            text = "$" + text;
+         String currencySymbol = NumberFormat.getInstance().getCurrency().getSymbol();
+         if (!text.startsWith(currencySymbol))
+         {
+            text = currencySymbol + text;
+         }
          value.parseValue(text);
          return 0;
       }
