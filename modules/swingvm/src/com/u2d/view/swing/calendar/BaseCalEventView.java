@@ -143,7 +143,7 @@ public abstract class BaseCalEventView
       public void mouseMoved(MouseEvent e)
       {
          if (disableCursorUpdate) return;
-         bottomRegion = new Rectangle(0, component.getHeight() - regionThickness,
+         bottomRegion = new Rectangle(0, component.getHeight() - regionThickness/2,
                                       component.getWidth(), regionThickness);
          
          Point pt = translate(e.getPoint());
@@ -162,7 +162,7 @@ public abstract class BaseCalEventView
       public void mouseEntered(MouseEvent e)
       {
          if (disableCursorUpdate) return;
-         bottomRegion = new Rectangle(0, component.getHeight() - regionThickness,
+         bottomRegion = new Rectangle(0, component.getHeight() - regionThickness/2,
                                       component.getWidth(), regionThickness);
 
          Point pt = translate(e.getPoint());
@@ -230,13 +230,18 @@ public abstract class BaseCalEventView
       {
          disableCursorUpdate = false;
          TimeInterval duration = _event.timeSpan().duration();
+
          long newDurationMilis = component.getHeight() * duration.getMilis() / actualHeight;
          // round duration to a five minute resolution.  e.g. 11:43 AM becomes 11:45 AM
          double newDurationFiveMinutes = newDurationMilis /  (double) 300000;
          int newDurationMinutes = 5 * (int) Math.round(newDurationFiveMinutes);
          TimeInterval newDuration = new TimeInterval(Calendar.MINUTE, newDurationMinutes);
-         _event.timeSpan().setDuration(newDuration);
-         _event.save();
+
+         if (!newDuration.equals(duration))
+         {
+            _event.timeSpan().setDuration(newDuration);
+            _event.save();
+         }
       }
 
    }

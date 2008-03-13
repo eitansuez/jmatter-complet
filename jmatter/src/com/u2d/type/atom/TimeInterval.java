@@ -109,5 +109,16 @@ public class TimeInterval
       int hrs = (int) (minutes / MINUTE.multiplier);
       return StringEO.zeroPad(hrs,2)+":"+StringEO.zeroPad(mins,2)+" hrs";
    }
-   
+
+   public boolean equals(Object obj)
+   {
+      if (obj == null || (!(obj instanceof TimeInterval))) return false;
+      TimeInterval other = (TimeInterval) obj;
+      return _milis == other.getMilis();
+   }
+
+   public int hashCode()
+   {
+      return new Long(_milis).hashCode() * 23;
+   }
 }
