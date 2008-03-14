@@ -897,7 +897,7 @@ reference "cha:Deploying-your-Application"
 At the time of writing, JMatter already has early (alpha quality) implementation
 s of the infrastructure necessary to deploy the very same applications over
  the world wide web, using a three-tier architecture.
- We hope to release a final implementation some time in 2007.
+ We hope to release a final implementation some time in 2008.
  This will give users the ability to deploy their applications either to
  the web or using Swing, or both (a mixed population of users).
 \end_layout
@@ -1052,7 +1052,7 @@ Go ahead and download the version you prefer and unpack it.
 \end_layout
 
 \begin_layout LyX-Code
-unzip jmatter.zip
+unzip jmatter-<date>.zip
 \end_layout
 
 \begin_layout Standard
@@ -1060,12 +1060,12 @@ You should now have a folder named
 \emph on
 jmatter
 \emph default
--<date>, containing three folders:
+-<date>, containing these folders:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="2">
+<lyxtabular version="3" rows="5" columns="2">
 <features>
 <column alignment="left" valignment="top" leftline="true" width="0">
 <column alignment="left" valignment="top" leftline="true" rightline="true" width="0">
@@ -1137,7 +1137,7 @@ The core of the JMatter framework
 \end_inset
 </cell>
 </row>
-<row topline="true" bottomline="true">
+<row topline="true">
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -1154,6 +1154,44 @@ modules
 
 \begin_layout Standard
 Various modules which the framework relies upon
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+AppBrowser
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+The JMatter Application Browser 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+(See chapter 
+\begin_inset LatexCommand ref
+reference "cha:Deployment,-Take-II:"
+
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1610,8 +1648,8 @@ You will be presented with a dialog and prompted to enter the new password
 \begin_layout Standard
 The next time you log in to the application, you'll have to enter the new
  password.
- Passwords are stored in the database as hashes and so are not vulnerable
- to prying eyes.
+ JMatter stores an md5 hash of the password in the database and so passwords
+ are not vulnerable to prying eyes.
 \end_layout
 
 \begin_layout Standard
@@ -1804,7 +1842,7 @@ Delete
 It's important to note that JMatter applications' user interfaces are very
  simple: they boil down to the implementation of a single concept: the noun-verb
  user interface metaphor.
- That is, we're in world of objects and we manipulate them through actions
+ That is, we're in a world of objects and we manipulate them through actions
 \begin_inset Foot
 status collapsed
 
@@ -1813,7 +1851,7 @@ status collapsed
 \emph on
 Aside
 \emph default
-: Not only do I content that such user interfaces are simple and natural,
+: Not only do I contend that such user interfaces are simple and natural,
  but a beautiful thing happens in addition: these concepts map naturally
  onto an object-oriented implementation.
  To build your own such applications, very little else is needed other than
@@ -2319,11 +2357,16 @@ Business
  view and even edit logs (though technically that last bit should be forbidden,
  and can be made so
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Standard
-We'll talk about authorization and other mechanisms to make information
- read-only in ?[to be decided]
+See section 
+\begin_inset LatexCommand ref
+reference "sec:Authorization"
+
+\end_inset
+
+ on authorization
 \end_layout
 
 \end_inset
@@ -2731,7 +2774,7 @@ CM
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \align center
@@ -2898,8 +2941,14 @@ Behind the scenes, JMatter introspects the classes in question and for each
 \begin_layout Standard
 We should now be able to inspect the contents of our database and verify
  that it contains these tables.
- By default, JMatter uses the H2 database, which is lightweight and requires
- no work on your part 
+ By default, JMatter uses the 
+\begin_inset LatexCommand htmlurl
+name "http://h2database.com/"
+target "H2 database"
+
+\end_inset
+
+, which is lightweight and requires no work on your part 
 \begin_inset Foot
 status collapsed
 
@@ -3497,14 +3546,8 @@ Here we see that JMatter has a built-in understanding of types such as a
 \end_layout
 
 \begin_layout Standard
-If you take a close look at the generated database schema for our application
- in figure 
-\begin_inset LatexCommand ref
-reference "cap:Generated-Database-Schema"
-
-\end_inset
-
-, you will not find a database table to hold contact information or addresses.
+If you inspect the generated database schema for our application, you will
+ not find a database table to hold contact information or addresses.
 \end_layout
 
 \begin_layout Standard
@@ -3531,6 +3574,18 @@ USAddress
 Components
 \emph default
 .
+ If you're familiar with the concepts in the book 
+\emph on
+
+\begin_inset LatexCommand htmlurl
+name "http://domaindrivendesign.org/"
+target "Domain Driven Design"
+
+\end_inset
+
+
+\emph default
+, then you're already familiar with both Aggregates and Value Objects.
 \end_layout
 
 \begin_layout Standard
@@ -3550,7 +3605,7 @@ Summary
 \end_layout
 
 \begin_layout Standard
-Here's a quick recap of what we've done so far:
+Here's a quick recap of what we learned in this chapter:
 \end_layout
 
 \begin_layout Enumerate
@@ -3600,11 +3655,19 @@ We studied the structure of a JMatter child project
 With the basics for setting up, configuring, and running projects under
  our belt, we're now ready to do some real work.
  In the next chapter, we're finally going to get a chance to write some
- code in the MyTunes music application.
+ code in the 
+\emph on
+MyTunes
+\emph default
+ music application.
 \end_layout
 
 \begin_layout Chapter
-MyTunes in under 200 Lines of Code
+
+\emph on
+MyTunes
+\emph default
+ in under 200 Lines
 \begin_inset LatexCommand label
 name "cha:MyTunes-Under-200"
 
@@ -3629,7 +3692,7 @@ Creating the Project
 \end_layout
 
 \begin_layout Standard
-We now how to create our project.
+We know how to create our project.
  I'll name my project 
 \emph on
 MyTunes
@@ -3786,9 +3849,26 @@ Next > Next > Next
 ../jmatter/lib/runtime
 \emph default
  to my project classpath so that the classes we reference can be resolved.
+ If you created a dependent project as I did, add the directory
+\emph on
+ ../jmatter/build/classes
+\emph default
+ to your classpath as well.
  Since the specific instructions vary from IDE to IDE, and since this is
  such a basic operation, I won't hold your hand through this task.
  :-)
+\end_layout
+
+\begin_layout Standard
+Before getting started with coding in the next section, you might want take
+ a quick peek at section 
+\begin_inset LatexCommand vref
+reference "sec:IDEA-Productivity-Templates"
+
+\end_inset
+
+ to setup some JMatter-specific file templates and live templates which
+ will make keying the code much simpler.
 \end_layout
 
 \begin_layout Section
@@ -4034,8 +4114,12 @@ reference "sec:ValueHolder-vs-POJO"
 \end_inset
 
 .
- There are two differences between a StringEO and a TextEO: [a] StringEO's
- are saved to the database as 
+ There are two differences between a StringEO and a TextEO: 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+StringEO's are saved to the database as 
 \emph on
 varchar
 \emph default
@@ -4043,11 +4127,24 @@ varchar
 \emph on
 text
 \emph default
- types or some other similar large text object; and [b] StringEO editors
- in the GUI are text fields whereas TextEO editors are text areas.
+ types or some other similar large text object
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+depending on the rdbms you use
+\end_layout
+
+\end_inset
+
+; and
+\end_layout
+
+\begin_layout Enumerate
+StringEO editors in the GUI are text fields whereas TextEO editors are text
+ areas.
 \newline
-Think of
- the 
+Think of the 
 \emph on
 EO
 \emph default
@@ -4056,6 +4153,7 @@ EO
 Enhanced Object.
 \end_layout
 
+\end_deeper
 \begin_layout Enumerate
 Name and Bio are marked final!
 \newline
@@ -4069,12 +4167,13 @@ ValueHolder
 null
 \emph default
 .
- To set a value on an atomic type, call the 
+ To set a value on an atomic or aggregate type, call the 
 \emph on
 setValue()
 \emph default
  method.
- Consequently, atomic fields in JMatter classes have only getters.
+ Consequently, atomic fields and aggregates in JMatter classes have only
+ getters.
 \end_layout
 
 \begin_layout Enumerate
@@ -4148,7 +4247,7 @@ That's it.
 One last note: If you're thinking right now that metadata such as the fieldOrder
  field above might be better modeled using Java 5 annotations, I would agree
  with you; I may do just that in the next version of JMatter.
- But this design decision's has no bearing on your productivity as a software
+ But this design decision has no bearing on your productivity as a software
  developer.
 \end_layout
 
@@ -4668,19 +4767,33 @@ owned
 \emph on
 associations
 \emph default
- to other types.
+ to other entities.
  The convention for defining and specifying the accessors and mutators for
  association fields is different.
  It complies with the JavaBeans convention for bound properties.
- Notice we: [a] provide both a getter and a setter, and [b] fire a 
+ Notice we:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+provide both a getter and a setter, and
+\end_layout
+
+\begin_layout Enumerate
+fire a 
 \emph on
 PropertyChangeEvent
 \emph default
  after the assignment.
 \end_layout
 
+\end_deeper
 \begin_layout Enumerate
-Here we have a better example of a title() method.
+Here we have a better example of a 
+\emph on
+title()
+\emph default
+ method.
  First, don't confuse the song title with the song type's 
 \emph on
 title()
@@ -4693,7 +4806,7 @@ title()
 \emph on
 appendBracket
 \emph default
- to display the song duration in brackets.
+ to display the song duration in square brackets.
 \end_layout
 
 \begin_layout Section
@@ -4916,8 +5029,8 @@ resources/images
 \emph default
  directory, place 16x16 and 32x32 pixel versions of an icon for each type.
  The naming of these image files is important.
- It is by the file naming convention that JMatter knows to associate an
- image with a type.
+ It is via a file naming convention that JMatter knows to associate an image
+ with a type.
  This idea again was shamelessly taken from the NakedObjects framework.
  If you haven't guessed it by now, NakedObjects had a strong influence on
  my thinking.
@@ -5211,17 +5324,6 @@ schema-update
 schema-export
 \emph default
 .
- JMatter places the script template 
-\emph on
-dump_db.sh
-\emph default
- in your project's base directory that you can use to dump your data out
- of a postgres database.
- This script is nothing more than a thin wrapper around PostgresQL's 
-\emph on
-pg_dump
-\emph default
- command.
 \end_layout
 
 \begin_layout Section
@@ -5262,8 +5364,8 @@ fieldOrder
 \end_layout
 
 \begin_layout Standard
-In this case, it happens to a coincidence that the fields we wanted to mark
- as required also happened to be unique (i.e.
+In this case, it happens to be a coincidence that the fields we wanted to
+ mark as required also happened to be unique (i.e.
  you should definitely not go about marking fields unique for the purpose
  of making the user interface treat them as required fields).
 \end_layout
@@ -5418,7 +5520,11 @@ reference "cha:Validation"
 \end_layout
 
 \begin_layout Subsection
-A word about the model-metadata.properties File
+A word about the 
+\emph on
+model-metadata.properties
+\emph default
+ File
 \end_layout
 
 \begin_layout Standard
@@ -6064,6 +6170,8 @@ Next, we see that we use the same little trick of returning a string if
  So the user will get an error message when they pick a base path that is
  invalid.
 \newline
+
+\newline
 Wait a minute.
  Where or when did we tell JMatter to give us a base path? Notice that the
  command method takes an additional argument of type 
@@ -6087,7 +6195,8 @@ listRecursive()
 FileEO
 \emph default
 , passing in the file filter.
- Now we have a listing of all the mp3 files nested inside the base directory.
+ Now we have a listing of all the mp3 files nested inside the user's specified
+ base directory.
 \end_layout
 
 \begin_layout Enumerate
@@ -6162,7 +6271,7 @@ Song Listing after Import
 \end_layout
 
 \begin_layout Standard
-The operation created 159 Song objects or eleven pages of songs.
+The operation created 159 Song objects or eleven pages' worth.
  The durations are not correct of course.
  A better way to solve this problem would be to interpret the iTunes xml
  file, which contains all sorts of song metadata besides the basic song
@@ -17264,6 +17373,12 @@ In fact, we saw an example in the IssueMgr sample application where we wanted
 
 \begin_layout Chapter
 Authentication & Authorization
+\begin_inset LatexCommand label
+name "cha:Authentication-&-Authorization"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -17429,6 +17544,12 @@ admin
 
 \begin_layout Section
 Authorization
+\begin_inset LatexCommand label
+name "sec:Authorization"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -20446,6 +20567,12 @@ normal
 
 \begin_layout Chapter
 Deployment, Take II: The Application Browser
+\begin_inset LatexCommand label
+name "cha:Deployment,-Take-II:"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -20893,6 +21020,12 @@ Jim: Thank you very much!
 
 \begin_layout Section
 IDEA Productivity Templates
+\begin_inset LatexCommand label
+name "sec:IDEA-Productivity-Templates"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
