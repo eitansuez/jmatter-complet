@@ -9,6 +9,7 @@
   <property name="jmatter.dir" location="${basedir}/jmatter" />
   <property name="demo.dir" location="${basedir}/demo-apps" />
   <property name="modules.dir" location="${basedir}/modules" />
+  <property name="appbrowswer.dir" location="${basedir}/AppBrowser" />
 
   <!-- TARGETS -->
 
@@ -24,7 +25,7 @@
   </target>
 
   <target name="make-distribution"
-          depends="clean, init, include-demoapps, include-modules, make-jmatter-jar, makedoc-pdf"
+          depends="clean, init, include-demoapps, include-modules, include-appbrowser, make-jmatter-jar, makedoc-pdf"
           description="Produce jmatter distribution">
      
    <copy todir="${build.target.dir}">
@@ -91,6 +92,13 @@
       <ant antfile="${demo.dir}/MovieLib/build.xml" inheritAll="false" target="clean"/>
       <ant antfile="${demo.dir}/MyTunes/build.xml" inheritAll="false" target="clean"/>
       <ant antfile="${demo.dir}/CustomUI/build.xml" inheritAll="false" target="clean"/>
+   </target>
+   
+   <target name="include-appbrowser">
+      <ant antfile="${appbrowser.dir}/build.xml" inheritAll="false" target="clean"/>
+      <copy todir="${build.dir}">
+        <fileset dir="${basedir}" includes="AppBrowser/**/*" />
+      </copy>
    </target>
    
    <!--    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
