@@ -14972,6 +14972,10 @@ Search in Associations
 \end_layout
 
 \begin_layout Section
+Polymorphic queries
+\end_layout
+
+\begin_layout Section
 Code Hints for Search
 \end_layout
 
@@ -21398,6 +21402,9 @@ The Application Browser can be packaged and deployed using the traditional
  of using an automated installer.
  By virtue of being implemented entirely in Java, this application is by
  definition cross-platform.
+ It's worthwhile noting that the JMatter application browser is itself nothing
+ but a standard JMatter application with a very simple model comprising
+ a single entity: the Bookmark.
 \end_layout
 
 \begin_layout Section
@@ -21406,7 +21413,7 @@ How it works, by example
 
 \begin_layout Standard
 Allow me to illustrate how this deployment mechanism works by example: let's
- take deploy the Sympster application.
+ deploy the Sympster application.
  Here are the steps we need to follow:
 \end_layout
 
@@ -21457,7 +21464,7 @@ We now launch the application browser.
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \noindent
@@ -21477,6 +21484,17 @@ status open
 
 \begin_layout Standard
 The JMatter Application Browser
+\begin_inset LatexCommand label
+name "fig:The-AppBrowser"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -21485,17 +21503,14 @@ The JMatter Application Browser
 \end_layout
 
 \begin_layout Standard
-
-\end_layout
+In Figure 
+\begin_inset LatexCommand ref
+reference "fig:The-AppBrowser"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-In Figure 44, we see that I've defined an application bookmark for the Sympster
- demo application that I've deployed to jmatter.org.
+, we see that I've defined an application bookmark for the Sympster demo
+ application that I've deployed to jmatter.org.
  I can now click on the 
 \emph on
 Launch
@@ -21516,8 +21531,12 @@ The jar file is downloaded, and class-loaded into the client application's
 
 \begin_layout Standard
 When we're finished with our Sympster application session, we can either
- quit the application, or unload it (from the menu: File -> Unload Application),
- reload the Application Browser, where you can choose to launch an entirely
+ quit the application, or unload it (from the menu: 
+\emph on
+File -> Unload Application
+\emph default
+).
+ The Application Browser re-appears, and we can choose to launch an entirely
  different application from a different URL.
 \end_layout
 
@@ -21542,7 +21561,7 @@ pages
 \end_layout
 
 \begin_layout Itemize
-No installation was necessary
+No installation of Sympster was necessary
 \end_layout
 
 \begin_layout Itemize
@@ -21627,10 +21646,15 @@ JID3.jar
 jl1.0.jar
 \emph default
  (responsible for playing mp3's) using the jar manifest's Class-Path attribute.
- All we do next is make sure to put these libraries alongside MyTunes.jar
- on our web server, the rest is transparent: the associated jar files are
- fetched alongside the application.
- In this case our application is 300KB in size, including the dependencies.
+ All we do next is make sure to put these libraries alongside 
+\emph on
+MyTunes.jar
+\emph default
+ on our web server.
+ The rest is transparent: the associated jar files are fetched alongside
+ the application.
+ In this case our application is 300KB in size, counting the dependencies.
+ Not bad for a music player.
 \end_layout
 
 \begin_layout Section
