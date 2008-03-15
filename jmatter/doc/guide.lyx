@@ -11226,3227 +11226,15 @@ In summary, support for business objects lifecycle is a necessary component
 \end_layout
 
 \begin_layout Standard
-As its name implies, the next chapter will discuss JMatter's support for:
-\end_layout
-
-\begin_layout Enumerate
-adding wizards (or assistants) to your user interface
-\end_layout
-
-\begin_layout Enumerate
-exporting data as CSV files
-\end_layout
-
-\begin_layout Enumerate
-producing PDFs
-\end_layout
-
-\begin_layout Chapter
-Wizards, CSV Export, and PDFs
-\end_layout
-
-\begin_layout Standard
-Remember our zero-code contact manager? In this chapter we're going to actually
- add code to that application.
- Many desktop applications today provide these software assistants, or wizards,
- to help newbie users through a task.
-\end_layout
-
-\begin_layout Standard
-For example, when we created a contact person in our contact manager, we
- did not resort to an assistant.
- We just right-clicked 
-\emph on
-New
-\emph default
- on Person and typed away.
- This works just fine.
- But maybe we would also like to break the process of entering contact informati
-on into these steps:
-\end_layout
-
-\begin_layout Enumerate
-Enter person's name
-\end_layout
-
-\begin_layout Enumerate
-Enter person's physical address
-\end_layout
-
-\begin_layout Enumerate
-Enter remaining contact information (phone numbers, email address)
-\end_layout
-
-\begin_layout Enumerate
-Finish
-\end_layout
-
-\begin_layout Standard
-Having more than one way to do something can sometimes help.
- Each method can complement the other.
- Let's see what kind of support JMatter provides for adding assistants to
- our user interface.
-\end_layout
-
-\begin_layout Section
-Subclassing Person
-\end_layout
-
-\begin_layout Standard
-When we wrote this application, we used pre-written classes.
- One of them was 
-\emph on
-com.u2d.type.composite.Person
-\emph default
-.
- We want to enhance person with an additional behaviour: we want to add
- a command to launch our wizard.
- It should be a class command, not an instance command.
-\end_layout
-
-\begin_layout Standard
-So we need to subclass 
-\emph on
-Person
-\emph default
-.
- Let's create a package 
-\emph on
-com.u2d.contactmgr
-\emph default
-.
- In it we're going to create a new class: 
-\emph on
-PersonContact
-\emph default
- like this:
-\end_layout
-
-\begin_layout LyX-Code
-package com.u2d.contactmgr;
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-import com.u2d.type.composite.Person;
-\end_layout
-
-\begin_layout LyX-Code
-import com.u2d.wizard.details.Wizard;
-\end_layout
-
-\begin_layout LyX-Code
-import com.u2d.element.CommandInfo;
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-public class PersonContact extends Person
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   @Cmd
-\end_layout
-
-\begin_layout LyX-Code
-   public static Wizard NewPersonWizard(CommandInfo cmdInfo)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      return new Wizard(new NewPersonWizard());
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-Pretty simple.
- We're basically exposing a command that will return a 
-\emph on
-Wizard
-\emph default
- object.
- JMatter knows what to do with these objects, how to display them, allow
- the end user to navigate through them, etc..
- All you need to do is provide the steps.
-\end_layout
-
-\begin_layout Section
-Writing the Wizard
-\end_layout
-
-\begin_layout Standard
-JMatter models a wizard as a container for a series of steps.
- JMatter defines several types of steps.
- There are basic (or atomic) steps, conditional steps, and composite steps.
- We need to write a class that is essentially a composite step: one that
- defines the set of steps that makes up our wizard.
-\end_layout
-
-\begin_layout Standard
-Here is the first part of the implementation for our 
-\emph on
-NewPersonWizard
-\emph default
- class:
-\end_layout
-
-\begin_layout LyX-Code
-package com.u2d.contactmgr;
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-import com.u2d.wizard.details.*;
-\end_layout
-
-\begin_layout LyX-Code
-import com.u2d.type.composite.*;
-\end_layout
-
-\begin_layout LyX-Code
-import com.u2d.model.ComplexType;
-\end_layout
-
-\begin_layout LyX-Code
-import com.u2d.view.swing.FormView;
-\end_layout
-
-\begin_layout LyX-Code
-import javax.swing.*;
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-public class NewPersonWizard extends CompositeStep
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   private Name _name;
-\end_layout
-
-\begin_layout LyX-Code
-   private USAddress _address;
-\end_layout
-
-\begin_layout LyX-Code
-   private Contact _contact;
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-   public NewPersonWizard()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      super("New Person Wizard");
-\end_layout
-
-\begin_layout LyX-Code
-      createObjects();
-\end_layout
-
-\begin_layout LyX-Code
-      setupSteps();
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-   private void createObjects()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      _name = (Name) ComplexType.forClass(Name.class).instance();
-\end_layout
-
-\begin_layout LyX-Code
-      _address = (USAddress) ComplexType.forClass(USAddress.class).instance();
-\end_layout
-
-\begin_layout LyX-Code
-      _contact = (Contact) ComplexType.forClass(Contact.class).instance();
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-   private void setupSteps()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      NameStep nameStep = new NameStep();
-\end_layout
-
-\begin_layout LyX-Code
-      AddressStep addrStep = new AddressStep();
-\end_layout
-
-\begin_layout LyX-Code
-      ContactStep contactStep = new ContactStep();
-\end_layout
-
-\begin_layout LyX-Code
-      addStep(nameStep);
-\end_layout
-
-\begin_layout LyX-Code
-      addStep(addrStep);
-\end_layout
-
-\begin_layout LyX-Code
-      addStep(contactStep);
-\end_layout
-
-\begin_layout LyX-Code
-      addStep(new CommitWizardStep());
-\end_layout
-
-\begin_layout LyX-Code
-      ready();
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-Let's analyze this code.
- We defined a class that extends 
-\emph on
-CompositeStep
-\emph default
-.
- Recall that our wizard is essentially four steps: specify a name, an address,
- contact info, and finish.
- So we define variables that will hold each of these three pieces of information.
-\end_layout
-
-\begin_layout Standard
-Next, in the constructor, we set the title for our wizard with the call
- to the super type's constructor.
- We proceed to instantiate our three objects and then to configure them.
- The convention for setting up the steps is pretty easy:
-\end_layout
-
-\begin_layout Enumerate
-create each step
-\end_layout
-
-\begin_layout Enumerate
-add the steps in the proper order
-\end_layout
-
-\begin_layout Enumerate
-call the 
-\emph on
-ready()
-\emph default
- method
-\end_layout
-
-\begin_layout Standard
-Now all that's left to do is define three basic steps.
- I've decided to do this using inner classes, as follows:
-\end_layout
-
-\begin_layout LyX-Code
-class NameStep extends BasicStep
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   public String title() { return "Name Information"; }
-\end_layout
-
-\begin_layout LyX-Code
-   public String description() { return "Enter Person's Name"; }
-\end_layout
-
-\begin_layout LyX-Code
-   public JComponent getView()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      return new FormView(_name, false, false);
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout LyX-Code
-class AddressStep extends BasicStep
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   public String title() { return "Address Information"; }
-\end_layout
-
-\begin_layout LyX-Code
-   public String description() { return "Enter Person's Physical Address";
- }
-\end_layout
-
-\begin_layout LyX-Code
-   public JComponent getView()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      return new FormView(_address, false, false);
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout LyX-Code
-class ContactStep extends BasicStep
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   public String title() { return "Person's Contact Information"; }
-\end_layout
-
-\begin_layout LyX-Code
-   public String description()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      return "Please specify person's contact information";
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public JComponent getView()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      return new FormView(_contact, false, false);
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-We see here that the implementation is trivial.
- We provide a title, description, and a view for each of our steps.
- Nothing to it!
-\end_layout
-
-\begin_layout Standard
-It is worth noting that the 
-\emph on
-FormView
-\emph default
- class is taken from JMatter's own Swing-based view mechanism.
- By reusing this class, we automate the chore of having to write the panels
- that make up our wizard's user interface.
- Not only do we automate the construction of each panel, but also the binding
- of the view to its model object, as well as model object validation.
- For example, entering a zip code with an invalid format in the 
-\emph on
-AddressStep
-\emph default
- will automatically be flagged, giving the user a chance to revise and fix
- the data entry (see the screenshots that follow this section) before being
- able to proceed to the next step in the wizard.
-\end_layout
-
-\begin_layout Standard
-In our last step, the commit step, we sew everything together and save our
- new contact person:
-\end_layout
-
-\begin_layout LyX-Code
-class CommitWizardStep extends CommitStep
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   public void commit()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      PersonContact pc = new PersonContact();
-\end_layout
-
-\begin_layout LyX-Code
-      pc.getName().setValue(_name);
-\end_layout
-
-\begin_layout LyX-Code
-      pc.getContact().setValue(_contact);
-\end_layout
-
-\begin_layout LyX-Code
-      pc.getContact().getAddress().setValue(_address);
-\end_layout
-
-\begin_layout LyX-Code
-      pc.save();
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public JComponent getView()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      return new JLabel(description());
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public String title() { return "Final Step"; }
-\end_layout
-
-\begin_layout LyX-Code
-   public String description()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      return "We're almost done; Person record will be " +
-\end_layout
-
-\begin_layout LyX-Code
-             "committed after clicking 'Next'";
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-Besides providing the basic step information: title, description, and view,
- we also need to fill in the 
-\emph on
-commit()
-\emph default
- method, which is quite straightforward:
-\end_layout
-
-\begin_layout Enumerate
-we create a new PersonContact instance
-\end_layout
-
-\begin_layout Enumerate
-we set the name, contact, and address values
-\end_layout
-
-\begin_layout Enumerate
-finally, we persist our instance
-\end_layout
-
-\begin_layout Standard
-JMatter does the rest! Let's take our app for a little spin.
-\end_layout
-
-\begin_layout Section
-Running the Application
-\end_layout
-
-\begin_layout Standard
-Let's run our app:
-\end_layout
-
-\begin_layout LyX-Code
-$ ant run
-\end_layout
-
-\begin_layout Standard
-The next five figures are screen shots for the various steps in our simple
- wizard.
- Note how the name, description, and view for each step are automatically
- placed in their respective places on the wizard's window.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/Wizard-Step0.png
-	lyxscale 30
-	scale 40
-	keepAspectRatio
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/Wizard-Step1.png
-	lyxscale 30
-	scale 40
-	keepAspectRatio
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/Wizard-Step2.png
-	lyxscale 30
-	scale 40
-	keepAspectRatio
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/Wizard-Step3.png
-	lyxscale 30
-	scale 40
-	keepAspectRatio
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/Wizard-Step4.png
-	lyxscale 30
-	scale 40
-	keepAspectRatio
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This coverage of wizards was meant to be an introduction to the topic.
- JMatter's wizard framework is complete from the point of view that one
- can produce wizards of any degree of complexity by combining basic steps,
- composite steps, and conditional steps in various ways.
-\end_layout
-
-\begin_layout Section
-CSV Export
-\end_layout
-
-\begin_layout Standard
-If we like, we can also export our contact list to a CSV file.
- This feature is built-in to all JMatter applications.
- Simply browse your contact listing and right-click 
-\emph on
-Export to CSV
-\emph default
-.
- You will be prompted for a location to save the file.
- Below is a screenshot of a small CSV export opened in the spreadsheet applicati
-on 
-\emph on
-Gnumeric
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/CSVExport.png
-	lyxscale 40
-	scale 40
-	keepAspectRatio
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-CSV Export Viewed in Gnumeric
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Note that this feature could be improved.
- At the moment the CSV Export command simply exports the table model exposed
- by the listing.
- However, in this case, it would be nice if the address fields were flattened
- as properties for each contact.
- It'd be even nicer if there a CSV export wizard walked you through the
- process, allowing you to select which fields to export, which to skip,
- and in what order to serialize them out to file.
- We hope to extend this CSV export feature in a future version of JMatter.
-\end_layout
-
-\begin_layout Section
-JFreeReport Integration
-\end_layout
-
-\begin_layout Standard
-JFreeReport is an open source Java API for reporting; its home page is 
-\begin_inset LatexCommand url
-target "http://www.jfree.org/jfreereport/"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-This API has been around for a number of years.
- It defines an xml vocabulary for laying out reports.
- It's somewhat difficult to describe in one or two sentences what JFreeReport
- is all about.
- Some of its characteristics are reminiscent of templating technologies
- where information from our applications can be merged with a the xml report
- specification to produce the final report.
- The report specification defines various 
-\emph on
-bands
-\emph default
- such as report headers and footers, page headers and footers, and the actual
- report items themselves.
-\end_layout
-
-\begin_layout Standard
-JFreeReport also provides means for you to automatically display a 
-\emph on
-print preview
-\emph default
- of your report from inside your Swing application.
- From that dialog, one also has the ability to produce the report in a number
- of formats, including PDF, print, and Microsoft Excel.
-\end_layout
-
-\begin_layout Standard
-The JMatter framework attempts to make the job of producing reports with
- JFreeReport easier.
- The JFreeReport libraries are already bundled with JMatter.
- Producing a PDF report from JMatter via JFreeReport is a relatively easy
- task.
- The task of writing the report specification using JFreeReport's XML specificat
-ion however remains unchanged.
-\end_layout
-
-\begin_layout Standard
-The authors of this framework have used JFreeReport to produce completed
- medical forms, merging information in a medical system with a template
- defining the layout of the form[s] to be completed.
-\end_layout
-
-\begin_layout Subsection
-The basics
-\end_layout
-
-\begin_layout Standard
-JFreeReport provides two ways in which data can be passed in to its xml
- report specification:
-\end_layout
-
-\begin_layout Enumerate
-the implementation of a 
-\emph on
-TableModel
-\emph default
- interface, which provides the majority of the tabular data to be included
- in a report, and
-\end_layout
-
-\begin_layout Enumerate
-a simple properties file with key-value pairs for passing any kind of informatio
-n to include in the header or footer sections of the report
-\end_layout
-
-\begin_layout Standard
-JMatter defines the following interface:
-\end_layout
-
-\begin_layout LyX-Code
-public interface Reportable
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   public String reportName();
-\end_layout
-
-\begin_layout LyX-Code
-   public Properties properties();
-\end_layout
-
-\begin_layout LyX-Code
-   public TableModel tableModel();
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-The latter two methods provide the data to bind to the xml report specification.
- The first method provides the path to the report's xml specification.
- JMatter basically follows the convention that these xml files be placed
- alongside source code.
- The xml files are then loaded into a Java application as a resource from
- the classpath.
-\end_layout
-
-\begin_layout Standard
-If in a command method, you return a Reportable instance, JMatter will take
- it from there and use JFreeReport to produce a corresponding PDF file and
- open it using a PDF reader application.
-\end_layout
-
-\begin_layout Subsection
-A Simple Example
-\end_layout
-
-\begin_layout Standard
-Let's build a very simple report for our ContactManager application.
- The point of this section is not to provide documentation for JFreeReport.
- Rather, it's only to illustrate how the integration works.
-\end_layout
-
-\begin_layout Standard
-So here's a simple mechanism to expose the production of a report that will
- include all the contacts we have in our system:
-\end_layout
-
-\begin_layout LyX-Code
-@Cmd
-\end_layout
-
-\begin_layout LyX-Code
-public static Reportable Report(CommandInfo cmdInfo)
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   return new Reportable()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      public String reportName()
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         return "com/u2d/contactmgr/Basic.xml";
-\end_layout
-
-\begin_layout LyX-Code
-      }
-\end_layout
-
-\begin_layout LyX-Code
-      public Properties properties()
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         return new Properties();
-\end_layout
-
-\begin_layout LyX-Code
-      }
-\end_layout
-
-\begin_layout LyX-Code
-      public TableModel tableModel()
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         return ComplexType.forClass(PersonContact.class).
-\end_layout
-
-\begin_layout LyX-Code
-                                          list().tableModel();
-\end_layout
-
-\begin_layout LyX-Code
-      }
-\end_layout
-
-\begin_layout LyX-Code
-   };
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-So basically what I'm doing here is exposing a static command using the
- JMatter conventions.
- This command returns a 
-\emph on
-Reportable
-\emph default
- implementation that in this case passes data only via a tablemodel.
- I'm basically returning the default table model that JMatter exposes on
- lists of types.
-\end_layout
-
-\begin_layout Standard
-Here is a very basic sample JFreeReport XML specification:
-\end_layout
-
-\begin_layout LyX-Code
-<?xml version="1.0" encoding="iso-8859-1"?>
-\end_layout
-
-\begin_layout LyX-Code
-<!DOCTYPE report PUBLIC
-\end_layout
-
-\begin_layout LyX-Code
-      "-//JFreeReport//DTD report definition//EN//simple/version 0.8.5"
-\end_layout
-
-\begin_layout LyX-Code
-      "http://jfreereport.sourceforge.net/report-085.dtd">
-\end_layout
-
-\begin_layout LyX-Code
-<report name="Basic Persons Listing" 
-\end_layout
-
-\begin_layout LyX-Code
-   orientation="portrait" pageformat="LETTER" 
-\end_layout
-
-\begin_layout LyX-Code
-   topmargin="36" bottommargin="36" 
-\end_layout
-
-\begin_layout LyX-Code
-   leftmargin="36" rightmargin="36">
-\end_layout
-
-\begin_layout LyX-Code
-  <configuration>
-\end_layout
-
-\begin_layout LyX-Code
-     <property name="org.jfree.report.modules.gui.base.PreferredWidth">640</property>
-\end_layout
-
-\begin_layout LyX-Code
-     <property name="org.jfree.report.modules.gui.base.PreferredHeight">480</property>
-\end_layout
-
-\begin_layout LyX-Code
-  </configuration>
-\end_layout
-
-\begin_layout LyX-Code
-  <pageheader height="200" fontname="sansserif" fontsize="10" fsbold="true">
-\end_layout
-
-\begin_layout LyX-Code
-    <label x="0" y="0" 
-\end_layout
-
-\begin_layout LyX-Code
-           width="100%" height="12" 
-\end_layout
-
-\begin_layout LyX-Code
-           fonsize="12" fsbold="true"
-\end_layout
-
-\begin_layout LyX-Code
-           alignment="center"><![CDATA[Person Contacts Listing]]></label>
-\end_layout
-
-\begin_layout LyX-Code
-    <line x1="170" y1="50" x2="334" y2="50" weight="0.75" />
-\end_layout
-
-\begin_layout LyX-Code
-  </pageheader>
-\end_layout
-
-\begin_layout LyX-Code
-  <items height="18"
-\end_layout
-
-\begin_layout LyX-Code
-         fontname="sansserif" fontstyle="plain" fontsize="10" fsbold="false"
-\end_layout
-
-\begin_layout LyX-Code
-         vertical-alignment="middle">
-\end_layout
-
-\begin_layout LyX-Code
-    <string-field x="10" y="0" width="250" height="12" alignment="left"
- 
-\end_layout
-
-\begin_layout LyX-Code
-       fieldname="Person Contacts" />
-\end_layout
-
-\begin_layout LyX-Code
-    <string-field x="270" y="0" width="100" height="12" alignment="left"
- 
-\end_layout
-
-\begin_layout LyX-Code
-       fieldname="Name" />
-\end_layout
-
-\begin_layout LyX-Code
-    <string-field x="380" y="0" width="250" height="12" alignment="left"
- 
-\end_layout
-
-\begin_layout LyX-Code
-       fieldname="Contact" />
-\end_layout
-
-\begin_layout LyX-Code
-  </items>
-\end_layout
-
-\begin_layout LyX-Code
-</report>
-\end_layout
-
-\begin_layout Standard
-The essential aspects of this specification are located in the items band,
- where we see that various string-based fields are specified.
- JFreeReport allows you to insert images, other data types, to control the
- font size, style, and placement of the information.
- JFreeReport also provides a number of built-in functions that can be invoked
- to calculate sums, for example.
- Developers can also write and plug in their own custom functions.
-\end_layout
-
-\begin_layout Standard
-The result of invoking this command from the JMatter user interface is the
- production of the report PDF, as shown below.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/JFree-1.png
-	lyxscale 50
-	scale 50
-	keepAspectRatio
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-PDF produced with JFreeReport
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-JasperReports
-\end_layout
-
-\begin_layout Standard
-JasperReports is yet another, even more popular, open, reporting solution
- for Java.
- It is a well-supported project.
- One appealing feature of this project is its companion project 
-\emph on
-iReports
-\emph default
-, a mature graphical report designer, which does away with the tedium of
- writing JasperReport's analog to the the xml report specification we just
- saw in the last section.
-\end_layout
-
-\begin_layout Standard
-Another attractive feature of JasperReports is its support and integration
- with Hibernate.
- This makes JasperReports a perfect mate for JMatter.
- We recently extended the 
-\emph on
-Sympster
-\emph default
- demo application with an example use of JasperReports for producing a symposium
- schedule.
- Simply run Sympster, create a symposium and a number of associated Sessions,
- and then invoke the Symposium command 
-\emph on
-Report Schedule
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-JMatter now bundled the JasperReport libraries with its distribution for
- your convenience.
- We also highly recommend you support the JasperReports project by buying
- a copy of their documentation in print.
-\end_layout
-
-\begin_layout Section
-Summary
-\end_layout
-
-\begin_layout Standard
-In this chapter we've seen the ease with which we can integrate wizards
- (assistants) into an already powerful user interface.
-\end_layout
-
-\begin_layout Standard
-This wizard feature has already been used in other contexts to produce complex
- wizards, that break down complex new patient forms at medical clinics into
- a set of smaller steps.
- Most of us are too familiar with the amounts of information a patient or
- guarantor must enter when first visiting a medical institution (in the
- United States, at least).
-\end_layout
-
-\begin_layout Standard
-The JMatter framework attempts to be as open as possible.
- Wizards are not the only way to inject custom user interface features into
- JMatter applications.
- JMatter was designed to allow you to write your own custom views for objects
- and plug them into your existing JMatter applications, which is the topic
- of our next chapter.
-\end_layout
-
-\begin_layout Standard
-We've also seen the CSV Export feature, a nice though simple mechanism for
- exporting data out of your application.
- Of course, there already exist many tools to export and process your applicatio
-n's data.
- It's already easily accessible in that all the information resides in an
- open database system.
-\end_layout
-
-\begin_layout Standard
-Finally, we also see that JMatter provides an avenue for producing PDFs
- by integrating and leveraging the open source JFreeReport API.
- I've personally also written directly against the underlying iText PDF
- library to produce and display PDFs directly as a consequence of a command
- invocation.
-\end_layout
-
-\begin_layout Chapter
-Customized Views and Editors
-\end_layout
-
-\begin_layout Standard
-It's nice for a framework to support the automatic generation of views for
- various objects.
- We've also seen how the base user interface can be augmented with calendaring
- features, wizards, and support for producing PDFs.
- However, it's equally important for a framework to remain flexible and
- to allow for the construction of custom views as well.
-\end_layout
-
-\begin_layout Standard
-JMatter's primary view mechanism at the moment is its Swing-based view mechanism.
- Other view mechanisms might be constructed in the future, including possibly
- a web-based user interface.
-\end_layout
-
-\begin_layout Standard
-In this chapter I'd like to demonstrate through examples various ways in
- which custom views can be integrated into the Swing view mechanism.
-\end_layout
-
-\begin_layout Section
-Complex, or Composite Views
-\end_layout
-
-\begin_layout Standard
-The 
-\emph on
-demo-apps
-\emph default
- subdirectory contains a project, 
-\emph on
-CustomUI
-\emph default
-, designed specifically to illustrate how this is done.
- It is similar to our contact manager: There's a 
-\emph on
-Contact
-\emph default
- class and an 
-\emph on
-Address
-\emph default
- class.
- The idea is that we'd like to be able to customize the way Addresses appear
- on the screen; specifically, the way that the form view for addresses is
- laid out.
- The default form view is nice.
- Figure 
-\begin_inset LatexCommand ref
-reference "cap:Standard-Form-View"
-
-\end_inset
-
- displays the default view for the 
-\emph on
-address
-\emph default
- property of the 
-\emph on
-Contact
-\emph default
- class.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/CustomView-1.png
-	lyxscale 30
-	scale 40
-	keepAspectRatio
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Standard Form View the 
-\emph on
-Contact.address
-\emph default
- Field
-\begin_inset LatexCommand label
-name "cap:Standard-Form-View"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Let's say that we'd prefer to display addresses in such a way that the field
- captions are placed above the field editors (instead of appearing to their
- left), and that we'd like to lay out the 
-\emph on
-city
-\emph default
-, 
-\emph on
-state
-\emph default
-, and 
-\emph on
-zip
-\emph default
- fields all on the same line, instead of having them appear one below the
- other, as shown in Figure 
-\begin_inset LatexCommand ref
-reference "cap:Desired-view"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/CustomView-2.png
-	lyxscale 30
-	scale 40
-	keepAspectRatio
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Desired view for Addresses
-\begin_inset LatexCommand label
-name "cap:Desired-view"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-It turns out that JMatter's 
-\emph on
-FormView
-\emph default
- is already parameterized such that, if you prefer, you can designate that
- labels appear above their editors instead of to their left.
- All you need to do is revise the value for the 
-\emph on
-labelEditorLayoutHorizontal
-\emph default
- property in your application's spring configuration context file 
-\emph on
-src/applicationContext.xml
-\emph default
- as shown below:
-\end_layout
-
-\begin_layout LyX-Code
-<bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism"
-\end_layout
-
-\begin_layout LyX-Code
-      factory-method="getInstance">
-\end_layout
-
-\begin_layout LyX-Code
-   <property name="appSession" ref="app-session" />
-\end_layout
-
-\begin_layout LyX-Code
-   <property name="labelEditorLayoutHorizontal" value="false" />
-\end_layout
-
-\begin_layout LyX-Code
-</bean>
-\end_layout
-
-\begin_layout Standard
-Let's proceed by pretending that this feature was not available.
- We must do two things:
-\end_layout
-
-\begin_layout Enumerate
-Override the method 
-\emph on
-getMainView()
-\emph default
- on the Address class, to return a new view
-\end_layout
-
-\begin_layout Enumerate
-Implement the custom view for addresses; this process is similar to the
- way we traditionally build views in Swing
-\end_layout
-
-\begin_layout Standard
-The first step is straightforward:
-\end_layout
-
-\begin_layout LyX-Code
-public EView getMainView()
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   return new CustomAddressView(this);
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-Now, for the implementation.
- We could implement the UI by extending from Swing's 
-\emph on
-JPanel
-\emph default
-, like this:
-\end_layout
-
-\begin_layout LyX-Code
-public class CustomAddressView extends JPanel
-\end_layout
-
-\begin_layout LyX-Code
-      implements ComplexEView, Editor
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   private Address _addr;
-\end_layout
-
-\begin_layout LyX-Code
-   JComponent line1View, line2View, cityView, stateView, zipView;
-\end_layout
-
-\begin_layout LyX-Code
-   
-\end_layout
-
-\begin_layout LyX-Code
-   public CustomAddressView(Address address)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      _addr = address;
-\end_layout
-
-\begin_layout LyX-Code
-      buildUI();
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   private void buildUI()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      line1View = (JComponent) _addr.getLine1().getView();
-\end_layout
-
-\begin_layout LyX-Code
-      line2View = (JComponent) _addr.getLine2().getView();
-\end_layout
-
-\begin_layout LyX-Code
-      cityView = (JComponent) _addr.getCity().getView();
-\end_layout
-
-\begin_layout LyX-Code
-      stateView = (JComponent) _addr.getStateCode().getView();
-\end_layout
-
-\begin_layout LyX-Code
-      zipView = (JComponent) _addr.getZipCode().getView();
-\end_layout
-
-\begin_layout LyX-Code
-      
-\end_layout
-
-\begin_layout LyX-Code
-      FormLayout layout = new FormLayout("pref, 10px, pref, 10px, pref",
- 
-\end_layout
-
-\begin_layout LyX-Code
-                         "pref, pref, 10px, pref, pref, 10px, pref, pref");
-\end_layout
-
-\begin_layout LyX-Code
-      CellConstraints cc = new CellConstraints();
-\end_layout
-
-\begin_layout LyX-Code
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
-\end_layout
-
-\begin_layout LyX-Code
-      // add caption..
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(new JLabel("Line 1:"), cc.xyw(1, 1, 5));
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(line1View, cc.xyw(1, 2, 5));
-\end_layout
-
-\begin_layout LyX-Code
-      
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(new JLabel("Line 2:"), cc.xyw(1, 4, 5));
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(line2View, cc.xyw(1, 5, 5));
-\end_layout
-
-\begin_layout LyX-Code
-      
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(new JLabel("City:"), cc.xy(1, 7));
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(new JLabel("State:"), cc.xy(3, 7));
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(new JLabel("Zip:"), cc.xy(5, 7));
-\end_layout
-
-\begin_layout LyX-Code
-      
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(cityView, cc.xy(1,8));
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(stateView, cc.xy(3, 8));
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(zipView, cc.xy(5, 8));
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public EObject getEObject() { return _addr; }
-\end_layout
-
-\begin_layout LyX-Code
-   
-\end_layout
-
-\begin_layout LyX-Code
-   // as a composite view, this particular class may not
-\end_layout
-
-\begin_layout LyX-Code
-   // necessarily be interested in binding to the model
-\end_layout
-
-\begin_layout LyX-Code
-   // and listen to changes.
-  to the extent that i use
-\end_layout
-
-\begin_layout LyX-Code
-   // the jmatter views for the subparts of the address,
-\end_layout
-
-\begin_layout LyX-Code
-   // they will be listening directly to the parts.
-\end_layout
-
-\begin_layout LyX-Code
-   public void detach() { }
-\end_layout
-
-\begin_layout LyX-Code
-   public void stateChanged(ChangeEvent e) { }
-\end_layout
-
-\begin_layout LyX-Code
-   public void propertyChange(PropertyChangeEvent evt) { }
-\end_layout
-
-\begin_layout LyX-Code
-   public boolean isMinimized() { return false; }
-\end_layout
-
-\begin_layout LyX-Code
-   public int transferValue()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      int result = 0;
-\end_layout
-
-\begin_layout LyX-Code
-      result += ((Editor) line1View).transferValue();
-\end_layout
-
-\begin_layout LyX-Code
-      result += ((Editor) line2View).transferValue();
-\end_layout
-
-\begin_layout LyX-Code
-      result += ((Editor) cityView).transferValue();
-\end_layout
-
-\begin_layout LyX-Code
-      result += ((Editor) stateView).transferValue();
-\end_layout
-
-\begin_layout LyX-Code
-      result += ((Editor) zipView).transferValue();
-\end_layout
-
-\begin_layout LyX-Code
-      return result;
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public void setEditable(boolean editable)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      ((Editor) line1View).setEditable(editable);
-\end_layout
-
-\begin_layout LyX-Code
-      ((Editor) line2View).setEditable(editable);
-\end_layout
-
-\begin_layout LyX-Code
-      ((Editor) cityView).setEditable(editable);
-\end_layout
-
-\begin_layout LyX-Code
-      ((Editor) stateView).setEditable(editable);
-\end_layout
-
-\begin_layout LyX-Code
-      ((Editor) zipView).setEditable(editable);
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public boolean isEditable()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      return ((Editor) line1View).isEditable();
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-Let's review this code.
- Here I am using the excellent JGoodies Forms framework to layout a form
- 
-\begin_inset Quotes eld
-\end_inset
-
-by hand,
-\begin_inset Quotes erd
-\end_inset
-
- so to speak.
- JGoodies' 
-\emph on
-DefaultFormBuilder
-\emph default
- makes this pretty easy.
- Similar code could also be produced with the help of a visual form designer,
- such as the 
-\emph on
-Abeille Forms Designer
-\emph default
-.
- Note however, that there are additional responsibilities that this class
- must fulfill:
-\end_layout
-
-\begin_layout Enumerate
-The class must implement the 
-\emph on
-ComplexEView
-\emph default
- interface
-\end_layout
-
-\begin_layout Enumerate
-If the class will also participate in the editing process, it must implement
- the 
-\emph on
-Editor
-\emph default
- interface
-\end_layout
-
-\begin_layout Standard
-In this case, the 
-\emph on
-ComplexEView
-\emph default
- interface is fairly simple.
- Some of the methods have no-op implementations (
-\emph on
-detach()
-\emph default
-, 
-\emph on
-stateChanged()
-\emph default
-, 
-\emph on
-propertyChange()
-\emph default
-).
- Every view can, at its discretion, attach itself as a listener to the object
- model and thus receive model change notifications.
- In this case, we're dealing with a composite view, and each of the sub-views
- already listens to changes to the parts, so we don't technically need to
- listen to model changes here.
- Views must also make sure to 
-\begin_inset Quotes eld
-\end_inset
-
-detach
-\begin_inset Quotes erd
-\end_inset
-
- themselves from the model objects when they're destroyed.
- It's very important that the 
-\emph on
-detach()
-\emph default
- method properly do this.
- A careless implementation can easily introduce a memory leak into the applicati
-on as views are created and their memory not reclaimed because they may
- still be attached to a model object whose lifetime is typically longer
- than its views'.
-\end_layout
-
-\begin_layout Standard
-The 
-\emph on
-Editor
-\emph default
- interface is also fairly straightforward.
- The 
-\emph on
-setEditable()
-\emph default
- method is called when the model object's state toggles from 
-\emph on
-Read
-\emph default
- to 
-\emph on
-Edit
-\emph default
- (and back), thus giving the user interface a chance to update itself accordingl
-y (if so desired).
- Notice also that 
-\emph on
-transferValue()
-\emph default
- is called before an object is saved, allowing the view a chance to bind
- the newly entered data back to the model object (or possibly raise a validation
- exception, in which case the save operation is vetoed.
- The integer value returned by this method is an indication of the number
- of validation errors, which is also displayed by the framework in such
- circumstances.
-\end_layout
-
-\begin_layout Section
-A Custom View for Sympster Sessions
-\end_layout
-
-\begin_layout Standard
-Here's a more compelling illustration of customizing a view for an object:
- the 
-\emph on
-Sympster
-\emph default
- demo application was recently further customized with a custom view for
- its 
-\emph on
-Session
-\emph default
- class.
- In this situation, I wanted to reuse JMatter's default 
-\emph on
-FormView
-\emph default
- which handles the editing process beautifully and saves me a lot of work.
- On the other hand, I wanted a more compelling view for sessions in read
- state, as shown in figure 
-\begin_inset LatexCommand ref
-reference "fig:Customized-View-for"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename figures/custom-sessionview.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Customized View for Session
-\begin_inset LatexCommand label
-name "fig:Customized-View-for"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-JMatter provides a class named 
-\emph on
-CustomReadView
-\emph default
- which automatically composes JMatter's 
-\emph on
-FormView
-\emph default
- in edit state with a custom view that you provide for the read state, as
- shown in the following code snippet from the class Session where the 
-\emph on
-getMainView()
-\emph default
- method is overridden correspondingly:
-\end_layout
-
-\begin_layout LyX-Code
-   public EView getMainView()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      return new CustomReadView(new SessionView(this));
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout Standard
-Please refer to the implementation of 
-\emph on
-SessionView
-\emph default
- in the Sympster demo application for the details of its implementation.
- One note worthy of mentioning is that the implementation leverages JMatter's
- 
-\emph on
-css4swing
-\emph default
- library to style itself, which I discuss in chapter 
+We have now covered four distinct applications: a contact manager, the MyTunes
+ application, the Sympster conference manager, and finally our issue manager
+ in a very short time.
+ JMatter also comes with a movie library application, that, among other
+ things, illustrates many-to-many relationships, as well as two other demonstrat
+ion applications that illustrate how to integrate custom views into your
+ application (the topic of chapter 
 \begin_inset LatexCommand vref
-reference "cha:Styling-the-UI"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-The 
-\emph on
-Self
-\emph default
- demo application
-\end_layout
-
-\begin_layout Standard
-Yet another way to augment JMatter with hand-crafted views and widgets is
- illustrated through the bundled demo application named 
-\emph on
-Self
-\emph default
-.
- The model for this application is trivial on purpose: it consists of a
- Space that contains Balls.
- The space has one additional property: the temperature within the space.
-\end_layout
-
-\begin_layout Standard
-In this particular scenario, it is quite unpallatable to view these objects
- through forms when it would be so much more compelling if their visual
- representations were represented directly in the UI.
-\end_layout
-
-\begin_layout Standard
-Any command you write that returns an object of type 
-\emph on
-View
-\emph default
- or 
-\emph on
-JComponent
-\emph default
- will be displayed by JMatter upon invocation.
- The 
-\emph on
-Self
-\emph default
- demo application takes advantage of this feature:
-\end_layout
-
-\begin_layout LyX-Code
-public class Space
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-...
-\end_layout
-
-\begin_layout LyX-Code
-   @Cmd(mnemonic='s')
-\end_layout
-
-\begin_layout LyX-Code
-   public View Show(CommandInfo cmdInfo)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      return new SpaceView(this);
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-...
-\end_layout
-
-\begin_layout Standard
-Running this application, we can create a space, and add a few balls into
- our space.
- We can further set the temperature.
- I created two balls: a filled red ball with radius 30, and a blue ball
- with radius 80, and my temperature was 30 degrees celsius.
- Proceeding with invoking the 
-\emph on
-Show
-\emph default
- command, I can expose my custom view 
-\emph on
-SpaceView
-\emph default
- directly in JMatter:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename figures/Self.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-The Self Demo Application
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The screenshot doesn't really do it justince since the balls are moving
- withing the space at a certain speed.
- Try to change the temperature within the space to, say, 50 degrees.
- This will cause the balls to move faster.
- Technically, this custom view could also have been implemented by wrapping
- it in a CustomReadView as we did in the previous example.
-\end_layout
-
-\begin_layout Section
-Customizing Layout
-\end_layout
-
-\begin_layout Standard
-JMatter provides a means through which a layout for a form can be defined
- by using the open-source 
-\emph on
-Abeille Forms Designer
-\emph default
-.
- By placing placeholder components in the layout and giving each a name
- matching a model object's field name, JMatter can be made to use the specified
- layout when displaying the form in question.
- 
-\emph on
-Abeille
-\emph default
- allows us to serialize the form design's definition to a 
-\emph on
-.jfrm
-\emph default
- file which we place along with our source code (JMatter's build file automatica
-lly copies these files to the classpath as part of the build process) in
- a file we name after the model object whose view we want to customize.
- The 
-\emph on
-CustomUI
-\emph default
- demo application provides an example implementation.
-\end_layout
-
-\begin_layout Section
-Atomic Views
-\end_layout
-
-\begin_layout Standard
-JMatter defines the notion of atomic types.
- Examples include representations for booleans, dates, text, zip codes,
- social security numbers, percentages, integers, floats, etc..
- They're defined in the package 
-\emph on
-com.u2d.type.atom
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-This section describes how to write a custom view and/or editor for a given
- type.
- Let's take 
-\emph on
-BooleanEO
-\emph default
- as an example.
- Here is the implementation for the default renderer for boolean's:
-\end_layout
-
-\begin_layout LyX-Code
-public class BooleanRenderer extends JLabel implements AtomicRenderer
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   public void render(AtomicEObject value)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      BooleanEO eo = (BooleanEO) value;
-\end_layout
-
-\begin_layout LyX-Code
-      setText((eo.booleanValue()) ? "Yes" : "No");
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public void passivate() { }
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-The interface 
-\emph on
-AtomicRenderer
-\emph default
- has essentially a single method.
- You can ignore the 
-\emph on
-passivate()
-\emph default
- method for now (we're considering making a design revision where views
- are pooled, and then re-used for different atomic types, in which case
- this method could be used to 
-\begin_inset Quotes eld
-\end_inset
-
-clean up
-\begin_inset Quotes erd
-\end_inset
-
- the view before it's re-used).
-\end_layout
-
-\begin_layout Standard
-So basically one implements the 
-\emph on
-render()
-\emph default
- method.
- This method is handed a model object that it must render.
- So in this case, the renderer is given an instance of a 
-\emph on
-BooleanEO
-\emph default
- which it uses to 
-\begin_inset Quotes eld
-\end_inset
-
-paint
-\begin_inset Quotes erd
-\end_inset
-
- the text 
-\emph on
-Yes
-\emph default
- or 
-\emph on
-No
-\emph default
- on a JLabel.
-\end_layout
-
-\begin_layout Standard
-To write a custom Editor for a type, you must implement two methods: 
-\emph on
-render()
-\emph default
- and 
-\emph on
-bind()
-\emph default
-.
- Here's the definition of the interface that one must implement:
-\end_layout
-
-\begin_layout LyX-Code
-public interface AtomicEditor extends AtomicRenderer
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   public int bind(AtomicEObject value);
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-And here's an example implementation, again for the 
-\emph on
-BooleanEO
-\emph default
- type:
-\end_layout
-
-\begin_layout LyX-Code
-public class BooleanCheckboxEditor extends JCheckBox
-\end_layout
-
-\begin_layout LyX-Code
-      implements ItemListener, AtomicEditor, ActionNotifier
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   public BooleanCheckboxEditor()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      addItemListener(this);
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public void itemStateChanged(ItemEvent e)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      setText( (isSelected()) ? "Yes" : "No" );
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public int bind(AtomicEObject value)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      BooleanEO eo = (BooleanEO) value;
-\end_layout
-
-\begin_layout LyX-Code
-      eo.setValue(isSelected());
-\end_layout
-
-\begin_layout LyX-Code
-      return 0;
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public void render(AtomicEObject value)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      BooleanEO eo = (BooleanEO) value;
-\end_layout
-
-\begin_layout LyX-Code
-      setSelected(eo.booleanValue());
-\end_layout
-
-\begin_layout LyX-Code
-      itemStateChanged(null); // text synch with checkbox
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public void passivate() { }
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-The 
-\emph on
-bind()
-\emph default
- method is responsible on setting the newly edited value back to the model
- object.
- Here's a second implementation for a 
-\emph on
-BooleanEO
-\emph default
- editor that uses a pair of radio buttons instead:
-\end_layout
-
-\begin_layout LyX-Code
-public class BooleanRadioEditor extends JPanel implements AtomicEditor
-\end_layout
-
-\begin_layout LyX-Code
-{
-\end_layout
-
-\begin_layout LyX-Code
-   private JRadioButton _yesBtn, _noBtn;
-\end_layout
-
-\begin_layout LyX-Code
-   public BooleanRadioEditor()
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      _yesBtn = new JRadioButton("Yes");
-\end_layout
-
-\begin_layout LyX-Code
-      _yesBtn.setOpaque(false);
-\end_layout
-
-\begin_layout LyX-Code
-      _noBtn = new JRadioButton("No");
-\end_layout
-
-\begin_layout LyX-Code
-      _noBtn.setOpaque(false);
-\end_layout
-
-\begin_layout LyX-Code
-      _yesBtn.addActionListener(new ActionListener()
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         public void actionPerformed(ActionEvent evt)
-\end_layout
-
-\begin_layout LyX-Code
-         {
-\end_layout
-
-\begin_layout LyX-Code
-            _yesBtn.setSelected(true);
-\end_layout
-
-\begin_layout LyX-Code
-         }
-\end_layout
-
-\begin_layout LyX-Code
-      });
-\end_layout
-
-\begin_layout LyX-Code
-      _noBtn.addActionListener(new ActionListener()
-\end_layout
-
-\begin_layout LyX-Code
-      {
-\end_layout
-
-\begin_layout LyX-Code
-         public void actionPerformed(ActionEvent evt)
-\end_layout
-
-\begin_layout LyX-Code
-         {
-\end_layout
-
-\begin_layout LyX-Code
-            _noBtn.setSelected(true);
-\end_layout
-
-\begin_layout LyX-Code
-         }
-\end_layout
-
-\begin_layout LyX-Code
-      });
-\end_layout
-
-\begin_layout LyX-Code
-      ButtonGroup group = new ButtonGroup();
-\end_layout
-
-\begin_layout LyX-Code
-      group.add(_yesBtn);
-\end_layout
-
-\begin_layout LyX-Code
-      group.add(_noBtn);
-\end_layout
-
-\begin_layout LyX-Code
-      FormLayout layout = new FormLayout("pref, 3px, pref", "pref");
-\end_layout
-
-\begin_layout LyX-Code
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
-\end_layout
-
-\begin_layout LyX-Code
-      CellConstraints cc = new CellConstraints();
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(_yesBtn, cc.xy(1, 1));
-\end_layout
-
-\begin_layout LyX-Code
-      builder.add(_noBtn, cc.xy(3, 1));
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public void render(AtomicEObject value)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      BooleanEO eo = (BooleanEO) value;
-\end_layout
-
-\begin_layout LyX-Code
-      JRadioButton btn = (eo.booleanValue()) ? _yesBtn : _noBtn;
-\end_layout
-
-\begin_layout LyX-Code
-      btn.setSelected(true);
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public int bind(AtomicEObject value)
-\end_layout
-
-\begin_layout LyX-Code
-   {
-\end_layout
-
-\begin_layout LyX-Code
-      BooleanEO eo = (BooleanEO) value;
-\end_layout
-
-\begin_layout LyX-Code
-      eo.setValue(_yesBtn.isSelected());
-\end_layout
-
-\begin_layout LyX-Code
-      return 0;
-\end_layout
-
-\begin_layout LyX-Code
-   }
-\end_layout
-
-\begin_layout LyX-Code
-   public void passivate() { }
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-The JMatter codebase is rife with examples of atomic editors and renderers.
- Use them as the basis for creating your own implementations.
-\end_layout
-
-\begin_layout Subsection
-Specifying the Default Editor and Renderer
-\end_layout
-
-\begin_layout Standard
-Specifying the default renderer and editor for a given type is straightforward.
- JMatter defines the interface 
-\emph on
-ViewMechanism
-\emph default
-.
- The Swing implementation of that interface is 
-\emph on
-SwingViewMechanism
-\emph default
-.
- This interface defines a litany of methods that specify the components
- for the entire user interface.
- By revising the corresponding method for a given view mechanism, you control
- the user interface.
-\end_layout
-
-\begin_layout Standard
-For our above implementations of a boolean editor and renderer, and assuming
- the 
-\emph on
-SwingViewMechanism
-\emph default
-, you'd revise the implementations of 
-\emph on
-getBooleanRenderer()
-\emph default
- and getBooleanEditor() respectively for the 
-\emph on
-BooleanEO
-\emph default
- type:
-\end_layout
-
-\begin_layout LyX-Code
-public AtomicRenderer getBooleanRenderer() {
-\end_layout
-
-\begin_layout LyX-Code
-  return new BooleanRenderer();
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout LyX-Code
-public AtomicEditor getBooleanEditor() {
-\end_layout
-
-\begin_layout LyX-Code
-  return new BooleanRadioEditor();
-\end_layout
-
-\begin_layout LyX-Code
-}
-\end_layout
-
-\begin_layout Standard
-Of course, if you're going to be implementing a custom view for a more complex
- or composite object, then you're in complete control of the rendering and
- editing process.
-\end_layout
-
-\begin_layout Standard
-The framework's view mechanism in general is extremely modular.
- It's easy to override one small aspect and plug it right into the existing
- view mechanism to fundamentally change one aspect of the user interface,
- whether it's by providing your own implementation of a 
-\emph on
-FormView
-\emph default
- (or embellishing the existing one), or by customizing the widgets that
- represent associations.
-\end_layout
-
-\begin_layout Chapter
-Localization
-\end_layout
-
-\begin_layout Standard
-I would like to thank Felix Torre for assisting in the development of support
- for localization (l10n) in JMatter, and Marco Meschieri for meticulously
- going through the codebase to extract captions and other text so that they
- could be localized.
- This chapter documents the current support for l10n in JMatter.
-\end_layout
-
-\begin_layout Standard
-The basic requirement is to be able to deploy a single application to a
- diverse population, in any of a combination of languages.
- For example, we may have both English-speaking and French-speaking users.
-\end_layout
-
-\begin_layout Standard
-Fundamentally, JMatter resorts to one aspect of the Java language that was
- designed for localization: the notion of resource bundles.
- JMatter uses property-file based resource bundles.
- Multiple properties files are created.
- Each follows a certain convention to designate what language and locale
- it corresponds to, by combining a base name with a suffix.
-\end_layout
-
-\begin_layout Standard
-Look at the Sympster demo application for example.
- You will find three files: 
-\emph on
-locale-metadata.properties
-\emph default
-, 
-\emph on
-locale-metadata_fr.properties
-\emph default
-, and 
-\emph on
-locale-metadata_es.properties
-\emph default
-.
- So each suffix, 
-\emph on
-_fr
-\emph default
- or 
-\emph on
-_es
-\emph default
-, is a language designation: the former is the code for the French language,
- while the second designates Spanish.
- Resource bundles imply a specific hierarchy for retrieving values for specific
- keys in these property files: we check the computer's specific language
- and country.
- Let's say we're in Canada, where the language is 
-\emph on
-fr
-\emph default
- and the country is 
-\emph on
-CA
-\emph default
-.
- The system will look for the file 
-\emph on
-locale-metadata_fr_CA.properties
-\emph default
-, falling back to the more generic 
-\emph on
-_fr
-\emph default
- file, and finally, falling back to the most generic property file.
-\end_layout
-
-\begin_layout Standard
-JMatter defines keys for retrieving all the labels and text rendered on
- the login dialog box.
- Here is how they're specified in the _fr resource bundle:
-\end_layout
-
-\begin_layout LyX-Code
-# Login Dialog
-\end_layout
-
-\begin_layout LyX-Code
-# ===============================
-\end_layout
-
-\begin_layout LyX-Code
-logindlg.title=Entrez
-\end_layout
-
-\begin_layout LyX-Code
-logindlg.lbl.username=Nom D'utilisateur:
-\end_layout
-
-\begin_layout LyX-Code
-logindlg.lbl.pwd=Mot de passe:
-\end_layout
-
-\begin_layout LyX-Code
-logindlg.msg.login=Entrez S'il vous plait..
-\end_layout
-
-\begin_layout LyX-Code
-logindlg.msg.failed_auth=Mauvais credentiaux; Essayez encore une fois..
-\end_layout
-
-\begin_layout LyX-Code
-logindlg.msg.user_locked=Votre compte est verouille; 
-\backslash
- 
-\end_layout
-
-\begin_layout LyX-Code
-   Contactez l'administrateur svp..
-\end_layout
-
-\begin_layout Standard
-JMatter also defines a convention for specifying type labels, command labels,
- and field labels that are shared by all applications:
-\end_layout
-
-\begin_layout LyX-Code
-# JMatter Global Localization Entries
-\end_layout
-
-\begin_layout LyX-Code
-# ===================================
-\end_layout
-
-\begin_layout LyX-Code
-Command.Save=Sauve
-\end_layout
-
-\begin_layout LyX-Code
-Command.Cancel=Abandone
-\end_layout
-
-\begin_layout LyX-Code
-Command.Copy=Copie
-\end_layout
-
-\begin_layout LyX-Code
-Command.Paste=Colle
-\end_layout
-
-\begin_layout LyX-Code
-Command.SaveAndClose=Sauve et Ferme
-\end_layout
-
-\begin_layout LyX-Code
-Command.Open=Ouvre
-\end_layout
-
-\begin_layout LyX-Code
-Command.Edit=Edite
-\end_layout
-
-\begin_layout LyX-Code
-Command.Delete=Efface
-\end_layout
-
-\begin_layout LyX-Code
-Command.Refresh=Rafraichi
-\end_layout
-
-\begin_layout LyX-Code
-ComplexType.New=Fait Nouveau
-\end_layout
-
-\begin_layout LyX-Code
-ComplexType.Browse=Liste
-\end_layout
-
-\begin_layout LyX-Code
-ComplexType.Find=Trouve
-\end_layout
-
-\begin_layout LyX-Code
-User=Utilisateur
-\end_layout
-
-\begin_layout LyX-Code
-Users=Utilisateurs
-\end_layout
-
-\begin_layout LyX-Code
-User.username=Nom d'utilisateur
-\end_layout
-
-\begin_layout LyX-Code
-User.password=Mot de passe
-\end_layout
-
-\begin_layout LyX-Code
-User.locked=Verrouillé
-\end_layout
-
-\begin_layout LyX-Code
-User.photo=Photographe
-\end_layout
-
-\begin_layout LyX-Code
-User.role=rôle
-\end_layout
-
-\begin_layout LyX-Code
-User.desktop=Écriture-bureau
-\end_layout
-
-\begin_layout Standard
-Here we see that generic commands, shared by all types, are specified as
- 
-\emph on
-Command.<commandname>
-\emph default
-.
- Generic type commands are specified using the key 
-\emph on
-ComplexType.<commandname>
-\emph default
-.
- Other type commands and type fields are likewise specified using the key:
- 
-\emph on
-<typename>.<fieldname|commandname>
-\emph default
-.
- When dealing with aggregate fields, you can use a multiple dot notation,
- as in 
-\emph on
-Speaker.contact.homePhone
-\emph default
- (see below).
-\end_layout
-
-\begin_layout Standard
-Here are some application-specific label designations for French, for the
- Sympster application:
-\end_layout
-
-\begin_layout LyX-Code
-# Application-Specific Localization Example Entries
-\end_layout
-
-\begin_layout LyX-Code
-# =================================================
-\end_layout
-
-\begin_layout LyX-Code
-Speaker=Presenteur
-\end_layout
-
-\begin_layout LyX-Code
-Speakers=Presenteurs
-\end_layout
-
-\begin_layout LyX-Code
-Speaker.name=Nom
-\end_layout
-
-\begin_layout LyX-Code
-Speaker.title=Titre
-\end_layout
-
-\begin_layout LyX-Code
-Speaker.bio=Biographie
-\end_layout
-
-\begin_layout LyX-Code
-Speaker.photo=Photo
-\end_layout
-
-\begin_layout LyX-Code
-Speaker.AddTalk=Ajoute Une Presentation
-\end_layout
-
-\begin_layout LyX-Code
-Speaker.contact.homePhone=Telephone Maison
-\end_layout
-
-\begin_layout Standard
-Note also that plural designations can be provided.
- The key is simply the plural name for the type in English.
-\end_layout
-
-\begin_layout Standard
-Here in the USA I can test how my application might look to a French speaker
- by revising the locale on my system, or by forcing a locale through a system
- property, as illustrated by the 
-\emph on
-run
-\emph default
- target in 
-\emph on
-build.xml
-\emph default
-:
-\end_layout
-
-\begin_layout LyX-Code
- <target name="run" description="run app" depends="genhbm">
-\end_layout
-
-\begin_layout LyX-Code
-   <java classname="${main.class}" classpathref="class.path"
-\end_layout
-
-\begin_layout LyX-Code
-         fork="true" maxmemory="192m">
-\end_layout
-
-\begin_layout LyX-Code
-    <!-- to test localization, uncomment this..
-\end_layout
-
-\begin_layout LyX-Code
-     <sysproperty key="user.language" value="fr" />
-\end_layout
-
-\begin_layout LyX-Code
-      -->
-\end_layout
-
-\begin_layout LyX-Code
-   </java>
-\end_layout
-
-\begin_layout LyX-Code
- </target>
-\end_layout
-
-\begin_layout Standard
-Uncomment the 
-\emph on
-<sysproperty>
-\emph default
- line and set its value accordingly.
- We've included a couple of snapshots of the resulting localized application
- (figures 
-\begin_inset LatexCommand ref
-reference "fig:login_localized"
-
-\end_inset
-
- and 
-\begin_inset LatexCommand ref
-reference "fig:partiallocalization"
+reference "cha:Customized-Views-and"
 
 \end_inset
 
@@ -14454,131 +11242,23 @@ reference "fig:partiallocalization"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/i18n_login.png
-	lyxscale 50
-	scale 50
+Let's now turn our attention to part 
+\begin_inset LatexCommand vref
+reference "par:Framework-Reference"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Login dialog localized for French 
-\begin_inset LatexCommand label
-name "fig:login_localized"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/i18n_speakers.png
-	lyxscale 30
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Partially localized Sympster Application (French) 
-\begin_inset LatexCommand label
-name "fig:partiallocalization"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We see a number of the commands now use French captions.
- The speaker is called a Presenteure, the field 
-\emph on
-name
-\emph default
- becomes 
-\emph on
-Nom
-\emph default
- and 
-\emph on
-title
-\emph default
- becomes 
-\emph on
-titre
-\emph default
-.
- Not all the text appears in French simply because I didn't provide a full
- list of values for all commands and fields.
- The figures don't show how the context menus also become localized.
- 
-\emph on
-Open
-\emph default
- becomes 
-\emph on
-Ouvre
-\emph default
-, etc..
-\end_layout
-
-\begin_layout Standard
-Localization support in JMatter is by no means complete or exhaustive.
- For example, at the moment support for the proper date and currency formats
- for different locales needs work.
- We've already gotten some feedback on how to provide a more complete set
- of localization services.
- We hope that future versions will flesh out this support completely.
+, which covers the JMatter framework in detail.
 \end_layout
 
 \begin_layout Part
 Framework Reference
+\begin_inset LatexCommand label
+name "par:Framework-Reference"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
@@ -18576,7 +15256,3340 @@ So there's a simple business rule in this case that a trip segment's distance
 So here you have it, in a nutshell, an overview of validation in JMatter,
  how to implement it in your applications, and how things work under the
  hood.
+\end_layout
+
+\begin_layout Chapter
+Wizards, CSV Export, and PDFs
+\end_layout
+
+\begin_layout Standard
+Remember our zero-code contact manager? In this chapter we're going to actually
+ add code to that application.
+ Many desktop applications today provide these software assistants, or wizards,
+ to help newbie users through a task.
+\end_layout
+
+\begin_layout Standard
+For example, when we created a contact person in our contact manager, we
+ did not resort to an assistant.
+ We just right-clicked 
+\emph on
+New
+\emph default
+ on Person and typed away.
+ This works just fine.
+ But maybe we would also like to break the process of entering contact informati
+on into these steps:
+\end_layout
+
+\begin_layout Enumerate
+Enter person's name
+\end_layout
+
+\begin_layout Enumerate
+Enter person's physical address
+\end_layout
+
+\begin_layout Enumerate
+Enter remaining contact information (phone numbers, email address)
+\end_layout
+
+\begin_layout Enumerate
+Finish
+\end_layout
+
+\begin_layout Standard
+Having more than one way to do something can sometimes help.
+ Each method can complement the other.
+ Let's see what kind of support JMatter provides for adding assistants to
+ our user interface.
+\end_layout
+
+\begin_layout Section
+Subclassing Person
+\end_layout
+
+\begin_layout Standard
+When we wrote this application, we used pre-written classes.
+ One of them was 
+\emph on
+com.u2d.type.composite.Person
+\emph default
+.
+ We want to enhance person with an additional behaviour: we want to add
+ a command to launch our wizard.
+ It should be a class command, not an instance command.
+\end_layout
+
+\begin_layout Standard
+So we need to subclass 
+\emph on
+Person
+\emph default
+.
+ Let's create a package 
+\emph on
+com.u2d.contactmgr
+\emph default
+.
+ In it we're going to create a new class: 
+\emph on
+PersonContact
+\emph default
+ like this:
+\end_layout
+
+\begin_layout LyX-Code
+package com.u2d.contactmgr;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.type.composite.Person;
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.wizard.details.Wizard;
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.element.CommandInfo;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public class PersonContact extends Person
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   @Cmd
+\end_layout
+
+\begin_layout LyX-Code
+   public static Wizard NewPersonWizard(CommandInfo cmdInfo)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return new Wizard(new NewPersonWizard());
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Pretty simple.
+ We're basically exposing a command that will return a 
+\emph on
+Wizard
+\emph default
+ object.
+ JMatter knows what to do with these objects, how to display them, allow
+ the end user to navigate through them, etc..
+ All you need to do is provide the steps.
+\end_layout
+
+\begin_layout Section
+Writing the Wizard
+\end_layout
+
+\begin_layout Standard
+JMatter models a wizard as a container for a series of steps.
+ JMatter defines several types of steps.
+ There are basic (or atomic) steps, conditional steps, and composite steps.
+ We need to write a class that is essentially a composite step: one that
+ defines the set of steps that makes up our wizard.
+\end_layout
+
+\begin_layout Standard
+Here is the first part of the implementation for our 
+\emph on
+NewPersonWizard
+\emph default
+ class:
+\end_layout
+
+\begin_layout LyX-Code
+package com.u2d.contactmgr;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.wizard.details.*;
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.type.composite.*;
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.model.ComplexType;
+\end_layout
+
+\begin_layout LyX-Code
+import com.u2d.view.swing.FormView;
+\end_layout
+
+\begin_layout LyX-Code
+import javax.swing.*;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public class NewPersonWizard extends CompositeStep
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   private Name _name;
+\end_layout
+
+\begin_layout LyX-Code
+   private USAddress _address;
+\end_layout
+
+\begin_layout LyX-Code
+   private Contact _contact;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   public NewPersonWizard()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      super("New Person Wizard");
+\end_layout
+
+\begin_layout LyX-Code
+      createObjects();
+\end_layout
+
+\begin_layout LyX-Code
+      setupSteps();
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   private void createObjects()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      _name = (Name) ComplexType.forClass(Name.class).instance();
+\end_layout
+
+\begin_layout LyX-Code
+      _address = (USAddress) ComplexType.forClass(USAddress.class).instance();
+\end_layout
+
+\begin_layout LyX-Code
+      _contact = (Contact) ComplexType.forClass(Contact.class).instance();
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   private void setupSteps()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      NameStep nameStep = new NameStep();
+\end_layout
+
+\begin_layout LyX-Code
+      AddressStep addrStep = new AddressStep();
+\end_layout
+
+\begin_layout LyX-Code
+      ContactStep contactStep = new ContactStep();
+\end_layout
+
+\begin_layout LyX-Code
+      addStep(nameStep);
+\end_layout
+
+\begin_layout LyX-Code
+      addStep(addrStep);
+\end_layout
+
+\begin_layout LyX-Code
+      addStep(contactStep);
+\end_layout
+
+\begin_layout LyX-Code
+      addStep(new CommitWizardStep());
+\end_layout
+
+\begin_layout LyX-Code
+      ready();
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Let's analyze this code.
+ We defined a class that extends 
+\emph on
+CompositeStep
+\emph default
+.
+ Recall that our wizard is essentially four steps: specify a name, an address,
+ contact info, and finish.
+ So we define variables that will hold each of these three pieces of information.
+\end_layout
+
+\begin_layout Standard
+Next, in the constructor, we set the title for our wizard with the call
+ to the super type's constructor.
+ We proceed to instantiate our three objects and then to configure them.
+ The convention for setting up the steps is pretty easy:
+\end_layout
+
+\begin_layout Enumerate
+create each step
+\end_layout
+
+\begin_layout Enumerate
+add the steps in the proper order
+\end_layout
+
+\begin_layout Enumerate
+call the 
+\emph on
+ready()
+\emph default
+ method
+\end_layout
+
+\begin_layout Standard
+Now all that's left to do is define three basic steps.
+ I've decided to do this using inner classes, as follows:
+\end_layout
+
+\begin_layout LyX-Code
+class NameStep extends BasicStep
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public String title() { return "Name Information"; }
+\end_layout
+
+\begin_layout LyX-Code
+   public String description() { return "Enter Person's Name"; }
+\end_layout
+
+\begin_layout LyX-Code
+   public JComponent getView()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return new FormView(_name, false, false);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+class AddressStep extends BasicStep
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public String title() { return "Address Information"; }
+\end_layout
+
+\begin_layout LyX-Code
+   public String description() { return "Enter Person's Physical Address";
+ }
+\end_layout
+
+\begin_layout LyX-Code
+   public JComponent getView()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return new FormView(_address, false, false);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+class ContactStep extends BasicStep
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public String title() { return "Person's Contact Information"; }
+\end_layout
+
+\begin_layout LyX-Code
+   public String description()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return "Please specify person's contact information";
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public JComponent getView()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return new FormView(_contact, false, false);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+We see here that the implementation is trivial.
+ We provide a title, description, and a view for each of our steps.
+ Nothing to it!
+\end_layout
+
+\begin_layout Standard
+It is worth noting that the 
+\emph on
+FormView
+\emph default
+ class is taken from JMatter's own Swing-based view mechanism.
+ By reusing this class, we automate the chore of having to write the panels
+ that make up our wizard's user interface.
+ Not only do we automate the construction of each panel, but also the binding
+ of the view to its model object, as well as model object validation.
+ For example, entering a zip code with an invalid format in the 
+\emph on
+AddressStep
+\emph default
+ will automatically be flagged, giving the user a chance to revise and fix
+ the data entry (see the screenshots that follow this section) before being
+ able to proceed to the next step in the wizard.
+\end_layout
+
+\begin_layout Standard
+In our last step, the commit step, we sew everything together and save our
+ new contact person:
+\end_layout
+
+\begin_layout LyX-Code
+class CommitWizardStep extends CommitStep
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public void commit()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      PersonContact pc = new PersonContact();
+\end_layout
+
+\begin_layout LyX-Code
+      pc.getName().setValue(_name);
+\end_layout
+
+\begin_layout LyX-Code
+      pc.getContact().setValue(_contact);
+\end_layout
+
+\begin_layout LyX-Code
+      pc.getContact().getAddress().setValue(_address);
+\end_layout
+
+\begin_layout LyX-Code
+      pc.save();
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public JComponent getView()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return new JLabel(description());
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public String title() { return "Final Step"; }
+\end_layout
+
+\begin_layout LyX-Code
+   public String description()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return "We're almost done; Person record will be " +
+\end_layout
+
+\begin_layout LyX-Code
+             "committed after clicking 'Next'";
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Besides providing the basic step information: title, description, and view,
+ we also need to fill in the 
+\emph on
+commit()
+\emph default
+ method, which is quite straightforward:
+\end_layout
+
+\begin_layout Enumerate
+we create a new PersonContact instance
+\end_layout
+
+\begin_layout Enumerate
+we set the name, contact, and address values
+\end_layout
+
+\begin_layout Enumerate
+finally, we persist our instance
+\end_layout
+
+\begin_layout Standard
+JMatter does the rest! Let's take our app for a little spin.
+\end_layout
+
+\begin_layout Section
+Running the Application
+\end_layout
+
+\begin_layout Standard
+Let's run our app:
+\end_layout
+
+\begin_layout LyX-Code
+$ ant run
+\end_layout
+
+\begin_layout Standard
+The next five figures are screen shots for the various steps in our simple
+ wizard.
+ Note how the name, description, and view for each step are automatically
+ placed in their respective places on the wizard's window.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/Wizard-Step0.png
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/Wizard-Step1.png
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/Wizard-Step2.png
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/Wizard-Step3.png
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/Wizard-Step4.png
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This coverage of wizards was meant to be an introduction to the topic.
+ JMatter's wizard framework is complete from the point of view that one
+ can produce wizards of any degree of complexity by combining basic steps,
+ composite steps, and conditional steps in various ways.
+\end_layout
+
+\begin_layout Section
+CSV Export
+\end_layout
+
+\begin_layout Standard
+If we like, we can also export our contact list to a CSV file.
+ This feature is built-in to all JMatter applications.
+ Simply browse your contact listing and right-click 
+\emph on
+Export to CSV
+\emph default
+.
+ You will be prompted for a location to save the file.
+ Below is a screenshot of a small CSV export opened in the spreadsheet applicati
+on 
+\emph on
+Gnumeric
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/CSVExport.png
+	lyxscale 40
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+CSV Export Viewed in Gnumeric
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that this feature could be improved.
+ At the moment the CSV Export command simply exports the table model exposed
+ by the listing.
+ However, in this case, it would be nice if the address fields were flattened
+ as properties for each contact.
+ It'd be even nicer if there a CSV export wizard walked you through the
+ process, allowing you to select which fields to export, which to skip,
+ and in what order to serialize them out to file.
+ We hope to extend this CSV export feature in a future version of JMatter.
+\end_layout
+
+\begin_layout Section
+JFreeReport Integration
+\end_layout
+
+\begin_layout Standard
+JFreeReport is an open source Java API for reporting; its home page is 
+\begin_inset LatexCommand url
+target "http://www.jfree.org/jfreereport/"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This API has been around for a number of years.
+ It defines an xml vocabulary for laying out reports.
+ It's somewhat difficult to describe in one or two sentences what JFreeReport
+ is all about.
+ Some of its characteristics are reminiscent of templating technologies
+ where information from our applications can be merged with a the xml report
+ specification to produce the final report.
+ The report specification defines various 
+\emph on
+bands
+\emph default
+ such as report headers and footers, page headers and footers, and the actual
+ report items themselves.
+\end_layout
+
+\begin_layout Standard
+JFreeReport also provides means for you to automatically display a 
+\emph on
+print preview
+\emph default
+ of your report from inside your Swing application.
+ From that dialog, one also has the ability to produce the report in a number
+ of formats, including PDF, print, and Microsoft Excel.
+\end_layout
+
+\begin_layout Standard
+The JMatter framework attempts to make the job of producing reports with
+ JFreeReport easier.
+ The JFreeReport libraries are already bundled with JMatter.
+ Producing a PDF report from JMatter via JFreeReport is a relatively easy
+ task.
+ The task of writing the report specification using JFreeReport's XML specificat
+ion however remains unchanged.
+\end_layout
+
+\begin_layout Standard
+The authors of this framework have used JFreeReport to produce completed
+ medical forms, merging information in a medical system with a template
+ defining the layout of the form[s] to be completed.
+\end_layout
+
+\begin_layout Subsection
+The basics
+\end_layout
+
+\begin_layout Standard
+JFreeReport provides two ways in which data can be passed in to its xml
+ report specification:
+\end_layout
+
+\begin_layout Enumerate
+the implementation of a 
+\emph on
+TableModel
+\emph default
+ interface, which provides the majority of the tabular data to be included
+ in a report, and
+\end_layout
+
+\begin_layout Enumerate
+a simple properties file with key-value pairs for passing any kind of informatio
+n to include in the header or footer sections of the report
+\end_layout
+
+\begin_layout Standard
+JMatter defines the following interface:
+\end_layout
+
+\begin_layout LyX-Code
+public interface Reportable
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public String reportName();
+\end_layout
+
+\begin_layout LyX-Code
+   public Properties properties();
+\end_layout
+
+\begin_layout LyX-Code
+   public TableModel tableModel();
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+The latter two methods provide the data to bind to the xml report specification.
+ The first method provides the path to the report's xml specification.
+ JMatter basically follows the convention that these xml files be placed
+ alongside source code.
+ The xml files are then loaded into a Java application as a resource from
+ the classpath.
+\end_layout
+
+\begin_layout Standard
+If in a command method, you return a Reportable instance, JMatter will take
+ it from there and use JFreeReport to produce a corresponding PDF file and
+ open it using a PDF reader application.
+\end_layout
+
+\begin_layout Subsection
+A Simple Example
+\end_layout
+
+\begin_layout Standard
+Let's build a very simple report for our ContactManager application.
+ The point of this section is not to provide documentation for JFreeReport.
+ Rather, it's only to illustrate how the integration works.
+\end_layout
+
+\begin_layout Standard
+So here's a simple mechanism to expose the production of a report that will
+ include all the contacts we have in our system:
+\end_layout
+
+\begin_layout LyX-Code
+@Cmd
+\end_layout
+
+\begin_layout LyX-Code
+public static Reportable Report(CommandInfo cmdInfo)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   return new Reportable()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      public String reportName()
+\end_layout
+
+\begin_layout LyX-Code
+      {
+\end_layout
+
+\begin_layout LyX-Code
+         return "com/u2d/contactmgr/Basic.xml";
+\end_layout
+
+\begin_layout LyX-Code
+      }
+\end_layout
+
+\begin_layout LyX-Code
+      public Properties properties()
+\end_layout
+
+\begin_layout LyX-Code
+      {
+\end_layout
+
+\begin_layout LyX-Code
+         return new Properties();
+\end_layout
+
+\begin_layout LyX-Code
+      }
+\end_layout
+
+\begin_layout LyX-Code
+      public TableModel tableModel()
+\end_layout
+
+\begin_layout LyX-Code
+      {
+\end_layout
+
+\begin_layout LyX-Code
+         return ComplexType.forClass(PersonContact.class).
+\end_layout
+
+\begin_layout LyX-Code
+                                          list().tableModel();
+\end_layout
+
+\begin_layout LyX-Code
+      }
+\end_layout
+
+\begin_layout LyX-Code
+   };
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+So basically what I'm doing here is exposing a static command using the
+ JMatter conventions.
+ This command returns a 
+\emph on
+Reportable
+\emph default
+ implementation that in this case passes data only via a tablemodel.
+ I'm basically returning the default table model that JMatter exposes on
+ lists of types.
+\end_layout
+
+\begin_layout Standard
+Here is a very basic sample JFreeReport XML specification:
+\end_layout
+
+\begin_layout LyX-Code
+<?xml version="1.0" encoding="iso-8859-1"?>
+\end_layout
+
+\begin_layout LyX-Code
+<!DOCTYPE report PUBLIC
+\end_layout
+
+\begin_layout LyX-Code
+      "-//JFreeReport//DTD report definition//EN//simple/version 0.8.5"
+\end_layout
+
+\begin_layout LyX-Code
+      "http://jfreereport.sourceforge.net/report-085.dtd">
+\end_layout
+
+\begin_layout LyX-Code
+<report name="Basic Persons Listing" 
+\end_layout
+
+\begin_layout LyX-Code
+   orientation="portrait" pageformat="LETTER" 
+\end_layout
+
+\begin_layout LyX-Code
+   topmargin="36" bottommargin="36" 
+\end_layout
+
+\begin_layout LyX-Code
+   leftmargin="36" rightmargin="36">
+\end_layout
+
+\begin_layout LyX-Code
+  <configuration>
+\end_layout
+
+\begin_layout LyX-Code
+     <property name="org.jfree.report.modules.gui.base.PreferredWidth">640</property>
+\end_layout
+
+\begin_layout LyX-Code
+     <property name="org.jfree.report.modules.gui.base.PreferredHeight">480</property>
+\end_layout
+
+\begin_layout LyX-Code
+  </configuration>
+\end_layout
+
+\begin_layout LyX-Code
+  <pageheader height="200" fontname="sansserif" fontsize="10" fsbold="true">
+\end_layout
+
+\begin_layout LyX-Code
+    <label x="0" y="0" 
+\end_layout
+
+\begin_layout LyX-Code
+           width="100%" height="12" 
+\end_layout
+
+\begin_layout LyX-Code
+           fonsize="12" fsbold="true"
+\end_layout
+
+\begin_layout LyX-Code
+           alignment="center"><![CDATA[Person Contacts Listing]]></label>
+\end_layout
+
+\begin_layout LyX-Code
+    <line x1="170" y1="50" x2="334" y2="50" weight="0.75" />
+\end_layout
+
+\begin_layout LyX-Code
+  </pageheader>
+\end_layout
+
+\begin_layout LyX-Code
+  <items height="18"
+\end_layout
+
+\begin_layout LyX-Code
+         fontname="sansserif" fontstyle="plain" fontsize="10" fsbold="false"
+\end_layout
+
+\begin_layout LyX-Code
+         vertical-alignment="middle">
+\end_layout
+
+\begin_layout LyX-Code
+    <string-field x="10" y="0" width="250" height="12" alignment="left"
  
+\end_layout
+
+\begin_layout LyX-Code
+       fieldname="Person Contacts" />
+\end_layout
+
+\begin_layout LyX-Code
+    <string-field x="270" y="0" width="100" height="12" alignment="left"
+ 
+\end_layout
+
+\begin_layout LyX-Code
+       fieldname="Name" />
+\end_layout
+
+\begin_layout LyX-Code
+    <string-field x="380" y="0" width="250" height="12" alignment="left"
+ 
+\end_layout
+
+\begin_layout LyX-Code
+       fieldname="Contact" />
+\end_layout
+
+\begin_layout LyX-Code
+  </items>
+\end_layout
+
+\begin_layout LyX-Code
+</report>
+\end_layout
+
+\begin_layout Standard
+The essential aspects of this specification are located in the items band,
+ where we see that various string-based fields are specified.
+ JFreeReport allows you to insert images, other data types, to control the
+ font size, style, and placement of the information.
+ JFreeReport also provides a number of built-in functions that can be invoked
+ to calculate sums, for example.
+ Developers can also write and plug in their own custom functions.
+\end_layout
+
+\begin_layout Standard
+The result of invoking this command from the JMatter user interface is the
+ production of the report PDF, as shown below.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/JFree-1.png
+	lyxscale 50
+	scale 50
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+PDF produced with JFreeReport
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+JasperReports
+\end_layout
+
+\begin_layout Standard
+JasperReports is yet another, even more popular, open, reporting solution
+ for Java.
+ It is a well-supported project.
+ One appealing feature of this project is its companion project 
+\emph on
+iReports
+\emph default
+, a mature graphical report designer, which does away with the tedium of
+ writing JasperReport's analog to the the xml report specification we just
+ saw in the last section.
+\end_layout
+
+\begin_layout Standard
+Another attractive feature of JasperReports is its support and integration
+ with Hibernate.
+ This makes JasperReports a perfect mate for JMatter.
+ We recently extended the 
+\emph on
+Sympster
+\emph default
+ demo application with an example use of JasperReports for producing a symposium
+ schedule.
+ Simply run Sympster, create a symposium and a number of associated Sessions,
+ and then invoke the Symposium command 
+\emph on
+Report Schedule
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+JMatter now bundled the JasperReport libraries with its distribution for
+ your convenience.
+ We also highly recommend you support the JasperReports project by buying
+ a copy of their documentation in print.
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Standard
+In this chapter we've seen the ease with which we can integrate wizards
+ (assistants) into an already powerful user interface.
+\end_layout
+
+\begin_layout Standard
+This wizard feature has already been used in other contexts to produce complex
+ wizards, that break down complex new patient forms at medical clinics into
+ a set of smaller steps.
+ Most of us are too familiar with the amounts of information a patient or
+ guarantor must enter when first visiting a medical institution (in the
+ United States, at least).
+\end_layout
+
+\begin_layout Standard
+The JMatter framework attempts to be as open as possible.
+ Wizards are not the only way to inject custom user interface features into
+ JMatter applications.
+ JMatter was designed to allow you to write your own custom views for objects
+ and plug them into your existing JMatter applications, which is the topic
+ of our next chapter.
+\end_layout
+
+\begin_layout Standard
+We've also seen the CSV Export feature, a nice though simple mechanism for
+ exporting data out of your application.
+ Of course, there already exist many tools to export and process your applicatio
+n's data.
+ It's already easily accessible in that all the information resides in an
+ open database system.
+\end_layout
+
+\begin_layout Standard
+Finally, we also see that JMatter provides an avenue for producing PDFs
+ by integrating and leveraging the open source JFreeReport API.
+ I've personally also written directly against the underlying iText PDF
+ library to produce and display PDFs directly as a consequence of a command
+ invocation.
+\end_layout
+
+\begin_layout Chapter
+Customized Views and Editors
+\begin_inset LatexCommand label
+name "cha:Customized-Views-and"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It's nice for a framework to support the automatic generation of views for
+ various objects.
+ We've also seen how the base user interface can be augmented with calendaring
+ features, wizards, and support for producing PDFs.
+ However, it's equally important for a framework to remain flexible and
+ to allow for the construction of custom views as well.
+\end_layout
+
+\begin_layout Standard
+JMatter's primary view mechanism at the moment is its Swing-based view mechanism.
+ Other view mechanisms might be constructed in the future, including possibly
+ a web-based user interface.
+\end_layout
+
+\begin_layout Standard
+In this chapter I'd like to demonstrate through examples various ways in
+ which custom views can be integrated into the Swing view mechanism.
+\end_layout
+
+\begin_layout Section
+Complex, or Composite Views
+\end_layout
+
+\begin_layout Standard
+The 
+\emph on
+demo-apps
+\emph default
+ subdirectory contains a project, 
+\emph on
+CustomUI
+\emph default
+, designed specifically to illustrate how this is done.
+ It is similar to our contact manager: There's a 
+\emph on
+Contact
+\emph default
+ class and an 
+\emph on
+Address
+\emph default
+ class.
+ The idea is that we'd like to be able to customize the way Addresses appear
+ on the screen; specifically, the way that the form view for addresses is
+ laid out.
+ The default form view is nice.
+ Figure 
+\begin_inset LatexCommand ref
+reference "cap:Standard-Form-View"
+
+\end_inset
+
+ displays the default view for the 
+\emph on
+address
+\emph default
+ property of the 
+\emph on
+Contact
+\emph default
+ class.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/CustomView-1.png
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Standard Form View the 
+\emph on
+Contact.address
+\emph default
+ Field
+\begin_inset LatexCommand label
+name "cap:Standard-Form-View"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let's say that we'd prefer to display addresses in such a way that the field
+ captions are placed above the field editors (instead of appearing to their
+ left), and that we'd like to lay out the 
+\emph on
+city
+\emph default
+, 
+\emph on
+state
+\emph default
+, and 
+\emph on
+zip
+\emph default
+ fields all on the same line, instead of having them appear one below the
+ other, as shown in Figure 
+\begin_inset LatexCommand ref
+reference "cap:Desired-view"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/CustomView-2.png
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Desired view for Addresses
+\begin_inset LatexCommand label
+name "cap:Desired-view"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It turns out that JMatter's 
+\emph on
+FormView
+\emph default
+ is already parameterized such that, if you prefer, you can designate that
+ labels appear above their editors instead of to their left.
+ All you need to do is revise the value for the 
+\emph on
+labelEditorLayoutHorizontal
+\emph default
+ property in your application's spring configuration context file 
+\emph on
+src/applicationContext.xml
+\emph default
+ as shown below:
+\end_layout
+
+\begin_layout LyX-Code
+<bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism"
+\end_layout
+
+\begin_layout LyX-Code
+      factory-method="getInstance">
+\end_layout
+
+\begin_layout LyX-Code
+   <property name="appSession" ref="app-session" />
+\end_layout
+
+\begin_layout LyX-Code
+   <property name="labelEditorLayoutHorizontal" value="false" />
+\end_layout
+
+\begin_layout LyX-Code
+</bean>
+\end_layout
+
+\begin_layout Standard
+Let's proceed by pretending that this feature was not available.
+ We must do two things:
+\end_layout
+
+\begin_layout Enumerate
+Override the method 
+\emph on
+getMainView()
+\emph default
+ on the Address class, to return a new view
+\end_layout
+
+\begin_layout Enumerate
+Implement the custom view for addresses; this process is similar to the
+ way we traditionally build views in Swing
+\end_layout
+
+\begin_layout Standard
+The first step is straightforward:
+\end_layout
+
+\begin_layout LyX-Code
+public EView getMainView()
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   return new CustomAddressView(this);
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Now, for the implementation.
+ We could implement the UI by extending from Swing's 
+\emph on
+JPanel
+\emph default
+, like this:
+\end_layout
+
+\begin_layout LyX-Code
+public class CustomAddressView extends JPanel
+\end_layout
+
+\begin_layout LyX-Code
+      implements ComplexEView, Editor
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   private Address _addr;
+\end_layout
+
+\begin_layout LyX-Code
+   JComponent line1View, line2View, cityView, stateView, zipView;
+\end_layout
+
+\begin_layout LyX-Code
+   
+\end_layout
+
+\begin_layout LyX-Code
+   public CustomAddressView(Address address)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      _addr = address;
+\end_layout
+
+\begin_layout LyX-Code
+      buildUI();
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   private void buildUI()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      line1View = (JComponent) _addr.getLine1().getView();
+\end_layout
+
+\begin_layout LyX-Code
+      line2View = (JComponent) _addr.getLine2().getView();
+\end_layout
+
+\begin_layout LyX-Code
+      cityView = (JComponent) _addr.getCity().getView();
+\end_layout
+
+\begin_layout LyX-Code
+      stateView = (JComponent) _addr.getStateCode().getView();
+\end_layout
+
+\begin_layout LyX-Code
+      zipView = (JComponent) _addr.getZipCode().getView();
+\end_layout
+
+\begin_layout LyX-Code
+      
+\end_layout
+
+\begin_layout LyX-Code
+      FormLayout layout = new FormLayout("pref, 10px, pref, 10px, pref",
+ 
+\end_layout
+
+\begin_layout LyX-Code
+                         "pref, pref, 10px, pref, pref, 10px, pref, pref");
+\end_layout
+
+\begin_layout LyX-Code
+      CellConstraints cc = new CellConstraints();
+\end_layout
+
+\begin_layout LyX-Code
+      DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
+\end_layout
+
+\begin_layout LyX-Code
+      // add caption..
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(new JLabel("Line 1:"), cc.xyw(1, 1, 5));
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(line1View, cc.xyw(1, 2, 5));
+\end_layout
+
+\begin_layout LyX-Code
+      
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(new JLabel("Line 2:"), cc.xyw(1, 4, 5));
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(line2View, cc.xyw(1, 5, 5));
+\end_layout
+
+\begin_layout LyX-Code
+      
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(new JLabel("City:"), cc.xy(1, 7));
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(new JLabel("State:"), cc.xy(3, 7));
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(new JLabel("Zip:"), cc.xy(5, 7));
+\end_layout
+
+\begin_layout LyX-Code
+      
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(cityView, cc.xy(1,8));
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(stateView, cc.xy(3, 8));
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(zipView, cc.xy(5, 8));
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public EObject getEObject() { return _addr; }
+\end_layout
+
+\begin_layout LyX-Code
+   
+\end_layout
+
+\begin_layout LyX-Code
+   // as a composite view, this particular class may not
+\end_layout
+
+\begin_layout LyX-Code
+   // necessarily be interested in binding to the model
+\end_layout
+
+\begin_layout LyX-Code
+   // and listen to changes.
+  to the extent that i use
+\end_layout
+
+\begin_layout LyX-Code
+   // the jmatter views for the subparts of the address,
+\end_layout
+
+\begin_layout LyX-Code
+   // they will be listening directly to the parts.
+\end_layout
+
+\begin_layout LyX-Code
+   public void detach() { }
+\end_layout
+
+\begin_layout LyX-Code
+   public void stateChanged(ChangeEvent e) { }
+\end_layout
+
+\begin_layout LyX-Code
+   public void propertyChange(PropertyChangeEvent evt) { }
+\end_layout
+
+\begin_layout LyX-Code
+   public boolean isMinimized() { return false; }
+\end_layout
+
+\begin_layout LyX-Code
+   public int transferValue()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      int result = 0;
+\end_layout
+
+\begin_layout LyX-Code
+      result += ((Editor) line1View).transferValue();
+\end_layout
+
+\begin_layout LyX-Code
+      result += ((Editor) line2View).transferValue();
+\end_layout
+
+\begin_layout LyX-Code
+      result += ((Editor) cityView).transferValue();
+\end_layout
+
+\begin_layout LyX-Code
+      result += ((Editor) stateView).transferValue();
+\end_layout
+
+\begin_layout LyX-Code
+      result += ((Editor) zipView).transferValue();
+\end_layout
+
+\begin_layout LyX-Code
+      return result;
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public void setEditable(boolean editable)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      ((Editor) line1View).setEditable(editable);
+\end_layout
+
+\begin_layout LyX-Code
+      ((Editor) line2View).setEditable(editable);
+\end_layout
+
+\begin_layout LyX-Code
+      ((Editor) cityView).setEditable(editable);
+\end_layout
+
+\begin_layout LyX-Code
+      ((Editor) stateView).setEditable(editable);
+\end_layout
+
+\begin_layout LyX-Code
+      ((Editor) zipView).setEditable(editable);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public boolean isEditable()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return ((Editor) line1View).isEditable();
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Let's review this code.
+ Here I am using the excellent JGoodies Forms framework to layout a form
+ 
+\begin_inset Quotes eld
+\end_inset
+
+by hand,
+\begin_inset Quotes erd
+\end_inset
+
+ so to speak.
+ JGoodies' 
+\emph on
+DefaultFormBuilder
+\emph default
+ makes this pretty easy.
+ Similar code could also be produced with the help of a visual form designer,
+ such as the 
+\emph on
+Abeille Forms Designer
+\emph default
+.
+ Note however, that there are additional responsibilities that this class
+ must fulfill:
+\end_layout
+
+\begin_layout Enumerate
+The class must implement the 
+\emph on
+ComplexEView
+\emph default
+ interface
+\end_layout
+
+\begin_layout Enumerate
+If the class will also participate in the editing process, it must implement
+ the 
+\emph on
+Editor
+\emph default
+ interface
+\end_layout
+
+\begin_layout Standard
+In this case, the 
+\emph on
+ComplexEView
+\emph default
+ interface is fairly simple.
+ Some of the methods have no-op implementations (
+\emph on
+detach()
+\emph default
+, 
+\emph on
+stateChanged()
+\emph default
+, 
+\emph on
+propertyChange()
+\emph default
+).
+ Every view can, at its discretion, attach itself as a listener to the object
+ model and thus receive model change notifications.
+ In this case, we're dealing with a composite view, and each of the sub-views
+ already listens to changes to the parts, so we don't technically need to
+ listen to model changes here.
+ Views must also make sure to 
+\begin_inset Quotes eld
+\end_inset
+
+detach
+\begin_inset Quotes erd
+\end_inset
+
+ themselves from the model objects when they're destroyed.
+ It's very important that the 
+\emph on
+detach()
+\emph default
+ method properly do this.
+ A careless implementation can easily introduce a memory leak into the applicati
+on as views are created and their memory not reclaimed because they may
+ still be attached to a model object whose lifetime is typically longer
+ than its views'.
+\end_layout
+
+\begin_layout Standard
+The 
+\emph on
+Editor
+\emph default
+ interface is also fairly straightforward.
+ The 
+\emph on
+setEditable()
+\emph default
+ method is called when the model object's state toggles from 
+\emph on
+Read
+\emph default
+ to 
+\emph on
+Edit
+\emph default
+ (and back), thus giving the user interface a chance to update itself accordingl
+y (if so desired).
+ Notice also that 
+\emph on
+transferValue()
+\emph default
+ is called before an object is saved, allowing the view a chance to bind
+ the newly entered data back to the model object (or possibly raise a validation
+ exception, in which case the save operation is vetoed.
+ The integer value returned by this method is an indication of the number
+ of validation errors, which is also displayed by the framework in such
+ circumstances.
+\end_layout
+
+\begin_layout Section
+A Custom View for Sympster Sessions
+\end_layout
+
+\begin_layout Standard
+Here's a more compelling illustration of customizing a view for an object:
+ the 
+\emph on
+Sympster
+\emph default
+ demo application was recently further customized with a custom view for
+ its 
+\emph on
+Session
+\emph default
+ class.
+ In this situation, I wanted to reuse JMatter's default 
+\emph on
+FormView
+\emph default
+ which handles the editing process beautifully and saves me a lot of work.
+ On the other hand, I wanted a more compelling view for sessions in read
+ state, as shown in figure 
+\begin_inset LatexCommand ref
+reference "fig:Customized-View-for"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/custom-sessionview.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Customized View for Session
+\begin_inset LatexCommand label
+name "fig:Customized-View-for"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+JMatter provides a class named 
+\emph on
+CustomReadView
+\emph default
+ which automatically composes JMatter's 
+\emph on
+FormView
+\emph default
+ in edit state with a custom view that you provide for the read state, as
+ shown in the following code snippet from the class Session where the 
+\emph on
+getMainView()
+\emph default
+ method is overridden correspondingly:
+\end_layout
+
+\begin_layout LyX-Code
+   public EView getMainView()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return new CustomReadView(new SessionView(this));
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout Standard
+Please refer to the implementation of 
+\emph on
+SessionView
+\emph default
+ in the Sympster demo application for the details of its implementation.
+ One note worthy of mentioning is that the implementation leverages JMatter's
+ 
+\emph on
+css4swing
+\emph default
+ library to style itself, which I discuss in chapter 
+\begin_inset LatexCommand vref
+reference "cha:Styling-the-UI"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+The 
+\emph on
+Self
+\emph default
+ demo application
+\end_layout
+
+\begin_layout Standard
+Yet another way to augment JMatter with hand-crafted views and widgets is
+ illustrated through the bundled demo application named 
+\emph on
+Self
+\emph default
+.
+ The model for this application is trivial on purpose: it consists of a
+ Space that contains Balls.
+ The space has one additional property: the temperature within the space.
+\end_layout
+
+\begin_layout Standard
+In this particular scenario, it is quite unpallatable to view these objects
+ through forms when it would be so much more compelling if their visual
+ representations were represented directly in the UI.
+\end_layout
+
+\begin_layout Standard
+Any command you write that returns an object of type 
+\emph on
+View
+\emph default
+ or 
+\emph on
+JComponent
+\emph default
+ will be displayed by JMatter upon invocation.
+ The 
+\emph on
+Self
+\emph default
+ demo application takes advantage of this feature:
+\end_layout
+
+\begin_layout LyX-Code
+public class Space
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout LyX-Code
+   @Cmd(mnemonic='s')
+\end_layout
+
+\begin_layout LyX-Code
+   public View Show(CommandInfo cmdInfo)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return new SpaceView(this);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout Standard
+Running this application, we can create a space, and add a few balls into
+ our space.
+ We can further set the temperature.
+ I created two balls: a filled red ball with radius 30, and a blue ball
+ with radius 80, and my temperature was 30 degrees celsius.
+ Proceeding with invoking the 
+\emph on
+Show
+\emph default
+ command, I can expose my custom view 
+\emph on
+SpaceView
+\emph default
+ directly in JMatter:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/Self.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+The Self Demo Application
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The screenshot doesn't really do it justince since the balls are moving
+ withing the space at a certain speed.
+ Try to change the temperature within the space to, say, 50 degrees.
+ This will cause the balls to move faster.
+ Technically, this custom view could also have been implemented by wrapping
+ it in a CustomReadView as we did in the previous example.
+\end_layout
+
+\begin_layout Section
+Customizing Layout
+\end_layout
+
+\begin_layout Standard
+JMatter provides a means through which a layout for a form can be defined
+ by using the open-source 
+\emph on
+Abeille Forms Designer
+\emph default
+.
+ By placing placeholder components in the layout and giving each a name
+ matching a model object's field name, JMatter can be made to use the specified
+ layout when displaying the form in question.
+ 
+\emph on
+Abeille
+\emph default
+ allows us to serialize the form design's definition to a 
+\emph on
+.jfrm
+\emph default
+ file which we place along with our source code (JMatter's build file automatica
+lly copies these files to the classpath as part of the build process) in
+ a file we name after the model object whose view we want to customize.
+ The 
+\emph on
+CustomUI
+\emph default
+ demo application provides an example implementation.
+\end_layout
+
+\begin_layout Section
+Atomic Views
+\end_layout
+
+\begin_layout Standard
+JMatter defines the notion of atomic types.
+ Examples include representations for booleans, dates, text, zip codes,
+ social security numbers, percentages, integers, floats, etc..
+ They're defined in the package 
+\emph on
+com.u2d.type.atom
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+This section describes how to write a custom view and/or editor for a given
+ type.
+ Let's take 
+\emph on
+BooleanEO
+\emph default
+ as an example.
+ Here is the implementation for the default renderer for boolean's:
+\end_layout
+
+\begin_layout LyX-Code
+public class BooleanRenderer extends JLabel implements AtomicRenderer
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public void render(AtomicEObject value)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      BooleanEO eo = (BooleanEO) value;
+\end_layout
+
+\begin_layout LyX-Code
+      setText((eo.booleanValue()) ? "Yes" : "No");
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public void passivate() { }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+The interface 
+\emph on
+AtomicRenderer
+\emph default
+ has essentially a single method.
+ You can ignore the 
+\emph on
+passivate()
+\emph default
+ method for now (we're considering making a design revision where views
+ are pooled, and then re-used for different atomic types, in which case
+ this method could be used to 
+\begin_inset Quotes eld
+\end_inset
+
+clean up
+\begin_inset Quotes erd
+\end_inset
+
+ the view before it's re-used).
+\end_layout
+
+\begin_layout Standard
+So basically one implements the 
+\emph on
+render()
+\emph default
+ method.
+ This method is handed a model object that it must render.
+ So in this case, the renderer is given an instance of a 
+\emph on
+BooleanEO
+\emph default
+ which it uses to 
+\begin_inset Quotes eld
+\end_inset
+
+paint
+\begin_inset Quotes erd
+\end_inset
+
+ the text 
+\emph on
+Yes
+\emph default
+ or 
+\emph on
+No
+\emph default
+ on a JLabel.
+\end_layout
+
+\begin_layout Standard
+To write a custom Editor for a type, you must implement two methods: 
+\emph on
+render()
+\emph default
+ and 
+\emph on
+bind()
+\emph default
+.
+ Here's the definition of the interface that one must implement:
+\end_layout
+
+\begin_layout LyX-Code
+public interface AtomicEditor extends AtomicRenderer
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public int bind(AtomicEObject value);
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+And here's an example implementation, again for the 
+\emph on
+BooleanEO
+\emph default
+ type:
+\end_layout
+
+\begin_layout LyX-Code
+public class BooleanCheckboxEditor extends JCheckBox
+\end_layout
+
+\begin_layout LyX-Code
+      implements ItemListener, AtomicEditor, ActionNotifier
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   public BooleanCheckboxEditor()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      addItemListener(this);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public void itemStateChanged(ItemEvent e)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      setText( (isSelected()) ? "Yes" : "No" );
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public int bind(AtomicEObject value)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      BooleanEO eo = (BooleanEO) value;
+\end_layout
+
+\begin_layout LyX-Code
+      eo.setValue(isSelected());
+\end_layout
+
+\begin_layout LyX-Code
+      return 0;
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public void render(AtomicEObject value)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      BooleanEO eo = (BooleanEO) value;
+\end_layout
+
+\begin_layout LyX-Code
+      setSelected(eo.booleanValue());
+\end_layout
+
+\begin_layout LyX-Code
+      itemStateChanged(null); // text synch with checkbox
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public void passivate() { }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+The 
+\emph on
+bind()
+\emph default
+ method is responsible on setting the newly edited value back to the model
+ object.
+ Here's a second implementation for a 
+\emph on
+BooleanEO
+\emph default
+ editor that uses a pair of radio buttons instead:
+\end_layout
+
+\begin_layout LyX-Code
+public class BooleanRadioEditor extends JPanel implements AtomicEditor
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   private JRadioButton _yesBtn, _noBtn;
+\end_layout
+
+\begin_layout LyX-Code
+   public BooleanRadioEditor()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      _yesBtn = new JRadioButton("Yes");
+\end_layout
+
+\begin_layout LyX-Code
+      _yesBtn.setOpaque(false);
+\end_layout
+
+\begin_layout LyX-Code
+      _noBtn = new JRadioButton("No");
+\end_layout
+
+\begin_layout LyX-Code
+      _noBtn.setOpaque(false);
+\end_layout
+
+\begin_layout LyX-Code
+      _yesBtn.addActionListener(new ActionListener()
+\end_layout
+
+\begin_layout LyX-Code
+      {
+\end_layout
+
+\begin_layout LyX-Code
+         public void actionPerformed(ActionEvent evt)
+\end_layout
+
+\begin_layout LyX-Code
+         {
+\end_layout
+
+\begin_layout LyX-Code
+            _yesBtn.setSelected(true);
+\end_layout
+
+\begin_layout LyX-Code
+         }
+\end_layout
+
+\begin_layout LyX-Code
+      });
+\end_layout
+
+\begin_layout LyX-Code
+      _noBtn.addActionListener(new ActionListener()
+\end_layout
+
+\begin_layout LyX-Code
+      {
+\end_layout
+
+\begin_layout LyX-Code
+         public void actionPerformed(ActionEvent evt)
+\end_layout
+
+\begin_layout LyX-Code
+         {
+\end_layout
+
+\begin_layout LyX-Code
+            _noBtn.setSelected(true);
+\end_layout
+
+\begin_layout LyX-Code
+         }
+\end_layout
+
+\begin_layout LyX-Code
+      });
+\end_layout
+
+\begin_layout LyX-Code
+      ButtonGroup group = new ButtonGroup();
+\end_layout
+
+\begin_layout LyX-Code
+      group.add(_yesBtn);
+\end_layout
+
+\begin_layout LyX-Code
+      group.add(_noBtn);
+\end_layout
+
+\begin_layout LyX-Code
+      FormLayout layout = new FormLayout("pref, 3px, pref", "pref");
+\end_layout
+
+\begin_layout LyX-Code
+      DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
+\end_layout
+
+\begin_layout LyX-Code
+      CellConstraints cc = new CellConstraints();
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(_yesBtn, cc.xy(1, 1));
+\end_layout
+
+\begin_layout LyX-Code
+      builder.add(_noBtn, cc.xy(3, 1));
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public void render(AtomicEObject value)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      BooleanEO eo = (BooleanEO) value;
+\end_layout
+
+\begin_layout LyX-Code
+      JRadioButton btn = (eo.booleanValue()) ? _yesBtn : _noBtn;
+\end_layout
+
+\begin_layout LyX-Code
+      btn.setSelected(true);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public int bind(AtomicEObject value)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      BooleanEO eo = (BooleanEO) value;
+\end_layout
+
+\begin_layout LyX-Code
+      eo.setValue(_yesBtn.isSelected());
+\end_layout
+
+\begin_layout LyX-Code
+      return 0;
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+   public void passivate() { }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+The JMatter codebase is rife with examples of atomic editors and renderers.
+ Use them as the basis for creating your own implementations.
+\end_layout
+
+\begin_layout Subsection
+Specifying the Default Editor and Renderer
+\end_layout
+
+\begin_layout Standard
+Specifying the default renderer and editor for a given type is straightforward.
+ JMatter defines the interface 
+\emph on
+ViewMechanism
+\emph default
+.
+ The Swing implementation of that interface is 
+\emph on
+SwingViewMechanism
+\emph default
+.
+ This interface defines a litany of methods that specify the components
+ for the entire user interface.
+ By revising the corresponding method for a given view mechanism, you control
+ the user interface.
+\end_layout
+
+\begin_layout Standard
+For our above implementations of a boolean editor and renderer, and assuming
+ the 
+\emph on
+SwingViewMechanism
+\emph default
+, you'd revise the implementations of 
+\emph on
+getBooleanRenderer()
+\emph default
+ and getBooleanEditor() respectively for the 
+\emph on
+BooleanEO
+\emph default
+ type:
+\end_layout
+
+\begin_layout LyX-Code
+public AtomicRenderer getBooleanRenderer() {
+\end_layout
+
+\begin_layout LyX-Code
+  return new BooleanRenderer();
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+public AtomicEditor getBooleanEditor() {
+\end_layout
+
+\begin_layout LyX-Code
+  return new BooleanRadioEditor();
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Of course, if you're going to be implementing a custom view for a more complex
+ or composite object, then you're in complete control of the rendering and
+ editing process.
+\end_layout
+
+\begin_layout Standard
+The framework's view mechanism in general is extremely modular.
+ It's easy to override one small aspect and plug it right into the existing
+ view mechanism to fundamentally change one aspect of the user interface,
+ whether it's by providing your own implementation of a 
+\emph on
+FormView
+\emph default
+ (or embellishing the existing one), or by customizing the widgets that
+ represent associations.
+\end_layout
+
+\begin_layout Chapter
+Localization
+\end_layout
+
+\begin_layout Standard
+I would like to thank Felix Torre for assisting in the development of support
+ for localization (l10n) in JMatter, and Marco Meschieri for meticulously
+ going through the codebase to extract captions and other text so that they
+ could be localized.
+ This chapter documents the current support for l10n in JMatter.
+\end_layout
+
+\begin_layout Standard
+The basic requirement is to be able to deploy a single application to a
+ diverse population, in any of a combination of languages.
+ For example, we may have both English-speaking and French-speaking users.
+\end_layout
+
+\begin_layout Standard
+Fundamentally, JMatter resorts to one aspect of the Java language that was
+ designed for localization: the notion of resource bundles.
+ JMatter uses property-file based resource bundles.
+ Multiple properties files are created.
+ Each follows a certain convention to designate what language and locale
+ it corresponds to, by combining a base name with a suffix.
+\end_layout
+
+\begin_layout Standard
+Look at the Sympster demo application for example.
+ You will find three files: 
+\emph on
+locale-metadata.properties
+\emph default
+, 
+\emph on
+locale-metadata_fr.properties
+\emph default
+, and 
+\emph on
+locale-metadata_es.properties
+\emph default
+.
+ So each suffix, 
+\emph on
+_fr
+\emph default
+ or 
+\emph on
+_es
+\emph default
+, is a language designation: the former is the code for the French language,
+ while the second designates Spanish.
+ Resource bundles imply a specific hierarchy for retrieving values for specific
+ keys in these property files: we check the computer's specific language
+ and country.
+ Let's say we're in Canada, where the language is 
+\emph on
+fr
+\emph default
+ and the country is 
+\emph on
+CA
+\emph default
+.
+ The system will look for the file 
+\emph on
+locale-metadata_fr_CA.properties
+\emph default
+, falling back to the more generic 
+\emph on
+_fr
+\emph default
+ file, and finally, falling back to the most generic property file.
+\end_layout
+
+\begin_layout Standard
+JMatter defines keys for retrieving all the labels and text rendered on
+ the login dialog box.
+ Here is how they're specified in the _fr resource bundle:
+\end_layout
+
+\begin_layout LyX-Code
+# Login Dialog
+\end_layout
+
+\begin_layout LyX-Code
+# ===============================
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.title=Entrez
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.lbl.username=Nom D'utilisateur:
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.lbl.pwd=Mot de passe:
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.msg.login=Entrez S'il vous plait..
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.msg.failed_auth=Mauvais credentiaux; Essayez encore une fois..
+\end_layout
+
+\begin_layout LyX-Code
+logindlg.msg.user_locked=Votre compte est verouille; 
+\backslash
+ 
+\end_layout
+
+\begin_layout LyX-Code
+   Contactez l'administrateur svp..
+\end_layout
+
+\begin_layout Standard
+JMatter also defines a convention for specifying type labels, command labels,
+ and field labels that are shared by all applications:
+\end_layout
+
+\begin_layout LyX-Code
+# JMatter Global Localization Entries
+\end_layout
+
+\begin_layout LyX-Code
+# ===================================
+\end_layout
+
+\begin_layout LyX-Code
+Command.Save=Sauve
+\end_layout
+
+\begin_layout LyX-Code
+Command.Cancel=Abandone
+\end_layout
+
+\begin_layout LyX-Code
+Command.Copy=Copie
+\end_layout
+
+\begin_layout LyX-Code
+Command.Paste=Colle
+\end_layout
+
+\begin_layout LyX-Code
+Command.SaveAndClose=Sauve et Ferme
+\end_layout
+
+\begin_layout LyX-Code
+Command.Open=Ouvre
+\end_layout
+
+\begin_layout LyX-Code
+Command.Edit=Edite
+\end_layout
+
+\begin_layout LyX-Code
+Command.Delete=Efface
+\end_layout
+
+\begin_layout LyX-Code
+Command.Refresh=Rafraichi
+\end_layout
+
+\begin_layout LyX-Code
+ComplexType.New=Fait Nouveau
+\end_layout
+
+\begin_layout LyX-Code
+ComplexType.Browse=Liste
+\end_layout
+
+\begin_layout LyX-Code
+ComplexType.Find=Trouve
+\end_layout
+
+\begin_layout LyX-Code
+User=Utilisateur
+\end_layout
+
+\begin_layout LyX-Code
+Users=Utilisateurs
+\end_layout
+
+\begin_layout LyX-Code
+User.username=Nom d'utilisateur
+\end_layout
+
+\begin_layout LyX-Code
+User.password=Mot de passe
+\end_layout
+
+\begin_layout LyX-Code
+User.locked=Verrouillé
+\end_layout
+
+\begin_layout LyX-Code
+User.photo=Photographe
+\end_layout
+
+\begin_layout LyX-Code
+User.role=rôle
+\end_layout
+
+\begin_layout LyX-Code
+User.desktop=Écriture-bureau
+\end_layout
+
+\begin_layout Standard
+Here we see that generic commands, shared by all types, are specified as
+ 
+\emph on
+Command.<commandname>
+\emph default
+.
+ Generic type commands are specified using the key 
+\emph on
+ComplexType.<commandname>
+\emph default
+.
+ Other type commands and type fields are likewise specified using the key:
+ 
+\emph on
+<typename>.<fieldname|commandname>
+\emph default
+.
+ When dealing with aggregate fields, you can use a multiple dot notation,
+ as in 
+\emph on
+Speaker.contact.homePhone
+\emph default
+ (see below).
+\end_layout
+
+\begin_layout Standard
+Here are some application-specific label designations for French, for the
+ Sympster application:
+\end_layout
+
+\begin_layout LyX-Code
+# Application-Specific Localization Example Entries
+\end_layout
+
+\begin_layout LyX-Code
+# =================================================
+\end_layout
+
+\begin_layout LyX-Code
+Speaker=Presenteur
+\end_layout
+
+\begin_layout LyX-Code
+Speakers=Presenteurs
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.name=Nom
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.title=Titre
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.bio=Biographie
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.photo=Photo
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.AddTalk=Ajoute Une Presentation
+\end_layout
+
+\begin_layout LyX-Code
+Speaker.contact.homePhone=Telephone Maison
+\end_layout
+
+\begin_layout Standard
+Note also that plural designations can be provided.
+ The key is simply the plural name for the type in English.
+\end_layout
+
+\begin_layout Standard
+Here in the USA I can test how my application might look to a French speaker
+ by revising the locale on my system, or by forcing a locale through a system
+ property, as illustrated by the 
+\emph on
+run
+\emph default
+ target in 
+\emph on
+build.xml
+\emph default
+:
+\end_layout
+
+\begin_layout LyX-Code
+ <target name="run" description="run app" depends="genhbm">
+\end_layout
+
+\begin_layout LyX-Code
+   <java classname="${main.class}" classpathref="class.path"
+\end_layout
+
+\begin_layout LyX-Code
+         fork="true" maxmemory="192m">
+\end_layout
+
+\begin_layout LyX-Code
+    <!-- to test localization, uncomment this..
+\end_layout
+
+\begin_layout LyX-Code
+     <sysproperty key="user.language" value="fr" />
+\end_layout
+
+\begin_layout LyX-Code
+      -->
+\end_layout
+
+\begin_layout LyX-Code
+   </java>
+\end_layout
+
+\begin_layout LyX-Code
+ </target>
+\end_layout
+
+\begin_layout Standard
+Uncomment the 
+\emph on
+<sysproperty>
+\emph default
+ line and set its value accordingly.
+ We've included a couple of snapshots of the resulting localized application
+ (figures 
+\begin_inset LatexCommand ref
+reference "fig:login_localized"
+
+\end_inset
+
+ and 
+\begin_inset LatexCommand ref
+reference "fig:partiallocalization"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/i18n_login.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Login dialog localized for French 
+\begin_inset LatexCommand label
+name "fig:login_localized"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/i18n_speakers.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Partially localized Sympster Application (French) 
+\begin_inset LatexCommand label
+name "fig:partiallocalization"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We see a number of the commands now use French captions.
+ The speaker is called a Presenteure, the field 
+\emph on
+name
+\emph default
+ becomes 
+\emph on
+Nom
+\emph default
+ and 
+\emph on
+title
+\emph default
+ becomes 
+\emph on
+titre
+\emph default
+.
+ Not all the text appears in French simply because I didn't provide a full
+ list of values for all commands and fields.
+ The figures don't show how the context menus also become localized.
+ 
+\emph on
+Open
+\emph default
+ becomes 
+\emph on
+Ouvre
+\emph default
+, etc..
+\end_layout
+
+\begin_layout Standard
+Localization support in JMatter is by no means complete or exhaustive.
+ For example, at the moment support for the proper date and currency formats
+ for different locales needs work.
+ We've already gotten some feedback on how to provide a more complete set
+ of localization services.
+ We hope that future versions will flesh out this support completely.
 \end_layout
 
 \begin_layout Chapter
