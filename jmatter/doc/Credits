@@ -29,6 +29,11 @@ contributions to JMatter, though this list is not exhaustive.
       JMatter and employ the technology in-house at their
       company down under.
       
+ - Marco Meschieri
+
+      Marco meticulously extracted captions and bits of text from
+      the JMatter codebase and concentrated them in resource bundles
+      to fully localize the UI.  Thank you Marco.
  - Ryan Ramage
 
       Ryan is the author of UltraViolet, a JMatter UML

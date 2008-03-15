@@ -14103,7 +14103,9 @@ Localization
 
 \begin_layout Standard
 I would like to thank Felix Torre for assisting in the development of support
- for localization (l10n) in JMatter.
+ for localization (l10n) in JMatter, and Marco Meschieri for meticulously
+ going through the codebase to extract captions and other text so that they
+ could be localized.
  This chapter documents the current support for l10n in JMatter.
 \end_layout
 
