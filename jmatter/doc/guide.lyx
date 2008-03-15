@@ -14947,6 +14947,35 @@ Open
 \end_layout
 
 \begin_layout Chapter
+Search
+\end_layout
+
+\begin_layout Standard
+In this chapter, we discuss and document JMatter's search features and capabilit
+ies.
+\end_layout
+
+\begin_layout Section
+Filtering Listings
+\end_layout
+
+\begin_layout Section
+The Find Command
+\end_layout
+
+\begin_layout Section
+Smart Lists
+\end_layout
+
+\begin_layout Section
+Search in Associations
+\end_layout
+
+\begin_layout Section
+Code Hints for Search
+\end_layout
+
+\begin_layout Chapter
 Validation
 \begin_inset LatexCommand label
 name "cha:Validation"
@@ -18823,9 +18852,8 @@ name "cha:Child-Projects"
 \end_layout
 
 \begin_layout Standard
-This chapter provides a little more detail information about the structure
- of JMatter project directories, and documents their accompanying build
- files.
+This chapter provides a more detail information about the structure of JMatter
+ project directories, and documents a JMatter application's build file.
 \end_layout
 
 \begin_layout Section
@@ -18898,7 +18926,7 @@ lib/
  child project.
  Standalone projects are therefore not subject to changes to the framework
  that might take place after its creation (unless the JMatter jar file and
- other dependent jar files are manually replaced of course).
+ other dependent jar files are manually replaced).
 \end_layout
 
 \begin_layout Standard
@@ -18925,7 +18953,7 @@ Both modes are useful in different contexts.
 It isn't particularly difficult to change one's project from being dependent
  to being standalone or vice versa.
  However, at the time of this writing, there is no magic ant target that
- will do this work on your behalf.
+ will do this work on our behalf.
 \end_layout
 
 \begin_layout Section
@@ -18968,7 +18996,7 @@ The
 \emph on
 resources
 \emph default
- folder is interesting, and is summarized in the table below.
+ folder is interesting; its composition is summarized in the table below.
 \end_layout
 
 \begin_layout Standard
@@ -19041,7 +19069,7 @@ styles.css
 
 \begin_layout Standard
 Default stylesheet for JMatter; governs how the JMatter user interface is
- styled (see 
+ styled (see chapter 
 \begin_inset LatexCommand ref
 reference "cha:Styling-the-UI"
 
@@ -19091,9 +19119,9 @@ local-metadata_<locale>.properties
 \begin_inset Text
 
 \begin_layout Standard
-Use for internationalization: provide translations for type names, command
- captions, field captions, and more in order to produce a user interface
- that is properly translated for the given locale.
+Use for localization: provide translations for type names, command captions,
+ field captions, and more in order to produce a user interface that is properly
+ translated for the given locale.
 \end_layout
 
 \end_inset
@@ -19138,13 +19166,14 @@ resources/jws
 \begin_inset Text
 
 \begin_layout Standard
-Contains resources necessary to produce bundle the application as a java
- webstart distribution.
- Edit the file 
-\emph on
-dynamic/project.properties
-\emph default
- to specify the host name and port where jws fetches your codebase from.
+Contains resources necessary to bundle the application as a java webstart
+ distribution (see chapter 
+\begin_inset LatexCommand ref
+reference "cha:Deploying-your-Application"
+
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -19196,9 +19225,13 @@ src/class-list.xml
 \begin_inset Text
 
 \begin_layout Standard
-This is where you can preconfigure your application's classbar: that is,
+(
+\emph on
+Optional
+\emph default
+) This is where you can preconfigure your application's classbar: that is,
  specify here the list of model objects you wish to expose to your user
- interface (optional: can be performed directly from the user interface).
+ interface.
 \end_layout
 
 \end_inset
@@ -19211,7 +19244,7 @@ This is where you can preconfigure your application's classbar: that is,
 \begin_layout Standard
 
 \emph on
-src/persistClasses.xml
+src/persistClasses.st
 \end_layout
 
 \end_inset
@@ -19221,9 +19254,14 @@ src/persistClasses.xml
 
 \begin_layout Standard
 You typically will not need to edit this file.
- It's a configuration file used to tell Hibernate what types to persist
- to database.
- It is typically automatically generated from annotations in your codebase.
+ This template is resolved at build time to list the persisted entities
+ in your application.
+ The list is derived from the 
+\emph on
+@Persist
+\emph default
+ annotations in your class files.
+ It is passed to Hibernate via a Spring configuration file.
 \end_layout
 
 \end_inset
@@ -19238,21 +19276,21 @@ You typically will not need to edit this file.
 
 \begin_layout Standard
 All child projects come with an ant build file.
- This build file generates a number of directories for the purpose of generating
- artifacts.
+ This build file generates a number of directories for the purpose of maintainin
+g artifacts.
  Let's discuss these:
 \end_layout
 
 \begin_layout Description
 db If you configure your application to use a lightweight or file-based
- database, such as H2 or hsqldb, the database files will reside in this
- subdirectory
+ database, such as H2 or hsqldb, the database files by default reside in
+ this subdirectory
 \end_layout
 
 \begin_layout Description
 build/classes Your application is compiled to this directory.
- All resources are also copied there, including images and hibernate mapping
- files
+ All resources are also copied here, including images and hibernate mapping
+ files (the latter being generated, not copied)
 \end_layout
 
 \begin_layout Description
@@ -19264,7 +19302,7 @@ dist The Java WebStart distribution is packaged as a
 \emph on
 .war
 \emph default
- file in and copied to this directory
+ file and copied to this directory
 \end_layout
 
 \begin_layout Section
@@ -19293,7 +19331,15 @@ Let's now turn our attention to the child project's ant build file.
 \end_layout
 
 \begin_layout LyX-Code
+ jar-model      jar just the model 
+\end_layout
+
+\begin_layout LyX-Code
  jws-dist       create java webstart distribution
+\end_layout
+
+\begin_layout LyX-Code
+ macappbundle   create macosx app bundle 
 \end_layout
 
 \begin_layout LyX-Code
@@ -19358,7 +19404,23 @@ schema-export
 \end_layout
 
 \begin_layout Standard
-For more details about the reveng-db target, see 
+The 
+\emph on
+jar-model
+\emph default
+ target is useful in the context of the JMatter Application Browser (see
+ chapter 
+\begin_inset LatexCommand ref
+reference "cha:Deployment,-Take-II:"
+
+\end_inset
+
+).
+ For more detail about the 
+\emph on
+reveng-db
+\emph default
+ target, see 
 \begin_inset LatexCommand vref
 reference "sec:Reverse-Engineer-Schema"
 
