@@ -14171,8 +14171,8 @@ _fr
 \end_layout
 
 \begin_layout Standard
-JMatter defines keys for retrieving all the labels and text render on the
- login dialog box.
+JMatter defines keys for retrieving all the labels and text rendered on
+ the login dialog box.
  Here is how they're specified in the _fr resource bundle:
 \end_layout
 
@@ -14385,9 +14385,8 @@ Note also that plural designations can be provided.
 
 \begin_layout Standard
 Here in the USA I can test how my application might look to a French speaker
- by revising the locale on my system, or simply forcing through my project
- build file.
- Look for the 
+ by revising the locale on my system, or by forcing a locale through a system
+ property, as illustrated by the 
 \emph on
 run
 \emph default
@@ -14431,7 +14430,7 @@ build.xml
 \end_layout
 
 \begin_layout Standard
-And uncomment the 
+Uncomment the 
 \emph on
 <sysproperty>
 \emph default
