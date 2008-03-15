@@ -2818,6 +2818,23 @@ We have the option of creating a standalone or dependent project.
 \emph on
 dependent
 \emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+The distinction between standalone and dependent projects is discussed in
+ chapter 
+\begin_inset LatexCommand vref
+reference "cha:Child-Projects"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 .
  Go ahead and click on the 
 \emph on
@@ -11366,11 +11383,11 @@ JMatter relies heavily on conventions for the purpose of inferring information
 \end_layout
 
 \begin_layout Standard
-Here are some conventions:
+Here are some of the conventions:
 \end_layout
 
 \begin_layout Enumerate
-Our class must extends the base type 
+Our class must extend the base type 
 \emph on
 AbstractComplexEObject.
 
@@ -11427,8 +11444,7 @@ We mark a method with the
 \emph on
 @Cmd
 \emph default
- annotation to indicate that we wish to expose this method to the user interface
-, as a command that users can invoke on instances.
+ annotation to indicate that we wish to expose this method to the user interface.
 \end_layout
 
 \begin_layout Standard
@@ -11577,7 +11593,7 @@ createdOn
 \begin_inset Text
 
 \begin_layout Standard
-A read only field that records the date and time that an object is created.
+A read-only field that records the date and time that an object is created.
  When displaying a view of an object in form view, the value of this field
  is displayed at the bottom, in the view's status bar.
 \end_layout
@@ -11608,13 +11624,20 @@ There's a second distinction that has to do with ownership of a field.
  parent object.
  All atomic fields are aggregates.
  Associations on the other hand are fields that represent relationships
- to other objects.
- These relationships can be set or severed.
+ to other objects, or entities; these relationships can be set or severed.
  Field ownership has implications on specific operations.
  For example, if the parent object is deleted, associations are only severed,
  but the associated object is not deleted.
  That is, the delete operation does not cascade to associations.
  A deletion on the other hand implies the deletion of child aggregate fields.
+\end_layout
+
+\begin_layout Standard
+It turns out that JMatter's domain design happens to match the rules set
+ forth by Eric Evans in his book Domain Driven Design.
+ If you're familiar with this work, then the notions of entities, value
+ objects, and aggregates and their interrelationships should already by
+ familiar to you.
 \end_layout
 
 \begin_layout Standard
@@ -11639,8 +11662,8 @@ com.u2d.type.atomic.StringEO
 java.lang.String
 \emph default
 .
- Internally the frameworks' atomic type implementations are often a wrapper
- for the more primitive value.
+ Internally the frameworks' atomic type implementations often wrap or encapsulat
+e the more primitive type.
 \end_layout
 
 \begin_layout Standard
@@ -11688,7 +11711,7 @@ public void setValue(String value);
 
 \begin_layout Standard
 Other atomic types have similar conveniences.
- IntEO for example (represents an integer) has this convenience method:
+ IntEO for example (which represents an integer) has this convenience method:
 \end_layout
 
 \begin_layout LyX-Code
@@ -11726,8 +11749,11 @@ Finally, all these atomic types are
 \emph on
 ChangeNotifier
 \emph default
-'s, which means that they publish (or fire) change events that you can listen
- to.
+'s, which means that they publish (or 
+\emph on
+fire
+\emph default
+, in pub/sub speak) change events that you can listen to.
  This can be useful for building lotus123-style dependencies between objects
  (when A changes, update B).
  This is also useful internally to keep the user interface in sync with
@@ -11739,8 +11765,7 @@ Build-In Atomics
 \end_layout
 
 \begin_layout Standard
-Here is a listing of the various atomic types provided that come out of
- the box:
+Here is a listing of the various JMatter atomic types:
 \end_layout
 
 \begin_layout LyX-Code
@@ -11765,8 +11790,9 @@ They are all defined in the
 package com.u2d.type.atom.
 
 \emph default
- Writing your own additional types is fairly straightforward.
- The existing implementations represent a wealth of examples.
+ Writing your own additional types is quite straightforward.
+ The existing implementations represent a wealth of examples that one can
+ draw from.
 \end_layout
 
 \begin_layout Subsection
@@ -11806,14 +11832,39 @@ public class Person extends AbstractComplexEObject implements Emailable
 }
 \end_layout
 
+\begin_layout Standard
+The 
+\emph on
+setValue()
+\emph default
+ method applies to composite fields.
+ For example, to copy one contact's address to another by value, you might
+ do this:
+\end_layout
+
+\begin_layout LyX-Code
+public void copyAddress(Contact fromContact, Contact toContact)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+  toContact.getAddress().setValue(fromContact.getAddress());
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
 \begin_layout Subsubsection
 Composite Types Provided with the Framework
 \end_layout
 
 \begin_layout Standard
-The framework comes with a number of predefined types that one might typically
- use as a composite.
- They're defined in the package 
+The framework predefines a number non-atomic, or higher-level types.
+ They're reside in the package 
 \emph on
 com.u2d.type.composite
 \emph default
@@ -11826,15 +11877,7 @@ Name, USAddress, ContactMethod, Contact, BusinessContact,
 \end_layout
 
 \begin_layout LyX-Code
-  EmailMessage, Folder, Note
-\end_layout
-
-\begin_layout Standard
-There's nothing that makes these types composites.
- In other words, there's nothing that prevents anyone from using, for example,
- a USAddress as a full-fledged entity.
- What makes a Complex Object a composite is how you define the field in
- a containing class.
+EmailMessage, Folder, Note, Person, Business, LoggedEvent
 \end_layout
 
 \begin_layout Subsubsection
@@ -12174,7 +12217,11 @@ Basically, the field name is of the form:
 <fieldname>InverseFieldName
 \emph default
 .
- Speaker has a field named talks, so the variable name is talksInverseFieldName.
+ Speaker has a field named talks, so the variable name is 
+\emph on
+talksInverseFieldName
+\emph default
+.
  Its value is the name of the inverse field: the talk's speaker's field
  name is 
 \emph on
@@ -12195,7 +12242,7 @@ The notion of a Choice in JMatter is somewhat analogous to what programmers
 enumerations
 \emph default
 .
- Actually, JMatter provides two flavors of choices.
+ JMatter provides two flavors of choices.
  The first and more basic flavor is the 
 \emph on
 ChoiceEO
@@ -12328,7 +12375,7 @@ ComplexEObject
 \end_layout
 
 \begin_layout Standard
-The framework provides full created/edit/delete capabilities for these types.
+The framework provides full create/edit/delete capabilities for these types.
  They are defined by extending the type 
 \emph on
 AbstractChoiceEO
@@ -12413,7 +12460,7 @@ The first argument to the method is some context information about the command
 CommandInfo
 \emph default
  type; I am discovering that this information is rarely needed and am beginning
- to question passing this argument in).
+ to question passing this argument).
 \end_layout
 
 \begin_layout Standard
@@ -12435,8 +12482,9 @@ If the method returns a type that is viewable (another entity), the framework
 \end_layout
 
 \begin_layout Standard
-If the method accepts arguments, then the framework will first display a
- form for the user to provide the inputs to the action.
+If the method accepts arguments, then the framework will first prompt the
+ user for these arguments (via an input form) before proceeding to invoke
+ the command.
  Take for example, this command, defined on 
 \emph on
 User.java
@@ -12481,25 +12529,21 @@ public String ChangePassword(CommandInfo cmdInfo,
 \end_layout
 
 \begin_layout Standard
-In this case, when an end-user invokes this command (by pressing the 
+When an end-user invokes this command (by pressing the 
 \emph on
 Change Password
 \emph default
  button on an instance of a user), he or she will first be prompted to enter
- a password.
+ a password, using the caption 
+\emph on
+New Password
+\emph default
+.
  The framework does it all.
  Once the password is entered, the framework proceeds to invoke the command
  (in the proper thread).
  In this case, the password editor takes care to properly validate the password
  before the method is ever invoked.
- So there's no need to perform any additional validation.
- See chapter 
-\begin_inset LatexCommand ref
-reference "cha:Validation"
-
-\end_inset
-
- for more information.
 \end_layout
 
 \begin_layout Subsection
@@ -12519,9 +12563,16 @@ So we have two types of commands: instance commands and type commands.
 \emph on
 ComplexType
 \emph default
- represents or models a metatype, in the same way that the class java.lang.Class
+ represents or models a metatype, in the same way that the class 
+\emph on
+java.lang.Class
+\emph default
  is an instance's type.
- You will also find @Cmd definitions in 
+ You will also find 
+\emph on
+@Cmd
+\emph default
+ definitions in 
 \emph on
 ComplexType
 \emph default
@@ -12533,8 +12584,8 @@ ComplexType
 \end_layout
 
 \begin_layout Standard
-Please note also that atomic types can have their own commands as well.
- They can be invoked from the UI by right-clicking on the value.
+Atomic types can have their own commands too.
+ They can be invoked from the UI by right-clicking on the rendered value.
  For example, 
 \emph on
 StringEO
@@ -12544,6 +12595,8 @@ StringEO
 Capitalize()
 \emph default
 .
+ We encourage you to define additional commands that might be useful to
+ the plethora of atomic types that JMatter defines.
 \end_layout
 
 \begin_layout Subsubsection
@@ -12578,33 +12631,39 @@ This is an indication that the command can be invoked
 in batch
 \emph default
 , so to speak; that is, given a list of instances (perhaps search results
- from a query done via the ui), you will be able to invoke that command
- on all the items in the list.
+ from a query), you will be able to invoke that command on all the items
+ in the list.
  The logic basically iterates over all instances in the list and invokes
  the command on each instance.
 \end_layout
 
 \begin_layout Standard
-There actually exists a command 
+There exists a command 
 \emph on
 Email
 \emph default
- on the type 
+ on JMatter's type 
 \emph on
 Person
 \emph default
- in JMatter.
- It basically launches your default email client and opens a compose window
- with the destination address prefilled with the person's email address
- information.
- You can try this from the ContactMgr demo application.
+, which launches your default email client and opens a compose window with
+ the destination address pre-filled with the person's email address information.
+ You can try this from the 
+\emph on
+ContactMgr
+\emph default
+ demo application.
  To invoke it in batch mode, just bring up a list of contacts and right-click
- on the list-view's title, which will bring up its context menu.
+ on the list-view's title to reveal its context menu.
 \end_layout
 
 \begin_layout Standard
-Invoking the Email command in batch will open multiple compose windows,
- one for each recipient on the list.
+Invoking the 
+\emph on
+Email
+\emph default
+ command in batch will open multiple compose windows, one for each recipient
+ on the list.
 \end_layout
 
 \begin_layout Standard
@@ -12633,14 +12692,21 @@ prompts you for a subject line and then launches your email client's compose
 \end_layout
 
 \begin_layout Standard
-What if we wanted the behavior of the command to be smarter.
- That is, we wish to write a separate implementation of Email, perhaps named
- EmailAll, that opened a single composition window, but specified in the
- 
+What if we wanted the behavior of the command to be smarter? That is, we
+ wish to write a separate implementation of 
+\emph on
+Email
+\emph default
+, perhaps named 
+\emph on
+EmailAll
+\emph default
+, that opened a single composition window, but that specified multiple addresses
+ (the addresses of each of the persons on the list) in the 
 \emph on
 To:
 \emph default
- field multiple addresses: the addresses of each of the persons on the list?
+ field.
 \end_layout
 
 \begin_layout Standard
@@ -12686,6 +12752,20 @@ Note that list commands must be denoted as
 static
 \emph default
 .
+ Please refer to the 
+\emph on
+Person
+\emph default
+ class for the complete code listing.
+ 
+\end_layout
+
+\begin_layout Standard
+List commands are a powerful tool that can significantly increase the usability
+ of applications.
+ Their use is highly encouraged.
+ Without them, end users may be forced to perform the same operation repetitivel
+y to effect a business change in their model.
 \end_layout
 
 \begin_layout Section
@@ -12799,6 +12879,15 @@ You can assign an icon to each type.
 resources/images
 \emph default
  folder of your project.
+ Your project's build file automaticaly copies these resources to the classpath
+\emph on
+ 
+\emph default
+at 
+\emph on
+images/<imgresourcename>
+\emph default
+.
 \end_layout
 
 \begin_layout Standard
@@ -12838,9 +12927,16 @@ images
 
 \begin_layout Standard
 JMatter also leverages and honors the type's inheritance hierarchy.
- For example, if you define a specific subclass of User.java, say UberUser.java,
- without providing a set of icons for the type, JMatter will use the super
- type's icon set for the subtype.
+ For example, if you define a specific subclass of 
+\emph on
+User.java
+\emph default
+, say 
+\emph on
+UberUser.java
+\emph default
+, without providing a set of icons for the subtype, JMatter will fall back
+ the super type's icon.
 \end_layout
 
 \begin_layout Standard
@@ -13214,9 +13310,7 @@ The above example may be used, say, in a
 Person
 \emph default
  object to specify that the person's contact information (an aggregate field)
- should be displayed in a separate tab (it would be nice if we could similarly
- specify that multiple fields appear on a single tab, though such a feature
- is not yet implemented).
+ should be displayed in a separate tab.
 \end_layout
 
 \begin_layout Standard
@@ -13568,6 +13662,8 @@ Description
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 mnemonic
 \end_layout
 
@@ -13598,6 +13694,8 @@ What keyboard mnemonic to attach to the field in question.
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 label
 \end_layout
 
@@ -13627,6 +13725,8 @@ A way to override the caption used to display a field in a form
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 description
 \end_layout
 
@@ -13657,6 +13757,8 @@ The field's description.
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 colname
 \end_layout
 
@@ -13671,7 +13773,7 @@ String
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Standard
@@ -13688,6 +13790,8 @@ A means to override the name of the database column corresponding to this
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 colsize
 \end_layout
 
@@ -13719,6 +13823,8 @@ Controls the size of the field's underlying database column.
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 displaysize
 \end_layout
 
@@ -13749,6 +13855,8 @@ Controls the size of the corresponding text field used for doing data entry
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 format
 \end_layout
 
@@ -13767,22 +13875,38 @@ String
 \begin_inset Text
 
 \begin_layout Standard
-Applies only to TimeEO and DateEO type fields.
- Accepts a SimpleDateFormat string to control the format of times and dates
- for both parsing and rendering.
+Applies only to 
+\emph on
+TimeEO
+\emph default
+ and 
+\emph on
+DateEO
+\emph default
+ type fields.
+ Accepts a 
+\emph on
+SimpleDateFormat
+\emph default
+ string to control the format of times and dates for both parsing and rendering.
  e.g.
- @Fld(format='m:ss') might be useful on a TimeEO field for displaying song
- durations.
+ 
+\emph on
+@Fld(format='m:ss')
+\emph default
+ might be useful on a TimeEO field for displaying song durations.
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true" bottomline="true">
+<row topline="true">
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 persist
 \end_layout
 
@@ -13813,6 +13937,8 @@ Whether the field should be persisted at all (see the discussion on Calculated
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 hidden
 \end_layout
 
@@ -13827,7 +13953,7 @@ boolean
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Standard
@@ -13865,7 +13991,7 @@ reference "sub:model-metadata.properties"
 
 \end_inset
 
- below).
+).
 \end_layout
 
 \begin_layout Section
@@ -13881,7 +14007,11 @@ Commands must be marked with the
  There's nothing special about these methods and they can be invoked programmati
 cally as well.
  When these commands are invoked from the user interface, JMatter makes
- sure to call the method off the event dispatch thread.
+ sure to call the method off the 
+\emph on
+event dispatch thread
+\emph default
+.
 \end_layout
 
 \begin_layout Standard
@@ -13909,7 +14039,7 @@ Here is a summary of the optional parameters that the
 \begin_layout Standard
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="7" columns="3">
+<lyxtabular version="3" rows="8" columns="3">
 <features>
 <column alignment="left" valignment="top" leftline="true" width="1in">
 <column alignment="left" valignment="top" leftline="true" width="0.75in">
@@ -13954,6 +14084,8 @@ Description
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 mnemonic
 \end_layout
 
@@ -13983,6 +14115,8 @@ What keyboard mnemonic to use to invoke the command
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 label
 \end_layout
 
@@ -14012,6 +14146,8 @@ Use to override command's caption in the user interface
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 description
 \end_layout
 
@@ -14041,6 +14177,8 @@ Used as a tooltip to the command's corresponding view (usually a button)
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 sensitive
 \end_layout
 
@@ -14067,7 +14205,7 @@ Delete
 ) where it would be beneficial for the ui to provide a mechanism to prevent
  against inadvertent invocation of the command.
  This is done in the Swing view mechanism by disabling the command's button.
- A small lock on the button can be clicked on to enable the action.
+ A small lock on the button can be clicked on to unlock (enable) the action.
 \end_layout
 
 \end_inset
@@ -14078,6 +14216,8 @@ Delete
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 shortcut
 \end_layout
 
@@ -14109,6 +14249,8 @@ Applies only to type commands (commands marked static).
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 batchable
 \end_layout
 
@@ -14129,6 +14271,54 @@ boolean
 \begin_layout Standard
 Whether the command can be invoked in list context (composed across a number
  of instances)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\emph on
+iconref
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+String
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Decorate the command view (button or menu item) with an icon.
+ For example, the 
+\emph on
+Edit
+\emph default
+ command is defined with 
+\emph on
+iconref="pencil"
+\emph default
+; make sure to place a copy of 
+\emph on
+pencil32.png
+\emph default
+ and 
+\emph on
+pencil16.png
+\emph default
+ in the image resources folder.
 \end_layout
 
 \end_inset
@@ -14159,7 +14349,7 @@ In addition, method arguments can be optionally marked with the
 \emph default
  annotation.
  This annotation accepts a single value, which is used as the caption on
- the form drawn to accept input to the method, as this example illustrated:
+ the form drawn to accept input to the method, as this example illustrates:
 \end_layout
 
 \begin_layout LyX-Code
@@ -14249,22 +14439,32 @@ Person.name.first
 \end_layout
 
 \begin_layout Standard
-We can mark fields as required by setting the field property value to 
+We can mark fields as required by setting the field property value, appending
+ the 
+\emph on
+.required
+\emph default
+ suffix, to 
 \emph on
 true
 \emph default
 .
- But we can also specify the default value a field should have.
+ We can also specify a field's default value.
  Above we see that we can even specify the default value in terms of a hibernate
  (hql) query.
  We can also provide a hard-coded value, say 
 \emph on
-Person.salutation=Mr.
+Person.salutation.default=Mr.
 \end_layout
 
 \begin_layout Standard
 For choice-type fields, we can specify the code for the choice and if a
- database lookup is necessary, it will be performed.
+ database lookup is necessary, it will be performed (e.g.
+ 
+\emph on
+Address.state.default=TX
+\emph default
+)
 \end_layout
 
 \begin_layout Standard
@@ -14286,7 +14486,11 @@ The base class
 \emph on
 AbstractComplexEObject
 \emph default
- implements the interface PersistorListener:
+ implements the interface 
+\emph on
+PersistorListener
+\emph default
+:
 \end_layout
 
 \begin_layout LyX-Code
@@ -14323,8 +14527,11 @@ public interface PersistorListener
 
 \begin_layout Standard
 The persistence mechanism implementation calls these methods at the appropriate
- times: when an object is loaded from the persistence store, onLoad() will
- automatically be called, for example.
+ times: when an object is loaded from the persistence store, 
+\emph on
+onLoad()
+\emph default
+ will automatically be called, for example.
 \end_layout
 
 \begin_layout Standard
@@ -14452,8 +14659,12 @@ To the extent that you have objects in your application that need to be
 \end_layout
 
 \begin_layout Standard
-In fact, we saw an example in the IssueMgr sample application where we wanted
- to delay transitioning to another state until after the object was created.
+In fact, we saw an example in the 
+\emph on
+IssueMgr
+\emph default
+ sample application where we wanted to delay transitioning to another state
+ until after the object was created.
 \end_layout
 
 \begin_layout Chapter
@@ -18594,6 +18805,12 @@ Localization support in JMatter is by no means complete or exhaustive.
 
 \begin_layout Chapter
 Child Projects
+\begin_inset LatexCommand label
+name "cha:Child-Projects"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -24747,6 +24964,48 @@ The Art and Science of Smalltalk.
 
 \emph default
  Prentice Hall; 1 edition (May 11, 1995)
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset LatexCommand bibitem
+label "4"
+key "GoF"
+
+\end_inset
+
+.
+ 
+\emph on
+Design Patterns
+\emph default
+.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset LatexCommand bibitem
+label "5"
+key "Evans"
+
+\end_inset
+
+
+\emph on
+Eric Evans.
+ Domain Driven Design
+\emph default
+.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset LatexCommand bibitem
+label "6"
+key "key-3"
+
+\end_inset
+
+
+\emph on
+JasperReports
 \end_layout
 
 \end_body
