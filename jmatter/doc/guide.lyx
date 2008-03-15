@@ -14692,7 +14692,7 @@ When launching a JMatter application for the first time, the framework will
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \noindent
@@ -14726,29 +14726,38 @@ Initial Users and Roles
 \end_layout
 
 \begin_layout Standard
-The framework itself comes with the implementation.
- If you browse the framework source code you will find two model objects:
- User.java and Role.java, that are constructed according to JMatter's own
- conventions for model objects.
+The framework provides two model objects: 
+\emph on
+User.java
+\emph default
+ and 
+\emph on
+Role.java
+\emph default
+, that are constructed according to JMatter's own conventions for model
+ objects.
  The icons used for these types follow the same convention: you will find
  in the path 
 \emph on
 jmatter/resources/images
 \emph default
  the corresponding icons used by the framework.
- In the case of User, you will find three variants: an icon for a single
- user, a plural version, and a state-specific icon for locked users (UserLocked3
-2.png).
+ In the case of 
+\emph on
+User
+\emph default
+, you will find three variants: an icon for a single user, a plural version,
+ and a state-specific icon for locked users (UserLocked32.png).
 \end_layout
 
 \begin_layout Standard
 Users and Roles are modeled in a bidirectional one-to-many association.
- By default, when creating a new user, the user will be associated to the
- default role.
+ By default, when creating a new user, the user will be associated with
+ the default role.
 \end_layout
 
 \begin_layout Standard
-Passwords are hashed using the MD5 algorightm, and it is this hash which
+Passwords are hashed using the MD5 algorigthm, and it is this hash which
  is stored in the database.
 \end_layout
 
@@ -14780,7 +14789,7 @@ class-list.xml
 \begin_layout Standard
 Again, assuming the proper permissions, one can create new users, new roles,
  assign users to a role, and go about performing whatever activities are
- necessary to manage this information.
+ necessary to manage authentication-related information.
 \end_layout
 
 \begin_layout Section
@@ -15063,7 +15072,7 @@ int
 \emph on
 0
 \emph default
- implies that everything validated just fine.
+ implies that validation passed.
 \end_layout
 
 \begin_layout Standard
@@ -15254,8 +15263,8 @@ This editor displays two password fields.
  criteria, such as a minimum length, or exceeding a certain minimum password
  strength, based on a specific algorithm.
  Again, we see here how the editor, through its reference to the model object,
- can also tap into the validation panels to display the proper validation
- error message.
+ fire a validation signal, causing the proper validation error message to
+ display.
  
 \end_layout
 
@@ -15269,8 +15278,8 @@ In addition, baked into the framework is a simple mechanism for marking
 \end_layout
 
 \begin_layout Standard
-The way to mark required fields in JMatter at the moment is to specify them
- in the properties file 
+The way to mark required fields in JMatter is to specify them in the properties
+ file 
 \emph on
 model-metadata.properties
 \emph default
@@ -23298,11 +23307,6 @@ Support for exporting lists as Comma-Separated Values (CSV)
 \end_layout
 
 \begin_layout Enumerate
-XML Import/Export Features for types that define a JiBX binding (not yet
- documented)
-\end_layout
-
-\begin_layout Enumerate
 Support for wizards
 \end_layout
 
@@ -23323,7 +23327,7 @@ Not having to deal with threading issues
 \end_layout
 
 \begin_layout Enumerate
-The beginnings of a promising authorization system
+An authorization system
 \end_layout
 
 \begin_layout Enumerate
@@ -23335,32 +23339,17 @@ The ability to customize the class bar directly from the UI
 \end_layout
 
 \begin_layout Enumerate
-The ability to view meta-information (and soon the ability to edit some
- of that meta-information directly from the ui).
+The ability to view meta-information directly from the ui
+\end_layout
+
+\begin_layout Enumerate
+Ability to style Swing applications with CSS.
 \end_layout
 
 \begin_layout Standard
 This chapter is about conveying to you my vision for JMatter: what other
  features you're likely to see in the future.
  Here's a brief outline of my thoughts at the moment:
-\end_layout
-
-\begin_layout Enumerate
-Ability to style Swing applications with CSS
-\end_layout
-
-\begin_layout Enumerate
-A complete authorization system, one whose policy is specified directly
- from the user interface
-\end_layout
-
-\begin_layout Enumerate
-Improvements to the calendaring and scheduling subsystem
-\end_layout
-
-\begin_layout Enumerate
-Complete reporting support: report definition, specification and production
- (PDF and other formats) (probably based on JasperReports)
 \end_layout
 
 \begin_layout Enumerate
@@ -23379,31 +23368,6 @@ A web-based user interface: the ability to support web-based clients in
  addition to rich clients
 \end_layout
 
-\begin_layout Enumerate
-Charting service (look into jfreechart)
-\end_layout
-
-\begin_layout Enumerate
-Additional UI widgets: an editable table to edit multiple objects together;
- a double-list widget to add items to a list more quickly; a 
-\emph on
-trash can
-\emph default
- where deleted items end up, to protect against deletions
-\end_layout
-
-\begin_layout Enumerate
-Generally, the ability to perform operations on a list of objects at the
- same time (support for multipe-selections from lists), in batch so to speak
-\end_layout
-
-\begin_layout Enumerate
-A distributed real-time publish/subscribe system so that multiple users
- logged in to the system can see each other, communicate with each other,
- and so that actions performed by one user are immediately reflected in
- other users' desktops
-\end_layout
-
 \begin_layout Standard
 The following goals are tentative:
 \end_layout
@@ -23413,10 +23377,6 @@ Possibly an extension of the architecture to support the construction of
  large enterprise applications.
  That is, a second, alternative architecture that is n-tier by nature, with
  application servers sitting between the database server and clients
-\end_layout
-
-\begin_layout Enumerate
-Possibly a move to using Java 5 annotations for specifying all metadata
 \end_layout
 
 \begin_layout Standard
@@ -24874,11 +24834,24 @@ Contributing to this project
 \end_layout
 
 \begin_layout Standard
-There are many ways that you can help contribute to this project.
+Here are few ways in which you can help this project succeed:
 \end_layout
 
 \begin_layout Enumerate
-One way is to spread the word: help increase the adoption of this framework.
+Use JMatter
+\end_layout
+
+\begin_layout Enumerate
+Spread the word
+\end_layout
+
+\begin_layout Enumerate
+Consider buying a print copy of this book from 
+\emph on
+lulu.com
+\emph default
+ (follow the link from the jmatter.org web site).
+ A fraction of the price of the book goes back to the developers.
 \end_layout
 
 \begin_layout Enumerate
@@ -24891,18 +24864,7 @@ If you're in the business of developing commercial software solutions, buy
 \end_layout
 
 \begin_layout Enumerate
-If you're doing open source development, consider donating to this project
- (see 
-\begin_inset LatexCommand url
-target "http://jmatter.org/pages/donate"
-
-\end_inset
-
- )
-\end_layout
-
-\begin_layout Enumerate
-Join the mailing list! Discuss features, possible design improvements; become
+Join the mailing list! Discuss features, suggest design improvements, become
  a part of our community
 \end_layout
 
@@ -24911,14 +24873,13 @@ If you're a software developer, contribute bug fixes, features, enhancements
 \end_layout
 
 \begin_layout Enumerate
-Consider buying a print copy of this book from lulu.com (follow the link
- from the jmatter.org web site).
- A fraction of the price of the book goes back to the developers.
-\end_layout
+Donate directly (see 
+\begin_inset LatexCommand url
+target "http://jmatter.org/pages/donate"
 
-\begin_layout Standard
-These are only a few ways in which you can make a visible and noticeable
- contribution.
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Bibliography
