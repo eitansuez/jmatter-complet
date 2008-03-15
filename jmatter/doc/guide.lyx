@@ -2941,14 +2941,8 @@ Behind the scenes, JMatter introspects the classes in question and for each
 \begin_layout Standard
 We should now be able to inspect the contents of our database and verify
  that it contains these tables.
- By default, JMatter uses the 
-\begin_inset LatexCommand htmlurl
-name "http://h2database.com/"
-target "H2 database"
-
-\end_inset
-
-, which is lightweight and requires no work on your part 
+ By default, JMatter uses the H2 database, which is lightweight and requires
+ no work on your part 
 \begin_inset Foot
 status collapsed
 
@@ -8089,8 +8083,8 @@ calTitle()
  It gives you a chance to specify a title for a Session object that is more
  appropriate in the context of a calendar.
  For example, the calendar will make obvious the time and duration and location
- of the session, so you might not want to repeat that information redundantly
- in the title.
+ of the session, so you might not want to repeat that information in the
+ title.
  In this case, we specify the talk's title as the calendar-context title
  for 
 \emph on
@@ -9846,8 +9840,15 @@ src/persistClasses.st
 @Persist
 \emph default
  annotation takes care to add Issue to the list automatically.
- However here we're using a predefined entity Note and for it we do need
- to manually add an entry to our persistClasses.st file, like so:
+ However here we're using a predefined entity 
+\emph on
+Note
+\emph default
+ and for it we do need to manually add an entry to our 
+\emph on
+persistClasses.st
+\emph default
+ file, like so:
 \end_layout
 
 \begin_layout LyX-Code
@@ -10188,8 +10189,8 @@ Notice that the convention for defining commands on these states is the
 \emph on
 @Arg
 \emph default
- annotations are a means of specifying the captions used to prompt the end
- user for each of the method parameters.
+ annotations' values are a means of specifying the captions used to prompt
+ the end user for each of the method parameters.
 \end_layout
 
 \begin_layout Standard
@@ -11601,7 +11602,11 @@ add the steps in the proper order
 \end_layout
 
 \begin_layout Enumerate
-call the ready() method
+call the 
+\emph on
+ready()
+\emph default
+ method
 \end_layout
 
 \begin_layout Standard
@@ -11745,7 +11750,7 @@ FormView
  By reusing this class, we automate the chore of having to write the panels
  that make up our wizard's user interface.
  Not only do we automate the construction of each panel, but also the binding
- of the view to its model object, as well model object validation.
+ of the view to its model object, as well as model object validation.
  For example, entering a zip code with an invalid format in the 
 \emph on
 AddressStep
@@ -12196,7 +12201,8 @@ The latter two methods provide the data to bind to the xml report specification.
  The first method provides the path to the report's xml specification.
  JMatter basically follows the convention that these xml files be placed
  alongside source code.
- The xml files are then loaded into a Java application as a resource.
+ The xml files are then loaded into a Java application as a resource from
+ the classpath.
 \end_layout
 
 \begin_layout Standard
@@ -12491,6 +12497,48 @@ PDF produced with JFreeReport
 \end_layout
 
 \begin_layout Section
+JasperReports
+\end_layout
+
+\begin_layout Standard
+JasperReports is yet another, even more popular, open, reporting solution
+ for Java.
+ It is a well-supported project.
+ One appealing feature of this project is its companion project 
+\emph on
+iReports
+\emph default
+, a mature graphical report designer, which does away with the tedium of
+ writing JasperReport's analog to the the xml report specification we just
+ saw in the last section.
+\end_layout
+
+\begin_layout Standard
+Another attractive feature of JasperReports is its support and integration
+ with Hibernate.
+ This makes JasperReports a perfect mate for JMatter.
+ We recently extended the 
+\emph on
+Sympster
+\emph default
+ demo application with an example use of JasperReports for producing a symposium
+ schedule.
+ Simply run Sympster, create a symposium and a number of associated Sessions,
+ and then invoke the Symposium command 
+\emph on
+Report Schedule
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+JMatter now bundled the JasperReport libraries with its distribution for
+ your convenience.
+ We also highly recommend you support the JasperReports project by buying
+ a copy of their documentation in print.
+\end_layout
+
+\begin_layout Section
 Summary
 \end_layout
 
@@ -12550,12 +12598,12 @@ It's nice for a framework to support the automatic generation of views for
 \begin_layout Standard
 JMatter's primary view mechanism at the moment is its Swing-based view mechanism.
  Other view mechanisms might be constructed in the future, including possibly
- a web-based user interface, possibly a command-line user interface.
+ a web-based user interface.
 \end_layout
 
 \begin_layout Standard
-In this chapter I'd like to provide an example of how one goes about writing
- and specifying a custom view for the Swing view mechanism.
+In this chapter I'd like to demonstrate through examples various ways in
+ which custom views can be integrated into the Swing view mechanism.
 \end_layout
 
 \begin_layout Section
@@ -12716,7 +12764,46 @@ name "cap:Desired-view"
 \end_layout
 
 \begin_layout Standard
-We must do two things:
+It turns out that JMatter's 
+\emph on
+FormView
+\emph default
+ is already parameterized such that, if you prefer, you can designate that
+ labels appear above their editors instead of to their left.
+ All you need to do is revise the value for the 
+\emph on
+labelEditorLayoutHorizontal
+\emph default
+ property in your application's spring configuration context file 
+\emph on
+src/applicationContext.xml
+\emph default
+ as shown below:
+\end_layout
+
+\begin_layout LyX-Code
+<bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism"
+\end_layout
+
+\begin_layout LyX-Code
+      factory-method="getInstance">
+\end_layout
+
+\begin_layout LyX-Code
+   <property name="appSession" ref="app-session" />
+\end_layout
+
+\begin_layout LyX-Code
+   <property name="labelEditorLayoutHorizontal" value="false" />
+\end_layout
+
+\begin_layout LyX-Code
+</bean>
+\end_layout
+
+\begin_layout Standard
+Let's proceed by pretending that this feature was not available.
+ We must do two things:
 \end_layout
 
 \begin_layout Enumerate
@@ -13063,13 +13150,17 @@ by hand,
 \end_inset
 
  so to speak.
- JGoodies' DefaultFormBuilder makes this pretty easy.
- I assume that similar code could also be produced with the help of a visual
- form designer, such as the 
+ JGoodies' 
+\emph on
+DefaultFormBuilder
+\emph default
+ makes this pretty easy.
+ Similar code could also be produced with the help of a visual form designer,
+ such as the 
 \emph on
 Abeille Forms Designer
 \emph default
-, for example.
+.
  Note however, that there are additional responsibilities that this class
  must fulfill:
 \end_layout
@@ -13123,8 +13214,12 @@ detach
 \begin_inset Quotes erd
 \end_inset
 
- themselves from the model objects where they're destroyed.
- It's very important that the detach() method properly do this.
+ themselves from the model objects when they're destroyed.
+ It's very important that the 
+\emph on
+detach()
+\emph default
+ method properly do this.
  A careless implementation can easily introduce a memory leak into the applicati
 on as views are created and their memory not reclaimed because they may
  still be attached to a model object whose lifetime is typically longer
@@ -13164,13 +13259,316 @@ transferValue()
 \end_layout
 
 \begin_layout Section
+A Custom View for Sympster Sessions
+\end_layout
+
+\begin_layout Standard
+Here's a more compelling illustration of customizing a view for an object:
+ the 
+\emph on
+Sympster
+\emph default
+ demo application was recently further customized with a custom view for
+ its 
+\emph on
+Session
+\emph default
+ class.
+ In this situation, I wanted to reuse JMatter's default 
+\emph on
+FormView
+\emph default
+ which handles the editing process beautifully and saves me a lot of work.
+ On the other hand, I wanted a more compelling view for sessions in read
+ state, as shown in figure 
+\begin_inset LatexCommand ref
+reference "fig:Customized-View-for"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/custom-sessionview.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Customized View for Session
+\begin_inset LatexCommand label
+name "fig:Customized-View-for"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+JMatter provides a class named 
+\emph on
+CustomReadView
+\emph default
+ which automatically composes JMatter's 
+\emph on
+FormView
+\emph default
+ in edit state with a custom view that you provide for the read state, as
+ shown in the following code snippet from the class Session where the 
+\emph on
+getMainView()
+\emph default
+ method is overridden correspondingly:
+\end_layout
+
+\begin_layout LyX-Code
+   public EView getMainView()
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return new CustomReadView(new SessionView(this));
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout Standard
+Please refer to the implementation of 
+\emph on
+SessionView
+\emph default
+ in the Sympster demo application for the details of its implementation.
+ One note worthy of mentioning is that the implementation leverages JMatter's
+ 
+\emph on
+css4swing
+\emph default
+ library to style itself, which I discuss in chapter 
+\begin_inset LatexCommand vref
+reference "cha:Styling-the-UI"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+The 
+\emph on
+Self
+\emph default
+ demo application
+\end_layout
+
+\begin_layout Standard
+Yet another way to augment JMatter with hand-crafted views and widgets is
+ illustrated through the bundled demo application named 
+\emph on
+Self
+\emph default
+.
+ The model for this application is trivial on purpose: it consists of a
+ Space that contains Balls.
+ The space has one additional property: the temperature within the space.
+\end_layout
+
+\begin_layout Standard
+In this particular scenario, it is quite unpallatable to view these objects
+ through forms when it would be so much more compelling if their visual
+ representations were represented directly in the UI.
+\end_layout
+
+\begin_layout Standard
+Any command you write that returns an object of type 
+\emph on
+View
+\emph default
+ or 
+\emph on
+JComponent
+\emph default
+ will be displayed by JMatter upon invocation.
+ The 
+\emph on
+Self
+\emph default
+ demo application takes advantage of this feature:
+\end_layout
+
+\begin_layout LyX-Code
+public class Space
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout LyX-Code
+   @Cmd(mnemonic='s')
+\end_layout
+
+\begin_layout LyX-Code
+   public View Show(CommandInfo cmdInfo)
+\end_layout
+
+\begin_layout LyX-Code
+   {
+\end_layout
+
+\begin_layout LyX-Code
+      return new SpaceView(this);
+\end_layout
+
+\begin_layout LyX-Code
+   }
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout Standard
+Running this application, we can create a space, and add a few balls into
+ our space.
+ We can further set the temperature.
+ I created two balls: a filled red ball with radius 30, and a blue ball
+ with radius 80, and my temperature was 30 degrees celsius.
+ Proceeding with invoking the 
+\emph on
+Show
+\emph default
+ command, I can expose my custom view 
+\emph on
+SpaceView
+\emph default
+ directly in JMatter:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/Self.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+The Self Demo Application
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The screenshot doesn't really do it justince since the balls are moving
+ withing the space at a certain speed.
+ Try to change the temperature within the space to, say, 50 degrees.
+ This will cause the balls to move faster.
+ Technically, this custom view could also have been implemented by wrapping
+ it in a CustomReadView as we did in the previous example.
+\end_layout
+
+\begin_layout Section
+Customizing Layout
+\end_layout
+
+\begin_layout Standard
+JMatter provides a means through which a layout for a form can be defined
+ by using the open-source 
+\emph on
+Abeille Forms Designer
+\emph default
+.
+ By placing placeholder components in the layout and giving each a name
+ matching a model object's field name, JMatter can be made to use the specified
+ layout when displaying the form in question.
+ 
+\emph on
+Abeille
+\emph default
+ allows us to serialize the form design's definition to a 
+\emph on
+.jfrm
+\emph default
+ file which we place along with our source code (JMatter's build file automatica
+lly copies these files to the classpath as part of the build process) in
+ a file we name after the model object whose view we want to customize.
+ The 
+\emph on
+CustomUI
+\emph default
+ demo application provides an example implementation.
+\end_layout
+
+\begin_layout Section
 Atomic Views
 \end_layout
 
 \begin_layout Standard
 JMatter defines the notion of atomic types.
  Examples include representations for booleans, dates, text, zip codes,
- social security number, percentages, integers, floats, etc..
+ social security numbers, percentages, integers, floats, etc..
  They're defined in the package 
 \emph on
 com.u2d.type.atom
@@ -13426,7 +13824,7 @@ bind()
 \emph on
 BooleanEO
 \emph default
- editor that uses a group of radio buttons instead:
+ editor that uses a pair of radio buttons instead:
 \end_layout
 
 \begin_layout LyX-Code
@@ -13690,7 +14088,13 @@ Of course, if you're going to be implementing a custom view for a more complex
 \begin_layout Standard
 The framework's view mechanism in general is extremely modular.
  It's easy to override one small aspect and plug it right into the existing
- view mechanism to fundamentally change one aspect of the user interface.
+ view mechanism to fundamentally change one aspect of the user interface,
+ whether it's by providing your own implementation of a 
+\emph on
+FormView
+\emph default
+ (or embellishing the existing one), or by customizing the widgets that
+ represent associations.
 \end_layout
 
 \begin_layout Chapter
