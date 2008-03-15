@@ -19401,6 +19401,8 @@ schema-export
 \emph default
  for example will automatically compile the code and generate the mapping
  files first.
+ Also, if you're working with a dependent project, any changes to the framework
+ codebase will automatically be recompiled first.
 \end_layout
 
 \begin_layout Standard
@@ -19430,8 +19432,40 @@ reference "sec:Reverse-Engineer-Schema"
 \end_layout
 
 \begin_layout Standard
-Also, if you're working with a dependent project, any changes to the framework
- codebase will automatically be recompiled first.
+Other targets worth pointing out include 
+\emph on
+shellscript
+\emph default
+ and 
+\emph on
+macappbundle
+\emph default
+.
+ The first generates a 
+\emph on
+run.sh
+\emph default
+ (or 
+\emph on
+run.bat
+\emph default
+ on win platforms) to launch the application.
+ On Linux, going from such a script to a desktop-launched application, complete
+ with icon, is trivial.
+ The latter is specifically for macosx users and bundles the application
+ as a 
+\emph on
+.app
+\emph default
+ 
+\begin_inset Quotes eld
+\end_inset
+
+file.
+\begin_inset Quotes erd
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -19536,7 +19570,11 @@ Adapting Selectors for Swing
 
 \begin_layout Standard
 By default, you can reference any Swing component class that is a member
- of the package javax.swing without qualifying it.
+ of the package 
+\emph on
+javax.swing
+\emph default
+ without qualifying it.
  Some examples include: JPanel, JLabel, and JButton.
 \end_layout
 
@@ -19617,7 +19655,7 @@ It would be less clear (though not impossible to disambiguate) that we were
 \end_layout
 
 \begin_layout Standard
-This CSS implementation adopts and leverages CSS3's namespaces (thanks for
+This CSS implementation adopts and leverages CSS3's namespaces (thanks to
  Tiago Silveira) module to resolve this issue.
  CSS3 namespaces were designed to resolve the issue of possibly clashing
  namespaces in different xml vocabularies.
@@ -19725,6 +19763,11 @@ Application developers needn't concern themselves with this because the
  the stylesheet itself.
 \end_layout
 
+\begin_layout Standard
+You might however want to take a look at the Sympster demo application where
+ a custom view for a type is written that leverages CSS.
+\end_layout
+
 \begin_layout Subsection
 Values
 \end_layout
@@ -19744,7 +19787,7 @@ Borders, margins, and padding must be specified in px's
 
 \begin_layout Enumerate
 Colors can be specified either using the sixteen predefined color names,
- the six-digit hex notation, or the three digit hex notation.
+ the six-digit hex notation, or the shortened three-digit hex notation.
  The 
 \emph on
 rgb()
@@ -19904,8 +19947,7 @@ padding, padding-left, padding-right, padding-top, padding-bottom
 
 \begin_layout Standard
 JMatter's CSS implementation also supports these CSS3 properties, but only
- on SwingX JXPanel components, which, unlike basic Swing components, allow
- for the delegation of background painting:
+ on SwingX components that allow for the delegation of background painting:
 \end_layout
 
 \begin_layout LyX-Code
@@ -19923,8 +19965,13 @@ border-radius
 \begin_layout LyX-Code
 
 \size small
-border-top-left-radius, border-top-right-radius, border-bottom-left-radius,
- border-bottom-right-radius
+border-top-left-radius, border-top-right-radius, 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+ border-bottom-left-radius, border-bottom-right-radius
 \end_layout
 
 \begin_layout Subsection
@@ -20180,7 +20227,7 @@ And finally, this rule styles the large semi-transparent message panel that
 \end_layout
 
 \begin_layout LyX-Code
-  background-color: #black;
+  background-color: black;
 \end_layout
 
 \begin_layout LyX-Code
@@ -20488,10 +20535,10 @@ That is, if you're working on a Swing-related project and wished you could
 \end_layout
 
 \begin_layout Standard
-First you'll need to add these two libraries to your classpath, which you'll
+First you'll need to add these libraries to your classpath, which you'll
  find in 
 \emph on
-jmatter/lib/runtime
+jmatter/lib/runtime/swingvm
 \emph default
 :
 \end_layout
@@ -20501,11 +20548,11 @@ css4swing.jar
 \end_layout
 
 \begin_layout Enumerate
-antlr-runtime-3.0.jar
+antlr-runtime-3.0.1.jar
 \end_layout
 
 \begin_layout Enumerate
-swingx-2007_02_20.jar
+swingx.jar
 \end_layout
 
 \begin_layout Standard
@@ -20523,7 +20570,7 @@ CSSEngine.initialize();
 \end_layout
 
 \begin_layout Standard
-By default, the engine will look for the file 
+By default, the engine will look for the resource 
 \emph on
 styles.css
 \emph default
@@ -20817,6 +20864,11 @@ include
 
 \begin_layout Enumerate
 Possibly adding support for applicable CSS pseudo classes and pseudo elements
+\end_layout
+
+\begin_layout Enumerate
+Perhaps expose the ability to apply effects in a Swing application through
+ CSS
 \end_layout
 
 \begin_layout Standard
