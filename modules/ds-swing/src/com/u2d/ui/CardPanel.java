@@ -21,8 +21,6 @@ public class CardPanel extends JPanel
    {
       setLayout(_animCardLayout);
       setOpaque(false);
-      // default:  no flip animation
-      _animCardLayout.setAnimationDuration(1000); // default
    }
 
    public void add(Component component, String name)
@@ -72,6 +70,12 @@ public class CardPanel extends JPanel
    }
    public void setAnimationDuration(int duration_ms)
    {
+      _animCardLayout.setAnimationDuration(duration_ms);
+   }
+   // convenience..
+   public void setAnimationAndDuration(Animation animation, int duration_ms)
+   {
+      _animCardLayout.setAnimation(animation);
       _animCardLayout.setAnimationDuration(duration_ms);
    }
 
