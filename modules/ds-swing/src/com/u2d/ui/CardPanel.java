@@ -3,6 +3,9 @@
  */
 package com.u2d.ui;
 
+import org.javadev.AnimatingCardLayout;
+import org.javadev.effects.Animation;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,13 +14,15 @@ import java.awt.*;
  */
 public class CardPanel extends JPanel
 {
-   private CardLayout _cardLayout = new CardLayout();
+   private AnimatingCardLayout _animCardLayout = new AnimatingCardLayout();
    private String _currentCardName = null;
 
    public CardPanel()
    {
-      setLayout(_cardLayout);
+      setLayout(_animCardLayout);
       setOpaque(false);
+      // default:  no flip animation
+      _animCardLayout.setAnimationDuration(1000); // default
    }
 
    public void add(Component component, String name)
@@ -40,7 +45,7 @@ public class CardPanel extends JPanel
 
    public void show(String name)
    {
-      _cardLayout.show(this, name);
+      _animCardLayout.show(this, name);
       _currentCardName = name;
    }
 
@@ -59,6 +64,15 @@ public class CardPanel extends JPanel
          return super.getPreferredSize();
       else
          return currentCard.getPreferredSize();
+   }
+
+   public void setAnimation(Animation animation)
+   {
+      _animCardLayout.setAnimation(animation);
+   }
+   public void setAnimationDuration(int duration_ms)
+   {
+      _animCardLayout.setAnimationDuration(duration_ms);
    }
 
 }

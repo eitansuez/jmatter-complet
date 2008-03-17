@@ -11,6 +11,8 @@ import com.u2d.view.EView;
 import com.u2d.view.swing.list.CommandsButtonView;
 import com.u2d.ui.CardPanel;
 import org.jdesktop.swingx.JXPanel;
+import org.javadev.effects.DashboardAnimation;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
@@ -43,6 +45,8 @@ public class CustomReadView
 
       _formView = new FormView(_ceo);
       _cards = new CardPanel();
+      _cards.setAnimation(new DashboardAnimation());
+      
       _cards.add(_formView, "edit");
       _cards.add((JComponent) _readView, "read");
       _cards.show(_ceo.isEditableState() ? "edit" : "read");
