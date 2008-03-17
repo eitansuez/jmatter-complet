@@ -3587,10 +3587,9 @@ Components
 .
  If you're familiar with the concepts in the book 
 \emph on
-
-\begin_inset LatexCommand htmlurl
-name "http://domaindrivendesign.org/"
-target "Domain Driven Design"
+Domain-Driven Design 
+\begin_inset LatexCommand cite
+key "Evans"
 
 \end_inset
 
@@ -4239,8 +4238,13 @@ Title
 \emph on
 NakedObjects
 \emph default
- framework, though you'll find in it a few additional features, such as
- the 
+ framework 
+\begin_inset LatexCommand cite
+key "Mat&Paw"
+
+\end_inset
+
+, though you'll find in it a few additional features, such as the 
 \emph on
 appendParens()
 \emph default
@@ -5043,8 +5047,13 @@ resources/images
  It is via a file naming convention that JMatter knows to associate an image
  with a type.
  This idea again was shamelessly taken from the NakedObjects framework.
- If you haven't guessed it by now, NakedObjects had a strong influence on
- my thinking.
+ If you haven't guessed it by now, NakedObjects 
+\begin_inset LatexCommand cite
+key "Mat&Paw"
+
+\end_inset
+
+ had a strong influence on my thinking.
 \end_layout
 
 \begin_layout Standard
@@ -11634,7 +11643,13 @@ There's a second distinction that has to do with ownership of a field.
 
 \begin_layout Standard
 It turns out that JMatter's domain design happens to match the rules set
- forth by Eric Evans in his book Domain Driven Design.
+ forth by Eric Evans in his book Domain Driven Design 
+\begin_inset LatexCommand cite
+key "Evans"
+
+\end_inset
+
+.
  If you're familiar with this work, then the notions of entities, value
  objects, and aggregates and their interrelationships should already by
  familiar to you.
@@ -14893,7 +14908,7 @@ Manage Restrictions,
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \noindent
@@ -14951,28 +14966,106 @@ Search
 \end_layout
 
 \begin_layout Standard
-In this chapter, we discuss and document JMatter's search features and capabilit
-ies.
+Search is an indispensable part of business applications today.
+ Database systems provide the ability to lookup information via its SQL
+ interface.
+ But software applications will almost never provide end users direct access
+ to a database via SQL, and there are many good reasons for this.
+\end_layout
+
+\begin_layout Standard
+Typically a fair amount of code is written by developers on top of SQL (or
+ these days HQL or some other object-based query language) to expose search
+ features in their applications.
+\end_layout
+
+\begin_layout Standard
+JMatter integrates search capabilities directly into its user interfaces,
+ in a deep and comprehensive fashion.
+ The good news is that the entire implementation is independent of the domain
+ in question, removing the need for developers to implement their own search
+ layer.
 \end_layout
 
 \begin_layout Section
 Filtering Listings
 \end_layout
 
+\begin_layout Standard
+All list views in JMatter are decorated with a simple query panel.
+ Through this query panel, users can dynamically view a custom-filtered
+ set of items, that match a specific criterion: users with a specific last
+ name, contacts in a specific city, talks on a given topic, sessions given
+ on a specific date, etc..
+\end_layout
+
+\begin_layout Standard
+So users are given adhoc search capabilities on every type in their domain.
+\end_layout
+
 \begin_layout Section
 The Find Command
+\end_layout
+
+\begin_layout Standard
+For more complex queries, the 
+\emph on
+Find
+\emph default
+ command, which is inherent on any type, allow the combination of multiple
+ criteria in a conjunction.
 \end_layout
 
 \begin_layout Section
 Smart Lists
 \end_layout
 
+\begin_layout Standard
+Smart lists denote the ability to save a query performed using the 
+\emph on
+Find
+\emph default
+ command to database.
+ All JMatter applications come with additional model objects, such as 
+\emph on
+User
+\emph default
+, and 
+\emph on
+Role
+\emph default
+ to manage authorization, for example.
+ With respect to Search, the 
+\emph on
+Query
+\emph default
+ model object is also part of your application's domain.
+ This means that end-users can create, read, update, delete, and execute
+ queries to their heart's content.
+ They can even use the built-in search capabilities of JMatter to query
+ queries.
+\end_layout
+
+\begin_layout Standard
+[todo: provide an example]
+\end_layout
+
 \begin_layout Section
 Search in Associations
 \end_layout
 
+\begin_layout Standard
+Another important feature in JMatter is the ability to search directly within
+ the context of an association field, for the purpose of establishing a
+ relation between two objects.
+\end_layout
+
 \begin_layout Section
 Polymorphic queries
+\end_layout
+
+\begin_layout Standard
+When modeling your application using object oriented principles.
 \end_layout
 
 \begin_layout Section
@@ -16360,6 +16453,10 @@ Note that this feature could be improved.
 \end_layout
 
 \begin_layout Section
+PDFs
+\end_layout
+
+\begin_layout Subsection
 JFreeReport Integration
 \end_layout
 
@@ -16415,7 +16512,7 @@ The authors of this framework have used JFreeReport to produce completed
  defining the layout of the form[s] to be completed.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 The basics
 \end_layout
 
@@ -16481,7 +16578,7 @@ If in a command method, you return a Reportable instance, JMatter will take
  open it using a PDF reader application.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 A Simple Example
 \end_layout
 
@@ -16766,7 +16863,7 @@ PDF produced with JFreeReport
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 JasperReports
 \end_layout
 
@@ -16805,7 +16902,108 @@ Report Schedule
 JMatter now bundled the JasperReport libraries with its distribution for
  your convenience.
  We also highly recommend you support the JasperReports project by buying
- a copy of their documentation in print.
+ a copy of their documentation 
+\begin_inset LatexCommand cite
+key "Jasper"
+
+\end_inset
+
+ in print.
+\end_layout
+
+\begin_layout Subsection
+Launching PDFs and other Files
+\end_layout
+
+\begin_layout Standard
+The solution that appears to work well for displaying PDFs is to launch
+ the desktop's default PDF viewer, rather than attempt to embed a PDF viewer
+ component within one's application.
+\end_layout
+
+\begin_layout Standard
+The Java platform has such a desktop integration feature in Java SE v6.
+ The state of affairs today is such that the MacOSX platform still lags
+ other platforms and does not yet support this version of Java.
+ Developers often cannot afford to ignore this platform, since the very
+ 
+\emph on
+raison d'etre
+\emph default
+ of the Java platform is platform independence.
+\end_layout
+
+\begin_layout Standard
+JMatter has a generic solution to this general problem of 
+\begin_inset Quotes eld
+\end_inset
+
+launching
+\begin_inset Quotes erd
+\end_inset
+
+ a given file, with the result being the launching of the desktop's default-desi
+gnated reader for the document in question, combined with the action of
+ opening the file in question within that viewer.
+ This solution will work with earlier versions of Java (e.g.
+ Java 5), and can be used to open PDF files, and other documents (.doc, .txt,
+ .xls, .csv, etc..) in a platform-independent manner.
+\end_layout
+
+\begin_layout Standard
+Here's example code that uses a simple strategy for launching a dynamically
+ generated pdf file:
+\end_layout
+
+\begin_layout LyX-Code
+File reportFile = File.createTempFile("report", ".pdf");
+\end_layout
+
+\begin_layout LyX-Code
+reportFile.deleteOnExit();
+\end_layout
+
+\begin_layout LyX-Code
+// write to the file..
+\end_layout
+
+\begin_layout LyX-Code
+com.u2d.utils.Launcher.openFile(reportFile);
+\end_layout
+
+\begin_layout Standard
+In the above example we use Java's API to create a temporary file in a platform-
+independent manner and specify that the file should be deleted after the
+ end-user quits the application.
+ Then we simply call the static method 
+\emph on
+Launcher.openFile(file)
+\emph default
+ which does the rest.
+ This has been verified to work on windows, apple, and linux platforms reliably.
+\end_layout
+
+\begin_layout Standard
+The 
+\emph on
+Launcher
+\emph default
+ utility in addition provides the following useful two methods:
+\end_layout
+
+\begin_layout Enumerate
+
+\emph on
+public static void openInBrowser(String url)
+\end_layout
+
+\begin_layout Enumerate
+
+\emph on
+public static void openInEmailApp(EmailMessage msg)
+\newline
+public static void openInEmai
+lApp(String mailtoURL)
 \end_layout
 
 \begin_layout Section
@@ -22267,622 +22465,6 @@ This chapter details features of JMatter applications' user interfaces,
 \end_layout
 
 \begin_layout Section
-Navigation
-\end_layout
-
-\begin_layout Subsection
-Window Placement
-\end_layout
-
-\begin_layout Standard
-JMatter takes a certain strategy relating to the placement of new windows
- (internal frames) in its Graphical User Interface.
-\end_layout
-
-\begin_layout Standard
-I recall trying various window placement strategies and then realizing something
- I was doing as a user of my applications: after creating a new view, I'd
- quickly reach for the window's title bar and place the window where I really
- wanted it.
- I don't think there's an algorithm for guessing the user's intent.
- So I started thinking about what might the next best thing be.
-\end_layout
-
-\begin_layout Standard
-The strategy was to minimize the amount of work one has to do in moving
- the resulting window.
- What I do is place new windows such that their title bars are near the
- current mouse cursor location, thus minimizing the distance one would have
- to move their mouse to reach for it.
-\end_layout
-
-\begin_layout Standard
-There's a somewhat hidden feature in JMatter which I very much like and
- that I'd like to share.
- This feature takes things one step further: it automatically puts the newly
- created window in placement mode.
- Allow me to explain..
-\end_layout
-
-\begin_layout Standard
-This feature requires pressing a metakey to communicate your intent to use
- it: when you're about to invoke a command that creates a new view (e.g.
- the "Open" command) , hold down the Control key.
-\end_layout
-
-\begin_layout Standard
-The resulting window automatically "binds" to your mouse location.
- That is, it will follow your mouse.
- So, the way it works is you invoke the command with the control key pressed
- and the new view is created, but it starts following your mouse around.
- Once you've found that ideal spot, a single left-click is all you need
- to do to pin it back down onto the desktop.
-\end_layout
-
-\begin_layout Standard
-The following subsection discusses a major recent enhancement to GUI Navigation
- in JMatter.
-\end_layout
-
-\begin_layout Subsection
-New View Placement Options
-\end_layout
-
-\begin_layout Standard
-JMatter GUIs are inherently OO UIs.
- I like to make the analogy to our operating systems' desktops.
- There are a number of ways to make such UIs more effective.
- Sometimes I look to these desktop systems for ideas and features.
-\end_layout
-
-\begin_layout Standard
-One such feature was Apple's "Expose" which has since also been copied by
- the Beryl project on Linux: the idea of scaling down and fanning out one's
- windows temporarily for the purpose of easily switching focus to a window
- that is otherwise hidden by other windows that have a higher z-index.
- JMatter has such a feature.
- Pressing the F12 key invokes the JExplose 
-\begin_inset Foot
-status collapsed
-
-\begin_layout Standard
-There's no typo here.
- The author of this tool is French; 
-\emph on
-explose
-\emph default
- is French means 
-\emph on
-explode.
-\end_layout
-
-\end_inset
-
- feature which does precisely that (the desktop pane's context menu also
- bears the option).
-\end_layout
-
-\begin_layout Standard
-Another feature of desktop systems, one that has been around longer, and
- is specifically related to the file manager, is the idea of giving users
- options in terms of how to place newly-created views.
- When navigating a folder hierarchy, one can double click on a folder, which
- typically opens a new window with the contents of that folder.
- Long ago, on ms-windows I recall always turning on the option of "re-using
- the existing window"; that is, replacing the existing view with the new
- one.
- This can really help with an otherwise rapid proliferation of windows on
- one's desktop.
-\end_layout
-
-\begin_layout Standard
-Then, mozilla introduced us to another navigation option: a sort of "middle
- of the road" option: don't create a new window, but don't replace the existing
- view either: place the new view in a new, separate tab.
- So mozilla gave birth to tabbed browsing.
- I believe tabbed-browsing is not a feature that applies only to the task
- of navigating web pages; it can be applied more generally, including to
- applications such as a file manager.
-\end_layout
-
-\begin_layout Standard
-Back to JMatter.
- I have recently finished implementing a number of related enhancements.
- The first is extending slightly the model for Users.
- A User now has a new aggregate property called "Preferences." Its first
- and only option at the moment captures how a user generally prefers to
- navigate in JMatter: should new views be created by default:
-\end_layout
-
-\begin_layout Enumerate
-in a new window?
-\end_layout
-
-\begin_layout Enumerate
-in a new tab?
-\end_layout
-
-\begin_layout Enumerate
-in-place, replacing the existing view?
-\end_layout
-
-\begin_layout Standard
-Setting your preference is all it takes to change JMatter's default navigation
- behavior.
-\end_layout
-
-\begin_layout Standard
-There are many situations where one will want to override the default and,
- say, want to open a new view in a new tab even though the default is in-place
- navigation.
- So a new gesture has been introduced in JMatter.
- Holding down the Shift key while invoking a command that produces a new
- view will cause a context menu to popup near your mouse location, allowing
- you to select how you'd like that particular view created.
- Choose "in a new tab" and proceed.
-\end_layout
-
-\begin_layout Standard
-In figure 
-\begin_inset LatexCommand ref
-reference "fig:nav1"
-
-\end_inset
-
-, you see me invoking the "Open" command.
- I am holding down the Shift key.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/nav1.png
-	lyxscale 30
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Invoking the Open command, holding down the Shift key
-\begin_inset LatexCommand label
-name "fig:nav1"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Figure 
-\begin_inset LatexCommand ref
-reference "fig:nav2"
-
-\end_inset
-
-shows the navigation option pop up.
- I selected the "in new tab" option.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/nav2.png
-	lyxscale 30
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-\begin_inset Quotes eld
-\end_inset
-
-Open in new tab
-\begin_inset Quotes erd
-\end_inset
-
- Option
-\begin_inset LatexCommand label
-name "fig:nav2"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Next, you see the result of the view created in a new tab.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/nav3.png
-	lyxscale 30
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Resulting View
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Finally, this last screenshot shows that, with tabs, you have the option
- of detaching the view onto its own window or closing the tab (Ctrl+w is
- the corresponding key binding).
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/nav4.png
-	lyxscale 30
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Tab Detach Option
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-I believe this to be an important feature, finally producing a desktop with
- a number of effective navigation instruments:
-\end_layout
-
-\begin_layout Enumerate
-Fundamentally an OOUI
-\end_layout
-
-\begin_layout Enumerate
-DnD support
-\end_layout
-
-\begin_layout Enumerate
-An expose-like feature
-\end_layout
-
-\begin_layout Enumerate
-Tabbed, In-Place, or New-window view placement
-\end_layout
-
-\begin_layout Standard
-The last item on the drawing board that in my mind will complete the picture
- is support for docking views.
- I have looked at flexdock, which is a terrific effort.
- But I'm looking for something that is more transparent: effectively a layout
- manager designed for JDesktopPane that transparently provides docking support.
- Let me know if you know of or are working on such a thing!
-\end_layout
-
-\begin_layout Section
-Paging
-\end_layout
-
-\begin_layout Standard
-We've all had to implement this feature as developers.
- Today, many frameworks such as Tapestry for example, will provide components
- out of the box that will automatically take care of paging a listing on
- your behalf.
-\end_layout
-
-\begin_layout Standard
-JMatter also provides paging out of the box.
- When I sat down and started to think about this feature, I saw a certain
- pattern.
- One's first, naive implementation of paging might consist of a simple forward
- and back navigation buttons:
-\end_layout
-
-\begin_layout LyX-Code
-< >
-\end_layout
-
-\begin_layout Standard
-Shortly afterwards comes the request for the ability to navigate to the
- first and last page in a listing, and so they are added:
-\end_layout
-
-\begin_layout LyX-Code
-<< < > >>
-\end_layout
-
-\begin_layout Standard
-Then embellished, like so:
-\end_layout
-
-\begin_layout LyX-Code
-<< < [Page 3] > >>
-\end_layout
-
-\begin_layout Standard
-Over time, paging has evolved to let you navigate to a number of pages in
- the vicinity of the current page:
-\end_layout
-
-\begin_layout LyX-Code
-1 2 ..
- 7 [Page 8] 9 ..
- 13 14
-\end_layout
-
-\begin_layout Standard
-This is what most web-based applications do today.
-\end_layout
-
-\begin_layout Standard
-What I realized is that paging, taken to its eventual limit, is essentially
- embodied in the behaviour of a scrollbar.
- Most scrollbars provide continous scrolling.
- Whereas in the case of paging, the scrolling is more discrete.
- The more pages there are, the less this discrete behaviour is apparent.
- What's nice about today's scrollbars is that their size is inversely proportion
-al to the length of the list.
- The larger the list, the smaller they are.
- Scrollbars have the advantage of giving you more of a visual perspective
- of where you are in the list.
- And you can simply drag the scrollbutton to any location along its dimension.
-\end_layout
-
-\begin_layout Standard
-JMatter's Swing-based view mechanism defines a view implementation: a component
- named PageScrollBar which extends Swing's JScrollBar, shown at the bottom
- of the following listing:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/paging.png
-	lyxscale 50
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Paging a Conference's Sessions
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-As usual, developers of JMatter applications need not concern themselves
- with this at all.
- It's bundled into the framework and it just works.
- If however you feel the need to customize the way this scrollbar looks
- or behaves, it's easy enough with a little Swing experience to make the
- desired revisions.
- 
-\end_layout
-
-\begin_layout Section
-Associations Made Easy
-\end_layout
-
-\begin_layout Standard
-NakedObjects originally introduced a terrific way to establish associations
- between objects in a user interface.
- It automatically enabled this via drag and drop.
-\end_layout
-
-\begin_layout Standard
-For some reason, dnd in many ways is not used as much as it used to be.
- Having to take the hand off the keyboard is admittedly a "productivity
- mark deduction."
-\end_layout
-
-\begin_layout Standard
-So, in JMatter, I set out to enable associations in more than one way.
- For starters, dnd works out of the box.
- But one can also click a "pick" button that will display a listing of entries
- of the type for a given association, that the user simply picks from.
-\end_layout
-
-\begin_layout Standard
-To make the example concrete, let's say we're working with the Symposium
- manager demo application in JMatter.
- And let's further say that we're defining a new talk to be given.
- Talks have a many-to-one association to the speaker (or presenter) giving
- the talk.
-\end_layout
-
-\begin_layout Standard
-My favorite way of establishing that association is with the in-place associator
- widget that's built-in to JMatter.
- The way it works is that you simply start typing and the list of entries
- automatically filters out entries that do not match.
- It's that sort of dynamic JComboBox that web browsers popularized, I suppose.
- Except that the data comes straight from the database.
-\end_layout
-
-\begin_layout Standard
-Here's a snapshot of me trying to define a new talk, *In Action*, as it
- were
-\begin_inset Foot
-status collapsed
-
-\begin_layout Standard
-Please pardon the sarcasm
-\end_layout
-
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename figures/associator.png
-	lyxscale 30
-	scale 40
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Associating a Speaker to a talk
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The only detail to tend to is to specify which field of Speaker are we searching
- by.
- That's what that little magnifying glass icon to the left of the text field
- is for.
- It's a drop-down combobox that dynamically lists the various fields you
- might want to search by.
-\end_layout
-
-\begin_layout Standard
-The default field that JMatter should use for searching in the context of
- in-place associations is controlled by the defaultSearchPath metadata,
- as shown by this example:
-\end_layout
-
-\begin_layout LyX-Code
-public static String defaultSearchPath = "name.first";
-\end_layout
-
-\begin_layout Standard
-See section 
-\begin_inset LatexCommand ref
-reference "sub:dflt-searchpath"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
 Visual Command Interface
 \end_layout
 
@@ -22916,24 +22498,28 @@ It turns out that these applications adhere to the noun-verb metaphor which
 \end_layout
 
 \begin_layout Standard
-I will illustrate how this interface works via an example.
+I will illustrate how this interface works with an example.
  Let's take the Sympster demonstration application.
  Let's say we wish to create a new speaker.
  We typically do this by right-clicking on the Speaker icon in the class
  bar (the visual representation of its type) and selecting the command 
-\begin_inset Quotes eld
-\end_inset
-
+\emph on
 New
-\begin_inset Quotes erd
-\end_inset
-
+\emph default
  from its context menu.
  Now, you can also:
 \end_layout
 
 \begin_layout Enumerate
-Press Ctrl-I (Cmd-I on the mac) to invoke the visual command interface,
+Press 
+\emph on
+Ctrl-I
+\emph default
+ (
+\emph on
+Cmd-I
+\emph default
+ on the mac) to invoke the visual command interface,
 \end_layout
 
 \begin_layout Enumerate
@@ -22955,11 +22541,11 @@ Enter
 \end_layout
 
 \begin_layout Standard
-In step 2, we first searched for a type matching 
+In step 2, we first search for the type 
 \emph on
 Speakers
 \emph default
-, and then did the same thing: searched for the command named 
+ by name, and then we search for the command named 
 \emph on
 New
 \emph default
@@ -22988,7 +22574,7 @@ reference "fig:visual-cmd"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \noindent
@@ -23021,10 +22607,6 @@ name "fig:visual-cmd"
 
 \end_layout
 
-\begin_layout Standard
-
-\end_layout
-
 \end_inset
 
 
@@ -23040,22 +22622,10 @@ Many desktop users have become habituated to this type of command interface
 \end_layout
 
 \begin_layout Standard
-At the moment this feature will match types defined in your application.
- Here are a few ways this feature can be enhanced further, perhaps with
- your help:
-\end_layout
-
-\begin_layout Enumerate
-Support matching any target object, not just types.
- So for example, you might type the name of a contact person to bring up
- their contact information.
- In MyTunes, you could look up and play a song through this interface, for
- example.
-\end_layout
-
-\begin_layout Enumerate
-Perhaps support specifying command arguments through the same visual interface,
- instead of having a separate window prompt for the arguments.
+This feature is built-in to JMatter.
+ No work is necessary to enable it.
+ You might however be interested in extending its capabilities further by
+ extending its index, which we discuss next.
 \end_layout
 
 \begin_layout Subsection
@@ -23063,10 +22633,9 @@ Extending the Index
 \end_layout
 
 \begin_layout Standard
-The visual command interface at the moment is populated with an application's
- types and commands.
- That is, you can match types and then invoke a specific command on a given
- type, for example: 
+The visual command interface by default matches types.
+ Match a target type, and then invoke a specific command on it, for example:
+ 
 \emph on
 Person Contacts -> Browse
 \emph default
@@ -23079,20 +22648,30 @@ It would be nice however if we could interact with instances of a given
  For example, with the contact manager, it'd be nice to match a contact
  by name directly from the visual command interface.
  Likewise, in MyTunes, it'd be nice to direclty match a song by title.
+ In Sympster, 
+\emph on
+Speakers
+\emph default
+ and 
+\emph on
+Talks
+\emph default
+ are also good candidates.
 \end_layout
 
 \begin_layout Standard
 The visual command interface provides a mechanism for you to add items to
  its index.
  The ContactMgr application has recently been enhanced to show you how.
+ Here's how this is done..
 \end_layout
 
 \begin_layout Standard
-Here's a description of how this is done..
-\end_layout
-
-\begin_layout Standard
-First, we subclass com.u2d.app.Application and override the 
+First, we subclass 
+\emph on
+com.u2d.app.Application
+\emph default
+ and override the 
 \emph on
 postInitialize()
 \emph default
@@ -23120,15 +22699,7 @@ public class Application extends com.u2d.app.Application
 \end_layout
 
 \begin_layout LyX-Code
-      AbstractListEO bookmarks =
-\end_layout
-
-\begin_layout LyX-Code
-         getPersistenceMechanism().list(PersonContact.class);
-\end_layout
-
-\begin_layout LyX-Code
-      contributeToIndex(bookmarks);
+      contributeToIndex(PersonContact.class);
 \end_layout
 
 \begin_layout LyX-Code
@@ -23140,16 +22711,20 @@ public class Application extends com.u2d.app.Application
 \end_layout
 
 \begin_layout Standard
-Here what I do is fetch all contacts and call the method 
+The above call to 
 \emph on
 contributeToIndex()
 \emph default
- passing in the fetched items.
+ instructs the visual interface to include contact instances in its index.
 \end_layout
 
 \begin_layout Standard
 Next we need to revise our spring configuration file to specify our subclass
- as the application's Application bean.
+ as the application's 
+\emph on
+Application
+\emph default
+ bean.
  We edit the file 
 \emph on
 src/applicationContext.xml
@@ -23219,6 +22794,685 @@ Open
 Edit
 \emph default
 .
+\end_layout
+
+\begin_layout Section
+Associations Made Easy
+\end_layout
+
+\begin_layout Standard
+NakedObjects originally introduced a terrific way to establish associations
+ between objects in a user interface.
+ It automatically enabled this via drag and drop.
+\end_layout
+
+\begin_layout Standard
+For some reason, dnd in many ways is not used as much as it used to be.
+ Having to take the hand off the keyboard is admittedly a "productivity
+ mark deduction."
+\end_layout
+
+\begin_layout Standard
+So, in JMatter, I set out to enable associations in more than one way.
+ For starters, dnd works out of the box.
+ But one can also click a "pick" button that will display a listing of entries
+ of the type for a given association, that the user simply picks from.
+\end_layout
+
+\begin_layout Standard
+Let's look at a concrete example: let's say we're working with the Symposium
+ manager demo application in JMatter.
+ And let's further say that we're defining a new talk to be given.
+ Talks have a many-to-one association to the speaker (or presenter) giving
+ the talk.
+\end_layout
+
+\begin_layout Standard
+My favorite way of establishing that association is with the in-place associator
+ widget that's built-in to JMatter.
+ Here's how it works.
+ When editing the talk, click (or tab into) the association field in question,
+ which in this case is 
+\emph on
+Speaker
+\emph default
+.
+ Simply start typing and a matching list of entries automatically appears.
+ This component dynamically fetches matching entries from the database as
+ you type.
+ The matched items listing also pages by default, so for a scenario with
+ too many matching entires, only the first page will be fetched.
+ In my experience with this component, this is one of the fastest ways of
+ making an association between two objects.
+\end_layout
+
+\begin_layout Standard
+Here's a snapshot of me trying to define a new talk, *In Action*, as it
+ were
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+Please pardon the sarcasm
+\end_layout
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/associator.png
+	lyxscale 30
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Associating a Speaker to a talk
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The only detail to tend to is to specify which field of Speaker are we searching
+ by.
+ That's what that little magnifying glass icon to the left of the text field
+ is for.
+ It's a drop-down combobox that dynamically lists the various fields you
+ might want to search by.
+\end_layout
+
+\begin_layout Standard
+The default field that JMatter should use for searching in the context of
+ in-place associations is controlled by the 
+\emph on
+defaultSearchPath
+\emph default
+ metadata, as shown by this example:
+\end_layout
+
+\begin_layout LyX-Code
+public static String defaultSearchPath = "name.first";
+\end_layout
+
+\begin_layout Standard
+See section 
+\begin_inset LatexCommand ref
+reference "sub:dflt-searchpath"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Paging
+\end_layout
+
+\begin_layout Standard
+We've all had to implement this feature as developers.
+ Today, many frameworks such as Tapestry for example, will provide components
+ out of the box that will automatically take care of paging a listing on
+ your behalf.
+\end_layout
+
+\begin_layout Standard
+JMatter also provides paging out of the box.
+ When I sat down and started to think about this feature, I saw a certain
+ pattern.
+ One's first, naive implementation of paging might consist of a simple forward
+ and back navigation buttons:
+\end_layout
+
+\begin_layout LyX-Code
+< >
+\end_layout
+
+\begin_layout Standard
+Shortly afterwards comes the request for the ability to navigate to the
+ first and last page in a listing, and so the above evolves to:
+\end_layout
+
+\begin_layout LyX-Code
+<< < > >>
+\end_layout
+
+\begin_layout Standard
+Then embellished, like so:
+\end_layout
+
+\begin_layout LyX-Code
+<< < [Page 3] > >>
+\end_layout
+
+\begin_layout Standard
+Over time, paging has evolved to let you navigate to a number of pages in
+ the vicinity of the current page:
+\end_layout
+
+\begin_layout LyX-Code
+1 2 ..
+ 7 [Page 8] 9 ..
+ 13 14
+\end_layout
+
+\begin_layout Standard
+This is what most web-based applications do today.
+\end_layout
+
+\begin_layout Standard
+What I realized is that paging, taken to its eventual limit, is essentially
+ embodied in the behaviour of a scrollbar.
+ Most scrollbars provide continous scrolling.
+ Whereas in the case of paging, the scrolling is discrete.
+ The more pages there are, the less this discrete behaviour is apparent.
+ What's nice about today's scrollbars is that their size is inversely proportion
+al to the length of the list.
+ The larger the list, the smaller they are.
+ Scrollbars have the advantage of giving you more of a visual perspective
+ of where you are in the list.
+ And you can simply drag the scrollbutton to any location along its dimension.
+\end_layout
+
+\begin_layout Standard
+JMatter's Swing-based view mechanism defines a view implementation: a component
+ named PageScrollBar which extends Swing's JScrollBar, shown at the bottom
+ of the following two-page listing:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/paging.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Paging a Conference's Sessions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As usual, developers of JMatter applications need not concern themselves
+ with this at all.
+ It's bundled into the framework and it just works.
+ If however you feel the need to customize the way this scrollbar looks
+ or behaves, it's easy enough with a little Swing experience to make whatever
+ enhancements or decorations one might have in mind.
+\end_layout
+
+\begin_layout Section
+Exposé 
+\end_layout
+
+\begin_layout Standard
+JMatter GUIs are inherently Object Oriented UIs.
+ I like to make the analogy to our operating systems' desktops.
+ There are a number of ways to make such UIs more effective.
+ Sometimes I look to these desktop systems for ideas and features.
+\end_layout
+
+\begin_layout Standard
+One such feature is Apple's 
+\emph on
+Expos
+\emph default
+é which has since also been copied by the 
+\emph on
+Compiz Fusion
+\emph default
+ project on Linux: the idea of scaling down and fanning out one's windows
+ temporarily for the purpose of easily switching focus to a window that
+ is otherwise hidden by other windows with a higher z-index.
+ JMatter incorporates such a feature.
+ Pressing the 
+\emph on
+F12
+\emph default
+ key invokes the 
+\emph on
+JExplose
+\emph default
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+There's no typo here.
+ The author of this tool is French; 
+\emph on
+explose
+\emph default
+ in French means 
+\emph on
+explode.
+\end_layout
+
+\end_inset
+
+ feature which does precisely this.
+ This option is also available form the desktop pane's context menu.
+\end_layout
+
+\begin_layout Section
+Navigation
+\end_layout
+
+\begin_layout Subsection
+Window Placement
+\end_layout
+
+\begin_layout Standard
+JMatter takes a certain strategy relating to the placement of new windows
+ (internal frames) in its Graphical User Interface.
+\end_layout
+
+\begin_layout Standard
+I recall trying various window placement strategies and then realizing something
+ I was doing as a user of my applications: after creating a new view, I'd
+ quickly reach for the window's title bar and place the window where I really
+ wanted it.
+ I don't think there's an algorithm for guessing the user's intent.
+ So I started thinking about what might the next best thing be.
+\end_layout
+
+\begin_layout Standard
+The strategy was to minimize the amount of work one has to do in moving
+ the resulting window.
+ What I do is place new windows such that their title bars are near the
+ current mouse cursor location, thus minimizing the distance one would have
+ to move their mouse to reach for it.
+\end_layout
+
+\begin_layout Standard
+There's a somewhat hidden feature in JMatter which I very much like and
+ that I'd like to share.
+ This feature takes things one step further: it automatically puts the newly
+ created window in placement mode.
+ Allow me to explain..
+\end_layout
+
+\begin_layout Standard
+This feature requires pressing a metakey to communicate your intent to use
+ it: when you're about to invoke a command that creates a new view (e.g.
+ the 
+\emph on
+Open
+\emph default
+ command) , hold down the 
+\emph on
+Control
+\emph default
+ key (on the mac, use the 
+\emph on
+Command
+\emph default
+ key).
+\end_layout
+
+\begin_layout Standard
+The resulting window automatically "binds" to your mouse location.
+ That is, it will follow your mouse.
+ So, the way it works is you invoke the command with the 
+\emph on
+Control
+\emph default
+ key pressed and the new view is created, but it starts following your mouse
+ around.
+ Once you've found that ideal spot, a single left-click is all you need
+ to do to pin it back down onto the desktop.
+\end_layout
+
+\begin_layout Subsection
+New View Placement Options
+\end_layout
+
+\begin_layout Standard
+Another feature of desktop systems, one that has been around for some time,
+ and is specifically related to the file manager, is the idea of giving
+ users options in terms of how to place newly-created views.
+ When navigating a folder hierarchy, one can double-click on a folder, which
+ typically opens a new window with the contents of that folder.
+ Long ago, on ms-windows I recall always turning on the option "re-use existing
+ window"; that is, replacing the existing view with the new one.
+ This can really help with an otherwise rapid proliferation of windows on
+ one's desktop.
+\end_layout
+
+\begin_layout Standard
+Separately, the mozilla project introduced us to another navigation option:
+ tabbed browsing, which is a sort of "middle of the road" approach: don't
+ create a new window, but don't replace the existing view either.
+ Since then, we've seen other applications, such as shell terminals, copy
+ this handy feature.
+\end_layout
+
+\begin_layout Standard
+JMatter now supports both modes of navitgation.
+ A User's default browsing preferences can be specified through the 
+\emph on
+User
+\emph default
+ model object, which has an aggregate property named 
+\emph on
+Preferences
+\emph default
+.
+ Its first and only option at the moment captures how a user generally prefers
+ to navigate in JMatter: should new views be created by default:
+\end_layout
+
+\begin_layout Enumerate
+in a new window?
+\end_layout
+
+\begin_layout Enumerate
+in a new tab?
+\end_layout
+
+\begin_layout Enumerate
+in-place, replacing the existing view?
+\end_layout
+
+\begin_layout Standard
+Setting your preference is all it takes to change JMatter's default navigation
+ behavior.
+\end_layout
+
+\begin_layout Standard
+In many situations there may be exceptions to the default rule.
+ Say, for example, that we wish to open a new view in a new tab even though
+ the default setting is in-place navigation.
+ To accommodate this, a new gesture has been introduced in JMatter: holding
+ down the 
+\emph on
+Shift
+\emph default
+ key while invoking a command that produces a new view will cause a context
+ menu to appear at the mouse location, for selecting how to create the new
+ view.
+ The choices again are the above three: in a new window, tab, or in-place.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset LatexCommand ref
+reference "fig:nav1"
+
+\end_inset
+
+ captures the invocation of the 
+\emph on
+Open
+\emph default
+ command while holding down the 
+\emph on
+Shift
+\emph default
+ key.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/nav1.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Invoking the Open command, holding down the Shift key
+\begin_inset LatexCommand label
+name "fig:nav1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset LatexCommand ref
+reference "fig:nav2"
+
+\end_inset
+
+ shows the navigation option pop up.
+ I selected the 
+\emph on
+in new tab
+\emph default
+ option.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/nav2.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset Quotes eld
+\end_inset
+
+Open in new tab
+\begin_inset Quotes erd
+\end_inset
+
+ Option
+\begin_inset LatexCommand label
+name "fig:nav2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The next figure shows the result of the view created in a new tab.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/nav3.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Resulting View
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Finally, this last screenshot shows that, with tabs, you have the option
+ of detaching the view onto its own window or closing the tab (
+\emph on
+Ctrl+w
+\emph default
+ is the corresponding key binding).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename figures/nav4.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Tab Detach Option
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I believe this to be an important feature, finally producing a desktop with
+ a number of effective navigation instruments:
+\end_layout
+
+\begin_layout Enumerate
+Fundamentally an OOUI
+\end_layout
+
+\begin_layout Enumerate
+DnD support
+\end_layout
+
+\begin_layout Enumerate
+An expose-like feature
+\end_layout
+
+\begin_layout Enumerate
+Tabbed, In-Place, or New-window view placement
+\end_layout
+
+\begin_layout Standard
+Another complementary feature that is contemplated for JMatter is support
+ for docking views.
+ I have looked at flexdock, which is a terrific effort.
+ But I'm looking for something that is more transparent: effectively a layout
+ manager designed for JDesktopPane that transparently provides docking support.
+ Let me know what you recommend.
 \end_layout
 
 \begin_layout Section
@@ -23372,7 +23626,7 @@ Finally, you'll find it on the context menus for individual tab title views,
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \align center
@@ -23404,9 +23658,9 @@ Copy on Tab Title View
 \end_layout
 
 \begin_layout Standard
-This is a minor, though useful feature that comes in handy and can save
- repetitive data entry tasks, where one might otherwise have to invoke copy/past
-e individually on atomic fields.
+This feature can come in handy and save repetitive data entry tasks, where
+ one might otherwise be forced to invoke copy/paste individually on atomic
+ fields.
  
 \end_layout
 
@@ -23444,359 +23698,165 @@ This feature is at the moment fairly simple.
 Summary
 \end_layout
 
-\begin_layout Section
-The State of JMatter
+\begin_layout Standard
+JMatter is a framework for building software applications that embrace the
+ notion of domain-driven design: that the essence of a software application
+ is the translation of domain knowledge into code; the modeling of the domain
+ into a set of entities with interrelationships.
+ Briefly: many of of those things that Eric Evans discusses in his book
+ Domain-Driven Design 
+\begin_inset LatexCommand cite
+key "Evans"
+
+\end_inset
+
+.
+ But this framework does more than embrace these ideas: it is a vehicle
+ for implementing domain-driven applications today.
+ The JMatter codebase constitutes a robust and generic implementation of
+ all of the layers of a software application to support a given domain.
+ This is an extremely agile proposition.
+ In this short book alone, we managed to develop four fully-featured and
+ distinct software applications.
 \end_layout
 
 \begin_layout Standard
-We have seen that JMatter today offers a compelling number of features including
-:
+How such agility is achieved can be described succinctly as follows:
 \end_layout
 
-\begin_layout Enumerate
-A rich and full-featured graphical user interface,
-\end_layout
-
-\begin_layout Enumerate
-Powerful query capabilities
-\end_layout
-
-\begin_layout Enumerate
-Smart lists
-\end_layout
-
-\begin_layout Enumerate
-Authentication
-\end_layout
-
-\begin_layout Enumerate
-Logging
-\end_layout
-
-\begin_layout Enumerate
-Calendaring
-\end_layout
-
-\begin_layout Enumerate
-Integration with JFreeReport
-\end_layout
-
-\begin_layout Enumerate
-Persistence via Hibernate
-\end_layout
-
-\begin_layout Enumerate
-The ability to run an application in a distributed environment via Java
- Web Start,
-\end_layout
-
-\begin_layout Enumerate
-Support for exporting lists as Comma-Separated Values (CSV)
-\end_layout
-
-\begin_layout Enumerate
-Support for wizards
-\end_layout
-
-\begin_layout Enumerate
-Polymorphic modeling support: interfaces, inheritance, etc..
-\end_layout
-
-\begin_layout Enumerate
-A rich set of pre-defined basic types
-\end_layout
-
-\begin_layout Enumerate
-The ability to extend the user interface with custom views
-\end_layout
-
-\begin_layout Enumerate
-Not having to deal with threading issues
-\end_layout
-
-\begin_layout Enumerate
-An authorization system
-\end_layout
-
-\begin_layout Enumerate
-Categorization via folders
-\end_layout
-
-\begin_layout Enumerate
-The ability to customize the class bar directly from the UI
-\end_layout
-
-\begin_layout Enumerate
-The ability to view meta-information directly from the ui
-\end_layout
-
-\begin_layout Enumerate
-Ability to style Swing applications with CSS.
+\begin_layout Quote
+By implementing all application services (search, forms, authorization,
+ persistence, ui, etc..) generically, in a fashion decoupled from any one
+ specific domain model, these implementations are free to be reused across
+ domains.
 \end_layout
 
 \begin_layout Standard
-This chapter is about conveying to you my vision for JMatter: what other
- features you're likely to see in the future.
- Here's a brief outline of my thoughts at the moment:
+The consequences of this reuse are dramatic:
 \end_layout
 
-\begin_layout Enumerate
-Modularization: the ability to pick and choose the combination of features
- one wants to deploy and including only those jar files (smaller footprint);
- e.g.
- JMatter without calendaring support
+\begin_layout Itemize
+large time savings
 \end_layout
 
-\begin_layout Enumerate
-Undo/Redo capabilities
+\begin_layout Itemize
+an application's codebase shrinks dramatically and becomes manageable
 \end_layout
 
-\begin_layout Enumerate
-A web-based user interface: the ability to support web-based clients in
- addition to rich clients
+\begin_layout Itemize
+there's a clean separation between application development and infrastructure
+ development
 \end_layout
 
-\begin_layout Standard
-The following goals are tentative:
-\end_layout
-
-\begin_layout Enumerate
-Possibly an extension of the architecture to support the construction of
- large enterprise applications.
- That is, a second, alternative architecture that is n-tier by nature, with
- application servers sitting between the database server and clients
+\begin_layout Itemize
+consistent, high-quality applications
 \end_layout
 
 \begin_layout Standard
-Another area that I expect to explore is the definition and writing of a
- domain specific language for writing JMatter applications.
- We've recently had suggestions to use perhaps the Groovy language as the
- basis for this DSL, or perhaps to use Ryan Ramage's umlc language, or perhaps
- doing something custom using antlr.
+This model of development puts into question certain rules about software
+ development that up until now we've assumed were out of our control, namely:
+\end_layout
+
+\begin_layout Quote
+that the cost of making a change to a software system late in the life of
+ a software project is much higher; or conversely that it's cheaper to implement
+ changes early on, when less software has been built upon requirements that
+ may change.
 \end_layout
 
 \begin_layout Standard
-Another important aspect that needs to be explored is how to make it simple
- and easy to customize JMatter user interfaces.
- Something along the lines of being able to use the matisse GUI builder
- or perhaps the F3 language to define custom layouts and behaviour.
+The above rule inherently assumes that much of an application's codebase
+ is coupled to requirements, so that when the requirements change, a lot
+ of code will have to be thrown away and rewritten:
+\end_layout
+
+\begin_layout Itemize
+GUI forms will have to be revised to reflect a new field
+\end_layout
+
+\begin_layout Itemize
+Ripple effects to the database schema
+\end_layout
+
+\begin_layout Itemize
+Queries will have to be revised to take a new field into account
+\end_layout
+
+\begin_layout Itemize
+The authorization system will have to be updated because a new action was
+ introduced
 \end_layout
 
 \begin_layout Standard
-In terms of tooling, today we have Ryan Ramage's UltraViolet: a UML editor
- for developing your model.
- UltraViolet proceeds to generate a JMatter application based on the class
- diagram.
- My goal in this area is see if such an application can be developed in
- JMatter itself.
+And the list goes on.
+ The entire application has to be retrofitted to take the change into account.
 \end_layout
 
 \begin_layout Standard
-After reading this document, I hope that you now have a good feel for the
- JMatter philosophy.
-\end_layout
-
-\begin_layout Standard
-This framework is all about you, the developer, not having to repeatedly
- code all of those things that should not change from project to project,
- so that you can concentrate on those things that do change: the domain.
+JMatter the repercussions are kept to a bare minimum: the database schema
+ derives from the domain model, as does the user interface, and the authorizatio
+n system, and the search system, and so on..
+ All reflect the domain model.
 \end_layout
 
 \begin_layout Section
-How we used to code
+Looking Forward
 \end_layout
 
 \begin_layout Standard
-I see JMatter as a superframework for building business applications.
- It's interesting to contrast some aspects of developing with this framework
- compared to the traditional way of coding.
+What technologies to base a project on is always a difficult choice, and
+ a moving target.
+ For example, Java is used in many environmens today but we see a desire
+ to move to languages such as Scala, Groovy, and Ruby.
+ On the other hand, new languages are less mature and involve a certain
+ risk.
 \end_layout
 
 \begin_layout Standard
-On many past projects with previous employers, I recall having a strong
- sense of the link between success on a software project and employee turnover.
- IT shops in general are vulnerable.
- Code can rot very quickly in environments where it's not tended, or where
- the original developer is no longer present.
+JMatter strikes a great balance in its choice of technologies.
+ It's a reality today; it's built upon a mature platform, a stable set of
+ libraries such as Hibernate and Swing.
 \end_layout
 
 \begin_layout Standard
-I believe the reason to be how quickly code becomes exceedingly complex.
- Navigating the logic of a software module or application is like finding
- your way through a labyrinth.
- Documentation is often lacking and if present, almost always out of sync
- with the actual code.
- When programmers say to each other 'the original developer left..', there
- exists between them a silent understanding of the true meaning, the business
- impact of the fact.
- It takes time and gumption to really 
+Looking forward, we will likely be exploring new languages for the JVM such
+ as Scala, Groovy, and JRuby.
+\end_layout
+
+\begin_layout Standard
+These languages will bring about tangible benefits:
+\end_layout
+
+\begin_layout Itemize
+Traits (also known as mixins) are a powerful and missing feature that will
+ provide more flexibility in modeling.
+ Internally, in terms of JMatter's own implementation, it will help streamline
+ the implementation even further.
+\end_layout
+
+\begin_layout Itemize
+The functional programming traits of some of these languages promise to
+ bring about improvements in performance via lazy loading, and in thread
+ safety via immutability.
+\end_layout
+
+\begin_layout Itemize
+Powerful metaobject programming facilities promise to provide the tools
+ necessary to evolve how domains are specified into a full-fledged domain-specif
+ic language.
+\end_layout
+
+\begin_layout Standard
+As one small, concrete example, the Scala language defines the notion of
+ a value object via the built-in primitive 
 \emph on
-grok
-\emph default
- a complex piece of software.
-\end_layout
-
-\begin_layout Standard
-What does this have to do with JMatter? I believe JMatter dramatically simplifie
-s software development.
- Take the following simple example.
- Let's say that a customer's IT shop maintains an existing JMatter application
- that was developed by an outside consulting firm.
- The customer in question needs to revise the business logic for a specific
- command.
-\end_layout
-
-\begin_layout Standard
-The first step is to find the code.
- With a traditional application, what a new programmer will do is trace
- the code from the action's invocation in the user interface, hoping it
- will lead them to the underlying business logic where the code that needs
- to be changed resides.
- Often they discover that no such place exists! The business logic is often
- scattered throughout the path.
- Some of it may exist in the user interface, or separated across a number
- of classes that have no semblance of an object model.
- We discover that this logic is actually duplicated in a number of places.
- So the developer has to backtrack and find all places where the logic resides
- and hopefully refactor the solution before they can begin to make a change.
- They're very likely to indadvertantly break some existing logic.
-\end_layout
-
-\begin_layout Standard
-Now let's think about how we'd go about making the same change in an application
- constructed with JMatter.
- Let's assume that the action in the user interface is the button with a
- caption 
-\emph on
-Prepare Invoice
-\emph default
- on an object of type 
-\emph on
-Project
+val
 \emph default
 .
- We know this because the objects' icon is the same as the one in the class
- bar labeled 
-\emph on
-Projects
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-How do we find the code? We already know both the class name and the method
- name.
- The code is self-documenting.
- We bring up the class 
-\emph on
-Project
-\emph default
- in our IDE and lookup the 
-\emph on
-@Cmd
-\emph default
+ Much redundancy in specifying a domain model can be done away with.
+ You are likely to start seeing JMatter move in this direction in the coming
+ years.
  
-\emph on
-PrepareInvoice()
-\emph default
-.
- This exercise is dead simple.
- JMatter fundamentally alters things for the better.
- We saw plenty of evidence of this in the amount of time it took us to build
- our demo applications, in the number of lines of code we had to write.
- The implications carry through to maintaining our code.
- JMatter controls the proliferation of complexity in our software.
-\end_layout
-
-\begin_layout Section
-Parting Thoughts
-\end_layout
-
-\begin_layout Standard
-I've read many books relating to software development, or documenting various
- software frameworks.
- Many of these books do a great thing: they try to teach by example.
- And so they come up with a sample or tutorial application and throughout
- the book, make incremental changes to the tutorial application as a means
- of illustrating the workings of the framework or libraries that the book
- attempts to teach.
-\end_layout
-
-\begin_layout Standard
-In the manual that you are reading at the moment, I have also tried to teach
- by example.
- What strikes me is that in the process we have built four applications,
- not one.
- Furthermore, I claim that the resulting applications are more functional,
- and bear more features than any of the sample applications you might encounter
- in most other books.
- This is not an attempt to boast about this manual.
- In fact our example applications were incredibly short.
-\end_layout
-
-\begin_layout Standard
-I sincerely believe that JMatter is not just another framework.
- I named this framework JMatter because I felt it had tremendous substance,
- and that this work matters.
-\end_layout
-
-\begin_layout Standard
-Anyone that's attempted to build more than one business software application
- realizes that there exist many commonalities between the various applications,
- and wishes that somehow these commonalities were refactored.
- We often find ourselves either hearing or saying 
-\emph on
-
-\begin_inset Quotes eld
-\end_inset
-
-It's a simple change, except that I have to make it across 200 templates,
-\begin_inset Quotes erd
-\end_inset
-
- or 
-\begin_inset Quotes eld
-\end_inset
-
-how can we factor these commonalities into one place so we can reuse them
- on the next project?
-\emph default
-
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Most existing implementations I have seen are implemented in such a way
- that many of the supposed generic aspects of a software application are
- hopelessly tangled to the only part that I believe should change: the domain
- model.
- And so the generic parts cannot be segregated from the model, and are made
- to be written over again on the next project, only increasing the complexity
- of having to manage the various solutions we implement for our customers.
-\end_layout
-
-\begin_layout Standard
-Since open-sourcing JMatter in June of 2006, I cannot tell you how many
- comments I've received from other developers for whom the need and desire
- for such a framework strikes a chord.
- Some have worked on their own solutions but the task is dauntingly large.
- I believe together we can make our shared vision of a better system for
- building solutions a reality.
-\end_layout
-
-\begin_layout Standard
-JMatter stands on the shoulder of giants.
- Many of these ideas stem from learning about systems such as smalltalk's
- Squeak, and the book NakedObjects, to which I am indebted.
-\end_layout
-
-\begin_layout Standard
-What you have in your hands is only the beginning.
- Spread the word, contribute to this project, and let's fundamentally change
- the way software is written.
 \end_layout
 
 \begin_layout Chapter
@@ -24624,6 +24684,176 @@ hibernate.hbm2ddl.auto=create
 \end_layout
 
 \begin_layout Chapter
+Online Articles on JMatter
+\end_layout
+
+\begin_layout Itemize
+Eitan Suez.
+ 
+\emph on
+
+\begin_inset LatexCommand htmlurl
+name "Extreme Agility with jMatter"
+target "http://www.clientjava.com/blog/2006/07/03/1151937901773.html"
+
+\end_inset
+
+.
+
+\emph default
+ June 2006.
+\end_layout
+
+\begin_layout Itemize
+Eitan Suez.
+ 
+\begin_inset LatexCommand htmlurl
+name "What's the matter with JMatter?"
+target "http://www.onjava.com/pub/a/onjava/2007/08/16/whats-the-matter-with-jmatter.html"
+
+\end_inset
+
+.
+ August 2007.
+\end_layout
+
+\begin_layout Itemize
+Andres Almiray.
+ 
+\begin_inset LatexCommand htmlurl
+name "Interview with Eitan Suez, creator of JMatter framework"
+target "http://java.dzone.com/news/interview-eitan-suez-creator-j"
+
+\end_inset
+
+February 2008.
+\end_layout
+
+\begin_layout Chapter
+FAQ
+\end_layout
+
+\begin_layout Standard
+This FAQ will be expanded in future versions of this documentation.
+\end_layout
+
+\begin_layout Enumerate
+How do I customize my application's name in the main window's title bar?
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Edit the file 
+\emph on
+src/applicationContext.xml
+\emph default
+ and look for a comment labeled 
+\begin_inset Quotes eld
+\end_inset
+
+TODO: Customize App Name Here
+\begin_inset Quotes erd
+\end_inset
+
+.
+ This is also the place where you customize the page size of listings in
+ the user interface (the default is 15).
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+How do I add or remove a command to all my model objects regardless of type?
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+The base class for all JMatter model objects is 
+\emph on
+AbstractComplexEObject
+\emph default
+.
+ When JMatter introspects commands, it recurses up the type's inheritance
+ hierarchy.
+ To add a command to all model objects, edit 
+\emph on
+AbstractComplexEObject
+\emph default
+ and add a new command like you would any model object (marked with the
+ 
+\emph on
+@Cmd
+\emph default
+ annotation).
+ Likewise, to remove an existing command, say for example the 
+\begin_inset Quotes eld
+\end_inset
+
+Export to XML
+\begin_inset Quotes erd
+\end_inset
+
+ command, simply comment out or remove the 
+\emph on
+@Cmd
+\emph default
+ annotation on the corresponding method.
+\end_layout
+
+\end_deeper
+\begin_layout Chapter
+Contributing to this project
+\end_layout
+
+\begin_layout Standard
+Here are few ways in which you can help this project succeed:
+\end_layout
+
+\begin_layout Enumerate
+Use JMatter
+\end_layout
+
+\begin_layout Enumerate
+Spread the word
+\end_layout
+
+\begin_layout Enumerate
+Consider buying a print copy of this book from 
+\emph on
+lulu.com
+\emph default
+ (follow the link from the jmatter.org web site).
+ A fraction of the price of the book goes back to the developers.
+\end_layout
+
+\begin_layout Enumerate
+If you're in the business of developing commercial software solutions, buy
+ a license of JMatter.
+ Or get your company to purchase licenses.
+ These licenses are priced ridiculously low (I've estimated that the break-even
+ point for JMatter is approximately one week into your first project) and
+ are royalty-free.
+\end_layout
+
+\begin_layout Enumerate
+Join the mailing list! Discuss features, suggest design improvements, become
+ a part of our community
+\end_layout
+
+\begin_layout Enumerate
+If you're a software developer, contribute bug fixes, features, enhancements
+\end_layout
+
+\begin_layout Enumerate
+Donate directly (see 
+\begin_inset LatexCommand url
+target "http://jmatter.org/pages/donate"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Chapter
 A Desktop within a Desktop?
 \end_layout
 
@@ -24747,329 +24977,6 @@ So, my hope is that some day a single desktop will exist and the ideas in
  Until then, enjoy smashing your competition to bits with JMatter.
 \end_layout
 
-\begin_layout Chapter
-Programmers Take Issue
-\end_layout
-
-\begin_layout Standard
-Here are a list of 
-\emph on
-issues
-\emph default
- that programmers have with frameworks similar to JMatter.
-\end_layout
-
-\begin_layout Section
-Too Many Windows
-\end_layout
-
-\begin_layout Standard
-I've heard people complain that JMatter application user interfaces are
- unwieldy because they can have too many windows open at one time, leading
- to confusion.
-\end_layout
-
-\begin_layout Standard
-There are ways to manage a desktop, and they're pretty well-known.
- Here are some:
-\end_layout
-
-\begin_layout Enumerate
-Virtual Desktops: many operating systems such as Linux and the MacOS either
- come with this feature or have utilities that can be installed to provide
- this feature.
- Multiple desktops mitigates the problem of too many windows overlapping
- one another.
- You can use one desktop for Email, the other for Web, and the third for
- desktop apps, for example.
-\end_layout
-
-\begin_layout Enumerate
-Alt-Tab: This simple keystroke allowing one to switch from one window to
- the next has become ubiquitous across operating systems.
- In JMatter, the equivalent is Alt-`.
-\end_layout
-
-\begin_layout Enumerate
-Minimizing or hiding windows: again, many operating systems provide ways
- for windows to be automatically hidden or put out of sight while one focuses
- on the specific task at hand.
- I believe the MacOS is an example to follow of how they provide ways for
- one to manage multiple windows effectively.
-\end_layout
-
-\begin_layout Enumerate
-A Docking Framework: docking frameworks put the end-user in control of how
- things are laid out on the screen.
- Windows can be docked to the edges of the screen, they can 
-\emph on
-float
-\emph default
- on the desktop, or they can be superimposed in a tabbed pane.
-\end_layout
-
-\begin_layout Standard
-The JMatter Business Application Desktop has already integrated 
-\emph on
-JExplose
-\emph default
-, a feature similar to Apple's 
-\emph on
-Expose
-\emph default
-, precisely for the purpose of making it easier to manage your desktop.
- The next features we will investigate integrating include [a] an enhanced
- layout manager for the desktop that will allow users the freedom to dock
- their windows to the edges of the application's frame, and [b] features
- similar to ones sported by file managers, including the ability to navigate
- in place from one object to another without opening new windows (that is,
- reusing a single window).
-\end_layout
-
-\begin_layout Section
-Must Extend A Base Class
-\begin_inset LatexCommand label
-name "sec:Must-Extend"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The notion of favoring interfaces over inheritance in object oriented programmin
-g is well-established and undisputed today.
- And I agree with it.
- This particular gripe, which I first encountered in the context of the
- NakedObjects framework, had me at a loss for some time.
- Then it occurred to me, that no one complains about the restriction that
- every Java class they must author must inherit from the class 
-\emph on
-java.lang.Object
-\emph default
-.
- I've come to realize that the JMatter framework's requirement is no different
- from the notion that all objects must have a base class, whether they like
- it or not.
- The advantage of course is that they all inherit a common set of capabilities.
- In the case of java.lang.Object, they don't really get much for their money,
- so to speak.
- With JMatter, they get a little more: a user interface, persistence, logging,
- query capabilities, etc..
-\end_layout
-
-\begin_layout Section
-
-\emph on
-ValueHolder
-\emph default
- Types vs POJO's
-\begin_inset LatexCommand label
-name "sec:ValueHolder-vs-POJO"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The introduction (by Sun Microsystems and its partners) of Java Enterprise
- Edition to the world in the late 1990's was a momentous event.
- Today JEE is the standard for building enterprise applications that can
- support large numbers of users, systems that are tolerant of a certain
- degree of failure, etc..
-\end_layout
-
-\begin_layout Standard
-But it wasn't all rosy.
- Developers had to submit to stringent conventions for writing Enterprise
- Java Beans.
- In time, developers came to rebel against the model of having to provide
- seven files for each and every Enterprise Bean.
- The term POJO was born: the yearning to go back to the days of Java Standard
- Edition, when one had to write a single file: the Java Class.
- This single file came to be known as a POJO: the Plain-Old Java Object.
-\end_layout
-
-\begin_layout Standard
-Along comes NakedObjects.
- And along with it comes the notion of Value objects, which are ValueHolder
- types.
- The notion of the ValueHolder has its roots in Smalltalk.
- In Smalltalk the ValueHolder is an adapter for atomic types such as numbers
- or pieces of text (Strings).
- The need for the adapter was simple: in order for these bits of information
- to actually work in the context of an MVC (Model-View-Controller) application,
- the information had to act as a model object: it had to be able to notify
- a view when its value changed.
- This permits the view to properly reflect the current model object's value.
-\end_layout
-
-\begin_layout Standard
-In JMatter as well as in NakedObjects the notion of ValueHolders is actually
- integrated into these atomic types.
- They all have ValueHolder capabilities, and for obvious reasons.
-\end_layout
-
-\begin_layout Standard
-The developer community took issue to this.
- They didn't like having to replace a 
-\emph on
-java.lang.String
-\emph default
- with a NakedObject 
-\emph on
-TextString
-\emph default
- or a JMatter 
-\emph on
-StringEO
-\emph default
-.
- They went as far as invoking the POJO clause: 
-\emph on
-we want our plain old java objects back
-\emph default
-!
-\end_layout
-
-\begin_layout Standard
-I heartily disagree.
- A POJO implies a single class file.
- TextString's and StringEO's are POJO's.
- Developing JMatter or NakedObjects applications has nothing in common with
- the old model of writing Java enterprise applications.
- If anything, they are the antithesis of that.
- Developers are not burdened by the conventions of JMatter, they are freed
- by them.
-\end_layout
-
-\begin_layout Standard
-So, I take issue with the statement that ValueHolders are not POJO's.
- Indeed they are.
- The term is used in error in this context.
-\end_layout
-
-\begin_layout Chapter
-FAQ
-\end_layout
-
-\begin_layout Standard
-This FAQ will be expanded in future versions of this documentation.
-\end_layout
-
-\begin_layout Section
-How do I customize my application's name in the main window's title bar?
-\end_layout
-
-\begin_layout Standard
-Edit the file 
-\emph on
-src/applicationContext.xml
-\emph default
- and look for a comment labeled 
-\begin_inset Quotes eld
-\end_inset
-
-TODO: Customize App Name Here
-\begin_inset Quotes erd
-\end_inset
-
-.
- This is also the place where you customize the page size of listings in
- the user interface (the default is 15).
-\end_layout
-
-\begin_layout Section
-How do I add or remove a command to all my model objects regardless of type?
-\end_layout
-
-\begin_layout Standard
-The base class for all JMatter model objects is 
-\emph on
-AbstractComplexEObject
-\emph default
-.
- When JMatter introspects commands, it recurses up the type's inheritance
- hierarchy.
- To add a command to all model objects, edit 
-\emph on
-AbstractComplexEObject
-\emph default
- and add a new command like you would any model object (marked with the
- 
-\emph on
-@Cmd
-\emph default
- annotation).
- Likewise, to remove an existing command, say for example the 
-\begin_inset Quotes eld
-\end_inset
-
-Export to XML
-\begin_inset Quotes erd
-\end_inset
-
- command, simply comment out or remove the 
-\emph on
-@Cmd
-\emph default
- annotation on the corresponding method.
-\end_layout
-
-\begin_layout Chapter
-Contributing to this project
-\end_layout
-
-\begin_layout Standard
-Here are few ways in which you can help this project succeed:
-\end_layout
-
-\begin_layout Enumerate
-Use JMatter
-\end_layout
-
-\begin_layout Enumerate
-Spread the word
-\end_layout
-
-\begin_layout Enumerate
-Consider buying a print copy of this book from 
-\emph on
-lulu.com
-\emph default
- (follow the link from the jmatter.org web site).
- A fraction of the price of the book goes back to the developers.
-\end_layout
-
-\begin_layout Enumerate
-If you're in the business of developing commercial software solutions, buy
- a license of JMatter.
- Or get your company to purchase licenses.
- These licenses are priced ridiculously low (I've estimated that the break-even
- point for JMatter is approximately one week into your first project) and
- are royalty-free.
-\end_layout
-
-\begin_layout Enumerate
-Join the mailing list! Discuss features, suggest design improvements, become
- a part of our community
-\end_layout
-
-\begin_layout Enumerate
-If you're a software developer, contribute bug fixes, features, enhancements
-\end_layout
-
-\begin_layout Enumerate
-Donate directly (see 
-\begin_inset LatexCommand url
-target "http://jmatter.org/pages/donate"
-
-\end_inset
-
-)
-\end_layout
-
 \begin_layout Bibliography
 \begin_inset LatexCommand bibitem
 key "Mat&Paw"
@@ -25112,7 +25019,7 @@ Simon Lewis.
 The Art and Science of Smalltalk.
 
 \emph default
- Prentice Hall; 1 edition (May 11, 1995)
+ Prentice Hall; 1st edition (May 11, 1995).
 \end_layout
 
 \begin_layout Bibliography
@@ -25122,12 +25029,13 @@ key "GoF"
 
 \end_inset
 
-.
+Gamma, Helm, Johnson, Vlissides.
  
 \emph on
 Design Patterns
 \emph default
 .
+ Addison-Wesley (1995).
 \end_layout
 
 \begin_layout Bibliography
@@ -25137,24 +25045,30 @@ key "Evans"
 
 \end_inset
 
-
-\emph on
 Eric Evans.
- Domain Driven Design
+ 
+\emph on
+Domain Driven Design
 \emph default
 .
+ Addison-Wesley (2004).
 \end_layout
 
 \begin_layout Bibliography
 \begin_inset LatexCommand bibitem
 label "6"
-key "key-3"
+key "Jasper"
 
 \end_inset
 
-
+David R.
+ Heffelfinger.
+ 
 \emph on
-JasperReports
+JasperReports for Java Developers.
+
+\emph default
+ PackT Publishing (2006).
 \end_layout
 
 \end_body
