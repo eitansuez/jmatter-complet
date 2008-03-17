@@ -21721,7 +21721,7 @@ new-project-ui
 \end_layout
 
 \begin_layout Enumerate
-Navigate (cd) to your newly created project and edit the file 
+Navigate (cd) to your newly-created project and edit the file 
 \emph on
 resources/hibernate.properties
 \emph default
@@ -21755,23 +21755,49 @@ You can now invoke the
 \emph on
 schema-update
 \emph default
- target which will do two things: [a] it will invoke the genhbm target that
- will generate the hibernate mapping files from the generated source code;
- and [b] it will update the existing database schema to include version
- and createdOn columns and additional jmatter-specific tables that are required
- by JMatter.
+ target which will do two things:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+it will invoke the 
+\emph on
+genhbm
+\emph default
+ target that will generate the hibernate mapping files from the generated
+ source code; and
 \end_layout
 
 \begin_layout Enumerate
+it will update the existing database schema to include 
+\emph on
+version
+\emph default
+ and 
+\emph on
+createdOn
+\emph default
+ columns and additional jmatter-specific tables
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
 At the present time, there's one other simple matter to address.
- JMatter does not deal well with null default values for the version and
- createdOn columns.
+ JMatter does not deal well with null initial values for the 
+\emph on
+version
+\emph default
+ and 
+\emph on
+createdOn
+\emph default
+ columns.
  Step [4] above creates the sql script aptly named 
 \emph on
 reveng_update_script.sql
 \emph default
  that you can manually invoke to rectify this issue.
- Here's an example of how I do this with postgres:
+ Here's an example of how I do this with postgreSQL:
 \end_layout
 
 \begin_layout LyX-Code
@@ -21785,7 +21811,7 @@ i reveng_update_script
 \end_layout
 
 \begin_layout LyX-Code
-
+$ 
 \backslash
 q
 \end_layout
@@ -22004,6 +22030,8 @@ Description
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 fo
 \end_layout
 
@@ -22013,7 +22041,9 @@ fo
 \begin_inset Text
 
 \begin_layout Standard
-expands to the metadata specification for fieldOrder
+expands to the metadata specification for 
+\emph on
+fieldOrder
 \end_layout
 
 \end_inset
@@ -22024,6 +22054,8 @@ expands to the metadata specification for fieldOrder
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 flat
 \end_layout
 
@@ -22033,7 +22065,11 @@ flat
 \begin_inset Text
 
 \begin_layout Standard
-expands to the 'flattenIntoParent' metadata specification
+expands to the 
+\emph on
+flattenIntoParent
+\emph default
+ metadata specification
 \end_layout
 
 \end_inset
@@ -22044,6 +22080,8 @@ expands to the 'flattenIntoParent' metadata specification
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 bprop
 \end_layout
 
@@ -22064,6 +22102,8 @@ will write the bound property getter and setter methods for you
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 tv
 \end_layout
 
@@ -22073,7 +22113,11 @@ tv
 \begin_inset Text
 
 \begin_layout Standard
+expands to specify the 
+\emph on
 tabViews
+\emph default
+ metadata
 \end_layout
 
 \end_inset
@@ -22084,6 +22128,8 @@ tabViews
 \begin_inset Text
 
 \begin_layout Standard
+
+\emph on
 plu
 \end_layout
 
@@ -22093,7 +22139,11 @@ plu
 \begin_inset Text
 
 \begin_layout Standard
-will write the pluralName() method to override the pluralname for a type
+will write the 
+\emph on
+pluralName()
+\emph default
+ method to override the plural name for a type
 \end_layout
 
 \end_inset
@@ -22168,7 +22218,7 @@ Ultraviolet
 With this editor, you can define the set of classes in your model and their
  interrelationships.
  One can specify associations, their cardinality, whether they're bidirectional.
- Much of JMatter's metadata can be specified directly each class's property
+ Much of JMatter's metadata can be specified directly via each class's property
  sheet: class name, plural name, icon, color code, fields, commands, as
  well as field and command metadata.
  One can also model inheritance.
