@@ -14683,528 +14683,6 @@ IssueMgr
 \end_layout
 
 \begin_layout Chapter
-Authentication & Authorization
-\begin_inset LatexCommand label
-name "cha:Authentication-&-Authorization"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-JMatter comes built-in with authentication and authorization services.
-\end_layout
-
-\begin_layout Standard
-When launching a JMatter application for the first time, the framework will
- create two roles (administrative and default) and two corresponding users:
- admin (with admin privileges), and 'johndoe' with default privileges, as
- shown in the figure 38.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename figures/users-and-roles.png
-	lyxscale 50
-	scale 50
-
-\end_inset
-
-
-\begin_inset Caption
-
-\begin_layout Standard
-Initial Users and Roles
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The framework provides two model objects: 
-\emph on
-User.java
-\emph default
- and 
-\emph on
-Role.java
-\emph default
-, that are constructed according to JMatter's own conventions for model
- objects.
- The icons used for these types follow the same convention: you will find
- in the path 
-\emph on
-jmatter/resources/images
-\emph default
- the corresponding icons used by the framework.
- In the case of 
-\emph on
-User
-\emph default
-, you will find three variants: an icon for a single user, a plural version,
- and a state-specific icon for locked users (UserLocked32.png).
-\end_layout
-
-\begin_layout Standard
-Users and Roles are modeled in a bidirectional one-to-many association.
- By default, when creating a new user, the user will be associated with
- the default role.
-\end_layout
-
-\begin_layout Standard
-Passwords are hashed using the MD5 algorigthm, and it is this hash which
- is stored in the database.
-\end_layout
-
-\begin_layout Standard
-Upon application launch, the application is in 
-\emph on
-logged out
-\emph default
- state, and a login dialog is presented.
- Three invalid login attempts by default will cause the user account in
- question to lock, requiring an administrator to reset the user's password.
- Password resetting is implemented as a JMatter Command (
-\emph on
-@Cmd
-\emph default
-) and so is accessible directly from the user interface (assuming you have
- the proper permission).
-\end_layout
-
-\begin_layout Standard
-Upon successful login, the user's classbar is fetched from database (upon
- initial login, the classbar is defined from the template file 
-\emph on
-class-list.xml
-\emph default
-) and presented in the user interface.
-\end_layout
-
-\begin_layout Standard
-Again, assuming the proper permissions, one can create new users, new roles,
- assign users to a role, and go about performing whatever activities are
- necessary to manage authentication-related information.
-\end_layout
-
-\begin_layout Section
-Autologin
-\end_layout
-
-\begin_layout Standard
-In some situations, one might be interested in developing a application
- that does not care for or require authentication.
- For such cases, JMatter can be configured to automatically log in as a
- specific user upon launch, removing the need for users to manually authenticate.
-\end_layout
-
-\begin_layout Standard
-To configure a JMatter application with autologin, edit the application's
- 
-\emph on
-src/applicationContext.xml
-\emph default
- as follows:
-\end_layout
-
-\begin_layout LyX-Code
-   <bean id="app-session" class="com.u2d.app.AppSession">
-\end_layout
-
-\begin_layout LyX-Code
-      <property name="app" ref="application" />
-\end_layout
-
-\begin_layout LyX-Code
-      <property name="viewMechanism" ref="view-mechanism" />
-\end_layout
-
-\begin_layout LyX-Code
-
-\emph on
-      <property name="autologinas" value="admin" />
-\end_layout
-
-\begin_layout LyX-Code
-   </bean>
-\end_layout
-
-\begin_layout Standard
-The important line is the 
-\emph on
-autologinas
-\emph default
- property, which directs JMatter to turn on autologin and to automatically
- log the user in as the user 
-\emph on
-admin
-\emph default
-, in this particular case.
-\end_layout
-
-\begin_layout Section
-Authorization
-\begin_inset LatexCommand label
-name "sec:Authorization"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Authorization governs who can perform what actions.
- Authorization in JMatter is specified by role.
- JMatter comes complete with an authorization implementation, all driven
- from the user interface.
-\end_layout
-
-\begin_layout Standard
-The starting point is an application where everything is permitted.
- Authorization is specified then by applying a series of restrictions from
- this initial state.
- When a user logs in, the set of restrictions corresponding to the user's
- role are fetched from the database and applied to the system.
- Upon logout, the restrictions are lifted, and reapplied on subsequent login,
- again according to the new logged in user's role's restrictions.
-\end_layout
-
-\begin_layout Standard
-Restrictions can be applied to both commands and fields.
- Commands can be disabled, in which case, they disappear from the user interface
-: from context menus, from the button panels on form views.
- Fields can be marked hidden or read-only, per role.
-\end_layout
-
-\begin_layout Standard
-To specify the authorization policy, JMatter defines the command 
-\emph on
-Manage Restrictions,
-\emph default
- defined on all types, as shown in figure 39.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename figures/manage-restrictions.png
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Managing Restrictions
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Just like Form Views are dynamically rendered, based on the structure of
- model objects, so is this view.
- When a new role is created, a new column will appear in this view.
- When a new command or field is added, a new row will be added to the correspond
-ing table.
-\end_layout
-
-\begin_layout Standard
-Here we see that existing administrative commands are already marked restricted
- for the 'default' role.
- For example, the ability to create a new role, to edit or delete roles,
- is prohibited.
- Furthermore the ability to define restrictions on roles is likewise prohibited.
- Finally, the role type's 
-\emph on
-Open
-\emph default
- command is prohibited as well, restricting access to inspection of the
- type's metadata from the user interface.
-\end_layout
-
-\begin_layout Chapter
-Search
-\end_layout
-
-\begin_layout Standard
-Search is an indispensable part of business applications today.
- Database systems provide the ability to lookup information via its SQL
- interface.
- But software applications will almost never provide end users direct access
- to a database via SQL, and there are many good reasons for this.
-\end_layout
-
-\begin_layout Standard
-Typically a fair amount of code is written by developers on top of SQL (or
- these days HQL or some other object-based query language) to expose search
- features in their applications.
-\end_layout
-
-\begin_layout Standard
-JMatter integrates search capabilities directly into its user interfaces,
- in a deep and comprehensive fashion.
- The good news is that the entire implementation is independent of the domain
- in question, removing the need for developers to implement their own search
- layer.
-\end_layout
-
-\begin_layout Section
-Filtering Listings
-\end_layout
-
-\begin_layout Standard
-All list views in JMatter are decorated with a simple query panel.
- Through this query panel, users can dynamically view a custom-filtered
- set of items, that match a specific criterion: users with a specific last
- name, contacts in a specific city, talks on a given topic, sessions given
- on a specific date, etc..
-\end_layout
-
-\begin_layout Standard
-Users have adhoc search capabilities on every type in their domain.
- This feature is quite sophisticated.
- JMatter provides a custom widget based on a tree model that comprises an
- acyclic tree of the sum of valid search paths for a type, from the entity's
- root to leaf fields, and can traverse even associations to other fields.
-\end_layout
-
-\begin_layout Standard
-Furthermore, for every atomic type, JMatter provides a set of matching inequalit
-ies and value editors.
-\end_layout
-
-\begin_layout Standard
-So for example we can ask questions such as 
-\begin_inset Quotes eld
-\end_inset
-
-return all contacts who live in a zip code that starts with a 7
-\begin_inset Quotes erd
-\end_inset
-
- or 
-\begin_inset Quotes eld
-\end_inset
-
-find all talks given by speakers whose who live within such a matching zip
- code.
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-The Find Command
-\end_layout
-
-\begin_layout Standard
-The 
-\emph on
-Find
-\emph default
- command, which is inherent on any type, allows the composing of multiple
- simple criteria in a conjunction.
- Disjunction type composite queries are not yet supported.
-\end_layout
-
-\begin_layout Section
-Smart Lists
-\end_layout
-
-\begin_layout Standard
-Smart lists denote the ability to save a query performed using the 
-\emph on
-Find
-\emph default
- command to database.
- All JMatter applications include model objects provided by the framework
- itself.
- Examples include the entities 
-\emph on
-User
-\emph default
-, and 
-\emph on
-Role
-\emph default
- to manage authorization.
- With respect to Search, the 
-\emph on
-Query
-\emph default
- model object is also part of your application's domain.
- This means that end-users can create, read, update, delete, and execute
- queries to their heart's content.
- They can even use the built-in search capabilities of JMatter to query
- queries.
-\end_layout
-
-\begin_layout Standard
-So for example, in the 
-\emph on
-MyTunes
-\emph default
- sample application, we can create our own playlists based on various criteria
- and name them, in a manner analogous that users have become accustomed
- to with other popular players.
-\end_layout
-
-\begin_layout Section
-Search in Associations
-\end_layout
-
-\begin_layout Standard
-Another important feature in JMatter is the ability to search directly within
- the context of an association field, for the purpose of establishing a
- relation between two objects.
- Section 
-\begin_inset LatexCommand vref
-reference "sec:Associations-Made-Easy"
-
-\end_inset
-
- provides a detailed example of its use.
-\end_layout
-
-\begin_layout Section
-Polymorphic queries
-\end_layout
-
-\begin_layout Standard
-When modeling an application using object oriented principles, we avail
- ourselves to various modeling techniques such as modeling with abstract
- classes and interfaces.
- We can have an association from one entity to another which is by nature
- polymorphic.
- We saw two such examples when covering the Sympster demo application:
-\end_layout
-
-\begin_layout Enumerate
-A symposium's venue was modeled using a simple abstract base class with
- three subclasses (Hotel, Campus, and ConferenceCenter)
-\end_layout
-
-\begin_layout Enumerate
-Sessions were modeled with a relationship to an Event, an interface, implemented
- by both Talk and BOF.
-\end_layout
-
-\begin_layout Standard
-The nature of these relationships carries through to queries.
- We can request of our persistence repository for a listing of events, which
- will transparently fetch both Talks and BOFs.
- All queries are performed at the object level.
- This is all thanks to features built into Hibernate.
- Its query support is object-based and JMatter takes full advantage of it.
-\end_layout
-
-\begin_layout Section
-Code Hints for Search
-\end_layout
-
-\begin_layout Standard
-There is one specific class-level piece of metadata that developers typically
- specify to govern a default that is related to searching, as discussed
- in section 
-\begin_inset LatexCommand ref
-reference "sub:dflt-searchpath"
-
-\end_inset
-
-: 
-\emph on
-defaultSearchPath
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-Here's an example:
-\end_layout
-
-\begin_layout LyX-Code
-public static String defaultSearchPath = "name";
-\end_layout
-
-\begin_layout Standard
-This piece of metadata is useful to define one field that is most commonly
- used to search for instances of a given type.
- It may be 
-\emph on
-name
-\emph default
- for a Person object, or 
-\emph on
-title
-\emph default
- for a Presentation object.
-\end_layout
-
-\begin_layout Standard
-The value is specified as a string but may actually be a field path, such
- as 
-\emph on
-name.first
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-This value in turn is used in the user interface to assist with quick searches
- for performing associations or defaulting the search field when performing
- a search operation.
- It's quite useful.
- At the moment, this feature is supported only for text-based fields where
- the inequality defaults to 
-\emph on
-TextStarts
-\emph default
- (i.e.
- that we're looking for instances whose default search field value starts
- with the value entered by the user).
-\end_layout
-
-\begin_layout Chapter
 Validation
 \begin_inset LatexCommand label
 name "cha:Validation"
@@ -15734,6 +15212,532 @@ So there's a simple business rule in this case that a trip segment's distance
 So here you have it, in a nutshell, an overview of validation in JMatter,
  how to implement it in your applications, and how things work under the
  hood.
+\end_layout
+
+\begin_layout Chapter
+Authentication & Authorization
+\begin_inset LatexCommand label
+name "cha:Authentication-&-Authorization"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+JMatter comes built-in with authentication and authorization services.
+\end_layout
+
+\begin_layout Standard
+When launching a JMatter application for the first time, the framework will
+ create two roles (administrative and default) and two corresponding users:
+ admin (with admin privileges), and 'johndoe' with default privileges, as
+ shown in the figure 38.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/users-and-roles.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Standard
+Initial Users and Roles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The framework provides two model objects: 
+\emph on
+User.java
+\emph default
+ and 
+\emph on
+Role.java
+\emph default
+, that are constructed according to JMatter's own conventions for model
+ objects.
+ The icons used for these types follow the same convention: you will find
+ in the path 
+\emph on
+jmatter/resources/images
+\emph default
+ the corresponding icons used by the framework.
+ In the case of 
+\emph on
+User
+\emph default
+, you will find three variants: an icon for a single user, a plural version,
+ and a state-specific icon for locked users (UserLocked32.png).
+\end_layout
+
+\begin_layout Standard
+Users and Roles are modeled in a bidirectional one-to-many association.
+ By default, when creating a new user, the user will be associated with
+ the default role.
+\end_layout
+
+\begin_layout Standard
+Passwords are hashed using the MD5 algorigthm, and it is this hash which
+ is stored in the database.
+\end_layout
+
+\begin_layout Standard
+Upon application launch, the application is in 
+\emph on
+logged out
+\emph default
+ state, and a login dialog is presented.
+ Three invalid login attempts by default will cause the user account in
+ question to lock, requiring an administrator to reset the user's password.
+ Password resetting is implemented as a JMatter Command (
+\emph on
+@Cmd
+\emph default
+) and so is accessible directly from the user interface (assuming you have
+ the proper permission).
+\end_layout
+
+\begin_layout Standard
+Upon successful login, the user's classbar is fetched from database (upon
+ initial login, the classbar is defined from the template file 
+\emph on
+class-list.xml
+\emph default
+) and presented in the user interface.
+\end_layout
+
+\begin_layout Standard
+Again, assuming the proper permissions, one can create new users, new roles,
+ assign users to a role, and go about performing whatever activities are
+ necessary to manage authentication-related information.
+\end_layout
+
+\begin_layout Section
+Autologin
+\end_layout
+
+\begin_layout Standard
+In some situations, one might be interested in developing a application
+ that does not care for or require authentication.
+ For such cases, JMatter can be configured to automatically log in as a
+ specific user upon launch, removing the need for users to manually authenticate.
+\end_layout
+
+\begin_layout Standard
+To configure a JMatter application with autologin, edit the application's
+ 
+\emph on
+src/applicationContext.xml
+\emph default
+ as follows:
+\end_layout
+
+\begin_layout LyX-Code
+   <bean id="app-session" class="com.u2d.app.AppSession">
+\end_layout
+
+\begin_layout LyX-Code
+      <property name="app" ref="application" />
+\end_layout
+
+\begin_layout LyX-Code
+      <property name="viewMechanism" ref="view-mechanism" />
+\end_layout
+
+\begin_layout LyX-Code
+
+\emph on
+      <property name="autologinas" value="admin" />
+\end_layout
+
+\begin_layout LyX-Code
+   </bean>
+\end_layout
+
+\begin_layout Standard
+The important line is the 
+\emph on
+autologinas
+\emph default
+ property, which directs JMatter to turn on autologin and to automatically
+ log the user in as the user 
+\emph on
+admin
+\emph default
+, in this particular case.
+\end_layout
+
+\begin_layout Section
+Authorization
+\begin_inset LatexCommand label
+name "sec:Authorization"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Authorization governs who can perform what actions.
+ Authorization in JMatter is specified by role.
+ JMatter comes complete with an authorization implementation, all driven
+ from the user interface.
+\end_layout
+
+\begin_layout Standard
+The starting point is an application where everything is permitted.
+ Authorization is specified then by applying a series of restrictions from
+ this initial state.
+ When a user logs in, the set of restrictions corresponding to the user's
+ role are fetched from the database and applied to the system.
+ Upon logout, the restrictions are lifted, and reapplied on subsequent login,
+ again according to the new logged in user's role's restrictions.
+\end_layout
+
+\begin_layout Standard
+Restrictions can be applied to both commands and fields.
+ Commands can be disabled, in which case, they disappear from the user interface
+: from context menus, from the button panels on form views.
+ Fields can be marked hidden or read-only, per role.
+\end_layout
+
+\begin_layout Standard
+To specify the authorization policy, JMatter defines the command 
+\emph on
+Manage Restrictions,
+\emph default
+ defined on all types, as shown in figure 39.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/manage-restrictions.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Managing Restrictions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Just like Form Views are dynamically rendered, based on the structure of
+ model objects, so is this view.
+ When a new role is created, a new column will appear in this view.
+ When a new command or field is added, a new row will be added to the correspond
+ing table.
+\end_layout
+
+\begin_layout Standard
+Here we see that existing administrative commands are already marked restricted
+ for the 'default' role.
+ For example, the ability to create a new role, to edit or delete roles,
+ is prohibited.
+ Furthermore the ability to define restrictions on roles is likewise prohibited.
+ Finally, the role type's 
+\emph on
+Open
+\emph default
+ command is prohibited as well, restricting access to inspection of the
+ type's metadata from the user interface.
+\end_layout
+
+\begin_layout Chapter
+Search
+\end_layout
+
+\begin_layout Standard
+Search is an indispensable part of business applications today.
+ Database systems provide the ability to lookup information via its SQL
+ interface.
+ But software applications will almost never provide end users direct access
+ to a database via SQL, and there are many good reasons for this.
+\end_layout
+
+\begin_layout Standard
+Typically a fair amount of code is written by developers on top of SQL (or
+ these days HQL or some other object-based query language) to expose search
+ features in their applications.
+\end_layout
+
+\begin_layout Standard
+JMatter integrates search capabilities directly into its user interfaces,
+ in a deep and comprehensive fashion.
+ The good news is that the entire implementation is independent of the domain
+ in question, removing the need for developers to implement their own search
+ layer.
+\end_layout
+
+\begin_layout Section
+Filtering Listings
+\end_layout
+
+\begin_layout Standard
+All list views in JMatter are decorated with a simple query panel.
+ Through this query panel, users can dynamically view a custom-filtered
+ set of items, that match a specific criterion: users with a specific last
+ name, contacts in a specific city, talks on a given topic, sessions given
+ on a specific date, etc..
+\end_layout
+
+\begin_layout Standard
+Users have adhoc search capabilities on every type in their domain.
+ This feature is quite sophisticated.
+ JMatter provides a custom widget based on a tree model that comprises an
+ acyclic tree of the sum of valid search paths for a type, from the entity's
+ root to leaf fields, and can traverse even associations to other fields.
+\end_layout
+
+\begin_layout Standard
+Furthermore, for every atomic type, JMatter provides a set of matching inequalit
+ies and value editors.
+\end_layout
+
+\begin_layout Standard
+So for example we can ask questions such as 
+\begin_inset Quotes eld
+\end_inset
+
+return all contacts who live in a zip code that starts with a 7
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+find all talks given by speakers whose who live within such a matching zip
+ code.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Find Command
+\end_layout
+
+\begin_layout Standard
+The 
+\emph on
+Find
+\emph default
+ command, which is inherent on any type, allows the composing of multiple
+ simple criteria in a conjunction.
+ Disjunction type composite queries are not yet supported.
+\end_layout
+
+\begin_layout Section
+Smart Lists
+\end_layout
+
+\begin_layout Standard
+Smart lists denote the ability to save a query performed using the 
+\emph on
+Find
+\emph default
+ command to database.
+ All JMatter applications include model objects provided by the framework
+ itself.
+ Examples include the entities 
+\emph on
+User
+\emph default
+, and 
+\emph on
+Role
+\emph default
+ to manage authorization.
+ With respect to Search, the 
+\emph on
+Query
+\emph default
+ model object is also part of your application's domain.
+ This means that end-users can create, read, update, delete, and execute
+ queries to their heart's content.
+ They can even use the built-in search capabilities of JMatter to query
+ queries.
+\end_layout
+
+\begin_layout Standard
+So for example, in the 
+\emph on
+MyTunes
+\emph default
+ sample application, we can create our own playlists based on various criteria
+ and name them, in a manner analogous that users have become accustomed
+ to with other popular players.
+\end_layout
+
+\begin_layout Section
+Search in Associations
+\end_layout
+
+\begin_layout Standard
+Another important feature in JMatter is the ability to search directly within
+ the context of an association field, for the purpose of establishing a
+ relation between two objects.
+ Section 
+\begin_inset LatexCommand vref
+reference "sec:Associations-Made-Easy"
+
+\end_inset
+
+ provides a detailed example of its use.
+\end_layout
+
+\begin_layout Section
+Polymorphic queries
+\end_layout
+
+\begin_layout Standard
+When modeling an application using object oriented principles, we avail
+ ourselves to various modeling techniques such as modeling with abstract
+ classes and interfaces.
+ We can have an association from one entity to another which is by nature
+ polymorphic.
+ We saw two such examples when covering the Sympster demo application:
+\end_layout
+
+\begin_layout Enumerate
+A symposium's venue was modeled using a simple abstract base class with
+ three subclasses (Hotel, Campus, and ConferenceCenter)
+\end_layout
+
+\begin_layout Enumerate
+Sessions were modeled with a relationship to an Event, an interface, implemented
+ by both Talk and BOF.
+\end_layout
+
+\begin_layout Standard
+The nature of these relationships carries through to queries.
+ We can request of our persistence repository for a listing of events, which
+ will transparently fetch both Talks and BOFs.
+ All queries are performed at the object level.
+ This is all thanks to features built into Hibernate.
+ Its query support is object-based and JMatter takes full advantage of it.
+\end_layout
+
+\begin_layout Section
+Code Hints for Search
+\end_layout
+
+\begin_layout Standard
+There is one specific class-level piece of metadata that developers typically
+ specify to govern a default that is related to searching, as discussed
+ in section 
+\begin_inset LatexCommand ref
+reference "sub:dflt-searchpath"
+
+\end_inset
+
+: 
+\emph on
+defaultSearchPath
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+Here's an example:
+\end_layout
+
+\begin_layout LyX-Code
+public static String defaultSearchPath = "name";
+\end_layout
+
+\begin_layout Standard
+This piece of metadata is useful to define one field that is most commonly
+ used to search for instances of a given type.
+ It may be 
+\emph on
+name
+\emph default
+ for a Person object, or 
+\emph on
+title
+\emph default
+ for a Presentation object.
+\end_layout
+
+\begin_layout Standard
+The value is specified as a string but may actually be a field path, such
+ as 
+\emph on
+name.first
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+This value in turn is used in the user interface to assist with quick searches
+ for performing associations or defaulting the search field when performing
+ a search operation.
+ It's quite useful.
+ At the moment, this feature is supported only for text-based fields where
+ the inequality defaults to 
+\emph on
+TextStarts
+\emph default
+ (i.e.
+ that we're looking for instances whose default search field value starts
+ with the value entered by the user).
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Chapter
@@ -17180,6 +17184,46 @@ Finally, we also see that JMatter provides an avenue for producing PDFs
  I've personally also written directly against the underlying iText PDF
  library to produce and display PDFs directly as a consequence of a command
  invocation.
+\end_layout
+
+\begin_layout Chapter
+Calendars and Maps
+\end_layout
+
+\begin_layout Standard
+Some types of information may be more easily interpreted visually on a timesheet
+, or on a map.
+ Many types exhibit fields such as time spans: sessions, appointments, meetings,
+ visits and more.
+ Likewise many pieces of information have location information: a latitude
+ and longitude.
+\end_layout
+
+\begin_layout Standard
+We saw an example of scheduling in the Sympster demo application.
+ JMatter supports both a simple and a fancy model for integrating scheduling
+ visually into its graphical user interface.
+\end_layout
+
+\begin_layout Standard
+For mapping, JMatter integrates Swingx-ws for viewing entities on a map,
+ in a fashion similar to what we've become accustomed to with Google maps.
+\end_layout
+
+\begin_layout Section
+Calendars
+\end_layout
+
+\begin_layout Standard
+[tbd]
+\end_layout
+
+\begin_layout Section
+Maps
+\end_layout
+
+\begin_layout Standard
+[tbd]
 \end_layout
 
 \begin_layout Chapter
