@@ -17275,7 +17275,7 @@ reference "fig:Calendar-dayview"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \noindent
@@ -17322,13 +17322,13 @@ The next figure shows the same listing filtered by title (we're looking
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \noindent
 \align center
 \begin_inset Graphics
-	filename figures/dayview_filtered.p40
+	filename figures/dayview_filtered.png
 	lyxscale 50
 	scale 50
 
@@ -17377,7 +17377,296 @@ Analogous to having integrated custom views for types with a time component,
 \end_layout
 
 \begin_layout Standard
-[ to be documented ]
+For this feature, JMatter integrates the work done by the Sun Swing team
+ on the project named 
+\emph on
+Swingx-ws
+\emph default
+ (where ws stands for web services).
+\end_layout
+
+\begin_layout Standard
+This implementation is a little less mature compared to calendaring but
+ has come along nicely.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset LatexCommand ref
+reference "fig:A-Flight-Route"
+
+\end_inset
+
+ shows an example route for a flight itinerary that leverages JMatter's
+ mapping support.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/sample_trip.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+A Flight Route
+\begin_inset LatexCommand label
+name "fig:A-Flight-Route"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this particular implementation I embellished the default map view with
+ an additional layer using curved paths to delineate the route's segments.
+ The waypoints on the maps represent actual model objects.
+ We can right-click on one and edit it if we wish.
+\end_layout
+
+\begin_layout Standard
+The basic contract is that a type extend 
+\emph on
+AbstractComplexMappableEObject
+\emph default
+ and implement the single method specified in the contract with the interface
+ 
+\emph on
+MappableEO
+\emph default
+: 
+\end_layout
+
+\begin_layout LyX-Code
+ public GeoPoint geoPosition();
+\end_layout
+
+\begin_layout Standard
+You guessed it: a 
+\emph on
+GeoPoint
+\emph default
+ is a JMatter type, which means that, among other things, it knows how to
+ persist itself to database.
+ A 
+\emph on
+GeoPoint
+\emph default
+ encapsulates a latitude and longitude.
+\end_layout
+
+\begin_layout Standard
+The specific flight support application from which the previous screenshot
+ was taken has a model object named 
+\emph on
+Airport
+\emph default
+ which implements this contract.
+ In return, each instance will bear the command 
+\emph on
+View on Map
+\emph default
+, which will automatically bring up a map view and add the waypoint in question.
+ From there, users can further interact with the map.
+\end_layout
+
+\begin_layout Standard
+Further, list views for 
+\emph on
+Airports
+\emph default
+ automatically bear the list command 
+\emph on
+View on Map
+\emph default
+ as shown in figure 
+\begin_inset LatexCommand ref
+reference "fig:List-Command-Map"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/listview.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+List Command: View on Map
+\begin_inset LatexCommand label
+name "fig:List-Command-Map"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This particular list happens to be the search results of a save query for
+ Airports (and Heliports) in the vicinity of Austin, Texas.
+ The next figure shows the resulting map view with the waypoints in question.
+ A map view is again nothing but a list view.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/listview_map.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+List Command: View on Map
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The map is zoomable of course.
+ This means that if we wish to, we can take a closer look at the Lakeway
+ airfield, as shown in the next figure.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/zoomed_in.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Zooming in on a Waypoint
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Future enhancements to mapping support will likely be in the area of enhancing
+ the map view with a query panel.
+ In addition, we're considering tying panning a map with fetching all waypoints
+ bounded by the geographical rectangle that the map represents, which will
+ make feasible browsing large amounts of information on a map.
+\end_layout
+
+\begin_layout Standard
+I would like to thank Andres Almiray for suggesting and prototyping this
+ integration into JMatter.
 \end_layout
 
 \begin_layout Chapter
