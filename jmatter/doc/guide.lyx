@@ -7827,7 +7827,7 @@ reference "cap:Speaker-Icon-using"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \align center
@@ -7873,6 +7873,16 @@ By opening other listings and other types of instances we can also quickly
 
 \begin_layout Section
 Calendaring
+\begin_inset LatexCommand label
+name "sec:Calendaring"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Standard
@@ -8254,7 +8264,7 @@ reference "cap:Symposium-Calendar"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \align center
@@ -15632,9 +15642,11 @@ Sessions were modeled with a relationship to an Event, an interface, implemented
 The nature of these relationships carries through to queries.
  We can request of our persistence repository for a listing of events, which
  will transparently fetch both Talks and BOFs.
- All queries are performed at the object level.
- This is all thanks to features built into Hibernate.
- Its query support is object-based and JMatter takes full advantage of it.
+ We can narrow a polymorphic listing by type.
+ One possible query is asking for all events of a specific type.
+ All queries are performed object-based.
+ This support is possible because Hibernate is object-based.
+ JMatter takes full advantage of this.
 \end_layout
 
 \begin_layout Section
@@ -17158,12 +17170,12 @@ Calendars and Maps
 \end_layout
 
 \begin_layout Standard
-Some types of information may be more easily interpreted visually on a timesheet
-, or on a map.
- Many types exhibit fields such as time spans: sessions, appointments, meetings,
+Many types exhibit fields such as time spans: sessions, appointments, meetings,
  visits and more.
  Likewise many pieces of information have location information: a latitude
  and longitude.
+ Such information is more naturally interpreted visually.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -17182,7 +17194,177 @@ Calendars
 \end_layout
 
 \begin_layout Standard
-[tbd]
+Section 
+\begin_inset LatexCommand vref
+reference "sec:Calendaring"
+
+\end_inset
+
+ discussed a way to expose a fully-functional calendar view into the Sympster
+ sample application.
+ This calendar view has some attractive features such as the ability to
+ view multiple schedules (we saw different schedules for distinct locations
+ at a conference).
+ It took only abiding by a few simple conventions to do this integration.
+ JMatter now calls this form of calendaring integration its fancy calendaring
+ model.
+\end_layout
+
+\begin_layout Standard
+JMatter now exposes a second, simpler calendaring integration model that
+ makes almost no requirements on your model and yet in some ways is even
+ more powerful than the former.
+ Let's say we need to model a meeting.
+ All we need to do is define a field of type 
+\emph on
+TimeSpan
+\emph default
+ and extend the base type 
+\emph on
+CalEvent
+\emph default
+.
+ This base type is now only a marker base class.
+ We are not required to provide any metadata, there's no need to implement
+ or override any methods, and we're free to name the model object's timespan
+ field however we see fit.
+\end_layout
+
+\begin_layout Standard
+JMatter will detect the type in question and automatically identify the
+ timespan field in question.
+ JMatter then exposes a command on the type named 
+\emph on
+Browse in Calendar
+\emph default
+, which brings up a calendar view with both custom week and day views.
+ You can navigate this view in time.
+ What's special is that this custom calendar view is nothing but a list
+ view.
+ It lists instances of a given type.
+\end_layout
+
+\begin_layout Standard
+As you already know, the default list view that appears as a consequence
+ of invoking the 
+\emph on
+Browse
+\emph default
+ command is always adorned with a query panel at the top.
+ This means that the list can be dynamically filtered.
+ This calendar view sports the same query panel.
+ So, not only can we browse information in time, but this feature is further
+ combined with search capabilities.
+ So if we're looking at a calendar that's too crowded with meetings or talks,
+ and we're looking for a meeting at a specific location, we can filter the
+ listing.
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset LatexCommand vref
+reference "fig:Calendar-dayview"
+
+\end_inset
+
+ we see a calendar view with four talks.
+ Note the query panel at the top.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/calendar_dayview.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Calendar view with four talks
+\begin_inset LatexCommand label
+name "fig:Calendar-dayview"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The next figure shows the same listing filtered by title (we're looking
+ for talks with the word 'Swing' in their title, just as an example).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/dayview_filtered.p40
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Filtered Calendar View
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Separately, one enhancement to this calendaring view worth noting is that
+ durations can now be edited directly from within this view by simply dragging
+ the bottom edge of event views to the desired end time.
+\end_layout
+
+\begin_layout Standard
+So calendaring is even simpler than it used to be, the integration is dead
+ simple, requiring only the extension of a marker base type, and the features
+ are more compelling, with search being pre-integrated into calendaring
+ views.
 \end_layout
 
 \begin_layout Section
@@ -17190,7 +17372,12 @@ Maps
 \end_layout
 
 \begin_layout Standard
-[tbd]
+Analogous to having integrated custom views for types with a time component,
+ JMatter has begun providing custom views for types with a location component.
+\end_layout
+
+\begin_layout Standard
+[ to be documented ]
 \end_layout
 
 \begin_layout Chapter
@@ -18100,7 +18287,7 @@ SpaceView
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \noindent
