@@ -4060,24 +4060,7 @@ toString()
 \emph on
 AbstractComplexEObject
 \emph default
- also gives us a few things for free
-\begin_inset Foot
-status collapsed
-
-\begin_layout Standard
-See section 
-\begin_inset LatexCommand ref
-reference "sec:Must-Extend"
-
-\end_inset
-
- for further discussion of this design decision.
- 
-\end_layout
-
-\end_inset
-
-.
+ also gives us a few things for free.
 \end_layout
 
 \begin_layout Enumerate
@@ -4107,23 +4090,7 @@ That's right.
  JMatter gives you a whole slew of atomic types to choose from, including
  types for phone numbers, social security numbers, time durations, images,
  email addresses, colors, and much more.
- It's quite easy to adapt a String as a StringEO and vice versa
-\begin_inset Foot
-status collapsed
-
-\begin_layout Standard
-See section 
-\begin_inset LatexCommand ref
-reference "sec:ValueHolder-vs-POJO"
-
-\end_inset
-
- for further discussion of this design decision.
-\end_layout
-
-\end_inset
-
-.
+ It's quite easy to adapt a String as a StringEO and vice versa.
  There are two differences between a StringEO and a TextEO: 
 \end_layout
 
@@ -4139,7 +4106,7 @@ text
 \emph default
  types or some other similar large text object
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Standard
 depending on the rdbms you use
