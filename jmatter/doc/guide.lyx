@@ -17418,7 +17418,7 @@ It turns out that JMatter's
 \emph on
 FormView
 \emph default
- is already parameterized such that, if you prefer, you can designate that
+ is already parametrized such that, if you prefer, you can designate that
  labels appear above their editors instead of to their left.
  All you need to do is revise the value for the 
 \emph on
@@ -17943,13 +17943,14 @@ reference "fig:Customized-View-for"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \noindent
 \align center
 \begin_inset Graphics
 	filename figures/custom-sessionview.png
+	scale 50
 
 \end_inset
 
@@ -18132,13 +18133,14 @@ SpaceView
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \noindent
 \align center
 \begin_inset Graphics
 	filename figures/Self.png
+	scale 50
 
 \end_inset
 
