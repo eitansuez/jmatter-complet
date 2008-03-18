@@ -15000,7 +15000,37 @@ All list views in JMatter are decorated with a simple query panel.
 \end_layout
 
 \begin_layout Standard
-So users are given adhoc search capabilities on every type in their domain.
+Users have adhoc search capabilities on every type in their domain.
+ This feature is quite sophisticated.
+ JMatter provides a custom widget based on a tree model that comprises an
+ acyclic tree of the sum of valid search paths for a type, from the entity's
+ root to leaf fields, and can traverse even associations to other fields.
+\end_layout
+
+\begin_layout Standard
+Furthermore, for every atomic type, JMatter provides a set of matching inequalit
+ies and value editors.
+\end_layout
+
+\begin_layout Standard
+So for example we can ask questions such as 
+\begin_inset Quotes eld
+\end_inset
+
+return all contacts who live in a zip code that starts with a 7
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+find all talks given by speakers whose who live within such a matching zip
+ code.
+\begin_inset Quotes erd
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -15008,12 +15038,13 @@ The Find Command
 \end_layout
 
 \begin_layout Standard
-For more complex queries, the 
+The 
 \emph on
 Find
 \emph default
- command, which is inherent on any type, allow the combination of multiple
- criteria in a conjunction.
+ command, which is inherent on any type, allows the composing of multiple
+ simple criteria in a conjunction.
+ Disjunction type composite queries are not yet supported.
 \end_layout
 
 \begin_layout Section
@@ -15026,7 +15057,9 @@ Smart lists denote the ability to save a query performed using the
 Find
 \emph default
  command to database.
- All JMatter applications come with additional model objects, such as 
+ All JMatter applications include model objects provided by the framework
+ itself.
+ Examples include the entities 
 \emph on
 User
 \emph default
@@ -15034,7 +15067,7 @@ User
 \emph on
 Role
 \emph default
- to manage authorization, for example.
+ to manage authorization.
  With respect to Search, the 
 \emph on
 Query
@@ -15047,7 +15080,13 @@ Query
 \end_layout
 
 \begin_layout Standard
-[todo: provide an example]
+So for example, in the 
+\emph on
+MyTunes
+\emph default
+ sample application, we can create our own playlists based on various criteria
+ and name them, in a manner analogous that users have become accustomed
+ to with other popular players.
 \end_layout
 
 \begin_layout Section
@@ -15058,6 +15097,13 @@ Search in Associations
 Another important feature in JMatter is the ability to search directly within
  the context of an association field, for the purpose of establishing a
  relation between two objects.
+ Section 
+\begin_inset LatexCommand vref
+reference "sec:Associations-Made-Easy"
+
+\end_inset
+
+ provides a detailed example of its use.
 \end_layout
 
 \begin_layout Section
@@ -15065,11 +15111,97 @@ Polymorphic queries
 \end_layout
 
 \begin_layout Standard
-When modeling your application using object oriented principles.
+When modeling an application using object oriented principles, we avail
+ ourselves to various modeling techniques such as modeling with abstract
+ classes and interfaces.
+ We can have an association from one entity to another which is by nature
+ polymorphic.
+ We saw two such examples when covering the Sympster demo application:
+\end_layout
+
+\begin_layout Enumerate
+A symposium's venue was modeled using a simple abstract base class with
+ three subclasses (Hotel, Campus, and ConferenceCenter)
+\end_layout
+
+\begin_layout Enumerate
+Sessions were modeled with a relationship to an Event, an interface, implemented
+ by both Talk and BOF.
+\end_layout
+
+\begin_layout Standard
+The nature of these relationships carries through to queries.
+ We can request of our persistence repository for a listing of events, which
+ will transparently fetch both Talks and BOFs.
+ All queries are performed at the object level.
+ This is all thanks to features built into Hibernate.
+ Its query support is object-based and JMatter takes full advantage of it.
 \end_layout
 
 \begin_layout Section
 Code Hints for Search
+\end_layout
+
+\begin_layout Standard
+There is one specific class-level piece of metadata that developers typically
+ specify to govern a default that is related to searching, as discussed
+ in section 
+\begin_inset LatexCommand ref
+reference "sub:dflt-searchpath"
+
+\end_inset
+
+: 
+\emph on
+defaultSearchPath
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+Here's an example:
+\end_layout
+
+\begin_layout LyX-Code
+public static String defaultSearchPath = "name";
+\end_layout
+
+\begin_layout Standard
+This piece of metadata is useful to define one field that is most commonly
+ used to search for instances of a given type.
+ It may be 
+\emph on
+name
+\emph default
+ for a Person object, or 
+\emph on
+title
+\emph default
+ for a Presentation object.
+\end_layout
+
+\begin_layout Standard
+The value is specified as a string but may actually be a field path, such
+ as 
+\emph on
+name.first
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+This value in turn is used in the user interface to assist with quick searches
+ for performing associations or defaulting the search field when performing
+ a search operation.
+ It's quite useful.
+ At the moment, this feature is supported only for text-based fields where
+ the inequality defaults to 
+\emph on
+TextStarts
+\emph default
+ (i.e.
+ that we're looking for instances whose default search field value starts
+ with the value entered by the user).
 \end_layout
 
 \begin_layout Chapter
@@ -22798,6 +22930,12 @@ Edit
 
 \begin_layout Section
 Associations Made Easy
+\begin_inset LatexCommand label
+name "sec:Associations-Made-Easy"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
