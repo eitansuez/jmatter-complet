@@ -17043,7 +17043,7 @@ The Java platform has such a desktop integration feature in Java SE v6.
  Developers often cannot afford to ignore this platform, since the very
  
 \emph on
-raison d'etre
+raison d'être
 \emph default
  of the Java platform is platform independence.
 \end_layout
@@ -24086,7 +24086,7 @@ DnD support
 \end_layout
 
 \begin_layout Enumerate
-An expose-like feature
+An exposé-like feature
 \end_layout
 
 \begin_layout Enumerate
@@ -24381,7 +24381,7 @@ consistent, high-quality applications
 
 \begin_layout Standard
 This model of development puts into question certain rules about software
- development that up until now we've assumed were out of our control, namely:
+ development that up until now we'd assumed to be a given, namely:
 \end_layout
 
 \begin_layout Quote
@@ -24402,7 +24402,7 @@ GUI forms will have to be revised to reflect a new field
 \end_layout
 
 \begin_layout Itemize
-Ripple effects to the database schema
+There will undoubtedly be ripple effects to the database schema
 \end_layout
 
 \begin_layout Itemize
@@ -24420,7 +24420,7 @@ And the list goes on.
 \end_layout
 
 \begin_layout Standard
-JMatter the repercussions are kept to a bare minimum: the database schema
+In JMatter the repercussions are kept to a bare minimum: the database schema
  derives from the domain model, as does the user interface, and the authorizatio
 n system, and the search system, and so on..
  All reflect the domain model.
@@ -24433,16 +24433,16 @@ Looking Forward
 \begin_layout Standard
 What technologies to base a project on is always a difficult choice, and
  a moving target.
- For example, Java is used in many environmens today but we see a desire
+ For example, Java is used in many environments today, but we see a desire
  to move to languages such as Scala, Groovy, and Ruby.
- On the other hand, new languages are less mature and involve a certain
- risk.
+ On the other hand, new languages may have less mature code libraries, and
+ involve a certain risk.
 \end_layout
 
 \begin_layout Standard
 JMatter strikes a great balance in its choice of technologies.
  It's a reality today; it's built upon a mature platform, a stable set of
- libraries such as Hibernate and Swing.
+ libraries, Hibernate being one example.
 \end_layout
 
 \begin_layout Standard
@@ -24455,8 +24455,8 @@ These languages will bring about tangible benefits:
 \end_layout
 
 \begin_layout Itemize
-Traits (also known as mixins) are a powerful and missing feature that will
- provide more flexibility in modeling.
+Traits (also known as mixins) are a powerful and missing feature (from Java)
+ that will provide more flexibility in modeling.
  Internally, in terms of JMatter's own implementation, it will help streamline
  the implementation even further.
 \end_layout
@@ -24468,9 +24468,9 @@ The functional programming traits of some of these languages promise to
 \end_layout
 
 \begin_layout Itemize
-Powerful metaobject programming facilities promise to provide the tools
- necessary to evolve how domains are specified into a full-fledged domain-specif
-ic language.
+Powerful metaobject programming facilities, and the very designs of these
+ languages promise to provide the necessary tools to evolve how domains
+ are specified into a full-fledged domain-specific language.
 \end_layout
 
 \begin_layout Standard
@@ -24481,9 +24481,8 @@ val
 \emph default
 .
  Much redundancy in specifying a domain model can be done away with.
- You are likely to start seeing JMatter move in this direction in the coming
- years.
- 
+ You are likely to start seeing JMatter move in the direction of such languages
+ in the coming years.
 \end_layout
 
 \begin_layout Chapter
@@ -24666,7 +24665,7 @@ JExplose
 \emph default
 , a feature similar to Apple's 
 \emph on
-Expose,
+Exposé,
 \emph default
  that will automatically scale and sort all of the windows on your desktop
  in order to facilitate the selection and management of multiple windows.
