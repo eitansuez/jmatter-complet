@@ -9,7 +9,7 @@
   <property name="jmatter.dir" location="${basedir}/jmatter" />
   <property name="demo.dir" location="${basedir}/demo-apps" />
   <property name="modules.dir" location="${basedir}/modules" />
-  <property name="appbrowswer.dir" location="${basedir}/AppBrowser" />
+  <property name="appbrowser.dir" location="${basedir}/AppBrowser" />
 
   <!-- TARGETS -->
 
