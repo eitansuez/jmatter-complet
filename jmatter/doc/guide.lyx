@@ -12543,8 +12543,11 @@ Types of Commands
 \end_layout
 
 \begin_layout Standard
-So we see that with the @Cmd annotation, we can expose a method to the user
- interface.
+So we see that with the 
+\emph on
+@Cmd
+\emph default
+ annotation, we can expose a method to the user interface.
  Also note the subtlety of adding the static modifier to define a command
  on a different object: the instance's type, rather than the instance itself.
 \end_layout
@@ -12555,7 +12558,7 @@ So we have two types of commands: instance commands and type commands.
 \emph on
 ComplexType
 \emph default
- represents or models a metatype, in the same way that the class 
+ represents or models a type, in the same way that the class 
 \emph on
 java.lang.Class
 \emph default
@@ -12589,6 +12592,34 @@ Capitalize()
 .
  We encourage you to define additional commands that might be useful to
  the plethora of atomic types that JMatter defines.
+\end_layout
+
+\begin_layout Subsubsection
+Type Commands
+\end_layout
+
+\begin_layout Standard
+Aside from marking a method static to designate a command belong to the
+ instance's type, you also have the option of specifying a method signature
+ with an extra parameter, like this:
+\end_layout
+
+\begin_layout LyX-Code
+@Cmd
+\end_layout
+
+\begin_layout LyX-Code
+public static void SayHi(CommandInfo cmdInfo, ComplexType targetType) ...
+\end_layout
+
+\begin_layout Standard
+The last parameter is optional.
+ If specified, then JMatter will make sure and pass a reference to the target
+ object (a ComplexType) upon which the command was invoked.
+ Even though the method is static, it was invoked in the context of an instance,
+ which happens to be a type.
+ In some circumstances, the called method needs to know what context it
+ was called in, and needs a reference to that object.
 \end_layout
 
 \begin_layout Subsubsection
