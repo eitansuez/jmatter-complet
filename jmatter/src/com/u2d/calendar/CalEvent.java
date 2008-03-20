@@ -90,13 +90,10 @@ public abstract class CalEvent extends AbstractComplexEObject
    }
    
    @Cmd
-   public static CalEventList BrowseInCalendar(CommandInfo cmdInfo)
+   public static CalEventList BrowseInCalendar(CommandInfo cmdInfo, ComplexType targetType)
    {
-      EObject eo = cmdInfo.getSource().getEObject();
-      ComplexType type = (eo instanceof ComplexType) ? (ComplexType) eo :
-            ((Typed) eo).type();
       TimeSpan span = new TimeSpan(new Date(), new TimeInterval(Calendar.DATE, 7));
-      return new CalEventList(new SimpleQuery(type), span);
+      return new CalEventList(new SimpleQuery(targetType), span);
    }
    
 }

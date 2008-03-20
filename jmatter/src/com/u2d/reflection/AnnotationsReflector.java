@@ -1,8 +1,6 @@
 package com.u2d.reflection;
 
-import com.u2d.element.EOCommand;
-import com.u2d.element.ParameterInfo;
-import com.u2d.element.ListCommand;
+import com.u2d.element.*;
 import com.u2d.model.ComplexType;
 import com.u2d.type.atom.StringEO;
 import java.lang.reflect.Method;
@@ -43,12 +41,15 @@ public class AnnotationsReflector implements Reflector
    public EOCommand reflectCommand(Method method, Class klass, ComplexType parent)
    {
       Cmd at = method.getAnnotation(Cmd.class);
-      EOCommand cmd = new EOCommand(method,
-                                    parent,
-                                    at.mnemonic(),
-                                    parameterInfo(method),
-                                    at.sensitive(),
-                                    at.viewPosition());
+      EOCommand cmd = null;
+      if (Command.isStatic(method))
+      {
+         cmd = new TypeCommand(method, parent, at.mnemonic(), parameterInfo(method), at.sensitive(), at.viewPosition());
+      }
+      else
+      {
+         cmd = new EOCommand(method, parent, at.mnemonic(), parameterInfo(method), at.sensitive(), at.viewPosition());
+      }
       cmd.blocks(at.blocks());
       cmd.batchable(at.batchable());
       

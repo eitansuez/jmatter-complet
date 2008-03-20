@@ -18,6 +18,8 @@ import com.u2d.pattern.Filter;
 import com.u2d.pattern.Callback;
 import java.util.Arrays;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Method;
 
 /**
  * @author Eitan Suez
@@ -411,6 +413,15 @@ public abstract class Command extends Member
    public static Filter commandFilter(EObject target)
    {
       return new CommandFilter(target);
+   }
+
+   public static boolean isStatic(Method method)
+   {
+      return Modifier.isStatic(method.getModifiers());
+   }
+   public static boolean isAbstract(Method method)
+   {
+      return Modifier.isAbstract(method.getModifiers());
    }
    
 }

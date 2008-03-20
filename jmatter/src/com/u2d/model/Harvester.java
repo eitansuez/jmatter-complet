@@ -77,7 +77,7 @@ public class Harvester
       {
          if (reflector.isCommand(methods[i]))
          {
-            boolean methodIsStatic = Modifier.isStatic(methods[i].getModifiers());
+            boolean methodIsStatic = Command.isStatic(methods[i]);
 
             final EOCommand cmd = reflector.reflectCommand(methods[i], clazz, parent);
             if (wantStaticMethods == methodIsStatic)
@@ -159,7 +159,7 @@ public class Harvester
       {
          if (reflector.isListCommand(methods[i]))
          {
-            boolean methodIsStatic = Modifier.isStatic(methods[i].getModifiers());
+            boolean methodIsStatic = Command.isStatic(methods[i]);
             
             final EOCommand cmd = reflector.reflectListCommand(methods[i], parent);
             if (methodIsStatic)
