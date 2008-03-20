@@ -42,7 +42,7 @@ public class TypeCommand extends EOCommand
             Object[] param = new Object[] {cmdInfo, targetType};
             execute(targetType, param);
          }
-         catch (InvocationTargetException ex)
+         catch (IllegalArgumentException ex)
          {
             Object[] param = new Object[] {cmdInfo};  // fallback for backward compatibility, and
                                                       // second parameter is designed to be optional
@@ -51,7 +51,7 @@ public class TypeCommand extends EOCommand
       }
    }
 
-   public void execute(Object target, Object[] params) throws InvocationTargetException
+   public void execute(Object target, Object[] params) throws InvocationTargetException, IllegalArgumentException
    {
       try
       {
@@ -70,12 +70,6 @@ public class TypeCommand extends EOCommand
       {
          System.err.println(ex.getMessage());
          ex.printStackTrace();
-      }
-      catch (IllegalArgumentException ex)
-      {
-         System.err.println("EOCommand:  Failed in attempt to invoke " +
-               " method: " + _method + " on object: " + target);
-         throw ex;
       }
    }
 
