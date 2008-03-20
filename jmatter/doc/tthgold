@@ -8,7 +8,9 @@ tth -s -e2 -w4 -Lguide < guide.tex | tthsplit
 mkdir jmatter_html 
 mv *.html jmatter_html
 rm figures/*.eps
+rm logo.eps
 cp -R figures jmatter_html/
+cp logo.png jmatter_html/
 rm -rf jmatter_html/figures/.svn
 zip -r jmatter_html.zip jmatter_html/*
 rm -rf jmatter_html 
