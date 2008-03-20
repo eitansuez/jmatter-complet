@@ -2,6 +2,27 @@ Changes File
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Mar 20 2008
+Changes
+=======
+
+  1. apple:  fixing a number of macosx-specific issues;  added macappbundle target to produce appbundles.
+
+  2. calendaring:  added ability to adjust event duration by dragging bottom border of caleventview
+
+  3. reporting:  adding jasperreports libraries to jmatter.  enhancing sympster with a jasperreports example:  producing a basic sessions schedule for a given symposium
+
+  4. fixed some memory leaks.  fixing memory leak in css4swing
+
+  5. revising distro build file to include appbrowser specifically (inadvertantly omitted AppBrowser in previous distribution)
+
+  6. adding animatingcardlayout project code to jmatter;  making customreadview use flip animation (see sympster session custom view)
+
+  7. retrofitted association editor to support association constraint specified either as a query constraint or supplied as a list of valid options.  further specifying sympster session as belonging to a specific symposium instance;  applying a list-based association constraint on session location (must be among list of rooms session.symposium.venue.rooms)
+
+  8. major review of entire jmatter manual.  new revision of manual with many edits, reorganization, and some new chapters.
+
+
 Feb 21 2008
 
 JMatter 2008-02-21 release notes
