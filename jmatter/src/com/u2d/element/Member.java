@@ -137,7 +137,6 @@ public abstract class Member extends ProgrammingElement implements Restrictable
       harvested.setID(member.getID());
       harvested.setVersion(member.getVersion());
       session.evict(member);
-      session.update(harvested);
       return harvested;
    }
 
