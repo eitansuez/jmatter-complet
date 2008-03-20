@@ -17322,7 +17322,7 @@ The next figure shows the same listing filtered by title (we're looking
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \noindent
@@ -17330,7 +17330,7 @@ status collapsed
 \begin_inset Graphics
 	filename figures/dayview_filtered.png
 	lyxscale 50
-	scale 50
+	scale 40
 
 \end_inset
 
