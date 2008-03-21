@@ -64,10 +64,6 @@ public class ListType
          _commands.add(newCmd);
       }
       
-      if (itemType.isCalendarable())
-      {
-         _commands.add(itemType.command("BrowseInCalendar"));
-      }
    }
    
    public Onion commands() { return _commands; }

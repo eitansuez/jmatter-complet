@@ -10,6 +10,7 @@ import com.u2d.element.CommandInfo;
 import com.u2d.element.Field;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
+import com.u2d.reflection.ListCmd;
 import com.u2d.find.SimpleQuery;
 import java.util.Map;
 import java.util.HashMap;
@@ -95,5 +96,12 @@ public abstract class CalEvent extends AbstractComplexEObject
       TimeSpan span = new TimeSpan(new Date(), new TimeInterval(Calendar.DATE, 7));
       return new CalEventList(new SimpleQuery(targetType), span);
    }
-   
+
+   @ListCmd
+   public static CalEventList BrowseInCalendar(CommandInfo cmdInfo, AbstractListEO list)
+   {
+      TimeSpan span = new TimeSpan(new Date(), new TimeInterval(Calendar.DATE, 7));
+      return new CalEventList(new SimpleQuery(list.type()), span);
+   }
+
 }

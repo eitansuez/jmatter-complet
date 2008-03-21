@@ -3,6 +3,8 @@ package com.u2d.element;
 import com.u2d.view.EView;
 import com.u2d.view.View;
 import com.u2d.model.ComplexType;
+import com.u2d.model.ComplexEObject;
+import com.u2d.model.AbstractListEO;
 import com.u2d.ui.desktop.Positioning;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,11 +25,25 @@ public class TypeCommand extends EOCommand
    }
 
    protected boolean haveParameters() { return _method.getParameterTypes().length > 2; }
-   public Object getTarget(Object value) { return value; }
+   public Object getTarget(Object value)
+   {
+      // list types sometimes are delegates for their item types' commands..
+      if (value instanceof AbstractListEO)
+      {
+         AbstractListEO leo = (AbstractListEO) value;
+         if (AbstractListEO.class.isAssignableFrom(_method.getDeclaringClass()))
+            return leo;
+         else
+            return leo.type();
+      }
+
+      // otherwise..
+      return value;
+   }
 
    public void execute(Object value, EView source) throws InvocationTargetException
    {
-      ComplexType targetType = (ComplexType) value;
+      Object targetType = getTarget(value);
       CommandInfo cmdInfo = new CommandInfo(this, source);
 
       if (haveParameters())
