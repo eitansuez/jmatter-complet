@@ -101,9 +101,13 @@ public class AssociationField extends Field implements Bidi, Associable
          if (spec == null) return;
          query.addSpecification(spec);
       }
-      catch (Exception e)
+      catch (IllegalAccessException e)
       {
-         // ignore
+         // ignore.
+      }
+      catch (InvocationTargetException e)
+      {
+         e.printStackTrace();
       }
    }
    
