@@ -2,6 +2,7 @@ package com.u2d.sympster;
 
 import com.u2d.model.Title;
 import com.u2d.model.AbstractListEO;
+import com.u2d.model.ComplexType;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.USDollar;
 import com.u2d.calendar.CalendarEO;
@@ -52,13 +53,14 @@ public class Symposium extends CalendarEO
       this.venue = venue;
       firePropertyChange("venue", oldVenue, this.venue);
    }
+   // all venues where the city matches this symposium's city..
    public QuerySpecification venueOptions()
    {
-      if (venue == null || city == null) return null;
-      Field cityField = venue.field("city");
-      FieldPath fp = new FieldPath(cityField.fullPath());
-      Inequality equals = new IdentityInequality(cityField).new Equals();
-      return new QuerySpecification(fp, equals, getCity());
+      if (city == null) return null;  // if symposium.city is not set then no constraint on venue
+      Field venueCity = ComplexType.forClass(Venue.class).field("city");
+      FieldPath venueCityPath = new FieldPath(venueCity.fullPath());
+      Inequality equals = new IdentityInequality(venueCity).new Equals();
+      return new QuerySpecification(venueCityPath, equals, city);
    }
    
    public City getCity() { return city; }
