@@ -297,7 +297,10 @@ public class AppFrame extends JFrame
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {
-            saveUserDesktop();
+            new Thread() { public void run() {
+                  saveUserDesktop();
+               } }.start();
+            
             SwingUtilities.invokeLater(new Runnable()
             {
                public void run()
