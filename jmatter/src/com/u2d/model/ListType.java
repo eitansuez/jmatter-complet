@@ -4,8 +4,12 @@ import com.u2d.element.Command;
 import com.u2d.pattern.Onion;
 import com.u2d.list.RelationalList;
 import com.u2d.list.CompositeList;
+
+import javax.swing.*;
 import java.util.Map;
 import java.util.HashMap;
+import java.awt.image.BufferedImage;
+import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,10 +43,10 @@ public class ListType
       {
          typeMap.put(itemClass, new ListType(listClass, itemClass));
       }
-      
+
       return typeMap.get(itemClass);
    }
-   
+
    private Onion _commands;
    
    private ListType(Class listClass, Class itemClass)
@@ -64,6 +68,7 @@ public class ListType
          _commands.add(newCmd);
       }
       
+      loadIcons(itemType);
    }
    
    public Onion commands() { return _commands; }
@@ -71,4 +76,34 @@ public class ListType
    {
       return (Command) _commands.find(Command.finder(commandName));
    }
+
+
+   protected Icon _iconSm, _iconLg;
+   protected String _iconSmResourceRef, _iconLgResourceRef;
+
+   private void loadIcons(ComplexType itemType)
+   {
+      _iconLgResourceRef = IconResolver.pluralIconRef(itemType, "32");
+      _iconSmResourceRef = IconResolver.pluralIconRef(itemType, "16");
+      _iconLg = IconLoader.loadIcon(_iconLgResourceRef);
+
+      // customize lg icon for lists if no custom image is provided:
+      if (_iconLgResourceRef.endsWith("list32.png"))
+      {
+         BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+         Graphics g = bi.getGraphics();
+         g.drawImage(((ImageIcon) _iconLg).getImage(), 0, 0, null);
+         g.drawImage(((ImageIcon) itemType.iconSm()).getImage(), 16, 16, null);
+         _iconLg = new ImageIcon(bi);
+      }
+
+      _iconSm = IconLoader.loadIcon(_iconSmResourceRef);
+   }
+
+   public Icon iconSm() { return _iconSm; }
+   public Icon iconLg() { return _iconLg; }
+
+   public String iconSmResourceRef() { return _iconSmResourceRef; }
+   public String iconLgResourceRef() { return _iconLgResourceRef; }
+
 }

@@ -4,8 +4,10 @@
 package com.u2d.model;
 
 import java.util.*;
-import javax.swing.ListModel;
-import javax.swing.Icon;
+import java.util.List;
+import java.awt.image.BufferedImage;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.event.*;
 
 import com.u2d.element.*;
@@ -58,10 +60,10 @@ public abstract class AbstractListEO extends AbstractEObject
       return count;
    }
 
-   public Icon iconSm() { return type().iconsSm(); }
-   public Icon iconLg() { return type().iconsLg(); }
-   public String iconSmResourceRef() { return type().iconsSmResourceRef(); }
-   public String iconLgResourceRef() { return type().iconsLgResourceRef(); }
+   public Icon iconSm() { return listtype().iconSm(); }
+   public Icon iconLg() { return listtype().iconLg(); }
+   public String iconSmResourceRef() { return listtype().iconSmResourceRef(); }
+   public String iconLgResourceRef() { return listtype().iconLgResourceRef(); }
 
    public static String[] commandOrder = {"Open", "ExportToCSV", "Print"};
    

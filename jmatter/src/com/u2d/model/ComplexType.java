@@ -151,28 +151,10 @@ public class ComplexType extends AbstractComplexEObject
 
       _iconLgResourceRef = IconResolver.typeIconRef(this, "32");
       _iconSmResourceRef = IconResolver.typeIconRef(this, "16");
-      _iconsLgResourceRef = IconResolver.pluralIconRef(this, "32");
-      _iconsSmResourceRef = IconResolver.pluralIconRef(this, "16");
-      
+
       _iconLg = IconLoader.loadIcon(_iconLgResourceRef);
       _iconSm = IconLoader.loadIcon(_iconSmResourceRef);
       
-      _iconsLg = IconLoader.loadIcon(_iconsLgResourceRef);
-      
-      // customize lg icon (if no custom image already provided) ..
-      if (_iconsLgResourceRef.endsWith(IconResolver.LISTICON_LG))
-      {
-         ImageIcon lgIcon = (ImageIcon) _iconsLg;
-         ImageIcon smIcon = (ImageIcon) _iconSm;
-         BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
-         Graphics g = bi.getGraphics();
-         g.drawImage(lgIcon.getImage(), 0, 0, null);
-         g.drawImage(smIcon.getImage(), 16, 16, null);
-         _iconsLg = new ImageIcon(bi);
-      }
-      
-      _iconsSm = IconLoader.loadIcon(_iconsSmResourceRef);
-
       harvest();
       _defaultCmdName = "Browse";
 
@@ -644,18 +626,14 @@ public class ComplexType extends AbstractComplexEObject
 
    // *** icon stuff ***
 
-   protected Icon _iconSm, _iconLg, _iconsSm, _iconsLg;
-   protected String _iconSmResourceRef, _iconLgResourceRef, _iconsSmResourceRef, _iconsLgResourceRef;
-   
+   protected Icon _iconSm, _iconLg;
+   protected String _iconSmResourceRef, _iconLgResourceRef;
+
    public Icon iconSm() { return _iconSm; }
    public Icon iconLg() { return _iconLg; }
-   public Icon iconsSm() { return _iconsSm; }
-   public Icon iconsLg() { return _iconsLg; }
 
    public String iconSmResourceRef() { return _iconSmResourceRef; }
    public String iconLgResourceRef() { return _iconLgResourceRef; }
-   public String iconsSmResourceRef() { return _iconsSmResourceRef; }
-   public String iconsLgResourceRef() { return _iconsLgResourceRef; }
    
    public Title title() { return new Title(_pluralName); }
    public ColorEO getColorCode() { return _colorCode; }

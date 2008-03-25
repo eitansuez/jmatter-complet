@@ -27,19 +27,14 @@ public class IconResolver
       
       if (resolvedPath == null)
       {
-         return typeIconRef(type, size);
+         return instanceIconRef(type, size);
       }
       return resolvedPath;
    }
-   public static String typeIconRef(ComplexType type, String size)
-   {
-      return icon(type, size, baseStrategy);
-   }
-   public static String pluralIconRef(ComplexType type, String size)
-   {
-      return icon(type, size, pluralStrategy);
-   }
-   
+   public static String instanceIconRef(ComplexType type, String size) { return icon(type, size, baseStrategy); }
+   public static String typeIconRef(ComplexType type, String size) { return icon(type, size, typeStrategy); }
+   public static String pluralIconRef(ComplexType type, String size) { return icon(type, size, pluralStrategy); }
+
    private static String BASE = "images/";
    private static String iconRef(String iconPath)
    {
@@ -68,20 +63,23 @@ public class IconResolver
    {
       String path = namer.name(type) + size;
       String icon = iconRef(path);
-      
+
+      ComplexType baseType = type;
       while (icon == null)
       {
-         type = type.superType();
-         if (type == null)
+         baseType = baseType.superType();
+         if (baseType == null)
             break;
          
-         path = namer.name(type) + size;
+         path = namer.name(baseType) + size;
          icon = iconRef(path);
       }
       
-      if (icon == null)
+      while (icon == null && namer.fallbackStrategy() != null)
       {
-         return namer.defaultIconRef(size);
+         namer = namer.fallbackStrategy();
+         path = namer.name(type) + size;
+         icon = iconRef(path);
       }
       return icon;
    }
@@ -89,35 +87,32 @@ public class IconResolver
    interface NameStrategy
    {
       public String name(ComplexType type);
-      public String defaultIconRef(String size);
+      public NameStrategy fallbackStrategy();
    }
-   static class BaseStrategy implements NameStrategy
+   static NameStrategy baseStrategy = new NameStrategy()
    {
-      public String name(ComplexType type)
-      {
-         return type.name();
-      }
-      public String defaultIconRef(String size)
-      {
-         return ("32".equals(size)) ? DEFAULTICON_LG : DEFAULTICON_SM;
-      }
-   }
-   static class PluralStrategy implements NameStrategy
+      public String name(ComplexType type) { return type.name(); }
+      public NameStrategy fallbackStrategy() { return defaultInstanceStrategy; }
+   };
+   static NameStrategy pluralStrategy = new NameStrategy()
    {
-      public String name(ComplexType type)
-      {
-         return type.getPluralName();
-      }
-      public String defaultIconRef(String size)
-      {
-         return ("32".equals(size)) ? LISTICON_LG : LISTICON_SM;
-      }
-   }
-   static NameStrategy baseStrategy = new BaseStrategy();
-   static NameStrategy pluralStrategy = new PluralStrategy();
-   
-   public static String DEFAULTICON_SM = iconRef("Objects16");
-   public static String DEFAULTICON_LG = iconRef("Objects32");
-   public static String LISTICON_SM = iconRef("list16");
-   public static String LISTICON_LG = iconRef("list32");
+      public String name(ComplexType type) { return type.getPluralName(); }
+      public NameStrategy fallbackStrategy() { return defaultPluralStrategy; }
+   };
+   static NameStrategy defaultInstanceStrategy = new NameStrategy()
+   {
+      public String name(ComplexType type) { return "Objects"; }
+      public NameStrategy fallbackStrategy() { return null; }
+   };
+   static NameStrategy defaultPluralStrategy = new NameStrategy()
+   {
+      public String name(ComplexType type) { return "list"; }
+      public NameStrategy fallbackStrategy() { return null; }
+   };
+   static NameStrategy typeStrategy = new NameStrategy()
+   {
+      public String name(ComplexType type) { return type.getPluralName(); }
+      public NameStrategy fallbackStrategy() { return baseStrategy; }
+   };
+
 }
