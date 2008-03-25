@@ -37,17 +37,21 @@ public class ListItemView extends JLabel implements ComplexEView
 
    public void bind(ComplexEObject ceo)
    {
+      bind(ceo, this);
+   }
+   public void bind(ComplexEObject ceo, EView source)
+   {
       _ceo = ceo;
       setText(_ceo.title().toString());
       setIcon(_ceo.iconSm());
 
-      _cmdsView.bind(ceo, this);
+      _cmdsView.bind(ceo, this, source);
 
       _ceo.addPropertyChangeListener(this);
       _ceo.addChangeListener(this);
 
       Command defaultCmd = _ceo.defaultCommand();
-      CommandAdapter defaultAction = new CommandAdapter(defaultCmd, _ceo, this);
+      CommandAdapter defaultAction = new CommandAdapter(defaultCmd, _ceo, source);
       _defaultActionListener = UIUtils.doubleClickActionListener(defaultAction);
       addMouseListener(_defaultActionListener);
    }

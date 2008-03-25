@@ -44,7 +44,8 @@ public class ExpandableView2
    public void bind(ComplexEObject ceo, boolean expanded)
    {
       _ceo = ceo;
-      _handle = (ListItemView) _ceo.getListItemView();
+      _handle = new ListItemView();
+      _handle.bind(_ceo, this);
 
       GradientPanel gp = new GradientPanel(new Color(0x5171FF), false);
       gp.setLayout(new BorderLayout());
