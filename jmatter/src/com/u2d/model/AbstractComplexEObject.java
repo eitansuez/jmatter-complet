@@ -212,20 +212,32 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       }
    }
    private Stack<State> _stateStack = new Stack<State>();
-   protected void pushState(State state)
+
+   /**
+    * comment:  this implementation could clearly be refactored since the logic is the same,
+    * and the one thing that varies is the message: setState, pushState, popState.
+    * i.e. using a higher order function.
+    */
+   public void pushState(State state)
    {
       _stateStack.push(_currentState);
-      setState(state);
-   }
-   protected void popState()
-   {
-      if (_stateStack.isEmpty())
+      setState(state, true);
+      for (Iterator itr = childFields().iterator(); itr.hasNext(); )
       {
-//         System.out.println("stack empty!");
-         return;
+         Field field = (Field) itr.next();
+         field.pushState(this, state);
       }
-      State popped = (State) _stateStack.pop();
-      setState(popped);
+   }
+   public void popState()
+   {
+      if (_stateStack.isEmpty()) return;
+      State popped = _stateStack.pop();
+      setState(popped, true);
+      for (Iterator itr = childFields().iterator(); itr.hasNext(); )
+      {
+         Field field = (Field) itr.next();
+         field.popState(this);
+      }
    }
 
 

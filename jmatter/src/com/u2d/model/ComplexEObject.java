@@ -44,6 +44,8 @@ public interface ComplexEObject
    public State getState();
    // note: was protected.  forced to make public after package restructuring
    public void setState(State state);
+   public void pushState(State state);
+   public void popState();
 
    // this is not so nice.  make all states extend from a base state that contains all transitions
    public void cancelTransition();

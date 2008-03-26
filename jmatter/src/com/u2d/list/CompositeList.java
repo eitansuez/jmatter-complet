@@ -100,6 +100,22 @@ public class CompositeList extends SimpleListEO
          ceo.setState(state);
       }
    }
+   public void pushState(State state)
+   {
+      for (Iterator itr = _items.iterator(); itr.hasNext(); )
+      {
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         ceo.pushState(state);
+      }
+   }
+   public void popState()
+   {
+      for (Iterator itr = _items.iterator(); itr.hasNext(); )
+      {
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         ceo.popState();
+      }
+   }
 
    public ComplexEObject addNew()
    {

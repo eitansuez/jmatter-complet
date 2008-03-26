@@ -237,16 +237,34 @@ public class IndexedField extends Field implements Bidi, Associable
          ((CompositeList)leo).setState(state);
          return;
       }
-      
-      java.util.Iterator itr = leo.iterator();
-      ComplexEObject ceo = null;
-      while (itr.hasNext())
+
+      for (java.util.Iterator itr = leo.iterator(); itr.hasNext(); )
       {
-         ceo = (ComplexEObject) itr.next();
+         ComplexEObject ceo = (ComplexEObject) itr.next();
 //         ceo.setState(state, true /* shallow */);
          if (ceo instanceof NullComplexEObject) continue;
          if (ceo.isNullState())
             ceo.restoreState();
+      }
+   }
+
+   public void pushState(ComplexEObject parent, State state)
+   {
+      AbstractListEO leo = (AbstractListEO) get(parent);
+
+      if (leo instanceof CompositeList) // propagate state to children
+      {
+         ((CompositeList)leo).pushState(state);
+      }
+   }
+
+   public void popState(ComplexEObject parent)
+   {
+      AbstractListEO leo = (AbstractListEO) get(parent);
+
+      if (leo instanceof CompositeList) // propagate state to children
+      {
+         ((CompositeList)leo).popState();
       }
    }
 
