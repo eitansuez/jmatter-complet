@@ -28,7 +28,12 @@ import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.json.JSON;
 import com.u2d.type.atom.FileWEO;
+import com.u2d.type.atom.FileEO;
+
 import javax.swing.table.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 /**
@@ -529,6 +534,15 @@ public abstract class AbstractListEO extends AbstractEObject
       JSON.writeJson(file.fileValue(), this);
       return file.fileValue().getName() + " created.";
    }
+   @Cmd
+   public void ImportJson(CommandInfo cmdInfo, @Arg("Import from:") FileEO file) throws Exception
+   {
+      String jsonText = JSON.readTextFile(file.fileValue().getAbsolutePath());
+      AbstractListEO list = JSON.fromJsonList(new JSONObject(jsonText));
+      Set set = new HashSet(list.getItems());
+      hbmPersistor().saveMany(set);
+   }
+   
    @Cmd
    public AbstractListEO Open(CommandInfo cmdInfo)
    {
