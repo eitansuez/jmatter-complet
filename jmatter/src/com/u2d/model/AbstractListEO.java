@@ -5,11 +5,8 @@ package com.u2d.model;
 
 import java.util.*;
 import java.util.List;
-import java.awt.image.BufferedImage;
-import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
-
 import com.u2d.element.*;
 import com.u2d.field.Association;
 import com.u2d.field.AssociationField;
@@ -29,12 +26,8 @@ import com.u2d.reflection.Arg;
 import com.u2d.json.JSON;
 import com.u2d.type.atom.FileWEO;
 import com.u2d.type.atom.FileEO;
-
 import javax.swing.table.*;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
-
 
 /**
  * @author Eitan Suez
@@ -535,7 +528,7 @@ public abstract class AbstractListEO extends AbstractEObject
       return file.fileValue().getName() + " created.";
    }
    @Cmd
-   public void ImportJson(CommandInfo cmdInfo, @Arg("Import from:") FileEO file) throws Exception
+   public void ImportJSON(CommandInfo cmdInfo, @Arg("Import from:") FileEO file) throws Exception
    {
       String jsonText = JSON.readTextFile(file.fileValue().getAbsolutePath());
       AbstractListEO list = JSON.fromJsonList(new JSONObject(jsonText));
