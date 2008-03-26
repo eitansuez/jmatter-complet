@@ -153,7 +153,14 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public void setStartState()
    {
       setReadState();
-      setState(startState(), false /* shallow */);
+      setState(startState(), true);
+
+      for (Iterator itr = childFields().iterator(); itr.hasNext(); )
+      {
+         Field field = (Field) itr.next();
+         field.setStartState(this);
+      }
+
    }
    public void restoreState()
    {

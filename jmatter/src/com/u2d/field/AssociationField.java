@@ -262,14 +262,10 @@ public class AssociationField extends Field implements Bidi, Associable
          ceo.restoreState();
    }
 
-   public void pushState(ComplexEObject parent, State state)
-   {
-      // noop
-   }
-   public void popState(ComplexEObject parent)
-   {
-      // noop
-   }
+   // noops..
+   public void pushState(ComplexEObject parent, State state) { }
+   public void popState(ComplexEObject parent) { }
+   public void setStartState(ComplexEObject parent) {}
 
    private void checkAndSetDefault(ComplexEObject parent, ComplexEObject ceo)
    {

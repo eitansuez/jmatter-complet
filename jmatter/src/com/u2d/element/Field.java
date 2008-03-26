@@ -118,6 +118,7 @@ public abstract class Field extends Member
    public abstract void setState(ComplexEObject parent, State state);
    public abstract void pushState(ComplexEObject parent, State state);
    public abstract void popState(ComplexEObject parent);
+   public abstract void setStartState(ComplexEObject parent);
 
    public EObject createInstance()
    {

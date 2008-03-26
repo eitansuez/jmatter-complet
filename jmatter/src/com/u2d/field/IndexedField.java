@@ -268,6 +268,16 @@ public class IndexedField extends Field implements Bidi, Associable
       }
    }
 
+   public void setStartState(ComplexEObject parent)
+   {
+      AbstractListEO leo = (AbstractListEO) get(parent);
+
+      if (leo instanceof CompositeList) // propagate state to children
+      {
+         ((CompositeList)leo).setStartState();
+      }
+   }
+
    private boolean _ordered;
    public boolean isOrdered() { return _ordered; }
    public void setOrdered(boolean ordered) { _ordered = ordered; }

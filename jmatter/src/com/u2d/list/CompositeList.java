@@ -116,6 +116,14 @@ public class CompositeList extends SimpleListEO
          ceo.popState();
       }
    }
+   public void setStartState()
+   {
+      for (Iterator itr = _items.iterator(); itr.hasNext(); )
+      {
+         ComplexEObject ceo = (ComplexEObject) itr.next();
+         ceo.setStartState();
+      }
+   }
 
    public ComplexEObject addNew()
    {

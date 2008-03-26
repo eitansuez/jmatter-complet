@@ -105,21 +105,10 @@ public class AggregateField extends CompositeField implements FieldParent
       return result;
    }
    
-   public void setState(ComplexEObject parent, State state)
-   {
-      EObject value = get(parent);
-      ((ComplexEObject) value).setState(state);
-   }
-   public void pushState(ComplexEObject parent, State state)
-   {
-      EObject value = get(parent);
-      ((ComplexEObject) value).pushState(state);
-   }
-   public void popState(ComplexEObject parent)
-   {
-      EObject value = get(parent);
-      ((ComplexEObject) value).popState();
-   }
+   public void setState(ComplexEObject parent, State state) { ((ComplexEObject) get(parent)).setState(state); } 
+   public void pushState(ComplexEObject parent, State state) { ((ComplexEObject) get(parent)).pushState(state); }
+   public void popState(ComplexEObject parent) { ((ComplexEObject) get(parent)).popState(); }
+   public void setStartState(ComplexEObject parent) { ((ComplexEObject) get(parent)).setStartState(); }
 
    public boolean hasFieldOfType(Class cls)
    {

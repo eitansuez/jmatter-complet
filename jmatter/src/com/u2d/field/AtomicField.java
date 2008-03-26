@@ -92,14 +92,9 @@ public class AtomicField extends CompositeField
       value.fireStateChanged();
    }
 
-   public void pushState(ComplexEObject parent, State state)
-   {
-      setState(parent, state);
-   }
-   public void popState(ComplexEObject parent)
-   {
-      setState(parent, parent.getState());
-   }
+   public void pushState(ComplexEObject parent, State state) { setState(parent, state); } 
+   public void popState(ComplexEObject parent) { setState(parent, parent.getState()); }
+   public void setStartState(ComplexEObject parent) { setState(parent, parent.getState()); }
 
    public int validate(ComplexEObject parent)
    {
