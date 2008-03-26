@@ -10,6 +10,8 @@ import com.u2d.model.AtomicRenderer;
 import com.u2d.model.*;
 import com.u2d.reflection.Cmd;
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * @author Eitan Suez
@@ -249,7 +251,44 @@ public class TimeSpan extends AbstractAtomicEO
    }
 
    public boolean isEmpty() { return false; }
-   public void parseValue(String stringValue) throws ParseException {}
+   // sample same-day value:  03/28/2008 8:00 AM-9:00 AM
+   // todo:  support also parsing multi-day spans.
+   public void parseValue(String stringValue) throws java.text.ParseException
+   {
+      final String regex = "^([^ ]+) (.+)\\-(.+)$";
+      Pattern pattern = Pattern.compile(regex);
+      Matcher matcher = pattern.matcher(stringValue);
+
+      if (!matcher.matches())
+      {
+         throw new ParseException("Failed to parse time span");
+      }
+      
+      String fromdateString = matcher.group(1);
+      String fromtimeString = matcher.group(2);
+      String totimeString = matcher.group(3);
+      
+      Date fromdate = DateEO.stdDateFormat().parse(fromdateString);
+      Calendar fromdateCal = Calendar.getInstance();
+      fromdateCal.setTime(fromdate);
+      Date fromtime = TimeEO.stdTimeFormat().parse(fromtimeString);
+      Date totime = TimeEO.stdTimeFormat().parse(totimeString);
+
+      Calendar startCal = Calendar.getInstance();
+      startCal.setTime(fromtime);
+      startCal.set(Calendar.YEAR, fromdateCal.get(Calendar.YEAR));
+      startCal.set(Calendar.MONTH, fromdateCal.get(Calendar.MONTH));
+      startCal.set(Calendar.DAY_OF_MONTH, fromdateCal.get(Calendar.DAY_OF_MONTH));
+
+      Calendar endCal = Calendar.getInstance();
+      endCal.setTime(totime);
+      endCal.setTime(totime);
+      endCal.set(Calendar.YEAR, fromdateCal.get(Calendar.YEAR));
+      endCal.set(Calendar.MONTH, fromdateCal.get(Calendar.MONTH));
+      endCal.set(Calendar.DAY_OF_MONTH, fromdateCal.get(Calendar.DAY_OF_MONTH));
+
+      assign(startCal, endCal);
+   }
 
    public AtomicRenderer getRenderer() { return vmech().getTimeSpanRenderer(); }
    public AtomicEditor getEditor() { return vmech().getTimeSpanEditor(); }
@@ -311,11 +350,11 @@ public class TimeSpan extends AbstractAtomicEO
 
       if (isSameDay())
       {
-         return fromDate + " " + fromTime + "-" + toTime;
+         return String.format("%s %s-%s", fromDate, fromTime, toTime);
       }
       else
       {
-         return fromDate + " " + fromTime + "-" + toDate + " " + toTime;
+         return String.format("%s %s-%s %s", fromDate, fromTime, toDate, toTime);
       }
    }
 
