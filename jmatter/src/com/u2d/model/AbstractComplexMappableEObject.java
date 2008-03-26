@@ -21,13 +21,27 @@ public abstract class AbstractComplexMappableEObject extends AbstractComplexEObj
    @Cmd(mnemonic='a',iconref="compass")
    public Object ViewOnMap(CommandInfo cmdInfo)
    {
-      return vmech().getMapView(this);
+      try
+      {
+         return vmech().getMapView(this);
+      }
+      catch (RuntimeException ex)
+      {
+         return ex.getMessage(); // display error message to user.
+      }
    }
    
    @ListCmd
    public static Object ViewOnMap(CommandInfo cmdInfo, AbstractListEO list)
    {
-      return Context.getInstance().getViewMechanism().getListViewOnMap(list);
+      try
+      {
+         return Context.getInstance().getViewMechanism().getListViewOnMap(list);
+      }
+      catch (RuntimeException ex)
+      {
+         return ex.getMessage(); // display error message to user.
+      }
    }
    
 }
