@@ -40,16 +40,7 @@ public class TitleView extends JLabel implements ComplexEView
       ComponentStyle.addClass(this, "instance-title");
       
       setText(_ceo.viewTitle());
-
-      // basically if object is in aggregate context (not a major entity)
-      // and has no icon (falls back to default "?" icon), then default to not
-      // rendering the icon at all, which is i believe a sensible default.
-      if (! (_ceo.field() != null &&
-             _ceo.field().isAggregate() &&
-            _ceo.iconLgResourceRef().endsWith("Objects32.png")) )
-      {
-         setIcon(_ceo.iconLg());
-      }
+      setIconIfApplicable();
 
       setTransferHandler(new EOTransferHandler(this));
    }
@@ -64,10 +55,23 @@ public class TitleView extends JLabel implements ComplexEView
             if (!_ceo.isEditableState())
             {
                setText(_ceo.viewTitle());
-               setIcon(_ceo.iconLg());
+               setIconIfApplicable();
             }
          }
       });
+   }
+
+   // basically if object is in aggregate context (not a major entity)
+   // and has no icon (falls back to default "?" icon), then default to not
+   // rendering the icon at all, which is i believe a sensible default.
+   private void setIconIfApplicable()
+   {
+      if (! (_ceo.field() != null &&
+             _ceo.field().isAggregate() &&
+            _ceo.iconLgResourceRef().endsWith("Objects32.png")) )
+      {
+         setIcon(_ceo.iconLg());
+      }
    }
 
    public void propertyChange(PropertyChangeEvent evt) {}
