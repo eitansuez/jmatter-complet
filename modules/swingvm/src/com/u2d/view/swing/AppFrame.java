@@ -297,39 +297,42 @@ public class AppFrame extends JFrame
       {
          public void onEvent(com.u2d.pubsub.AppEvent evt)
          {
-            new Thread() { public void run() {
-                  saveUserDesktop();
-               } }.start();
-            
-            SwingUtilities.invokeLater(new Runnable()
-            {
-               public void run()
+            Thread thread = AppLoader.getInstance().newThread(new Runnable() { public void run()
                {
-                  _desktopPane.closeAllChildren();
-                  hideClassBar();
-                  hideUserMenu();
-                  detachKeystrokes();
-                  _desktopPane.setEnabled(false); // disable context menu
+                  saveUserDesktop();
 
-                  /*
-                  cannot move this out of appframe because this code must take place
-                   _after_ appframe finishes:  it uses the db to save the user desktop.
-                   if i setup a logout listener somewhere else, then i have no control
-                   over which gets called first.
-                   */
-                  AppLoader.getInstance().newThread(new Runnable()
+                  SwingUtilities.invokeLater(new Runnable()
                   {
                      public void run()
                      {
-                        PersistenceMechanism pmech = _app.getPersistenceMechanism();
-                        if (pmech instanceof HBMSingleSession)
-                        {
-                           ((HBMSingleSession) pmech).newSession();
-                        }
+                        _desktopPane.closeAllChildren();
+                        hideClassBar();
+                        hideUserMenu();
+                        detachKeystrokes();
+                        _desktopPane.setEnabled(false); // disable context menu
+
                      }
-                  }).start();
+                  });
+
+                  PersistenceMechanism pmech = _app.getPersistenceMechanism();
+                  if (pmech instanceof HBMSingleSession)
+                  {
+                     ((HBMSingleSession) pmech).newSession();
+                  }
                }
             });
+            thread.start();
+
+            // must wait for thread to finish its job.  otherwise appSession.setUser(null)
+            // may occur prematurely
+            try
+            {
+               thread.join();
+            }
+            catch (InterruptedException e)
+            {
+               e.printStackTrace();
+            }
          }
       };
    }
