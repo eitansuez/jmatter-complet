@@ -6,11 +6,12 @@ package com.u2d.ui.desktop;
 import com.u2d.ui.ContextMenu;
 import com.u2d.ui.UIUtils;
 import com.u2d.ui.Platform;
-
+import com.u2d.ui.StripedRowListCellRenderer;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
 import fr.jayasoft.jexplose.Explosable;
 import fr.jayasoft.jexplose.JExploseUtils;
 
@@ -28,6 +29,7 @@ public class EnhDesktopPane extends MyDesktopPane
    private ContextMenu _contextMenu;
    private MouseTracker _mouseTracker;
    private MsgPnl _msgPnl;
+   private MsgView _msgView;
 
    public EnhDesktopPane()
    {
@@ -36,11 +38,18 @@ public class EnhDesktopPane extends MyDesktopPane
 
       _closeAllAction = new CloseAllAction();
 
-      JMenuItem[] menuItems = new JMenuItem[4];
+      JMenuItem[] menuItems = new JMenuItem[5];
       menuItems[0] = new JMenuItem(_closeAllAction);
       menuItems[1] = new JMenuItem(new MinimizeAllAction(true));
       menuItems[2] = new JMenuItem(new MinimizeAllAction(false));
       menuItems[3] = new JMenuItem(JExploseUtils.getLightningAction(explosable));
+      menuItems[4] = new JMenuItem(new AbstractAction("Messages")
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+            _msgView.setVisible(true);
+         }
+      });
       _contextMenu = new ContextMenu(menuItems, this);
 
       _mouseTracker = new MouseTracker();
@@ -50,9 +59,54 @@ public class EnhDesktopPane extends MyDesktopPane
       add(_msgPnl, JLayeredPane.POPUP_LAYER);
 
       JExploseUtils.installLightningHotKey(explosable, KeyEvent.VK_F12);
+
+      _msgView = new MsgView();
    }
-   
-   public void message(String msg) { _msgPnl.message(msg, this); }
+
+   class BasicListModel extends AbstractListModel
+   {
+      private java.util.List<String> _items;
+      BasicListModel(java.util.List<String> items) { _items = items; }
+      public int getSize() { return _items.size(); }
+      public Object getElementAt(int index) { return _items.get(index); }
+      public void fireAdd(Object source)
+      {
+         fireIntervalAdded(source, _items.size()-1, _items.size());
+      }
+   }
+   class MsgView extends CloseableJInternalFrame
+   {
+      private transient java.util.List<String> messages;
+      private transient BasicListModel listModel;
+      private transient JList msgView;
+
+      MsgView()
+      {
+         super("Messages", true, true, false, false);
+         setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
+
+         messages = new ArrayList<String>();
+         listModel = new BasicListModel(messages);
+         msgView = new JList(listModel);
+         msgView.setCellRenderer(new StripedRowListCellRenderer());
+         msgView.setPreferredSize(new Dimension(400,300));
+
+         getContentPane().add(new JScrollPane(msgView));
+         addFrame(this);
+         setVisible(false);
+      }
+      void addMessage(String msg)
+      {
+         messages.add(msg);
+         listModel.fireAdd(msgView);
+      }
+   }
+
+   public void message(String msg)
+   {
+      _msgPnl.message(msg, this);
+      _msgView.addMessage(msg);
+   }
 
 
    class MouseTracker implements AWTEventListener
