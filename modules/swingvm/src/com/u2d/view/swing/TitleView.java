@@ -40,7 +40,16 @@ public class TitleView extends JLabel implements ComplexEView
       ComponentStyle.addClass(this, "instance-title");
       
       setText(_ceo.viewTitle());
-      setIcon(_ceo.iconLg());
+
+      // basically if object is in aggregate context (not a major entity)
+      // and has no icon (falls back to default "?" icon), then default to not
+      // rendering the icon at all, which is i believe a sensible default.
+      if (! (_ceo.field() != null &&
+             _ceo.field().isAggregate() &&
+            _ceo.iconLgResourceRef().endsWith("Objects32.png")) )
+      {
+         setIcon(_ceo.iconLg());
+      }
 
       setTransferHandler(new EOTransferHandler(this));
    }

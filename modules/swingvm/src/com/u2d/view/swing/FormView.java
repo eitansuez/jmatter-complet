@@ -260,7 +260,17 @@ public class FormView extends JXPanel implements ComplexEView, Editor
             }
             else
             {
-               tabbedPane().addTab(field.label(), field.fieldtype().iconSm(), comp);
+               // basically if object is in aggregate context (not a major entity)
+               // and has no icon (falls back to default "?" icon), then default to not
+               // rendering the icon at all, which is i believe a sensible default.
+               if (field.isAggregate() && field.fieldtype().iconSmResourceRef().endsWith("Objects16.png"))
+               {
+                  tabbedPane().addTab(field.label(), comp);
+               }
+               else
+               {
+                  tabbedPane().addTab(field.label(), field.fieldtype().iconSm(), comp);
+               }
             }
          }
          else if (field.isAggregate() && ((AggregateField) field).flattenIntoParent())
