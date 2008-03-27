@@ -11,6 +11,7 @@ import com.u2d.element.Field;
 import com.u2d.list.PlainListEObject;
 import java.util.List;
 import java.util.Iterator;
+import java.util.Arrays;
 import java.text.ParseException;
 import java.io.*;
 
@@ -34,13 +35,17 @@ public class JSON
    }
    public static JSONObject json(AbstractListEO leo) throws JSONException
    {
+      return json(leo, new String[] {});
+   }
+   public static JSONObject json(AbstractListEO leo, String... includes) throws JSONException
+   {
       JSONObject jso = new JSONObject();
       jso.put("item-type", leo.type().getJavaClass().getName());
       List list = leo.getItems();
       JSONArray ra = new JSONArray();
       for (int i=0; i<list.size(); i++)
       {
-         ra.put(json((ComplexEObject) list.get(i)));
+         ra.put(json((ComplexEObject) list.get(i), includes));
       }
       jso.put("items", ra);
       return jso;
@@ -48,6 +53,18 @@ public class JSON
 
    public static JSONObject json(ComplexEObject eo)
          throws JSONException
+   {
+      return json(eo, new String[] {});
+   }
+
+   /**
+    *
+    * @param eo object to generate a json object for
+    * @param includes a list of field names (applies only to to-one associations) to include in the serialization
+    *        controls serialization depth to a certain extent
+    * @return the serialized jsonobject
+    */
+   public static JSONObject json(ComplexEObject eo, String... includes) throws JSONException
    {
       JSONObject obj = new JSONObject();
       obj.put("type", eo.getClass().getName());
@@ -61,7 +78,7 @@ public class JSON
          {
             continue;
          }
-         
+
          if (field.isAtomic())
          {
             obj.put(field.name(), field.get(eo).toString());
@@ -74,9 +91,18 @@ public class JSON
          {
             obj.put(field.name(), json((ComplexEObject) field.get(eo)));
          }
+         else if (field.isAssociation() && contains(includes, field.name()))
+         {
+            obj.put(field.name(), json((ComplexEObject) field.get(eo)));
+         }
          // outstanding: what governs whether to recurse associations..
       }
       return obj;
+   }
+
+   private static boolean contains(String[] list, String value)
+   {
+      return Arrays.asList(list).contains(value);
    }
 
    public static AbstractListEO fromJsonList(JSONObject jso)
