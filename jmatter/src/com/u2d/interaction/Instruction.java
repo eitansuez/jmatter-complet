@@ -126,7 +126,7 @@ public class Instruction
    {
       if (target == null) return;
       Map<String, ComplexEObject> cmdOptions = new HashMap<String, ComplexEObject>();
-      for (Iterator itr = target.commands().deepIterator(); itr.hasNext(); )
+      for (Iterator itr = target.filteredCommands().deepIterator(); itr.hasNext(); )
       {
          Command cmd = (Command) itr.next();
          cmdOptions.put(cmd.title().toString().toLowerCase(), cmd);
