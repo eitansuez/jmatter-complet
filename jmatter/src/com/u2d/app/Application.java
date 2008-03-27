@@ -77,7 +77,12 @@ public class Application implements AppEventNotifier
 
    private void addTypesToIndex()
    {
-      contributeToIndex(ComplexType.persistedTypes());
+      contributeToIndex(topLevelEntities());
+   }
+
+   protected AbstractListEO topLevelEntities()
+   {
+      return ComplexType.persistedTypes();
    }
    
    public void contributeToIndex(ComplexEObject eo)
