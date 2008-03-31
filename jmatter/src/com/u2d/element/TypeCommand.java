@@ -3,7 +3,6 @@ package com.u2d.element;
 import com.u2d.view.EView;
 import com.u2d.view.View;
 import com.u2d.model.ComplexType;
-import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
 import com.u2d.ui.desktop.Positioning;
 import java.lang.reflect.InvocationTargetException;
@@ -24,7 +23,16 @@ public class TypeCommand extends EOCommand
       super(method, parent, mnemonic, params, sensitive, viewPosition);
    }
 
-   protected boolean haveParameters() { return _method.getParameterTypes().length > 2; }
+   protected boolean haveParameters()
+   {
+      // no longer as simplistic as this because now have optional target param.
+      // i.e. if > 2 surely have parameters.  but if > 1 then if second parameter is a complex type (target type),
+      // then answer should be false.
+      return _method.getParameterTypes().length > 2 ||
+            (_method.getParameterTypes().length == 2 &&
+             !_method.getParameterTypes()[1].equals(ComplexType.class));
+   }
+
    public Object getTarget(Object value)
    {
       // list types sometimes are delegates for their item types' commands..
