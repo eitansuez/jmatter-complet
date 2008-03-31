@@ -170,3 +170,9 @@ jm|ExpandableView2 ui|GradientPanel
 {
   padding: 0px 0px 0px 5px;
 }
+
+.tabular-heading
+{
+  font-weight: bold;
+}
+
