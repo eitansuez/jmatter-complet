@@ -7,8 +7,6 @@ import com.u2d.app.*;
 import com.u2d.domain.*;
 import com.u2d.list.SimpleListEO;
 import com.u2d.type.composite.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author Eitan Suez
@@ -19,13 +17,8 @@ public class AppFrameTester
 
    public AppFrameTester()
    {
-      SwingViewMechanism.setupAntiAliasing();
-      ApplicationContext context =
-            new ClassPathXmlApplicationContext("applicationContext.xml");
-
-      AppSession session = (AppSession) context.getBean("app-session");
-      session.launch();
-      _vmech = (ViewMechanism) context.getBean("view-mechanism");
+      SwingViewMechanism.getInstance().launch();
+      _vmech = SwingViewMechanism.getInstance();
    }
 
    void testEObjects()

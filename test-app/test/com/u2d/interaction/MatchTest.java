@@ -21,8 +21,8 @@ public class MatchTest extends TestCase
    
    public void testInstructionsMatch()
    {
-      Instruction i = Instruction.getInstance();
-      i.matchText("Po");
-      System.out.println(i.matchedItems());
+      Instruction i = new Instruction();
+      i.matchTargetText("Po");
+      System.out.println(i.getTargetMatches());
    }
 }

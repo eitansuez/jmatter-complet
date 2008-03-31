@@ -6,8 +6,6 @@ package com.u2d.view.swing;
 import com.u2d.domain.*;
 import com.u2d.app.*;
 import com.u2d.type.atom.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author Eitan Suez
@@ -18,11 +16,8 @@ public class AtomTester
 
    public AtomTester()
    {
-      SwingViewMechanism.setupAntiAliasing();
-      ApplicationContext context =
-            new ClassPathXmlApplicationContext("applicationContext.xml");
-
-      _vmech = (ViewMechanism) context.getBean("view-mechanism");
+      SwingViewMechanism.getInstance().launch();
+      _vmech = SwingViewMechanism.getInstance();
 
       AtomicMedley medley = new AtomicMedley(23, "Joey", new Email("eitan@uptodata.com"), true, 23.3);
       _vmech.displayView(medley.getFormView(), null);

@@ -15,6 +15,7 @@ public class LoginTest
    public LoginTest()
    {
       JFrame f = new JFrame();
+      f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       JPanel p = (JPanel) f.getContentPane();
       JDesktopPane dp = new JDesktopPane();
       p.add(dp, BorderLayout.CENTER);
@@ -31,10 +32,11 @@ public class LoginTest
       f.setBounds(100,100,500,400);
 
       LoginDialog dlg = new LoginDialog(mgr);
+      dp.add(dlg);
       f.setVisible(true);
 
       dlg.clear();
-      dlg.makeVisible();
+      dlg.position();
 
    }
 

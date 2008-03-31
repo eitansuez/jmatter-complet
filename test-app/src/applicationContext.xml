@@ -13,11 +13,12 @@
       <property name="viewMechanism" ref="view-mechanism" />
    </bean>
    
-   <bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism">
+   <bean id="view-mechanism" class="com.u2d.view.swing.SwingViewMechanism"
+         factory-method="getInstance">
       <property name="appSession" ref="app-session" />
       <property name="labelEditorLayoutHorizontal" value="false" />
    </bean>
-   
+
    <bean id="context-wrapper" class="com.u2d.app.Context" 
          factory-method="getInstance" />
    
