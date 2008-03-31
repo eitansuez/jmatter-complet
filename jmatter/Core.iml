@@ -24,8 +24,8 @@
           <root url="jar://$MODULE_DIR$/lib/runtime/jibx-extras.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/runtime/commons-lang-2.3.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/runtime/json.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/runtime/groovy-all-1.5.1.jar!/" />
           <root url="file://$MODULE_DIR$/lib/runtime/jdbc" />
+          <root url="jar://$MODULE_DIR$/lib/runtime/groovy-all-1.5.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
