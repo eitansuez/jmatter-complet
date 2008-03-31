@@ -99,7 +99,7 @@ public class EObjectUserTypeDelegate implements UserType
    public void nullSafeSet(java.sql.PreparedStatement pstmt, Object value, int index)
       throws HibernateException, java.sql.SQLException
    {
-      String classname = (value==null) ? "" : AbstractComplexEObject.cleanCGILibEnhancer(value);
+      String classname = (value==null) ? "" : AbstractComplexEObject.cleanCGLibEnhancer(value);
       String stringValue = "";
       if (value instanceof AtomicEObject)
       {

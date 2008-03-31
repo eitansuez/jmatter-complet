@@ -422,13 +422,16 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    private boolean sameClassOrProxy(Object obj)
    {
-      String clsName1 = cleanCGILibEnhancer(obj);
-      String clsName2 = cleanCGILibEnhancer(this);
+      String clsName1 = cleanCGLibEnhancer(obj);
+      String clsName2 = cleanCGLibEnhancer(this);
       return (clsName1.equals(clsName2));
    }
-   public static String cleanCGILibEnhancer(Object obj)
+   public static String cleanCGLibEnhancer(Object obj)
    {
-      String clsName = obj.getClass().getName();
+      return cleanCGLIBEnhancer(obj.getClass().getName());
+   }
+   public static String cleanCGLIBEnhancer(String clsName)
+   {
       int idx = clsName.indexOf("$$EnhancerByCGLIB$$");
       if (idx > 0) clsName = clsName.substring(0, idx);
       return clsName;

@@ -3,10 +3,7 @@ package com.u2d.json;
 import org.json.JSONObject;
 import org.json.JSONException;
 import org.json.JSONArray;
-import com.u2d.model.AbstractListEO;
-import com.u2d.model.ComplexEObject;
-import com.u2d.model.ComplexType;
-import com.u2d.model.AtomicEObject;
+import com.u2d.model.*;
 import com.u2d.element.Field;
 import com.u2d.list.PlainListEObject;
 import java.util.List;
@@ -109,7 +106,7 @@ public class JSON
          throws JSONException, ClassNotFoundException, ParseException
    {
       String clsname = (String) jso.get("item-type");
-      Class cls = Class.forName(clsname);
+      Class cls = classFor(clsname);
       AbstractListEO leo = new PlainListEObject(cls);
       JSONArray ra = jso.getJSONArray("items");
 
@@ -127,6 +124,11 @@ public class JSON
    {
       return fromJson(o, null);
    }
+   private static Class classFor(String clsname) throws ClassNotFoundException
+   {
+      return Class.forName(AbstractComplexEObject.cleanCGLIBEnhancer(clsname));
+   }
+   
    public static ComplexEObject fromJson(JSONObject o, Class cls)
          throws JSONException, ClassNotFoundException, ParseException
    {
@@ -134,13 +136,13 @@ public class JSON
       if (o.has("type"))
       {
          String clsname = (String) o.get("type");
-         cls = Class.forName(clsname);
+         cls = classFor(clsname);
       }
       // special case for unmarshalling complex type references..
       if (ComplexType.class.isAssignableFrom(cls))
       {
          String typeName = o.getString("value");
-         return ComplexType.forClass(Class.forName(typeName));
+         return ComplexType.forClass(classFor(typeName));
       }
       ComplexEObject eo = ComplexType.forClass(cls).instance();
 
