@@ -98,7 +98,7 @@ public class Password extends AbstractAtomicEO
     * hash passwd password
     * @return hashed password
     */
-   private static String hashPassword(String password)
+   public static String hashPassword(String password)
    {
       StringBuffer hexrep = new StringBuffer("");
       try
