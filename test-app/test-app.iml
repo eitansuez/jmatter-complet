@@ -9,10 +9,6 @@
         <webroots>
           <root url="file://$MODULE_DIR$/resources/jws" relative="/WEB-INF" />
         </webroots>
-        <sourceRoots>
-          <root url="file://$MODULE_DIR$/src" />
-          <root url="file://$MODULE_DIR$/test" />
-        </sourceRoots>
         <building>
           <setting name="EXPLODED_URL" value="file://" />
           <setting name="EXPLODED_ENABLED" value="false" />
@@ -53,7 +49,6 @@
     <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="JMatter" level="application" />
-    <orderEntry type="library" name="JUnit" level="application" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -63,6 +58,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="JUnit" level="project" />
     <orderEntryProperties />
   </component>
 </module>
