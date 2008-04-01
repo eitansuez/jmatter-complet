@@ -59,21 +59,21 @@ public class MyDesktopPane extends JDesktopPane
    private void rotateLeft()
    {
       jifs.addLast(jifs.removeFirst());
-      while (!((JInternalFrame)jifs.getFirst()).isVisible())
+      while (!(jifs.getFirst()).isVisible())
          jifs.addLast(jifs.removeFirst());
       updatePositions();
       try {
-         ((JInternalFrame) jifs.getFirst()).setSelected(true);
+         jifs.getFirst().setSelected(true);
       } catch (PropertyVetoException e2) {}
    }
    private void rotateRight()
    {
       jifs.addFirst(jifs.removeLast());
-      while (!((JInternalFrame)jifs.getFirst()).isVisible())
+      while (!jifs.getFirst().isVisible())
          jifs.addFirst(jifs.removeLast());
       updatePositions();
       try {
-         ((JInternalFrame) jifs.getFirst()).setSelected(true);
+         jifs.getFirst().setSelected(true);
       } catch (PropertyVetoException e2) {}
    }
 
@@ -82,7 +82,7 @@ public class MyDesktopPane extends JDesktopPane
       JInternalFrame jif;
       for (int i=0; i<jifs.size(); i++)
       {
-         jif = (JInternalFrame) jifs.get(i);
+         jif = jifs.get(i);
          setPosition(jif, i);
       }
    }
@@ -152,11 +152,11 @@ public class MyDesktopPane extends JDesktopPane
                         MyDesktopPane.this.requestFocusInWindow();
                         return;
                      }
-                     JInternalFrame f = (JInternalFrame) jifs.getFirst();
+                     JInternalFrame f = jifs.getFirst();
                      while (!f.isVisible())
                      {
                         rotateLeft();
-                        f = (JInternalFrame) jifs.getFirst();
+                        f = jifs.getFirst();
                      }
                      try {
                         f.setSelected(true);
@@ -173,7 +173,7 @@ public class MyDesktopPane extends JDesktopPane
          
          for (int i=0; i<jifs.size(); i++)
          {
-            if (((JInternalFrame) jifs.get(i)).isVisible())
+            if (jifs.get(i).isVisible())
                return false;
          }
          return true;
