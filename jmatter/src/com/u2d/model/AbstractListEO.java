@@ -10,7 +10,6 @@ import javax.swing.event.*;
 import com.u2d.element.*;
 import com.u2d.field.Association;
 import com.u2d.field.AssociationField;
-import com.u2d.field.CompositeField;
 import com.u2d.list.CSVExport;
 import com.u2d.pattern.ListChangeNotifier;
 import com.u2d.pattern.Onion;
@@ -349,7 +348,7 @@ public abstract class AbstractListEO extends AbstractEObject
          {
             return type().title().toString();
          }
-         Field field = (Field) _tableFields.get(column - 1);
+         Field field = _tableFields.get(column - 1);
          return field.label();
       }
       
@@ -359,7 +358,7 @@ public abstract class AbstractListEO extends AbstractEObject
          {
             return type().getJavaClass();
          }
-         Field field = (Field) _tableFields.get(column - 1);
+         Field field = _tableFields.get(column - 1);
          if (field.isAssociation())
          {
             return Association.class;
@@ -377,7 +376,7 @@ public abstract class AbstractListEO extends AbstractEObject
          {
             return ceo;
          }
-         Field field = (Field) _tableFields.get(column - 1);
+         Field field = _tableFields.get(column - 1);
          if (field.isAssociation())
          {
             return ((AssociationField) field).association(ceo);
@@ -406,14 +405,14 @@ public abstract class AbstractListEO extends AbstractEObject
                   parentObject instanceof ComplexEObject &&
                   ((ComplexEObject) parentObject).isEditableState() &&
                   value instanceof AtomicEObject &&
-                  !((CompositeField) value.field()).isReadOnly()
+                  !value.field().isReadOnly()
          );
       }
 
       public void setValueAt(Object value, int row, int column)
       {
          if (column == 0) return; // first column of this model not editable
-         Field field = (Field) _tableFields.get(column - 1);
+         Field field = _tableFields.get(column - 1);
          ComplexEObject parent = (ComplexEObject) _items.get(row);
          field.set(parent, value);
       }
