@@ -92,8 +92,8 @@ public class JSON
          {
             obj.put(field.name(), json((ComplexEObject) field.get(eo)));
          }
-         // outstanding: what governs whether to recurse associations..
       }
+      obj.put("id", eo.getID());
       return obj;
    }
 
@@ -155,7 +155,19 @@ public class JSON
          Field field = eo.field(fldName);
          Object value = o.get(fldName);
 
-         if (value instanceof JSONObject)
+         if (field == null)  // custom handling of hibernate id properties..
+         {
+            if ("id".equals(fldName))
+            {
+               eo.setID(o.getLong(fldName));
+            }
+            else
+            {
+               // ignore field
+               System.err.println("warn:  json unmarshalling:  unmapped field name: "+fldName);
+            }
+         }
+         else if (value instanceof JSONObject)
          {
             JSONObject valueObj = (JSONObject) value;
             if (valueObj.has("item-type"))
