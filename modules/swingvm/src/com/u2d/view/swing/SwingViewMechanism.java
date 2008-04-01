@@ -75,7 +75,10 @@ public class SwingViewMechanism implements ViewMechanism
    }
 
    InputTracker _inputTracker;
-   boolean _isShiftDown = false;
+   int _modifiers;
+   private boolean isShiftDown() { return (_modifiers & InputEvent.SHIFT_MASK) != 0; }
+   public boolean isControlDown() { return (_modifiers & InputEvent.CTRL_MASK) != 0; }
+   public boolean isAltDown() { return (_modifiers & InputEvent.ALT_MASK) != 0; }
    
    class InputTracker implements AWTEventListener
    {
@@ -83,7 +86,7 @@ public class SwingViewMechanism implements ViewMechanism
       {
          if ((event.getID() == MouseEvent.MOUSE_PRESSED || event.getID() == KeyEvent.KEY_PRESSED))
          {
-            _isShiftDown = ((InputEvent) event).isShiftDown();
+            _modifiers = ((InputEvent) event).getModifiers();
          }
       }
    }
@@ -310,7 +313,7 @@ public class SwingViewMechanism implements ViewMechanism
                    popup a contextmenu view displaying each of the choices
                    on choice selection..
                    */
-                  if (_isShiftDown)
+                  if (isShiftDown())
                   {
                      JPopupMenu menu = new JPopupMenu();
                      ActionListener listener = new ActionListener()
@@ -854,12 +857,19 @@ public class SwingViewMechanism implements ViewMechanism
    public ListEView getEditableListView(AbstractListEO leo)
    {
       if (leo instanceof CompositeList)
+      {
          return new CompositeTableView((CompositeList) leo);
+//         return new CompositeTabularView((CompositeList) leo);
+      }
       else if (leo instanceof RelationalList)
+      {
          return new EditableListView((RelationalList) leo);
+      }
       else
+      {
          throw new RuntimeException("getEditableListView at the moment works only in the context" +
                " of a compositelist or a relationallist");
+      }
    }
 
    
