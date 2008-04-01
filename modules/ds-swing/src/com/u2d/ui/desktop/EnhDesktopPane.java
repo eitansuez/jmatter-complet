@@ -124,8 +124,71 @@ public class EnhDesktopPane extends MyDesktopPane
                      (Component) event.getSource(),
                      mouseEvent.getPoint(),
                      EnhDesktopPane.this );
+
+            JInternalFrame[] frames = getAllFramesInLayer(JLayeredPane.DEFAULT_LAYER);
+            JInternalFrame targetFrame = null;
+            for (int i=0; i<frames.length; i++)
+            {
+               Point pt = SwingUtilities.convertPoint((Component) event.getSource(), mouseEvent.getPoint(), frames[i]);
+               boolean candidate = frames[i].contains(pt);
+               if (candidate)
+               {
+                  if ((targetFrame == null) || higherzorder(frames[i], targetFrame))
+                  {
+                     targetFrame = frames[i];
+                  }
+               }
+            }
+            if (targetFrame == null) return;
+            if (!mouseEvent.isShiftDown()) return;
+
+            mouseEvent.consume();
+            enterFrameMoveMode(targetFrame, SwingUtilities.convertPoint((Component) event.getSource(),
+                                                                         mouseEvent.getPoint(), targetFrame));
          }
       }
+   }
+
+   private boolean higherzorder(JInternalFrame frame, JInternalFrame frame2)
+   {
+      JLayeredPane lp = getLayeredPaneAbove(frame);
+      return lp.getPosition(frame) < lp.getPosition(frame2);
+   }
+
+   private void enterFrameMoveMode(final JInternalFrame iframe, final Point startPt)
+   {
+      setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+      final AWTEventListener mouseMotionListener = new AWTEventListener()
+      {
+         public void eventDispatched(AWTEvent event)
+         {
+            MouseEvent mouseEvt = (MouseEvent) event;
+            Point pt = SwingUtilities.convertPoint((Component) event.getSource(), mouseEvt.getPoint(), EnhDesktopPane.this);
+            iframe.setLocation(pt.x - startPt.x,
+                               pt.y - startPt.y);
+         }
+      };
+      Toolkit.getDefaultToolkit().addAWTEventListener(mouseMotionListener, AWTEvent.MOUSE_MOTION_EVENT_MASK);
+
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener()
+            {
+               public void eventDispatched(AWTEvent event)
+               {
+                  if (event.getID() == MouseEvent.MOUSE_RELEASED)
+                  {
+                     Toolkit.getDefaultToolkit().removeAWTEventListener(mouseMotionListener);
+                     Toolkit.getDefaultToolkit().removeAWTEventListener(this);
+                     setCursor(Cursor.getDefaultCursor());
+                  }
+               }
+            }, AWTEvent.MOUSE_EVENT_MASK);
+         }
+      });
+
    }
 
 
