@@ -24524,7 +24524,7 @@ Keyboard Shortcuts
 \begin_layout Standard
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="14" columns="2">
+<lyxtabular version="3" rows="15" columns="2">
 <features islongtable="true">
 <column alignment="center" valignment="top" leftline="true" width="0">
 <column alignment="block" valignment="top" leftline="true" rightline="true" width="3.5in">
@@ -24760,6 +24760,30 @@ When invoking a command that generates a view, holding down the Shift key
  at the same time will prompt how you'd like the new view generated: in
  a new window, a new tab, or in place (i.e.
  replacing current view).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Shift-Click
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Click on a JMatter internal window while holding down the shift key to move
+ or drag the window about.
+ This is the same as dragging the titlebar to move the window, but gives
+ you a much larger surface area to work with.
+ This feature is the same as the well-known alt-click on linux desktops.
 \end_layout
 
 \end_inset
