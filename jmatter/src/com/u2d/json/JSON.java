@@ -94,6 +94,7 @@ public class JSON
          }
       }
       obj.put("id", eo.getID());
+      obj.put("version", eo.getVersion());
       return obj;
    }
 
@@ -160,6 +161,10 @@ public class JSON
             if ("id".equals(fldName))
             {
                eo.setID(o.getLong(fldName));
+            }
+            else if ("version".equals(fldName))
+            {
+               eo.setVersion(o.getLong(fldName));
             }
             else
             {

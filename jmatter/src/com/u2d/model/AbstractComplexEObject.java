@@ -840,7 +840,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    // Hibernate version field, for Optimistic Locking
    private Long _version;
    public Long getVersion() { return _version; }
-   protected void setVersion(Long version) { _version = version; }
+   public void setVersion(Long version) { _version = version; }
    
 
    protected final DateTime _createdOn = new DateTime(new Date());

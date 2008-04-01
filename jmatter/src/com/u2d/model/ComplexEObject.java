@@ -82,6 +82,7 @@ public interface ComplexEObject
    public Long getID();
    public void setID(Long id);
    public Long getVersion();
+   public void setVersion(Long version);
 
    public DateTime getCreatedOn();
 
