@@ -58,17 +58,16 @@ public class AppFrame extends JFrame
 
    private CommandsMenuView _userMenu = new CommandsMenuView(new Filter()
    {
-      String[] validCmds = {"ResetClassBar", "EditPreferences", "LogOut", 
-                            "ChangePassword", "Open", "Edit"};
+      String[] excludeCmds = {"Delete", "Copy", "Refresh", "Lock"};
       public boolean exclude(Object item)
       {
          Command cmd = (Command) item;
-         for (String validCmd : validCmds)
+         for (String excludeCmd : excludeCmds)
          {
-            if (validCmd.equals(cmd.name()))
-               return false;
+            if (excludeCmd.equals(cmd.name()))
+               return true;
          }
-         return true;
+         return false;
       }
    });
    
