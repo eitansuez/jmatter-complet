@@ -412,12 +412,28 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       for (int i=0; i<fields.size(); i++)
       {
          field = (Field) fields.get(i);
+
+         if ( "createdOn".equals(field.name())) continue;
+         
          if (!field.get(this).equals(field.get(ceo)))
          {
             return false;
          }
       }
       return true;
+   }
+
+   public int hashCode()
+   {
+      List fields = childFields();
+      int hashCode = 13;
+      for (int i=0; i<fields.size(); i++)
+      {
+         Field field = (Field) fields.get(i);
+         if ( "createdOn".equals(field.name())) continue;
+         hashCode = hashCode + 31 * (field.get(this).hashCode());
+      }
+      return hashCode;
    }
 
    private boolean sameClassOrProxy(Object obj)
