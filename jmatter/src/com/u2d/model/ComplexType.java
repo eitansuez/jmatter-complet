@@ -18,7 +18,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.awt.datatransfer.DataFlavor;
 import java.beans.IntrospectionException;
 import com.u2d.app.*;
@@ -680,7 +679,7 @@ public class ComplexType extends AbstractComplexEObject
       if (_persistedTypes == null)
       {
          _persistedTypes = new PlainListEObject(ComplexType.class);
-         HBMPersistenceMechanism hbm = Context.getInstance().hbmpersitor();
+         HBMPersistenceMechanism hbm = Context.getInstance().hbmpersistor();
          Set<Class> persistClasses = hbm.getClasses();
          for (Class cls : persistClasses)
          {

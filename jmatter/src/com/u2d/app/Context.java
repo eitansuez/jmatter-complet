@@ -59,7 +59,7 @@ public class Context implements ApplicationContextAware, AppEventNotifier
 
    // ---
    
-   public HBMPersistenceMechanism hbmpersitor()
+   public HBMPersistenceMechanism hbmpersistor()
    {
       return (HBMPersistenceMechanism) getPersistenceMechanism();
    }

@@ -85,7 +85,7 @@ public class Calendrier extends AbstractComplexEObject
 
    private Criteria criteria()
    {
-      Session session = Context.getInstance().hbmpersitor().getSession();
+      Session session = Context.getInstance().hbmpersistor().getSession();
       Criteria criteria = session.createCriteria(eventType().getJavaClass());
 
       Junction junction = Expression.conjunction();

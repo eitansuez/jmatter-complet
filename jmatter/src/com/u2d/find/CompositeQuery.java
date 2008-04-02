@@ -152,7 +152,7 @@ public class CompositeQuery extends AbstractComplexEObject
                                          @Arg("HQL Text") TextEO hqlText)
    {
       String hql = hqlText.stringValue();
-      HBMPersistenceMechanism hbm = Context.getInstance().hbmpersitor();
+      HBMPersistenceMechanism hbm = Context.getInstance().hbmpersistor();
       return hbm.hql(hql);
    }
 

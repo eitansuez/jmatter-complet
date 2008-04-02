@@ -60,7 +60,7 @@ public class SimpleQuery extends AbstractComplexEObject
 
    public Criteria getCriteria()
    {
-      HBMPersistenceMechanism p = Context.getInstance().hbmpersitor();
+      HBMPersistenceMechanism p = Context.getInstance().hbmpersistor();
       return getCriteria(p.getSession());
    }
 

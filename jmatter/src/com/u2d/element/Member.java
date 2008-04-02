@@ -121,7 +121,7 @@ public abstract class Member extends ProgrammingElement implements Restrictable
     */
    public static void mergeInDbMetadata()
    {
-      Session session = Context.getInstance().hbmpersitor().getSession();
+      Session session = Context.getInstance().hbmpersistor().getSession();
       List members = session.createCriteria(Member.class).list();
       for (int i=0; i<members.size(); i++)
       {
