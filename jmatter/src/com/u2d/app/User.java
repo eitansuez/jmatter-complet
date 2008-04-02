@@ -168,7 +168,7 @@ public class User extends AbstractComplexEObject implements Authorizer
 //      save();
 //   }
    
-   @Cmd(mnemonic='g')
+   @Cmd(mnemonic='g',iconref="logout")
    public void LogOut(CommandInfo cmdInfo)
    {
       appSession().onLogout();
