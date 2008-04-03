@@ -431,7 +431,14 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       {
          Field field = (Field) fields.get(i);
          if ( "createdOn".equals(field.name())) continue;
-         hashCode = hashCode + 31 * (field.get(this).hashCode());
+         if (field instanceof IndexedField)
+         {
+            hashCode = hashCode + 17 * ((AbstractListEO) field.get(this)).getSize();
+         }
+         else
+         {
+            hashCode = hashCode + 31 * (field.get(this).hashCode());
+         }
       }
       return hashCode;
    }
