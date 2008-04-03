@@ -49,7 +49,7 @@ public abstract class BaseCalEventView
       add(_body, BorderLayout.CENTER);
 
       _cmdsView = new CommandsContextMenuView();
-      _cmdsView.bind(_event, this);
+      _cmdsView.bind(_event, _header, this);
 
       setTransferHandler(new EOTransferHandler(this));
 
