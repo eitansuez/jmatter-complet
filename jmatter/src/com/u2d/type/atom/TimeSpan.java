@@ -104,18 +104,13 @@ public class TimeSpan extends AbstractAtomicEO
    public Date startDate() { return _startCal.getTime(); }
    public Date endDate() { return _endCal.getTime(); }
    
-   public void startDate(Date startDate)
+   public void startDate(Date startDate) { assignOne(_startCal, startDate); }
+   public void endDate(Date endDate) { assignOne(_endCal, endDate); }
+   private void assignOne(Calendar cal, Date date)
    {
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(startDate);
-      assign(cal, _endCal);
-      fireStateChanged();
-   }
-   public void endDate(Date endDate)
-   {
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(endDate);
-      assign(_startCal, cal);
+      cal.setTime(date);
+      deriveDuration();
+      deriveSameDay();
       fireStateChanged();
    }
    
