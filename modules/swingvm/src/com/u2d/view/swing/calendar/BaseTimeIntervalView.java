@@ -66,8 +66,9 @@ public abstract class BaseTimeIntervalView extends JPanel
       {
          _table.setRowHeight(_initialRowHeight);
       }
-      _table.repaint();
    }
+
+   public ITimeSheet getTimeSheet() { return _timesheet; }
 
    public void addAdjustmentListener(AdjustmentListener l)
    {
@@ -96,6 +97,13 @@ public abstract class BaseTimeIntervalView extends JPanel
       _scrollPane = new JScrollPane(_table);
       add(_scrollPane, BorderLayout.CENTER);
 
+      addComponentListener(new ComponentAdapter()
+      {
+         public void componentResized(ComponentEvent e)
+         {
+            updateRowHeight();
+         }
+      });
       
       _timesheet.addPropertyChangeListener("cellResolution", new PropertyChangeListener()
       {

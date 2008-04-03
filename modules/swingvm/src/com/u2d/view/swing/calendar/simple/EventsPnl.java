@@ -12,6 +12,7 @@ import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
 import com.u2d.view.swing.calendar.TimeIntervalView;
 import com.u2d.view.swing.calendar.BaseEventsPnl;
+import com.u2d.view.swing.calendar.BaseCalEventView;
 
 /**
  * @author Eitan Suez
@@ -52,8 +53,9 @@ public class EventsPnl extends BaseEventsPnl
                   continue;
                }
                
-               JComponent comp = (JComponent) event.getCalEventView();
-               
+               BaseCalEventView comp = (BaseCalEventView) event.getCalEventView();
+               comp.setupExtendSpan(_view.getTimeSheet());
+
                // workaround for mousewheelsupport when hovering over a calevent..
                MouseWheelListener[] listeners = _view.getScrollPane().getMouseWheelListeners();
                for (int i=0; i<listeners.length; i++)

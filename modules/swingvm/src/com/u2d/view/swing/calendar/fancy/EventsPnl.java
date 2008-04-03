@@ -14,6 +14,7 @@ import com.u2d.field.AssociationField;
 import com.u2d.field.IndexedField;
 import com.u2d.view.swing.calendar.TimeIntervalView;
 import com.u2d.view.swing.calendar.BaseEventsPnl;
+import com.u2d.view.swing.calendar.BaseCalEventView;
 
 /**
  * @author Eitan Suez
@@ -71,13 +72,14 @@ public class EventsPnl extends BaseEventsPnl
                   continue;
                }
                
-               JComponent comp = (JComponent) event.getCalEventView(_schedule);
-               
+               BaseCalEventView comp = (BaseCalEventView) event.getCalEventView(_schedule);
+               comp.setupExtendSpan(_view.getTimeSheet());
+
                // workaround for mousewheelsupport when hovering over a calevent..
                MouseWheelListener[] listeners = _view.getScrollPane().getMouseWheelListeners();
-               for (int i=0; i<listeners.length; i++)
+               for (MouseWheelListener listener : listeners)
                {
-                  comp.addMouseWheelListener(listeners[i]);
+                  comp.addMouseWheelListener(listener);
                }
                add(comp, event);
             }

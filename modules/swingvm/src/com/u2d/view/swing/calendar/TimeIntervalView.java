@@ -27,4 +27,6 @@ public interface TimeIntervalView
    public JScrollPane getScrollPane();
    public void addPropertyChangeListener(String property, PropertyChangeListener l);
    public void removePropertyChangeListener(String property, PropertyChangeListener l);
+
+   public ITimeSheet getTimeSheet();
 }

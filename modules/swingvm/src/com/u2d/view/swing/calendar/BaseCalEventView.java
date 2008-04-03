@@ -4,10 +4,13 @@ import org.jdesktop.swingx.JXPanel;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import com.u2d.view.swing.dnd.EOTransferHandler;
+import com.u2d.view.swing.CommandAdapter;
 import com.u2d.calendar.CalEvent;
 import com.u2d.ui.FancyLabel;
+import com.u2d.ui.UIUtils;
 import com.u2d.model.EObject;
 import com.u2d.type.atom.TimeInterval;
+import com.u2d.element.Command;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseMotionListener;
@@ -30,6 +33,8 @@ public abstract class BaseCalEventView
    protected BaseCalEventView.Header _header;
    protected FancyLabel _body;
 
+   protected MouseListener _defaultActionListener;
+
    public BaseCalEventView(CalEvent event)
    {
       _event = event;
@@ -48,13 +53,17 @@ public abstract class BaseCalEventView
 
       setTransferHandler(new EOTransferHandler(this));
 
+      Command defaultCmd = _event.defaultCommand();
+      CommandAdapter defaultAction = new CommandAdapter(defaultCmd, _event, this);
+      _defaultActionListener = UIUtils.doubleClickActionListener(defaultAction);
+      _header.addMouseListener(_defaultActionListener);
+
       stateChanged(null);
-      setupExtendSpan();
    }
 
-   private void setupExtendSpan()
+   public void setupExtendSpan(ITimeSheet timesheet)
    {
-      EventSpanAdjuster eventSpanAdjuster = new EventSpanAdjuster(this);
+      EventSpanAdjuster eventSpanAdjuster = new EventSpanAdjuster(this, timesheet);
       _body.addMouseListener(eventSpanAdjuster);
       _body.addMouseMotionListener(eventSpanAdjuster);
    }
@@ -75,6 +84,7 @@ public abstract class BaseCalEventView
       _event.removePropertyChangeListener(this);
       _event.removeChangeListener(this);
       _cmdsView.detach();
+      _header.removeMouseListener(_defaultActionListener);
    }
 
    static SimpleDateFormat fmt = new SimpleDateFormat("h:mm a");
@@ -128,9 +138,11 @@ public abstract class BaseCalEventView
       private Point lastPoint = null;
       private Cursor defaultCursor;
       private Cursor extendCursor = Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR);
+      private ITimeSheet timesheet = null;
       
-      public EventSpanAdjuster(Component component)
+      public EventSpanAdjuster(Component component, ITimeSheet timesheet)
       {
+         this.timesheet = timesheet;
          this.component = component;
          defaultCursor = component.getCursor();
       }
@@ -206,8 +218,8 @@ public abstract class BaseCalEventView
       public void mouseDragged(MouseEvent e)
       {
          int diff = translate(e.getPoint()).y - anchorPt.y;
-         component.setSize(component.getWidth(), actualHeight + diff);
-         _body.setSize(_body.getWidth(), bodyHeight + diff);
+         component.setSize(component.getWidth(), roundToNearestRow(actualHeight + diff));
+         _body.setSize(_body.getWidth(), component.getHeight() - bodyDiff);
          component.repaint();
       }
 
@@ -216,32 +228,44 @@ public abstract class BaseCalEventView
       }
 
       private Point anchorPt;
-      private int actualHeight, bodyHeight;
+      private int actualHeight, bodyDiff;
       private boolean disableCursorUpdate = false;
       public void mousePressed(MouseEvent e)
       {
          disableCursorUpdate = true;
          actualHeight = component.getHeight();
-         bodyHeight = _body.getHeight();
+         bodyDiff = actualHeight - _body.getHeight();
          anchorPt = translate(e.getPoint());
       }
 
       public void mouseReleased(MouseEvent e)
       {
          disableCursorUpdate = false;
-         TimeInterval duration = _event.timeSpan().duration();
 
-         long newDurationMilis = component.getHeight() * duration.getMilis() / actualHeight;
-         // round duration to a five minute resolution.  e.g. 11:43 AM becomes 11:45 AM
-         double newDurationFiveMinutes = newDurationMilis /  (double) 300000;
-         int newDurationMinutes = 5 * (int) Math.round(newDurationFiveMinutes);
-         TimeInterval newDuration = new TimeInterval(Calendar.MINUTE, newDurationMinutes);
+         int resolutionMinutes = timesheet.getCellResolution().minutes();
+         int durationMinutes = (int) (component.getHeight() / rowHeight()) * resolutionMinutes;
+         TimeInterval newDuration = new TimeInterval(Calendar.MINUTE, durationMinutes);
 
-         if (!newDuration.equals(duration))
+         if (!newDuration.equals(_event.timeSpan().duration()))
          {
             _event.timeSpan().setDuration(newDuration);
             _event.save();
          }
+      }
+
+      private double rowHeight()
+      {
+         int resolutionMinutes = timesheet.getCellResolution().minutes();
+         int durationMinutes = (int) (_event.timeSpan().duration().getMilis() / 60000);
+         return resolutionMinutes * ((double)actualHeight) / ((double)durationMinutes);
+      }
+      private int roundToNearestRow(int amt)
+      {
+         double rowHeight = rowHeight();
+         double quotient = ((double) amt) / (rowHeight);
+         int numRows = (int) Math.round(quotient);
+         System.out.printf("num rows %d \n", numRows);
+         return (int) (numRows * rowHeight);
       }
 
    }

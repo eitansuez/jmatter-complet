@@ -6,6 +6,7 @@ import com.u2d.view.EView;
 import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.swing.FlexiFrame;
 import com.u2d.view.swing.AppLoader;
+import com.u2d.view.swing.calendar.simple.CalendarListView;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexType;
@@ -53,7 +54,7 @@ public class ListEOPanel  extends JPanel
       ComponentStyle.addClass(_titleBarView, "list-title-panel");
       add(_titleBarView, BorderLayout.NORTH);
 
-      if (_view instanceof CompositeView)
+      if (_view instanceof CompositeView || _view instanceof CalendarListView)
       {
          add((JComponent) _view, BorderLayout.CENTER);
       }
