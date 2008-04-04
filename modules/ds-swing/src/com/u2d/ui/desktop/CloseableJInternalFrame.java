@@ -53,11 +53,14 @@ public class CloseableJInternalFrame extends JInternalFrame
          // System.err.println("CloseableJInternalFrame::closeFrame: jinternalframe's desktop pane is not set");
          return;
       }
-   
-      desktopPane.getDesktopManager().closeFrame(jif);
-      // even though dpmgr.closeFrame closes and hides the frame,
-      // the isClosed and isVisible properties are not set! (macosx)
-      try { jif.setClosed(true); } catch (PropertyVetoException ex) { System.err.println("Vetoed"); }
+
+      if (!(jif.getDefaultCloseOperation() == JFrame.HIDE_ON_CLOSE))
+      {
+         desktopPane.getDesktopManager().closeFrame(jif);
+         // even though dpmgr.closeFrame closes and hides the frame,
+         // the isClosed and isVisible properties are not set! (macosx)
+         try { jif.setClosed(true); } catch (PropertyVetoException ex) { System.err.println("Vetoed"); }
+      }
       jif.setVisible(false);
    }
 
