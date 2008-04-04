@@ -87,19 +87,19 @@ public class EmailMessage
    
    public String mailtoURL()
    {
-      String mailto = "mailto:" + escape(addresses()) + "?subject=" + escape(_subject.stringValue());
+      String mailto = "mailto:" + htmlEscape(addresses()) + "?subject=" + htmlEscape(_subject.stringValue());
       if (!_body.isEmpty())
       {
-         mailto += "&body=" + escape(_body.stringValue());
+         mailto += "&body=" + htmlEscape(_body.stringValue());
       }
       if (!_attachment.isEmpty())
       {
-         mailto += "&attachment=" + escape(_attachment.toString());
+         mailto += "&attachment=" + htmlEscape(_attachment.toString());
       }
       return mailto;
    }
    
-   private static String escape(String text) 
+   public static String htmlEscape(String text) 
    {
       String retValue = text;
       retValue = replaceAll(retValue, "%", "%25");
@@ -138,7 +138,7 @@ public class EmailMessage
 		
       return retValue;
    }
-   public static String replaceAll(String source, String toReplace, String replacement) 
+   private static String replaceAll(String source, String toReplace, String replacement) 
    {
       int idx = source.lastIndexOf(toReplace);
       if (idx != -1) 

@@ -84,6 +84,20 @@ public class Application implements AppEventNotifier
    {
       return ComplexType.persistedTypes();
    }
+
+   public boolean isAppBrowser()
+   {
+      return getName().equals("JMatter App Browser");
+   }
+
+   /*
+   optional:  override in a subclass and specify a service object
+   and its commands will appear in the application frame in a commands toolbar
+    */
+   public EObject serviceObject()
+   {
+      return null;
+   }
    
    public void contributeToIndex(ComplexEObject eo)
    {

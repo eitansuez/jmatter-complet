@@ -118,6 +118,9 @@ public class AppLoader implements ThreadMaker
          initializeApp(splash);
       }
    }
+
+   private boolean inContextOfAppBrowser = false;
+   public boolean isInBrowserContext() { return inContextOfAppBrowser; }
    
    private void initializeApp(Splash splash)
    {
@@ -126,6 +129,10 @@ public class AppLoader implements ThreadMaker
 
       ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
       Application app = (Application) context.getBean("application");
+      if (app.isAppBrowser())
+      {
+         inContextOfAppBrowser = true;
+      }
       app.addAppEventListener(MESSAGE, splash);
 
       app.message(String.format("%s %s", ComplexType.localeLookupStatic("launching"), app.getName()));
@@ -153,5 +160,5 @@ public class AppLoader implements ThreadMaker
       t.setContextClassLoader(_cl);
       return t;
    }
-   
+
 }

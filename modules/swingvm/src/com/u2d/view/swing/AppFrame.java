@@ -346,7 +346,7 @@ public class AppFrame extends JFrame
    private JMenu fileMenu()
    {
       JMenu fileMenu = configMenu("menubar.file");
-      if (!_app.getName().equals("JMatter App Browser"))
+      if (!_app.isAppBrowser() && AppLoader.getInstance().isInBrowserContext())
       {
          fileMenu.add(new BackToAppBrowserAction());
       }

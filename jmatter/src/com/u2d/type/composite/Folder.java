@@ -9,10 +9,13 @@ import com.u2d.model.*;
 import com.u2d.type.atom.StringEO;
 import com.u2d.view.EView;
 import com.u2d.element.CommandInfo;
+import com.u2d.element.Field;
 import com.u2d.persist.HibernatePersistor;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.reflection.IdxFld;
+import com.u2d.field.IndexedField;
+
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.event.TreeModelListener;
@@ -204,6 +207,51 @@ public class Folder extends AbstractComplexEObject
       _items.clear();
    }
 
+
+   public boolean equals(Object obj)
+   {
+      if (obj == null) return false;
+      if (obj == this) return true;
+      if (!(obj instanceof AbstractComplexEObject))
+         return false;
+      if (!sameClassOrProxy(obj))
+      {
+           return false;
+      }
+      ComplexEObject ceo = (ComplexEObject) obj;
+      if (ceo.childFields().size() != childFields().size()) return false;
+      List fields = childFields();
+      Field field = null;
+      for (int i=0; i<fields.size(); i++)
+      {
+         field = (Field) fields.get(i);
+
+         if (!field.get(this).equals(field.get(ceo)))
+         {
+            return false;
+         }
+      }
+      return true;
+   }
+
+   public int hashCode()
+   {
+      List fields = childFields();
+      int hashCode = 13;
+      for (int i=0; i<fields.size(); i++)
+      {
+         Field field = (Field) fields.get(i);
+         if (field instanceof IndexedField)
+         {
+            hashCode = hashCode + 17 * ((AbstractListEO) field.get(this)).getSize();
+         }
+         else
+         {
+            hashCode = hashCode + 31 * (field.get(this).hashCode());
+         }
+      }
+      return hashCode;
+   }
 
 
 }

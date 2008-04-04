@@ -5,6 +5,8 @@ package com.u2d.view.swing;
 
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
+import java.util.Map;
+import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.tree.TreePath;
@@ -13,13 +15,17 @@ import com.u2d.model.EObject;
 import com.u2d.model.NullComplexEObject;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
+import com.u2d.view.CompositeView;
 import com.u2d.ui.CardBuffer;
 
 /**
+ * 
+ * Separately:  consider making omniview a compositeview with a getInnerView() impl.
+ *
  * @author Eitan Suez
  */
 public class OmniView extends JSplitPane 
-                          implements ComplexEView, TreeSelectionListener
+                      implements ComplexEView, TreeSelectionListener, CompositeView
 {
    private ComplexEObject _ceo;
    private JTreeView _tree;
@@ -64,52 +70,61 @@ public class OmniView extends JSplitPane
       TreePath path = _tree.getSelectionPath();
       if (path == null)
       {
-         switchInBlankPanel();
+         _cardBuffer.switchIn(_blankPanel);
          return;
       }
 
       EObject neweo = (EObject) path.getLastPathComponent();
       if (neweo == null || neweo instanceof NullComplexEObject)
       {
-         switchInBlankPanel();
+         _cardBuffer.switchIn(_blankPanel);
          return;
       }
-      
-//      Component currentComp = _cardBuffer.getCurrentItem();
-//      if (currentComp instanceof EView)
-//      {
-//         EView currentView = (EView) currentComp;
-//         EObject currenteo = currentView.getEObject();
-//         if ( ((ComplexEObject) currenteo).type().equals(
-//               ((ComplexEObject) neweo).type()) )
-//         {
-//            currentView.detach();
-//            currentView.bind(neweo);
-//         }
-//      }
-      
-      EView view = neweo.getMainView();
+
+      EView view = getViewFor(neweo);
+      _cardBuffer.switchIn((JComponent) view);
+   }
+
+   public EView getInnerView()
+   {
+      return (EView) _cardBuffer.getCurrentItem();
+   }
+
+   private synchronized EView getViewFor(EObject eo)
+   {
+      EView view = viewCache.get(eo);
+      if (view == null)
+      {
+         view = newViewFor(eo);
+         viewCache.put(eo, view);
+      }
+      return view;
+   }
+
+   private Map<EObject, EView> viewCache = new HashMap<EObject, EView>();
+
+   private EView newViewFor(EObject eo)
+   {
+      EView view = eo.getMainView();
       // nested alternateviews in an omniview context can be
       // confusing so just plant innerview in there
       while (view instanceof AlternateView)
       {
          view = ((AlternateView) view).getInnerView();
       }
-      Component previous = _cardBuffer.switchIn((JComponent) view);
-      if (previous != null && previous instanceof EView)
-         ((EView) previous).detach();
+      return view;
    }
-   
-   private void switchInBlankPanel()
-   {
-      Component previous = _cardBuffer.switchIn(_blankPanel);
-      if (previous != null && previous instanceof EView)
-         ((EView) previous).detach();
-   }
-   
+
    public void detach()
    {
+      _tree.removeTreeSelectionListener(this);
       _tree.detach();
+
+      for (EView view : viewCache.values())
+      {
+         view.detach();
+      }
+      viewCache.clear();
    }
 
    public EObject getEObject() { return _ceo; }
