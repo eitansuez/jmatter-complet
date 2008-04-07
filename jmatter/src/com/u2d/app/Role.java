@@ -108,7 +108,25 @@ public class Role extends AbstractComplexEObject implements Authorizer
          // constructor..
          Member.forMember(restriction.member()).applyRestriction(restriction);
       }
+
+      applyFilterRestrictions();
    }
+
+   private boolean isAdmin()
+   {
+      return "Administrator".equalsIgnoreCase(_name.stringValue());
+   }
+
+   public static final String AUTHFILTER_NAME = "authFilter";
+   
+   private void applyFilterRestrictions()
+   {
+      if (!isAdmin())
+      {
+         hbmPersistor().getSession().enableFilter(AUTHFILTER_NAME).setParameter("currentUser", currentUser().getID());
+      }
+   }
+   
    public void liftRestrictions()
    {
       tracer().info("Role "+_name+": lifting restrictions..("+_restrictions.getSize()+")");

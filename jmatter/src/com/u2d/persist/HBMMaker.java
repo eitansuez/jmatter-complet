@@ -14,12 +14,14 @@ import com.u2d.model.*;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.type.atom.ChoiceEO;
 import com.u2d.type.atom.DateEO;
+import com.u2d.type.atom.StringEO;
 import com.u2d.type.AbstractChoiceEO;
 import com.u2d.persist.type.ChoiceEOUserType;
 import com.u2d.persist.type.DateEOUserType;
 import com.u2d.calendar.CalEvent;
 import com.u2d.calendar.ScheduleEO;
 import com.u2d.calendar.CalendarEO;
+import com.u2d.app.Role;
 import org.dom4j.*;
 import org.dom4j.io.*;
 import org.hibernate.dialect.Dialect;
@@ -55,6 +57,26 @@ public class HBMMaker
       }
       
       produceFieldMapping(classElem, _type);
+      if (!StringEO.isEmpty(_type.filterString()))
+      {
+         produceFilter(classElem, _type);
+         produceFilterDef(rootElem);
+      }
+   }
+
+   private void produceFilterDef(Element rootElem)
+   {
+      Element filterDef = rootElem.addElement("filter-def");
+      filterDef.addAttribute("name", Role.AUTHFILTER_NAME);
+      filterDef.addElement("filter-param")
+            .addAttribute("name", "currentUser")
+            .addAttribute("type", "long");
+   }
+   private void produceFilter(Element classElem, ComplexType type)
+   {
+      classElem.addElement("filter")
+            .addAttribute("name", Role.AUTHFILTER_NAME)
+            .addAttribute("condition", type.filterString());
    }
    
    public Document getDoc() { return _doc; }

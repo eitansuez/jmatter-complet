@@ -205,6 +205,9 @@ public class ComplexType extends AbstractComplexEObject
          _fields = Harvester.harvestFields(this);
 
          loadFieldMetaData();
+
+         // for authorization:
+         _filterString = Harvester.harvestFilter(this);
       }
       catch (IntrospectionException ex)
       {
@@ -213,6 +216,9 @@ public class ComplexType extends AbstractComplexEObject
          System.exit(1);
       }
    }
+
+   private String _filterString;
+   public String filterString() { return _filterString; }
    
    private void updateConcreteTypeMap()
    {

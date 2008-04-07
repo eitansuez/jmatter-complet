@@ -231,6 +231,23 @@ public class Harvester
       return states;
    }
 
+   /**
+    * This is part of the authorization scheme.  Can filter type listings.
+    */
+   public static String harvestFilter(ComplexType type)
+   {
+      try
+      {
+         Class clazz = type.getJavaClass();
+         Method typeFilterMethod = clazz.getDeclaredMethod("typeFilter");
+         return (String) typeFilterMethod.invoke(type);
+      }
+      catch (Exception e)
+      {
+         return "";
+      }
+   }
+
    // This mechanism isn't very efficient because getPropertyDescriptors returns 
    //  a ton of properties that don't apply (they're filtered out).
    // TODO: try different algorithms to optimize..
