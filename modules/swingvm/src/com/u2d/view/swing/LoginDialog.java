@@ -7,7 +7,6 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import java.awt.event.*;
 import java.awt.*;
-
 import com.u2d.app.*;
 import com.u2d.ui.*;
 import com.u2d.model.ComplexType;
@@ -144,10 +143,16 @@ public class LoginDialog extends JXPanel
    }
    
    public void position() {
-      ((JComponent) this.getParent()).revalidate();
-      setSize(getPreferredSize());
-      Point p = new Point(10, UIUtils.computeCenter(this).y);
-      setLocation(p);  // left align..
+      // the positioning sometimes occurs before the desktop pane is properly
+      // realized/sized;  so..
+      getParent().addComponentListener(new ComponentAdapter()
+      {
+         public void componentResized(ComponentEvent e)
+         {
+            setLocation(new Point(10, UIUtils.computeCenter(LoginDialog.this).y));
+            LoginDialog.this.getParent().removeComponentListener(this);  // one time.
+         }
+      });
    }
    
    public void clear() { reset(lookup("logindlg.msg.login")); }
