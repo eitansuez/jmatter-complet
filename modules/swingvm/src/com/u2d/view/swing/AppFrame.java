@@ -10,6 +10,7 @@ import com.u2d.app.*;
 import com.u2d.css4swing.style.ComponentStyle;
 import com.u2d.element.Command;
 import com.u2d.model.ComplexType;
+import com.u2d.model.EObject;
 import com.u2d.pattern.Filter;
 import com.u2d.pattern.Onion;
 import com.u2d.persist.HBMSingleSession;
@@ -27,6 +28,7 @@ import com.u2d.utils.Launcher;
 import com.u2d.view.swing.atom.URIRenderer;
 import com.u2d.view.swing.dnd.EODesktopPane;
 import com.u2d.view.swing.list.CommandsMenuView;
+import com.u2d.view.swing.list.CommandsIconButtonView;
 import com.u2d.interaction.Instruction;
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +42,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
 import org.jdesktop.swingx.JXPanel;
 
 /**
@@ -144,6 +145,7 @@ public class AppFrame extends JFrame
       setupAppIcon();
 
       if (aboutDlg != null) aboutDlg.rebind();
+      setupCommandBar();
       setupMenu();
       
       instruction = new Instruction();
@@ -285,6 +287,7 @@ public class AppFrame extends JFrame
                {
                   showClassBar();
                   showUserMenu();
+                  showCommandBar();
                   _desktopPane.setEnabled(true); // enable context menu
                   setupKeyboardShorcuts();
                   restoreUserDesktop();
@@ -307,6 +310,7 @@ public class AppFrame extends JFrame
                         _desktopPane.closeAllChildren();
                         hideClassBar();
                         hideUserMenu();
+                        hideCommandBar();
                         detachKeystrokes();
                         _desktopPane.setEnabled(false); // disable context menu
 
@@ -336,6 +340,22 @@ public class AppFrame extends JFrame
       };
    }
 
+   EObject _serviceObject = null;
+   CommandsIconButtonView _commandsPnl = null;
+   JPanel northPanel = null;
+   CommandsMenuView _commandsMenu = null;
+   private void setupCommandBar()
+   {
+      _serviceObject = _app.serviceObject();
+      if (_serviceObject != null)
+      {
+         northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+         _commandsPnl = new CommandsIconButtonView();
+         _commandsMenu = new CommandsMenuView();
+         ComponentStyle.addClass(_commandsPnl, "command-bar");
+         northPanel.add(_commandsPnl);
+      }
+   }
    private void setupMenu()
    {
       _menuBar = new JMenuBar();
@@ -397,6 +417,29 @@ public class AppFrame extends JFrame
    }
 
    //===
+   private void showCommandBar()
+   {
+      if (_commandsPnl != null)
+      {
+         _commandsPnl.bind(_serviceObject, null);
+         _commandsMenu.bind(_serviceObject, _menuBar, null);
+
+         _menuBar.add(_commandsMenu, 1);
+         _menuBar.revalidate(); _menuBar.repaint();
+
+         add(northPanel, BorderLayout.NORTH);
+      }
+   }
+   private void hideCommandBar()
+   {
+      if (_commandsPnl != null)
+      {
+         _commandsPnl.detach();
+         remove(northPanel);
+         _commandsMenu.detach();
+         _menuBar.revalidate(); _menuBar.repaint();
+      }
+   }
    private void showClassBar()
    {
       SwingUtilities.invokeLater( new Runnable()

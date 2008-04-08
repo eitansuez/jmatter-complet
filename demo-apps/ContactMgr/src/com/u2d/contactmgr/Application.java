@@ -1,5 +1,7 @@
 package com.u2d.contactmgr;
 
+import com.u2d.model.EObject;
+
 /**
  * Created by IntelliJ IDEA.
  * User: eitan
@@ -13,4 +15,7 @@ public class Application extends com.u2d.app.Application
       super.postInitialize();
       contributeToIndex(PersonContact.class);
    }
+
+   ServiceObject so = new ServiceObject();
+   public EObject serviceObject() { return so; }
 }
