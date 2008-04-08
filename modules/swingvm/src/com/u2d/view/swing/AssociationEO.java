@@ -22,7 +22,7 @@ public class AssociationEO extends JPanel implements ComplexEView
 
    public AssociationEO(Association association)
    {
-      setLayout(new FlowLayout(FlowLayout.LEFT));
+      setLayout(new FlowLayout(FlowLayout.LEFT, 3, 0));
       setOpaque(false);
 
       _association = association;
