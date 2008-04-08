@@ -15547,6 +15547,10 @@ JMatter will now produce the filter declarations directly into the generated
 \end_layout
 
 \begin_layout LyX-Code
+  ..
+\end_layout
+
+\begin_layout LyX-Code
   <filter name="authFilter" condition="assignedTo_id = :currentUser"/>
 \end_layout
 
