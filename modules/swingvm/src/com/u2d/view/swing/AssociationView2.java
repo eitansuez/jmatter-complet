@@ -47,23 +47,6 @@ public class AssociationView2 extends CardPanel implements ComplexEView
       _dissociatedPnl = new DissociatedPanel();
       add(_dissociatedPnl, _dissociatedPnl.name());
 
-      setFocusable(true);
-      addFocusListener(new FocusAdapter()
-      {
-         public void focusGained(FocusEvent e)
-         {
-            if (_association.isEditableState())
-            {
-               AssocStateView stateView = (_association.isEmpty()) ? (AssocStateView) _dissociatedPnl : _associatedPnl;
-               Component lostComponent = e.getOppositeComponent();
-               if (!SwingUtilities.isDescendingFrom(lostComponent, (Container) stateView))
-               {
-                  stateView.enterEditState();
-               }
-            }
-         }
-      });
-
       setView();
    }
 
@@ -105,7 +88,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
    private void setView()
    {
-      AssocStateView stateView = (_association.isEmpty()) ? (AssocStateView) _dissociatedPnl : _associatedPnl;
+      AssocStateView stateView = (_association.isEmpty()) ? _dissociatedPnl : _associatedPnl;
       ComplexEObject value = _association.get();
       stateView.bind(value);
       show(stateView.name());
@@ -127,21 +110,75 @@ public class AssociationView2 extends CardPanel implements ComplexEView
    {
       public String name();
       public void bind(ComplexEObject value);
-      public void enterEditState();
    }
-   class AssociatedPanel extends JPanel implements AssocStateView, AppEventListener
-   {
-      EView view;
-      ItemPanel itemPnl;
-      JButton dissocBtn;
 
-      public AssociatedPanel()
+   abstract class CustomPnl extends JPanel
+   {
+      protected ItemPanel itemPnl;
+
+      abstract JButton assocDissocBtn();
+
+      public CustomPnl()
       {
          setLayout(new FlowLayout(FlowLayout.LEFT, 3, 0));
          setOpaque(false);
          itemPnl = new ItemPanel();
          add(itemPnl);
+      }
 
+      protected void customizeFocusBehavior()
+      {
+         itemPnl.setFocusable(true);
+         itemPnl.addFocusListener(new FocusAdapter()
+         {
+            public void focusGained(FocusEvent e)
+            {
+               if (!SwingUtilities.isDescendingFrom(e.getOppositeComponent(), AssociationView2.this))
+               {
+                  itemPnl.enterEditState();
+               }
+               else if (SwingUtilities.isDescendingFrom(e.getOppositeComponent(), itemPnl))
+               {
+                  itemPnl.returnToReadState();
+                  FocusTraversalPolicy policy = getFocusCycleRootAncestor().getFocusTraversalPolicy();
+                  Component before = policy.getComponentBefore(getFocusCycleRootAncestor(), itemPnl);
+                  before.requestFocus();
+               }
+            }
+         });
+
+         assocDissocBtn().setFocusable(true);
+         assocDissocBtn().addFocusListener(new FocusAdapter()
+         {
+            public void focusGained(FocusEvent e)
+            {
+               if (SwingUtilities.isDescendingFrom(e.getOppositeComponent(), itemPnl))
+               {
+                  itemPnl.returnToReadState();
+               }
+            }
+
+            public void focusLost(FocusEvent e)
+            {
+               if (SwingUtilities.isDescendingFrom(e.getOppositeComponent(), itemPnl))
+               {
+                  itemPnl.enterEditState();
+               }
+            }
+         });
+      }
+   }
+   class AssociatedPanel extends CustomPnl implements AssocStateView, AppEventListener
+   {
+      protected JButton dissocBtn;
+      protected EView view;
+
+      JButton assocDissocBtn() { return dissocBtn; }
+
+      public AssociatedPanel()
+      {
+         super();
+         
          dissocBtn = new IconButton(DISSOCIATE_ICON, DISSOCIATE_ROLLOVER);
          dissocBtn.addActionListener(new ActionListener()
          {
@@ -158,6 +195,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          });
          add(dissocBtn);
          stateChanged();
+         customizeFocusBehavior();
       }
 
       public void stateChanged()
@@ -211,27 +249,21 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          ((ComplexEObject) view.getEObject()).removeAppEventListener(DELETE, this);
          _association.dissociate();
       }
-
-
-      public void enterEditState() { itemPnl.enterEditState(); }
    }
 
 
-   class DissociatedPanel extends JPanel implements AssocStateView
+   class DissociatedPanel extends CustomPnl implements AssocStateView
    {
       EView view;
-      ItemPanel itemPnl;
       JButton assocBtn;
       NullAssociation nullAssoc = new NullAssociation(_association);
 
       public DissociatedPanel()
       {
-         setLayout(new FlowLayout(FlowLayout.LEFT, 3, 0));
-         setOpaque(false);
-         itemPnl = new ItemPanel();
-         add(itemPnl);
+         super();
          add(assocBtn());
          stateChanged();
+         customizeFocusBehavior();
       }
 
       public void stateChanged()
@@ -255,6 +287,8 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          menu.add(menuItem("Browse"));
          menu.add(menuItem("Find"));
          assocBtn = new MenuButton(ASSOCIATE_ICON, ASSOCIATE_ROLLOVER, menu);
+         assocBtn.setFocusable(true);
+         assocBtn.setFocusPainted(true);
          return assocBtn;
       }
 
@@ -294,7 +328,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          }
       }
       
-      public void enterEditState() { itemPnl.enterEditState(); }
+      public JButton assocDissocBtn() { return assocBtn; }
    }
 
    public static ImageIcon ASSOCIATE_ICON, DISSOCIATE_ICON, ASSOCIATE_ROLLOVER, DISSOCIATE_ROLLOVER;
@@ -350,6 +384,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
       private void changeEditableState(boolean read)
       {
+         if (read == inViewState) return; // already in the right state.
          if (getComponentCount() > 0)
          {
             remove(0);
@@ -359,6 +394,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
             com.u2d.ui.desktop.CloseableJInternalFrame.updateSize(this);
          }
       }
+
 
       public void mouseClicked(MouseEvent e)
       {
