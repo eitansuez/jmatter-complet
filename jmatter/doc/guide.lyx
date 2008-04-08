@@ -15448,13 +15448,14 @@ Manage Restrictions,
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \noindent
 \align center
 \begin_inset Graphics
 	filename figures/manage-restrictions.png
+	lyxscale 50
 	scale 50
 
 \end_inset
@@ -15499,6 +15500,81 @@ Open
 \emph default
  command is prohibited as well, restricting access to inspection of the
  type's metadata from the user interface.
+\end_layout
+
+\begin_layout Section
+List Filtering
+\end_layout
+
+\begin_layout Standard
+Another component of authorization is the ability to filter data.
+ For example, in the Issue Manager demo application, we may require that
+ users can view only issues assigned to them.
+\end_layout
+
+\begin_layout Standard
+The Hibernate O/R mapping system provides a way to filter data that JMatter
+ now exploits.
+\end_layout
+
+\begin_layout Standard
+The convention is to optionally define a static method on a given type to
+ filter lists of the type in question.
+ For example, we might define this method on 
+\emph on
+Issue
+\emph default
+:
+\end_layout
+
+\begin_layout LyX-Code
+public static String typeFilter() { return "assignedTo_id = :currentUser";
+ }
+\end_layout
+
+\begin_layout Standard
+When specifying the filter, you have to be aware that hibernate's implementation
+ of filters appears to be sql-based and not hql-based.
+ So the filter is used in the construction of a sql query.
+ Therefore we reference the type's assignedTo field by its primary key colum
+ name.
+\end_layout
+
+\begin_layout Standard
+JMatter will now produce the filter declarations directly into the generated
+ hibernate mapping files.
+ You should see something like this at the bottom of the generated Issue.hbm.xml
+\end_layout
+
+\begin_layout LyX-Code
+  <filter name="authFilter" condition="assignedTo_id = :currentUser"/>
+\end_layout
+
+\begin_layout LyX-Code
+</class>
+\end_layout
+
+\begin_layout LyX-Code
+<filter-def name="authFilter">
+\end_layout
+
+\begin_layout LyX-Code
+  <filter-param name="currentUser" type="long"/>
+\end_layout
+
+\begin_layout LyX-Code
+</filter-def>
+\end_layout
+
+\begin_layout Standard
+Second, after logging in, JMatter will automatically enable this filter
+ for the user's session (unless you log in as administrator), and bind the
+ logged in user's primary key to the filter parameter (:currentUser).
+\end_layout
+
+\begin_layout Standard
+As further use cases for data filtering surface, this implementation will
+ be broadened to accommodate them.
 \end_layout
 
 \begin_layout Chapter
@@ -17480,7 +17556,7 @@ name "fig:A-Flight-Route"
 \begin_layout Standard
 In this particular implementation I embellished the default map view with
  an additional layer using curved paths to delineate the route's segments.
- The waypoints on the maps represent actual model objects.
+ The waypoints on the map represent actual model objects.
  We can right-click on one and edit it if we wish.
 \end_layout
 
@@ -17698,6 +17774,64 @@ Future enhancements to mapping support will likely be in the area of enhancing
 \begin_layout Standard
 I would like to thank Andres Almiray for suggesting and prototyping this
  integration into JMatter.
+\end_layout
+
+\begin_layout Subsection
+Maps: An atlernative to view embedding
+\end_layout
+
+\begin_layout Standard
+As nice as it is to be able to embed map views directly in a JMatter application
+, sometimes a simpler solution may be the more elegant in a particular context.
+ For example, I've recently been working on a client application for persons
+ who need to service a specific address.
+ In that context, I decided to add the ability for the end user to plot
+ the given address directly in google maps by launching a web browser:
+\end_layout
+
+\begin_layout LyX-Code
+public static final String googleMapsUrlPattern = "http://maps.google.com/maps?q=%
+s";
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+@Cmd
+\end_layout
+
+\begin_layout LyX-Code
+public void ViewInGoogleMaps(CommandInfo cmdInfo)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+   String address = String.format("%s, %s %s %s", street, city, stateCode,
+ zip);
+\end_layout
+
+\begin_layout LyX-Code
+   String url = String.format(googleMapsUrlPattern, EmailMessage.htmlEscape(addres
+s));
+\end_layout
+
+\begin_layout LyX-Code
+   Launcher.openInBrowser(url);
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+All we're doing above is constructing the proper url to bring up an address
+ using google maps, and finally launching the url in a browser.
+ It's that easy.
 \end_layout
 
 \begin_layout Chapter
