@@ -413,8 +413,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       {
          field = (Field) fields.get(i);
 
-         if ( "createdOn".equals(field.name())) continue;
-         
          if (!field.get(this).equals(field.get(ceo)))
          {
             return false;
@@ -430,7 +428,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       for (int i=0; i<fields.size(); i++)
       {
          Field field = (Field) fields.get(i);
-         if ( "createdOn".equals(field.name())) continue;
          if (field instanceof IndexedField)
          {
             hashCode = hashCode + 17 * ((AbstractListEO) field.get(this)).getSize();
