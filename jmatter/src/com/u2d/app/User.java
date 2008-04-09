@@ -28,14 +28,14 @@ import java.util.Set;
  */
 public class User extends AbstractComplexEObject implements Authorizer
 {
-   private final StringEO _username = new StringEO();
-   private final Password _password = new Password();
-   private final BooleanEO _locked = new BooleanEO(false);
-   private final Name _name = new Name();
-   private final TextEO _desktop = new TextEO();
-   private final Photo _photo = new Photo();
-   private final UserPreferences _preferences = new UserPreferences();
-   private final Folder _classBar = new Folder();
+   protected final StringEO _username = new StringEO();
+   protected final Password _password = new Password();
+   protected final BooleanEO _locked = new BooleanEO(false);
+   protected final Name _name = new Name();
+   protected final TextEO _desktop = new TextEO();
+   protected final Photo _photo = new Photo();
+   protected final UserPreferences _preferences = new UserPreferences();
+   protected final Folder _classBar = new Folder();
 
    private Role _role;
    public static String roleInverseFieldName = "users";
@@ -74,7 +74,7 @@ public class User extends AbstractComplexEObject implements Authorizer
       copyClassBarFromAppTemplate();
    }
 
-   private void copyClassBarFromAppTemplate()
+   protected void copyClassBarFromAppTemplate()
    {
       Folder templateClassBar = app().getClassBar();
       Session session = hbmPersistor().getSession();
