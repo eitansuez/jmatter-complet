@@ -376,7 +376,7 @@ public class ComplexType extends AbstractComplexEObject
    {
       _className = _clazz.getName();
       _shortName = shortName(_clazz);
-      _naturalName = ProgrammingElement.deriveLabel(_shortName);
+      _naturalName = deriveNaturalName();
       _pluralName = derivePluralName(_naturalName);
    }
 
@@ -406,7 +406,7 @@ public class ComplexType extends AbstractComplexEObject
    }
    public Onion commands(Class stateClass)
    {
-      return (Onion) _commands.get(stateClass);
+      return _commands.get(stateClass);
    }
    
    public Onion filteredCommands(EObject target, Class stateClass)
@@ -487,6 +487,15 @@ public class ComplexType extends AbstractComplexEObject
       return field;
    }
 
+   private String deriveNaturalName()
+   {
+      try
+      {
+         return (String) getJavaClass().getMethod("naturalName").invoke(null);
+      } catch (Exception ignore) { }
+
+      return ProgrammingElement.deriveLabel(_shortName);
+   }
    /**
     * Returns the short name (with spacing) for this object in a pluralised form.
     * The plural from is obtained from the defining class's pluralName() method, 
@@ -498,10 +507,7 @@ public class ComplexType extends AbstractComplexEObject
       try
       {
          return (String) getJavaClass().getMethod("pluralName").invoke(null);
-      } catch (NoSuchMethodException ignore) {
-      } catch (IllegalAccessException ignore) {
-      } catch (InvocationTargetException ignore) {
-      }
+      } catch (Exception ignore) { }
 
       if (name.endsWith("y")) {
          name = name.substring(0, name.length() - 1) + "ies";

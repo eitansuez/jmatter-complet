@@ -12852,6 +12852,23 @@ public static String pluralName() { return "People"; }
 \end_layout
 
 \begin_layout Subsection
+Overriding Natural Name
+\end_layout
+
+\begin_layout Standard
+The name of a type as it is displayed in the JMatter ui is derived from
+ the class name.
+ There may be circumstances where you might want to override the natural
+ name for a type.
+ This is done in a manner similar to the above, by defining a static method
+ named 
+\emph on
+naturalName()
+\emph default
+.
+\end_layout
+
+\begin_layout Subsection
 Color Coding
 \end_layout
 
