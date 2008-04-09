@@ -89,7 +89,7 @@ public class EnhDesktopPane extends MyDesktopPane
          listModel = new BasicListModel(messages);
          msgView = new JList(listModel);
          msgView.setCellRenderer(new StripedRowListCellRenderer());
-         msgView.setPreferredSize(new Dimension(400,300));
+         msgView.setPreferredSize(new Dimension(500,400));
 
          getContentPane().add(new JScrollPane(msgView));
          addFrame(this);
