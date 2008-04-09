@@ -2,6 +2,7 @@ package com.u2d.view.swing;
 
 import com.u2d.view.ComplexEView;
 import com.u2d.view.swing.list.JListView;
+import com.u2d.view.swing.list.ReorderListView;
 import com.u2d.type.composite.Folder;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
@@ -43,7 +44,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
          if (item instanceof Folder)
          {
             Folder subfolder = (Folder) item;
-            JListView v = new JListView(subfolder.getItems(), true);
+            JListView v = new ReorderListView(subfolder.getItems(), true);
             v.setBorder(new LineBorder(Color.black));
 //            v.setOpaque(false);
             String caption = subfolder.getName().stringValue();
