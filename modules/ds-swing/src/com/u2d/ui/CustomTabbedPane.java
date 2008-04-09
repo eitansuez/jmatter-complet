@@ -12,8 +12,15 @@ import java.awt.event.ActionEvent;
  */
 public class CustomTabbedPane extends JTabbedPane
 {
+   protected int startTabIndex = 0;
+   
    public CustomTabbedPane()
    {
+      this(0);
+   }
+   public CustomTabbedPane(int startTabIndex)
+   {
+      this.startTabIndex = startTabIndex;
       setTabLayoutPolicy(WRAP_TAB_LAYOUT);
       setTabPlacement(TOP);
    }
@@ -21,7 +28,7 @@ public class CustomTabbedPane extends JTabbedPane
    public void addNotify()
    {
       super.addNotify();
-      setSelectedIndex(0);
+      setSelectedIndex(startTabIndex);
       setupKeyBindings();
    }
 
