@@ -22,7 +22,7 @@ public class CalEventView extends BaseCalEventView
    {
       super(event);
       setupColor(schedule);
-      addMouseListener(_layerController);
+      _header.addMouseListener(_layerController);
       _body.addMouseListener(_layerController);
    }
    
@@ -35,6 +35,7 @@ public class CalEventView extends BaseCalEventView
          if (sheet != null)
          {
             sheet.bringScheduleToFront(_event);
+            sheet.revalidate(); sheet.repaint();
          }
       }
    };
