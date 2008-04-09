@@ -8,9 +8,8 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.view.swing.dnd.SimpleListTransferHandler;
 import com.u2d.list.RelationalList;
 import com.u2d.field.ListItemAssociation;
-import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetAdapter;
-import java.awt.dnd.DropTargetDropEvent;
+
+import java.awt.dnd.*;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -26,13 +25,25 @@ import java.util.TooManyListenersException;
  */
 public class ReorderListView extends JListView
 {
+   private double rowHeight;
+   
    public ReorderListView(AbstractListEO leo)
    {
       super(leo);
+      init();
    }
    public ReorderListView(AbstractListEO leo, boolean renderCellsAsIcons)
    {
       super(leo, renderCellsAsIcons);
+      init();
+   }
+
+   private void init()
+   {
+      int index = 0;
+      Component c = getCellRenderer().getListCellRendererComponent(ReorderListView.this,
+            _leo.get(index), index, false, false);
+      rowHeight = c.getPreferredSize().getHeight();
    }
 
    private ReorderDropTarget _rlDropTarget;
@@ -58,6 +69,39 @@ public class ReorderListView extends JListView
       if (_transferHandler != null) _transferHandler.detach();
    }
 
+   protected void paintComponent(Graphics g)
+   {
+      super.paintComponent(g);
+
+      if (dragging)
+      {
+         Graphics2D g2 = (Graphics2D) g;
+         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+         int spotIndex = (int) Math.round(dtde.getLocation().getY() / rowHeight);
+
+         g2.setColor(new Color(0x6786C0));
+
+         int gap = 4;
+         int arrowWidth = 5;
+
+         int startLine = (2 * gap) + arrowWidth;
+         int endLine = getWidth() - startLine;
+
+         int y = (int) (spotIndex * rowHeight);
+         g2.setStroke(new BasicStroke(2));
+
+         g2.drawLine(startLine, y, endLine, y);
+
+         g2.drawLine(gap, y-2, gap+arrowWidth, y);
+         g2.drawLine(gap, y+2, gap+arrowWidth, y);
+         g2.drawLine(getWidth()-gap, y-2, getWidth()-gap-arrowWidth, y);
+         g2.drawLine(getWidth()-gap, y+2, getWidth()-gap-arrowWidth, y);
+      }
+   }
+
+   boolean dragging = false;
+   DropTargetDragEvent dtde;
 
    /* adapter from relationallistdroptarget */
    class ReorderDropTarget extends DropTarget
@@ -69,6 +113,38 @@ public class ReorderListView extends JListView
          super();
          _leo = leo;
          setup();
+      }
+
+      public void dragEnter(DropTargetDragEvent dtde)
+      {
+         super.dragEnter(dtde);
+         dragging = true;
+         ReorderListView.this.dtde = dtde;
+         ReorderListView.this.repaint();
+      }
+
+      public void dragOver(DropTargetDragEvent dtde)
+      {
+         super.dragOver(dtde);
+         dragging = true;
+         ReorderListView.this.dtde = dtde;
+         ReorderListView.this.repaint();
+      }
+
+      public void dragExit(DropTargetEvent dte)
+      {
+         super.dragExit(dte);
+         dragging = false;
+         ReorderListView.this.dtde = null;
+         ReorderListView.this.repaint();
+      }
+
+      public void drop(DropTargetDropEvent dtde)
+      {
+         super.drop(dtde);
+         dragging = false;
+         ReorderListView.this.dtde = null;
+         ReorderListView.this.repaint();
       }
 
       private void setup()
@@ -91,9 +167,6 @@ public class ReorderListView extends JListView
                         Point dropPt = dtde.getLocation();
 
                         int index = locationToIndex(dropPt);
-                        Component c = getCellRenderer().getListCellRendererComponent(ReorderListView.this,
-                              _leo.get(index), index, false, false);
-                        double rowHeight = c.getPreferredSize().getHeight();
                         int spotIndex = (int) Math.round(dropPt.getY() / rowHeight);
 
                         if (flavor.equals(ListItemAssociation.FLAVOR))
