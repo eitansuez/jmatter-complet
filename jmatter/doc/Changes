@@ -2,6 +2,75 @@ Changes File
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Apr 9 2008
+
+Changes
+=======
+
+general
+-------
+
+- adding support for filtering lists as part of authorization policy;  based on hibernate's query filtering support;  using convention of defining typeFilter() method returning a string defining the condition for filtering;  can be parameterized by variable 'currentUser' representing the primary key of the currently logged in user (no filtering done for admin role)
+
+- added support for a service object in the app (see example in contactmgr sample application) to expose commands in a toolbar
+
+- adding command.enabled transient property support
+
+- added ability to override naturalname for a type just like one can now for pluralname
+
+- added a little flexibility into json marshalling implementation:  can specify a list of immediate child association fields to include in serialization (default is to not traverse associations)
+
+
+ui enhancements
+---------------
+
+- enhanced outlookfolderview's listviews to allow reordering of items in classbar
+- added visual hint for dnd drop in classbar
+- added ability to lock/unlock dnd editability of classbar from the ui
+
+- improved focus traversal behavior of associationview2 w.r.t. switching modes to an editable association
+
+- since msgpnl autodismisses after a few seconds, added a "messages" list view that can be referenced if necessary (can be opened from desktop context menu)
+
+- improved layout of calendar view - now fills vertically properly;  also update row height on view resize;  also supporting dblclick->defaultaction on caleventview;  finally tweaked event span visual resizing to snap to row, though still needs work
+
+- usability enhancement:  added shift-click gesture for dragging windows (internalframes)
+
+- minor: specifying custom icon for logout action
+
+- streamlined the icon resolution logic;  also revised implementation so that default type icon is instance plural icon if there's one, otherwise falling back to instance icon
+
+
+bug fixes
+---------
+
+- ensuring that authorization-restricted commands are not exposed in visual command interface
+
+- fixed issue with initial positioning of login dialog
+
+- appframe now properly adds 'unload app' cmd in file menu only in the context of an appbrowser-loaded application
+
+- fixed a timespan bug in setting startdate and enddate individually
+
+- adjusting logout/quit sequence of events to ensure that things happen in proper order;  are serialized properly.  i.e. saveuserdesktop happens off edt, and that appsession.setuser(null) takes place only after logout steps have finished
+
+- fixed a bug whereby upon login, hibernate would unnecessarily issue update statements to database to synchronize metadata
+enhancement:  defining explicit typecommand so that static methods can optionally receive a reference to the type instance upon which the command was invoked
+
+- ensuring that editing of aggregates in the context of a parent form results in editing in place (no new window)
+
+- added basic implementation of method parseValue() for atomic type TimeSpan
+
+- improved pushstate/popstate implementation to extend to child aggregates.  i.e. if a child aggregate has a custom set of states, and push into edit mode, when restore, the child aggregate state will properly restore to its former state instead of just to read state
+
+- improved implementation of setstartstate to properly recurse to children and use possibly child's designated start state
+
+- removed extraneous 'new' command on lists, added json import command on lists
+
+- trapping possible exception in attempting to display a map view (e.g. failing to resolve lat/lon for an address)
+
+----------
+
 Mar 20 2008
 Changes
 =======
@@ -22,6 +91,7 @@ Changes
 
   8. major review of entire jmatter manual.  new revision of manual with many edits, reorganization, and some new chapters.
 
+----------
 
 Feb 21 2008
 
