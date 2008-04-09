@@ -5,6 +5,9 @@ package com.u2d.view.swing;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+
 import com.u2d.element.Command;
 import com.u2d.view.*;
 import com.u2d.type.atom.StringEO;
@@ -37,8 +40,20 @@ public class CommandAdapter extends AbstractAction
       {
          putValue(Action.SMALL_ICON, _command.iconSm());
       }
+
+      _command.addPropertyChangeListener("enabled", new PropertyChangeListener()
+      {
+         public void propertyChange(PropertyChangeEvent evt)
+         {
+            firePropertyChange("enabled", evt.getOldValue(), evt.getNewValue());
+         }
+      });
    }
-   
+
+   public boolean isEnabled() { return _command.isEnabled(); }
+   // to setEnabled, call command.setEnabled() directly.
+
+
    public void updateCaption()
    {
       putValue(Action.NAME, _command.label());

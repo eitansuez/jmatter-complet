@@ -113,6 +113,16 @@ public abstract class Command extends Member
       return l.localeLookup(key);
    }
 
+   private transient boolean enabled = true;
+   public boolean isEnabled() { return enabled; }
+
+   public void setEnabled(boolean enabled)
+   {
+      boolean oldEnabled = this.enabled;
+      this.enabled = enabled;
+      firePropertyChange("enabled", oldEnabled, this.enabled);
+   }
+
    /* authorization-related */
 
    protected CommandRestriction _restriction = null;
