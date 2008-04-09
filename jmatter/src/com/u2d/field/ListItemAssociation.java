@@ -27,6 +27,7 @@ public class ListItemAssociation implements Transferable, Serializable, Dissocia
    {
       _association.dissociateItem(_item);
    }
+   public ComplexEObject item() { return _item; }
 
    // ========== implementation of Transferrable Interface  ===============
    
