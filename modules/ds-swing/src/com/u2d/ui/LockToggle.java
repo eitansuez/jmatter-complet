@@ -5,15 +5,13 @@ package com.u2d.ui;
 
 import java.awt.Insets;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JToggleButton;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 
 /**
  * @author Eitan Suez
  */
-class LockToggle extends JToggleButton
+public class LockToggle extends JToggleButton
 {
    private static Icon ICON_LOCKED, ICON_UNLOCKED, ICON_LOCKED_ROLLOVER,
       ICON_UNLOCKED_ROLLOVER;
@@ -29,12 +27,23 @@ class LockToggle extends JToggleButton
       imgurl = loader.getResource("images/unlocked-16_rollover.png");
       ICON_UNLOCKED_ROLLOVER = new ImageIcon(imgurl);
    }
-   
+
+   public LockToggle(Action action)
+   {
+      super(action);
+      init();
+   }
    public LockToggle(ActionListener listener)
    {
-      super(ICON_LOCKED);
-      setSelectedIcon(ICON_UNLOCKED);
+      super();
+      init();
       addActionListener(listener);
+   }
+
+   private void init()
+   {
+      setIcon(ICON_LOCKED);
+      setSelectedIcon(ICON_UNLOCKED);
       setBorderPainted(false);
       setMargin(new Insets(0,0,0,0));
       setContentAreaFilled(false);

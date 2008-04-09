@@ -13,6 +13,7 @@ import java.beans.PropertyChangeEvent;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.u2d.ui.Lockable;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,10 +21,10 @@ import java.util.List;
  * Date: Sep 13, 2005
  * Time: 5:34:42 PM
  */
-public class OutlookFolderView extends JOutlookBar implements ComplexEView
+public class OutlookFolderView extends JOutlookBar implements ComplexEView, Lockable
 {
    private Folder _folder;
-   private List<JListView> _tabs = new ArrayList<JListView>();
+   private List<ReorderListView> _tabs = new ArrayList<ReorderListView>();
 
    public OutlookFolderView() { }
 
@@ -44,7 +45,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
          if (item instanceof Folder)
          {
             Folder subfolder = (Folder) item;
-            JListView v = new ReorderListView(subfolder.getItems(), true);
+            ReorderListView v = new ReorderListView(subfolder.getItems(), true);
             v.setBorder(new LineBorder(Color.black));
 //            v.setOpaque(false);
             String caption = subfolder.getName().stringValue();
@@ -53,8 +54,23 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView
             _tabs.add(v);
          }
       }
+      setLocked(this.locked);  // initial synchronization of locked state should match containing lockablepanel (if any)
    }
-   
+
+   private boolean locked = false;
+   public void setLocked(boolean locked)
+   {
+      this.locked = locked;
+      for (ReorderListView lv : _tabs)
+      {
+         lv.setLocked(locked);
+      }
+   }
+   public String lockTooltip()
+   {
+      return "Controls drag and drop editing of classbar";
+   }
+
    private String mnemonics = "A"; // TODO:  the list of mnemonics should be global to the app..
    
    private void addMnemonic(int index, String caption)

@@ -8,7 +8,6 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.view.swing.dnd.SimpleListTransferHandler;
 import com.u2d.list.RelationalList;
 import com.u2d.field.ListItemAssociation;
-
 import java.awt.dnd.*;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.DataFlavor;
@@ -46,7 +45,7 @@ public class ReorderListView extends JListView
       rowHeight = c.getPreferredSize().getHeight();
    }
 
-   private ReorderDropTarget _rlDropTarget;
+   private ReorderDropTarget _dropTarget;
    private SimpleListTransferHandler _transferHandler;
 
    public void setupTransferHandler()
@@ -57,15 +56,31 @@ public class ReorderListView extends JListView
       if (_leo instanceof RelationalList)
       {
          RelationalList rl = (RelationalList) _leo;
-         _rlDropTarget = new ReorderDropTarget(rl);
-         setDropTarget(_rlDropTarget);
+         _dropTarget = new ReorderDropTarget(rl);
+         setDropTarget(_dropTarget);
+      }
+   }
+
+   public void setLocked(boolean locked)
+   {
+      if (locked)
+      {
+         setDragEnabled(false);
+         setTransferHandler(null);
+         setDropTarget(null);
+      }
+      else
+      {
+         setDragEnabled(true);
+         setTransferHandler(_transferHandler);
+         setDropTarget(_dropTarget);
       }
    }
 
    public void detach()
    {
       super.detach();
-      if (_rlDropTarget != null) _rlDropTarget.detach();
+      if (_dropTarget != null) _dropTarget.detach();
       if (_transferHandler != null) _transferHandler.detach();
    }
 

@@ -24,7 +24,10 @@ public class DragAdapter extends MouseMotionAdapter
 		{	
 			JComponent c = (JComponent) evt.getSource();
 			TransferHandler th = c.getTransferHandler();
-			th.exportAsDrag(c, evt, _type);
+         if (th != null)
+         {
+            th.exportAsDrag(c, evt, _type);
+         }
 		}
 	}
 	

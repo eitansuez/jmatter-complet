@@ -858,8 +858,8 @@ public class SwingViewMechanism implements ViewMechanism
    {
       if (leo instanceof CompositeList)
       {
-         return new CompositeTableView((CompositeList) leo);
-//         return new CompositeTabularView((CompositeList) leo);
+//         return new CompositeTableView((CompositeList) leo);
+         return new CompositeTabularView((CompositeList) leo);
       }
       else if (leo instanceof RelationalList)
       {

@@ -22,6 +22,7 @@ import com.u2d.type.composite.Folder;
 import com.u2d.ui.Platform;
 import com.u2d.ui.UIUtils;
 import com.u2d.ui.CardPanel;
+import com.u2d.ui.LockablePanel;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.utils.Launcher;
@@ -74,6 +75,7 @@ public class AppFrame extends JFrame
    
    private JPanel _centerPane;
    private OutlookFolderView _classBar = new OutlookFolderView();
+   private JPanel _classBarPanel = new LockablePanel(_classBar);
    private ClassMenu _classMenu = new ClassMenu();
    private EODesktopPane _desktopPane;
    private CardPanel _cardPanel;
@@ -453,7 +455,7 @@ public class AppFrame extends JFrame
                
                bindTypeKeyboardShortcuts(userClassBar);
                
-               _centerPane.add(_classBar, BorderLayout.WEST);
+               _centerPane.add(_classBarPanel, BorderLayout.WEST);
                _classBar.focusItem();
                _centerPane.revalidate(); _centerPane.repaint();
             }
@@ -468,7 +470,7 @@ public class AppFrame extends JFrame
                _classBar.detach();
                _classMenu.detach();
                detachTypeKeyboardShortcuts();
-               _centerPane.remove(_classBar);
+               _centerPane.remove(_classBarPanel);
                _centerPane.revalidate(); _centerPane.repaint();
             }
          });
