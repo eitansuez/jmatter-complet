@@ -51,7 +51,7 @@ public abstract class BaseCalEventView
       _cmdsView = new CommandsContextMenuView();
       _cmdsView.bind(_event, _header, this);
 
-      setTransferHandler(new EOTransferHandler(this));
+      _header.setTransferHandler(new EOTransferHandler(_header, this));
 
       Command defaultCmd = _event.defaultCommand();
       CommandAdapter defaultAction = new CommandAdapter(defaultCmd, _event, this);
@@ -264,7 +264,7 @@ public abstract class BaseCalEventView
          double rowHeight = rowHeight();
          double quotient = ((double) amt) / (rowHeight);
          int numRows = (int) Math.round(quotient);
-         System.out.printf("num rows %d \n", numRows);
+//         System.out.printf("num rows %d \n", numRows);
          return (int) (numRows * rowHeight);
       }
 
