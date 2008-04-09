@@ -79,6 +79,7 @@ public class ReorderListView extends JListView
          g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
          int spotIndex = (int) Math.round(dtde.getLocation().getY() / rowHeight);
+         spotIndex = Math.min(spotIndex, _leo.getSize());
 
          g2.setColor(new Color(0x6786C0));
 
@@ -176,6 +177,7 @@ public class ReorderListView extends JListView
                            int itemIndex = _leo.getItems().indexOf(item);
                            boolean movingdown = itemIndex < spotIndex;
                            index  = (movingdown) ? spotIndex - 1 : spotIndex;
+                           index = Math.min(index, _leo.getSize()-1);
 
                            boolean reOrdering = (index != itemIndex);
                            if (reOrdering)
