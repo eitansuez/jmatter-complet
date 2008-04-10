@@ -44,21 +44,27 @@ public class SessionView extends JPanel implements ComplexEView
    {
       final JLabel lbl = new JLabel();
       ComponentStyle.setIdent(lbl, "session-title");
+
+      titleChangeListener = new ChangeListener()
+      {
+         public void stateChanged(ChangeEvent e)
+         {
+            if (_session.getEvent() != null)
+            {
+               lbl.setText(_session.getEvent().getTitle().stringValue());
+            }
+         }
+      };
+
       if (_session.getEvent() == null)
       {
-          lbl.setText(_session.title().toString());
+         lbl.setText(_session.title().toString());
+         _session.addChangeListener(titleChangeListener);
       }
       else
       {
-          lbl.setText(_session.getEvent().getTitle().stringValue());
-          titleChangeListener = new ChangeListener()
-          {
-             public void stateChanged(ChangeEvent e)
-             {
-                lbl.setText(_session.getEvent().getTitle().stringValue());
-             }
-          };
-          _session.getEvent().getTitle().addChangeListener(titleChangeListener);
+         lbl.setText(_session.getEvent().getTitle().stringValue());
+         _session.getEvent().getTitle().addChangeListener(titleChangeListener);
       }
       return lbl;
    }
