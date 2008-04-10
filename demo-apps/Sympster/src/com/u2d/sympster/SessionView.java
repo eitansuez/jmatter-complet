@@ -74,9 +74,16 @@ public class SessionView extends JPanel implements ComplexEView
          FormLayout formlayout = new FormLayout("pref, 5px, pref:grow", "pref:grow");
          DefaultFormBuilder builder = new DefaultFormBuilder(formlayout, speakerPnl);
          CellConstraints cc = new CellConstraints();
-         
-         builder.add(new JLabel(speaker.getPhoto().imageValue()), cc.rc(1, 1));
-         builder.add(speakerInfoPnl(speaker), cc.rc(1, 3, "t, l"));
+
+         if (speaker == null)
+         {
+            builder.add(new JLabel("No speaker assigned yet for this session"));
+         }
+         else
+         {
+            builder.add(new JLabel(speaker.getPhoto().imageValue()), cc.rc(1, 1));
+            builder.add(speakerInfoPnl(speaker), cc.rc(1, 3, "t, l"));
+         }
       }
       else if (_session.getEvent() instanceof BOF)
       {
