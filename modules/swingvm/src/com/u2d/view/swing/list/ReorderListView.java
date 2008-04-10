@@ -207,7 +207,7 @@ public class ReorderListView extends JListView
                         else if (folderItemsType.isAssignableFrom(droppedType))
                         {
                            ComplexEObject item = (ComplexEObject) t.getTransferData(flavor);
-                           _leo.add(index, item);
+                           _leo.add(spotIndex, item);
                            if (!_leo.parentObject().isEditableState())
                               _leo.parentObject().save();
                            break;
