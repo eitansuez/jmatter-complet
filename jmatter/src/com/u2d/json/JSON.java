@@ -127,7 +127,8 @@ public class JSON
    }
    private static Class classFor(String clsname) throws ClassNotFoundException
    {
-      return Class.forName(AbstractComplexEObject.cleanCGLIBEnhancer(clsname));
+      String clsName = AbstractComplexEObject.cleanCGLIBEnhancer(clsname);
+      return Thread.currentThread().getContextClassLoader().loadClass(clsName);
    }
    
    public static ComplexEObject fromJson(JSONObject o, Class cls)
