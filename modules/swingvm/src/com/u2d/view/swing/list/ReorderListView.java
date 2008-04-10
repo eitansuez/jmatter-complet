@@ -182,8 +182,8 @@ public class ReorderListView extends JListView
                      {
                         Point dropPt = dtde.getLocation();
 
-                        int index = locationToIndex(dropPt);
                         int spotIndex = (int) Math.round(dropPt.getY() / rowHeight);
+                        spotIndex = Math.min(spotIndex, _leo.getSize());
 
                         if (flavor.equals(ListItemAssociation.FLAVOR))
                         {
@@ -191,14 +191,16 @@ public class ReorderListView extends JListView
                            ComplexEObject item = lia.item();
                            int itemIndex = _leo.getItems().indexOf(item);
                            boolean movingdown = itemIndex < spotIndex;
-                           index  = (movingdown) ? spotIndex - 1 : spotIndex;
-                           index = Math.min(index, _leo.getSize()-1);
+                           if (movingdown)
+                           {
+                              spotIndex -= 1;
+                           }
 
-                           boolean reOrdering = (index != itemIndex);
+                           boolean reOrdering = (spotIndex != itemIndex);
                            if (reOrdering)
                            {
                               _leo.remove(item);
-                              _leo.add(index, item);
+                              _leo.add(spotIndex, item);
                               if (!_leo.parentObject().isEditableState())
                                  _leo.parentObject().save();
                            }
