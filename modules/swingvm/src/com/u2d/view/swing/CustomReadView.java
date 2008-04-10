@@ -45,7 +45,6 @@ public class CustomReadView
 
       _formView = new FormView(_ceo);
       _cards = new CardPanel();
-      _cards.setAnimationAndDuration(new DashboardAnimation(), 1000);
 
       _cards.add(_formView, "edit");
       _cards.add((JComponent) _readView, "read");
@@ -56,6 +55,7 @@ public class CustomReadView
       _cmdsView.bind(_ceo, this, BorderLayout.EAST, this);
 
       addStatusPanel();
+      _cards.setAnimationAndDuration(new DashboardAnimation(), 1000);
    }
 
 
