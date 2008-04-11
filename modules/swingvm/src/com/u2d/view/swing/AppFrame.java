@@ -545,7 +545,7 @@ public class AppFrame extends JFrame
       action.putValue(javax.swing.Action.NAME, twm.text());
       if (twm.hasMnemonic())
       {
-        action.putValue(Action.MNEMONIC_KEY, new Integer(twm.mnemonic()));
+        action.putValue(Action.MNEMONIC_KEY, (int) twm.mnemonic());
       }
    }
    
@@ -780,7 +780,15 @@ public class AppFrame extends JFrame
    private void deserialize(XMLDecoder dec)
    {
       Rectangle bounds = (Rectangle) dec.readObject();
-      if (bounds != null) setBounds(bounds);
+      if (bounds != null)
+      {
+         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+         Dimension windowSize = bounds.getSize();
+         int screenArea = screenSize.width*screenSize.height;
+         int windowArea = windowSize.width*windowSize.height;
+         double ratio = ((double) windowArea / screenArea);
+         if (ratio < 0.9) setBounds(bounds);  // if window was maximized, probably don't want to start out maximized..
+      }
 
       int numFrames = (Integer) dec.readObject();
       for (int i=0; i<numFrames; i++)
