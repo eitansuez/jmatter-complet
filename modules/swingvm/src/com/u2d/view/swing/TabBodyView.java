@@ -31,6 +31,7 @@ public class TabBodyView extends JPanel implements ComplexEView, Editor
       _main = _ceo.getMainView();
       if (_main instanceof AlternateView)
       {
+         _main.detach();
          _main = new FormView(_ceo);  //getmainview constructs a formview with toplevelcontext=true
            // which is bad, as these formviews are not toplevelcontext by definition
            // yet calling getMainView() is essential for types that customize their views.
