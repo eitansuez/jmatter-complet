@@ -5,6 +5,7 @@
       <folder>
          <name>Model</name>
          <items>
+            <type>com.u2d.domain.Painting</type>
             <type>com.u2d.domain.Order</type>
             <type>com.u2d.domain.Shipment</type>
             <type>com.u2d.type.composite.USAddress</type>
