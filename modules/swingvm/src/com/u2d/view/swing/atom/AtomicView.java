@@ -4,6 +4,7 @@ import com.u2d.ui.CardPanel;
 import com.u2d.view.AtomicEView;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import com.u2d.model.*;
+import com.u2d.field.AtomicField;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import javax.swing.event.ChangeEvent;
@@ -40,20 +41,30 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
    public void bind(AtomicEObject eo)
    {
       _eo = eo;
-      _renderer = eo.getRenderer();
-      if (eo.field() != null && eo.field().hasValueOptions())
+
+      AtomicField field = (AtomicField) eo.field();
+      if (field == null)
       {
-         _editor = new ComboEditor(eo.field().valueOptions());
+         _renderer = eo.getRenderer();
+         _editor = eo.getEditor();
       }
       else
       {
-         _editor = eo.getEditor();
+         _renderer = field.getRenderer(_eo.parentObject());
+         if (field.hasValueOptions())
+         {
+            _editor = new ComboEditor(eo.field().valueOptions());
+         }
+         else
+         {
+            _editor = field.getEditor(_eo.parentObject());
+         }
       }
 
       JComponent rendererComponent = (JComponent) _renderer;
       JComponent editorComponent = (JComponent) _editor;
 
-      rendererComponent.setOpaque(false);
+//      rendererComponent.setOpaque(false);
       if (!isTextComponent(editorComponent))
          editorComponent.setOpaque(false);
 
