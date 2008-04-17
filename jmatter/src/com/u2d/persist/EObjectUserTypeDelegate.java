@@ -32,7 +32,7 @@ public class EObjectUserTypeDelegate implements UserType
    public boolean equals(Object x, Object y) throws HibernateException
    {
       if (x == null || (!(x instanceof EObject))) return false;
-      return ((EObject) x).equals(y);
+      return x.equals(y);
    }
    
    public Object nullSafeGet(java.sql.ResultSet rs, String[] names, Object owner)
@@ -75,7 +75,7 @@ public class EObjectUserTypeDelegate implements UserType
          {
             long id = Long.parseLong(value);
             PersistenceMechanism pmech = Context.getInstance().getPersistenceMechanism();
-            eo = pmech.load(clazz, new Long(id));
+            eo = pmech.load(clazz, id);
          }
       }
       catch (IllegalAccessException ex)
@@ -100,14 +100,14 @@ public class EObjectUserTypeDelegate implements UserType
       throws HibernateException, java.sql.SQLException
    {
       String classname = (value==null) ? "" : AbstractComplexEObject.cleanCGLibEnhancer(value);
-      String stringValue = "";
+      String stringValue;
       if (value instanceof AtomicEObject)
       {
-         stringValue = (value==null) ? "" : ((AtomicEObject) value).toString();
+         stringValue = value.toString();
       }
       else if (value instanceof Choice)
       {
-         stringValue = (value==null) ? "" : ((Choice) value).code();
+         stringValue = ((Choice) value).code();
       }
       else
       {
@@ -127,7 +127,7 @@ public class EObjectUserTypeDelegate implements UserType
 
    public int hashCode(Object x) throws HibernateException
    {
-      return ((EObject) x).hashCode();
+      return x.hashCode();
    }
 
    public Serializable disassemble(Object value) throws HibernateException
