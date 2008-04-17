@@ -18824,8 +18824,8 @@ Abeille
 \emph on
 .jfrm
 \emph default
- file which we place along with our source code (JMatter's build file automatica
-lly copies these files to the classpath as part of the build process) in
+ file which we place alongside our source code (JMatter's build file automatical
+ly copies these files to the classpath as part of the build process) in
  a file we name after the model object whose view we want to customize.
  The 
 \emph on
