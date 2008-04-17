@@ -28,15 +28,20 @@ public class TabBodyView extends JPanel implements ComplexEView, Editor
       setLayout(new BorderLayout());
       _titleView = new TitleView(_ceo, this);
       add(_titleView, BorderLayout.NORTH);
+
+      /*
+       * discussion: an alternativeview is typically used only top-level.
+       * in the context of an embedded view such as this one, we want just a formview..
+       * instead of this logic, revise the contract to ask for mainview() and embeddedview()
+       */
       _main = _ceo.getMainView();
       if (_main instanceof AlternateView)
       {
          _main.detach();
-         _main = new FormView(_ceo);  //getmainview constructs a formview with toplevelcontext=true
-           // which is bad, as these formviews are not toplevelcontext by definition
-           // yet calling getMainView() is essential for types that customize their views.
-           // TODO: come up with a better solution than this short-term fix.
+         _main = new FormView(_ceo);
       }
+
+
       add((JComponent) _main, BorderLayout.CENTER);
    }
    
