@@ -40,6 +40,44 @@ public class AtomicField extends CompositeField
       EObject value = get(parent);
       return value.getView();
    }
+   private Class _rendererCls;
+   public void setRendererType(Class rendererCls) { _rendererCls = rendererCls; }
+   public AtomicRenderer getRenderer(ComplexEObject parent)
+   {
+      if (_rendererCls != null)
+      {
+         try
+         {
+            return (AtomicRenderer) _rendererCls.newInstance();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+            // fall back to default renderer..
+         }
+      }
+
+      return ((AtomicEObject) get(parent)).getRenderer();
+   }
+   private Class _editorCls;
+   public void setEditorType(Class editorCls) { _editorCls = editorCls; }
+   public AtomicEditor getEditor(ComplexEObject parent)
+   {
+      if (_editorCls != null)
+      {
+         try
+         {
+            return (AtomicEditor) _editorCls.newInstance();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+            // fall back to default editor..
+         }
+      }
+      return ((AtomicEObject) get(parent)).getEditor();
+   }
+
    
    public StringEO getDefaultValue() { return _defaultValue; }
 

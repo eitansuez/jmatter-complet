@@ -551,9 +551,38 @@ public class ComplexType extends AbstractComplexEObject
                if (value != null)
                {
                   Boolean required = Boolean.valueOf(value);
-                  field.getRequired().setValue(required.booleanValue());
+                  field.getRequired().setValue(required);
                }
 
+               String rendererClsName = metadata.getProperty(field.getPath()+".renderer");
+               if (rendererClsName != null)
+               {
+                  try
+                  {
+                     Class cls = Thread.currentThread().getContextClassLoader().loadClass(rendererClsName);
+                     ((AtomicField) field).setRendererType(cls);
+                  }
+                  catch (ClassNotFoundException ex)
+                  {
+                     System.err.printf("Warning:  failed to resolve renderer for field %s\n", field);
+                     ex.printStackTrace();
+                  }
+               }
+
+               String editorClsName = metadata.getProperty(field.getPath()+".editor");
+               if (editorClsName != null)
+               {
+                  try
+                  {
+                     Class cls = Thread.currentThread().getContextClassLoader().loadClass(editorClsName);
+                     ((AtomicField) field).setEditorType(cls);
+                  }
+                  catch (ClassNotFoundException ex)
+                  {
+                     System.err.printf("Warning:  failed to resolve editor for field %s\n", field);
+                     ex.printStackTrace();
+                  }
+               }
             }
          });
 
