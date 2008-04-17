@@ -25,7 +25,7 @@ public class TimeSpanUserType implements CompositeUserType
    public boolean equals(Object x, Object y)
    {
       if (x == null || (!(x instanceof TimeSpan))) return false;
-      return ((TimeSpan) x).equals(y);
+      return x.equals(y);
    }
 
    public Object nullSafeGet(java.sql.ResultSet rs, String[] names,

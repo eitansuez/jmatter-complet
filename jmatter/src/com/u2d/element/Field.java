@@ -299,7 +299,7 @@ public abstract class Field extends Member
          {
             String remainder = text.substring(i+1);
             if (remainder.indexOf(".") < 0) // last dot
-               sb.append(ComplexType.localeLookupStatic("s")+" ");
+               sb.append(ComplexType.localeLookupStatic("s")).append(" ");
             else
                sb.append(' ');
             sb.append(Character.toUpperCase(text.charAt(i+1)));
@@ -453,7 +453,7 @@ public abstract class Field extends Member
    {
       if (_getter.isAnnotationPresent(Fld.class))
       {
-         Fld fat = (Fld) _getter.getAnnotation(Fld.class);
+         Fld fat = _getter.getAnnotation(Fld.class);
          _mnemonic.setValue(fat.mnemonic());
          _persist.setValue(fat.persist());
          _hidden.setValue(fat.hidden());

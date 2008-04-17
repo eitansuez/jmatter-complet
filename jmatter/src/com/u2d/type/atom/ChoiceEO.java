@@ -58,7 +58,7 @@ public abstract class ChoiceEO extends AbstractAtomicEO
    {
       try
       {
-         ChoiceEO copy = (ChoiceEO) getClass().newInstance();
+         ChoiceEO copy = getClass().newInstance();
          copy.setValue(_value);
          return copy;
       }

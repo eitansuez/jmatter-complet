@@ -65,7 +65,7 @@ public abstract class CompositeField extends Field
 
    public void set(ComplexEObject parent, Object value)
    {
-      EObject eo = (EObject) get(parent);
+      EObject eo = get(parent);
       eo.setValue((EObject) value);
    }
    

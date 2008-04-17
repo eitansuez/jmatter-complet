@@ -198,7 +198,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    protected void setState(State state, boolean shallow)
    {
-      _currentState = (State) _stateMap.get(state.getName());
+      _currentState = _stateMap.get(state.getName());
       if (_currentState == null)
          // an indication that state is a readstate subclass (as in user.lockedstate)
          // which will not exist on its fields when doing a deep setstate invocation.
@@ -258,8 +258,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    private FieldParent fieldParent()
    {
       Field field = field();
-      return (field instanceof FieldParent) ?
-         (FieldParent) field : (FieldParent) type();
+      return (field instanceof FieldParent) ? (FieldParent) field : type();
    }
    public List childFields() { return fieldParent().fields(); }
    public Field field(String propName) { return fieldParent().field(propName); }
@@ -368,7 +367,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public String debugString()
    {
       List fields = childFields();
-      Field field = null;
+      Field field;
       StringBuffer text = new StringBuffer("");
       for (int i=0; i<fields.size(); i++)
       {
@@ -380,7 +379,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public boolean isEmpty()
    {
-      Field field = null;
+      Field field;
       for (Iterator itr = childFields().iterator(); itr.hasNext(); )
       {
          field = (Field) itr.next();
@@ -408,7 +407,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       ComplexEObject ceo = (ComplexEObject) obj;
       if (ceo.childFields().size() != childFields().size()) return false;
       List fields = childFields();
-      Field field = null;
+      Field field;
       for (int i=0; i<fields.size(); i++)
       {
          field = (Field) fields.get(i);
@@ -440,7 +439,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       return hashCode;
    }
 
-   private boolean sameClassOrProxy(Object obj)
+   protected boolean sameClassOrProxy(Object obj)
    {
       String clsName1 = cleanCGLibEnhancer(obj);
       String clsName2 = cleanCGLibEnhancer(this);
@@ -592,7 +591,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          }
          else
          {
-            if (forCopy && (field.isAssociation() || field.isIndexed()) )
+            if (forCopy && (field.isAssociation() || (field.isIndexed() && !field.isComposite())) )
                continue;  // omit associations because in copy operations
                           // causes original to lose association
 
@@ -959,7 +958,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          }
 
          ComplexEObject ceo = (ComplexEObject) parent;
-         Field field = null;
+         Field field;
          int count = 0;
          for (int i=0; i<ceo.childFields().size(); i++)
          {
@@ -988,7 +987,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          ComplexEObject ceo = (ComplexEObject) parent;
 
          int count = 0;
-         Field field = null;
+         Field field;
          for (int i=0; i<ceo.childFields().size(); i++)
          {
             field = (Field) ceo.childFields().get(i);
@@ -1015,7 +1014,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
             AbstractListEO leo = (AbstractListEO) parent;
             for (int i=0; i<leo.getSize(); i++)
             {
-               if (child.equals(leo.getElementAt(i)))
+               if (child == leo.getElementAt(i))
                   return i;
             }
             return -1;
@@ -1024,14 +1023,14 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          ComplexEObject ceo = (ComplexEObject) parent;
 
          int index = 0;
-         Field field = null;
+         Field field;
          for (int i=0; i<ceo.childFields().size(); i++)
          {
             field = (Field) ceo.childFields().get(i);
             if (field.isAtomic() || field.isChoice())
                continue;
 
-            if (child.equals(field.get(ceo)))
+            if (child == field.get(ceo))
                return index;
 
             index++;
@@ -1052,7 +1051,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       }
       public void valueForPathChanged(TreePath path, Object newValue)
       {
-         ComplexEObject ceo = null;
+         ComplexEObject ceo;
          for (int i=0; i<path.getPathCount(); i++)
          {
             ceo = (ComplexEObject) path.getPathComponent(i);
