@@ -122,8 +122,8 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
    private JComponent body()
    {
       _tabPane = new CustomTabbedPane();
-      _tabPane.add("Week View", (JComponent) _weekSheet);
-      _tabPane.add("Day View", (JComponent) _daySheet);
+      _tabPane.add("Week View", _weekSheet);
+      _tabPane.add("Day View", _daySheet);
       
       _tabPane.addChangeListener(new javax.swing.event.ChangeListener()
          {

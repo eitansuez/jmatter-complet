@@ -35,7 +35,6 @@ public class CalEventView extends BaseCalEventView
          if (sheet != null)
          {
             sheet.bringScheduleToFront(_event);
-            sheet.revalidate(); sheet.repaint();
          }
       }
    };
