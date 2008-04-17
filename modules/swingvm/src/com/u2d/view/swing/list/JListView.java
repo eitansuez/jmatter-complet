@@ -106,7 +106,7 @@ public class JListView extends SeeThruList
       return comp;
    }
 
-   private JComponent componentFor(ComplexEObject ceo)
+   private synchronized JComponent componentFor(ComplexEObject ceo)
    {
       if (_views.get(ceo) == null)
       {

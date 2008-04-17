@@ -385,19 +385,19 @@ public class SwingViewMechanism implements ViewMechanism
       }
       if (view instanceof ListEView)
       {
-         return new FlexiFrame(new ListEOPanel((ListEView) view));
+         return new FlexiFrame(new ListEOPanel(view));
       }
       else if (view instanceof CalendarView)
       {
-         return new CalendarFrame((CalendarView) view);
+         return new CalendarFrame(view);
       }
       else if (view instanceof ScheduleView)
       {
-         return new CalendarFrame((ScheduleView) view);
+         return new CalendarFrame(view);
       }
       else if (view instanceof ComplexEView)
       {
-         return new FlexiFrame(new EOPanel((ComplexEView) view));
+         return new FlexiFrame(new EOPanel(view));
       }
 
       throw new IllegalArgumentException(

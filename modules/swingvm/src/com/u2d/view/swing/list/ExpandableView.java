@@ -28,7 +28,7 @@ public class ExpandableView extends JPanel implements ListEView
 	public ExpandableView(RelationalList leo)
 	{
       init(leo);
-      
+
       boolean expanded = false;
       if (_leo.field() == null)
          expanded = true;
@@ -40,7 +40,7 @@ public class ExpandableView extends JPanel implements ListEView
    private boolean inEditableState()
    {
       return _leo.parentObject() != null &&
-            _leo.parentObject().isEditableState();
+             _leo.parentObject().isEditableState();
    }
 
    public ExpandableView(RelationalList leo, boolean expanded)
