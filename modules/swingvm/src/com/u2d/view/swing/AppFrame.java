@@ -287,9 +287,10 @@ public class AppFrame extends JFrame
             {
                public void run()
                {
-                  showClassBar();
                   showUserMenu();
                   showCommandBar();
+                  showClassBar();
+                  _menuBar.revalidate(); _menuBar.repaint();
                   _desktopPane.setEnabled(true); // enable context menu
                   setupKeyboardShorcuts();
                   restoreUserDesktop();
@@ -313,6 +314,7 @@ public class AppFrame extends JFrame
                         hideClassBar();
                         hideUserMenu();
                         hideCommandBar();
+                        _menuBar.revalidate(); _menuBar.repaint();
                         detachKeystrokes();
                         _desktopPane.setEnabled(false); // disable context menu
 
@@ -427,7 +429,6 @@ public class AppFrame extends JFrame
          _commandsMenu.bind(_serviceObject, _menuBar, null);
 
          _menuBar.add(_commandsMenu, 1);
-         _menuBar.revalidate(); _menuBar.repaint();
 
          add(northPanel, BorderLayout.NORTH);
       }
@@ -439,41 +440,33 @@ public class AppFrame extends JFrame
          _commandsPnl.detach();
          remove(northPanel);
          _commandsMenu.detach();
-         _menuBar.revalidate(); _menuBar.repaint();
       }
    }
    private void showClassBar()
    {
-      SwingUtilities.invokeLater( new Runnable()
+      User currentUser = _appSession.getUser();
+      Folder userClassBar = currentUser.getClassBar();
+      _classBar.bind(userClassBar);
+      _classMenu.bind(userClassBar, _menuBar, 1);
+
+      bindTypeKeyboardShortcuts(userClassBar);
+
+      _centerPane.add(_classBarPanel, BorderLayout.WEST);
+      _classBar.focusItem();
+      SwingUtilities.invokeLater(new Runnable() {
+         public void run()
          {
-            public void run()
-            {
-               User currentUser = _appSession.getUser();
-               Folder userClassBar = currentUser.getClassBar();
-               _classBar.bind(userClassBar);
-               _classMenu.bind(userClassBar, _menuBar, _menuBar.getComponentCount() - 2);
-               
-               bindTypeKeyboardShortcuts(userClassBar);
-               
-               _centerPane.add(_classBarPanel, BorderLayout.WEST);
-               _classBar.focusItem();
-               _centerPane.revalidate(); _centerPane.repaint();
-            }
-         });
+            _centerPane.revalidate(); _centerPane.repaint();
+         }
+      });
    }
    private void hideClassBar()
    {
-      SwingUtilities.invokeLater( new Runnable()
-         {
-            public void run()
-            {
-               _classBar.detach();
-               _classMenu.detach();
-               detachTypeKeyboardShortcuts();
-               _centerPane.remove(_classBarPanel);
-               _centerPane.revalidate(); _centerPane.repaint();
-            }
-         });
+      _classBar.detach();
+      _classMenu.detach();
+      detachTypeKeyboardShortcuts();
+      _centerPane.remove(_classBarPanel);
+      _centerPane.revalidate(); _centerPane.repaint();
    }
    //===
 
@@ -481,22 +474,12 @@ public class AppFrame extends JFrame
       {
          User currentUser = _appSession.getUser();
          _userMenu.bind(currentUser, _menuBar, null);
-         
-         int usermenuIndex = _menuBar.getComponentCount() - 2;
-         _menuBar.add(_userMenu, usermenuIndex);
-         _menuBar.revalidate(); _menuBar.repaint();
+         _menuBar.add(_userMenu, 1);
       }
 
       private void hideUserMenu()
       {
-         SwingUtilities.invokeLater( new Runnable()
-         {
-            public void run()
-            {
-               _userMenu.detach();
-               _menuBar.revalidate(); _menuBar.repaint();
-            }
-         });
+         _userMenu.detach();
       }
 
    //===
