@@ -20,6 +20,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.hibernate.Session;
+import org.hibernate.HibernateException;
+
 /**
  * @author Eitan Suez
  */
@@ -123,7 +126,22 @@ public class Role extends AbstractComplexEObject implements Authorizer
    {
       if (!isAdmin())
       {
-         hbmPersistor().getSession().enableFilter(AUTHFILTER_NAME).setParameter("currentUser", currentUser().getID());
+         Session session = hbmPersistor().getSession();
+         try
+         {
+            session.enableFilter(AUTHFILTER_NAME).setParameter("currentUser", currentUser().getID());
+         }
+         catch (HibernateException ex)
+         {
+            // it may be that the filter is not even defined in the mappings
+            //  in which case a hibernate exception
+            //  (such as "org.hibernate.HibernateException: No such filter configured [authFilter]"
+            //  is thrown
+            // only if an optional authorization-related method is defined on a base type,
+            // such as:
+            //   public static String typeFilter() { return "technician_id = :currentUser"; }
+            // does hbmmaker even define the filter..
+         }
       }
    }
    
