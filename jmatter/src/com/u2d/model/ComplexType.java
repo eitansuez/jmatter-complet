@@ -235,22 +235,18 @@ public class ComplexType extends AbstractComplexEObject
             concreteTypes(interfaces[i]).add(this);
          }
       }
-      Class superclass = _clazz.getSuperclass();
-      if (superclass!=null)
-      {
-         if (ComplexEObject.class.isAssignableFrom(superclass))
-         {
-            concreteTypes(superclass).add(this);
-         }
-      }
-      
       if (!isAbstract(_clazz))
       {
-         concreteTypes(_clazz).add(this);
+         Class cls = _clazz;
+         while (cls!=null)
+         {
+            if (ComplexEObject.class.isAssignableFrom(cls))
+            {
+               concreteTypes(cls).add(this);
+            }
+            cls = cls.getSuperclass();
+         }
       }
-      
-      // special:
-      concreteTypes(ComplexEObject.class).add(this);  // by default all concrete types are 
    }
    private AbstractListEO concreteTypes(Class cls)
    {
