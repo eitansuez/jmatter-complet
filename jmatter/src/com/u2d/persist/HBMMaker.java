@@ -26,6 +26,8 @@ import org.dom4j.*;
 import org.dom4j.io.*;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.PostgreSQLDialect;
+import org.hibernate.usertype.CompositeUserType;
+
 import java.io.*;
 import java.util.*;
 
@@ -498,7 +500,7 @@ public class HBMMaker
             column = propElem.addElement("column");
             String colprefix = (prefix == null) ? "" : prefix + "_";
 
-            if (ChoiceEOUserType.class.equals(typeClass))
+            if (CompositeUserType.class.isAssignableFrom(typeClass))
             {
                colprefix += field.getName() + "_";
                // e.g. type -> severity_type (where fieldname is 'severity')
