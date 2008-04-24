@@ -97,8 +97,18 @@ public class Onion implements ListChangeNotifier
       
       return _innerLayer.get(index - _list.size());
    }
-   
-   public void wrap(Onion innerLayer) { _innerLayer = innerLayer; }
+
+   public void wrap(Onion innerLayer)
+   {
+      if (hasMoreLayers())
+      {
+         _innerLayer.wrap(innerLayer);
+      }
+      else
+      {
+         _innerLayer = innerLayer;
+      }
+   }
 
    public boolean isEmpty() { return (size() == 0); }
 
