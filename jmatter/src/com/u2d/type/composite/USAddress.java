@@ -10,6 +10,7 @@ import com.u2d.reflection.Cmd;
 import com.u2d.type.USState;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.USZipCode;
+import com.u2d.utils.Launcher;
 
 /**
  * @author Eitan Suez
@@ -71,6 +72,16 @@ public class USAddress extends AbstractComplexEObject
       return vmech().getAddressViewOnMap(this);
    }
    
+   public static final String googleMapsUrlPattern = "http://maps.google.com/maps?q=%s";
+
+   @Cmd
+   public void ViewInGoogleMaps(CommandInfo cmdInfo)
+   {
+      String address = String.format("%s, %s %s %s", _addressLine1.stringValue(), _city.stringValue(),
+            _stateCode.code(), _zipCode.stringValue());
+      String url = String.format(googleMapsUrlPattern, EmailMessage.htmlEscape(address));
+      Launcher.openInBrowser(url);
+   }
    
    public Title title()
 	{
