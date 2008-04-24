@@ -46,4 +46,6 @@ public class MenuButton extends JButton
       setRolloverEnabled(true);
       setRolloverIcon(rollover);
    }
+
+   public JPopupMenu menu() { return _menu; }
 }
