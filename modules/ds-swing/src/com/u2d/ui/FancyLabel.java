@@ -4,6 +4,7 @@
 package com.u2d.ui;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicTextAreaUI;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -24,12 +25,8 @@ public class FancyLabel extends javax.swing.JTextArea
 	 *   component vertically resizable, should probably fire some kind of event 
     *      to notify change in height (propertychangeevent)
 	 */
-	 
-	 private Color _bgCol;
-//    private Border _border;
-    private Border _borderSm;
 
-	public static Font TWELVE_PT, TEN_PT;
+   public static Font TWELVE_PT, TEN_PT;
 	static {
       TWELVE_PT = new Font("SansSerif", Font.PLAIN, 12);
       TEN_PT = TWELVE_PT.deriveFont(10.0f);
@@ -38,10 +35,20 @@ public class FancyLabel extends javax.swing.JTextArea
 	 public FancyLabel()
 	 {
 	 	this(Color.red);
-	 }
+    }
 	 
 	 public FancyLabel(Color bgCol)
 	 {
+      setUI(new BasicTextAreaUI()
+      {
+         protected void paintBackground(Graphics g)
+         {
+            Graphics2D g2 = (Graphics2D) g;
+            Paint gradientPaint = new GradientPaint(0, -getHeight()/2, Color.white, 0, getHeight(), getBackground());
+            g2.setPaint(gradientPaint);
+            g2.fillRect(0, 0, getWidth(), getHeight());
+         }
+      });
       setupColor(bgCol);
 	 	
 		setLineWrap(true);
@@ -76,28 +83,26 @@ public class FancyLabel extends javax.swing.JTextArea
 		
       revalidate(); repaint();
 	 }
+
+
     
    public void setupColor(Color bgCol)
    {
-      _bgCol = introduceAlpha(bgCol);
-      setBackground(_bgCol);
+//      Color background = introduceAlpha(bgCol);
+      setBackground(bgCol);
       
-//      Border lineBorder = BorderFactory.createLineBorder(bgCol, 3);
-//      Border emptyBorder = BorderFactory.createEmptyBorder(2, 2, 2, 2);
-//      _border = new CompoundBorder(lineBorder, emptyBorder);
-
       Border emptyBorderSm = BorderFactory.createEmptyBorder(1, 1, 1, 1);
       Border lineBorderSm = BorderFactory.createLineBorder(bgCol, 1);
-      _borderSm = new CompoundBorder(lineBorderSm, emptyBorderSm);
+      Border borderSm = new CompoundBorder(lineBorderSm, emptyBorderSm);
       
-      setBorder(_borderSm);
+      setBorder(borderSm);
    }
    
-   private Color introduceAlpha(Color col)
-   {
-      return new Color(col.getRed(), col.getGreen(), col.getBlue(), 128);
-   }
-	 
+//   private Color introduceAlpha(Color col)
+//   {
+//      return new Color(col.getRed(), col.getGreen(), col.getBlue(), 128);
+//   }
+
 	 public void setBounds(int x, int y, int width, int height)
 	 {
 	 	super.setBounds(x, y, width, height);
