@@ -3,8 +3,7 @@
  */
 package com.u2d.view.swing.list;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -173,6 +172,18 @@ public class AlternateListView extends JPanel
    public EObject getEObject() { return _leo; }
    public void detach()
    {
+      for (int i=0; i<_pickPane.getComponentCount(); i++)
+      {
+         Component c = _pickPane.getComponent(i);
+         if (c instanceof JButton)
+         {
+            Action action = ((JButton) c).getAction();
+            if (action instanceof CommandAdapter)
+            {
+               ((CommandAdapter) action).detach();
+            }
+         }
+      }
       for (Iterator itr = _map.keySet().iterator(); itr.hasNext(); )
       {
          String key = (String) itr.next();

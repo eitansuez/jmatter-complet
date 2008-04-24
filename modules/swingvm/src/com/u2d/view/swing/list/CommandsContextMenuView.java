@@ -23,9 +23,7 @@ import java.util.HashMap;
  * Date: Oct 14, 2005
  * Time: 11:03:09 AM
  */
-public class CommandsContextMenuView
-      extends JPopupMenu
-      implements ListEView
+public class CommandsContextMenuView extends JPopupMenu implements ListEView
 {
    private EObject _eo;
    private Onion _commands;
@@ -92,6 +90,15 @@ public class CommandsContextMenuView
 
    private void detachCmds()
    {
+      for (int i=0; i<getComponentCount(); i++)
+      {
+         Component c = getComponent(i);
+         if (c instanceof JMenuItem)
+         {
+            JMenuItem item = (JMenuItem) getComponent(i);
+            ((CommandAdapter) item.getAction()).detach();
+         }
+      }
       if (_commands != null)
       {
          _commands.removeListDataListener(this);
@@ -119,8 +126,7 @@ public class CommandsContextMenuView
                ComponentStyle.addClass(item, "command");
                add(item);
                
-               _indexMap.put(new Integer(index),
-                             new Integer(getComponentCount()-1));
+               _indexMap.put(index, getComponentCount() - 1);
                index++;
 //               subindex++;
             }
@@ -144,8 +150,7 @@ public class CommandsContextMenuView
             for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
             {
                Command cmd = (Command) _eo.commands().get(i);
-               int componentIndex = 
-                     ((Integer) _indexMap.get(new Integer(i))).intValue();
+               int componentIndex = _indexMap.get(i);
 
                Action action = new CommandAdapter(cmd, _eo, _source);
                JMenuItem item = new JMenuItem(action);
@@ -163,8 +168,7 @@ public class CommandsContextMenuView
          {
             for (int i=e.getIndex1(); i>=e.getIndex0(); i--)
             {
-               int componentIndex = ((Integer) _indexMap.
-                  get(new Integer(i))).intValue();
+               int componentIndex = _indexMap.get(i);
                remove(componentIndex);
             }
          }

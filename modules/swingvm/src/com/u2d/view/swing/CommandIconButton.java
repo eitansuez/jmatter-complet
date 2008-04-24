@@ -45,6 +45,7 @@ public class CommandIconButton extends JButton implements ComplexEView
       _cmd.getMnemonic().removeChangeListener(this);
       _cmd.getDescription().removeChangeListener(this);
       _cmd.getLabel().removeChangeListener(this);
+      _cmdAdapter.detach();
    }
 
    public boolean isMinimized() { return true; }

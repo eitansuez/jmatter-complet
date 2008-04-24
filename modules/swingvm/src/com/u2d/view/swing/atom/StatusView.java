@@ -18,6 +18,7 @@ public class StatusView extends JPanel implements AtomicEView
 {
    AtomicEObject _eo;
    JLabel _label = new JLabel();
+   private FieldCaption caption;
 
    public StatusView(AtomicEObject eo)
    {
@@ -28,14 +29,19 @@ public class StatusView extends JPanel implements AtomicEView
 
       _label.setFont(SMALL_FONT);
       _label.setText(_eo.toString());
-      FieldCaption caption = new FieldCaption(_eo.field(), _label);
+      caption = new FieldCaption(_eo.field(), _label);
       caption.setFont(SMALL_FONT);
       add(caption);
       add(_label);
    }
 
    public EObject getEObject() { return _eo; }
-   public void detach() { _eo.removeChangeListener(this); }
+
+   public void detach()
+   {
+      _eo.removeChangeListener(this);
+      caption.detach();
+   }
 
    public void stateChanged(ChangeEvent e)
    {

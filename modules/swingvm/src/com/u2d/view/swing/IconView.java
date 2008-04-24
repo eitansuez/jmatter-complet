@@ -25,6 +25,7 @@ public class IconView extends Caption implements ComplexEView
    protected ComplexEObject _ceo;
    private transient CommandsContextMenuView _cmdsView = new CommandsContextMenuView();
    private MouseListener _defaultActionListener;
+   private CommandAdapter defaultAction;
 
    public IconView()
    {
@@ -62,7 +63,7 @@ public class IconView extends Caption implements ComplexEView
       }
 
       Command defaultCmd = _ceo.defaultCommand();
-      CommandAdapter defaultAction = new CommandAdapter(defaultCmd, _ceo, this);
+      defaultAction = new CommandAdapter(defaultCmd, _ceo, this);
       _defaultActionListener = UIUtils.doubleClickActionListener(defaultAction);
       addMouseListener(_defaultActionListener);
    }
@@ -76,6 +77,7 @@ public class IconView extends Caption implements ComplexEView
       _cmdsView.detach();
       
       removeMouseListener(_defaultActionListener);
+      defaultAction.detach();
    }
 
    public EObject getEObject() { return _ceo; }

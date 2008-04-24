@@ -133,6 +133,8 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          {
             public void focusGained(FocusEvent e)
             {
+               if (!_association.isEditableState()) return;
+
                if (!SwingUtilities.isDescendingFrom(e.getOppositeComponent(), AssociationView2.this))
                {
                   itemPnl.enterEditState();
@@ -255,7 +257,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
    class DissociatedPanel extends CustomPnl implements AssocStateView
    {
       EView view;
-      JButton assocBtn;
+      MenuButton assocBtn;
       NullAssociation nullAssoc = new NullAssociation(_association);
 
       public DissociatedPanel()
@@ -321,6 +323,13 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
       public void detach()
       {
+         JPopupMenu menu = assocBtn.menu();
+         for (int i=0; i<menu.getComponentCount(); i++)
+         {
+            JMenuItem item = (JMenuItem) menu.getComponent(i);
+            CommandAdapter cmdAdapter = (CommandAdapter) item.getAction();
+            cmdAdapter.detach();
+         }
          if (view != null)
          {
             view.detach();

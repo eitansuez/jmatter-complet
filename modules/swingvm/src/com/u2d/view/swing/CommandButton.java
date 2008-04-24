@@ -70,6 +70,12 @@ public class CommandButton extends JPanel
    public EObject getEObject() { return _cmd; }
    public void detach()
    {
+      _cmdAdapter.detach();
+      _cmd.getMnemonic().removeChangeListener(this);
+      _cmd.getDescription().removeChangeListener(this);
+      _cmd.getLabel().removeChangeListener(this);
+      _cmd.getSensitive().removeChangeListener(this);
+      _cmdsView.detach();
    }
 
    public boolean isMinimized() { return true; }

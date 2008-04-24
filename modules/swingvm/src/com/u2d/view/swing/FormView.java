@@ -49,6 +49,7 @@ public class FormView extends JXPanel implements ComplexEView, Editor
    private boolean _editable = false;
 
    private List<Field> _partialFieldList = null;
+   private List<FieldCaption> _fieldCaptions = new ArrayList<FieldCaption>();
 
 
    public FormView(ComplexEObject ceo)
@@ -86,11 +87,16 @@ public class FormView extends JXPanel implements ComplexEView, Editor
 
       stopListeningForValidations();
 
-      for (Iterator<EView> itr = _childViews.iterator(); itr.hasNext(); )
+      for (EView view : _childViews)
       {
-         EView view = itr.next();
          view.detach();
       }
+
+      for (FieldCaption c : _fieldCaptions)
+      {
+         c.detach();
+      }
+      _fieldCaptions.clear();
    }
 
    private void layItOut()
@@ -187,6 +193,7 @@ public class FormView extends JXPanel implements ComplexEView, Editor
 
       JComponent comp = (JComponent) view;
       FieldCaption caption = new FieldCaption(field, comp);
+      _fieldCaptions.add(caption);
       
       return (SwingViewMechanism.getInstance().isLabelEditorLayoutHorizontal()) ?
             fieldViewPanelHoriz(caption, comp, vPnl) :
@@ -238,7 +245,7 @@ public class FormView extends JXPanel implements ComplexEView, Editor
       List fields = (_partialFieldList == null) ? ceo.childFields() : _partialFieldList;
       
       ValidationNoticePanel vPnl;
-      Field field = null;
+      Field field;
       for (Iterator itr = fields.iterator(); itr.hasNext(); )
       {
          field = (Field) itr.next();
@@ -288,6 +295,7 @@ public class FormView extends JXPanel implements ComplexEView, Editor
             _vPnls.add(vPnl);
 
             FieldCaption caption = new FieldCaption(field, comp);
+            _fieldCaptions.add(caption);
             appendRow(builder, cc, caption, comp, vPnl);
          }
       }
@@ -373,10 +381,9 @@ public class FormView extends JXPanel implements ComplexEView, Editor
    public int transferValue()
    {
       int count = 0;
-      for (Iterator<EView> itr = _childViews.iterator(); itr.hasNext(); )
+      for (EView view : _childViews)
       {
-         EView view = itr.next();
-         Tracing.tracer().fine("attempting to transfer value for field "+view.getEObject().field());
+         Tracing.tracer().fine("attempting to transfer value for field " + view.getEObject().field());
          if (view instanceof Editor)
          {
             Field field = view.getEObject().field();
@@ -392,7 +399,7 @@ public class FormView extends JXPanel implements ComplexEView, Editor
                   continue;
             }
 
-            Tracing.tracer().fine("transferring value for field "+view.getEObject().field());
+            Tracing.tracer().fine("transferring value for field " + view.getEObject().field());
             count += ((Editor) view).transferValue();
          }
       }
@@ -407,9 +414,9 @@ public class FormView extends JXPanel implements ComplexEView, Editor
       }
       // else..
       int errorCount = 0;
-      for (int i=0; i<_partialFieldList.size(); i++)
+      for (Field field : _partialFieldList)
       {
-         errorCount += _partialFieldList.get(i).validate(_ceo);
+         errorCount += field.validate(_ceo);
       }
       return errorCount;
    }
@@ -428,13 +435,11 @@ public class FormView extends JXPanel implements ComplexEView, Editor
          resetValidations();
       }
 
-      EView view = null;
-      Field field = null;
-      EObject eo = null;
+      Field field;
+      EObject eo;
 
-      for (Iterator<EView> itr = _childViews.iterator(); itr.hasNext(); )
+      for (EView view : _childViews)
       {
-         view = itr.next();
          if (view instanceof Editor)
          {
             eo = view.getEObject();
@@ -477,31 +482,22 @@ public class FormView extends JXPanel implements ComplexEView, Editor
 
    private void resetValidations()
    {
-      Iterator itr = _vPnls.iterator();
-      ValidationNoticePanel vPnl = null;
-      while (itr.hasNext())
+      for (ValidationNoticePanel vPnl : _vPnls)
       {
-         vPnl = (ValidationNoticePanel) itr.next();
          vPnl.reset();
       }
    }
    private void listenForValidations()
    {
-      Iterator itr = _vPnls.iterator();
-      ValidationNoticePanel vPnl = null;
-      while (itr.hasNext())
+      for (ValidationNoticePanel vPnl : _vPnls)
       {
-         vPnl = (ValidationNoticePanel) itr.next();
          vPnl.startListening();
       }
    }
    private void stopListeningForValidations()
    {
-      Iterator itr = _vPnls.iterator();
-      ValidationNoticePanel vPnl = null;
-      while (itr.hasNext())
+      for (ValidationNoticePanel vPnl : _vPnls)
       {
-         vPnl = (ValidationNoticePanel) itr.next();
          vPnl.stopListening();
       }
    }

@@ -3,7 +3,6 @@ package com.u2d.view.swing.list;
 import com.u2d.model.EObject;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
-import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.swing.CommandButton;
 import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
@@ -36,6 +35,7 @@ public class CommandsButtonView extends JPanel implements ListEView
    private EView _source;
    private Map<Integer, Integer> _indexMap = new HashMap<Integer, Integer>();
    private boolean _horizontalLayout;
+   private JPanel buttonPnl;
 
    public CommandsButtonView()
    {
@@ -75,6 +75,14 @@ public class CommandsButtonView extends JPanel implements ListEView
 
    private void detachCmds()
    {
+      for (int i=0; buttonPnl != null && i<buttonPnl.getComponentCount(); i++)
+      {
+         Component c = buttonPnl.getComponent(i);
+         if (c instanceof CommandButton)
+         {
+            ((CommandButton) c).detach();
+         }
+      }
       if (_commands != null)
       {
          _commands.removeListDataListener(this);
@@ -127,8 +135,7 @@ public class CommandsButtonView extends JPanel implements ListEView
                   ((ButtonStackBuilder) builder).addRelatedGap();
                }
 
-               _indexMap.put(new Integer(index),
-                             new Integer(getComponentCount()-1));
+               _indexMap.put(index, getComponentCount() - 1);
                index++;
             }
 
@@ -149,11 +156,11 @@ public class CommandsButtonView extends JPanel implements ListEView
          }).peel(_eo.filteredCommands());
 
       //System.out.println("buttons grafted, source set on cmdAdapter: "+_source);
-      JPanel buttonPnl = builder.getPanel();
+      buttonPnl = builder.getPanel();
       buttonPnl.setOpaque(false);
 
       CellConstraints cc = new CellConstraints();
-      add(buttonPnl,  cc.xy(2, 1));
+      add(buttonPnl, cc.xy(2, 1));
       revalidate();
       repaint();
 
@@ -172,11 +179,10 @@ public class CommandsButtonView extends JPanel implements ListEView
             for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
             {
                Command cmd = (Command) _eo.commands().get(i);
-               int componentIndex =
-                     ((Integer) _indexMap.get(new Integer(i))).intValue();
+               int componentIndex = _indexMap.get(i);
 
-               Action action = new CommandAdapter(cmd, _eo, _source);
-               add(new JButton(action), componentIndex);
+               CommandButton btn = new CommandButton(cmd, _eo, _source, false);
+               add(btn, componentIndex);
             }
          }
       });
@@ -189,8 +195,9 @@ public class CommandsButtonView extends JPanel implements ListEView
          {
             for (int i=e.getIndex1(); i>=e.getIndex0(); i--)
             {
-               int componentIndex = ((Integer) _indexMap.
-                  get(new Integer(i))).intValue();
+               int componentIndex = _indexMap.get(i);
+               CommandButton btn = (CommandButton) getComponent(componentIndex);
+               btn.detach();
                remove(componentIndex);
             }
          }

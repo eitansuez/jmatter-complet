@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
-
 import com.u2d.element.Command;
 import com.u2d.view.*;
 import com.u2d.type.atom.StringEO;
@@ -23,6 +22,7 @@ public class CommandAdapter extends AbstractAction
    private Command _command;
    private Object _value;
    private EView _source;  // the view from which the command was invoked
+   private PropertyChangeListener changePropagator;
 
    public CommandAdapter(Command command, EView source)
    {
@@ -41,13 +41,15 @@ public class CommandAdapter extends AbstractAction
          putValue(Action.SMALL_ICON, _command.iconSm());
       }
 
-      _command.addPropertyChangeListener("enabled", new PropertyChangeListener()
+      changePropagator = new PropertyChangeListener()
       {
          public void propertyChange(PropertyChangeEvent evt)
          {
             firePropertyChange("enabled", evt.getOldValue(), evt.getNewValue());
          }
-      });
+      };
+      _command.addPropertyChangeListener("enabled", changePropagator);
+
    }
 
    public boolean isEnabled() { return _command.isEnabled(); }
@@ -92,7 +94,13 @@ public class CommandAdapter extends AbstractAction
    }
 
    public void attach(Object value) { _value = value; }
-   public void detach() { _value = null; }
+
+   public void detach()
+   {
+      _value = null;
+      _command.removePropertyChangeListener("enabled", changePropagator);
+      changePropagator = null;
+   }
 
    public void actionPerformed(ActionEvent evt)
    {

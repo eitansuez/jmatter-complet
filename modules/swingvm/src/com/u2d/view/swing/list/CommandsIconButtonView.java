@@ -62,6 +62,10 @@ public class CommandsIconButtonView extends JXPanel implements ListEView
 
       private void detachCmds()
       {
+         for (int i=0; i<getComponentCount(); i++)
+         {
+            ((CommandAdapter) ((JButton) getComponent(i)).getAction()).detach();
+         }
          if (_commands != null)
          {
             _commands.removeListDataListener(this);

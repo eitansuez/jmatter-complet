@@ -128,6 +128,7 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
 
    public void detach()
    {
+      _cmdsView.detach();
       _field.getMnemonic().removeChangeListener(this);
       _field.getRequired().removeChangeListener(this);
       _field.getDescription().removeChangeListener(this);

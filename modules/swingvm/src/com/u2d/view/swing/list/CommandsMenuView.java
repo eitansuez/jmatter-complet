@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import java.util.Map;
 import java.util.HashMap;
+import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,7 +27,7 @@ public class CommandsMenuView extends JMenu implements ListEView
    private Onion _commands;
    private EView _source;
    private JComponent _parent;
-   private Map _indexMap = new HashMap();
+   private Map<Integer, Integer> _indexMap = new HashMap<Integer, Integer>();
    
    private Filter _customFilter;
 
@@ -73,8 +74,7 @@ public class CommandsMenuView extends JMenu implements ListEView
                if (cmd.isOpenInNonMinimizedContext(_source)) return;
 
                add(new CommandAdapter(cmd, _eo, _source));
-               _indexMap.put(new Integer(index),
-                             new Integer(getComponentCount()-1));
+               _indexMap.put(index, getComponentCount() - 1);
                index++;
                subindex++;
             }
@@ -109,6 +109,15 @@ public class CommandsMenuView extends JMenu implements ListEView
 
    private void detachCmds()
    {
+      for (int i=0; i<getComponentCount(); i++)
+      {
+         Component c = getComponent(i);
+         if (c instanceof JMenuItem)
+         {
+            JMenuItem item = (JMenuItem) getComponent(i);
+            ((CommandAdapter) item.getAction()).detach();
+         }
+      }
       if (_commands != null)
       {
          _commands.removeListDataListener(this);
@@ -126,8 +135,7 @@ public class CommandsMenuView extends JMenu implements ListEView
             for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
             {
                Command cmd = (Command) _eo.commands().get(i);
-               int componentIndex = 
-                     ((Integer) _indexMap.get(new Integer(i))).intValue();
+               int componentIndex = _indexMap.get(i);
 
                Action action = new CommandAdapter(cmd, _eo, _source);
                add(new JMenuItem(action), componentIndex);
@@ -143,8 +151,7 @@ public class CommandsMenuView extends JMenu implements ListEView
          {
             for (int i=e.getIndex1(); i>=e.getIndex0(); i--)
             {
-               int componentIndex = ((Integer) _indexMap.
-                  get(new Integer(i))).intValue();
+               int componentIndex = _indexMap.get(i);
                remove(componentIndex);
             }
          }

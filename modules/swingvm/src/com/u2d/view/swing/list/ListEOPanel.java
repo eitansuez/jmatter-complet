@@ -37,7 +37,8 @@ public class ListEOPanel  extends JPanel
    private TitleBarView _titleBarView;
    private EView _view;
    private AbstractListEO _leo;
-   
+   private CommandAdapter newCmdAdapter;
+
    public ListEOPanel(EView view)
    {
       _view = view;
@@ -76,7 +77,8 @@ public class ListEOPanel  extends JPanel
       {
          newCmd.localize(ComplexType.forClass(User.class));
          getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(COMMAND_N, MAP_KEY);
-         getActionMap().put(MAP_KEY, new CommandAdapter(newCmd, _leo, this));
+         newCmdAdapter = new CommandAdapter(newCmd, _leo, this);
+         getActionMap().put(MAP_KEY, newCmdAdapter);
       }
    }
 
@@ -100,6 +102,7 @@ public class ListEOPanel  extends JPanel
    {
       _titleBarView.detach();
       _view.detach();
+      if (newCmdAdapter != null) newCmdAdapter.detach();
    }
    
    public boolean isMinimized() { return false; }

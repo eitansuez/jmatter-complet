@@ -22,7 +22,8 @@ public class ListItemView extends JLabel implements ComplexEView
    protected ComplexEObject _ceo;
    private transient CommandsContextMenuView _cmdsView;
    private MouseListener _defaultActionListener;
-   
+   private CommandAdapter defaultAction;
+
    public ListItemView()
    {
       setHorizontalAlignment(JLabel.LEFT);
@@ -51,7 +52,7 @@ public class ListItemView extends JLabel implements ComplexEView
       _ceo.addChangeListener(this);
 
       Command defaultCmd = _ceo.defaultCommand();
-      CommandAdapter defaultAction = new CommandAdapter(defaultCmd, _ceo, source);
+      defaultAction = new CommandAdapter(defaultCmd, _ceo, source);
       _defaultActionListener = UIUtils.doubleClickActionListener(defaultAction);
       addMouseListener(_defaultActionListener);
    }
@@ -62,6 +63,7 @@ public class ListItemView extends JLabel implements ComplexEView
       _ceo.removeChangeListener(this);
       _ceo.removePropertyChangeListener(this);
       removeMouseListener(_defaultActionListener);
+      defaultAction.detach();
    }
 
    public EObject getEObject() { return _ceo; }

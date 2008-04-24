@@ -38,6 +38,7 @@ public class EditableListView extends JPanel
    private JButton _removeBtn;
    private NullAssociation _association = null;
    private JPanel _northPanel;
+   private JPopupMenu menu;
 
    public EditableListView(RelationalList leo)
    {
@@ -121,7 +122,7 @@ public class EditableListView extends JPanel
 
    private JButton addBtn()
    {
-      JPopupMenu menu = new JPopupMenu();
+      menu = new JPopupMenu();
       menu.add(createItem());
       menu.add(browseItem());
       menu.add(findItem());
@@ -150,6 +151,11 @@ public class EditableListView extends JPanel
       _listView.removeListSelectionListener(this);
       _listView.detach();
       _leo.removeListDataListener(this);
+
+      for (int i=0; i<menu.getComponentCount(); i++)
+      {
+         ((CommandAdapter) ((JMenuItem) menu.getComponent(i)).getAction()).detach();
+      }
    }
 
    public void stateChanged(ChangeEvent e)
