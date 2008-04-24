@@ -30,9 +30,10 @@ public class CalendarView extends JPanel implements ComplexEView
    {
       _calendar = calendar;
       _checkboxPanel = new CBPanel();
-      _timeSheet = new TimeSheet(_calendar, _calendar.bounds(), _checkboxPanel);
 
       _schedules = _calendar.schedules();
+      _timeSheet = new TimeSheet(_calendar, _calendar.bounds(), _checkboxPanel);
+
       _scheduleListener = new ScheduleListener();
       _schedules.addListDataListener(_scheduleListener);
       _scheduleListener.contentsChanged(null);
@@ -46,7 +47,7 @@ public class CalendarView extends JPanel implements ComplexEView
    {
       public void intervalAdded(ListDataEvent e)
       {
-         Schedule schedule = null;
+         Schedule schedule;
          for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
          {
             schedule = (Schedule) _schedules.getElementAt(i);
@@ -59,7 +60,7 @@ public class CalendarView extends JPanel implements ComplexEView
 
       public void intervalRemoved(ListDataEvent e)
       {
-         Schedule schedule = null;
+         Schedule schedule;
          for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
          {
             schedule = (Schedule) _schedules.getElementAt(i);
@@ -74,7 +75,7 @@ public class CalendarView extends JPanel implements ComplexEView
       {
          _timeSheet.clearSchedules();
 
-         Schedule schedule = null;
+         Schedule schedule;
          for (int i=0; i<_schedules.getSize(); i++)
          {
             schedule = (Schedule) _schedules.getElementAt(i);
