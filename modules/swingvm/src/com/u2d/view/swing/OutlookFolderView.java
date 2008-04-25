@@ -103,6 +103,7 @@ public class OutlookFolderView extends JOutlookBar implements ComplexEView, Lock
 
    public void focusItem()
    {
+      if (_tabs.isEmpty()) return;
       JListView v = _tabs.get(getSelectedIndex());
       v.requestFocusInWindow();
    }
