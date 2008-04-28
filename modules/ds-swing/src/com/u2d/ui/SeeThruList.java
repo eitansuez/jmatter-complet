@@ -69,11 +69,22 @@ public class SeeThruList extends JList
       // dispatch key event down..
       int index = getSelectedIndex();
       if (index < 0) return;
+
+      // filter out navigation keys: issue in java 5.
+      if (isNavigationKey(evt.getKeyCode())) return;
       
       Object value = getModel().getElementAt(index);
       ListCellRenderer renderer = getCellRenderer();
       Component item = renderer.getListCellRendererComponent(SeeThruList.this, value, index, false, false);
 
       item.dispatchEvent(evt);
+   }
+
+   private boolean isNavigationKey(int keyCode)
+   {
+      return (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_UP ||
+          keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_LEFT ||
+          keyCode == KeyEvent.VK_HOME || keyCode == KeyEvent.VK_END ||
+          keyCode == KeyEvent.VK_PAGE_UP || keyCode == KeyEvent.VK_PAGE_DOWN );
    }
 }
