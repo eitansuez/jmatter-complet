@@ -22,6 +22,7 @@ import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.list.CompositeTableView;
 import com.u2d.view.swing.list.TableView;
+import com.u2d.view.swing.list.CompositeTabularView;
 import org.jdesktop.swingx.JXPanel;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -207,7 +208,7 @@ public class FormView extends JXPanel implements ComplexEView, Editor
       DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
       CellConstraints cc = new CellConstraints();
 
-      if (comp instanceof TableView || comp instanceof CompositeTableView)
+      if (comp instanceof TableView || comp instanceof CompositeTableView || comp instanceof CompositeTabularView )
       {
          builder.add(caption, cc.rc(1,1));
          builder.add(vPnl, cc.rc(1,3));
@@ -320,7 +321,7 @@ public class FormView extends JXPanel implements ComplexEView, Editor
    {
       // tableviews are wide.  save space by laying out caption and
       // component one below the other..
-      if (comp instanceof TableView || comp instanceof CompositeTableView)
+      if (comp instanceof TableView || comp instanceof CompositeTableView || comp instanceof CompositeTabularView )
       {
          builder.appendRow("bottom:pref");
          builder.add(caption, cc.rcw(builder.getRow(), 1, 3));
