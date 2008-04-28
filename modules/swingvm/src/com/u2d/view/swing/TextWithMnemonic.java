@@ -21,7 +21,7 @@ public class TextWithMnemonic
       if (hasMnemonic)
       {
          int index = text.indexOf('&');
-         mnemonic = text.charAt(index + 1);
+         mnemonic = Character.toUpperCase(text.charAt(index + 1));
          text = text.substring(0, index) + text.substring(index + 1);
       }
       return this;
