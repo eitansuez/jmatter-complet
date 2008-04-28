@@ -110,7 +110,7 @@ public class JListView extends SeeThruList
    {
       if (_views.get(ceo) == null)
       {
-         EView view = null;
+         EView view;
          if (_asIcons)
          {
             view = SwingViewMechanism.getInstance().getIconView(ceo);
@@ -164,9 +164,8 @@ public class JListView extends SeeThruList
    
    private void detachItems()
    {
-      for (Iterator itr = _views.values().iterator(); itr.hasNext(); )
+      for (EView view : _views.values())
       {
-         EView view = (EView) itr.next();
          view.getEObject().removeChangeListener(_memberChangeListener);
          view.detach();
       }
