@@ -40,8 +40,50 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
 
    public void bind(AtomicEObject eo)
    {
+      bind(eo, null);
+   }
+   public void bind(AtomicEObject eo, AtomicRenderer specifiedRenderer)
+   {
       _eo = eo;
 
+      setupRendererAndEditor(eo);
+      if (specifiedRenderer != null)
+      {
+         _renderer = specifiedRenderer;
+      }
+
+      JComponent rendererComponent = (JComponent) _renderer;
+      JComponent editorComponent = (JComponent) _editor;
+
+//      rendererComponent.setOpaque(false);
+      if (!isTextComponent(editorComponent))
+         editorComponent.setOpaque(false);
+
+      add(rendererComponent, "view");
+      add(editorComponent, "edit");
+
+      if (_eo.parentObject() != null)
+      {
+         setEditable(_eo.parentObject().isEditableState());
+      }
+      else
+      {
+         setEditable(false);  // start out read-only by default
+      }
+
+      _cmdsView.bind(_eo, this);
+
+      if (_eo.parentObject() != null)
+         _eo.parentObject().addChangeListener(this);
+      _eo.addChangeListener(this);
+
+      stateChanged(null);
+
+      editorComponent.addFocusListener(_focusAdapter);
+   }
+
+   private void setupRendererAndEditor(AtomicEObject eo)
+   {
       AtomicField field = (AtomicField) eo.field();
       if (field == null)
       {
@@ -60,28 +102,6 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
             _editor = field.getEditor(_eo.parentObject());
          }
       }
-
-      JComponent rendererComponent = (JComponent) _renderer;
-      JComponent editorComponent = (JComponent) _editor;
-
-//      rendererComponent.setOpaque(false);
-      if (!isTextComponent(editorComponent))
-         editorComponent.setOpaque(false);
-
-      add(rendererComponent, "view");
-      add(editorComponent, "edit");
-
-      setEditable(false);  // start out read-only by default
-
-      _cmdsView.bind(_eo, this);
-
-      if (_eo.parentObject() != null)
-         _eo.parentObject().addChangeListener(this);
-      _eo.addChangeListener(this);
-
-      stateChanged(null);
-
-      editorComponent.addFocusListener(_focusAdapter);
    }
 
 

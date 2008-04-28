@@ -23,7 +23,7 @@ public class FloatEditor extends JFormattedTextField
    public FloatEditor()
    {
       setFormatting();
-      setColumns(10);
+      setColumns(6);
       setHorizontalAlignment(JTextField.RIGHT);
 
       addFocusListener(new FocusListener()
@@ -37,11 +37,7 @@ public class FloatEditor extends JFormattedTextField
    {
       NumberFormatter formatter = new NumberFormatter();
       formatter.setAllowsInvalid(false);
-      DecimalFormat decformat = (DecimalFormat) NumberFormat.getInstance();
-      decformat.applyPattern("#,##0.00");
-      decformat.setMaximumIntegerDigits(10);
-      decformat.setMaximumFractionDigits(2);
-      formatter.setFormat(decformat);
+      formatter.setFormat(FloatEO.format());
       setFormatter(formatter);
    }
 

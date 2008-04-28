@@ -7,10 +7,10 @@ import com.u2d.type.atom.BooleanEO;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusListener;
 
 /**
  * Date: Jun 8, 2005
@@ -67,6 +67,26 @@ public class BooleanRadioEditor extends JPanel implements AtomicEditor
       BooleanEO eo = (BooleanEO) value;
       eo.setValue(_yesBtn.isSelected());
       return 0;
+   }
+
+   // hack.  basically the callback 'focuslost' calls bind again
+   // causing desired change notification.
+   public synchronized void addFocusListener(final FocusListener l)
+   {
+      _yesBtn.addActionListener(new ActionListener()
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+            l.focusLost(null);
+         }
+      });
+      _noBtn.addActionListener(new ActionListener()
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+            l.focusLost(null);
+         }
+      });
    }
 
    public void passivate() { }

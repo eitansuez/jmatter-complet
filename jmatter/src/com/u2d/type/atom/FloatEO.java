@@ -9,7 +9,6 @@ import com.u2d.find.inequalities.NumericalInequalities;
 import com.u2d.model.AtomicRenderer;
 import com.u2d.model.*;
 import com.u2d.reflection.Cmd;
-
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
@@ -44,7 +43,14 @@ public class FloatEO extends AbstractAtomicEO
 
    public boolean isEmpty() { return false; }
 
-   private static DecimalFormat format = new DecimalFormat("#.##");
+   private static DecimalFormat format = new DecimalFormat("#,##0.00");
+   static
+   {
+      format.setMaximumIntegerDigits(10);
+      format.setMaximumFractionDigits(2);
+   }
+   
+   public static DecimalFormat format() { return format; }
 
    public Title title()
    {
