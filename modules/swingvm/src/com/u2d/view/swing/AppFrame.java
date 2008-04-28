@@ -528,7 +528,7 @@ public class AppFrame extends JFrame
       action.putValue(javax.swing.Action.NAME, twm.text());
       if (twm.hasMnemonic())
       {
-         action.putValue(Action.MNEMONIC_KEY, new Integer(twm.mnemonic()));
+         action.putValue(Action.MNEMONIC_KEY, (int) twm.mnemonic());
       }
    }
    
