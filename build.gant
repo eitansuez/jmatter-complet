@@ -1,6 +1,6 @@
 projectName = "jmatterDistributor"
 
-task ('default' : 'default target (makeDistroAndChecksums)' ) { makeDistroAndChecksums() }
+target ('default' : 'default target (makeDistroAndChecksums)' ) { makeDistroAndChecksums() }
 
 // This build file produces official JMatter distributions
 
@@ -14,19 +14,19 @@ jmatterDir = baseDir + '/jmatter'
 demoDir = baseDir + '/demo-apps'
 modulesDir = baseDir + '/modules'
 
-task ( init : '')
+target ( init : '')
 {
   Ant.tsamp()
   Ant.mkdir (dir : buildTargetDir )
   Ant.mkdir (dir : distDir )
 }
 
-task ( clean : '')
+target ( clean : '')
 {
   Ant.delete ( dir : buildDir )
 } 
 
-task ( makeDistro : 'Produce JMatter Distribution' )
+target ( makeDistro : 'Produce JMatter Distribution' )
 {
   depends ( clean, init, includeDemoapps, includeModules, makeJmatterJar, makedocPdf )
   Ant.copy ( todir : buildTargetDir )
@@ -66,7 +66,7 @@ task ( makeDistro : 'Produce JMatter Distribution' )
    Ant.tar ( basedir : buildDir, destfile : "${distDir}/${dirname}.tgz", compression: "gzip" )
 }
 
-task ( makeJmatterJar : '')
+target ( makeJmatterJar : '')
 {
    // ensure to produce and include a binary in the distribution
    Ant.ant(antfile : "${jmatterDir}/build.xml" , inheritAll : false, target : 'cleanjar' )
@@ -74,7 +74,7 @@ task ( makeJmatterJar : '')
    Ant.ant(antfile : "${jmatterDir}/build.xml", inheritAll : false, target : 'clean ' )
 }
 
-task ( makedocPdf : 'produce pdf documentation (if necessary)' )
+target ( makedocPdf : 'produce pdf documentation (if necessary)' )
 {
   File srcFile = new File("${jmatterDir}/doc/guide.lyx")
   File pdf = new File("${jmatterDir}/doc/guide.pdf")
@@ -91,7 +91,7 @@ task ( makedocPdf : 'produce pdf documentation (if necessary)' )
 
 // ---------------------------------------
 
-task ( includeDemoapps : '')
+target ( includeDemoapps : '')
 {
   depends ( cleanDemoapps )
   Ant.copy ( todir : buildDir )
@@ -102,7 +102,7 @@ task ( includeDemoapps : '')
 
 def demoapps = ['ContactMgr', 'IssueMgr', 'Sympster', 'MovieLib', 'MyTunes', 'CustomUI'];
 
-task ( cleanDemoapps : '')
+target ( cleanDemoapps : '')
 {
   demoapps.each { demoapp ->
     Ant.ant(antfile : "${demoDir}/${demoapp}/build.xml", inheritAll : false, target : 'clean' )
@@ -111,7 +111,7 @@ task ( cleanDemoapps : '')
    
 // -------------------------------
 
-task ( includeModules : '' )
+target ( includeModules : '' )
 {
   depends ( cleanModules )
   Ant.copy ( todir : buildDir )
@@ -122,7 +122,7 @@ task ( includeModules : '' )
 
 def modules = ['ds-swing', 'ds-wizard', 'echo2vm', 'jmatter-tools', 'swingvm', 'wingsvm']
 
-task ( cleanModules : '')
+target ( cleanModules : '')
 {
   modules.each { module ->
     Ant.ant (antfile : "modules/${module}/build.xml" , inheritAll : false, target : 'clean' )
@@ -131,21 +131,21 @@ task ( cleanModules : '')
 
 // --------------------------------
 
-task ( checksumDistributions : 'generate checksum files for distributions')
+target ( checksumDistributions : 'generate checksum files for distributions')
 {
   depends ( makeDistro )
   checksum('MD5')
   checksum('SHA-1')
 }
 
-task ( checksum : '') { algo ->
+target ( checksum : '') { algo ->
   Ant.checksum(algorighm : algo)
   {
     fileset ( dir: distDir, includes: '*.tgz, *.zip' )
   }
 }
 
-task ( makeDistroAndChecksums : 'construct jmatter distributions and corresponding checksums' )
+target ( makeDistroAndChecksums : 'construct jmatter distributions and corresponding checksums' )
 {
   depends ( checksumDistributions )
 }

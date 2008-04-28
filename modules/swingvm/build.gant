@@ -1,6 +1,6 @@
 projectName = 'swingvm'
 
-task( 'default' : 'default target (jar)' ) { jar () }
+target( 'default' : 'default target (jar)' ) { jar () }
 
 // Swing View Mechanism Implementation for JMatter
 
@@ -37,26 +37,26 @@ Ant.path ( id : 'test.classpath')
   pathelement ( location : testClassesDir )
 }
 
-task ( init : '')
+target ( init : '')
 {
   Ant.mkdir ( dir : buildClassesDir )
   Ant.mkdir ( dir : distDir )
   Ant.tstamp()
 }
 
-task ( clean : 'delete build artifacts')
+target ( clean : 'delete build artifacts')
 {
   Ant.delete ( dir : buildDir )
   Ant.delete ( dir : distDir )
 }
 
-task ( compile : 'compile' )
+target ( compile : 'compile' )
 {
   depends (init)
   Ant.javac(debug: 'on', srcdir : srcDir, destdir : buildClassesDir, target : '1.5', classpathref : 'class.path' )
 }
 
-task ( jar : 'jar' )
+target ( jar : 'jar' )
 {
   depends ( compile )
   Ant.jar ( destfile : "${distDir}/${projectName}.jar" , 
@@ -65,20 +65,20 @@ task ( jar : 'jar' )
 
 // targets pertaining to junit testing
 
-task ( testInit : '')
+target ( testInit : '')
 {
   Ant.mkdir ( dir : testClassesDir )
   Ant.mkdir ( dir : testReportsDir )
 }
 
-task ( compileTests : 'compile tests')
+target ( compileTests : 'compile tests')
 {
   depends (testInit, compile)
   Ant.javac ( debug : 'on', deprecation : 'on', 
               classpathref : 'test.classpath' , destdir : testClassesDir, srcdir : testSrcDir )
 }
 
-task ( runTests : 'run tests')
+target ( runTests : 'run tests')
 {
   depends ( compileTests )
   Ant.junit ( fork: true, haltonfailure : true, printsummary : true )
@@ -92,13 +92,13 @@ task ( runTests : 'run tests')
   }
 }
 
-task ( runTest : 'run a test class' )
+target ( runTest : 'run a test class' )
 {
   depends ( compileTests )
   Ant.java ( classname : mainClass, classpathref : 'class.path' , fork : true )
 }
 
-task ( testReport : 'produce junit reports')
+target ( testReport : 'produce junit reports')
 {
   depends ( runTests )
   Ant.junitreport ( todir : testReportsDir )

@@ -307,7 +307,7 @@ target ( findDrvname: '')
   Ant.jdbcdriversetter ( basepath : "${libDir}/jdbc" )
 }
 
-task(copylibs : '') { targetDir, vmname ->
+target (copylibs : '') { targetDir, vmname ->
   depends (findDrvname)
   Ant.property( name : 'jdbcdrivername', value : '*.jar')  // fallback
   Ant.mkdir (dir : targetDir )
