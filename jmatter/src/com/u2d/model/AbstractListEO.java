@@ -65,7 +65,7 @@ public abstract class AbstractListEO extends AbstractEObject
    public static String[] commandOrder = {"Open", "ExportToCSV", "Print"};
    
    private ListType _listtype;
-   public ListType listtype()
+   public synchronized ListType listtype()
    {
       if (_listtype == null)
          _listtype = ListType.forClass(getClass(), getJavaClass());
@@ -162,7 +162,7 @@ public abstract class AbstractListEO extends AbstractEObject
 
    protected void updateListeners(boolean clear)
    {
-      ComplexEObject ceo = null;
+      ComplexEObject ceo;
       for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
          ceo = (ComplexEObject) itr.next();
@@ -327,7 +327,7 @@ public abstract class AbstractListEO extends AbstractEObject
       
       public LEOTableModel()
       {
-         Field field = null;
+         Field field;
          for (Iterator itr = type().fields().iterator(); itr.hasNext(); )
          {
             field = (Field) itr.next();
