@@ -45,7 +45,7 @@ public class SimpleListEO extends AbstractListEO
 
    // lazy derivation of type from class avoids infinite recursion when harvesting if
    // this were placed eagerly in the constructor
-   public ComplexType type()
+   public synchronized ComplexType type()
    {
       if (_itemType == null)
          _itemType = ComplexType.forClass(_clazz);
