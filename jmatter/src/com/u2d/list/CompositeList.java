@@ -5,6 +5,7 @@ package com.u2d.list;
 
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.Harvester;
+import com.u2d.model.ComplexType;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
 import com.u2d.pattern.State;
@@ -16,6 +17,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.beans.PropertyDescriptor;
 import java.beans.IntrospectionException;
 import static com.u2d.pubsub.AppEventType.*;
+import com.u2d.reflection.Cmd;
+import com.u2d.element.CommandInfo;
 
 /**
  * @author Eitan Suez
@@ -31,15 +34,19 @@ public class CompositeList extends SimpleListEO
    private CompositeList() {}  // for jibx
 
    public CompositeList(Class clazz) { super(clazz); }
-   public CompositeList(Class clazz, ComplexEObject parent, String parentFldname)
+   public CompositeList(Class clazz, ComplexEObject parent)
    {
       this(clazz);
-      workoutSetter(parent, parentFldname);
+      _parent = parent;
+   }
+   public CompositeList(Class clazz, ComplexEObject parent, String parentFldname)
+   {
+      this(clazz, parent);
+      workoutSetter(parentFldname);
    }
 
-   private void workoutSetter(ComplexEObject parent, String parentFldname)
+   private void workoutSetter(String parentFldname)
    {
-      _parent = parent;
       try
       {
          PropertyDescriptor descriptor = new PropertyDescriptor(parentFldname, _clazz, null,
@@ -125,13 +132,32 @@ public class CompositeList extends SimpleListEO
       }
    }
 
-   public ComplexEObject addNew()
+   @Cmd
+   public void AddItem(CommandInfo cmdInfo)
    {
-      ComplexEObject instance = type().instance();
-      add(instance);
-      setParent(instance);
-      return instance;
+      AddItem(cmdInfo, type());
    }
+
+   @Cmd
+   public void AddItem(CommandInfo cmdInfo, ComplexType type)
+   {
+      ComplexEObject ceo = type.instance();
+      add(ceo);
+      setParent(ceo);
+   }
+
+   public void add(int index, ComplexEObject item)
+   {
+      if (_parent != null) item.setState(_parent.getState());
+      super.add(index, item);
+   }
+
+   public void add(ComplexEObject item)
+   {
+      if (_parent != null) item.setState(_parent.getState());
+      super.add(item);
+   }
+
 
    public void onBeforeSave()
    {

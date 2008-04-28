@@ -85,7 +85,7 @@ public class CompositeTableView extends JPanel
             {
                public void run()
                {
-                  _leo.addNew();
+                  _leo.AddItem(null);
                   SwingUtilities.invokeLater(new Runnable()
                   {  // ensures that table resizes appropriately
                      public void run()
