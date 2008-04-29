@@ -15,10 +15,20 @@ import com.u2d.type.atom.BooleanEO;
  */
 public class BooleanRenderer extends JLabel implements AtomicRenderer
 {
+   private String _yes, _no;
+   public BooleanRenderer()
+   {
+      this(ComplexType.localeLookupStatic("yes"), ComplexType.localeLookupStatic("no"));
+   }
+   public BooleanRenderer(String yes, String no)
+   {
+      _yes = yes;
+      _no = no;
+   }
    public void render(AtomicEObject value)
    {
       BooleanEO eo = (BooleanEO) value;
-      setText((eo.booleanValue()) ? ComplexType.localeLookupStatic("yes") : ComplexType.localeLookupStatic("no"));
+      setText((eo.booleanValue()) ? _yes : _no);
    }
 
    public void passivate() { }

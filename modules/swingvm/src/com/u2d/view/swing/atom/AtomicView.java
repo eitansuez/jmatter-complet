@@ -40,17 +40,19 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
 
    public void bind(AtomicEObject eo)
    {
-      bind(eo, null);
+      bind(eo, null, null);
    }
    public void bind(AtomicEObject eo, AtomicRenderer specifiedRenderer)
+   {
+      bind(eo, specifiedRenderer, null);
+   }
+   public void bind(AtomicEObject eo, AtomicRenderer specifiedRenderer, AtomicEditor specifiedEditor)
    {
       _eo = eo;
 
       setupRendererAndEditor(eo);
-      if (specifiedRenderer != null)
-      {
-         _renderer = specifiedRenderer;
-      }
+      if (specifiedRenderer != null) _renderer = specifiedRenderer;
+      if (specifiedEditor != null) _editor = specifiedEditor;
 
       JComponent rendererComponent = (JComponent) _renderer;
       JComponent editorComponent = (JComponent) _editor;

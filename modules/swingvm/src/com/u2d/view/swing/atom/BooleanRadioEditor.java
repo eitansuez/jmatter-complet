@@ -24,9 +24,13 @@ public class BooleanRadioEditor extends JPanel implements AtomicEditor
 
    public BooleanRadioEditor()
    {
-      _yesBtn = new JRadioButton(ComplexType.localeLookupStatic("yes"));
+      this(ComplexType.localeLookupStatic("yes"), ComplexType.localeLookupStatic("no"));
+   }
+   public BooleanRadioEditor(String yes, String no)
+   {
+      _yesBtn = new JRadioButton(yes);
       _yesBtn.setOpaque(false);
-      _noBtn = new JRadioButton(ComplexType.localeLookupStatic("no"));
+      _noBtn = new JRadioButton(no);
       _noBtn.setOpaque(false);
 
       _yesBtn.addActionListener(new ActionListener()
