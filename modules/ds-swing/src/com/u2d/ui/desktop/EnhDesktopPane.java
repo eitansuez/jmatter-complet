@@ -119,6 +119,8 @@ public class EnhDesktopPane extends MyDesktopPane
          if (event.getID() == MouseEvent.MOUSE_PRESSED)
          {
             mouseEvent = (MouseEvent) event;
+            if (!mouseEvent.isShiftDown()) return;
+
             lastMouseClickLocation =
                SwingUtilities.convertPoint(
                      (Component) event.getSource(),
@@ -140,7 +142,6 @@ public class EnhDesktopPane extends MyDesktopPane
                }
             }
             if (targetFrame == null) return;
-            if (!mouseEvent.isShiftDown()) return;
 
             mouseEvent.consume();
             enterFrameMoveMode(targetFrame, SwingUtilities.convertPoint((Component) event.getSource(),
