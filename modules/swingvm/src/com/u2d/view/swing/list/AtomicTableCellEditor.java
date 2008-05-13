@@ -12,6 +12,7 @@ import com.u2d.view.ActionNotifier;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -40,7 +41,16 @@ public class AtomicTableCellEditor extends AbstractCellEditor
       AtomicEObject aeo = (AtomicEObject) value;
       AtomicRenderer renderer = fetchRenderer(aeo);
       renderer.render(aeo);
-      return (JComponent) renderer;
+
+      return highlight(table, (JComponent) renderer, isSelected, hasFocus);
+   }
+   public static Border NOFOCUSBORDER = BorderFactory.createEmptyBorder(1,1,1,1);
+   private JComponent highlight(JTable table, JComponent comp, boolean isSelected, boolean hasFocus)
+   {
+      comp.setForeground( (isSelected) ? table.getSelectionForeground() : table.getForeground());
+      comp.setBackground( (isSelected) ? table.getSelectionBackground() : table.getBackground());
+      comp.setBorder( (hasFocus) ? UIManager.getBorder("Table.focusCellHighlightBorder") : NOFOCUSBORDER);
+      return comp;
    }
 
    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column)
