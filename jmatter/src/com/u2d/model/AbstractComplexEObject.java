@@ -152,7 +152,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public void setStartState()
    {
-      setReadState();
       setState(startState(), true);
 
       for (Iterator itr = childFields().iterator(); itr.hasNext(); )
@@ -164,7 +163,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    }
    public void restoreState()
    {
-      setReadState();
       setState(restoredState(), true /* shallow */);
    }
 
@@ -706,6 +704,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       public ComplexEObject Open(CommandInfo cmdInfo)
       {
          refresh();
+         setStartState();
          return AbstractComplexEObject.this;
       }
       
