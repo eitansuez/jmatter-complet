@@ -651,5 +651,18 @@ public abstract class AbstractListEO extends AbstractEObject
       result.append(leo.getElementAt(lastIdx));
       return result.toString();
    }
+   public static String join(List l)
+   {
+      if (l.size() == 0) return "";
+      StringBuffer result = new StringBuffer();
+      for (int i=0; i<l.size()-1; i++)
+      {
+         Object item = l.get(i);
+         result.append(item.toString()).append(", ");
+      }
+      int lastIdx = l.size() - 1;
+      result.append(l.get(lastIdx));
+      return result.toString();
+   }
    
 }
