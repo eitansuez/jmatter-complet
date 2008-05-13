@@ -18,7 +18,6 @@ import com.u2d.model.Editor;
 import com.u2d.ui.CustomTabbedPane;
 import com.u2d.ui.UIUtils;
 import com.u2d.validation.ValidationNotifier;
-import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.list.CompositeTableView;
 import com.u2d.view.swing.list.TableView;
@@ -38,7 +37,7 @@ import java.util.List;
 /**
  * @author Eitan Suez
  */
-public class FormView extends JXPanel implements ComplexEView, Editor
+public class FormView extends JXPanel implements IFormView
 {
    private ComplexEObject _ceo;
    private boolean _leafContext;

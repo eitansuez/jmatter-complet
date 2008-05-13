@@ -27,24 +27,32 @@ public class TopLevelFormView extends JXPanel
    private ComplexEObject _ceo;
 
    private transient CommandsButtonView _cmdsView;
-   private FormView _formView;
+   private IFormView _formView;
    private StatusPanel _statusPanel;
 
    public TopLevelFormView(ComplexEObject ceo)
    {
       _ceo = ceo;
+      init(new FormView(ceo));
+   }
+   public TopLevelFormView(IFormView customFormView)
+   {
+      _ceo = (ComplexEObject) customFormView.getEObject();
+      init(customFormView);
+   }
 
+   private void init(IFormView formview)
+   {
       setLayout(new BorderLayout());
 
-      _formView = new FormView(ceo);
-      add(_formView, BorderLayout.CENTER);
+      _formView = formview;
+      add((JComponent) _formView, BorderLayout.CENTER);
 
       _cmdsView = new CommandsButtonView();
       _cmdsView.bind(_ceo, this, BorderLayout.EAST, this);
 
       addStatusPanel();
    }
-
 
    public void addNotify()
    {
