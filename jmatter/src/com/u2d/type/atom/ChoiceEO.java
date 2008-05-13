@@ -24,10 +24,18 @@ public abstract class ChoiceEO extends AbstractAtomicEO
    
    public boolean isEmpty() { return false; }
 
-   public void parseValue(String value) throws ParseException
+   public void parseValue(String value) throws java.text.ParseException
    {
+      if (StringEO.isEmpty(value))
+      {
+         _value = "";
+         return;
+      }
       if (!entries().contains(value))
-         throw new ParseException("Invalid value: "+value+" (not in set)", 0);
+      {
+         String msg = String.format("Invalid value: [%s] (not in set)", value);
+         throw new ParseException(msg, 0);
+      }
       _value = value;
    }
    
