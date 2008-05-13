@@ -74,13 +74,13 @@ public abstract class Member extends ProgrammingElement implements Restrictable
       
       private int getIndex(String memberName)
       {
-         Integer value = (Integer) _inverted.get(memberName);
+         Integer value = _inverted.get(memberName);
          if (value == null)
          {
             //System.err.println("No index for member name "+memberName);
             return _inverted.size();
          }
-         return value.intValue();
+         return value;
       }
       
       public boolean equals(Object obj)
