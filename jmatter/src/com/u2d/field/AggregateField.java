@@ -5,7 +5,6 @@ package com.u2d.field;
 
 import java.util.*;
 import java.beans.*;
-import java.lang.reflect.Modifier;
 import com.u2d.element.Field;
 import com.u2d.list.RelationalList;
 import com.u2d.model.*;
@@ -53,7 +52,7 @@ public class AggregateField extends CompositeField implements FieldParent
    public List fields() { return _fields; }
    public Field field(String propName)
    {
-      Field field = (Field) _fieldsMap.get(propName);
+      Field field = _fieldsMap.get(propName);
       if (field == null && !type().equals(this))
       {
          field = type().field(propName);
@@ -66,7 +65,7 @@ public class AggregateField extends CompositeField implements FieldParent
    public static Map<String, Field> makeFieldMap(Collection fields)
    {
       Map<String, Field> fieldMap = new HashMap<String, Field>();
-      Field field = null;
+      Field field;
       for (Iterator itr = fields.iterator(); itr.hasNext(); )
       {
          field = (Field) itr.next();
@@ -94,7 +93,7 @@ public class AggregateField extends CompositeField implements FieldParent
    public int validate(ComplexEObject parent)
    {
       int result = 0;
-      Field field = null;
+      Field field;
       ComplexEObject fieldValue = (ComplexEObject) get(parent);
       for (int i=0; i<_fields.size(); i++)
       {
