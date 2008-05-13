@@ -188,7 +188,17 @@ public class JSON
          else
          {
             AtomicEObject fieldValue = (AtomicEObject) field.get(eo);
-            fieldValue.parseValue((String) value);
+            try
+            {
+               fieldValue.parseValue((String) value);
+            }
+            catch (ParseException ex)
+            {
+               String msg = String.format("Failed to parse value for field %s", field);
+               System.err.println(msg);
+               ex.printStackTrace();
+               throw ex;
+            }
          }
       }
       return eo;
