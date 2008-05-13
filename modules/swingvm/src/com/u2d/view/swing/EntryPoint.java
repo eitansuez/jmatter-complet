@@ -1,7 +1,6 @@
 package com.u2d.view.swing;
 
 import javax.swing.*;
-import java.net.URL;
 
 /**
  * Created by IntelliJ IDEA.
