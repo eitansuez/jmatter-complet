@@ -19,13 +19,6 @@ public class BooleanCheckboxEditor2 extends JCheckBox implements AtomicEditor, A
       setOpaque(false);
    }
 
-   public int bind(AtomicEObject value)
-   {
-      BooleanEO eo = (BooleanEO) value;
-      eo.setValue(isSelected());
-      return 0;
-   }
-
    public void render(AtomicEObject value)
    {
       BooleanEO eo = (BooleanEO) value;
@@ -33,5 +26,13 @@ public class BooleanCheckboxEditor2 extends JCheckBox implements AtomicEditor, A
       setSelected(eo.booleanValue());
    }
 
+   public int bind(AtomicEObject value)
+   {
+      BooleanEO eo = (BooleanEO) value;
+      eo.setValue(isSelected());
+      return 0;
+   }
+
    public void passivate() { }
+
 }

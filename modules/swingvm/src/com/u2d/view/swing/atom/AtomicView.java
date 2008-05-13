@@ -5,10 +5,14 @@ import com.u2d.view.AtomicEView;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import com.u2d.model.*;
 import com.u2d.field.AtomicField;
+import com.u2d.field.CompositeField;
+import com.u2d.validation.ValidationListener;
+import com.u2d.validation.ValidationEvent;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.*;
+import java.awt.*;
 
 /**
  * Date: Jun 8, 2005
@@ -16,13 +20,15 @@ import java.awt.event.*;
  *
  * @author Eitan Suez
  */
-public class AtomicView extends CardPanel implements AtomicEView, Editor
+public class AtomicView extends CardPanel implements AtomicEView, Editor, ValidationListener
 {
    protected AtomicEObject _eo;
    protected AtomicRenderer _renderer;
    protected AtomicEditor _editor;
    protected FocusAdapter _focusAdapter;
    protected transient CommandsContextMenuView _cmdsView;
+
+   protected int _previousErrors = 0;
 
    public AtomicView()
    {
@@ -31,8 +37,16 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
          public void focusLost(FocusEvent e)
          {
             int errors = _editor.bind(_eo);
-            if (errors == 0)
-               _eo.fireValidationException(""); // reset any previous
+            if (errors == 0 && _previousErrors != 0)
+            {
+               _eo.fireValidationException(""); // reset previous
+            }
+            else
+            {
+               // possibly update background color of component if required..
+               decorateBackground(editorComponent(), "", _eo);
+            }
+            _previousErrors = errors;
          }
       };
       _cmdsView = new CommandsContextMenuView();
@@ -55,18 +69,25 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
       if (specifiedEditor != null) _editor = specifiedEditor;
 
       JComponent rendererComponent = (JComponent) _renderer;
-      JComponent editorComponent = (JComponent) _editor;
+      JComponent editorComponent = editorComponent();
 
-//      rendererComponent.setOpaque(false);
+      if (isTextComponent(editorComponent) && eo.field() != null && eo.field().required() && eo.isEmpty())
+      {
+         editorComponent.setBackground(ValidationEvent.REQUIRED_COLOR);
+      }
+
       if (!isTextComponent(editorComponent))
+      {
          editorComponent.setOpaque(false);
+      }
 
       add(rendererComponent, "view");
       add(editorComponent, "edit");
 
       if (_eo.parentObject() != null)
       {
-         setEditable(_eo.parentObject().isEditableState());
+         setEditable(_eo.parentObject().isEditableState() && !_eo.field().isReadOnly()
+           && !(((CompositeField) _eo.field()).isIdentity() && !_eo.parentObject().isTransientState()) );
       }
       else
       {
@@ -78,10 +99,21 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
       if (_eo.parentObject() != null)
          _eo.parentObject().addChangeListener(this);
       _eo.addChangeListener(this);
+      _eo.addValidationListener(this);
 
       stateChanged(null);
 
       editorComponent.addFocusListener(_focusAdapter);
+   }
+
+   private JComponent editorComponent()
+   {
+      JComponent editorComponent = (JComponent) _editor;
+      if (editorComponent instanceof CompositeEditor)
+      {
+         editorComponent = ((CompositeEditor) editorComponent).getEditorComponent();
+      }
+      return editorComponent;
    }
 
    private void setupRendererAndEditor(AtomicEObject eo)
@@ -114,7 +146,8 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
          _eo.parentObject().removeChangeListener(this);
 
       ((JComponent) _editor).removeFocusListener(_focusAdapter);
-      
+
+      _eo.removeValidationListener(this);
       _cmdsView.detach();
    }
 
@@ -132,6 +165,24 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
          {
             _renderer.render(_eo);
             _editor.render(_eo);
+         }
+      });
+   }
+
+   public void validationException(final ValidationEvent evt)
+   {
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            if (_renderer instanceof ValidationListener)
+            {
+               ((ValidationListener) _renderer).validationException(evt);
+            }
+            if (_editor instanceof ValidationListener)
+            {
+               ((ValidationListener) _editor).validationException(evt);
+            }
          }
       });
    }
@@ -158,4 +209,32 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor
    
    public AtomicEditor getEditor() { return _editor; }
 
+
+   // common utility for multiple kinds of editors/renderers ..
+
+   public static void decorateBackground(JComponent component, ValidationEvent evt)
+   {
+      decorateBackground(component, evt.getMsg(), evt.getSource());
+   }
+   public static void decorateBackground(JComponent component, String msg, Object source)
+   {
+      component.setToolTipText(msg);
+      Color bgColor = ValidationEvent.NORMAL_COLOR;
+
+      if (source instanceof EObject)
+      {
+         EObject eo = (EObject) source;
+         if (eo.field() != null && eo.field().required() && eo.isEmpty())
+         {
+            bgColor = ValidationEvent.REQUIRED_COLOR;
+         }
+      }
+
+      if (!msg.isEmpty())
+      {
+         bgColor = ValidationEvent.INVALID_COLOR;
+      }
+      component.setBackground(bgColor);
+   }
+   
 }

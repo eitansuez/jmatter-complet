@@ -10,7 +10,6 @@ import com.u2d.model.AtomicRenderer;
 import com.u2d.model.*;
 import com.u2d.reflection.Cmd;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 
 /**
  * @author Eitan Suez
@@ -29,6 +28,8 @@ public class FloatEO extends AbstractAtomicEO
 
    public float floatValue() { return (float) _value; }
    public double doubleValue() { return _value; }
+   public int intValue() { return (int) _value; }
+   
    public void setValue(double value)
    {
       _value = value;
@@ -43,24 +44,28 @@ public class FloatEO extends AbstractAtomicEO
 
    public boolean isEmpty() { return false; }
 
-   private static DecimalFormat format = new DecimalFormat("#,##0.00");
+   private static DecimalFormat DEFAULT_FORMAT = new DecimalFormat("#,##0.00");
    static
    {
-      format.setMaximumIntegerDigits(10);
-      format.setMaximumFractionDigits(2);
+      DEFAULT_FORMAT.setMaximumIntegerDigits(10);
+      DEFAULT_FORMAT.setMaximumFractionDigits(2);
    }
-   
-   public static DecimalFormat format() { return format; }
+
+   public DecimalFormat format()
+   {
+      DecimalFormat formatter = DEFAULT_FORMAT;
+      if (field() != null && !StringEO.isEmpty(field().format()))
+      {
+         formatter = new DecimalFormat(field().format());
+      }
+      return formatter;
+   }
 
    public Title title()
    {
-      return new Title(format.format(_value));
+      return new Title(format().format(_value));
    }
-
-   public String toString()
-   {
-      return title().toString();
-   }
+   public String toString() { return title().toString(); }
 
    public boolean equals(Object obj)
    {
@@ -94,12 +99,12 @@ public class FloatEO extends AbstractAtomicEO
       {
          try
          {
-            double doubleVal = format.parse(stringValue).doubleValue();
+            double doubleVal = format().parse(stringValue).doubleValue();
             setValue(doubleVal);
          }
-         catch (ParseException e)
+         catch (java.text.ParseException e)
          {
-            throw new RuntimeException(e);
+            throw new ParseException(e);
          }
       }
    }

@@ -33,7 +33,7 @@ public class TermsEditor extends JPanel implements AtomicEditor
       
       JLabel label = new JLabel("I Agree to the above terms: ");
       _iagree = new BooleanCheckboxEditor();
-      label.setLabelFor((Component) _iagree);
+      label.setLabelFor(_iagree);
       
       JPanel bottomPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
       bottomPnl.add(label);

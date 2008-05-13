@@ -6,7 +6,6 @@ import com.u2d.model.AtomicRenderer;
 import com.u2d.type.atom.TextEO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusListener;
 
 /**
  * Date: Jun 8, 2005
@@ -14,7 +13,7 @@ import java.awt.event.FocusListener;
  *
  * @author Eitan Suez
  */
-public class TextEditor extends JPanel implements AtomicRenderer, AtomicEditor
+public class TextEditor extends JPanel implements AtomicRenderer, AtomicEditor, CompositeEditor
 {
    private JTextArea _area;
 
@@ -31,7 +30,9 @@ public class TextEditor extends JPanel implements AtomicRenderer, AtomicEditor
    {
       _area.setRows(rows);
    }
-   
+
+   public JComponent getEditorComponent() { return _area; }
+
    public void setEditable(boolean editable)
    {
       _area.setEditable(editable);
@@ -69,12 +70,4 @@ public class TextEditor extends JPanel implements AtomicRenderer, AtomicEditor
       _area.setEditable(false);
    }
    
-   public void addFocusListener(FocusListener l)
-   {
-      _area.addFocusListener(l);
-   }
-   public void removeFocusListener(FocusListener l)
-   {
-      _area.removeFocusListener(l);
-   }
 }

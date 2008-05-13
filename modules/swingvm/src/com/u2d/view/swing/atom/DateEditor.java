@@ -15,7 +15,6 @@ import java.net.URL;
 import java.util.Date;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-
 import com.holub.ui.*;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -24,7 +23,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Eitan Suez
  */
 public class DateEditor extends JPanel
-                        implements AtomicEditor, ActionNotifier
+                        implements AtomicEditor, ActionNotifier, CompositeEditor
 {
    private JTextField _tf;
    private JButton _calendarBtn;
@@ -168,17 +167,8 @@ public class DateEditor extends JPanel
    }
 
    // ===
-   
-   public synchronized void addFocusListener(FocusListener l)
-   {
-      _tf.addFocusListener(l);
-   }
 
-   public synchronized void removeFocusListener(FocusListener l)
-   {
-      _tf.removeFocusListener(l);
-   }
-
+   public JComponent getEditorComponent() { return _tf; }
 
    public void passivate() { }
 

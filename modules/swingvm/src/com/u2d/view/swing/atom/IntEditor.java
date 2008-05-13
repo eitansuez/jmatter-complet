@@ -38,6 +38,12 @@ public class IntEditor extends JTextField implements AtomicEditor, ActionNotifie
 
    public void render(AtomicEObject value)
    {
+      if (value.field() != null && value.field().displaysize() > 0
+            && value.field().displaysize() != getColumns())
+      {
+         setColumns(value.field().displaysize());
+      }
+      
       setText(value.toString());
    }
 

@@ -27,6 +27,7 @@ public class ChoiceRadioEditor extends JPanel implements AtomicEditor
       ChoiceEO eo = (ChoiceEO) value;
       if (! _laidout )
       {
+         setOpaque(false);
          FormLayout layout = new FormLayout("", "p");
          int numCols = 2 * (eo.entries().size()-1) + 1;
          for (int i=0; i<numCols; i++)
@@ -44,6 +45,7 @@ public class ChoiceRadioEditor extends JPanel implements AtomicEditor
          for (Object entry : eo.entries())
          {
             JRadioButton btn = new JRadioButton((String) entry);
+            btn.setOpaque(false);
             group.add(btn);
             int col = (i*2)+1;
             builder.add(btn, cc.rc(1, col));

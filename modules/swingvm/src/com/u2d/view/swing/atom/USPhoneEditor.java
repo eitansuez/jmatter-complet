@@ -5,13 +5,15 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
+import com.u2d.validation.ValidationListener;
+import com.u2d.validation.ValidationEvent;
 
 import javax.swing.*;
 
 /**
  * @author Eitan Suez
  */
-public class USPhoneEditor extends JTextField implements AtomicEditor
+public class USPhoneEditor extends JTextField implements AtomicEditor, ValidationListener
 {
    public USPhoneEditor()
    {
@@ -39,4 +41,8 @@ public class USPhoneEditor extends JTextField implements AtomicEditor
 
    public void passivate() { }
 
+   public void validationException(ValidationEvent evt)
+   {
+      AtomicView.decorateBackground(this, evt);
+   }
 }

@@ -5,6 +5,8 @@ import com.u2d.model.AtomicEditor;
 import com.u2d.model.EObject;
 import com.u2d.type.atom.ChoiceEO;
 import javax.swing.*;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 /**
  *
@@ -16,12 +18,22 @@ public class ChoiceEOEditor extends JComboBox implements AtomicEditor
 
    public ChoiceEOEditor() {}
 
-   public void render(AtomicEObject value)
+   public void render(final AtomicEObject value)
    {
       if (_model == null)
       {
          _model = new ChoiceEOModel((ChoiceEO) value);
          setModel(_model);
+         addItemListener(new ItemListener()
+         {
+            public void itemStateChanged(ItemEvent e)
+            {
+               if (e.getStateChange() == ItemEvent.SELECTED)
+               {
+                  bind(value);  // causes changes to reflect immediately; i.e. without having to wait for component to losefocus
+               }
+            }
+         });
       }
       setSelectedItem(value);
    }

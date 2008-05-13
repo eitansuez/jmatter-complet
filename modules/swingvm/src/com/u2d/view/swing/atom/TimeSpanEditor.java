@@ -30,8 +30,8 @@ public class TimeSpanEditor extends JPanel implements AtomicEditor
       _toEditor = new TimeSpinnerEditor();
 
       ((JComponent) _dateEditor).setOpaque(false);
-      ((JComponent) _fromEditor).setOpaque(false);
-      ((JComponent) _toEditor).setOpaque(false);
+      _fromEditor.setOpaque(false);
+      _toEditor.setOpaque(false);
       
       // the implementation of a feature that ensures that
       // as the from time is changed, the to time moves with
@@ -66,9 +66,9 @@ public class TimeSpanEditor extends JPanel implements AtomicEditor
       builder.addLabel("Date:", cc.xy(1, 1));
       builder.add((JComponent) _dateEditor, cc.xyw(3, 1, 5));
       builder.addLabel("From:", cc.xy(1, 3));
-      builder.add((JComponent) _fromEditor, cc.xy(3, 3));
+      builder.add(_fromEditor, cc.xy(3, 3));
       builder.addLabel("To:", cc.xy(5, 3));
-      builder.add((JComponent) _toEditor, cc.xy(7, 3));
+      builder.add(_toEditor, cc.xy(7, 3));
    }
 
    public void render(AtomicEObject value)
@@ -109,8 +109,6 @@ public class TimeSpanEditor extends JPanel implements AtomicEditor
       return 0;
    }
 
-   public void passivate()
-   {
-   }
+   public void passivate() { }
 
 }
