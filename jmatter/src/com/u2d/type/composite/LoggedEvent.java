@@ -22,7 +22,7 @@ public class LoggedEvent extends AbstractComplexEObject
    private User _user;
    private Command _command;
    private ComplexEObject _object;
-   private final LogEventType _type = new LogEventType(INFO);
+   private final LogEventType _eventType = new LogEventType(INFO);
 
    public static final String DEBUG = "Debug";
    public static final String INFO = "Information";
@@ -31,17 +31,14 @@ public class LoggedEvent extends AbstractComplexEObject
    public static final String LOGIN = "Login";
    public static final String LOGOUT = "Logout";
 
-   public static String[] fieldOrder = {"type", "msg", "longMsg", "user",
-      "command", "object"};
+   public static String[] fieldOrder = {"eventType", "msg", "longMsg", "user", "command", "object"};
 
-   public LoggedEvent()
-   {
-   }
+   public LoggedEvent() { }
 
    public LoggedEvent(LogEventType type, ComplexEObject targetObject, Command command,
                       String msg)
    {
-      _type.setValue(type);
+      _eventType.setValue(type);
       _object = targetObject;
       _command = command;
       _msg.setValue(msg);
@@ -91,6 +88,6 @@ public class LoggedEvent extends AbstractComplexEObject
       firePropertyChange("object", oldObject, _object);
    }
 
-   public LogEventType getType() { return _type; }
+   public LogEventType getEventType() { return _eventType; }
 
 }
