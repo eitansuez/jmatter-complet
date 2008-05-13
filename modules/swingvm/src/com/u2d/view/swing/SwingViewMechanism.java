@@ -702,6 +702,7 @@ public class SwingViewMechanism implements ViewMechanism
    {
       TextEditor editor = new TextEditor();
       editor.setEditable(false);
+      editor.setFocusable(false);
       return editor;
    }
    public AtomicEditor getTextEditor()
@@ -718,6 +719,7 @@ public class SwingViewMechanism implements ViewMechanism
    {
       IntEditor editor = new IntEditor();
       editor.setEditable(false);
+      editor.setFocusable(false);
       return editor;
    }
    public AtomicEditor getIntEditor() { return new IntEditor(); }
@@ -729,13 +731,15 @@ public class SwingViewMechanism implements ViewMechanism
    {
       FloatEditor editor = new FloatEditor();
       editor.setEditable(false);
+      editor.setFocusable(false);
       return editor;
    }
    public AtomicEditor getFloatEditor() { return new FloatEditor(); }
    public AtomicRenderer getBigDecimalRenderer()
    {
-	  BigDecimalEditor editor = new BigDecimalEditor();
+	   BigDecimalEditor editor = new BigDecimalEditor();
       editor.setEditable(false);
+      editor.setFocusable(false);
       return editor;
    }
    public AtomicEditor getBigDecimalEditor() { return new BigDecimalEditor(); }
@@ -858,8 +862,8 @@ public class SwingViewMechanism implements ViewMechanism
    {
       if (leo instanceof CompositeList)
       {
-//         return new CompositeTableView((CompositeList) leo);
-         return new CompositeTabularView((CompositeList) leo);
+         return new CompositeTableView((CompositeList) leo);
+//         return new CompositeTabularView((CompositeList) leo);
       }
       else if (leo instanceof RelationalList)
       {
