@@ -113,7 +113,7 @@ public class AtomicField extends CompositeField
       if (parent.isTransientState())
       {
          AtomicEObject aeo = ((AtomicEObject) value);
-         if (aeo.isEmpty() && !_defaultValue.isEmpty())
+         if (!_defaultValue.isEmpty())
          {
             try
             {
