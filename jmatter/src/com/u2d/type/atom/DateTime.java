@@ -21,7 +21,7 @@ import java.text.*;
  */
 public class DateTime extends AbstractAtomicEO implements Searchable
 {
-   private Date _value;
+   private Date _value = new Date();
 
    private static DateFormat _dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
    private static DateFormat _noyear = new SimpleDateFormat("MM/dd HH:mm");
@@ -48,7 +48,7 @@ public class DateTime extends AbstractAtomicEO implements Searchable
       setValue(((DateTime) value).dateValue());
    }
    
-   public boolean isEmpty() { return _value == null; }
+   public boolean isEmpty() { return false; }
    
    public Title title()
    {
@@ -68,7 +68,6 @@ public class DateTime extends AbstractAtomicEO implements Searchable
    {
       if (StringEO.isEmpty(stringValue))
       {
-         _value = null;
          return;
       }
       
