@@ -128,7 +128,7 @@ public class AppFrame extends JFrame
       
       setupInstructionView();
       
-      setPreferredSize(new Dimension(800, 600));
+      setPreferredSize(new Dimension(1024, 768));
       setSize(getPreferredSize());
       
       UIUtils.centerOnScreen(this);
