@@ -46,14 +46,14 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
 
    private List<EView> _childViews;  // exclude read-only fields
    private DefaultFormBuilder _builder;
-   private List _fields;
    private IconButton _addBtn;
+   private List _typefields;
 
    public CompositeTabularView(CompositeList leo)
    {
       _leo = leo;
+      _typefields = _leo.type().fields();
       _leo.parentObject().addChangeListener(this);
-      _fields = _leo.type().fields();
 
       setOpaque(false);
       layMeOut();
@@ -68,15 +68,15 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
 
       _childViews = new ArrayList<EView>();
 
-      FormLayout layout = generateLayout(_fields);
+      FormLayout layout = generateLayout();
       _builder = new DefaultFormBuilder(layout);
 
       _builder.appendSeparator();  // line at top
 
       // first row is table column headings
-      for (int i=0; i< _fields.size(); i++)
+      for (int i=0; i< _typefields.size(); i++)
       {
-         Field field = (Field) _fields.get(i);
+         Field field = (Field) _typefields.get(i);
 
          if ( field.hidden() || "createdOn".equals(field.name()) || "status".equals(field.name()) )
             continue;
@@ -115,9 +115,10 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
          _builder.getLayout().insertRow(row, new RowSpec("pref"));
          _builder.getLayout().insertRow(row+1, new RowSpec("3dlu"));
       }
-      for (int col=0; col<_fields.size(); col++)
+
+      for (int col=0; col<_typefields.size(); col++)
       {
-         Field field = (Field) _fields.get(col);
+         Field field = (Field) _typefields.get(col);
 
          if ( field.hidden() || "createdOn".equals(field.name()) || "status".equals(field.name()) )
             continue;
@@ -152,13 +153,13 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
       return pnl;
    }
 
-   private FormLayout generateLayout(List fields)
+   private FormLayout generateLayout()
    {
       // first, the columns:
       FormLayout layout = new FormLayout();
-      for (int i=0; i<fields.size(); i++)
+      for (int i=0; i<_typefields.size(); i++)
       {
-         Field field = (Field) fields.get(i);
+         Field field = (Field) _typefields.get(i);
 
          if ( field.hidden() || "createdOn".equals(field.name()) || "status".equals(field.name()) )
             continue;
