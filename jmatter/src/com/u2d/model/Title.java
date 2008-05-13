@@ -61,8 +61,7 @@ public class Title
 
    public Title append(String joiner, EObject object)
    {
-      append(joiner, object, "");
-      return this;
+      return append(joiner, object, "");
    }
 
    public Title append(String joiner, EObject object, String defaultValue)
@@ -73,6 +72,22 @@ public class Title
       {
          concat(joiner);
          appendSpace();
+         concat(object, defaultValue);
+      }
+      return this;
+   }
+
+   public Title appendNoSpace(String joiner, EObject object)
+   {
+      return appendNoSpace(joiner, object, "");
+   }
+   public Title appendNoSpace(String joiner, EObject object, String defaultValue)
+   {
+      if (string.length() > 0
+         && (object != null && object.title().toString().length() > 0)
+         || (defaultValue != null && defaultValue.length() > 0))
+      {
+         concat(joiner);
          concat(object, defaultValue);
       }
       return this;
@@ -116,11 +131,19 @@ public class Title
    }
    public Title appendWrapped(String open, String close, String text)
    {
-      return appendSpace().concat(open).concat(text).concat(close);
+      if (text.length() > 0)
+      {
+         appendSpace().concat(open).concat(text).concat(close);
+      }
+      return this;
    }
    public Title appendWrapped(String open, String close, EObject object)
    {
-      return appendSpace().concat(open).concat(object).concat(close);
+      if (object != null && !object.isEmpty())
+      {
+         appendSpace().concat(open).concat(object).concat(close);
+      }
+      return this;
    }
    public Title appendParens(String text)
    {
@@ -169,7 +192,7 @@ public class Title
    }
 
 
-   /**
+   /*
     * The basic difference with join is that the joiner is a word
     * and not punctuation.  I could try to programmatically distinguish
     * a punctuation from a word but there's no harm if a human did that.
