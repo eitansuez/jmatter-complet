@@ -71,12 +71,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
       if (specifiedEditor != null) _editor = specifiedEditor;
 
       JComponent rendererComponent = (JComponent) _renderer;
-      JComponent editorComponent = editorComponent();
-
-      if (isTextComponent(editorComponent) && eo.field() != null && eo.field().required() && eo.isEmpty())
-      {
-         editorComponent.setBackground(ValidationEvent.REQUIRED_COLOR);
-      }
+      JComponent editorComponent = (JComponent) _editor;
 
       if (!isTextComponent(editorComponent))
       {
@@ -105,7 +100,12 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
 
       stateChanged(null);
 
-      editorComponent.addFocusListener(_focusAdapter);
+      JComponent actualEditor = editorComponent();
+      if (isTextComponent(actualEditor) && eo.field() != null && eo.field().required() && eo.isEmpty())
+      {
+         actualEditor.setBackground(ValidationEvent.REQUIRED_COLOR);
+      }
+      actualEditor.addFocusListener(_focusAdapter);
    }
 
    private JComponent editorComponent()
