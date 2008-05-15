@@ -8,6 +8,8 @@ import com.u2d.field.AtomicField;
 import com.u2d.field.CompositeField;
 import com.u2d.validation.ValidationListener;
 import com.u2d.validation.ValidationEvent;
+import com.u2d.type.atom.StringEO;
+
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import javax.swing.event.ChangeEvent;
@@ -230,7 +232,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
          }
       }
 
-      if (!msg.isEmpty())
+      if (!StringEO.isEmpty(msg))
       {
          bgColor = ValidationEvent.INVALID_COLOR;
       }
