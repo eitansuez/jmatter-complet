@@ -20,7 +20,7 @@ import java.io.File;
  * Date: Apr 29, 2008
  * Time: 12:36:48 PM
  */
-public abstract class CustomFormView extends JPanel implements IFormView
+public abstract class AbeilleForm extends JPanel implements IFormView
 {
    protected java.util.List<EView> _views = new ArrayList<EView>();
 
@@ -107,6 +107,6 @@ public abstract class CustomFormView extends JPanel implements IFormView
 
    public void focusFirstEditableField()
    {
-      UIUtils.focusFirstEditableField(CustomFormView.this);
+      UIUtils.focusFirstEditableField(AbeilleForm.this);
    }
 }
