@@ -173,7 +173,6 @@ public class SwingViewMechanism implements ViewMechanism
          {
             ensureLoginDialog();
             _loginDialog.clear();
-            _loginDialog.setVisible(true);
          }
       });
    }
@@ -195,7 +194,6 @@ public class SwingViewMechanism implements ViewMechanism
          public void run()
          {
             ensureLoginDialog();
-            _loginDialog.setVisible(false);
          }
       });
    }

@@ -44,6 +44,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import org.jdesktop.swingx.JXPanel;
+import org.javadev.effects.FadeAnimation;
 
 /**
  * @author Eitan Suez
@@ -77,8 +78,8 @@ public class AppFrame extends JFrame
    private OutlookFolderView _classBar = new OutlookFolderView();
    private JPanel _classBarPanel = new LockablePanel(_classBar);
    private ClassMenu _classMenu = new ClassMenu();
-   private EODesktopPane _desktopPane;
-   private CardPanel _cardPanel;
+   private EODesktopPane _desktopPane, _loggedOutDesktopPane;
+   private CardPanel _cardPanel, _sessionCardPanel;
 
    public AppFrame()
    {
@@ -110,24 +111,33 @@ public class AppFrame extends JFrame
 
       JPanel contentPane = (JPanel) getContentPane();
 
+      _desktopPane = new EODesktopPane();
+      _desktopPane.getContextMenu().addSeparator();
+      _desktopPane.getContextMenu().add(new QuitAction());
+      setupInstructionView();
+
       _centerPane = new JPanel(new BorderLayout());
+      _centerPane.add(_classBarPanel, BorderLayout.WEST);
+      _centerPane.add(_desktopPane, BorderLayout.CENTER);
+
+      _loggedOutDesktopPane = new EODesktopPane();
+      _loggedOutDesktopPane.setEnabled(false);
+
+      _sessionCardPanel = new CardPanel();
+      _sessionCardPanel.add(_loggedOutDesktopPane, "loggedout");
+      _sessionCardPanel.add(_centerPane, "loggedin");
+//      _sessionCardPanel.setAnimationAndDuration(new CubeAnimation(), 1000);
+//      _sessionCardPanel.setAnimationAndDuration(new DashboardAnimation(), 1000);
+      _sessionCardPanel.setAnimationAndDuration(new FadeAnimation(), 1000);
+//      _sessionCardPanel.setAnimationAndDuration(new SlideAnimation(), 1000);
 
       _cardPanel = new CardPanel();
       _cardPanel.add(new AppLoaderPanel(), "app-off");
-      _cardPanel.add(_centerPane, "app-on");
+      _cardPanel.add(_sessionCardPanel, "app-on");
       _cardPanel.show("app-off");
       
-      _desktopPane = new EODesktopPane();
-      
-      _desktopPane.getContextMenu().addSeparator();
-      _desktopPane.getContextMenu().add(new QuitAction());
-      
-      _desktopPane.setEnabled(false);
-      _centerPane.add(_desktopPane, BorderLayout.CENTER);
       contentPane.add(_cardPanel, BorderLayout.CENTER);
-      
-      setupInstructionView();
-      
+
       setPreferredSize(new Dimension(1024, 768));
       setSize(getPreferredSize());
       
@@ -287,11 +297,11 @@ public class AppFrame extends JFrame
             {
                public void run()
                {
+                  _sessionCardPanel.show("loggedin");
                   showUserMenu();
                   showCommandBar();
                   showClassBar();
                   _menuBar.revalidate(); _menuBar.repaint();
-                  _desktopPane.setEnabled(true); // enable context menu
                   setupKeyboardShorcuts();
                   restoreUserDesktop();
                }
@@ -316,8 +326,7 @@ public class AppFrame extends JFrame
                         hideCommandBar();
                         _menuBar.revalidate(); _menuBar.repaint();
                         detachKeystrokes();
-                        _desktopPane.setEnabled(false); // disable context menu
-
+                        _sessionCardPanel.show("loggedout");
                      }
                   });
 
@@ -358,6 +367,7 @@ public class AppFrame extends JFrame
          _commandsMenu = new CommandsMenuView();
          ComponentStyle.addClass(_commandsPnl, "command-bar");
          northPanel.add(_commandsPnl);
+         _centerPane.add(northPanel, BorderLayout.NORTH);
       }
    }
    private void setupMenu()
@@ -395,10 +405,9 @@ public class AppFrame extends JFrame
       return menu;
    }
 
-   /* ** public interface ** */
    public void addLoginDialog(final LoginDialog loginDialog)
    {
-      _desktopPane.add(loginDialog, JLayeredPane.MODAL_LAYER);
+      _loggedOutDesktopPane.add(loginDialog, JLayeredPane.MODAL_LAYER);
    }
 
    public JInternalFrame addFrame(JInternalFrame frame)
@@ -427,10 +436,7 @@ public class AppFrame extends JFrame
       {
          _commandsPnl.bind(_serviceObject, null);
          _commandsMenu.bind(_serviceObject, _menuBar, null);
-
          _menuBar.add(_commandsMenu, 1);
-
-         add(northPanel, BorderLayout.NORTH);
       }
    }
    private void hideCommandBar()
@@ -438,7 +444,6 @@ public class AppFrame extends JFrame
       if (_commandsPnl != null)
       {
          _commandsPnl.detach();
-         remove(northPanel);
          _commandsMenu.detach();
       }
    }
@@ -451,7 +456,6 @@ public class AppFrame extends JFrame
 
       bindTypeKeyboardShortcuts(userClassBar);
 
-      _centerPane.add(_classBarPanel, BorderLayout.WEST);
       _classBar.focusItem();
       SwingUtilities.invokeLater(new Runnable() {
          public void run()
@@ -465,8 +469,6 @@ public class AppFrame extends JFrame
       _classBar.detach();
       _classMenu.detach();
       detachTypeKeyboardShortcuts();
-      _centerPane.remove(_classBarPanel);
-      _centerPane.revalidate(); _centerPane.repaint();
    }
    //===
 
