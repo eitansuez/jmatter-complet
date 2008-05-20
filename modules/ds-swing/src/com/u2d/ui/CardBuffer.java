@@ -30,6 +30,7 @@ public class CardBuffer extends JPanel
    {
       if ("one".equals(_currentName))
       {
+         if (comp == one) return comp;
          add(comp, "two");
          two = comp;
          _currentName = "two";
@@ -39,6 +40,7 @@ public class CardBuffer extends JPanel
       }
       else
       {
+         if (comp == two) return comp;
          add(comp, "one");
          one = comp;
          _currentName = "one";
@@ -47,7 +49,7 @@ public class CardBuffer extends JPanel
          return two;
       }
    }
-   
+
    public Component getCurrentItem()
    {
       if ("one".equals(_currentName))
@@ -64,11 +66,11 @@ public class CardBuffer extends JPanel
    public Dimension getPreferredSize()
    {
       Component[] children = getComponents();
-      for (int i=0; i<children.length; i++)
+      for (Component child : children)
       {
-         if (children[i].isVisible())
+         if (child.isVisible())
          {
-            return children[i].getPreferredSize();
+            return child.getPreferredSize();
          }
       }
       return super.getPreferredSize();
