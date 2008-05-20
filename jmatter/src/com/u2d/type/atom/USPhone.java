@@ -32,6 +32,7 @@ public class USPhone extends AbstractAtomicEO implements Searchable
    
    public void setValue(String value)
    {
+      if (_value.equals(value)) return;
       _value = value;
       fireStateChanged();
    }

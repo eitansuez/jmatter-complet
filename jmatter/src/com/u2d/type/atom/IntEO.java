@@ -30,6 +30,7 @@ public class IntEO extends AbstractAtomicEO implements NumericEO, Searchable
    public int intValue() { return _value; }
    public void setValue(int value)
    {
+      if (_value == value) return;
       _value = value;
       fireStateChanged();
    }

@@ -32,6 +32,7 @@ public class FloatEO extends AbstractAtomicEO
    
    public void setValue(double value)
    {
+      if (_value == value) return;
       _value = value;
       fireStateChanged();
    }

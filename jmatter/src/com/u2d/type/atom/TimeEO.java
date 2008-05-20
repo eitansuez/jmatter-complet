@@ -179,8 +179,7 @@ public class TimeEO extends AbstractAtomicEO
       long hours = _cal.get(Calendar.HOUR_OF_DAY);
       long minutes = hours * 60 + _cal.get(Calendar.MINUTE);
       long seconds = minutes * 60 + _cal.get(Calendar.SECOND);
-      long millis = seconds * 1000 + _cal.get(Calendar.MILLISECOND);
-      return millis;
+      return seconds * 1000 + _cal.get(Calendar.MILLISECOND);
    }
    
 }

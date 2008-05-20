@@ -43,6 +43,7 @@ public class TextEO extends AbstractAtomicEO implements Searchable
    public String stringValue() { return _value; }
    public void setValue(String value)
    {
+      if (_value.equals(value)) return;
       _value = value;
       fireStateChanged();
    }

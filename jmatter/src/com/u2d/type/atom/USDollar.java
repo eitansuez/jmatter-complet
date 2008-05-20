@@ -46,6 +46,7 @@ public class USDollar extends AbstractAtomicEO
    public double doubleValue() { return _value; }
    public void setValue(double value)
    {
+      if (_value == value) return;
       _value = value;
       fireStateChanged();
    }

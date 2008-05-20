@@ -46,6 +46,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    }
    public void setValue(Date value)
    {
+      if (_value.getTime().equals(value)) return;
       if (value == null)
          _value = null;
       else

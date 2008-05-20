@@ -27,6 +27,7 @@ public class ColorEO extends AbstractAtomicEO
    public Color colorValue() { return _value; }
    public void setValue(Color value)
    {
+      if (_value.equals(value)) return;
       _value = value;
       fireStateChanged();
    }

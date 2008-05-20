@@ -32,6 +32,7 @@ public class StringEO extends AbstractAtomicEO implements Searchable
    public String stringValue() { return _value; }
    public void setValue(String value)
    {
+      if (_value.equals(value)) return;
       _value = value;
       fireStateChanged();
    }
@@ -76,19 +77,13 @@ public class StringEO extends AbstractAtomicEO implements Searchable
    /* ** Commands ** */
    
    @Cmd
-   public void Capitalize(CommandInfo cmdInfo)
-   {
-      _value = _value.toUpperCase();
-      fireStateChanged();
-   }
+   public void Capitalize(CommandInfo cmdInfo) { setValue(_value.toUpperCase()); }
    @Cmd
-   public void Lowercase(CommandInfo cmdInfo)
-   {
-      _value = _value.toLowerCase();
-      fireStateChanged();
-   }
+   public void Lowercase(CommandInfo cmdInfo) { setValue(_value.toLowerCase()); }
    @Cmd
-   public void TitleCase(CommandInfo cmdInfo)
+   public void TitleCase(CommandInfo cmdInfo) { setValue(titleCase()); }
+
+   public String titleCase()
    {
       StringTokenizer tokenizer = new StringTokenizer(_value.toLowerCase(), 
                                                       " \t\n\r\f", 
@@ -109,8 +104,7 @@ public class StringEO extends AbstractAtomicEO implements Searchable
          }
       }
       
-      _value = result.toString();
-      fireStateChanged();
+      return result.toString();
    }
    
    public void parseValue(String stringValue)
