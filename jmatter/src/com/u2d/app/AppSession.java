@@ -4,7 +4,6 @@ import com.u2d.pubsub.AppEventNotifier;
 import com.u2d.pubsub.AppEventSupport;
 import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEventType;
-import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.element.EOCommand;
@@ -12,9 +11,7 @@ import com.u2d.element.Member;
 import java.util.Map;
 import java.util.HashMap;
 import org.hibernate.Session;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.criterion.Restrictions;
 import static com.u2d.pubsub.AppEventType.*;
 
 /**
@@ -98,30 +95,11 @@ public class AppSession implements AuthManager, AppEventNotifier
    {
       Member.mergeInDbMetadata();
       
-      User user = null;
-      if (hbmpersistence())
-      {
-         HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) pmech();
-         
-         Session session = hbm.getSession();
-         try
-         {
-            user = (User) session.createCriteria(User.class).add(
-                    Restrictions.eq("username", new StringEO(username))
-                  ).uniqueResult();
-         }
-         catch (HibernateException ex)
-         {
-            System.err.println("HibernateException: "+ex.getMessage());
-            ex.printStackTrace();
-            // TODO: throw an exception that translates into a truthful message to the end user
-            return;
-         }
-      }
-      else
-      {
-         user = new User(username);
-      }
+      HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) pmech();
+      Session session = hbm.getSession();
+      Query query = session.createQuery("from com.u2d.app.User as user where user.username = :username");
+      query.setString("username", username);
+      User user = (User) query.uniqueResult();
       user.onLoad();
       setUser(user);
       log(LoggedEvent.LOGIN, null, "Logged In");
@@ -149,67 +127,41 @@ public class AppSession implements AuthManager, AppEventNotifier
    {
       if (_badAttempts == null)
          _badAttempts = new HashMap<String, Integer>();
-      _badAttempts.put(username, new Integer(0));
+      _badAttempts.put(username, 0);
    }
    public boolean tooManyBadAttempts(String username)
    {
       if (_badAttempts == null)
          _badAttempts = new HashMap<String, Integer>();
-      Integer count = (Integer) _badAttempts.get(username);
+      Integer count = _badAttempts.get(username);
       if (count == null)
       {
-         _badAttempts.put(username, new Integer(1));
+         _badAttempts.put(username, 1);
          return false;
       }
-      int num = count.intValue() + 1;
-      _badAttempts.put(username, new Integer(num));
+      int num = count + 1;
+      _badAttempts.put(username, num);
       return num >= THRESHOLD;
    }
-   private boolean _locked = false;
    public boolean isLocked(String username)
    {
-      if (hbmpersistence())
-      {
-         HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) pmech();
-         Session session = hbm.getSession();
-         try
-         {
-            Query query = session.createQuery("select user.locked from com.u2d.app.User as user where user.username = :username");
-            query.setString("username", username);
-            BooleanEO islocked = (BooleanEO) query.uniqueResult();
-            if (islocked == null) return false;  // no such user
-            return islocked.booleanValue();
-         }
-         catch (HibernateException ex)
-         {
-            System.err.println("HibernateException: "+ex.getMessage());
-            ex.printStackTrace();
-            return false;  // TODO: throw an exception that translates into a truthful message to the end user
-         }
-      }
-      else
-      {
-         // assume a mock mechanism..
-         return _locked;
-      }
+      HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) pmech();
+      Session session = hbm.getSession();
+      Query query = session.createQuery("select user.locked from com.u2d.app.User as user where user.username = :username");
+      query.setString("username", username);
+      BooleanEO islocked = (BooleanEO) query.uniqueResult();
+      return islocked != null && islocked.booleanValue();
    }
    public void lock(final String username)
    {
-      if (hbmpersistence())
-      {
-         HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) pmech();
-         Session session = hbm.getSession();
-         Query query = session.createQuery("from com.u2d.app.User as user where user.username = :username");
-         query.setString("username", username);
-         User user = (User) query.uniqueResult();
-         if (user == null) return; // no such user
-         user.getLocked().setValue(true);
-         user.save();
-      }
-      else
-      {
-         _locked = true;
-      }
+      HBMPersistenceMechanism hbm = (HBMPersistenceMechanism) pmech();
+      Session session = hbm.getSession();
+      Query query = session.createQuery("from com.u2d.app.User as user where user.username = :username");
+      query.setString("username", username);
+      User user = (User) query.uniqueResult();
+      if (user == null) return; // no such user
+      user.getLocked().setValue(true);
+      user.save();
    }
 
 
