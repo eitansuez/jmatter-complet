@@ -100,7 +100,6 @@ public abstract class AbstractEObject
 
 
    /* ** Validation Exception Notification Code ** */
-   protected transient ValidationEvent _validationEvent = null;
    protected transient EventListenerList _validationListenerList = new EventListenerList();
    public void addValidationListener(ValidationListener l)
    {
@@ -113,13 +112,13 @@ public abstract class AbstractEObject
    public void fireValidationException(String errorMsg, boolean statusType)
    {
       Object[] listeners = _validationListenerList.getListenerList();
+      ValidationEvent validationEvent = new ValidationEvent(this, errorMsg, statusType);
 
       for (int i = listeners.length-2; i>=0; i-=2)
       {
          if (listeners[i]==ValidationListener.class)
          {
-            _validationEvent = new ValidationEvent(this, errorMsg, statusType);
-            ((ValidationListener)listeners[i+1]).validationException(_validationEvent);
+            ((ValidationListener)listeners[i+1]).validationException(validationEvent);
          }
       }
    }
