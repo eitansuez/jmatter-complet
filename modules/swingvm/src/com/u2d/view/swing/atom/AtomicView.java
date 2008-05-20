@@ -9,12 +9,13 @@ import com.u2d.field.CompositeField;
 import com.u2d.validation.ValidationListener;
 import com.u2d.validation.ValidationEvent;
 import com.u2d.type.atom.StringEO;
-
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.*;
 import java.awt.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 /**
  * Date: Jun 8, 2005
@@ -31,6 +32,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
    protected transient CommandsContextMenuView _cmdsView;
 
    protected int _previousErrors = 0;
+   private PropertyChangeListener readOnlyListener;
 
    public AtomicView()
    {
@@ -39,14 +41,17 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
          public void focusLost(FocusEvent e)
          {
             int errors = _editor.bind(_eo);
-            if (errors == 0 && _previousErrors != 0)
+            errors += _eo.field().validate(_eo.parentObject());
+            if (errors == 0)
             {
-               _eo.fireValidationException(""); // reset previous
-            }
-            else
-            {
-               // possibly update background color of component if required..
-               decorateBackground(editorComponent(), "", _eo);
+               if (_previousErrors != 0)
+               {
+                  _eo.fireValidationException(""); // reset previous
+               }
+               else
+               {
+                  colorBackground(editorComponent(), "", _eo);
+               }
             }
             _previousErrors = errors;
          }
@@ -106,6 +111,18 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
          actualEditor.setBackground(ValidationEvent.REQUIRED_COLOR);
       }
       actualEditor.addFocusListener(_focusAdapter);
+
+      readOnlyListener = new PropertyChangeListener()
+      {
+         public void propertyChange(PropertyChangeEvent evt)
+         {
+            setEditable(!_eo.field().isReadOnly());
+         }
+      };
+      if (_eo.field() != null)
+      {
+         _eo.field().addPropertyChangeListener("readOnly", readOnlyListener);
+      }
    }
 
    private JComponent editorComponent()
@@ -151,6 +168,10 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
 
       _eo.removeValidationListener(this);
       _cmdsView.detach();
+      if (_eo.field() != null)
+      {
+         _eo.field().removePropertyChangeListener(readOnlyListener);
+      }
    }
 
 
@@ -214,15 +235,23 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
 
    // common utility for multiple kinds of editors/renderers ..
 
-   public static void decorateBackground(JComponent component, ValidationEvent evt)
+   public static void colorBackground(JComponent component, ValidationEvent evt)
    {
-      decorateBackground(component, evt.getMsg(), evt.getSource());
+      colorBackground(component, evt.getMsg(), evt.getSource());
    }
-   public static void decorateBackground(JComponent component, String msg, Object source)
+   public static void colorBackground(JComponent component, String msg, Object source)
    {
-      component.setToolTipText(msg);
-      Color bgColor = ValidationEvent.NORMAL_COLOR;
+      boolean emptyMsg = StringEO.isEmpty(msg);
+      if (!emptyMsg)
+      {
+         component.setBackground(ValidationEvent.INVALID_COLOR);
+         component.setToolTipText(msg);
+         return;
+      }
+      
+      component.setToolTipText(null);
 
+      Color bgColor = ValidationEvent.normalColor(component);
       if (source instanceof EObject)
       {
          EObject eo = (EObject) source;
@@ -231,12 +260,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
             bgColor = ValidationEvent.REQUIRED_COLOR;
          }
       }
-
-      if (!StringEO.isEmpty(msg))
-      {
-         bgColor = ValidationEvent.INVALID_COLOR;
-      }
       component.setBackground(bgColor);
    }
-   
+
 }

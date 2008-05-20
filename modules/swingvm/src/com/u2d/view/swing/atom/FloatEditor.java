@@ -87,7 +87,7 @@ public class FloatEditor extends JFormattedTextField
 
    public void validationException(ValidationEvent evt)
    {
-      AtomicView.decorateBackground(this, evt);
+      AtomicView.colorBackground(this, evt);
    }
 
    public void passivate() { }

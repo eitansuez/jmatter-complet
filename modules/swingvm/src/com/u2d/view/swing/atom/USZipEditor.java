@@ -43,6 +43,6 @@ public class USZipEditor extends JTextField implements AtomicEditor, ValidationL
    
    public void validationException(ValidationEvent evt)
    {
-      AtomicView.decorateBackground(this, evt);
+      AtomicView.colorBackground(this, evt);
    }
 }
