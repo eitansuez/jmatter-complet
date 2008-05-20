@@ -370,7 +370,13 @@ public abstract class Field extends Member
 
    protected boolean _readOnly = false;
    public boolean isReadOnly() { return _readOnly || restrictReadOnly(); }
-   public void setReadOnly(boolean readOnly) { _readOnly = readOnly; }
+
+   public void setReadOnly(boolean readOnly)
+   {
+      boolean oldValue = _readOnly;
+      _readOnly = readOnly;
+      firePropertyChange("readOnly", oldValue, _readOnly);
+   }
 
    protected final BooleanEO _hidden = new BooleanEO(false);
    public BooleanEO getHidden() { return _hidden; }
