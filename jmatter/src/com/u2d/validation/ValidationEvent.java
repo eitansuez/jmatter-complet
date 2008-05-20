@@ -3,6 +3,7 @@
  */
 package com.u2d.validation;
 
+import javax.swing.*;
 import java.util.EventObject;
 import java.awt.*;
 
@@ -16,7 +17,11 @@ public class ValidationEvent extends EventObject
 
    public static final Color INVALID_COLOR = new Color(0xFFD7D7);
    public static final Color REQUIRED_COLOR = new Color(0xEBEBFF);
-   public static final Color NORMAL_COLOR = Color.white;
+   public static Color normalColor(JComponent c)
+   {
+      String key = (c.isEnabled()) ? "TextField.background" : "TextField.inactiveBackground";
+      return UIManager.getColor(key);
+   }
 
    public ValidationEvent(Object source, String msg, boolean statusType)
    {

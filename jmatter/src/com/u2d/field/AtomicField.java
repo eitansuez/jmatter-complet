@@ -5,10 +5,13 @@ package com.u2d.field;
 
 import java.beans.*;
 import java.text.ParseException;
+import java.util.Collection;
+import java.util.ArrayList;
 
 import com.u2d.model.*;
 import com.u2d.pattern.*;
 import com.u2d.validation.Required;
+import com.u2d.validation.Rule;
 import com.u2d.view.*;
 import com.u2d.type.atom.StringEO;
 
@@ -136,23 +139,46 @@ public class AtomicField extends CompositeField
 
    public int validate(ComplexEObject parent)
    {
-      EObject value = get(parent);
+      AtomicEObject value = (AtomicEObject) get(parent);
+
+      for (Rule rule : value.rules())
+      {
+         if (rule.fail())
+         {
+            value.fireValidationException(rule.msg());
+            return 1;
+         }
+      }
+
+      for (Rule rule : _rules)
+      {
+         if (rule.fail())
+         {
+            value.fireValidationException(rule.msg());
+            return 1;
+         }
+      }
+
       Required required = getRequired(parent);
       if (required.isit() && value.isEmpty())
       {
          value.fireValidationException(required.getMsg());
          return 1;
       }
-      
+
       if (!value.isEmpty())
       {
          int err = value.validate();
          if (err > 0) return err;
       }
-      
+
       value.fireValidationException("");  // to reset the msg
       return 0;
    }
+
+   Collection<Rule> _rules = new ArrayList<Rule>();
+   public void addRule(Rule rule) { _rules.add(rule); }
+   public void removeRule(Rule rule) { _rules.remove(rule); }
 
 
    public String getSortPropertyName() { return getCleanPath(); }
