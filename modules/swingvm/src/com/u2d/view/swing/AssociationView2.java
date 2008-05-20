@@ -389,7 +389,12 @@ public class AssociationView2 extends CardPanel implements ComplexEView
       }
 
       private void returnToReadState() { changeEditableState(true); }
-      private void enterEditState() { changeEditableState(false); }
+
+      private void enterEditState()
+      {
+         if (_association.isReadOnly()) return;
+         changeEditableState(false);
+      }
 
       private void changeEditableState(boolean read)
       {
