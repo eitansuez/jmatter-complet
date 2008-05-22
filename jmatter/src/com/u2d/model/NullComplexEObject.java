@@ -21,11 +21,9 @@ public class NullComplexEObject extends AbstractComplexEObject
    public NullComplexEObject(ComplexType type)
    {
       _type = type;
-      _iconSm = disabledIcon(type.iconSm());
-      _iconLg = disabledIcon(type.iconLg());
 
-      Command command = null;
-      Command typeCommand = null;
+      Command command;
+      Command typeCommand;
       for (Iterator itr = _commands.deepIterator(); itr.hasNext(); )
       {
          command = (Command) itr.next();
@@ -43,8 +41,24 @@ public class NullComplexEObject extends AbstractComplexEObject
          GrayFilter.createDisabledImage(((ImageIcon) icon).getImage());
       return new ImageIcon(grayImage);
    }
-   public javax.swing.Icon iconSm() { return _iconSm; }
-   public javax.swing.Icon iconLg() { return _iconLg; }
+
+   public synchronized javax.swing.Icon iconSm()
+   {
+      if (_iconSm == null)
+      {
+         _iconSm = disabledIcon(_type.iconSm());
+      }
+      return _iconSm;
+   }
+
+   public synchronized javax.swing.Icon iconLg()
+   {
+      if (_iconLg == null)
+      {
+         _iconLg = disabledIcon(_type.iconLg());
+      }
+      return _iconLg;
+   }
 
    public Title title() { return new Title("["+_type.getNaturalName()+"]"); }
    public boolean isEmpty() { return true; }
