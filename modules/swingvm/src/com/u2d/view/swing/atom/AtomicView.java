@@ -41,7 +41,10 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
          public void focusLost(FocusEvent e)
          {
             int errors = _editor.bind(_eo);
-            errors += _eo.field().validate(_eo.parentObject());
+            if (_eo.field() != null)
+            {
+               errors += _eo.field().validate(_eo.parentObject());
+            }
             if (errors == 0)
             {
                if (_previousErrors != 0)
