@@ -225,6 +225,32 @@
               <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/wings/WEB-INF/web.xml" />
             </files>
           </module>
+          <module name="ContactMgr">
+            <files>
+              <file url="file://$PROJECT_DIR$/demo-apps/ContactMgr/resources/echo2/WEB-INF/web.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/ContactMgr/resources/jws/web.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/ContactMgr/resources/wings/WEB-INF/web.xml" />
+            </files>
+          </module>
+          <module name="Sympster">
+            <files>
+              <file url="file://$PROJECT_DIR$/demo-apps/Sympster/resources/echo2/WEB-INF/web.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/Sympster/resources/jws/web.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/Sympster/resources/wings/WEB-INF/web.xml" />
+            </files>
+          </module>
+          <module name="test-app">
+            <files>
+              <file url="file://$PROJECT_DIR$/test-app/resources/jws/web.xml" />
+            </files>
+          </module>
+          <module name="IssueMgr">
+            <files>
+              <file url="file://$PROJECT_DIR$/demo-apps/IssueMgr/resources/echo2/WEB-INF/web.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/IssueMgr/resources/jws/web.xml" />
+              <file url="file://$PROJECT_DIR$/demo-apps/IssueMgr/resources/wings/WEB-INF/web.xml" />
+            </files>
+          </module>
         </modules>
       </facet-type>
       <facet-type id="Spring">
@@ -561,16 +587,18 @@
       <module fileurl="file://$PROJECT_DIR$/AppBrowser/AppBrowser.iml" filepath="$PROJECT_DIR$/AppBrowser/AppBrowser.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iml" filepath="$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iml" />
       <module fileurl="file://$PROJECT_DIR$/jmatter//Core.iml" filepath="$PROJECT_DIR$/jmatter//Core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-apps/IssueMgr/IssueMgr.iml" filepath="$PROJECT_DIR$/demo-apps/IssueMgr/IssueMgr.iml" />
       <module fileurl="file://$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd//JMNewProjectFrontEnd.iml" filepath="$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd//JMNewProjectFrontEnd.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/MyTunes//MyTunes.iml" filepath="$PROJECT_DIR$/demo-apps/MyTunes//MyTunes.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/Self//Self.iml" filepath="$PROJECT_DIR$/demo-apps/Self//Self.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/Sympster//Sympster.iml" filepath="$PROJECT_DIR$/demo-apps/Sympster//Sympster.iml" />
-      <module fileurl="file:///Users/eitan/work/css4swing/css4swing.iml" filepath="/Users/eitan/work/css4swing/css4swing.iml" />
+      <module fileurl="file:////home/eitan/work/css4swing/css4swing.iml" filepath="//home/eitan/work/css4swing/css4swing.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" filepath="$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" filepath="$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/echo2vm/echo2vm.iml" filepath="$PROJECT_DIR$/modules/echo2vm/echo2vm.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/jmatter-tools//jmatter-tools.iml" filepath="$PROJECT_DIR$/modules/jmatter-tools//jmatter-tools.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/swingvm/swingvm.iml" filepath="$PROJECT_DIR$/modules/swingvm/swingvm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test-app/test-app.iml" filepath="$PROJECT_DIR$/test-app/test-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" filepath="$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" />
     </modules>
   </component>
@@ -654,7 +682,7 @@
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="file:///Users/eitan/work/thirdparty/hibernate-3.2/src" />
+        <root url="file:///home/eitan/work/thirdparty/hibernate-3.2/src" />
       </SOURCES>
       <jarDirectory url="file://$PROJECT_DIR$/jmatter/lib/runtime/hb" recursive="false" />
     </library>
