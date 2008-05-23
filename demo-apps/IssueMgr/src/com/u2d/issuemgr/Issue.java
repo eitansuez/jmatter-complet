@@ -226,7 +226,7 @@ public class Issue extends AbstractComplexEObject
    {
       LoggedEvent evt = (LoggedEvent) createInstance(LoggedEvent.class);
       evt.getMsg().setValue(msg);
-      evt.getType().setValue(LoggedEvent.INFO);
+      evt.getEventType().setValue(LoggedEvent.INFO);
       evt.setUser(currentUser());
       evt.setObject(this);
       return evt;
