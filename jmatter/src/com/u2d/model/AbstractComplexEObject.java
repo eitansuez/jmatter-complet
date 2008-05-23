@@ -554,7 +554,13 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    // conveniences..
    public void save() { persistor().save(this); }
    public void delete() { persistor().delete(this); }
-   public void refresh() { hbmPersistor().refresh(this); }
+
+   public void refresh()
+   {
+      hbmPersistor().refresh(this);
+      restoreState();
+   }
+
    public AbstractListEO list() { return persistor().list(type()); }
    public ComplexEObject lookup(String uniqueFieldName, String value)
    {
@@ -704,7 +710,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       public ComplexEObject Open(CommandInfo cmdInfo)
       {
          refresh();
-         setStartState();
          return AbstractComplexEObject.this;
       }
       
