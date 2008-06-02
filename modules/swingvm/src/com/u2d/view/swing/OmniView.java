@@ -13,6 +13,7 @@ import javax.swing.tree.TreePath;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.NullComplexEObject;
+import com.u2d.model.Editor;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
 import com.u2d.view.CompositeView;
@@ -30,6 +31,7 @@ public class OmniView extends JSplitPane
    private ComplexEObject _ceo;
    private JTreeView _tree;
    private CardBuffer _cardBuffer;
+   private TreeNodeAdapter _selected;
 
    private JPanel _blankPanel = new JPanel() {
       public Dimension getMinimumSize() { return new Dimension(400,200); }
@@ -73,8 +75,9 @@ public class OmniView extends JSplitPane
          _cardBuffer.switchIn(_blankPanel);
          return;
       }
-
-      EObject neweo = (EObject) path.getLastPathComponent();
+     
+      EObject neweo = leaveSelectedNode(path);
+   
       if (neweo == null || neweo instanceof NullComplexEObject)
       {
          _cardBuffer.switchIn(_blankPanel);
@@ -83,6 +86,25 @@ public class OmniView extends JSplitPane
 
       EView view = getViewFor(neweo);
       _cardBuffer.switchIn((JComponent) view);
+   }
+
+   private EObject leaveSelectedNode(TreePath path)
+   {
+      TreeNodeAdapter nNode = (TreeNodeAdapter) path.getLastPathComponent();
+      EObject neweo = nNode.getEObject();
+
+      if ((_selected != null) && (nNode != _selected))
+      {
+         EObject oldeo = _selected.getEObject();
+         if (oldeo != null)
+         {
+            oldeo.removeChangeListener(this);
+         }
+      }
+
+      _selected = nNode;
+      neweo.addChangeListener(this);
+      return neweo;
    }
 
    public EView getInnerView()
@@ -97,6 +119,14 @@ public class OmniView extends JSplitPane
       {
          view = newViewFor(eo);
          viewCache.put(eo, view);
+      }
+      if (eo instanceof ComplexEObject)
+      {
+         ComplexEObject ceo = (ComplexEObject) eo;
+         if (ceo.isEditState() && view instanceof Editor)
+         {
+            ceo.setEditor((Editor) view);
+         }
       }
       return view;
    }
@@ -143,6 +173,15 @@ public class OmniView extends JSplitPane
    
    public boolean isMinimized() { return false; }
    public void propertyChange(PropertyChangeEvent evt) {}
-   public void stateChanged(ChangeEvent e) {}
-   
+
+   public void stateChanged(ChangeEvent e)
+   {
+      /*if (_selected != null)  {
+            if (_selected.getEO() instanceof AbstractListEO)
+            {
+               if(_selected.refreshSubNodes()) _tree.updateUI();
+            }
+        }*/
+   }
+
 }
