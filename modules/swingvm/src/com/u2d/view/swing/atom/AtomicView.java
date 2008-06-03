@@ -141,7 +141,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
    private void setupRendererAndEditor(AtomicEObject eo)
    {
       AtomicField field = (AtomicField) eo.field();
-      if (field == null)
+      if (field == null || _eo.parentObject() == null)
       {
          _renderer = eo.getRenderer();
          _editor = eo.getEditor();
