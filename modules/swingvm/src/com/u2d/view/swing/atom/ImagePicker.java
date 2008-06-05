@@ -35,6 +35,7 @@ public class ImagePicker extends JPanel implements AtomicEditor
    
    public ImagePicker(boolean editMode)
    {
+      setOpaque(false);
       setLayout(new PercentLayout(PercentLayout.VERTICAL, 1));
       _labelPnl.setOpaque(false);
       _imgLabel.setBorder(BorderFactory.createLineBorder(Color.black));
