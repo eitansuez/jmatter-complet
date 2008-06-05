@@ -12,6 +12,7 @@ import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Fld;
 import com.u2d.persist.Persist;
+import com.u2d.view.EView;
 import javax.swing.Icon;
 import java.awt.Color;
 
@@ -61,4 +62,6 @@ public class Speaker extends AbstractComplexEObject
       return talk;
    }
 
+   public boolean hasCustomMainTabPanel() { return true; }
+   public EView mainTabPanel() { return new SpeakerPanel(this); }
 }
