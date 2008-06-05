@@ -2,6 +2,7 @@
 @namespace types com.u2d.view.swing.atom
 @namespace jmaps com.u2d.view.swing.map
 @namespace ui com.u2d.ui
+@namespace jetta com.jeta.forms.components.panel
 @namespace sympster com.u2d.sympster
 
 
@@ -38,7 +39,7 @@ JDesktopPane
   background-color: #7684FF;
 }
 
-jm|FormPane
+jm|FormPane, jetta|FormPanel
 {
   background-color: #fffaf0;
   padding: 5px;
@@ -136,9 +137,7 @@ jmaps|MappableView
 {
   margin: 7px;
   background-color: #666;
-/*
   border-radius: 10px;
-*/
   border: 1px solid black;
 }
 #command-panel jm|CustomIconView
@@ -174,6 +173,18 @@ jm|ExpandableView2 ui|GradientPanel
   padding: 0px 0px 0px 5px;
 }
 
+.command-bar
+{
+   background-color: white;
+   border-radius: 5px;
+   padding: 7px;
+   border: 1px solid black;
+   margin: 5px;
+}
+.command-bar jm|CommandIconButton
+{
+   font-size: 11pt;
+}
 
 /* custom for session view .. */
 
