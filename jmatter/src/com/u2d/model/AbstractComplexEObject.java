@@ -470,6 +470,12 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       return vmech().getAlternateView(this, new String[] {"formview", "omniview"});
    }
 
+   /**
+    * to partially customized a multi-tabbed view;  specifically to cuztomize the panel for the main tab,
+    * override this:
+    */
+   public boolean hasCustomMainTabPanel() { return false; }
+   public EView mainTabPanel() { return null; }
 
    /* ** PropertyChangeSupport "Support" ** */
    protected transient SwingPropertyChangeSupport _changeSupport = new SwingPropertyChangeSupport(this);

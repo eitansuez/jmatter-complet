@@ -14,6 +14,7 @@ import com.u2d.pattern.State;
 import com.u2d.persist.PersistorListener;
 import com.u2d.pubsub.AppEventNotifier;
 import com.u2d.view.ComplexEView;
+import com.u2d.view.EView;
 import com.u2d.type.atom.DateTime;
 
 /**
@@ -68,6 +69,9 @@ public interface ComplexEObject
    public ComplexEView getExpandableView();
    public ComplexEView getTreeView();
 
+   public boolean hasCustomMainTabPanel();
+   public EView mainTabPanel();
+   
    // conveniences..
    public void save();
    public boolean doSave();
