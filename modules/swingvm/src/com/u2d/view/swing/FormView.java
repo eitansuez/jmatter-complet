@@ -3,8 +3,6 @@
  */
 package com.u2d.view.swing;
 
-import com.jeta.forms.components.panel.FormPanel;
-import com.jeta.forms.gui.form.FormAccessor;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -28,7 +26,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -132,116 +129,31 @@ public class FormView extends JXPanel implements IFormView
    
    private JPanel mainPane()
    {
-      String layoutFormPath = getLayoutFormPath(_ceo);
-      if (layoutFormPath == null)
+      boolean hasCustomMainTabPanel = _ceo.hasCustomMainTabPanel();
+      if (hasCustomMainTabPanel)
+      {
+         EView customMainTabPanel = _ceo.mainTabPanel();
+         _childViews.add(customMainTabPanel);
+         FormLayout layout = new FormLayout("right:pref, 5px, left:pref:grow", "");
+         DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
+         layoutChildFields(_ceo, builder, new CellConstraints(), hasCustomMainTabPanel);
+         return (JPanel) customMainTabPanel;
+      }
+      else
       {
          FormLayout layout = new FormLayout("right:pref, 5px, left:pref:grow", "");
          DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
-         layoutChildFields(_ceo, builder, new CellConstraints());
+         layoutChildFields(_ceo, builder, new CellConstraints(), hasCustomMainTabPanel);
          return builder.getPanel();
       }
-      else
-      {
-         return layoutCustomForm(_ceo, layoutFormPath);
-      }
-      
-   }
-   
-   private String getLayoutFormPath(ComplexEObject ceo)
-   {
-      String clsName = ceo.getClass().getName();
-      String formName = clsName.replace('.', File.separatorChar) + ".jfrm";
-      ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      return (loader.getResource(formName) == null) ? null : formName;
-   }
-   
-   private JPanel layoutCustomForm(ComplexEObject ceo, String layoutFormPath)
-   {
-      FormPanel formPanel = new FormPanel(layoutFormPath);
-
-      List<String> names = new ArrayList<String>();
-      FormAccessor accessor = formPanel.getFormAccessor();
-      for (Iterator itr = accessor.beanIterator(); itr.hasNext(); )
-      {
-         JLabel placeHolder = (JLabel) itr.next();
-         names.add(placeHolder.getName());
-      }
-
-      for (String name : names)
-      {
-         accessor.replaceBean(name, fieldViewFor(name, ceo));
-      }
-      
-      return formPanel;
-   }
-   
-   private JComponent fieldViewFor(String name, ComplexEObject ceo)
-   {
-      // assume/impose convention that form component's bound name is bound object's type's corresponding fieldname
-      Field field = ceo.field(name);
-
-      EView view = field.getView(ceo);
-      _childViews.add(view);
-      
-      ValidationNotifier notifier = view.getEObject();
-      if (field.isAssociation())
-      {
-         notifier = ceo.association(field.name());
-      }
-      ValidationNoticePanel vPnl = new ValidationNoticePanel(notifier, ceo);
-      _vPnls.add(vPnl);
-
-      JComponent comp = (JComponent) view;
-      FieldCaption caption = new FieldCaption(field, comp);
-      _fieldCaptions.add(caption);
-      
-      return (SwingViewMechanism.getInstance().isLabelEditorLayoutHorizontal()) ?
-            fieldViewPanelHoriz(caption, comp, vPnl) :
-            fieldViewPanelVert(caption, comp, vPnl) ;
-   }
-
-   private JComponent fieldViewPanelVert(FieldCaption caption, JComponent comp, ValidationNoticePanel vPnl)
-   {
-      // build inner panel for caption/comp/vpanel trio:
-      FormLayout layout = new FormLayout("left:pref:grow, 5px, left:pref:grow", "pref, 3px, pref");
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
-      CellConstraints cc = new CellConstraints();
-
-      if (comp instanceof TableView || comp instanceof CompositeTableView || comp instanceof CompositeTabularView )
-      {
-         builder.add(caption, cc.rc(1,1));
-         builder.add(vPnl, cc.rc(1,3));
-         builder.add(comp, cc.rcw(3,1,3));
-      }
-      else
-      {
-         builder.add(caption, cc.rc(1,1));
-         builder.add(comp, cc.rc(3,1));
-         builder.add(vPnl, cc.rc(3,3));
-      }
-
-      return builder.getPanel();
-   }
-   private JComponent fieldViewPanelHoriz(FieldCaption caption, JComponent comp, ValidationNoticePanel vPnl)
-   {
-      // build inner panel for caption/comp/vpanel trio:
-      FormLayout layout = new FormLayout("right:pref, 5px, left:pref:grow", "pref, 3px, pref");
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
-      CellConstraints cc = new CellConstraints();
-
-      builder.add(vPnl, cc.rc(1,3));
-      builder.add(caption, cc.rc(3,1));
-      builder.add(comp, cc.rc(3,3));
-
-      return builder.getPanel();
    }
 
    private void layoutChildFields(ComplexEObject ceo,
-                                  DefaultFormBuilder builder, CellConstraints cc)
+                                  DefaultFormBuilder builder, CellConstraints cc, boolean hasCustomMainTabPanel)
    {
       if ( (ceo.field() != null) && (ceo.field().isInterfaceType()) )
          ceo.setField(null, null);
-      
+
       List fields = (_partialFieldList == null) ? ceo.childFields() : _partialFieldList;
       
       ValidationNoticePanel vPnl;
@@ -254,13 +166,12 @@ public class FormView extends JXPanel implements IFormView
                || "status".equals(field.name()) )
             continue;
 
-         EView view = field.getView(ceo);
-         _childViews.add(view);
-
-         JComponent comp = (JComponent) view;
-
          if ( field.isTabView() )
          {
+            EView view = field.getView(ceo);
+            _childViews.add(view);
+            JComponent comp = (JComponent) view;
+
             if (field.isAtomic())
             {
                tabbedPane().addTab(field.label(), comp);
@@ -280,23 +191,30 @@ public class FormView extends JXPanel implements IFormView
                }
             }
          }
-         else if (field.isAggregate() && ((AggregateField) field).flattenIntoParent())
+         else if (!hasCustomMainTabPanel)
          {
-            layoutChildFields((ComplexEObject) field.get(ceo), builder, cc);
-         }
-         else
-         {
-            ValidationNotifier notifier = view.getEObject();
-            if (field.isAssociation())
-            {
-               notifier = ceo.association(field.name());
-            }
-            vPnl = new ValidationNoticePanel(notifier, ceo);
-            _vPnls.add(vPnl);
+            EView view = field.getView(ceo);
+            _childViews.add(view);
+            JComponent comp = (JComponent) view;
 
-            FieldCaption caption = new FieldCaption(field, comp);
-            _fieldCaptions.add(caption);
-            appendRow(builder, cc, caption, comp, vPnl);
+            if (field.isAggregate() && ((AggregateField) field).flattenIntoParent())
+            {
+               layoutChildFields((ComplexEObject) field.get(ceo), builder, cc, hasCustomMainTabPanel);
+            }
+            else
+            {
+               ValidationNotifier notifier = view.getEObject();
+               if (field.isAssociation())
+               {
+                  notifier = ceo.association(field.name());
+               }
+               vPnl = new ValidationNoticePanel(notifier, ceo);
+               _vPnls.add(vPnl);
+
+               FieldCaption caption = new FieldCaption(field, comp);
+               _fieldCaptions.add(caption);
+               appendRow(builder, cc, caption, comp, vPnl);
+            }
          }
       }
    }
