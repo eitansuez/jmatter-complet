@@ -49,7 +49,12 @@ public class TopLevelFormView extends JXPanel
       add((JComponent) _formView, BorderLayout.CENTER);
 
       _cmdsView = new CommandsButtonView();
-      _cmdsView.bind(_ceo, this, BorderLayout.EAST, this);
+      // don't bother to allocate space if no commands.  this can be the case if edit and delete restrictions
+      // have been added for a given role..
+      if (_cmdsView.hasCommandsFor(_ceo, this))
+      {
+         _cmdsView.bind(_ceo, this, BorderLayout.EAST, this);
+      }
 
       addStatusPanel();
    }
