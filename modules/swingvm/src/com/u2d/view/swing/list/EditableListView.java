@@ -67,6 +67,12 @@ public class EditableListView extends JPanel
       
       _leo.addListDataListener(this);  // for the purpose of dynamically resizing the height of the
         // contained listview component as a function of the number of children it contains.
+
+      if ( !_leo.parentObject().isEditableState() && 
+            _leo.parentObject().command("Edit", _leo.parentObject().getState()) == null)
+      {
+         setEditable(false);
+      }
    }
 
    public void valueChanged(ListSelectionEvent e)
