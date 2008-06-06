@@ -10,6 +10,7 @@ import com.u2d.model.AtomicRenderer;
 import com.u2d.model.*;
 import com.u2d.reflection.Cmd;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 /**
  * @author Eitan Suez
@@ -50,6 +51,15 @@ public class FloatEO extends AbstractAtomicEO
    {
       DEFAULT_FORMAT.setMaximumIntegerDigits(10);
       DEFAULT_FORMAT.setMaximumFractionDigits(2);
+      customizeNaNSymbolFor(DEFAULT_FORMAT);
+   }
+
+   public static void customizeNaNSymbolFor(DecimalFormat format)
+   {
+      // getInstance() is since 1.6 so avoiding it for 5-compatibility
+      DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+      symbols.setNaN("---");
+      format.setDecimalFormatSymbols(symbols);
    }
 
    public DecimalFormat format()
@@ -58,6 +68,7 @@ public class FloatEO extends AbstractAtomicEO
       if (field() != null && !StringEO.isEmpty(field().format()))
       {
          formatter = new DecimalFormat(field().format());
+         FloatEO.customizeNaNSymbolFor(formatter);
       }
       return formatter;
    }
