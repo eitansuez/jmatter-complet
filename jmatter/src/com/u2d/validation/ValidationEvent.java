@@ -15,11 +15,13 @@ public class ValidationEvent extends EventObject
    private String _msg;
    private boolean _statusType = false;
 
-   public static final Color INVALID_COLOR = new Color(0xFFD7D7);
+   public static final String FAILED_VALIDATION = "failed_validation";
+   public static final Color INVALID_COLOR = new Color(0xFFCCCC);
    public static final Color REQUIRED_COLOR = new Color(0xEBEBFF);
    public static Color normalColor(JComponent c)
    {
-      String key = (c.isEnabled()) ? "TextField.background" : "TextField.inactiveBackground";
+      String key = (c.isEnabled()) ? "TextField.background" : "ComboBox.disabledBackground";
+      if (c instanceof JComboBox && c.isEnabled()) key = "ComboBox.background";
       return UIManager.getColor(key);
    }
 
