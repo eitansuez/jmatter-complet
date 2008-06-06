@@ -74,6 +74,11 @@ public class AssociationField extends Field implements Bidi, Associable
    {
       return _associationConstraint.getReturnType().equals(QuerySpecification.class);
    }
+   public boolean hasListAssociationConstraint()
+   {
+     return hasAssociationConstraint() && !isQueryType();
+   }
+
    public AbstractListEO associationOptions(Object instance)
    {
       if ( ! AbstractListEO.class.isAssignableFrom(_associationConstraint.getReturnType()) )

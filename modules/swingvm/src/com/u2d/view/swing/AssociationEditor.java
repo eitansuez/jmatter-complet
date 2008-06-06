@@ -18,7 +18,6 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexType;
 import com.u2d.model.AbstractListEO;
-
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
@@ -175,7 +174,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       if (_leo == null)
       {
          AssociationField field = (AssociationField) _association.field();
-         if (field.hasAssociationConstraint() && !field.isQueryType())
+         if (field.hasListAssociationConstraint())
          {
             AbstractListEO leo = field.associationOptions(_association.parent());
             _leo = simpleFilter(leo);
