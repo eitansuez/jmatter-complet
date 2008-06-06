@@ -33,7 +33,8 @@ public class CommandButton extends JPanel
    {
       _cmd = cmd;
       _isDefault = defaultBtn;
-      
+
+      setOpaque(false);
       setLayout(new BorderLayout());
       
       _cmdAdapter = new CommandAdapter(cmd, eo, source);

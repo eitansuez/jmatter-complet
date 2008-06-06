@@ -36,6 +36,8 @@ public class DateView2 extends JPanel implements AtomicEView, Editor
    
    public DateView2(DateEO eo)
    {
+      setOpaque(false);
+      
       _eo = eo;
       _cmdsView = new CommandsContextMenuView();
       _cmdsView.bind(_eo, this);
@@ -65,6 +67,7 @@ public class DateView2 extends JPanel implements AtomicEView, Editor
             });
             
       JPanel topPnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
+      topPnl.setOpaque(false);
       topPnl.add(_tf);
 //      topPnl.add(_tip);
       setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
