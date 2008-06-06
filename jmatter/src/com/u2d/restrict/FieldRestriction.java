@@ -26,9 +26,13 @@ public class FieldRestriction extends Restriction
    public static String[] fieldOrder = { "role", "member", "restrictionType" };
    
    public FieldRestriction() {}
-   public FieldRestriction(Role role, Field field)
+   public FieldRestriction(Role role)
    {
       super(role);
+   }
+   public FieldRestriction(Role role, Field field)
+   {
+      this(role);
       _member = field;
    }
    public FieldRestriction(Role role, Field field, FieldRestrictionType frt)
@@ -37,7 +41,8 @@ public class FieldRestriction extends Restriction
       _restrictionType.setValue(frt.code());
    }
    
-   
+   public void on(Field field) { _member = field; }
+
    public Field getMember() { return _member; }
    public void setMember(Field member)
    {
@@ -51,7 +56,7 @@ public class FieldRestriction extends Restriction
 
    public FieldRestrictionType getRestrictionType() { return _restrictionType; }
    
-   public boolean readOnly()    { return READ_ONLY.equals(_restrictionType.code()); }
+   public boolean readOnly() { return READ_ONLY.equals(_restrictionType.code()); }
    public boolean hidden() { return HIDDEN.equals(_restrictionType.code()); }
    public boolean none() { return NONE.equals(_restrictionType.code()); }
 

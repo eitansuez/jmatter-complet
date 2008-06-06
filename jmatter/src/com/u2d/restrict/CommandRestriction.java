@@ -32,7 +32,7 @@ public class CommandRestriction extends Restriction
       _member = cmd;
    }
 
-   public void on(Command cmd) { _member = (Command) cmd; }
+   public void on(Command cmd) { _member = cmd; }
 
    public Command getMember() { return _member; }
    public void setMember(Command member)

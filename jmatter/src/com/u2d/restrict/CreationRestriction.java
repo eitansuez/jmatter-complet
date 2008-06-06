@@ -15,7 +15,5 @@ public class CreationRestriction extends CommandRestriction
    public CreationRestriction(ComplexType type)
    {
       _member = type.command("New");
-      // TODO: this is not enough.  List.command("New") must also be
-      //  restricted
    }
 }
