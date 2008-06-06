@@ -248,10 +248,12 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
       if (!emptyMsg)
       {
          component.setBackground(ValidationEvent.INVALID_COLOR);
+         component.putClientProperty(ValidationEvent.FAILED_VALIDATION, true);
          component.setToolTipText(msg);
          return;
       }
-      
+
+      component.putClientProperty(ValidationEvent.FAILED_VALIDATION, false);
       component.setToolTipText(null);
 
       Color bgColor = ValidationEvent.normalColor(component);
@@ -266,4 +268,30 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
       component.setBackground(bgColor);
    }
 
+   public static void decorateComponentForValidation(Graphics g, JComponent c, boolean placeLeft)
+   {
+      Object propValue = c.getClientProperty(ValidationEvent.FAILED_VALIDATION);
+      if (propValue == null) return;
+      boolean passed = ! ((Boolean) propValue);
+      if (passed) return;
+
+      paintErrorIcon(g, c, placeLeft);
+   }
+   private static void paintErrorIcon(Graphics g, Component c, boolean placeLeft)
+   {
+      int padding = 5;
+      int x = placeLeft ? padding : c.getWidth() - padding - ICON_WIDTH;
+      int y = (c.getHeight() - ICON_HEIGHT) / 2 + 1;
+      g.drawImage(ERROR_ICON.getImage(), x, y, ICON_WIDTH, ICON_HEIGHT, ERROR_ICON.getImageObserver());
+   }
+   static ImageIcon ERROR_ICON;
+   static int ICON_WIDTH, ICON_HEIGHT;
+   static
+   {
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      java.net.URL imgURL = loader.getResource("images/error_co.gif");
+      ERROR_ICON = new ImageIcon(imgURL);
+      ICON_WIDTH = ERROR_ICON.getIconWidth();
+      ICON_HEIGHT = ERROR_ICON.getIconHeight();
+   }
 }

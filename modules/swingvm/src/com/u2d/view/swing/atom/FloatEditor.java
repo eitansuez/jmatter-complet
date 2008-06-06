@@ -11,6 +11,7 @@ import javax.swing.text.NumberFormatter;
 import javax.swing.text.DefaultFormatterFactory;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusAdapter;
+import java.awt.*;
 
 /**
  * Date: Jun 8, 2005
@@ -91,4 +92,10 @@ public class FloatEditor extends JFormattedTextField
    }
 
    public void passivate() { }
+
+   protected void paintComponent(Graphics g)
+   {
+      super.paintComponent(g);
+      AtomicView.decorateComponentForValidation(g, this, true);
+   }
 }
