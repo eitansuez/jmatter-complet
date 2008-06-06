@@ -6,7 +6,6 @@ package com.u2d.model;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.Field;
 import com.u2d.field.Association;
-import com.u2d.field.IndexedField;
 import com.u2d.pattern.Onion;
 import com.u2d.view.View;
 import com.u2d.list.RelationalList;
@@ -21,7 +20,7 @@ public class NullAssociation extends NullComplexEObject
 
    public NullAssociation(RelationalList leo)
    {
-      this((IndexedField) leo.field(), leo.parentObject());
+      this(leo.field(), leo.parentObject());
    }
 
    public NullAssociation(Field field, ComplexEObject parent)
