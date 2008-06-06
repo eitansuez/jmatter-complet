@@ -1,6 +1,7 @@
 package com.u2d.view.swing.list;
 
 import com.u2d.model.EObject;
+import com.u2d.model.ComplexEObject;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
 import com.u2d.view.swing.CommandButton;
@@ -19,6 +20,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListDataEvent;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.awt.*;
 
 /**
@@ -70,7 +72,10 @@ public class CommandsButtonView extends JPanel implements ListEView
          _eo.removeChangeListener(this);
          _eo = null;
       }
-      _parent.remove(this);
+      if (_parent != null) // there's a case where view is not added
+      {
+         _parent.remove(this);
+      }
    }
 
    private void detachCmds()
@@ -89,6 +94,19 @@ public class CommandsButtonView extends JPanel implements ListEView
          removeAll();
          _commands = null;
       }
+   }
+
+   public boolean hasCommandsFor(ComplexEObject ceo, EView source)
+   {
+      int count = 0;
+      for (Iterator itr = ceo.filteredCommands().iterator(); itr.hasNext(); )
+      {
+         Command cmd = (Command) itr.next();
+         if (cmd.isOpenInNonMinimizedContext(source)) continue;
+         if (cmd.isMinorCommand(source)) continue;
+         count++;
+      }
+      return (count > 0);
    }
 
    private void setup()
