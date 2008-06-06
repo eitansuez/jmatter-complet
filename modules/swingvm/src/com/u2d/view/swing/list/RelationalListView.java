@@ -33,8 +33,7 @@ public class RelationalListView extends ListView
       setBorder(border);
 
       // serves as a handle for creating/listing child items
-      NullAssociation nullEO = 
-         new NullAssociation((IndexedField) leo.field(), leo.parentObject());
+      NullAssociation nullEO = new NullAssociation(leo.field(), leo.parentObject());
       _laview = new ListAssociationView(nullEO);
       add(_laview);
    }

@@ -61,7 +61,7 @@ public class ExpandableView extends JPanel implements ComplexEView, Editor
       _ceo = ceo;
 
       _handle = (ListItemView) _ceo.getListItemView();
-      add((JComponent) _handle, cc.xy(2, 1));
+      add(_handle, cc.xy(2, 1));
 
       if (_toggleBtn.isExpanded() != expanded)
          _toggleBtn.doClick();
