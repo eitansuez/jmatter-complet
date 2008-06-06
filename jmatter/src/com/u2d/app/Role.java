@@ -19,7 +19,6 @@ import com.u2d.type.composite.LoggedEvent;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
 import org.hibernate.Session;
 import org.hibernate.HibernateException;
 
@@ -77,6 +76,11 @@ public class Role extends AbstractComplexEObject implements Authorizer
    public CommandRestriction addCmdRestriction()
    {
       return addCmdRestriction(new CommandRestriction(this));
+   }
+
+   public FieldRestriction addFldRestriction()
+   {
+      return (FieldRestriction) addRestriction(new FieldRestriction(this));
    }
    
    @Cmd(mnemonic='a')
@@ -205,10 +209,9 @@ public class Role extends AbstractComplexEObject implements Authorizer
    
    public void initializePermissions(HBMPersistenceMechanism hbmPersistor)
    {
-      if (defaultRole())
+      if (_restrictions.isEmpty())
       {
-      
-         if (_restrictions.isEmpty())
+         if (defaultRole())
          {
             ComplexType userType = ComplexType.forClass(User.class);
             ComplexType logType = ComplexType.forClass(LoggedEvent.class);
@@ -279,8 +282,11 @@ public class Role extends AbstractComplexEObject implements Authorizer
          //   just check for the presence of Edit restrictions on the association's
          //   parent.
 
+
+         // give specific application opportunity to programmatically specify a set of
+         //  initial restrictions..
+         app().initializePermissions();
       }
-      
    }
 
    public boolean authorizes(User user) { return _users.contains(user); }
