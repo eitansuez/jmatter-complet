@@ -113,6 +113,7 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
       JLabel weekLbl = _weekSheet.getIntervalView().getLabel();
       _cardLayout = new CardLayout();
       _lblPnl = new JPanel(_cardLayout);
+      _lblPnl.setOpaque(false);
       _lblPnl.add(dayLbl, "day");
       _lblPnl.add(weekLbl, "week");
       _cardLayout.show(_lblPnl, "week");
@@ -134,7 +135,7 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
                _cardLayout.show(_lblPnl, key);
             }
          });
-      
+
       return _tabPane;
    }
 

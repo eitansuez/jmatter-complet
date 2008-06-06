@@ -23,6 +23,8 @@ public class CellResPanel extends JPanel implements ActionListener, PropertyChan
    
    public CellResPanel(ITimeSheet timesheet)
    {
+      setOpaque(false);
+      
       _timesheet = timesheet;
       _model = new ChoiceEOModel(_timesheet.getCellResolution());
       _combo.setModel(_model);

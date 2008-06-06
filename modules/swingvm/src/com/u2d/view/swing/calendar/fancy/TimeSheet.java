@@ -53,6 +53,7 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
       add(pnl, BorderLayout.CENTER);
       
       _eastPanel = new JPanel(new BorderLayout());
+      _eastPanel.setOpaque(false);
       _eastPanel.add(new DateView2(_position), BorderLayout.NORTH);
       add(_eastPanel, BorderLayout.EAST);
       

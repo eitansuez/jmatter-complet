@@ -35,7 +35,8 @@ public class NavPanel extends JPanel implements ActionListener
    public NavPanel(ITimeSheet timesheet)
    {
       _timesheet = timesheet;
-      
+
+      setOpaque(false);
       setLayout(new FlowLayout(FlowLayout.CENTER));
       setupButton(PREV_ICON, PREV_ROLLOVER, "<");
       setupButton(NEXT_ICON, NEXT_ROLLOVER, ">");
