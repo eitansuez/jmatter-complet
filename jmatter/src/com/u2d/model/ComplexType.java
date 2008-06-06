@@ -6,7 +6,6 @@ package com.u2d.model;
 import java.util.*;
 import java.util.List;
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import javax.swing.*;
@@ -187,7 +186,7 @@ public class ComplexType extends AbstractComplexEObject
       String searchPath = (String) Harvester.introspectField(_clazz, "defaultSearchPath");
       if (searchPath != null)
       {
-         String fieldPath = getQualifiedName() + "#" + searchPath;
+         String fieldPath = qualifiedFieldPath(searchPath);
          _defaultSearchPath.setValue(fieldPath);
       }
 
@@ -215,6 +214,11 @@ public class ComplexType extends AbstractComplexEObject
          ex.printStackTrace();
          System.exit(1);
       }
+   }
+
+   public String qualifiedFieldPath(String path)
+   {
+      return getQualifiedName() + "#" + path;
    }
 
    private String _filterString;
@@ -877,6 +881,33 @@ public class ComplexType extends AbstractComplexEObject
       if (_searchTreeModel == null)
          _searchTreeModel = new SearchTreeModel();
       return _searchTreeModel;
+   }
+
+   /*
+   if have for example parent = new Person("Eitan Suez")
+   and path is name.first
+   it will return "Eitan"
+   i.e. iterates over a field path from parent to the leaf value and returns it
+    */
+   public EObject navigatePath(String path, ComplexEObject parent)
+   {
+      String[] fieldParts = path.split("\\.");
+      Field field = null;
+
+      for (int i=0; i<fieldParts.length-1; i++)
+      {
+         if (i==0)
+         {
+            field = this.field(fieldParts[i]);
+         }
+         else
+         {
+            field = parent.field(fieldParts[i]);
+         }
+         parent = (ComplexEObject) field.get(parent);
+      }
+      String lastFieldPart = fieldParts[fieldParts.length-1];
+      return parent.field(lastFieldPart).get(parent);
    }
 
    class SearchTreeModel implements TreeModel
