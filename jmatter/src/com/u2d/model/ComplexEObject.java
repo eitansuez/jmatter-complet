@@ -56,6 +56,7 @@ public interface ComplexEObject
    public Field field(String propName);
    public Association association(String propName);
    public Command command(String commandName);
+   public Command command(String commandName, State state);
    public String defaultCommandName();
    public Command defaultCommand();
    public void setEditor(Editor editor);
@@ -71,7 +72,7 @@ public interface ComplexEObject
 
    public boolean hasCustomMainTabPanel();
    public EView mainTabPanel();
-   
+
    // conveniences..
    public void save();
    public boolean doSave();
