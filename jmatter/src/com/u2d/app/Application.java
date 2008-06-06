@@ -75,6 +75,11 @@ public class Application implements AppEventNotifier
       addTypesToIndex();
    }
 
+   /**
+    * override this to initialize permissions (one-time)
+    */
+   public void initializePermissions() {}
+
    private void addTypesToIndex()
    {
       contributeToIndex(topLevelEntities());
