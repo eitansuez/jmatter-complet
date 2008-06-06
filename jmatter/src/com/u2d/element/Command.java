@@ -395,8 +395,8 @@ public abstract class Command extends Member
          
          if (cmd.isForbidden(_target))
          {
-//            cmd.tracer().info("command "+cmd+" is forbidden for " +
-//                  "user "+cmd.currentUser()+" on target "+_target+" (skipping)");
+            cmd.tracer().fine("command "+cmd+" is forbidden for " +
+                  "user "+cmd.currentUser()+" on target "+_target+" (skipping)");
             return true;
          }
          
