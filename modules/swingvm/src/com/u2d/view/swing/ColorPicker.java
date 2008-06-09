@@ -27,6 +27,7 @@ public class ColorPicker extends JPanel implements AtomicEditor
    
    public ColorPicker(boolean editMode)
    {
+      setOpaque(false);
       add(_colorLabel);
       if (editMode)
       {
