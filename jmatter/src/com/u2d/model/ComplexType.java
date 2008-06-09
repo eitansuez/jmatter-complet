@@ -32,6 +32,7 @@ import com.u2d.reflection.*;
 import com.u2d.type.Choice;
 import com.u2d.type.atom.*;
 import com.u2d.pubsub.AppEventType;
+import net.sf.cglib.proxy.Enhancer;
 
 /**
  * @author Eitan Suez
@@ -114,7 +115,7 @@ public class ComplexType extends AbstractComplexEObject
       if (_typeCache.get(targetClass) == null)
          _typeCache.put(targetClass, new ComplexType(targetClass));
 
-      return (ComplexType) _typeCache.get(targetClass);
+      return _typeCache.get(targetClass);
    }
 
 
@@ -256,7 +257,7 @@ public class ComplexType extends AbstractComplexEObject
    {
       if (CONCRETE_TYPE_MAP.get(cls) == null)
          CONCRETE_TYPE_MAP.put(cls, new PlainListEObject(ComplexType.class));
-      return (AbstractListEO) CONCRETE_TYPE_MAP.get(cls);
+      return CONCRETE_TYPE_MAP.get(cls);
    }
    private void updateAbstractTypeMap()
    {
@@ -264,7 +265,7 @@ public class ComplexType extends AbstractComplexEObject
       {
          ABSTRACT_TYPE_MAP.put(_clazz, new HashSet());
       }
-      Set set = (Set) ABSTRACT_TYPE_MAP.get(_clazz);
+      Set set = ABSTRACT_TYPE_MAP.get(_clazz);
       Class[] interfaces = _clazz.getInterfaces();
       for (int i=0; i<interfaces.length; i++)
       {
@@ -311,7 +312,7 @@ public class ComplexType extends AbstractComplexEObject
 
    public AbstractListEO concreteTypes()
    {
-      return (AbstractListEO) CONCRETE_TYPE_MAP.get(_clazz);
+      return CONCRETE_TYPE_MAP.get(_clazz);
    }
    public boolean hasConcreteSubTypes()
    {
@@ -319,7 +320,7 @@ public class ComplexType extends AbstractComplexEObject
    }
    public ComplexType[] getAbstractTypes()
    {
-      Set set = (Set) ABSTRACT_TYPE_MAP.get(_clazz);
+      Set set = ABSTRACT_TYPE_MAP.get(_clazz);
       Iterator itr = set.iterator();
       Class cls;
       ComplexType[] types = new ComplexType[set.size()];
@@ -892,7 +893,7 @@ public class ComplexType extends AbstractComplexEObject
    public EObject navigatePath(String path, ComplexEObject parent)
    {
       String[] fieldParts = path.split("\\.");
-      Field field = null;
+      Field field;
 
       for (int i=0; i<fieldParts.length-1; i++)
       {
@@ -969,7 +970,7 @@ public class ComplexType extends AbstractComplexEObject
                searchFields.add(fp);
             }
 
-            Field field = null;
+            Field field;
             for (int i=0; i<fp.fields().size(); i++)
             {
                field = (Field) fp.fields().get(i);
@@ -1081,9 +1082,7 @@ public class ComplexType extends AbstractComplexEObject
       }
       return cmdSet;
    }
-   private static List MINORCOMMANDS =
-      Arrays.asList(new String[] {"Copy", "Paste", "Save", "Cancel"});
-
+   private static List MINORCOMMANDS = Arrays.asList("Copy", "Paste", "Save", "Cancel");
 
 
    public int validate(ComplexEObject instance)
@@ -1119,7 +1118,7 @@ public class ComplexType extends AbstractComplexEObject
          Criteria c = s.createCriteria(CompositeQuery.class);
          c.addOrder(Order.asc("queryType"));
          Iterator itr = c.list().iterator();
-         CompositeQuery query = null;
+         CompositeQuery query;
          while (itr.hasNext())
          {
             query = (CompositeQuery) itr.next();
