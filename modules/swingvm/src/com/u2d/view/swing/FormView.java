@@ -306,7 +306,10 @@ public class FormView extends JXPanel implements IFormView
          {
             Field field = view.getEObject().field();
 
-            if (field.hidden()) continue;
+            // comment: the field==null case is new;  i encounter it when customizing the
+            //  main tab panel for a view, where the view is a partial view of the parent object,
+            //  not of a specific child field.
+            if (field == null || field.hidden()) continue;
 
             if (field.isComposite() && !field.isIndexed())
             {
@@ -370,7 +373,7 @@ public class FormView extends JXPanel implements IFormView
 
             field = eo.field();
 
-            if (field.hidden()) continue;
+            if (field == null || field.hidden()) continue;
 
             if (field.isComposite() && editable && !field.isIndexed())
             {
