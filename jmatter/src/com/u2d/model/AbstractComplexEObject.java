@@ -311,15 +311,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public String defaultCommandName() { return _defaultCmdName; }
    public void setDefaultCommandName(String name) { _defaultCmdName = name; }
 
-   public Command defaultCommand()
-   {
-      Command cmd = command(defaultCommandName(), _currentState);
-      if (cmd == null)
-      {
-         cmd = command(defaultCommandName());
-      }
-      return cmd;
-   }
+   public Command defaultCommand() { return command(defaultCommandName()); }
 
 
    protected transient Editor _editor = null;
