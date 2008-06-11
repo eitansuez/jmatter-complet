@@ -128,7 +128,7 @@ public class AppFrame extends JFrame
       _sessionCardPanel.add(_centerPane, "loggedin");
 //      _sessionCardPanel.setAnimationAndDuration(new CubeAnimation(), 1000);
 //      _sessionCardPanel.setAnimationAndDuration(new DashboardAnimation(), 1000);
-      _sessionCardPanel.setAnimationAndDuration(new FadeAnimation(), 1000);
+//      _sessionCardPanel.setAnimationAndDuration(new FadeAnimation(), 1000);
 //      _sessionCardPanel.setAnimationAndDuration(new SlideAnimation(), 1000);
 
       _cardPanel = new CardPanel();
