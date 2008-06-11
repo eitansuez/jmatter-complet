@@ -6,7 +6,7 @@
 
  <information>
    <title>Project App</title> <!-- TODO: revise title appropriately -->
-   <vendor>DS Allergy, Inc.</vendor> <!-- TODO: plug in vendor name here -->
+   <vendor>UptoData, Inc.</vendor> <!-- TODO: plug in vendor name here -->
    <homepage href="index.html" />
    <description kind="one-line">Sympster App</description>
    <description kind="short">Sympster App</description>
