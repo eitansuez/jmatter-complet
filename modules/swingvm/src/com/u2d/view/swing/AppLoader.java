@@ -86,6 +86,7 @@ public class AppLoader implements ThreadMaker
       ClassLoader cl = initialClassLoader;
       if (url != null)
       {
+         System.setSecurityManager(null);
          cl = new URLFirstClassLoader(new URL[] { url }, initialClassLoader);
       }
       updateContextClassLoader(cl);
