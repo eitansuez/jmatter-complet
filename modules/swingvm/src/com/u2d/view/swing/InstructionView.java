@@ -10,7 +10,6 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import javax.swing.*;
 import javax.swing.event.*;
-import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -26,7 +25,6 @@ public class InstructionView extends JPanel
    private Instruction _instruction;
    
    private SimpleAssociationView _targetView, _cmdView;
-   private Timer _dismissTimer;
    private final static String TIP_START_TEXT = "Type to start matching a type";
    private JLabel _tipLabel = new JLabel();
    private ChangeListener _activeChangeListener;
@@ -35,7 +33,6 @@ public class InstructionView extends JPanel
 
    public InstructionView()
    {
-      configureTimer();
       configureView();
       
       _activeChangeListener = new ChangeListener() {
@@ -78,24 +75,6 @@ public class InstructionView extends JPanel
       _instruction.removePropertyChangeListener("action", actionChangeListener);
       _targetView.detach();
       _cmdView.detach();
-   }
-   
-   private void configureTimer()
-   {
-      _dismissTimer = new Timer(5000, new ActionListener() {
-         public void actionPerformed(ActionEvent e)
-         {
-            AppLoader.getInstance().newThread(new Runnable()
-            {
-               public void run()
-               {
-                  _instruction.deactivate();
-               }
-            }).start();
-         }
-      });
-      _dismissTimer.setRepeats(false);
-      _dismissTimer.setCoalesce(true);
    }
    
    private void configureView()
@@ -151,7 +130,6 @@ public class InstructionView extends JPanel
                _targetView.focus();
             }
          });
-//         _dismissTimer.start();
       }
       else
       {
