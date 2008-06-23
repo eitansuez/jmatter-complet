@@ -28,7 +28,7 @@ public class QuerySpecification
    {
       _fieldPath.setValue(path);
       _inequality = inequality;
-      _value = (EObject) value;
+      _value = value;
    }
    
    public FieldPath getFieldPath() { return _fieldPath; }
