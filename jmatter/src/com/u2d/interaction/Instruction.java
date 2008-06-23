@@ -81,9 +81,9 @@ public class Instruction
    
 
    private synchronized void matchText(Association association,
-                                      SimpleListEO matchesList, 
-                                      Map<String, ComplexEObject> optMap,
-                                      String text)
+                                       SimpleListEO matchesList,
+                                       Map<String, ComplexEObject> optMap,
+                                       String text)
    {
       SortedSet<Match> matchedItems = new TreeSet<Match>();
       if (text == null) text = "";
