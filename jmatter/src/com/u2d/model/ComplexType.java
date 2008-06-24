@@ -183,6 +183,11 @@ public class ComplexType extends AbstractComplexEObject
       {
          TimeEO.setStandardTimeFormat(timeFormat);
       }
+      String dateTimeFormat = metadata.getProperty("DateTime.format");
+      if (dateTimeFormat != null)
+      {
+         DateTime.setStandardFormat(dateTimeFormat);
+      }
       
       String searchPath = (String) Harvester.introspectField(_clazz, "defaultSearchPath");
       if (searchPath != null)

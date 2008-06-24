@@ -23,11 +23,6 @@ public class DateTime extends AbstractAtomicEO implements Searchable
 {
    private Date _value = new Date();
 
-   private static DateFormat _dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-   private static DateFormat _noyear = new SimpleDateFormat("MM/dd HH:mm");
-   private static DateFormat _2digityear = new SimpleDateFormat("MM/dd/yy HH:mm");
-   private static Calendar NOW = Calendar.getInstance();
-
    public DateTime() {}
    
    public DateTime(Date value)
@@ -64,6 +59,12 @@ public class DateTime extends AbstractAtomicEO implements Searchable
    public AtomicRenderer getRenderer() { return vmech().getDateTimeRenderer(); }
    public AtomicEditor getEditor() { return vmech().getDateTimeEditor(); }
 
+   
+   private static SimpleDateFormat _dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+   private static DateFormat _noyear = new SimpleDateFormat("MM/dd HH:mm");
+   private static DateFormat _2digityear = new SimpleDateFormat("MM/dd/yy HH:mm");
+   private static Calendar NOW = Calendar.getInstance();
+
    public void parseValue(String stringValue) throws java.text.ParseException
    {
       if (StringEO.isEmpty(stringValue))
@@ -93,6 +94,11 @@ public class DateTime extends AbstractAtomicEO implements Searchable
       
    }
 
+   public static void setStandardFormat(String dateTimeFormat)
+   {
+      _dateFormat.applyPattern(dateTimeFormat);
+   }
+   
    public EObject makeCopy()
    {
       return new DateTime(this.dateValue());
