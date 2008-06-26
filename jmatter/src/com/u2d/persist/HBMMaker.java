@@ -483,8 +483,7 @@ public class HBMMaker
          propElem.addAttribute("not-null", "true");
       
 
-      // TODO: this should be incapsulated in type and
-      // exposed via an interface (fix)
+      // TODO: this should be incapsulated in type and exposed via an interface (fix)
       boolean index = false;
       if (TimeSpan.class.isAssignableFrom(field.getJavaClass()))
          index = true;
