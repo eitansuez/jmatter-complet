@@ -27,6 +27,7 @@ public class ImgEO extends AbstractAtomicEO
    {
       if (!(value instanceof ImgEO))
          throw new IllegalArgumentException("Invalid type on set;  must be ImgEO");
+      if (this.equals(value)) return;
       setValue(((ImgEO) value).imageValue());
    }
 
@@ -56,6 +57,12 @@ public class ImgEO extends AbstractAtomicEO
    // attempt to resolve stringValue as a path or url
    public void parseValue(String stringValue)
    {
+      if (StringEO.isEmpty(stringValue))
+      {
+         setValue(nullIcon());
+         return;
+      }
+
       try
       {
          java.net.URL url = new java.net.URL(stringValue);
