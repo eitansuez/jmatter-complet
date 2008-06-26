@@ -91,7 +91,6 @@ final class TreeNodeAdapter extends DefaultMutableTreeNode implements EView, Pro
 		return seenInAncestors( (TreeNodeAdapter)gParent, eo);		
 	}
 
-	@Override
    public void stateChanged(ChangeEvent e)
    {
       if (jtree != null) this.getTreeModel().nodeChanged(this);
@@ -113,7 +112,6 @@ final class TreeNodeAdapter extends DefaultMutableTreeNode implements EView, Pro
       this.setUserObject(null);
    }
 
-   @Override
    public void propertyChange(PropertyChangeEvent evt)
    {
       ComplexEObject newValue = (ComplexEObject) evt.getNewValue();
@@ -138,7 +136,6 @@ final class TreeNodeAdapter extends DefaultMutableTreeNode implements EView, Pro
 
    private DefaultTreeModel getTreeModel() { return (DefaultTreeModel) jtree.getModel(); }
 
-	@Override
    public void contentsChanged(ListDataEvent e)
    {
       EObject eo = (EObject) getUserObject();
@@ -159,7 +156,6 @@ final class TreeNodeAdapter extends DefaultMutableTreeNode implements EView, Pro
       }
    }
 
-   @Override
    public void intervalAdded(ListDataEvent e)
    {
       EObject eo = (EObject) getUserObject();
@@ -176,7 +172,6 @@ final class TreeNodeAdapter extends DefaultMutableTreeNode implements EView, Pro
       }
    }
 
-   @Override
    public void intervalRemoved(ListDataEvent e)
    {
       EObject eo = (EObject) getUserObject();
