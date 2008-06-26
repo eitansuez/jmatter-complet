@@ -101,7 +101,7 @@ public class JSON
          {
             obj.put(field.name(), json((ComplexEObject) field.get(eo)));
          }
-         else if (field.isAssociation())
+         else if (field.isAssociation() && spec!=null)
          {
             ComplexEObject association = (ComplexEObject) field.get(eo);
             if (spec.includes(field.name()))
