@@ -121,13 +121,15 @@ public class CustomIconView
 
       g2.setColor(highlightColor);
       
-      String matchText = getFilterDocText().toLowerCase();
+      StringBuffer matchText = new StringBuffer(getFilterDocText().toLowerCase());
       for (int i=0; i<lblText.length(); i++)
       {
          Rectangle2D r = fm.getStringBounds(lblText, i, i+1, g2);
-         if (matchText.contains(lblText.substring(i, i+1).toLowerCase()))
+         int index = matchText.indexOf(lblText.substring(i, i+1).toLowerCase());
+         if (index != -1)
          {
             g2.fillRect(x, y, (int) r.getWidth(), (int) r.getHeight());
+            matchText.deleteCharAt(index);
          }
          x += r.getWidth();
       }
