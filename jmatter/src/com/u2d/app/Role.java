@@ -108,12 +108,11 @@ public class Role extends AbstractComplexEObject implements Authorizer
       for (Iterator itr = _restrictions.iterator(); itr.hasNext(); )
       {
          Restriction restriction = (Restriction) itr.next();
-         // even though Member "merges" retrieved objects with one constructed
-         // in memory through introspection, associations are not updated.
-         // i cannot seem to find a way to plug into hibernate a mechanism
-         // for resolving retrieved objects instead of having it use the no-arg
-         // constructor..
-         Member.forMember(restriction.member()).applyRestriction(restriction);
+         if (restriction.member() == null)
+         {
+            throw new RuntimeException("Came across a restriction with a null member! Restriction is: "+restriction);
+         }
+         restriction.member().applyRestriction(restriction);
       }
 
       applyFilterRestrictions();

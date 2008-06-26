@@ -42,6 +42,8 @@ public abstract class Member extends ProgrammingElement implements Restrictable
 
    public static Member forMember(Member member)
    {
+      if (member == null) return null;
+      
       if (member instanceof Field)
       {
          return Field.forPath(member.getFullPath().stringValue());
@@ -50,7 +52,7 @@ public abstract class Member extends ProgrammingElement implements Restrictable
       {
          return Command.forPath(member.getFullPath().stringValue());
       }
-      throw new RuntimeException("What Kind of Member is this?");
+      throw new RuntimeException(String.format("What Kind of Member is this? %s", member.getClass().getName()));
    }
 
 
@@ -63,7 +65,7 @@ public abstract class Member extends ProgrammingElement implements Restrictable
       {
          _memberOrder = memberOrder;
          for (int i=0; i<memberOrder.length; i++)
-            _inverted.put(memberOrder[i], new Integer(i));
+            _inverted.put(memberOrder[i], i);
       }
       
       public int compare(Object o1, Object o2)
@@ -133,10 +135,13 @@ public abstract class Member extends ProgrammingElement implements Restrictable
    {
       Member harvested = Member.forMember(member);
       Tracing.tracer().fine("Merging member: "+member+" with member object: "+harvested);
+      // overlay db field data onto introspected version of object.
       harvested.transferCopy(harvested, member, true);
-      harvested.setID(member.getID());
-      harvested.setVersion(member.getVersion());
-      session.evict(member);
+//      harvested.setID(member.getID());
+//      harvested.setVersion(member.getVersion());
+//      session.evict(member);
+            // *** = reason for commenting next line out:
+//      session.update(harvested); // *** update causes hibernate to think member is dirty.
       return harvested;
    }
 

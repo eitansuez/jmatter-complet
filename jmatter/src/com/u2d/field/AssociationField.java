@@ -38,24 +38,34 @@ public class AssociationField extends Field implements Bidi, Associable
    public AssociationField(FieldParent parent, String name) 
       throws IntrospectionException
    {
-      super(parent, name);
-      introspectAssociator();
-      _inverseFieldName =
-         (String) Harvester.introspectField(parent.getJavaClass(),
-                                            name() + "InverseFieldName");
-      checkForAssociationConstraint();
+      init(parent, name);
    }
    
    public AssociationField(FieldParent parent, PropertyDescriptor descriptor) 
    {
-      super(parent, descriptor);
+      init(parent, descriptor);
+   }
+
+   protected void init(FieldParent parent, String name) throws IntrospectionException
+   {
+      super.init(parent, name);
+      postInit(parent);
+   }
+
+   protected void init(FieldParent parent, PropertyDescriptor descriptor)
+   {
+      super.init(parent, descriptor);
+      postInit(parent);
+   }
+
+   private void postInit(FieldParent parent)
+   {
       introspectAssociator();
       _inverseFieldName =
          (String) Harvester.introspectField(parent.getJavaClass(),
                                             name() + "InverseFieldName");
       checkForAssociationConstraint();
    }
-   
 
    private void checkForAssociationConstraint()
    {
@@ -76,7 +86,7 @@ public class AssociationField extends Field implements Bidi, Associable
    }
    public boolean hasListAssociationConstraint()
    {
-     return hasAssociationConstraint() && !isQueryType();
+      return hasAssociationConstraint() && !isQueryType();
    }
 
    public AbstractListEO associationOptions(Object instance)

@@ -31,17 +31,22 @@ public class AggregateField extends CompositeField implements FieldParent
    public AggregateField(FieldParent parent, PropertyDescriptor descriptor)
 			throws IntrospectionException
 	{
-		super(parent, descriptor);
+      init(parent, descriptor);
       harvestFields();
 	}
    
 	public AggregateField(FieldParent parent, String name)
 			throws IntrospectionException
 	{
-		super(parent, name);
-      harvestFields();
+      init(parent, name);
 	}
-   
+
+   protected void init(FieldParent parent, String name) throws IntrospectionException
+   {
+      super.init(parent, name);
+      harvestFields();
+   }
+
    private void harvestFields() throws IntrospectionException
    {
       _fields = Harvester.harvestFields(this);

@@ -51,8 +51,17 @@ public class FieldRestriction extends Restriction
       firePropertyChange("member", oldMember, _member);
    }
 
-   public Member member() { return _member; }
-   
+   /**
+    * The issue is that there are two copies/versions for a member:  the one i introspect, + the one
+    * that is restored from database.
+    * 
+    * @return Introspected version of the db-fetched member
+    */
+   public Member member()
+   {
+      return Member.forMember(_member);
+   }
+
 
    public FieldRestrictionType getRestrictionType() { return _restrictionType; }
    
@@ -63,6 +72,11 @@ public class FieldRestriction extends Restriction
 
    public Title title()
    {
+      if (_member == null || _role == null)
+      {
+         String text = String.format("Field Restriction (type: %s)", _restrictionType);
+         return new Title(text);
+      }
       return _member.title().append(",", _role).append(":", _restrictionType);
    }
 }

@@ -24,11 +24,17 @@ public abstract class CompositeField extends Field
 
    public CompositeField(FieldParent parent, String name) throws IntrospectionException
    {
-      String getterName = Harvester.makeGetterName(name);
-      PropertyDescriptor descriptor = new PropertyDescriptor(name, parent.getJavaClass(), 
-            getterName, null);
-      init(parent, descriptor);
+      init(parent, name);
    }
+
+   protected void init(FieldParent parent, String name) throws IntrospectionException
+   {
+      String getterName = Harvester.makeGetterName(name);
+      PropertyDescriptor descriptor = new PropertyDescriptor(name, parent.getJavaClass(),
+            getterName, null);
+      super.init(parent, descriptor);
+   }
+
 
    public EObject get(ComplexEObject parent)
    {
@@ -59,7 +65,8 @@ public abstract class CompositeField extends Field
       }
       else
       {
-         throw new IllegalArgumentException("Invalid parent type: "+ancestor.getClass()+"; expected: "+parentClass);
+         return super.reflectGet(ancestor);
+//         throw new IllegalArgumentException("Invalid parent type: "+ancestor.getClass()+"; expected: "+parentClass);
       }
    }
 

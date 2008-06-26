@@ -42,7 +42,10 @@ public class CommandRestriction extends Restriction
       firePropertyChange("member", oldMember, _member);
    }
 
-   public Member member() { return _member; }
+   public Member member()
+   {
+      return Member.forMember(_member);
+   }
 
    // not sure i like this but the way things are defined right
    // now is that a commandrestriction is binary.  so the mere

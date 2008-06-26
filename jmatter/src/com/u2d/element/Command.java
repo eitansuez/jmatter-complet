@@ -336,7 +336,7 @@ public abstract class Command extends Member
          ComplexType type = ComplexType.forClass(cls);
          String commandName = parts[1];
          
-         Command cmd = null;
+         Command cmd;
          if (parts.length == 3)
          {
             String stateClassName = parts[2];

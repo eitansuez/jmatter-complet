@@ -7,7 +7,6 @@ import java.beans.*;
 import java.lang.reflect.*;
 import java.util.List;
 import java.util.ArrayList;
-
 import com.u2d.field.*;
 import com.u2d.find.Searchable;
 import com.u2d.model.*;
@@ -20,6 +19,8 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.validation.Required;
 import com.u2d.view.*;
 import com.u2d.reflection.Fld;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 /**
  * @author Eitan Suez
@@ -30,7 +31,6 @@ public abstract class Field extends Member
    protected Class _clazz;
    private String _cleanPath, _path, _naturalPath;
    private final StringEO _fullPath = new StringEO();
-   private Title _title;
    
    protected transient Method _getter, _setter;
 
@@ -38,15 +38,36 @@ public abstract class Field extends Member
       "description"};
    public static String[] readOnly = {"name", "fullPath"};
    public static String[] identities = {"fullPath"};
-   
-   
 
-   public Field() {}
+
+   public Field()
+   {
+      correctInitializationFromDatabase();
+   }
+
+   private void correctInitializationFromDatabase()
+   {
+      ChangeListener initListener = new ChangeListener()
+      {
+         public void stateChanged(ChangeEvent e)
+         {
+            if (!initialized)
+            {
+               try
+               {
+                  Field sibling = Field.forPath(_fullPath.stringValue());
+                  init(sibling.parent(), sibling.name());
+               }
+               catch (IntrospectionException dontCare) { dontCare.printStackTrace(); }
+            }
+         }
+      };
+      getFullPath().addChangeListener(initListener);
+   }
 
    public Field(FieldParent parent, String name) throws IntrospectionException
    {
-      PropertyDescriptor descriptor = new PropertyDescriptor(name, parent.getJavaClass());
-      init(parent, descriptor);
+      init(parent, name);
    }
 
    public Field(FieldParent parent, PropertyDescriptor descriptor)
@@ -54,8 +75,15 @@ public abstract class Field extends Member
       init(parent, descriptor);
    }
 
+   private boolean initialized = false;
+   protected void init(FieldParent parent, String name) throws IntrospectionException
+   {
+      PropertyDescriptor descriptor = new PropertyDescriptor(name, parent.getJavaClass());
+      init(parent, descriptor);
+   }
    protected void init(FieldParent parent, PropertyDescriptor descriptor)
    {
+      initialized = true;
       _parent = parent;
 
       getName().setValue(descriptor.getName());  // (also derives Label)
@@ -70,13 +98,13 @@ public abstract class Field extends Member
 
    public Object reflectGet(EObject parent)
    {
-      Class parentClass = parent().getJavaClass();
+//      Class parentClass = parent().getJavaClass();
       try
       {
-         if (!parentClass.isAssignableFrom(parent.getClass()))
-         {
-            throw new IllegalArgumentException("Invalid parent type: "+parent.getClass()+"; expected: "+parentClass);
-         }
+//         if (!parentClass.isAssignableFrom(parent.getClass()))
+//         {
+//            throw new IllegalArgumentException("Invalid parent type: "+parent.getClass()+"; expected: "+parentClass);
+//         }
 
          return _getter.invoke(parent);
       }
@@ -99,6 +127,7 @@ public abstract class Field extends Member
    public void restore(ComplexEObject parent, Object value)
    {
       set(parent, value);
+      get(parent).signalRestored();
    }
 
    public String localizedLabel(Localized l)
@@ -313,7 +342,6 @@ public abstract class Field extends Member
          }
       }
       _naturalPath = sb.toString();
-      _title = new Title(_naturalPath);
    }
 
 
@@ -366,7 +394,7 @@ public abstract class Field extends Member
 
    // ==
 
-   public Title title() { return _title; }
+   public Title title() { return new Title(_naturalPath); }
 
    protected boolean _readOnly = false;
    public boolean isReadOnly() { return _readOnly || restrictReadOnly(); }

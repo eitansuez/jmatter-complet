@@ -34,16 +34,29 @@ public class IndexedField extends Field implements Bidi, Associable
 
    public IndexedField(FieldParent parent, PropertyDescriptor descriptor)
    {
-      super(parent, descriptor);
-      _inverseFieldName =
-         (String) Harvester.introspectField(parent.getJavaClass(),
-                                            name() + "InverseFieldName");
+      init(parent, descriptor);
    }
 
    public IndexedField(FieldParent parent, String name)
          throws IntrospectionException
    {
-      super(parent, name);
+      init(parent, name);
+   }
+
+   protected void init(FieldParent parent, String name) throws IntrospectionException
+   {
+      super.init(parent, name);
+      postInit(parent);
+   }
+
+   protected void init(FieldParent parent, PropertyDescriptor descriptor)
+   {
+      super.init(parent, descriptor);
+      postInit(parent);
+   }
+
+   private void postInit(FieldParent parent)
+   {
       _inverseFieldName =
          (String) Harvester.introspectField(parent.getJavaClass(),
                                             name() + "InverseFieldName");
