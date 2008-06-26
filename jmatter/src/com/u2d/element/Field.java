@@ -127,7 +127,6 @@ public abstract class Field extends Member
    public void restore(ComplexEObject parent, Object value)
    {
       set(parent, value);
-      get(parent).signalRestored();
    }
 
    public String localizedLabel(Localized l)

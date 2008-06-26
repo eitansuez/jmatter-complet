@@ -169,7 +169,7 @@ public class JSON
 
       if (o.optBoolean("byRef"))
       {
-         String id = o.getString("id");
+         Long id = o.getLong("id");
          return (ComplexEObject) session.get(cls, id);
       }
 
@@ -188,7 +188,7 @@ public class JSON
          {
             if ("id".equals(fldName))
             {
-               eo.setID(o.getString(fldName));
+               eo.setID(o.getLong(fldName));
             }
             else if ("version".equals(fldName))
             {
