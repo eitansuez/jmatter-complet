@@ -425,13 +425,16 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       for (int i=0; i<fields.size(); i++)
       {
          Field field = (Field) fields.get(i);
-         if (field instanceof IndexedField)
+         if (field.isComposite())  // exclude associations
          {
-            hashCode = hashCode + 17 * ((AbstractListEO) field.get(this)).getSize();
-         }
-         else
-         {
-            hashCode = hashCode + 31 * (field.get(this).hashCode());
+            if (field.isIndexed())
+            {
+               hashCode = hashCode + 17 * ((AbstractListEO) field.get(this)).getSize();
+            }
+            else
+            {
+               hashCode = hashCode + 31 * (field.get(this).hashCode());
+            }
          }
       }
       return hashCode;
