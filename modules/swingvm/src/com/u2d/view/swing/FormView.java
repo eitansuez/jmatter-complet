@@ -373,9 +373,9 @@ public class FormView extends JXPanel implements IFormView
 
             field = eo.field();
 
-            if (field == null || field.hidden()) continue;
+            if (field != null && field.hidden()) continue;
 
-            if (field.isComposite() && editable && !field.isIndexed())
+            if (field != null && field.isComposite() && editable && !field.isIndexed())
             {
                CompositeField cfield = ((CompositeField) field);
                if (cfield.isReadOnly() ||
