@@ -100,6 +100,12 @@ public class URI extends AbstractAtomicEO implements Searchable
 
    public void parseValue(String stringValue)
    {
+      if (StringEO.isEmpty(stringValue))
+      {
+         setValue("");
+         return;
+      }
+      
       try
       {
          new URL(stringValue);
