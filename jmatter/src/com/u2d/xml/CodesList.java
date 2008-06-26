@@ -59,7 +59,7 @@ public class CodesList
 		String resourceNameSingular = clazz.getSimpleName().toLowerCase();
 
 		//Singular->Plural
-		String resourceNamePlural = null;
+		String resourceNamePlural;
 		// category->categories 
 		if (resourceNameSingular.endsWith("y")) {
 			resourceNamePlural = resourceNameSingular.substring(0, resourceNameSingular.length() -1) + "ies"; 
@@ -112,12 +112,12 @@ public class CodesList
    public static List unmarshalJSON(String resourceName)
    {
       InputStream stream = getStreamForResource(resourceName);
-      String data = null;
+      String data;
       try
       {
          data = JSON.readInputStream(stream);
          JSONObject jso = new JSONObject(data);
-         AbstractListEO leo = JSON.fromJsonList(jso);
+         AbstractListEO leo = JSON.fromJsonList(jso, null);
          return leo.getItems();
       }
       catch (IOException e)
@@ -178,7 +178,7 @@ public class CodesList
 
       Criteria criteria = session.createCriteria(klass);
       Criteria countCriteria = criteria.setProjection(Projections.rowCount());
-      int count = ((Integer) countCriteria.uniqueResult()).intValue();
+      int count = (Integer) countCriteria.uniqueResult();
 
       if (count > 0)
          return;

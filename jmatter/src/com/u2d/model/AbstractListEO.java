@@ -530,7 +530,7 @@ public abstract class AbstractListEO extends AbstractEObject
    public void ImportJSON(CommandInfo cmdInfo, @Arg("Import from:") FileEO file) throws Exception
    {
       String jsonText = JSON.readTextFile(file.fileValue().getAbsolutePath());
-      AbstractListEO list = JSON.fromJsonList(new JSONObject(jsonText));
+      AbstractListEO list = JSON.fromJsonList(new JSONObject(jsonText), hbmPersistor().getSession());
       Set set = new HashSet(list.getItems());
       hbmPersistor().saveMany(set);
    }

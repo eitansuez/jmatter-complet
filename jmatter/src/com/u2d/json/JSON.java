@@ -3,12 +3,12 @@ package com.u2d.json;
 import org.json.JSONObject;
 import org.json.JSONException;
 import org.json.JSONArray;
+import org.hibernate.Session;
 import com.u2d.model.*;
 import com.u2d.element.Field;
 import com.u2d.list.PlainListEObject;
 import java.util.List;
 import java.util.Iterator;
-import java.util.Arrays;
 import java.text.ParseException;
 import java.io.*;
 
@@ -36,13 +36,19 @@ public class JSON
    }
    public static JSONObject json(AbstractListEO leo, String... includes) throws JSONException
    {
+      MarshalSpec spec = new MarshalSpec();
+      spec.includeByValue(includes);
+      return json(leo, spec);
+   }
+   public static JSONObject json(AbstractListEO leo, MarshalSpec spec) throws JSONException
+   {
       JSONObject jso = new JSONObject();
       jso.put("item-type", leo.type().getJavaClass().getName());
       List list = leo.getItems();
       JSONArray ra = new JSONArray();
       for (int i=0; i<list.size(); i++)
       {
-         ra.put(json((ComplexEObject) list.get(i), includes));
+         ra.put(json((ComplexEObject) list.get(i), spec));
       }
       jso.put("items", ra);
       return jso;
@@ -63,6 +69,12 @@ public class JSON
     */
    public static JSONObject json(ComplexEObject eo, String... includes) throws JSONException
    {
+      MarshalSpec spec = new MarshalSpec();
+      spec.includeByValue(includes);
+      return json(eo, spec);
+   }
+   public static JSONObject json(ComplexEObject eo, MarshalSpec spec) throws JSONException
+   {
       JSONObject obj = new JSONObject();
       obj.put("type", eo.getClass().getName());
       for (Iterator itr = eo.childFields().iterator(); itr.hasNext(); )
@@ -82,15 +94,28 @@ public class JSON
          }
          else if (field.isIndexed())
          {
-            obj.put(field.name(), json((AbstractListEO) field.get(eo)));
+            AbstractListEO list = (AbstractListEO) field.get(eo);
+            obj.put(field.name(), json(list, spec.specFor(field.name())));
          }
          else if (field.isAggregate())
          {
             obj.put(field.name(), json((ComplexEObject) field.get(eo)));
          }
-         else if (field.isAssociation() && contains(includes, field.name()))
+         else if (field.isAssociation())
          {
-            obj.put(field.name(), json((ComplexEObject) field.get(eo)));
+            ComplexEObject association = (ComplexEObject) field.get(eo);
+            if (spec.includes(field.name()))
+            {
+               obj.put(field.name(), json(association, spec.specFor(field.name())));
+            }
+            else if (spec.byRef(field.name()))
+            {
+               JSONObject child = new JSONObject();
+               child.put("byRef", "true");
+               child.put("type", association.getClass().getName());
+               child.put("id", association.getID());
+               obj.put(field.name(), child);
+            }
          }
       }
       obj.put("id", eo.getID());
@@ -98,12 +123,7 @@ public class JSON
       return obj;
    }
 
-   private static boolean contains(String[] list, String value)
-   {
-      return Arrays.asList(list).contains(value);
-   }
-
-   public static AbstractListEO fromJsonList(JSONObject jso)
+   public static AbstractListEO fromJsonList(JSONObject jso, Session session)
          throws JSONException, ClassNotFoundException, ParseException
    {
       String clsname = (String) jso.get("item-type");
@@ -114,16 +134,16 @@ public class JSON
       for (int i=0; i<ra.length(); i++)
       {
          jso = ra.getJSONObject(i);
-         leo.add(fromJson(jso, cls));
+         leo.add(fromJson(jso, cls, session));
       }
 
       return leo;
    }
 
-   public static ComplexEObject fromJson(JSONObject o)
+   public static ComplexEObject fromJson(JSONObject o, Session session)
          throws JSONException, ClassNotFoundException, ParseException
    {
-      return fromJson(o, null);
+      return fromJson(o, null, session);
    }
    private static Class classFor(String clsname) throws ClassNotFoundException
    {
@@ -131,7 +151,7 @@ public class JSON
       return Thread.currentThread().getContextClassLoader().loadClass(clsName);
    }
    
-   public static ComplexEObject fromJson(JSONObject o, Class cls)
+   public static ComplexEObject fromJson(JSONObject o, Class cls, Session session)
          throws JSONException, ClassNotFoundException, ParseException
    {
       Iterator itr = o.keys();
@@ -146,6 +166,13 @@ public class JSON
          String typeName = o.getString("value");
          return ComplexType.forClass(classFor(typeName));
       }
+
+      if (o.optBoolean("byRef"))
+      {
+         String id = o.getString("id");
+         return (ComplexEObject) session.get(cls, id);
+      }
+
       ComplexEObject eo = ComplexType.forClass(cls).instance();
 
       while (itr.hasNext())
@@ -161,7 +188,7 @@ public class JSON
          {
             if ("id".equals(fldName))
             {
-               eo.setID(o.getLong(fldName));
+               eo.setID(o.getString(fldName));
             }
             else if ("version".equals(fldName))
             {
@@ -178,11 +205,11 @@ public class JSON
             JSONObject valueObj = (JSONObject) value;
             if (valueObj.has("item-type"))
             {
-               field.set(eo, fromJsonList(valueObj));
+               field.set(eo, fromJsonList(valueObj, session));
             }
             else
             {
-               field.set(eo, fromJson(valueObj));
+               field.set(eo, fromJson(valueObj, session));
             }
          }
          else
