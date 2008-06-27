@@ -2,6 +2,85 @@ Changes File
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Jun 27 2008
+
+For a full list of svn log comments for this release, issue the following command
+against the jmatter svn repository:
+
+        svn log -r {2008-04-10}:{2008-06-27} > svnlog
+
+Changes
+=======
+
+Main Changes
+------------ 
+
+- can now enable per-field custom [atomic] renderer/editor specification via model-metadata.properties file
+- added two new variant editors for boolean types
+- support for easy custom uis/layouts using abeille form designer
+  (this replaces previous autolayout mechanism based on abeille;  it didn't work very well;  docs and examples to follow)
+- increased sophistication of json-based marshalling solution;  can now marshal associations by reference (with the assumption that referenced item is accessible from database);  and can specify a nested marshalling specification
+- improvements to validation on atomic types; validation errors, required fields now highlighted with custom background color
+- improvement to floateo (can set format on a per-field basis via annotation, like can for date fields);
+- improvement to implementation of floateditor;
+
+- integrated contribution from guizhong chen:  an alternative/stable implementation of omniview/jtreeview for a model object
+- fixed bug in authorization system introduced in april release
+- defining optional spot for an app (Appication.java) to programmatically initialize authorization on startup (first time)
+
+metamodel/core
+--------------
+
+- improvement to algorithm for deriving concrete type maps;  now recursing through superclasses (not just one level)
+- Field.readOnly is now a bound property; atomicview now supports dynamically changing field.readonly property;
+
+model objects
+-------------
+
+- renamed loggedevent property from 'type' to 'eventtype' so as not to potentially mask/clash with superclass property with same name
+- added command 'viewingooglemaps' to usaddress
+
+
+bug fixes:
+----------
+
+- no longer restoring window bounds if was maximized
+- fixed issue whereby sometimes initial width of the classbar view (after login) would be incorrect;  appear to clip some of the text/icons
+- fixed bug introduced when enhanced authorization with filters by not checking condition where a filter is not even defined
+- fixed a java 5 bug with action.mnemonic having to be the integer value of the upper case version of the character in question (file->exit by mnemonic now works)
+- fixed issue with disabled navigation keys on jmatter jlistviews in java5
+- ensuring that read-only views are not a part of the focus traversal
+- association views now abide by read-only setting/specification
+- fixed issue with restoring object state after a refresh
+- (deployment-related) fixed an issue with application loading in the context of a webstart-deployed appbrowser 
+- fixed issue with validation of uri if blank
+- improved/corrected impl of hashcode() on base abstract complexeobject
+
+minor, ui-related
+-----------------
+
+- revising fancylabel background painting to use a vertical gradient;  used in calendaring;  looks nicer
+- added a radioubuttongroup view for choiceeo's
+- improvements to float (numeric) editor
+- revising preferred/default appframe size to 1024x768
+- revised slightly appframe design to use a cardpanel for loggedin and loggedout states
+- Can now customize format for DateTime types, in addition to TimeEO and DateEO
+
+performance/stability
+---------------------
+
+- lazy loading disabled icons in nullcomplexeobject (contribution:  mikeH)
+- memory leak reduction work;  mostly detaching commandadapter when view is detached
+
+third-party libs
+----------------
+
+- updated h2 jar to v20080621
+- updated smc (state machine compiler) to latest version (5.0.2)
+- updated formsrt.jar (abeille runtime)
+
+----------
+
 Apr 9 2008
 
 Changes
