@@ -6,6 +6,7 @@ import com.u2d.validation.ValidationListener;
 import com.u2d.validation.ValidationEvent;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Date: Jun 8, 2005
@@ -44,5 +45,10 @@ public class USZipEditor extends JTextField implements AtomicEditor, ValidationL
    public void validationException(ValidationEvent evt)
    {
       AtomicView.colorBackground(this, evt);
+   }
+   protected void paintComponent(Graphics g)
+   {
+      super.paintComponent(g);
+      AtomicView.decorateComponentForValidation(g, this, false);
    }
 }

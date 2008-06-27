@@ -5,13 +5,16 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
+import com.u2d.validation.ValidationListener;
+import com.u2d.validation.ValidationEvent;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author Eitan Suez
  */
-public class SSNEditor extends JTextField implements AtomicEditor
+public class SSNEditor extends JTextField implements AtomicEditor, ValidationListener
 {
    public SSNEditor()
    {
@@ -38,4 +41,14 @@ public class SSNEditor extends JTextField implements AtomicEditor
    }
 
    public void passivate() { }
+
+   public void validationException(ValidationEvent evt)
+   {
+      AtomicView.colorBackground(this, evt);
+   }
+   protected void paintComponent(Graphics g)
+   {
+      super.paintComponent(g);
+      AtomicView.decorateComponentForValidation(g, this, false);
+   }
 }

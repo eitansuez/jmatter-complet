@@ -3,8 +3,11 @@ package com.u2d.view.swing.atom;
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
 import com.u2d.type.atom.Email;
+import com.u2d.validation.ValidationListener;
+import com.u2d.validation.ValidationEvent;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Date: Jun 8, 2005
@@ -12,7 +15,7 @@ import javax.swing.*;
  *
  * @author Eitan Suez
  */
-public class EmailEditor extends JTextField implements AtomicEditor
+public class EmailEditor extends JTextField implements AtomicEditor, ValidationListener
 {
    public EmailEditor()
    {
@@ -31,4 +34,14 @@ public class EmailEditor extends JTextField implements AtomicEditor
    }
 
    public void passivate() { }
+
+   public void validationException(ValidationEvent evt)
+   {
+      AtomicView.colorBackground(this, evt);
+   }
+   protected void paintComponent(Graphics g)
+   {
+      super.paintComponent(g);
+      AtomicView.decorateComponentForValidation(g, this, false);
+   }
 }

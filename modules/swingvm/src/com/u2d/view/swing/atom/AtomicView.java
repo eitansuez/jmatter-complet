@@ -8,6 +8,7 @@ import com.u2d.field.AtomicField;
 import com.u2d.field.CompositeField;
 import com.u2d.validation.ValidationListener;
 import com.u2d.validation.ValidationEvent;
+import com.u2d.validation.Required;
 import com.u2d.type.atom.StringEO;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -41,12 +42,12 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
          public void focusLost(FocusEvent e)
          {
             int errors = _editor.bind(_eo);
-            if (_eo.field() != null)
-            {
-               errors += _eo.field().validate(_eo.parentObject());
-            }
             if (errors == 0)
             {
+               if (_eo.field() != null)
+               {
+                  errors += _eo.field().validate(_eo.parentObject());
+               }
                if (_previousErrors != 0)
                {
                   _eo.fireValidationException(""); // reset previous
@@ -245,7 +246,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
    public static void colorBackground(JComponent component, String msg, Object source)
    {
       boolean emptyMsg = StringEO.isEmpty(msg);
-      if (!emptyMsg)
+      if (!(emptyMsg || Required.MSG.equals(msg)))
       {
          component.setBackground(ValidationEvent.INVALID_COLOR);
          component.putClientProperty(ValidationEvent.FAILED_VALIDATION, true);

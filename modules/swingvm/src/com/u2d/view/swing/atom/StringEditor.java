@@ -4,7 +4,11 @@ import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
 import com.u2d.type.atom.StringEO;
 import com.u2d.view.ActionNotifier;
+import com.u2d.validation.ValidationListener;
+import com.u2d.validation.ValidationEvent;
+
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Date: Jun 8, 2005
@@ -12,7 +16,7 @@ import javax.swing.*;
  *
  * @author Eitan Suez
  */
-public class StringEditor extends JTextField implements AtomicEditor, ActionNotifier
+public class StringEditor extends JTextField implements AtomicEditor, ActionNotifier, ValidationListener
 {
    public StringEditor()
    {
@@ -43,4 +47,14 @@ public class StringEditor extends JTextField implements AtomicEditor, ActionNoti
       setText("");
    }
 
+   public void validationException(ValidationEvent evt)
+   {
+      AtomicView.colorBackground(this, evt);
+   }
+   protected void paintComponent(Graphics g)
+   {
+      super.paintComponent(g);
+      AtomicView.decorateComponentForValidation(g, this, false);
+   }
+   
 }
