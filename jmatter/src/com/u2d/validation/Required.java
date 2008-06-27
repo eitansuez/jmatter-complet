@@ -11,7 +11,7 @@ import com.u2d.model.ComplexType;
 public class Required
 {
    private boolean _isit;
-   private String _msg = ComplexType.localeLookupStatic("validation.required");
+   public static String MSG = ComplexType.localeLookupStatic("validation.required");
    
    public Required(boolean isit)
    {
@@ -20,9 +20,9 @@ public class Required
    public Required(boolean isit, String msg)
    {
       _isit = isit;
-      _msg = msg;
+      MSG = msg;
    }
    
    public boolean isit() { return _isit; }
-   public String getMsg() { return _msg; }
+   public String getMsg() { return MSG; }
 }
