@@ -32,6 +32,7 @@ public class LoggedEvent extends AbstractComplexEObject
    public static final String LOGOUT = "Logout";
 
    public static String[] fieldOrder = {"eventType", "msg", "longMsg", "user", "command", "object"};
+   public static String sortBy = "createdOn";
 
    public LoggedEvent() { }
 
