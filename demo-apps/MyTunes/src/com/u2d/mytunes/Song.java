@@ -58,7 +58,11 @@ public class Song extends AbstractComplexEObject
       }
 
       // how do i get the song duration??
-      
+      // approximate duration based on assumption of 128 kbps bit rate..
+      long seconds = ( file.length() * 8 ) / (128 * 1024);
+      seconds = seconds * (576 / (576+32));  // (and account for 32-bit header per 576-bit samples)
+      _duration.setValue(seconds * 1000);
+
       _title.setValue(tag.getTitle());
       
       lookupOrCreateArtist(tag.getArtist());
