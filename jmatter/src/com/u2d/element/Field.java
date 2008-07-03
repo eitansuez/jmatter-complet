@@ -7,6 +7,7 @@ import java.beans.*;
 import java.lang.reflect.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import com.u2d.field.*;
 import com.u2d.find.Searchable;
 import com.u2d.model.*;
@@ -291,8 +292,6 @@ public abstract class Field extends Member
       _fullPath.setValue(fullPath);
 
       _cleanPath = path.toString();
-
-      setNaturalPath();
    }
 
    public boolean isEmpty(ComplexEObject parent)
@@ -313,34 +312,26 @@ public abstract class Field extends Member
    public String toString() { return _naturalPath; }
 
 
-   // employer.contact.address.addressLine1
-   //    becomes
-   // Employer contact address's Address Line 1
+   public void localize(Localized l)
+   {
+      super.localize(l);
+      setNaturalPath();
+   }
+
    private void setNaturalPath()
    {
-      String text = _path.trim();
-      StringBuffer sb = new StringBuffer();
-      sb.append(Character.toUpperCase(text.charAt(0)));
-      for (int i=1; i<text.length(); i++)
+      LinkedList<String> parts = new LinkedList<String>();
+      parts.addFirst(label());
+      FieldParent parent = parent();
+      while (parent instanceof Field)
       {
-         if (text.charAt(i) == '.')
-         {
-            String remainder = text.substring(i+1);
-            if (remainder.indexOf(".") < 0) // last dot
-               sb.append(ComplexType.localeLookupStatic("s")).append(" ");
-            else
-               sb.append(' ');
-            sb.append(Character.toUpperCase(text.charAt(i+1)));
-            i++;
-         }
-         else
-         {
-            if (Character.isUpperCase(text.charAt(i)))
-               sb.append(' ');
-            sb.append(text.charAt(i));
-         }
+         Field parentField = (Field) parent;
+         parts.addFirst(parentField.label());
+         parent = parent.parent();
       }
-      _naturalPath = sb.toString();
+      ComplexType root = (ComplexType) parent;
+      parts.addFirst(root.getNaturalName());
+      _naturalPath = AbstractListEO.join(parts, " ");
    }
 
 
