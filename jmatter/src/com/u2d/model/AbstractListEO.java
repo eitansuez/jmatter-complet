@@ -653,12 +653,16 @@ public abstract class AbstractListEO extends AbstractEObject
    }
    public static String join(List l)
    {
+      return join(l, ", ");
+   }
+   public static String join(List l, String separator)
+   {
       if (l.size() == 0) return "";
       StringBuffer result = new StringBuffer();
       for (int i=0; i<l.size()-1; i++)
       {
          Object item = l.get(i);
-         result.append(item.toString()).append(", ");
+         result.append(item.toString()).append(separator);
       }
       int lastIdx = l.size() - 1;
       result.append(l.get(lastIdx));
