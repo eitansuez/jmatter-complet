@@ -208,4 +208,12 @@ public class EditableListView extends JPanel
       DEL_ROLLOVER = new ImageIcon(imgURL);
    }
 
+
+   private static int MinWidth = 250;
+   public Dimension getPreferredSize()
+   {
+      Dimension base = super.getPreferredSize();
+      return new Dimension(MinWidth, base.height);
+   }
+
 }
