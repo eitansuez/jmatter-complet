@@ -405,14 +405,15 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       ComplexEObject ceo = (ComplexEObject) obj;
       if (ceo.childFields().size() != childFields().size()) return false;
       List fields = childFields();
-      Field field;
       for (int i=0; i<fields.size(); i++)
       {
-         field = (Field) fields.get(i);
-
-         if (!field.get(this).equals(field.get(ceo)))
+         Field field = (Field) fields.get(i);
+         if (field.isComposite())  // exclude associations
          {
-            return false;
+            if (!field.get(this).equals(field.get(ceo)))
+            {
+               return false;
+            }
          }
       }
       return true;
