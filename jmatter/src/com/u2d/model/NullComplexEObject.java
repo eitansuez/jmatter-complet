@@ -21,13 +21,15 @@ public class NullComplexEObject extends AbstractComplexEObject
    public NullComplexEObject(ComplexType type)
    {
       _type = type;
+      propagateCmdRestrictions();
+   }
 
-      Command command;
-      Command typeCommand;
+   private void propagateCmdRestrictions()
+   {
       for (Iterator itr = _commands.deepIterator(); itr.hasNext(); )
       {
-         command = (Command) itr.next();
-         typeCommand = _type.command(command.name());
+         Command command = (Command) itr.next();
+         Command typeCommand = _type.command(command.name());
          if (typeCommand != null)  // TODO:  revisit  // related to removing typecommand New from ComplexType.
          {
             command.applyRestriction(typeCommand.restriction());

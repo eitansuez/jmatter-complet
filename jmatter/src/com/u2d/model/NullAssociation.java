@@ -5,11 +5,14 @@ package com.u2d.model;
 
 import com.u2d.element.CommandInfo;
 import com.u2d.element.Field;
+import com.u2d.element.Command;
 import com.u2d.field.Association;
 import com.u2d.pattern.Onion;
 import com.u2d.view.View;
 import com.u2d.list.RelationalList;
 import com.u2d.reflection.Cmd;
+
+import java.util.Iterator;
 
 /**
  * @author Eitan Suez
@@ -28,6 +31,7 @@ public class NullAssociation extends NullComplexEObject
       super(field.fieldtype());
       setField(field, parent);
       _association = parent.association(field.name());
+      propagateCmdRestrictions();
    }
 
    public NullAssociation(Association association)
@@ -35,6 +39,20 @@ public class NullAssociation extends NullComplexEObject
       super(association.type());
       setField(association.field(), association.parent());
       _association = association;
+      propagateCmdRestrictions();
+   }
+
+   private void propagateCmdRestrictions()
+   {
+      for (Iterator itr = cmds2.deepIterator(); itr.hasNext(); )
+      {
+         Command command = (Command) itr.next();
+         Command typeCommand = _type.command(command.name());
+         if (typeCommand != null)  // TODO:  revisit  // related to removing typecommand New from ComplexType.
+         {
+            command.applyRestriction(typeCommand.restriction());
+         }
+      }
    }
 
 //   public Title title() { return _association.title(); }
@@ -111,10 +129,9 @@ public class NullAssociation extends NullComplexEObject
 
    public Onion commands() { return cmds2; }
 
-   // TODO: work on this.
    public Onion filteredCommands()
    {
-      return commands();
+      return commands().filter(Command.commandFilter(this));
    }
 
    static Onion cmds2;

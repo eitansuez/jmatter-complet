@@ -285,21 +285,24 @@ public class AssociationView2 extends CardPanel implements ComplexEView
       private JButton assocBtn()
       {
          JPopupMenu menu = new JPopupMenu();
-         menu.add(menuItem("New"));
-         menu.add(menuItem("Browse"));
-         menu.add(menuItem("Find"));
+         addMenuItem(menu, "New");
+         addMenuItem(menu, "Browse");
+         addMenuItem(menu, "Find");
          assocBtn = new MenuButton(ASSOCIATE_ICON, ASSOCIATE_ROLLOVER, menu);
          assocBtn.setFocusable(true);
          assocBtn.setFocusPainted(true);
          return assocBtn;
       }
 
-      private JMenuItem menuItem(String cmdName)
+      private void addMenuItem(JPopupMenu menu, String cmdName)
       {
          Command cmd = nullAssoc.command(cmdName);
          cmd.localize(ComplexType.forClass(User.class));
          CommandAdapter action = new CommandAdapter(cmd, nullAssoc, AssociationView2.this);
-         return new JMenuItem(action);
+         if (!cmd.isForbidden(nullAssoc))
+         {
+            menu.add(new JMenuItem(action));
+         }
       }
 
       public String name() { return "dissociated"; }
