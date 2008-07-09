@@ -20,8 +20,8 @@ import com.u2d.model.ComplexEObject;
  */
 public class ViewInfo
 {
-   Icon _icon, _rolloverIcon;
-   String _factoryName;
+   private Icon _icon, _rolloverIcon;
+   private String _factoryName;
 
    public ViewInfo(String viewname, String factoryName)
    {
@@ -37,15 +37,19 @@ public class ViewInfo
    
    public ViewInfo(String iconName, String rolloverIconName, String factoryName)
    {
-      ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      
-      URL url = loader.getResource("images/" + iconName);
-      _icon = new ImageIcon(url);
-      url = loader.getResource("images/" + rolloverIconName);
-      _rolloverIcon = new ImageIcon(url);
-      
+      loadIcons(iconName, rolloverIconName);
       _factoryName = factoryName;
    }
+
+    private void loadIcons(String iconName, String rolloverIconName)
+    {
+       ClassLoader loader = Thread.currentThread().getContextClassLoader();
+
+       URL url = loader.getResource("images/" + iconName);
+       _icon = new ImageIcon(url);
+       url = loader.getResource("images/" + rolloverIconName);
+       _rolloverIcon = new ImageIcon(url);
+    }
    
    public ListEView getListView(AbstractListEO leo) throws NoSuchMethodException, 
             InvocationTargetException, IllegalAccessException
@@ -90,7 +94,7 @@ public class ViewInfo
    }
    
    
-   /**
+   /*
     * an attempt to setup a mechanism whereby i can specify which view
     * i want without the cost of instantiating it.  that is, associating
     * a view name to a view factory method name..for later resolution.
@@ -101,7 +105,7 @@ public class ViewInfo
     */
    public static ListEView getListViewByName(String viewName, AbstractListEO leo)
    {
-      ViewInfo viewInfo = (ViewInfo) _listViewMap.get(viewName);
+      ViewInfo viewInfo = _listViewMap.get(viewName);
       try
       {
          return viewInfo.getListView(leo);
@@ -116,12 +120,10 @@ public class ViewInfo
    
    public static ViewInfo getListViewInfo(String viewName)
    {
-      return (ViewInfo) _listViewMap.get(viewName);
+      return _listViewMap.get(viewName);
    }
 
    
-   
-   // that's a lot of duplication..
    
    static Map<String, ViewInfo> _viewMap = new HashMap<String, ViewInfo>();
    static
@@ -144,7 +146,7 @@ public class ViewInfo
    
    public static ComplexEView getViewByName(String viewName, ComplexEObject ceo)
    {
-      ViewInfo viewInfo = (ViewInfo) _viewMap.get(viewName);
+      ViewInfo viewInfo = _viewMap.get(viewName);
       try
       {
          return viewInfo.getView(ceo);
@@ -159,7 +161,7 @@ public class ViewInfo
    
    public static ViewInfo getViewInfo(String viewName)
    {
-      return (ViewInfo) _viewMap.get(viewName);
+      return _viewMap.get(viewName);
    }
    
    
