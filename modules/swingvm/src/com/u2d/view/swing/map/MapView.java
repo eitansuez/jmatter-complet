@@ -144,6 +144,7 @@ public class MapView extends JLayeredPane implements PropertyChangeListener
          setFocusable(false);
          _view = new MappableView(waypoint.getEObject());
          _view.setSize(_view.getPreferredSize());
+         _view.setVisible(false);
          
          this.addComponentListener(new ComponentAdapter()
          {
