@@ -96,14 +96,24 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       {
          public void keyPressed(KeyEvent e)
          {
-            if (e.getKeyCode() == KeyEvent.VK_DOWN ||
-                e.getKeyCode() == KeyEvent.VK_UP)
+            if (_popup!=null && _popup.isShowing())
             {
-               if (_list != null) _list.dispatchEvent(e);
+               if (e.getKeyCode() == KeyEvent.VK_DOWN ||
+                   e.getKeyCode() == KeyEvent.VK_UP)
+               {
+                  if (_list != null) _list.dispatchEvent(e);
+               }
             }
-            else if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+            else
             {
-               cancelEdit();
+               if (e.getKeyCode() == KeyEvent.VK_DOWN)
+               {
+                  updateModel();
+               }
+               else if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+               {
+                  cancelEdit();
+               }
             }
          }
       });
