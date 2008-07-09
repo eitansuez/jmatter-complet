@@ -87,7 +87,7 @@ final class TreeNodeAdapter extends DefaultMutableTreeNode implements EView, Pro
       }
 
       Object gParent = tParent.getParent();
-		if(gParent == null) { return false; }
+		if (gParent == null) { return false; }
 		return seenInAncestors( (TreeNodeAdapter)gParent, eo);		
 	}
 
