@@ -207,15 +207,14 @@ public class AlternateListView extends JPanel
    private void buildPickPane()
    {
       _pickPane = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-      if (_leo.command("New") != null)
-         _pickPane.add(newBtn());
+      Command newCmd = _leo.command("New");
+      Command typeNewCmd = _leo.type().command("New");
+      if (newCmd != null && !typeNewCmd.isForbidden(_leo.type()))
+      {
+         CommandAdapter action = new CommandAdapter(newCmd, _leo, this);
+         _pickPane.add(new JButton(action));
+      }
       _pickPane.add(pickBtn());
-   }
-   private JButton newBtn()
-   {
-      Command cmd = _leo.command("New");
-      CommandAdapter action = new CommandAdapter(cmd, _leo, this);
-      return new JButton(action);
    }
    private JButton pickBtn()
    {

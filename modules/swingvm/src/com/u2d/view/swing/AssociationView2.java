@@ -297,10 +297,10 @@ public class AssociationView2 extends CardPanel implements ComplexEView
       private void addMenuItem(JPopupMenu menu, String cmdName)
       {
          Command cmd = nullAssoc.command(cmdName);
-         cmd.localize(ComplexType.forClass(User.class));
-         CommandAdapter action = new CommandAdapter(cmd, nullAssoc, AssociationView2.this);
          if (!cmd.isForbidden(nullAssoc))
          {
+            cmd.localize(ComplexType.forClass(User.class));
+            CommandAdapter action = new CommandAdapter(cmd, nullAssoc, AssociationView2.this);
             menu.add(new JMenuItem(action));
          }
       }

@@ -129,21 +129,20 @@ public class EditableListView extends JPanel
    private JButton addBtn()
    {
       menu = new JPopupMenu();
-      menu.add(createItem());
-      menu.add(browseItem());
-      menu.add(findItem());
+      addMenuItem("New");
+      addMenuItem("Browse");
+      addMenuItem("Find");
       return new MenuButton(ADD_ICON, ADD_ROLLOVER, menu);
    }
 
-   private JMenuItem createItem() { return menuItem("New"); }
-   private JMenuItem browseItem() { return menuItem("Browse"); }
-   private JMenuItem findItem() { return menuItem("Find"); }
-
-   private JMenuItem menuItem(String cmdName)
+   private void addMenuItem(String cmdName)
    {
       Command cmd = _association.command(cmdName);
-      CommandAdapter action = new CommandAdapter(cmd, _association, this);
-      return new JMenuItem(action);
+      if (!cmd.isForbidden(_association))
+      {
+         CommandAdapter action = new CommandAdapter(cmd, _association, this);
+         menu.add(new JMenuItem(action));
+      }
    }
 
    Insets _insets = new Insets(20, 5, 5, 5);
