@@ -7,6 +7,7 @@ import com.u2d.calendar.CalEvent;
 import com.u2d.persist.Persist;
 import com.u2d.view.EView;
 import com.u2d.view.swing.CustomReadView;
+import com.u2d.view.swing.AlternateView;
 
 import java.awt.Color;
 
@@ -77,6 +78,6 @@ public class Session extends CalEvent
 
    public EView getMainView()
    {
-      return new CustomReadView(new SessionView(this));
+      return new AlternateView(this, new CustomReadView(new SessionView(this)), new String[] {"formview", "omniview"});
    }
 }
