@@ -23,6 +23,8 @@ import com.u2d.reflection.Fld;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
+import org.hibernate.proxy.HibernateProxy;
+
 /**
  * @author Eitan Suez
  */
@@ -107,6 +109,10 @@ public abstract class Field extends Member
 //            throw new IllegalArgumentException("Invalid parent type: "+parent.getClass()+"; expected: "+parentClass);
 //         }
 
+         if (parent instanceof HibernateProxy)
+         {
+            parent = (EObject) ((HibernateProxy)parent).getHibernateLazyInitializer().getImplementation();
+         }
          return _getter.invoke(parent);
       }
       catch (IllegalAccessException ex)
