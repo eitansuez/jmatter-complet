@@ -38,16 +38,26 @@ public class AlternateView extends JPanel
 
    private String[] _viewNames;
    private JPanel _controlPane;
-   private CardPanel _viewPane;
+   private CardPanel _viewPane = new CardPanel();
    private Map _map = new HashMap();
 
+   public AlternateView(ComplexEObject ceo, JComponent view, String[] viewNames)
+   {
+      addView(view, viewNames[0]);
+      init(ceo, viewNames);
+   }
    public AlternateView(ComplexEObject ceo, String[] viewNames)
+   {
+      init(ceo, viewNames);
+   }
+
+   private void init(ComplexEObject ceo, String[] viewNames)
    {
       _ceo = ceo;
       _viewNames = viewNames;
 
       buildControlPane();
-      buildViewPane();
+      show(_viewNames[0]);
 
       setLayout(new BorderLayout());
       setOpaque(false);
@@ -69,26 +79,23 @@ public class AlternateView extends JPanel
       }
    }
 
-   private void buildViewPane()
-   {
-      _viewPane = new CardPanel();
-      show(_viewNames[0]);
-   }
-
    public JPanel getControlPane() { return _controlPane; }
    public JPanel getViewPane() { return _viewPane; }
 
-   private void show(String viewName)
+   private synchronized void show(String viewName)
    {
-      JComponent view = null;
       if (_map.get(viewName) == null)
       {
-         view = view(viewName);
-         _viewPane.add(view, viewName);
-         _map.put(viewName, view);
+         addView(view(viewName), viewName);
       }
       _viewPane.show(viewName);
       CloseableJInternalFrame.updateSize(this);
+   }
+
+   private void addView(JComponent view, String viewName)
+   {
+      _viewPane.add(view, viewName);
+      _map.put(viewName, view);
    }
 
    private JButton button(Icon icon, Icon rolloverIcon, final String viewName)
