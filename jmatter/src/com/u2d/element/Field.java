@@ -59,6 +59,7 @@ public abstract class Field extends Member
                try
                {
                   Field sibling = Field.forPath(_fullPath.stringValue());
+                  if (sibling == null) return;
                   init(sibling.parent(), sibling.name());
                }
                catch (IntrospectionException dontCare) { dontCare.printStackTrace(); }
@@ -366,12 +367,12 @@ public abstract class Field extends Member
 
    public static Field forPath(String fieldPath)
    {
-      if (fieldPath == null) return null;
+      if (StringEO.isEmpty(fieldPath)) return null;
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
+      String[] parts = fieldPath.split("#");  // split on fullpath's # separator
       try
       {
-         String[] parts = fieldPath.split("#");  // split on fullpath's # separator
          Class cls = loader.loadClass(parts[0]);
          ComplexType type = ComplexType.forClass(cls);
          parts = parts[1].split("\\."); // split the fields
