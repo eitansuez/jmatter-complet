@@ -12,10 +12,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.awt.image.BufferedImage;
 import java.awt.*;
-
 import org.hibernate.Session;
-
 import javax.swing.*;
+import static com.u2d.pubsub.AppEventType.*;
+import com.u2d.pubsub.AppEventListener;
+import com.u2d.pubsub.AppEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,7 +34,15 @@ public class TypeRestrictionMgr
    public TypeRestrictionMgr(ComplexType type)
    {
       _type = type;
-      _roles = hbmPersistor().list(Role.class);
+      ComplexType roleType = ComplexType.forClass(Role.class);
+      _roles = hbmPersistor().list(roleType);
+      roleType.addAppEventListener(CREATE, new AppEventListener()
+      {
+         public void onEvent(AppEvent evt)
+         {
+            _roles.add((Role) evt.getEventInfo());
+         }
+      });
 
       _addedRestrictions = new HashMap<Role, List>();
       _removedRestrictions = new HashMap<Role, List>();

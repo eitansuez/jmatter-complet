@@ -21,6 +21,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListDataListener;
+import javax.swing.event.ListDataEvent;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.util.*;
@@ -58,45 +60,66 @@ public class TypeRestrictionMgrUi extends JPanel
       for (int i=0; i<_mgr.getRoles().getSize(); i++)
       {
          Role role = (Role) _mgr.getRoles().getElementAt(i);
-    
-         Map<Command, Boolean> map = new HashMap<Command, Boolean>();
-         _cmdBackingModel.put(role, map);
-
-         Onion typeCommands = _mgr.getType().commands();
-         for (Iterator itr = typeCommands.deepIterator(); itr.hasNext(); )
-         {
-            Command cmd = (Command) itr.next();
-            map.put(cmd, role.hasRestrictionOnCmd(cmd));
-         }
-
-         Map<Class, Onion> instanceCmds = _mgr.getType().instanceCommands();
-         for (Iterator itr = instanceCmds.keySet().iterator(); itr.hasNext(); )
-         {
-            Class stateCls = (Class) itr.next();
-            Onion stateCmds = instanceCmds.get(stateCls);
-            
-            for (Iterator itr2 = stateCmds.deepIterator(); itr2.hasNext(); )
-            {
-               Command cmd = (Command) itr2.next();
-               map.put(cmd, role.hasRestrictionOnCmd(cmd));
-            }
-         }
-         
-         Map<Field, FieldRestrictionType> fldmap = new HashMap<Field, FieldRestrictionType>();
-         _fldBackingModel.put(role, fldmap);
-         
-         List fields = _mgr.getType().fields();
-         for (Iterator itr = fields.iterator(); itr.hasNext(); )
-         {
-            Field fld = (Field) itr.next();
-            FieldRestriction fr = role.restrictionOnFld(fld);
-            if (fr == null)
-               fldmap.put(fld, new FieldRestrictionType(FieldRestriction.NONE));
-            else
-               fldmap.put(fld, fr.getRestrictionType());
-         }
+         initBackingModelForRole(role);
       }
    }
+
+   private void initBackingModelForRole(Role role)
+   {
+      Map<Command, Boolean> map = new HashMap<Command, Boolean>();
+      _cmdBackingModel.put(role, map);
+
+      Onion typeCommands = _mgr.getType().commands();
+      for (Iterator itr = typeCommands.deepIterator(); itr.hasNext(); )
+      {
+         Command cmd = (Command) itr.next();
+         map.put(cmd, role.hasRestrictionOnCmd(cmd));
+      }
+
+      Map<Class, Onion> instanceCmds = _mgr.getType().instanceCommands();
+      for (Iterator itr = instanceCmds.keySet().iterator(); itr.hasNext(); )
+      {
+         Class stateCls = (Class) itr.next();
+         Onion stateCmds = instanceCmds.get(stateCls);
+
+         for (Iterator itr2 = stateCmds.deepIterator(); itr2.hasNext(); )
+         {
+            Command cmd = (Command) itr2.next();
+            map.put(cmd, role.hasRestrictionOnCmd(cmd));
+         }
+      }
+
+      Map<Field, FieldRestrictionType> fldmap = new HashMap<Field, FieldRestrictionType>();
+      _fldBackingModel.put(role, fldmap);
+
+      List fields = _mgr.getType().fields();
+      for (Iterator itr = fields.iterator(); itr.hasNext(); )
+      {
+         Field fld = (Field) itr.next();
+         FieldRestriction fr = role.restrictionOnFld(fld);
+         if (fr == null)
+            fldmap.put(fld, new FieldRestrictionType(FieldRestriction.NONE));
+         else
+            fldmap.put(fld, fr.getRestrictionType());
+      }
+   }
+
+   private JTable typeCommandsTable, instanceCommandsTable, fieldTable;
+   private ListDataListener rolesListDataListener = new ListDataListener()
+   {
+      public void intervalAdded(ListDataEvent e)
+      {
+         updateTables(e);
+      }
+
+      public void intervalRemoved(ListDataEvent e)
+      {
+      }
+
+      public void contentsChanged(ListDataEvent e)
+      {
+      }
+   };
 
    private JPanel buildUI()
    {
@@ -112,7 +135,8 @@ public class TypeRestrictionMgrUi extends JPanel
       builder.nextLine(2);
 
       builder.appendRow("pref");
-      builder.add(new JScrollPane(commandtable(typeCommands)));
+      typeCommandsTable = commandtable(typeCommands);
+      builder.add(new JScrollPane(typeCommandsTable));
       builder.appendRelatedComponentsGapRow();
       builder.nextLine(2);
 
@@ -144,7 +168,8 @@ public class TypeRestrictionMgrUi extends JPanel
          }
          
          builder.appendRow("pref");
-         builder.add(new JScrollPane(commandtable(stateCmds)));
+         instanceCommandsTable = commandtable(stateCmds);
+         builder.add(new JScrollPane(instanceCommandsTable));
          builder.appendRelatedComponentsGapRow();
          builder.nextLine(2);
       }
@@ -158,13 +183,25 @@ public class TypeRestrictionMgrUi extends JPanel
       builder.nextLine(2);
 
       builder.appendRow("pref");
-      builder.add(new JScrollPane(fieldtable(fields)));
+      fieldTable = fieldtable(fields);
+      builder.add(new JScrollPane(fieldTable));
       builder.appendRelatedComponentsGapRow();
       builder.nextLine(2);
+
+      _mgr.getRoles().addListDataListener(rolesListDataListener);
 
       return builder.getPanel();
    }
 
+   private void updateTables(ListDataEvent e)
+   {
+      Role role = (Role) _mgr.getRoles().getElementAt(e.getIndex0());
+      initBackingModelForRole(role);
+      ((AbstractTableModel) fieldTable.getModel()).fireTableStructureChanged();
+      ((AbstractTableModel) typeCommandsTable.getModel()).fireTableStructureChanged();
+      ((AbstractTableModel) instanceCommandsTable.getModel()).fireTableStructureChanged();
+   }
+   
    private JTable table(TableModel model)
    {
       JTable table = new JTable();
@@ -295,7 +332,12 @@ public class TypeRestrictionMgrUi extends JPanel
    }
 
    public EObject getEObject() { return _mgr; }
-   public void detach() { }
+
+   public void detach()
+   {
+      _mgr.getRoles().removeListDataListener(rolesListDataListener);
+   }
+
    public void stateChanged(ChangeEvent e) { }
    public void propertyChange(PropertyChangeEvent evt) { }
    public boolean isMinimized() { return false; }
