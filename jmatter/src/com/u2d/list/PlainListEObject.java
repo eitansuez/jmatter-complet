@@ -3,14 +3,12 @@
  */
 package com.u2d.list;
 
-import com.u2d.element.CommandInfo;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.ComplexType;
 import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
 import java.util.*;
 import javax.swing.event.ListDataListener;
-import com.u2d.reflection.Cmd;
 
 /**
  * A list object that is not related to a model.  used for lists of eobjects
