@@ -154,6 +154,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
          {
             public void focusGained(FocusEvent e)
             {
+               if (e.getOppositeComponent() == null) return;
                if (SwingUtilities.isDescendingFrom(e.getOppositeComponent(), itemPnl))
                {
                   itemPnl.returnToReadState();
@@ -162,6 +163,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
             public void focusLost(FocusEvent e)
             {
+               if (e.getOppositeComponent() == null) return;
                if (SwingUtilities.isDescendingFrom(e.getOppositeComponent(), itemPnl))
                {
                   itemPnl.enterEditState();
