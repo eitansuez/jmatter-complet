@@ -4,6 +4,8 @@ import com.u2d.model.*;
 import com.u2d.ui.LocatableIcon;
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
+import org.jfree.xml.util.Base64;
 
 /**
  * @author Eitan Suez
@@ -49,7 +51,25 @@ public class ImgEO extends AbstractAtomicEO
 
    public int hashCode() { return _value.hashCode(); }
 
-   public String toString() { return ""; }
+   public String toString()
+   {
+      if (isEmpty()) return "";
+      try
+      {
+         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+         ObjectOutputStream oos = new ObjectOutputStream(baos);
+         oos.writeObject(_value);
+         byte[] bytes = baos.toByteArray();
+         oos.close();
+         baos.close();
+         return new String(Base64.encode(bytes));
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+         return "";
+      }
+   }
 
    public AtomicRenderer getRenderer() { return vmech().getImageRenderer(); }
    public AtomicEditor getEditor() { return vmech().getImageEditor(); }
@@ -70,8 +90,22 @@ public class ImgEO extends AbstractAtomicEO
       }
       catch (java.net.MalformedURLException ex)
       {
-         ImageIcon icon = new ImageIcon(stringValue);
-         setValue(icon);
+         // assume next that perhaps string is base64-encoding of serialized imageicon..
+         try
+         {
+            byte[] buf = Base64.decode(stringValue.toCharArray());
+            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(buf));
+            ImageIcon icon = (ImageIcon) ois.readObject();
+            setValue(icon);
+         }
+         catch (IOException e)
+         {
+            e.printStackTrace();
+         }
+         catch (ClassNotFoundException e)
+         {
+            e.printStackTrace();
+         }
       }
    }
 
@@ -104,7 +138,6 @@ public class ImgEO extends AbstractAtomicEO
    {
       return icon.getImage();  // noop
    }
-
 
 }
    

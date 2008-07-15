@@ -40,8 +40,12 @@ public class BooleanEO extends AbstractAtomicEO implements Searchable
    public boolean isEmpty() { return false; }
    
    public Title title() {  return new Title((booleanValue()) ? ComplexType.localeLookupStatic("yes") : ComplexType.localeLookupStatic("no")); }
-   public String toString() { return title().toString(); }
-   
+
+   public String toString()
+   {
+      return Boolean.toString(_value);
+   }
+
    public boolean equals(Object obj)
    {
       if (obj == null) return false;
