@@ -30,6 +30,7 @@
       <customJdkName value="" />
       <maximumHeapSize value="128" />
       <properties />
+      <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="ContactMgr" />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/modules/ds-swing/build.xml">
       <additionalClassPath />
@@ -82,6 +83,14 @@
       <properties />
       <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="AppBrowser" />
     </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/demo-apps/MyTunes/build.xml">
+      <additionalClassPath />
+      <antReference projectDefault="true" />
+      <customJdkName value="" />
+      <maximumHeapSize value="128" />
+      <properties />
+      <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="MyTunes" />
+    </buildFile>
   </component>
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
@@ -114,6 +123,22 @@
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
     <option name="DEPLOY_AFTER_MAKE" value="0" />
+    <excludeFromCompile>
+      <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/wings/WEB-INF/webpersistorContext.xml" />
+      <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/echo2/WEB-INF/webpersistorContext.xml" />
+      <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/wings/WEB-INF/webapplicationContext.xml" />
+      <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/src/hbmGeneratorContext.xml" />
+      <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/resources/echo2/WEB-INF/webapplicationContext.xml" />
+      <file url="file://$PROJECT_DIR$/jmatter/resources/project-template/resources/echo2/WEB-INF/webapplicationContext.xml" />
+      <file url="file://$PROJECT_DIR$/jmatter/resources/project-template/resources/wings/WEB-INF/webapplicationContext.xml" />
+      <file url="file://$PROJECT_DIR$/jmatter/resources/project-template/src/persistorContext.xml" />
+      <file url="file://$PROJECT_DIR$/jmatter/resources/project-template/resources/echo2/WEB-INF/webpersistorContext.xml" />
+      <file url="file://$PROJECT_DIR$/jmatter/resources/project-template/src/hbmGeneratorContext.xml" />
+      <file url="file://$PROJECT_DIR$/jmatter/resources/project-template/resources/wings/WEB-INF/webpersistorContext.xml" />
+      <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/src/applicationContext.xml" />
+      <file url="file://$PROJECT_DIR$/demo-apps/MyTunes/src/persistorContext.xml" />
+      <file url="file://$PROJECT_DIR$/jmatter/resources/project-template/src/applicationContext.xml" />
+    </excludeFromCompile>
     <resourceExtensions>
       <entry name=".+\.(properties|xml|html|dtd|tld)" />
       <entry name=".+\.(gif|png|jpeg|jpg)" />
@@ -602,7 +627,7 @@
       <module fileurl="file://$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" filepath="$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="RUBY_DOC_SETTINGS">
