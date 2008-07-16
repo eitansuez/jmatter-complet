@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -47,15 +46,12 @@ public class AlternateListView extends JPanel
 
       buildControlPane();
       buildViewPane();
-      buildPickPane();
 
       setLayout(new BorderLayout());
       setOpaque(false);
       add(_controlPane, BorderLayout.NORTH);
       add(_viewPane, BorderLayout.CENTER);
-      add(_pickPane, BorderLayout.SOUTH);
 
-      _pickPane.setVisible(false);
       stateChanged(null);  // setup initial state..
       _leo.addChangeListener(this);
    }
@@ -66,11 +62,11 @@ public class AlternateListView extends JPanel
       _controlPane.setOpaque(false);
       _controlPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
       Icon icon, rolloverIcon;
-      for (int i=0; i<_viewNames.length; i++)
+      for (String viewName : _viewNames)
       {
-         icon = icon(_viewNames[i]);
-         rolloverIcon = rolloverIcon(_viewNames[i]);
-         _controlPane.add(button(icon, rolloverIcon, _viewNames[i]));
+         icon = icon(viewName);
+         rolloverIcon = rolloverIcon(viewName);
+         _controlPane.add(button(icon, rolloverIcon, viewName));
       }
    }
 
@@ -172,21 +168,23 @@ public class AlternateListView extends JPanel
    public EObject getEObject() { return _leo; }
    public void detach()
    {
-      for (int i=0; i<_pickPane.getComponentCount(); i++)
+      if (_pickPane != null)
       {
-         Component c = _pickPane.getComponent(i);
-         if (c instanceof JButton)
+         for (int i=0; i<_pickPane.getComponentCount(); i++)
          {
-            Action action = ((JButton) c).getAction();
-            if (action instanceof CommandAdapter)
+            Component c = _pickPane.getComponent(i);
+            if (c instanceof JButton)
             {
-               ((CommandAdapter) action).detach();
+               Action action = ((JButton) c).getAction();
+               if (action instanceof CommandAdapter)
+               {
+                  ((CommandAdapter) action).detach();
+               }
             }
          }
       }
-      for (Iterator itr = _map.keySet().iterator(); itr.hasNext(); )
+      for (String key : _map.keySet())
       {
-         String key = (String) itr.next();
          EView view = (EView) _map.get(key);
          view.detach();
       }
@@ -198,9 +196,17 @@ public class AlternateListView extends JPanel
    public void intervalAdded(ListDataEvent e) {}
    public void intervalRemoved(ListDataEvent e) {}
 
-   public void stateChanged(ChangeEvent e)
+   public synchronized void stateChanged(ChangeEvent e)
    {
-      _pickPane.setVisible(_leo.isPickState());
+      if (_leo.isPickState() && _pickPane == null)
+      {
+         buildPickPane();
+         add(_pickPane, BorderLayout.SOUTH);
+      }
+      if (_pickPane != null)
+      {
+         _pickPane.setVisible(_leo.isPickState());
+      }
    }
 
 
@@ -209,7 +215,7 @@ public class AlternateListView extends JPanel
       _pickPane = new JPanel(new FlowLayout(FlowLayout.RIGHT));
       Command newCmd = _leo.command("New");
       Command typeNewCmd = _leo.type().command("New");
-      if (newCmd != null && !typeNewCmd.isForbidden(_leo.type()))
+      if (newCmd != null && typeNewCmd!=null && !typeNewCmd.isForbidden(_leo.type()))
       {
          CommandAdapter action = new CommandAdapter(newCmd, _leo, this);
          _pickPane.add(new JButton(action));
