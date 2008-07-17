@@ -17,7 +17,7 @@ import java.util.regex.Matcher;
  * @author Eitan Suez
  */
 public class TimeSpan extends AbstractAtomicEO 
-                      implements Searchable
+                      implements Searchable, Comparable<TimeSpan>
 {
    private Calendar _startCal;
    private Calendar _endCal;
@@ -63,6 +63,11 @@ public class TimeSpan extends AbstractAtomicEO
       end.setTimeInMillis(start.getTimeInMillis() + duration.getMilis());
       
       assign(start, end);
+   }
+
+   public int compareTo(TimeSpan t)
+   {
+      return _startCal.compareTo(t.startCal());
    }
 
    private void assign(Calendar start, Calendar end)

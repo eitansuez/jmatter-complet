@@ -20,7 +20,7 @@ import java.util.Date;
 /**
  * @author Eitan Suez
  */
-public abstract class CalEvent extends AbstractComplexEObject
+public abstract class CalEvent extends AbstractComplexEObject implements Comparable<CalEvent>
 {
    /**
     * To customize title for an instance in the context of a calendar view,
@@ -69,6 +69,10 @@ public abstract class CalEvent extends AbstractComplexEObject
       timespanField().set(this, span);
    }
 
+   public int compareTo(CalEvent e)
+   {
+      return timeSpan().compareTo(e.timeSpan());
+   }
 
    public Schedulable schedulable()
    {

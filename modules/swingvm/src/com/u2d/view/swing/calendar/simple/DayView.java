@@ -266,12 +266,8 @@ public class DayView extends BaseTimeIntervalView
 
       int xPos = _table.getColumn("times").getWidth();
       TableColumnModel tcmodel = _table.getColumnModel();
-      int i=1;
 
-      if ( (i+1) > _table.getColumnCount() )
-         return new Rectangle(0, 0, 0, 0);
-
-      TableColumn column = tcmodel.getColumn(i++);
+      TableColumn column = tcmodel.getColumn(1);
       int eventWidth = column.getWidth();
 
       Rectangle bounds = new Rectangle(xPos, yPos, eventWidth, eventHeight);

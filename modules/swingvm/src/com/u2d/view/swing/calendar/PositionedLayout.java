@@ -5,6 +5,7 @@ package com.u2d.view.swing.calendar;
 
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import javax.swing.*;
 import com.u2d.calendar.*;
 
@@ -15,8 +16,8 @@ public class PositionedLayout implements LayoutManager2
 {
 	private TimeIntervalView _view;
 	private java.util.List _events = new ArrayList();
-	private java.util.List _components = new ArrayList();
-	
+	private java.util.Map _components = new HashMap();
+
 	public PositionedLayout(TimeIntervalView view)
 	{
 		_view = view;
@@ -32,7 +33,7 @@ public class PositionedLayout implements LayoutManager2
 			}
          CalEvent event = (CalEvent) constraints;
 			_events.add(event);
-			_components.add(comp);
+			_components.put(event, comp);
 		}
 	}
 	
@@ -40,14 +41,19 @@ public class PositionedLayout implements LayoutManager2
 	{
 		synchronized (comp.getTreeLock())
 		{
-			for (int i=0; i<_components.size(); i++)
-			{
-				if (_components.get(i) == comp)
-				{
-					_components.remove(i);
-					_events.remove(i);
-				}
-			}
+         Set entrySet = _components.entrySet();
+         for (Iterator itr = entrySet.iterator(); itr.hasNext(); )
+         {
+            Map.Entry entry = (Map.Entry) itr.next();
+            Component c = (Component) entry.getValue();
+            if (c == comp)
+            {
+               CalEvent event = (CalEvent) entry.getKey();
+               _events.remove(event);
+               _components.remove(entry);
+               return;
+            }
+         }
 		}
 	}
 
@@ -96,18 +102,46 @@ public class PositionedLayout implements LayoutManager2
 
 	public void layoutContainer(Container parent)
 	{
-		synchronized (parent.getTreeLock())
+      synchronized (parent.getTreeLock())
 		{
          JComponent viewcomp = (JComponent) _view;
 			viewcomp.setBounds(parent.getBounds());
 
-			for (int i=0; i<_components.size(); i++)
-			{
-            Component comp = (Component) _components.get(i);
+         Collections.sort(_events);
+         for (int i=0; i<_events.size(); i++)
+         {
             CalEvent event = (CalEvent) _events.get(i);
-            comp.setBounds(_view.getBounds(event));
-			}
-		}
+            List<CalEvent> overlappingEvents = new ArrayList<CalEvent>();
+            overlappingEvents.add(event);
+
+            CalEvent nextEvent;
+            while ( (i+1) < _events.size() &&
+                    (nextEvent = (CalEvent) _events.get(i+1)).timeSpan().containsOrIntersects(event.timeSpan()))
+            {
+               overlappingEvents.add(nextEvent);
+               event = nextEvent;
+               i++;
+            }
+
+            layoutEvents(overlappingEvents);
+         }
+         
+      }
+   }
+
+   private void layoutEvents(List<CalEvent> events)
+   {
+      int padding = 4;
+      int n = events.size();
+      for (int i=0; i<n; i++)
+      {
+         CalEvent event = events.get(i);
+         Component comp = (Component) _components.get(event);
+         Rectangle bounds = _view.getBounds(event);
+         int width = bounds.width / n - padding;
+         int x = bounds.x + i*(bounds.width / n) + padding/2;
+         comp.setBounds(new Rectangle(x, bounds.y, width, bounds.height));
+      }
 	}
 
 }
