@@ -253,12 +253,12 @@
    	    basedir="${jws-dist.dir}" />
  </target>
    
-   <target name="find-drvname">
-      <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
-         classpathref="libtools.path" />
-      <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
-      <echo message="jdbcdrivername is ${jdbcdrivername}" />
-   </target>
+ <target name="find-drvname">
+    <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
+       classpathref="libtools.path" />
+    <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
+    <echo message="jdbcdrivername is ${jdbcdrivername}" />
+ </target>
    
  <target name="copylibs" depends="find-drvname">
     <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
