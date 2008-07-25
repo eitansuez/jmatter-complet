@@ -1,5 +1,14 @@
 Changes File
 
+Next Release..
+
+- revised implementation of field.naturalpath derivation to work properly in the context of a localized application
+
+- fixed an issue with ensuring that a new instance cannot be created if cmd new is restricted (authorization) from an association view (reported on mailing list by crownus)
+
+- bug fixes
+
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Jun 27 2008
