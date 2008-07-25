@@ -41,7 +41,8 @@ public class BooleanEO extends AbstractAtomicEO implements Searchable
    
    public Title title() {  return new Title((booleanValue()) ? ComplexType.localeLookupStatic("yes") : ComplexType.localeLookupStatic("no")); }
 
-   public String toString()
+   public String toString() { return title().toString(); }
+   public String marshal()
    {
       return Boolean.toString(_value);
    }

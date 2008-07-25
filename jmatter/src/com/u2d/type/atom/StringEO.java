@@ -50,7 +50,7 @@ public class StringEO extends AbstractAtomicEO implements Searchable
    public void reset() { setValue(""); }
 
    public Title title() { return new Title(_value); }
-   public String toString() { return title().toString(); }
+   public String toString() { return _value; }
    
    public boolean isEmpty()
    {

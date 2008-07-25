@@ -6,7 +6,6 @@ package com.u2d.model;
 import com.u2d.pattern.Onion;
 import com.u2d.view.EView;
 import com.u2d.validation.Rule;
-
 import javax.swing.Icon;
 import java.util.Collection;
 import java.util.ArrayList;
@@ -42,4 +41,6 @@ public abstract class AbstractAtomicEO extends AbstractEObject
    public Icon iconLg() { return null; }
    public String iconSmResourceRef() { return null; }
    public String iconLgResourceRef() { return null; }
+
+   public String marshal() {  return toString(); } 
 }

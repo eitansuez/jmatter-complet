@@ -90,7 +90,8 @@ public class JSON
 
          if (field.isAtomic())
          {
-            obj.put(field.name(), field.get(eo).toString());
+            AtomicEObject atom = (AtomicEObject) field.get(eo);
+            obj.put(field.name(), atom.marshal());
          }
          else if (field.isIndexed())
          {

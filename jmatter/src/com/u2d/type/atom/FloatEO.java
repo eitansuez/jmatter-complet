@@ -78,6 +78,7 @@ public class FloatEO extends AbstractAtomicEO
       return new Title(format().format(_value));
    }
    public String toString() { return title().toString(); }
+   public String marshal() { return String.valueOf(_value); }
 
    public boolean equals(Object obj)
    {

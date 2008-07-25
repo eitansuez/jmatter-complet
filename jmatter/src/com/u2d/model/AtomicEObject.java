@@ -11,7 +11,7 @@ import java.util.Collection;
 /**
  * @author Eitan Suez
  */
-public interface AtomicEObject extends EObject
+public interface AtomicEObject extends EObject, Marshallable
 {
    public void parseValue(String stringValue) throws java.text.ParseException;
    public AtomicRenderer getRenderer();
