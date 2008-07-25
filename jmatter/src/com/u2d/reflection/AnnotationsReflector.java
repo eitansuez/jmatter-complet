@@ -98,7 +98,12 @@ public class AnnotationsReflector implements Reflector
          if (method.getParameterAnnotations()[i].length > 0)
          {
             Arg pat = (Arg) method.getParameterAnnotations()[i][0];
-            paramInfo.add(new ParameterInfo(method.getParameterTypes()[i], pat.value()));
+            String caption = pat.value();
+            if (pat.valueIsLookupkey())
+            {
+               caption = ComplexType.localeLookupStatic(pat.value());
+            }
+            paramInfo.add(new ParameterInfo(method.getParameterTypes()[i], caption));
          }
          else
          {

@@ -10,4 +10,5 @@ import java.lang.annotation.ElementType;
 public @interface Arg
 {
    public String value();
+   public boolean valueIsLookupkey() default false;
 }
