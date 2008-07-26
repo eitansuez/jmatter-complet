@@ -184,7 +184,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
       if (_leo == null)
       {
          AssociationField field = (AssociationField) _association.field();
-         if (field.hasListAssociationConstraint())
+         if (field.hasListAssociationConstraint() && field.associationOptions(_association.parent()) != null)
          {
             AbstractListEO leo = field.associationOptions(_association.parent());
             _leo = simpleFilter(leo);
