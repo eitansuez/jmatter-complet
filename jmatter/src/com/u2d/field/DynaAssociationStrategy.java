@@ -19,7 +19,7 @@ public class DynaAssociationStrategy extends AbstractComplexEObject implements A
    public DynaAssociationStrategy(ComplexType type)
    {
       _type = type;
-//      setState(_transientState, true);
+      setState(_transientState, true);
    }
    
    public Title title()
