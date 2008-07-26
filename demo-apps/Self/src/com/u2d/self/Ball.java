@@ -5,9 +5,9 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.IntEO;
 import com.u2d.type.atom.ColorEO;
 import com.u2d.type.atom.BooleanEO;
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 
-@Persist
+@Entity
 public class Ball
       extends AbstractComplexEObject
 {

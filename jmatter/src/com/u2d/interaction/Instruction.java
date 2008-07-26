@@ -1,7 +1,6 @@
 package com.u2d.interaction;
 
 import com.u2d.model.*;
-import com.u2d.persist.Persist;
 import com.u2d.element.Command;
 import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
@@ -9,10 +8,11 @@ import com.u2d.type.atom.BooleanEO;
 import com.u2d.view.EView;
 import com.u2d.list.SimpleListEO;
 import com.u2d.field.Association;
+import javax.persistence.Entity;
 import java.util.*;
 import java.lang.reflect.InvocationTargetException;
 
-@Persist
+@Entity
 public class Instruction
       extends AbstractComplexEObject
 {

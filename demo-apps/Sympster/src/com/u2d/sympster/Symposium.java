@@ -6,7 +6,6 @@ import com.u2d.model.ComplexType;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.USDollar;
 import com.u2d.calendar.CalendarEO;
-import com.u2d.persist.Persist;
 import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.Field;
@@ -29,8 +28,9 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import org.hibernate.Query;
+import javax.persistence.Entity;
 
-@Persist
+@Entity
 public class Symposium extends CalendarEO
 {
    private final StringEO name = new StringEO();

@@ -65,7 +65,7 @@ public class AntPersistClassesMaker extends Task
             
             ClassLoader loader = new AntClassLoader(getProject(), _path);
             Class cls = loader.loadClass(className);
-            Class annotation = loader.loadClass("com.u2d.persist.Persist");
+            Class annotation = loader.loadClass("javax.persistence.Entity");
             if (cls.isAnnotationPresent(annotation))
             {
                classSet.add(cls.getName());

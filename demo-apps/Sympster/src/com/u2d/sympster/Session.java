@@ -4,14 +4,13 @@ import com.u2d.model.Title;
 import com.u2d.model.AbstractListEO;
 import com.u2d.type.atom.TimeSpan;
 import com.u2d.calendar.CalEvent;
-import com.u2d.persist.Persist;
 import com.u2d.view.EView;
 import com.u2d.view.swing.CustomReadView;
 import com.u2d.view.swing.AlternateView;
-
+import javax.persistence.Entity;
 import java.awt.Color;
 
-@Persist
+@Entity
 public class Session extends CalEvent
 {
    private final TimeSpan time = new TimeSpan();

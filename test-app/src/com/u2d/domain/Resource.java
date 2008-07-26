@@ -10,12 +10,12 @@ import com.u2d.list.RelationalList;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.reflection.Cmd;
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 
 /**
  * @author Eitan Suez
  */
-@Persist
+@Entity
 public class Resource extends AbstractComplexEObject implements Schedulable
 {
    public static String[] fieldOrder = {"name", "meetings"};

@@ -17,7 +17,7 @@ import com.u2d.pubsub.AppEvent;
 import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,7 +25,7 @@ import com.u2d.persist.Persist;
  * Date: Nov 22, 2005
  * Time: 8:54:01 PM
  */
-@Persist
+@Entity
 public class Issue extends AbstractComplexEObject
 {
    private final IssueState _status = new IssueState(NEW);

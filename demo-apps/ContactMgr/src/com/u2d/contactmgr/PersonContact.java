@@ -2,16 +2,16 @@ package com.u2d.contactmgr;
 
 import com.u2d.element.CommandInfo;
 import com.u2d.model.ComplexType;
-import com.u2d.persist.Persist;
 import com.u2d.reflection.Cmd;
 import com.u2d.reporting.ReportFormat;
 import com.u2d.reporting.Reportable;
 import com.u2d.type.composite.Person;
 import com.u2d.wizard.details.Wizard;
 import javax.swing.table.TableModel;
+import javax.persistence.Entity;
 import java.util.Properties;
 
-@Persist
+@Entity
 public class PersonContact extends Person
 {
    // An example of how to override the default command for a single type..

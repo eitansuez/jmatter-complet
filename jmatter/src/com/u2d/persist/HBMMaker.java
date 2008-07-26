@@ -134,7 +134,10 @@ public class HBMMaker
          }
          else if (field.isAtomic())
          {
-            produceProperty(parentElem, (AtomicField) field, prefix);
+            if (!field.pk())
+            {
+               produceProperty(parentElem, (AtomicField) field, prefix);
+            }
          }
          else if (field.isInterfaceType() && !field.isIndexed())
          {
@@ -609,9 +612,15 @@ public class HBMMaker
       classElem.addAttribute("name", _type.getQualifiedName());
       
       String name = _type.name().toLowerCase();
-      if (isReservedWord(name))
+      if (!StringEO.isEmpty(_type.tableName()))
+      {
+         classElem.addAttribute("table", _type.tableName());
+      }
+      else if (isReservedWord(name))
+      {
          classElem.addAttribute("table", name+"s");
-      
+      }
+
       if (_type.getJavaClass().isInterface())
          return classElem;
       
@@ -650,8 +659,39 @@ public class HBMMaker
       }
       return false;
    }
-   
+
    private Element produceIDProperty(Element parentElem)
+   {
+      if (_type.specifiesPKField())
+      {
+         String pkfieldname = _type.pkFieldname();
+         Field pkfield = _type.field(pkfieldname);
+         pkfield.setPK(true);
+         Element idElem = parentElem.addElement("id");
+         idElem.addAttribute("name", pkfield.name());
+
+         Class typeClass = getUserType(pkfield);
+         idElem.addAttribute("type", typeClass.getName());
+         addAccessAttribute(idElem);
+
+         Element idGenElem = idElem.addElement("generator");
+         if (_type.specifiesPKGenStrategy())
+         {
+            idGenElem.addAttribute("class", _type.pkGenStrategy().strategyName());
+            // TODO: handle argument type for strategy.  e.g. sequence name.
+         }
+         else
+         {
+            idGenElem.addAttribute("class", "native");
+         }
+         return idElem;
+      }
+      else
+      {
+         return produceDefaultIDProperty(parentElem);
+      }
+   }
+   private Element produceDefaultIDProperty(Element parentElem)
    {
       Element idElem = parentElem.addElement("id");
       idElem.addAttribute("name", "ID");

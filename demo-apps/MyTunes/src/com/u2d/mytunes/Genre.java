@@ -2,10 +2,9 @@ package com.u2d.mytunes;
 
 import com.u2d.type.AbstractChoiceEO;
 import com.u2d.type.atom.StringEO;
-import com.u2d.model.ComplexType;
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 
-@Persist
+@Entity
 public class Genre extends AbstractChoiceEO
 {
    private final StringEO _code = new StringEO();

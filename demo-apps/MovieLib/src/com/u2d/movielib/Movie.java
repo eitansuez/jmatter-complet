@@ -5,7 +5,7 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.*;
 import com.u2d.list.RelationalList;
 import com.u2d.app.PersistenceMechanism;
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,7 +13,7 @@ import com.u2d.persist.Persist;
  * Date: Nov 23, 2005
  * Time: 4:40:18 PM
  */
-@Persist
+@Entity
 public class Movie extends AbstractComplexEObject
 {
    private final StringEO _title = new StringEO();

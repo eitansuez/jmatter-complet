@@ -1,8 +1,8 @@
 package com.u2d.sympster;
 
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 
-@Persist
+@Entity
 public class Campus extends Venue
 {
    public Campus() {}

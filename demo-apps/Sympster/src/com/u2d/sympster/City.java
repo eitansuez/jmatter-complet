@@ -3,11 +3,10 @@ package com.u2d.sympster;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 
-@Persist
-public class City
-      extends AbstractComplexEObject
+@Entity
+public class City extends AbstractComplexEObject
 {
    private final StringEO name = new StringEO();
 

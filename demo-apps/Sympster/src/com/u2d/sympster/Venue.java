@@ -5,7 +5,7 @@ import com.u2d.model.Title;
 import com.u2d.model.ComplexType;
 import com.u2d.type.atom.StringEO;
 import com.u2d.list.RelationalList;
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 
 /*
  * comment:  cannot mark abstract because causes an exception when attempting
@@ -13,7 +13,7 @@ import com.u2d.persist.Persist;
  * the type being queried.  if it's abstract, i get an instantiationexception..
  * need another way to mark type abstract, as shown below..
  */
-@Persist
+@Entity
 public class Venue extends AbstractComplexEObject
 {
    public static String defaultSearchPath = "name";

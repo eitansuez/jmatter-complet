@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+import javax.persistence.Table;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -164,6 +165,37 @@ public class ComplexType extends AbstractComplexEObject
       _fieldsList.setItems(_fields);
       
       localize();
+   }
+
+   public String tableName()
+   {
+      if (_clazz.isAnnotationPresent(Table.class))
+      {
+         Table annotation = (Table) _clazz.getAnnotation(Table.class);
+         return annotation.name();
+      }
+      else
+      {
+         return null;
+      }
+   }
+   public boolean specifiesPKField()
+   {
+      return (_clazz.isAnnotationPresent(PKField.class));
+   }
+   public String pkFieldname()
+   {
+      PKField annotation = (PKField) _clazz.getAnnotation(PKField.class);
+      return annotation.value();
+   }
+   public boolean specifiesPKGenStrategy()
+   {
+      return (_clazz.isAnnotationPresent(PKGen.class));
+   }
+   public PKGenStrategy pkGenStrategy()
+   {
+      PKGen annotation = (PKGen) _clazz.getAnnotation(PKGen.class);
+      return annotation.strategy();
    }
 
    private void harvest()

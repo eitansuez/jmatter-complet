@@ -5,10 +5,19 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.TextEO;
 import com.u2d.reflection.Fld;
-import com.u2d.persist.Persist;
+import com.u2d.persist.PKField;
+import com.u2d.persist.PKGen;
+import com.u2d.persist.PKGenStrategy;
+import javax.persistence.Entity;
 import java.awt.Color;
 
-@Persist
+/*
+Implemented in this way to illustrate how to allow for a table with a natural primary key (legacy)
+ in a JMatter application.
+ */
+@Entity
+//@PKField("title")
+//@PKGen(strategy= PKGenStrategy.ASSIGNED)
 public class Talk extends AbstractComplexEObject implements Event
 {
    private final StringEO title = new StringEO();

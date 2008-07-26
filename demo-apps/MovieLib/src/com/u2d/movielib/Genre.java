@@ -3,7 +3,7 @@ package com.u2d.movielib;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,7 +11,7 @@ import com.u2d.persist.Persist;
  * Date: Nov 23, 2005
  * Time: 4:40:25 PM
  */
-@Persist
+@Entity
 public class Genre extends AbstractComplexEObject
 {
    private final StringEO _name = new StringEO();

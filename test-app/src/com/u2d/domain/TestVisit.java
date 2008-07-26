@@ -8,12 +8,12 @@ import com.u2d.element.CommandInfo;
 import com.u2d.model.Title;
 import com.u2d.pattern.*;
 import com.u2d.type.atom.*;
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 
 /**
  * @author Eitan Suez
  */
-@Persist
+@Entity
 public class TestVisit extends CalEvent
 {
    private transient State _scheduledState;

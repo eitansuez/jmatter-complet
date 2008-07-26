@@ -3,15 +3,13 @@ package com.u2d.self;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.type.atom.IntEO;
-import com.u2d.persist.Persist;
 import com.u2d.list.RelationalList;
 import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
 import com.u2d.view.View;
+import javax.persistence.Entity;
 
-import javax.swing.*;
-
-@Persist
+@Entity
 public class Space
       extends AbstractComplexEObject
 {

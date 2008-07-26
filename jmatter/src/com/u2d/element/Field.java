@@ -479,7 +479,11 @@ public abstract class Field extends Member
    private boolean _tabView = false;
    public boolean isTabView() { return _tabView; }
    public void setTabView(boolean isTabView) { _tabView = isTabView; }
-   
+
+   private boolean _pkfield = false;
+   public void setPK(boolean ispk) { _pkfield = ispk; }
+   public boolean pk() { return _pkfield; }
+
    public void applyMetadata()
    {
       if (_getter.isAnnotationPresent(Fld.class))

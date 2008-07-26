@@ -1,9 +1,9 @@
 package com.u2d.sympster;
 
-import com.u2d.persist.Persist;
 import com.u2d.type.composite.USAddress;
+import javax.persistence.Entity;
 
-@Persist
+@Entity
 public class Hotel extends Venue
 {
    public Hotel() {}

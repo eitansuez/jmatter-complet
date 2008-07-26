@@ -11,12 +11,13 @@ import com.u2d.list.RelationalList;
 import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Fld;
-import com.u2d.persist.Persist;
+import com.u2d.reflection.Arg;
 import com.u2d.view.EView;
 import javax.swing.Icon;
+import javax.persistence.Entity;
 import java.awt.Color;
 
-@Persist
+@Entity
 public class Speaker extends AbstractComplexEObject
 {
    private final StringEO name = new StringEO();
@@ -62,6 +63,13 @@ public class Speaker extends AbstractComplexEObject
       talk.association("speaker").set(this);
       return talk;
    }
+
+   @Cmd
+   public static Talk AddTalkForSpeaker(CommandInfo cmdInfo, @Arg(value = "speaker", valueIsLookupkey = true) Speaker speaker)
+   {
+      return speaker.AddTalk(cmdInfo);
+   }
+
 
    public boolean hasCustomMainTabPanel() { return true; }
    public EView mainTabPanel() { return new SpeakerPanel(this); }

@@ -27,6 +27,7 @@ import com.u2d.reflection.Arg;
 import com.u2d.json.JSON;
 import com.u2d.list.CompositeList;
 import com.u2d.app.Tracing;
+import org.hibernate.NonUniqueObjectException;
 
 /**
  * @author Eitan Suez
@@ -661,6 +662,12 @@ public abstract class AbstractComplexEObject extends AbstractEObject
                log(LoggedEvent.INFO, cmdInfo.getCommand(), 
                    "Created new " + type() + " object - " + title());
             return null;
+         }
+         catch (NonUniqueObjectException ex)
+         {
+            log(LoggedEvent.ERROR, cmdInfo.getCommand(), DUPLICATE_KEY_CONSTRAINT_ERROR_MSG);
+            fireValidationException(DUPLICATE_KEY_CONSTRAINT_ERROR_MSG);
+            return DUPLICATE_KEY_CONSTRAINT_ERROR_MSG;
          }
          catch (org.hibernate.exception.ConstraintViolationException ex)
          {

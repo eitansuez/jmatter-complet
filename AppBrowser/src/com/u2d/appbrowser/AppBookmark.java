@@ -5,14 +5,14 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.URI;
 import com.u2d.type.atom.TextEO;
-import com.u2d.persist.Persist;
 import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
 import com.u2d.view.swing.AppLoader;
+import javax.persistence.Entity;
 import java.net.URL;
 import java.io.IOException;
 
-@Persist
+@Entity
 public class AppBookmark
       extends AbstractComplexEObject
 {
