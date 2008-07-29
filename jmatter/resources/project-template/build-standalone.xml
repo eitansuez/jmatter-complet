@@ -228,7 +228,7 @@
     <mkdir dir="${target.dir}" />
     <copy todir="${target.dir}" flatten="true">
        <fileset dir="${lib.dir}"
-                includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,${vmname}.jar,${vmname}/*.jar" />
+                includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,jasper/*.jar,${vmname}.jar,${vmname}/*.jar" />
        <fileset dir="${lib.dir}"
                 includes="jdbc/${jdbcdrivername}" />
     </copy>
