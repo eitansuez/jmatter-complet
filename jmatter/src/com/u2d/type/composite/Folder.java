@@ -9,13 +9,10 @@ import com.u2d.model.*;
 import com.u2d.type.atom.StringEO;
 import com.u2d.view.EView;
 import com.u2d.element.CommandInfo;
-import com.u2d.element.Field;
 import com.u2d.persist.HibernatePersistor;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.reflection.IdxFld;
-import com.u2d.field.IndexedField;
-
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.event.TreeModelListener;
@@ -128,7 +125,7 @@ public class Folder extends AbstractComplexEObject
       public void removeTreeModelListener(TreeModelListener listener) {}
       public void valueForPathChanged(TreePath path, Object newValue)
       {
-         ComplexEObject ceo = null;
+         ComplexEObject ceo;
          for (int i=0; i<path.getPathCount(); i++)
          {
             ceo = (ComplexEObject) path.getPathComponent(i);
@@ -190,7 +187,7 @@ public class Folder extends AbstractComplexEObject
    {
       folders.add(folder);
 
-      ComplexEObject item = null;
+      ComplexEObject item;
       for (int i=0; i<folder.size(); i++)
       {
          item = (ComplexEObject) folder.get(i);
