@@ -1,7 +1,5 @@
 package com.u2d.model;
 
-import com.u2d.element.Command;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
