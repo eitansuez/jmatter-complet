@@ -22,8 +22,9 @@ public class ClassMenu extends JMenu implements EView
    
    public ClassMenu()
    {
-      super("Types");
-      setMnemonic('y');
+      TextWithMnemonic twm = TextWithMnemonic.lookup("menubar.types");
+      setText(twm.text());
+      if (twm.hasMnemonic()) setMnemonic(twm.mnemonic());
    }
    
    public void bind(Folder classBar, final JMenuBar menuBar, final int index)
