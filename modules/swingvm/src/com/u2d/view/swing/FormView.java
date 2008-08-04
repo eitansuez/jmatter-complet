@@ -59,7 +59,6 @@ public class FormView extends JXPanel implements IFormView
       super();
       _leafContext = isLeafContext;
       attach(ceo);
-      stateChanged(null);
    }
 
    public FormView(ComplexEObject ceo, List<Field> partialFieldList)
@@ -67,7 +66,6 @@ public class FormView extends JXPanel implements IFormView
       _partialFieldList = partialFieldList;
       _leafContext = false;
       attach(ceo);
-      stateChanged(null);
    }
 
    private void attach(ComplexEObject ceo)
@@ -76,6 +74,7 @@ public class FormView extends JXPanel implements IFormView
       _ceo.addPropertyChangeListener(this);
       _ceo.addChangeListener(this);
       layItOut();
+      stateChanged(null);
    }
 
    public void detach()
