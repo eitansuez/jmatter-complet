@@ -6,6 +6,7 @@ import com.u2d.type.atom.StringEO;
 import com.u2d.view.ActionNotifier;
 import com.u2d.validation.ValidationListener;
 import com.u2d.validation.ValidationEvent;
+import com.u2d.element.Field;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,12 +26,19 @@ public class StringEditor extends JTextField implements AtomicEditor, ActionNoti
    
    public void render(AtomicEObject value)
    {
-      if (value.field() != null && value.field().displaysize() > 0
-            && value.field().displaysize() != getColumns())
+      if (value.field() != null)
       {
-         setColumns(value.field().displaysize());
+         Field field = value.field();
+         if (field.displaysize() > 0 && field.displaysize() != getColumns())
+         {
+            setColumns(value.field().displaysize());
+         }
+         if (field.colsize() > 0 && (!(getDocument() instanceof MaxLength)))
+         {
+            setDocument(new MaxLength(field.colsize()));
+         }
       }
-      
+
       StringEO eo = (StringEO) value;
       if (!getText().equals(eo.stringValue()))
          setText(eo.stringValue());
