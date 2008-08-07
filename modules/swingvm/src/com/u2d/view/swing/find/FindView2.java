@@ -57,7 +57,8 @@ public class FindView2 extends JSplitPane implements View
       setBottomComponent(null);
    }
 
-   public String getTitle() { return "Find " + _type; }
+   public String getTitle() { return ComplexType.localeLookupStatic("find")+" "+ _type; }
+
    public Icon iconSm() { return ICONSM; }
    public Icon iconLg() { return ICONLG; }
    public boolean withTitlePane() { return true; }
