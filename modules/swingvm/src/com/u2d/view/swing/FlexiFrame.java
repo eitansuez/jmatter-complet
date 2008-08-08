@@ -12,6 +12,7 @@ import com.u2d.list.Paginable;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.InternalFrameListener;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.event.*;
@@ -205,8 +206,13 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       }
       _views.clear();
       _tabPane.detach();
-      
+
+      for (InternalFrameListener ilistener : getInternalFrameListeners())
+      {
+         removeInternalFrameListener(ilistener);
+      }
    }
+   
    private void detach(JComponent view)
    {
       if (view instanceof EView)
