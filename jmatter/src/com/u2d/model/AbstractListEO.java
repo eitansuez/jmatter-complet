@@ -274,6 +274,15 @@ public abstract class AbstractListEO extends AbstractEObject
       }
       return tableModel(fields);
    }
+   public TableModel tableModel(String[] fieldNames, boolean setAsDefault)
+   {
+      TableModel model = tableModel(fieldNames);
+      if (setAsDefault)
+      {
+         _tableModel = model;
+      }
+      return model;
+   }
    
    public TableModel tableModel(final List fields)
    {
@@ -314,6 +323,34 @@ public abstract class AbstractListEO extends AbstractEObject
                return field.get(ceo);
             }
          }
+
+         public boolean isCellEditable(int row, int column)
+         {
+            Object o = getValueAt(row, column);
+            if (o instanceof Association)
+            {
+               Association a = (Association) o;
+               ComplexEObject parentObject = a.parent();
+               return (parentObject != null && parentObject.isEditableState());
+            }
+
+            EObject value = (EObject) getValueAt(row, column);
+            EObject parentObject = value.parentObject();
+            return ( parentObject != null &&
+                     parentObject instanceof ComplexEObject &&
+                     ((ComplexEObject) parentObject).isEditableState() &&
+                     value instanceof AtomicEObject &&
+                     !value.field().isReadOnly()
+            );
+         }
+
+         public void setValueAt(Object value, int row, int column)
+         {
+            Field field = (Field) fields.get(column);
+            ComplexEObject parent = (ComplexEObject) _items.get(row);
+            field.set(parent, value);
+         }
+
       };
    }
    
