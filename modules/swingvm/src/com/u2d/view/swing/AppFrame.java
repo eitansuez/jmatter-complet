@@ -147,7 +147,7 @@ public class AppFrame extends JFrame
       _cardPanel.add(new AppLoaderPanel(), "app-off");
       _cardPanel.add(_sessionCardPanel, "app-on");
       _cardPanel.show("app-off");
-      
+
       contentPane.add(_cardPanel, BorderLayout.CENTER);
 
       setPreferredSize(new Dimension(1024, 768));
@@ -171,7 +171,7 @@ public class AppFrame extends JFrame
       if (aboutDlg != null) aboutDlg.rebind();
       setupCommandBar();
       setupMenu();
-      
+
       instruction = new Instruction();
       instructionView.bind(instruction);
 
@@ -189,7 +189,8 @@ public class AppFrame extends JFrame
       }
    }
    
-   private void setupInstructionView() {
+   private void setupInstructionView()
+   {
       instructionView = new InstructionView();
       ComponentStyle.setIdent(instructionView, "command-panel");
       _desktopPane.add(instructionView, JLayeredPane.POPUP_LAYER);
@@ -417,7 +418,7 @@ public class AppFrame extends JFrame
       return menu;
    }
 
-   public void addLoginDialog(final LoginDialog loginDialog)
+   public void addLoginDialog(LoginDialog loginDialog)
    {
       _loggedOutDesktopPane.add(loginDialog, JLayeredPane.MODAL_LAYER);
    }
@@ -815,12 +816,6 @@ public class AppFrame extends JFrame
       }
    }
 
-   /*
-     Still searching for a more descriptive term.  The whole reason for this status pane is not
-      to show status but to provide button handles for the windows (internal frames) that reflect
-      the state of the desktop and make it easy for a user to activate (bring to the forefront)
-      a specific internal frame that may be hidden in the stack of windows on the desktop.
-    */
    class WindowButtonBar extends JPanel
    {
       ButtonGroup buttonGroup = new ButtonGroup();

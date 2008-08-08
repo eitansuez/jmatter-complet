@@ -52,7 +52,7 @@ public class MultiPickView extends JPanel implements View
       {
          public void actionPerformed(ActionEvent e)
          {
-            Object[] objects = (Object[]) _searchView.getSelectedValues();
+            Object[] objects = _searchView.getSelectedValues();
             java.util.List list = new ArrayList();
             for (int i=0; i<objects.length; i++)
             {
@@ -80,7 +80,7 @@ public class MultiPickView extends JPanel implements View
 
       builder.add((JComponent) _listView, cc.xy(1, 1, "fill, fill"));
       builder.add(middlePane, cc.xy(2, 1, "center, center"));
-      builder.add((JComponent) container, cc.xy(3, 1, "fill, fill"));
+      builder.add(container, cc.xy(3, 1, "fill, fill"));
 
       JButton doneBtn = new JButton("Done");
       doneBtn.addActionListener(new ActionListener()

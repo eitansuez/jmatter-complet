@@ -12,7 +12,6 @@ import java.util.*;
 import com.u2d.view.*;
 import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.model.*;
-import com.u2d.ui.*;
 import com.u2d.ui.sorttable.TableSortSupport;
 import com.u2d.ui.sorttable.SortTableModel;
 import com.u2d.field.Association;
@@ -20,7 +19,7 @@ import com.u2d.field.Association;
 /**
  * @author Eitan Suez
  */
-public class TableView extends SeeThruTable implements ListEView, Selectable, ChangeListener
+public class TableView extends ScrollableTable implements ListEView, Selectable, ChangeListener
 {
    private AbstractListEO _leo;
    private Map _components = new HashMap();
@@ -60,8 +59,8 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
       setDefaultRenderer(ComplexEObject.class, ceoRenderer);
       setDefaultRenderer(AbstractComplexEObject.class, ceoRenderer);
 
-      adjustColumnWidths(tableModel);
-      adjustRowHeight(tableModel);
+      adjustColumnWidths();
+      adjustRowHeight();
 
       if (tableModel instanceof SortTableModel)
       {
@@ -90,52 +89,22 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
       }
    }
 
-   int _tableWidth;
-   private void adjustColumnWidths(TableModel tableModel)
+   private void adjustRowHeight()
    {
-      _tableWidth = 0;
-      for (int col=0; col<tableModel.getColumnCount(); col++)
-      {
-         int width = 50;  // a minimum
-
-         TableColumn tc = getTableHeader().getColumnModel().getColumn(col);
-         width = Math.max(tc.getPreferredWidth(), width);
-
-         for (int row=0; row<tableModel.getRowCount(); row++)
-         {
-            Component comp = getComponentAt(row, col, tableModel);
-            width = Math.max(comp.getPreferredSize().width, width);
-            width = Math.min(width, 400); // a maximum column width
-         }
-         getColumnModel().getColumn(col).setPreferredWidth(width);
-         _tableWidth += width;
-      }
-      _tableWidth += ( tableModel.getColumnCount() * getColumnModel().getColumnMargin() );
-   }
-
-   private void adjustRowHeight(TableModel tableModel)
-   {
+      TableModel tableModel = getModel();
       if (tableModel.getRowCount() > 0)
       {
          int row = 0;
          int height = getRowHeight(row);
          for (int col=1; col<tableModel.getColumnCount(); col++)
          {
-            Component comp = getComponentAt(row, col, tableModel);
+            Component comp = getTableComponentAt(row, col, tableModel);
             int preferredHeight = comp.getPreferredSize().height;
             height = Math.max(height, preferredHeight);
          }
          setRowHeight(height);
       }
    }
-
-   private Component getComponentAt(int row, int col, TableModel tableModel)
-   {
-      TableCellRenderer cellRenderer = getCellRenderer(row, col);
-      Object value = tableModel.getValueAt(row, col);
-      return cellRenderer.getTableCellRendererComponent(this, value, false, false, row, col);
-   }
-
 
    public void stateChanged(ChangeEvent evt)
    {
@@ -221,32 +190,6 @@ public class TableView extends SeeThruTable implements ListEView, Selectable, Ch
       comp.setBackground( (isSelected) ? table.getSelectionBackground() : table.getBackground());
       comp.setBorder( (hasFocus) ? UIManager.getBorder("Table.focusCellHighlightBorder") : NOFOCUSBORDER);
       return comp;
-   }
-
-
-   private int MAXHEIGHT = 500;
-   private int MAXWIDTH = 800;
-
-   public Dimension getPreferredScrollableViewportSize()
-   {
-      Dimension preferred = super.getPreferredScrollableViewportSize();
-      preferred.height =  getModel().getRowCount() * getRowHeight() + 50;
-      preferred.height = Math.min(preferred.height, MAXHEIGHT);
-
-      preferred.width = Math.min(_tableWidth, MAXWIDTH);
-
-      return preferred;
-   }
-
-   public boolean getScrollableTracksViewportWidth()
-   {
-      if (getParent() instanceof JViewport)
-      {
-         JViewport viewport = (JViewport) getParent();
-         int vpwidth = viewport.getWidth();
-         return (vpwidth > getPreferredSize().width || vpwidth == 0);
-      }
-      return false;
    }
 
    public boolean isMinimized() { return false; }
