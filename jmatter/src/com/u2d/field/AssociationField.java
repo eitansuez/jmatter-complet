@@ -103,7 +103,7 @@ public class AssociationField extends Field implements Bidi, Associable
       catch (Exception e)
       {
          e.printStackTrace();
-         throw new RuntimeException("Likely invalid method signation on options for association field "+this, e);
+         throw new RuntimeException("Likely invalid method signature on options for association field "+this, e);
       }
    }
    public void bindConstraintTo(CompositeQuery query, Object instance)

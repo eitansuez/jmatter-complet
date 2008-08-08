@@ -41,7 +41,7 @@ public class AnnotationsReflector implements Reflector
    public EOCommand reflectCommand(Method method, Class klass, ComplexType parent)
    {
       Cmd at = method.getAnnotation(Cmd.class);
-      EOCommand cmd = null;
+      EOCommand cmd;
       if (Command.isStatic(method))
       {
          cmd = new TypeCommand(method, parent, at.mnemonic(), parameterInfo(method), at.sensitive(), at.viewPosition());

@@ -139,7 +139,7 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
 
    public int pageNum()
    {
-      return (int) (_position / PAGE_SIZE) + 1;
+      return ((int) (_position / PAGE_SIZE)) + 1;
    }
 
    public int numPages()
@@ -237,7 +237,7 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
       {
         // remove ondelete listener from items
         Iterator itr = _items.iterator();
-        ComplexEObject ceo = null;
+        ComplexEObject ceo;
         while (itr.hasNext())
         {
            ceo = (ComplexEObject) itr.next();
@@ -264,14 +264,14 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
    {
       public void sort(int colIndex, boolean ascending)
       {
-         Field field = (Field) _tableFields.get(colIndex - 1);
+         Field field = _tableFields.get(colIndex - 1);
          CriteriaListEO.this.sort(field, ascending);
       }
 
       public boolean isColumnSortable(int colIndex)
       {
          if (colIndex == 0) return false;
-         Field field = (Field) _tableFields.get(colIndex - 1);
+         Field field = _tableFields.get(colIndex - 1);
          return field.isSortable();
       }
    }

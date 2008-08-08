@@ -126,7 +126,7 @@ public abstract class AbstractListEO extends AbstractEObject
 
    public String toString() { return title().toString(); }
 
-   public List<EObject> getItems() { return _items; }
+   public List getItems() { return _items; }
    
    // convenience..
    public void setItems(Set<EObject> items)
@@ -283,7 +283,7 @@ public abstract class AbstractListEO extends AbstractEObject
       }
       return model;
    }
-   
+
    public TableModel tableModel(final List fields)
    {
       return new AbstractTableModel()

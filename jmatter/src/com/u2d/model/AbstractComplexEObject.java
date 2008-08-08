@@ -1057,7 +1057,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
             index++;
          }
          return -1;
-
       }
 
       protected EventListenerList listenerList = new EventListenerList();
