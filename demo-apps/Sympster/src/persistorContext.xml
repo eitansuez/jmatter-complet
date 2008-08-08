@@ -11,5 +11,9 @@
    <bean id="persistor" class="com.u2d.persist.HBMSingleSession">
       <property name="classes" ref="persist-classes" />
    </bean>
+
+   <bean id="liquibase-commander" class="com.u2d.persist.LiquibaseCommander">
+      <property name="classes" ref="persist-classes" />
+   </bean>
    
 </beans>

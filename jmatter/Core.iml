@@ -40,6 +40,17 @@
     <orderEntry type="library" name="Hibernate" level="project" />
     <orderEntry type="library" name="JFreeReport" level="project" />
     <orderEntry type="library" name="JiBX" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/runtime/liquibase-SNAPSHOT.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../thirdparty/liquibase/src/java" />
+        </SOURCES>
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
 </module>

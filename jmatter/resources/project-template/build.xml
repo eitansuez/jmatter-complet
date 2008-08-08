@@ -172,6 +172,36 @@
     </java>
  </target>
 
+   <target name="liquibase-diffchangelog" description="liquibase:  generate a diff changelog between db and hibernate mapping files">
+      <antcall target="liquibase">
+        <param name="arg" value="diffchangelog" />
+      </antcall>
+   </target>
+   <target name="liquibase-update" description="liquibase:  execute migration">
+      <antcall target="liquibase">
+        <param name="arg" value="update" />
+      </antcall>
+   </target>
+   <target name="liquibase-updateSQL" description="liquibase:  write migration sql to stdout">
+      <antcall target="liquibase">
+        <param name="arg" value="updateSQL" />
+      </antcall>
+   </target>
+   <target name="liquibase-generate_changelog" description="liquibase:  generate change log from database definition">
+      <antcall target="liquibase">
+        <param name="arg" value="generate_changelog" />
+      </antcall>
+   </target>
+   <target name="liquibase" depends="genhbm">
+      <java classpathref="class.path" dir="${build.classes.dir}"
+           fork="true" classname="com.u2d.persist.LiquibaseCommander">
+         <arg value="${arg}" />
+         <arg value="${basedir}" />
+      </java>
+   </target>
+
+
+
  <target name="seed-database" depends="schema-export"
          description="exports schema and initializes database (default classbar + users and roles)">
    <java fork="true" classpathref="class.path"
