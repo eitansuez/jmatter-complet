@@ -32,19 +32,24 @@ import com.u2d.view.swing.list.CommandsMenuView;
 import com.u2d.view.swing.list.CommandsIconButtonView;
 import com.u2d.interaction.Instruction;
 import javax.swing.*;
-import java.awt.*;
+import javax.swing.event.InternalFrameListener;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.border.BevelBorder;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.Cursor;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 import org.jdesktop.swingx.JXPanel;
-import org.javadev.effects.FadeAnimation;
+//import org.javadev.effects.FadeAnimation;
 
 /**
  * @author Eitan Suez
@@ -79,6 +84,7 @@ public class AppFrame extends JFrame
    private JPanel _classBarPanel = new LockablePanel(_classBar);
    private ClassMenu _classMenu = new ClassMenu();
    private EODesktopPane _desktopPane, _loggedOutDesktopPane;
+   private WindowButtonBar _windowButtonBar;
    private CardPanel _cardPanel, _sessionCardPanel;
 
    public AppFrame()
@@ -116,9 +122,15 @@ public class AppFrame extends JFrame
       _desktopPane.getContextMenu().add(new QuitAction());
       setupInstructionView();
 
+      _windowButtonBar = new WindowButtonBar();
+
       _centerPane = new JPanel(new BorderLayout());
       _centerPane.add(_classBarPanel, BorderLayout.WEST);
-      _centerPane.add(_desktopPane, BorderLayout.CENTER);
+      JPanel innerPane = new JPanel(new BorderLayout());
+      innerPane.add(_desktopPane, BorderLayout.CENTER);
+      innerPane.add(_windowButtonBar, BorderLayout.SOUTH);
+      _centerPane.add(innerPane, BorderLayout.CENTER); // this is so that classbar drops all the way
+        // to the bottom and status pane stops at right edge of classbar
 
       _loggedOutDesktopPane = new EODesktopPane();
       _loggedOutDesktopPane.setEnabled(false);
@@ -412,6 +424,7 @@ public class AppFrame extends JFrame
 
    public JInternalFrame addFrame(JInternalFrame frame)
    {
+      _windowButtonBar.frameAdded(frame);
       _desktopPane.addFrame(frame);
       return frame;
    }
@@ -801,5 +814,80 @@ public class AppFrame extends JFrame
          ComponentStyle.setIdent(this, "appload-pnl");
       }
    }
-   
+
+   /*
+     Still searching for a more descriptive term.  The whole reason for this status pane is not
+      to show status but to provide button handles for the windows (internal frames) that reflect
+      the state of the desktop and make it easy for a user to activate (bring to the forefront)
+      a specific internal frame that may be hidden in the stack of windows on the desktop.
+    */
+   class WindowButtonBar extends JPanel
+   {
+      ButtonGroup buttonGroup = new ButtonGroup();
+      private InternalFrameListener iframeListener;
+      public static final String FRAMEBUTTON_CLIENTPROPERTYNAME = "sibling-button";
+
+      public WindowButtonBar()
+      {
+         setLayout(new FlowLayout(FlowLayout.LEFT, 1, 1));
+         setBorder(new BevelBorder(BevelBorder.LOWERED));
+
+         iframeListener = new InternalFrameListener()
+         {
+            public void internalFrameClosing(InternalFrameEvent e)
+            {
+               JInternalFrame frame = (JInternalFrame) e.getSource();
+               frame.removeInternalFrameListener(this);
+
+               FrameButton button = buttonFor(frame);
+               button.cleanup();
+               buttonGroup.remove(button);
+               remove(button);
+               frame.putClientProperty("sibling-button", null); // no remove method.  done by setting to null.
+               WindowButtonBar.this.revalidate();
+               WindowButtonBar.this.repaint();
+            }
+
+            public void internalFrameActivated(InternalFrameEvent e)
+            {
+               JInternalFrame frame = (JInternalFrame) e.getSource();
+               buttonFor(frame).setSelected(true);
+            }
+
+            public void internalFrameDeactivated(InternalFrameEvent e)
+            {
+               JInternalFrame frame = (JInternalFrame) e.getSource();
+               buttonFor(frame).setSelected(false);
+            }
+
+            public void internalFrameOpened(InternalFrameEvent e) { }
+            public void internalFrameClosed(InternalFrameEvent e) { }
+            public void internalFrameIconified(InternalFrameEvent e) { }
+            public void internalFrameDeiconified(InternalFrameEvent e) { }
+
+         };
+      }
+
+      private FrameButton buttonFor(JInternalFrame frame)
+      {
+         return (FrameButton) frame.getClientProperty(FRAMEBUTTON_CLIENTPROPERTYNAME);
+      }
+
+      void frameAdded(JInternalFrame frame)
+      {
+         FrameButton button = new FrameButton(frame, _desktopPane);
+         buttonGroup.add(button);
+         add(button);
+         frame.putClientProperty(FRAMEBUTTON_CLIENTPROPERTYNAME, button);
+         frame.addInternalFrameListener(iframeListener);
+      }
+
+      public Dimension getPreferredSize()
+      {
+         Dimension pref = super.getPreferredSize();
+         pref.height = 28;
+         return pref;
+      }
+   }
+
 }

@@ -186,6 +186,14 @@ jm|ExpandableView2 ui|GradientPanel
    font-size: 11pt;
 }
 
+jm|FrameButton
+{
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: #D0E0ED;
+  font-size: 12pt;
+}
+
 /* custom for session view .. */
 
 sympster|SessionView
