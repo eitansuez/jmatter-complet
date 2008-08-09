@@ -35,12 +35,7 @@ import javax.swing.*;
 import javax.swing.event.InternalFrameListener;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.border.BevelBorder;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Dimension;
-import java.awt.Cursor;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -334,6 +329,7 @@ public class AppFrame extends JFrame
                      public void run()
                      {
                         _desktopPane.closeAllChildren();
+                        _windowButtonBar.cleanup();
                         hideClassBar();
                         hideUserMenu();
                         hideCommandBar();
@@ -832,13 +828,7 @@ public class AppFrame extends JFrame
             public void internalFrameClosing(InternalFrameEvent e)
             {
                JInternalFrame frame = (JInternalFrame) e.getSource();
-               frame.removeInternalFrameListener(this);
-
-               FrameButton button = buttonFor(frame);
-               button.cleanup();
-               buttonGroup.remove(button);
-               remove(button);
-               frame.putClientProperty("sibling-button", null); // no remove method.  done by setting to null.
+               cleanup(frame, buttonFor(frame));
                WindowButtonBar.this.revalidate();
                WindowButtonBar.this.repaint();
             }
@@ -861,6 +851,27 @@ public class AppFrame extends JFrame
             public void internalFrameDeiconified(InternalFrameEvent e) { }
 
          };
+      }
+
+      private void cleanup(JInternalFrame frame, FrameButton button)
+      {
+         button.cleanup();
+         buttonGroup.remove(button);
+         remove(button);
+
+         frame.putClientProperty("sibling-button", null); // no remove method.  done by setting to null.
+         frame.removeInternalFrameListener(iframeListener);
+      }
+
+      public void cleanup()
+      {
+         Component[] components = getComponents();
+         for (Component comp : components)
+         {
+            FrameButton button = (FrameButton) comp;
+            JInternalFrame frame = button.getFrame();
+            cleanup(frame, button);
+         }
       }
 
       private FrameButton buttonFor(JInternalFrame frame)
