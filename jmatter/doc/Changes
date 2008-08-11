@@ -1,13 +1,32 @@
-Changes File
+August 11 2008
 
-Next Release..
+Summary of Changes
+==================
 
-- revised implementation of field.naturalpath derivation to work properly in the context of a localized application
+- improved authorization:  ensuring that restricted commands for a session are not exposed to the ui;  specifically issues with association views exposing 'new' command now fixed (issues reported by crownus on mailing list)
+- several localization-related improvements (thanks michalg for bringing these to my attention)
 
-- fixed an issue with ensuring that a new instance cannot be created if cmd new is restricted (authorization) from an association view (reported on mailing list by crownus)
+persistence-related
+-------------------
+- @Persist is replaced with JPA's @Entity; added support for @Table(name) annotation as well;  also added (non-jpa) initial support for natural (instead of surrogate) primary keys
+- beginning integration of liquibase into jmatter to support migrations;  added a number of ant targets pertaining to generating a changelog, diffing hibernate with db to produce a changelog, and executing a migration
 
+ui-related
+----------
+- added window button bar to user interface
+- improved simple calendar view layout manager to draw overlapping events side by side instead of on top of one another 
+- added "maxlength" limit on textfield for fields with colsize spefications (per michalg request)
+
+misc
+----
 - bug fixes
 
+
+libs
+---- 
+- updated hibernate libs from v3.2.5 to v3.2.6
+- updated h2 database driver to version 20080714
+- updated jasperreports jar file from v2.04 to v3.0
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
