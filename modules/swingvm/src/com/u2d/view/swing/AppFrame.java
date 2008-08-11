@@ -123,7 +123,7 @@ public class AppFrame extends JFrame
       _centerPane.add(_classBarPanel, BorderLayout.WEST);
       JPanel innerPane = new JPanel(new BorderLayout());
       innerPane.add(_desktopPane, BorderLayout.CENTER);
-      innerPane.add(_windowButtonBar, BorderLayout.SOUTH);
+      innerPane.add(new HorizScrollpane(_windowButtonBar), BorderLayout.SOUTH);
       _centerPane.add(innerPane, BorderLayout.CENTER); // this is so that classbar drops all the way
         // to the bottom and status pane stops at right edge of classbar
 
@@ -812,7 +812,7 @@ public class AppFrame extends JFrame
       }
    }
 
-   class WindowButtonBar extends JPanel
+   class WindowButtonBar extends JPanel implements Scrollable
    {
       ButtonGroup buttonGroup = new ButtonGroup();
       private InternalFrameListener iframeListener;
@@ -894,6 +894,21 @@ public class AppFrame extends JFrame
          pref.height = 28;
          return pref;
       }
+
+      public Dimension getPreferredScrollableViewportSize() { return getPreferredSize(); }
+      public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) { return 150; }
+      public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) { return 150; }
+
+      public boolean getScrollableTracksViewportWidth()
+      {
+         if (getParent() instanceof JViewport)
+         {
+            return (getParent().getWidth() > getPreferredSize().width);
+         }
+         return false;
+      }
+
+      public boolean getScrollableTracksViewportHeight() { return false; }
    }
 
 }
