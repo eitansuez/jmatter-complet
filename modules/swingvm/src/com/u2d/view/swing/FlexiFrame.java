@@ -93,7 +93,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
                ComplexEObject ceo = (ComplexEObject) source;
                if (ceo.isNullState())
                {
-                  dispose();
+                  close();
                }
             }
             
