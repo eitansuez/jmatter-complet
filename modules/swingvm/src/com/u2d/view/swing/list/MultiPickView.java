@@ -5,11 +5,15 @@ import com.u2d.view.View;
 import com.u2d.view.swing.calendar.NavPanel;
 import com.u2d.view.swing.find.FindPanel;
 import com.u2d.model.AbstractListEO;
+import com.u2d.model.ComplexEObject;
 import com.u2d.list.CriteriaListEO;
-import com.u2d.find.SimpleQuery;
+import com.u2d.list.Paginable;
+import com.u2d.find.QueryReceiver;
+import com.u2d.find.CompositeQuery;
 import com.u2d.ui.IconButton;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.field.Association;
+import com.u2d.field.IndexedField;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -37,13 +41,12 @@ import java.util.ArrayList;
 public class MultiPickView extends JPanel implements View
 {
    private AbstractListEO _leo;
-   private ListEView _listView;
-   private JListView _searchView;
+   private JListView _optionsView;
 
    public MultiPickView(AbstractListEO leo)
    {
       _leo = leo;
-      _listView = (ListEView) _leo.getMainView();
+      ListEView listView = (ListEView) _leo.getMainView();
 
       JPanel middlePane = new JPanel(); // lay it out such that items are vertically centered
       JButton btn = new IconButton(NavPanel.PREV_ICON, NavPanel.PREV_ROLLOVER);
@@ -52,7 +55,7 @@ public class MultiPickView extends JPanel implements View
       {
          public void actionPerformed(ActionEvent e)
          {
-            Object[] objects = _searchView.getSelectedValues();
+            Object[] objects = _optionsView.getSelectedValues();
             java.util.List list = new ArrayList();
             for (int i=0; i<objects.length; i++)
             {
@@ -66,19 +69,44 @@ public class MultiPickView extends JPanel implements View
       });
 
 
-      CriteriaListEO searchList = new CriteriaListEO(new SimpleQuery(_leo.type()));
-      _searchView = new JListView(searchList);
-      _searchView.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+      AbstractListEO optionsList;
+      
+      ComplexEObject parentObject = _leo.parentObject();
+      IndexedField listField = (IndexedField) _leo.field();
+      if (listField.hasListAssociationConstraint() && listField.associationOptions(parentObject) != null)
+      {
+         optionsList = listField.associationOptions(parentObject);
+      }
+      else
+      {
+         CompositeQuery query = new CompositeQuery(_leo.type());
+         listField.bindConstraintTo(query, parentObject);  // may not bind anything
+
+         optionsList = new CriteriaListEO(query);
+      }
+
+      _optionsView = new JListView(optionsList);
+      _optionsView.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
       JPanel container = new JPanel(new BorderLayout());
-      container.add(new FindPanel(searchList), BorderLayout.NORTH);
-      container.add(new PaginableView(_searchView), BorderLayout.CENTER);
+      if (!listField.hasAssociationConstraint())
+      {
+         container.add(new FindPanel((QueryReceiver) optionsList), BorderLayout.NORTH);
+      }
+      if (optionsList instanceof Paginable)
+      {
+         container.add(new PaginableView(_optionsView), BorderLayout.CENTER);
+      }
+      else
+      {
+         container.add(new JScrollPane(_optionsView), BorderLayout.CENTER);
+      }
 
       FormLayout formLayout = new FormLayout("fill:pref, center:pref, fill:pref", "fill:pref, pref");
       DefaultFormBuilder builder = new DefaultFormBuilder(formLayout, this);
       CellConstraints cc = new CellConstraints();
 
-      builder.add((JComponent) _listView, cc.xy(1, 1, "fill, fill"));
+      builder.add((JComponent) listView, cc.xy(1, 1, "fill, fill"));
       builder.add(middlePane, cc.xy(2, 1, "center, center"));
       builder.add(container, cc.xy(3, 1, "fill, fill"));
 

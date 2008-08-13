@@ -5,6 +5,9 @@ package com.u2d.field;
 
 import java.beans.*;
 import java.util.List;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import com.u2d.app.PersistenceMechanism;
 import com.u2d.element.Field;
 import com.u2d.model.AbstractListEO;
@@ -19,6 +22,8 @@ import com.u2d.validation.Required;
 import com.u2d.view.*;
 import com.u2d.list.CompositeList;
 import com.u2d.reflection.IdxFld;
+import com.u2d.find.QuerySpecification;
+import com.u2d.find.CompositeQuery;
 
 /**
  * @author Eitan Suez
@@ -29,6 +34,7 @@ public class IndexedField extends Field implements Bidi, Associable
    protected String _inverseFieldName = null;
    protected Field _inverseField = null;
    protected Boolean _inverseSide = null;
+   protected transient Method _associationConstraint;
    
    public IndexedField() {}
 
@@ -60,7 +66,69 @@ public class IndexedField extends Field implements Bidi, Associable
       _inverseFieldName =
          (String) Harvester.introspectField(parent.getJavaClass(),
                                             name() + "InverseFieldName");
+      checkForAssociationConstraint();
    }
+
+   // TODO: this code is duplicated in here (IndexedField) and in AssociationField!
+   private void checkForAssociationConstraint()
+   {
+      try
+      {
+         String methodName = String.format("%sOptions", name());
+         _associationConstraint = _parent.getJavaClass().getMethod(methodName);
+      }
+      catch (NoSuchMethodException e)
+      {
+         // ignore
+      }
+   }
+   public boolean hasAssociationConstraint() { return _associationConstraint != null; }
+   public boolean isQueryType()
+   {
+      return _associationConstraint.getReturnType().equals(QuerySpecification.class);
+   }
+   public boolean hasListAssociationConstraint()
+   {
+      return hasAssociationConstraint() && !isQueryType();
+   }
+
+   public AbstractListEO associationOptions(Object instance)
+   {
+      if ( ! AbstractListEO.class.isAssignableFrom(_associationConstraint.getReturnType()) )
+      {
+         throw new RuntimeException("association options method must return a jmatter list type (for association field "+this+")");
+      }
+
+      try
+      {
+         return (AbstractListEO) _associationConstraint.invoke(instance);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+         throw new RuntimeException("Likely invalid method signature on options for association field "+this, e);
+      }
+   }
+   public void bindConstraintTo(CompositeQuery query, Object instance)
+   {
+      if (!hasAssociationConstraint()) return;
+      if (!isQueryType()) return;
+      try
+      {
+         QuerySpecification spec = (QuerySpecification) _associationConstraint.invoke(instance);
+         if (spec == null) return;
+         query.addSpecification(spec);
+      }
+      catch (IllegalAccessException e)
+      {
+         // ignore.
+      }
+      catch (InvocationTargetException e)
+      {
+         e.printStackTrace();
+      }
+   }
+
 
    public Field inverseField()
    {
