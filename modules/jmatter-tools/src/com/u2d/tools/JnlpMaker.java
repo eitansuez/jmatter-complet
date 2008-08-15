@@ -18,12 +18,15 @@ import java.io.*;
 public class JnlpMaker extends Task
 {
    private File _template, _propsFile, _jarbasepath, _tofile;
-   private String _excludejar;
+   private String[] _excludejars;
    public void setTemplate(File template) { _template = template; }
    public void setProps(File propsFile) { _propsFile = propsFile; }
    public void setJarbasepath(File jarbasepath) { _jarbasepath = jarbasepath; }
    public void setTofile(File tofile) { _tofile = tofile; }
-   public void setExcludejar(String excludejar) { _excludejar = excludejar; }
+   public void setExcludejars(String excludejars)
+   {
+      _excludejars = excludejars.split(",");
+   }
 
    public void execute()
          throws BuildException
@@ -51,7 +54,7 @@ public class JnlpMaker extends Task
       Properties props = new Properties();
       props.load(is);
       Enumeration en = props.propertyNames();
-      String key = "";
+      String key;
       while (en.hasMoreElements())
       {
          key = (String) en.nextElement();
@@ -66,7 +69,7 @@ public class JnlpMaker extends Task
       for (int i=0; i<paths.length; i++)
       {
          if ( paths[i].isFile() && paths[i].getName().endsWith(".jar")
-               && (!_excludejar.equals(paths[i].getName())) )
+               && (!excluded(paths[i].getName())) )
          {
             String relativePath = paths[i].getCanonicalPath();
             String basepath = _jarbasepath.getAbsolutePath() + File.separator;
@@ -82,6 +85,18 @@ public class JnlpMaker extends Task
          }
       }
       return list;
+   }
+
+   private boolean excluded(String path)
+   {
+      for (String exclpath : _excludejars)
+      {
+         if (exclpath.equals(path))
+         {
+            return true;
+         }
+      }
+      return false;
    }
 
 }
