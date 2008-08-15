@@ -20,6 +20,7 @@ public class HorizScrollpane extends JPanel implements ChangeListener
    JViewport viewport = new JViewport();
    private JButton lbtn;
    private JButton rbtn;
+   private JPanel btnPnl;
 
    public HorizScrollpane(Component view)
    {
@@ -28,7 +29,7 @@ public class HorizScrollpane extends JPanel implements ChangeListener
       viewport.setView(view);
       viewport.addChangeListener(this);
       add(viewport, BorderLayout.CENTER);
-      JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
+      btnPnl = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
       btnPnl.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
       lbtn = new NavButton(ARROW_ICON_LEFT);
       lbtn.addActionListener(new ActionListener()
@@ -72,6 +73,7 @@ public class HorizScrollpane extends JPanel implements ChangeListener
    public void stateChanged(ChangeEvent e)
    {
       boolean clipped = ( viewport.getWidth() < viewport.getView().getWidth() );
+      btnPnl.setVisible(clipped);
       rbtn.setEnabled(clipped);
       lbtn.setEnabled(clipped);
    }
