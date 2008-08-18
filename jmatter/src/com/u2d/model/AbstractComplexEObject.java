@@ -409,11 +409,33 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       for (int i=0; i<fields.size(); i++)
       {
          Field field = (Field) fields.get(i);
+
+         if ( "createdOn".equals(field.name()) || "deleted".equals(field.name())
+               || "deletedOn".equals(field.name()))
+            continue;
+
          if (field.isComposite())  // exclude associations
          {
             if (!field.get(this).equals(field.get(ceo)))
             {
                return false;
+            }
+         }
+         else if (field.isAssociation())
+         {
+            Long thisId = ((ComplexEObject) field.get(this)).getID();
+            Long thatId = ((ComplexEObject) field.get(ceo)).getID();
+            if (thisId == null && thatId == null)
+            {
+               return true;
+            }
+            else if (thisId != null)
+            {
+               return thisId.equals(thatId);
+            }
+            else
+            {
+               return thatId.equals(thisId);
             }
          }
       }
@@ -427,6 +449,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       for (int i=0; i<fields.size(); i++)
       {
          Field field = (Field) fields.get(i);
+
+         if ( "createdOn".equals(field.name()) || "deleted".equals(field.name())
+               || "deletedOn".equals(field.name()))
+            continue;
+
          if (field.isComposite())  // exclude associations
          {
             if (field.isIndexed())
