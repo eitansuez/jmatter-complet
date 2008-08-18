@@ -117,7 +117,7 @@ public class CodesList
       {
          data = JSON.readInputStream(stream);
          JSONObject jso = new JSONObject(data);
-         AbstractListEO leo = JSON.fromJsonList(jso, null);
+         AbstractListEO leo = JSON.fromJsonList(jso);
          return leo.getItems();
       }
       catch (IOException e)

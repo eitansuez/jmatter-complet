@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import com.u2d.model.*;
 import com.u2d.element.Field;
 import com.u2d.list.PlainListEObject;
+import com.u2d.list.CompositeList;
 import java.util.List;
 import java.util.Iterator;
 import java.text.ParseException;
@@ -30,6 +31,8 @@ public class JSON
    {
       writeTextFile(json(leo).toString(2), file.getAbsolutePath());
    }
+
+   
    public static JSONObject json(AbstractListEO leo) throws JSONException
    {
       return json(leo, new String[] {});
@@ -95,12 +98,24 @@ public class JSON
          }
          else if (field.isIndexed())
          {
-            AbstractListEO list = (AbstractListEO) field.get(eo);
-            obj.put(field.name(), json(list, spec.specFor(field.name())));
+            if (field.isComposite())
+            {
+               CompositeList list = (CompositeList) field.get(eo);
+               assert spec != null;
+               obj.put(field.name(), json(list, spec.specForComposite(field.name())));
+            }
+            else
+            {
+               AbstractListEO list = (AbstractListEO) field.get(eo);
+               assert spec != null;
+               obj.put(field.name(), json(list, spec.specFor(field.name())));
+            }
          }
          else if (field.isAggregate())
          {
-            obj.put(field.name(), json((ComplexEObject) field.get(eo)));
+            ComplexEObject child = (ComplexEObject) field.get(eo);
+            assert spec != null;
+            obj.put(field.name(), json(child, spec.specForComposite(field.name())));
          }
          else if (field.isAssociation() && spec!=null)
          {
@@ -124,7 +139,19 @@ public class JSON
       return obj;
    }
 
+   public static AbstractListEO fromJsonList(JSONObject jso)
+         throws JSONException, ClassNotFoundException, ParseException
+   {
+      return fromJsonList(jso, new EmptyDereferencer());
+   }
+
    public static AbstractListEO fromJsonList(JSONObject jso, Session session)
+         throws JSONException, ClassNotFoundException, ParseException
+   {
+      return fromJsonList(jso, new SessionDereferencer(session));
+   }
+
+   public static AbstractListEO fromJsonList(JSONObject jso, Dereferencer context)
          throws JSONException, ClassNotFoundException, ParseException
    {
       String clsname = (String) jso.get("item-type");
@@ -135,7 +162,7 @@ public class JSON
       for (int i=0; i<ra.length(); i++)
       {
          jso = ra.getJSONObject(i);
-         leo.add(fromJson(jso, cls, session));
+         leo.add(fromJson(jso, cls, context));
       }
 
       return leo;
@@ -144,15 +171,30 @@ public class JSON
    public static ComplexEObject fromJson(JSONObject o, Session session)
          throws JSONException, ClassNotFoundException, ParseException
    {
-      return fromJson(o, null, session);
+      return fromJson(o, new SessionDereferencer(session));
+   }
+   public static ComplexEObject fromJson(JSONObject o)
+         throws JSONException, ClassNotFoundException, ParseException
+   {
+      return fromJson(o, new EmptyDereferencer());
+   }
+   public static ComplexEObject fromJson(JSONObject o, Dereferencer context)
+         throws JSONException, ClassNotFoundException, ParseException
+   {
+      return fromJson(o, null, context);
    }
    private static Class classFor(String clsname) throws ClassNotFoundException
    {
       String clsName = AbstractComplexEObject.cleanCGLIBEnhancer(clsname);
       return Thread.currentThread().getContextClassLoader().loadClass(clsName);
    }
-   
+
    public static ComplexEObject fromJson(JSONObject o, Class cls, Session session)
+         throws JSONException, ClassNotFoundException, ParseException
+   {
+      return fromJson(o, cls, new SessionDereferencer(session));
+   }
+   public static ComplexEObject fromJson(JSONObject o, Class cls, Dereferencer context)
          throws JSONException, ClassNotFoundException, ParseException
    {
       Iterator itr = o.keys();
@@ -171,7 +213,7 @@ public class JSON
       if (o.optBoolean("byRef"))
       {
          Long id = o.getLong("id");
-         return (ComplexEObject) session.get(cls, id);
+         return context.get(cls, id);
       }
 
       ComplexEObject eo = ComplexType.forClass(cls).instance();
@@ -206,11 +248,11 @@ public class JSON
             JSONObject valueObj = (JSONObject) value;
             if (valueObj.has("item-type"))
             {
-               field.set(eo, fromJsonList(valueObj, session));
+               field.set(eo, fromJsonList(valueObj, context));
             }
             else
             {
-               field.set(eo, fromJson(valueObj, session));
+               field.set(eo, fromJson(valueObj, context));
             }
          }
          else
