@@ -7,7 +7,6 @@ import java.beans.*;
 import java.util.List;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
 import com.u2d.app.PersistenceMechanism;
 import com.u2d.element.Field;
 import com.u2d.model.AbstractListEO;
