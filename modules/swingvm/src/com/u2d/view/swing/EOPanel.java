@@ -47,7 +47,7 @@ public class EOPanel extends JPanel
       // centerpane bundles a little message area (north) and the main view (center)
       JPanel centerPane = new JPanel(new BorderLayout());
       _statusPanel = new StatusPanel();
-      centerPane.add(_statusPanel, BorderLayout.NORTH);
+      centerPane.add(_statusPanel, BorderLayout.PAGE_START);
       
       centerPane.add((JComponent) _view, BorderLayout.CENTER);
       add(centerPane, BorderLayout.CENTER);
@@ -88,7 +88,7 @@ public class EOPanel extends JPanel
       
       JPanel topPanel = builder.getPanel();
       ComponentStyle.addClass(topPanel, "instance-title-panel");
-      add(topPanel, BorderLayout.NORTH);
+      add(topPanel, BorderLayout.PAGE_START);
    }
    
    public void detach()
@@ -125,7 +125,7 @@ public class EOPanel extends JPanel
       
       StatusPanel()
       {
-         setLayout(new FlowLayout(FlowLayout.LEFT, 4, 0));
+         setLayout(new FlowLayout(FlowLayout.LEADING, 4, 0));
          add(_statusLabel);
          add(_msgLabel);
 

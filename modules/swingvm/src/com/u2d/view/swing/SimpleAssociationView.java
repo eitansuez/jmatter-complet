@@ -92,7 +92,7 @@ public class SimpleAssociationView extends JXPanel
                }
             }
          } , KeyEvent.VK_ESCAPE));
-      add(_matcherField, BorderLayout.SOUTH);
+      add(_matcherField, BorderLayout.PAGE_END);
    }
    
    private void setupPopup()

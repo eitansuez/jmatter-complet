@@ -72,7 +72,7 @@ public class SimpleTableCompare extends JFrame
       {
          public void actionPerformed(ActionEvent e) { model2.print(); }
       });
-      p.add(btn, BorderLayout.SOUTH);
+      p.add(btn, BorderLayout.PAGE_END);
    }
 
    public static void main(String[] args) { new SimpleTableCompare(); }

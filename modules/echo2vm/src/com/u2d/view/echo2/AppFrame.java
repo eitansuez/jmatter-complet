@@ -71,7 +71,7 @@ public class AppFrame extends Window
          setupMenu();
 
          _msgPnl = new MessagePanel();
-         contentPane.add(_msgPnl, BorderLayout.SOUTH);
+         contentPane.add(_msgPnl, BorderLayout.PAGE_END);
 
          setupQuitHooks();
       */

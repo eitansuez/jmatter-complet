@@ -61,7 +61,7 @@ public class RelationalListView extends ListView
       
       public ListAssociationView(NullAssociation nulleo)
       {
-         setLayout(new FlowLayout(FlowLayout.LEFT));
+         setLayout(new FlowLayout(FlowLayout.LEADING));
          setOpaque(false);
          _nulleo = nulleo;
          _leo.parentObject().addChangeListener(this);

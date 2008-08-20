@@ -50,7 +50,7 @@ public class ExpandableView2
       GradientPanel gp = new GradientPanel(new Color(0x5171FF), false);
       gp.setLayout(new BorderLayout());
       gp.add(_handle, BorderLayout.CENTER);
-      gp.add(_toggleBtn, BorderLayout.EAST);
+      gp.add(_toggleBtn, BorderLayout.LINE_END);
       
       add(gp, cc.rc(1, 1));
       

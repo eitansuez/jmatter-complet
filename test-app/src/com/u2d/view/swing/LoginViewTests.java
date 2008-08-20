@@ -107,7 +107,7 @@ public class LoginViewTests
       barBuilder.addFixed(new JButton("OK"));
       
       p.add(builder.getPanel(), BorderLayout.CENTER);
-      p.add(barBuilder.getPanel(), BorderLayout.SOUTH);
+      p.add(barBuilder.getPanel(), BorderLayout.PAGE_END);
    }
 
    private void buildLoginPanel3(JPanel p)

@@ -49,7 +49,7 @@ public class AssociationEditor extends JPanel implements DocumentListener, Actio
    public AssociationEditor(Association association)
    {
       _association = association;
-      setLayout(new FlowLayout(FlowLayout.LEFT, 3, 0));
+      setLayout(new FlowLayout(FlowLayout.LEADING, 3, 0));
       setOpaque(false);
 
       _type = association.type();

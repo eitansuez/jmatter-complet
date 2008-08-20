@@ -91,7 +91,7 @@ public class MultiPickView extends JPanel implements View
       JPanel container = new JPanel(new BorderLayout());
       if (!listField.hasAssociationConstraint())
       {
-         container.add(new FindPanel((QueryReceiver) optionsList), BorderLayout.NORTH);
+         container.add(new FindPanel((QueryReceiver) optionsList), BorderLayout.PAGE_START);
       }
       if (optionsList instanceof Paginable)
       {

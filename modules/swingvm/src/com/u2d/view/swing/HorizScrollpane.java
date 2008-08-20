@@ -29,7 +29,7 @@ public class HorizScrollpane extends JPanel implements ChangeListener
       viewport.setView(view);
       viewport.addChangeListener(this);
       add(viewport, BorderLayout.CENTER);
-      btnPnl = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
+      btnPnl = new JPanel(new FlowLayout(FlowLayout.LEADING, 2, 0));
       btnPnl.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
       lbtn = new NavButton(ARROW_ICON_LEFT);
       lbtn.addActionListener(new ActionListener()
@@ -57,7 +57,7 @@ public class HorizScrollpane extends JPanel implements ChangeListener
       });
       btnPnl.add(lbtn);
       btnPnl.add(rbtn);
-      add(btnPnl, BorderLayout.EAST);
+      add(btnPnl, BorderLayout.LINE_END);
    }
 
    private int unitIncrement(int direction)

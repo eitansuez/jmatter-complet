@@ -48,14 +48,14 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
       
       setLayout(new BorderLayout());
       JPanel pnl = new JPanel(new BorderLayout());
-      pnl.add(heading(), BorderLayout.NORTH);
+      pnl.add(heading(), BorderLayout.PAGE_START);
       pnl.add(body(), BorderLayout.CENTER);
       add(pnl, BorderLayout.CENTER);
       
       _eastPanel = new JPanel(new BorderLayout());
       _eastPanel.setOpaque(false);
-      _eastPanel.add(new DateView2(_position), BorderLayout.NORTH);
-      add(_eastPanel, BorderLayout.EAST);
+      _eastPanel.add(new DateView2(_position), BorderLayout.PAGE_START);
+      add(_eastPanel, BorderLayout.LINE_END);
       
       // double clicking on a cell should initiate the creation of an event..
       addActionListener(new ActionListener()
@@ -106,7 +106,7 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
    public TimeSheet(EventManager mgr, DateTimeBounds bounds, Component c)
    {
       this(mgr, bounds);
-      _eastPanel.add(new JScrollPane(c), BorderLayout.SOUTH);
+      _eastPanel.add(new JScrollPane(c), BorderLayout.PAGE_END);
    }
 
    public DateEO currentPosition() { return _position; }
@@ -115,9 +115,9 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
    {
       JPanel heading = new JPanel();
       heading.setLayout(new BorderLayout());
-      heading.add(new CellResPanel(TimeSheet.this), BorderLayout.WEST);
+      heading.add(new CellResPanel(TimeSheet.this), BorderLayout.LINE_START);
       heading.add(label(), BorderLayout.CENTER);
-      heading.add(new NavPanel(TimeSheet.this), BorderLayout.EAST);
+      heading.add(new NavPanel(TimeSheet.this), BorderLayout.LINE_END);
       return heading;
    }
    

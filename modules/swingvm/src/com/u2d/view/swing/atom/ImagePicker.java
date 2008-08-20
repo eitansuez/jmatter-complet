@@ -25,7 +25,7 @@ public class ImagePicker extends JPanel implements AtomicEditor
    private JButton _pickBtn;
    private ImgEO _eo;
    private JSlider _slider = new MySlider();
-   private JPanel _labelPnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
+   private JPanel _labelPnl = new JPanel(new FlowLayout(FlowLayout.LEADING));
    private boolean _editmode;
    
    public ImagePicker()

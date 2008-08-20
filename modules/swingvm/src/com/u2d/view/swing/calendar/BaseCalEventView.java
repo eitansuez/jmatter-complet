@@ -45,7 +45,7 @@ public abstract class BaseCalEventView
       _header = new BaseCalEventView.Header();
       _body = new FancyLabel();
       
-      add(_header, BorderLayout.NORTH);
+      add(_header, BorderLayout.PAGE_START);
       add(_body, BorderLayout.CENTER);
 
       _cmdsView = new CommandsContextMenuView();

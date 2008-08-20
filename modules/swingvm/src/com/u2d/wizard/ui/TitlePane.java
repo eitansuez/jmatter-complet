@@ -43,7 +43,7 @@ public class TitlePane extends GradientPanel
       super(BGCOLOR, false);
 
       setLayout(new BorderLayout());
-      add(_titleLbl, BorderLayout.NORTH);
+      add(_titleLbl, BorderLayout.PAGE_START);
       add(_descriptionText, BorderLayout.CENTER);
 
       Border etched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);

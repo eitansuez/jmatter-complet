@@ -46,11 +46,11 @@ public class ExplicitAssociationView extends JPanel implements ComplexEView
       
       JPanel findPanel = new FindPanel(leo);
       JPanel combo = new JPanel(new BorderLayout());
-      combo.add(findPanel, BorderLayout.NORTH);
+      combo.add(findPanel, BorderLayout.PAGE_START);
       combo.add((JComponent) _paginableView, BorderLayout.CENTER);
 
       setLayout(new BorderLayout());
-      add((JComponent) _assocView, BorderLayout.NORTH);
+      add((JComponent) _assocView, BorderLayout.PAGE_START);
       add((JComponent) combo, BorderLayout.CENTER);
    }
 

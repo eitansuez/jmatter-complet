@@ -56,7 +56,7 @@ public class QueryView extends JPanel implements ComplexEView, Editor
    
    private void bindIt()
    {
-      _cmdsView.bind(_query, this, BorderLayout.EAST, this);
+      _cmdsView.bind(_query, this, BorderLayout.LINE_END, this);
       
       QuerySpecification spec = null;
       _filters = new ArrayList();
@@ -72,12 +72,12 @@ public class QueryView extends JPanel implements ComplexEView, Editor
    {
       setLayout(new BorderLayout());
       
-      JPanel namePnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
+      JPanel namePnl = new JPanel(new FlowLayout(FlowLayout.LEADING));
       _nameView = (JComponent) _query.getName().getView();
       FieldCaption nameLabel = new FieldCaption(_query.getName().field(), _nameView);
       namePnl.add(nameLabel);
       namePnl.add(_nameView);
-      add(namePnl, BorderLayout.NORTH);
+      add(namePnl, BorderLayout.PAGE_START);
       
       _mainPnl = new JPanel();
       _mainPnl.setBorder(BorderFactory.createEtchedBorder());

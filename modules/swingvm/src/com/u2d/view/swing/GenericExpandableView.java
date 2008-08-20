@@ -53,7 +53,7 @@ public class GenericExpandableView extends JPanel
       GradientPanel gp = new GradientPanel(handlerBg, false);
       gp.setLayout(new BorderLayout());
       gp.add(handle, BorderLayout.CENTER);
-      gp.add(_toggleBtn, BorderLayout.EAST);
+      gp.add(_toggleBtn, BorderLayout.LINE_END);
       
       add(gp, cc.rc(1, 1));
       add(leaf, cc.rc(2, 1));

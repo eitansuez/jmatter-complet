@@ -34,7 +34,7 @@ public class AssociationView extends JPanel
       _association.addPropertyChangeListener(this);
       _association.addChangeListener(this);
       
-      setLayout(new FlowLayout(FlowLayout.LEFT));
+      setLayout(new FlowLayout(FlowLayout.LEADING));
       setOpaque(false);
 
 //      setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));

@@ -30,7 +30,7 @@ public class CellResPanel extends JPanel implements ActionListener, PropertyChan
       _combo.setModel(_model);
       _combo.setToolTipText("Alternately use Ctrl+Scrollwheel on day and week views");
 
-      setLayout(new FlowLayout(FlowLayout.LEFT));
+      setLayout(new FlowLayout(FlowLayout.LEADING));
       
       JLabel label = new JLabel("Increments of:");
       add(label);

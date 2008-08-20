@@ -40,7 +40,7 @@ public class AbstractView extends JPanel
       JPanel top = new JPanel(new FlowLayout());
       top.add(caption);
       top.add(_picker);
-      add(top, BorderLayout.NORTH);
+      add(top, BorderLayout.PAGE_START);
       
       _card = new CardPanel();
       add(_card, BorderLayout.CENTER);

@@ -30,9 +30,9 @@ public class LockablePanel extends JPanel
       _lockable.setLocked(lock.isLocked());
 
       setLayout(new BorderLayout());
-      JPanel lockDecor = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+      JPanel lockDecor = new JPanel(new FlowLayout(FlowLayout.TRAILING));
       lockDecor.add(lock);
-      add(lockDecor, BorderLayout.SOUTH);
+      add(lockDecor, BorderLayout.PAGE_END);
       add((JComponent) lockable, BorderLayout.CENTER);  // consider wrapping lockable in a jscrollpane..
    }
 }

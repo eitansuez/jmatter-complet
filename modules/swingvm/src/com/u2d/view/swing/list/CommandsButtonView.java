@@ -56,8 +56,8 @@ public class CommandsButtonView extends JPanel implements ListEView
       _eo.addChangeListener(this);
 
       _parent = parent;
-      _horizontalLayout = (constraints == BorderLayout.NORTH ||
-                           constraints == BorderLayout.SOUTH);
+      _horizontalLayout = (constraints == BorderLayout.PAGE_START ||
+                           constraints == BorderLayout.PAGE_END);
       _source = source;
 
       setup();

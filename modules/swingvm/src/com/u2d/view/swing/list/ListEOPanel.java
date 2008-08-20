@@ -53,7 +53,7 @@ public class ListEOPanel  extends JPanel
       setLayout(new BorderLayout());
       _titleBarView = new TitleBarView(_leo, this, _view);
       ComponentStyle.addClass(_titleBarView, "list-title-panel");
-      add(_titleBarView, BorderLayout.NORTH);
+      add(_titleBarView, BorderLayout.PAGE_START);
 
       if (_view instanceof CompositeView || _view instanceof CalendarListView)
       {

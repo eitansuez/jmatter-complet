@@ -43,11 +43,11 @@ public class HBMPracticeTool extends JFrame
       JPanel contentPane = (JPanel) getContentPane();
       contentPane.setLayout(new BorderLayout());
 
-      contentPane.add(new HBMQueryPanel(), BorderLayout.NORTH);
+      contentPane.add(new HBMQueryPanel(), BorderLayout.PAGE_START);
       _desktopPane = new EODesktopPane();
       contentPane.add(_desktopPane, BorderLayout.CENTER);
       _msgPnl = new MessagePanel();
-      contentPane.add(_msgPnl, BorderLayout.SOUTH);
+      contentPane.add(_msgPnl, BorderLayout.PAGE_END);
    }
 
    class HBMQueryPanel extends JPanel
@@ -58,7 +58,7 @@ public class HBMPracticeTool extends JFrame
          setLayout(new BorderLayout());
          _queryArea = queryTextArea();
          add(_queryArea, BorderLayout.CENTER);
-         add(submitQueryBtn(), BorderLayout.EAST);
+         add(submitQueryBtn(), BorderLayout.LINE_END);
 
          setBorder(BorderFactory.createTitledBorder("Query"));
       }

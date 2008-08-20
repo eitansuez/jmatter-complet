@@ -39,9 +39,9 @@ public class RoleTypeRestrictionMgrUi extends JPanel implements ComplexEView, Ed
       
       Command cmd = _mgr.command("ApplyChanges");
       CommandButton cmdBtn = new CommandButton(cmd, _mgr, this, true);
-      JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+      JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.TRAILING));
       btnPnl.add(cmdBtn);
-      add(btnPnl, BorderLayout.SOUTH);
+      add(btnPnl, BorderLayout.PAGE_END);
    }
 
    private JPanel buildUI()

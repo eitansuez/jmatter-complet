@@ -42,7 +42,7 @@ public class CompositeTableView extends JPanel
       setLayout(new BorderLayout());
       setOpaque(false);
 
-      add(northPanel(), BorderLayout.NORTH);
+      add(northPanel(), BorderLayout.PAGE_START);
 
       JScrollPane scrollPane = new JScrollPane(_tableView);
       add(scrollPane, BorderLayout.CENTER);
@@ -67,7 +67,7 @@ public class CompositeTableView extends JPanel
 
    private JPanel northPanel()
    {
-      JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+      JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
       northPanel.setOpaque(false);
       northPanel.add(addBtn());
       northPanel.add(removeBtn());

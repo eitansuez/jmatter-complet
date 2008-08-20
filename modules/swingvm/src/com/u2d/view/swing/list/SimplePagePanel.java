@@ -31,9 +31,9 @@ public class SimplePagePanel extends JPanel
       _paginable = leo;
       
       setLayout(new BorderLayout());
-      add(_prevBtn, BorderLayout.WEST);
+      add(_prevBtn, BorderLayout.LINE_START);
       add(_pageNumCaption, BorderLayout.CENTER);
-      add(_nextBtn, BorderLayout.EAST);
+      add(_nextBtn, BorderLayout.LINE_END);
 
       contentsChanged();
       

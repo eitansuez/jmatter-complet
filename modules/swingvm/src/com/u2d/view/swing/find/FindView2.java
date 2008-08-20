@@ -50,7 +50,7 @@ public class FindView2 extends JSplitPane implements View
       builder.addGridded(findBtn());
       builder.addRelatedGap();
       builder.addGridded(cancelBtn());
-      topPanel.add(builder.getPanel(), BorderLayout.SOUTH);
+      topPanel.add(builder.getPanel(), BorderLayout.PAGE_END);
 
       setTopComponent(topPanel);
       setDividerLocation(topPanel.getPreferredSize().height);

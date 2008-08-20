@@ -42,7 +42,7 @@ public class MemTest extends JPanel
          }
       });
 
-      add(btn, BorderLayout.SOUTH);
+      add(btn, BorderLayout.PAGE_END);
    }
    public static void main(String[] args)
    {

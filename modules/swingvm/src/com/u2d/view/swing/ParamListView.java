@@ -134,10 +134,10 @@ public class ParamListView extends JPanel implements View
 
       add(new JScrollPane(builder.getPanel()), BorderLayout.CENTER);
       
-      JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+      JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.TRAILING));
       btnPnl.add(okBtn());
       btnPnl.add(cancelBtn());
-      add(btnPnl, BorderLayout.SOUTH);
+      add(btnPnl, BorderLayout.PAGE_END);
    }
 
    private void appendRow(DefaultFormBuilder builder, CellConstraints cc,

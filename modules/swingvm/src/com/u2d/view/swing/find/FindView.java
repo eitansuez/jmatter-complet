@@ -31,10 +31,10 @@ public class FindView extends JPanel implements View
       setLayout(new BorderLayout());
       add(_findForm, BorderLayout.CENTER);
       
-      JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+      JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.TRAILING));
       btnPnl.add(findBtn());
       btnPnl.add(cancelBtn());
-      add(btnPnl, BorderLayout.SOUTH);
+      add(btnPnl, BorderLayout.PAGE_END);
    }
    
    public String getTitle() { return "Find " + _type; }

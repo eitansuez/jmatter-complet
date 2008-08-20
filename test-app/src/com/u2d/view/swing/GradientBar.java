@@ -37,7 +37,7 @@ public class GradientBar extends JPanel
    {
       JFrame f = new JFrame("Testing Gradient Bar");
       JPanel p = (JPanel) f.getContentPane();
-      p.add(new GradientBar(), BorderLayout.NORTH);
+      p.add(new GradientBar(), BorderLayout.PAGE_START);
       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       f.setBounds(100,100,400,400);
       f.setVisible(true);

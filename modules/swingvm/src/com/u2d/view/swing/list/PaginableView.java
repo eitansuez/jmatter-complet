@@ -45,7 +45,7 @@ public class PaginableView extends JPanel implements ListEView, CompositeView
       }
       
       _pageScrollBar = new PageScrollBar(_leo);
-      add(_pageScrollBar, BorderLayout.SOUTH);
+      add(_pageScrollBar, BorderLayout.PAGE_END);
       
    }
    

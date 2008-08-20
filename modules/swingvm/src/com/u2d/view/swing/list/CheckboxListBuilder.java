@@ -157,7 +157,7 @@ public class CheckboxListBuilder extends JList
          _checkbox = new JCheckBox();
          _checkbox.setOpaque(false);
 
-         setLayout(new FlowLayout(FlowLayout.LEFT));
+         setLayout(new FlowLayout(FlowLayout.LEADING));
 
          add(_checkbox);
          add((JComponent) _listItemView);

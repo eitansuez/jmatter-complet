@@ -52,7 +52,7 @@ public class CustomReadView
       add(_cards, BorderLayout.CENTER);
 
       _cmdsView = new CommandsButtonView();
-      _cmdsView.bind(_ceo, this, BorderLayout.EAST, this);
+      _cmdsView.bind(_ceo, this, BorderLayout.LINE_END, this);
 
       addStatusPanel();
       _cards.setAnimationAndDuration(new DashboardAnimation(), 1000);
@@ -91,7 +91,7 @@ public class CustomReadView
       {
          _statusPanel.addEO((AtomicEObject) statusField.get(_ceo));
       }
-      add(_statusPanel, BorderLayout.SOUTH);
+      add(_statusPanel, BorderLayout.PAGE_END);
    }
 
    public void detach()

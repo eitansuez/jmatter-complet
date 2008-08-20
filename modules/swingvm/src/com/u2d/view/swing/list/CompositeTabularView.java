@@ -103,7 +103,7 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
       JPanel panel = _builder.getPanel();
       panel.setOpaque(false);
       add(panel, BorderLayout.CENTER);
-      add(btnPanel(), BorderLayout.SOUTH);
+      add(btnPanel(), BorderLayout.PAGE_END);
    }
 
    private void addRowForObject(ComplexEObject eo, boolean initialLayout)
@@ -142,7 +142,7 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
 
    private JPanel btnPanel()
    {
-      JPanel pnl = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+      JPanel pnl = new JPanel(new FlowLayout(FlowLayout.TRAILING));
       pnl.setOpaque(false);
       _addBtn = new IconButton(EditableListView.ADD_ICON, EditableListView.ADD_ROLLOVER);
       Command command = _leo.command("AddItem");

@@ -45,7 +45,7 @@ public class ScrollTest extends JPanel
    {
       public ContentPanel()
       {
-         super(new FlowLayout(FlowLayout.LEFT));
+         super(new FlowLayout(FlowLayout.LEADING));
          setBorder(new LineBorder(Color.red, 1));
       }
       public Dimension getPreferredScrollableViewportSize()

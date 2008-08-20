@@ -33,7 +33,7 @@ public class ComplexPickView extends JPanel
    public ComplexPickView(ComplexType type)
    {
       _type = type;
-      setLayout(new FlowLayout(FlowLayout.LEFT));
+      setLayout(new FlowLayout(FlowLayout.LEADING));
       updateCeo(new NullComplexEObject(_type));
       _trigger = new PopupButton2(_type.iconSm(), this, this, this);
       add(_trigger);

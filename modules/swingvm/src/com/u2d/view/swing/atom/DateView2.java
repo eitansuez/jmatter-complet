@@ -66,7 +66,7 @@ public class DateView2 extends JPanel implements AtomicEView, Editor
                }
             });
             
-      JPanel topPnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
+      JPanel topPnl = new JPanel(new FlowLayout(FlowLayout.LEADING));
       topPnl.setOpaque(false);
       topPnl.add(_tf);
 //      topPnl.add(_tip);

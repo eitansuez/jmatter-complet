@@ -27,7 +27,7 @@ public class TabBodyView extends JPanel implements ComplexEView, Editor
       _ceo = ceo;
       setLayout(new BorderLayout());
       _titleView = new TitleView(_ceo, this);
-      add(_titleView, BorderLayout.NORTH);
+      add(_titleView, BorderLayout.PAGE_START);
 
       /*
        * discussion: an alternativeview is typically used only top-level.

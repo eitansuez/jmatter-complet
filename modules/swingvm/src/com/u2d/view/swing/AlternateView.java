@@ -61,7 +61,7 @@ public class AlternateView extends JPanel
 
       setLayout(new BorderLayout());
       setOpaque(false);
-      add(_controlPane, BorderLayout.NORTH);
+      add(_controlPane, BorderLayout.PAGE_START);
       add(_viewPane, BorderLayout.CENTER);
    }
 
@@ -69,7 +69,7 @@ public class AlternateView extends JPanel
    {
       _controlPane = new JPanel();
       _controlPane.setOpaque(false);
-      _controlPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+      _controlPane.setLayout(new FlowLayout(FlowLayout.TRAILING));
       Icon icon, rolloverIcon;
       for (int i=0; i<_viewNames.length; i++)
       {

@@ -53,7 +53,7 @@ public class TopLevelFormView extends JXPanel
       // have been added for a given role..
       if (_cmdsView.hasCommandsFor(_ceo, this))
       {
-         _cmdsView.bind(_ceo, this, BorderLayout.EAST, this);
+         _cmdsView.bind(_ceo, this, BorderLayout.LINE_END, this);
       }
 
       addStatusPanel();
@@ -91,7 +91,7 @@ public class TopLevelFormView extends JXPanel
       {
          _statusPanel.addEO((AtomicEObject) statusField.get(_ceo));
       }
-      add(_statusPanel, BorderLayout.SOUTH);
+      add(_statusPanel, BorderLayout.PAGE_END);
    }
 
    public void detach()

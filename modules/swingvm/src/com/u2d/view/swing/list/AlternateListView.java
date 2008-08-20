@@ -49,7 +49,7 @@ public class AlternateListView extends JPanel
 
       setLayout(new BorderLayout());
       setOpaque(false);
-      add(_controlPane, BorderLayout.NORTH);
+      add(_controlPane, BorderLayout.PAGE_START);
       add(_viewPane, BorderLayout.CENTER);
 
       stateChanged(null);  // setup initial state..
@@ -60,7 +60,7 @@ public class AlternateListView extends JPanel
    {
       _controlPane = new JPanel();
       _controlPane.setOpaque(false);
-      _controlPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+      _controlPane.setLayout(new FlowLayout(FlowLayout.TRAILING));
       Icon icon, rolloverIcon;
       for (String viewName : _viewNames)
       {
@@ -201,7 +201,7 @@ public class AlternateListView extends JPanel
       if (_leo.isPickState() && _pickPane == null)
       {
          buildPickPane();
-         add(_pickPane, BorderLayout.SOUTH);
+         add(_pickPane, BorderLayout.PAGE_END);
       }
       if (_pickPane != null)
       {
@@ -212,7 +212,7 @@ public class AlternateListView extends JPanel
 
    private void buildPickPane()
    {
-      _pickPane = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+      _pickPane = new JPanel(new FlowLayout(FlowLayout.TRAILING));
       Command newCmd = _leo.command("New");
       Command typeNewCmd = _leo.type().command("New");
       if (newCmd != null && typeNewCmd!=null && !typeNewCmd.isForbidden(_leo.type()))

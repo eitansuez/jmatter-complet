@@ -24,7 +24,7 @@ public class FilePicker extends JPanel implements AtomicEditor
    public FilePicker()
    {
       setOpaque(false);
-      setLayout(new FlowLayout(FlowLayout.LEFT));
+      setLayout(new FlowLayout(FlowLayout.LEADING));
       add(_fileLabel);
    }
 

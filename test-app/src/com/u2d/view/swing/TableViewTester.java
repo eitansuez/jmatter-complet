@@ -52,7 +52,7 @@ public class TableViewTester
       });
 
       p.add(new JScrollPane(view), BorderLayout.CENTER);
-      p.add(new JButton("Dummy"), BorderLayout.SOUTH);
+      p.add(new JButton("Dummy"), BorderLayout.PAGE_END);
 
       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       f.setLocation(100,100);

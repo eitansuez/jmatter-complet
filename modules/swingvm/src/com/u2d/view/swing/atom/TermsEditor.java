@@ -38,7 +38,7 @@ public class TermsEditor extends JPanel implements AtomicEditor
       JPanel bottomPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
       bottomPnl.add(label);
       bottomPnl.add(_iagree);
-      add(bottomPnl, BorderLayout.SOUTH);
+      add(bottomPnl, BorderLayout.PAGE_END);
    }
    
    private void decorateArea(JTextArea area)

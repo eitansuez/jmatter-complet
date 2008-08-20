@@ -35,7 +35,7 @@ public class GenericFrame extends CloseableJInternalFrame
       if (withTitlePane)
       {
          GenericTitleView titleView = new GenericTitleView(_view);
-         contentPane.add((JComponent) titleView, BorderLayout.NORTH);
+         contentPane.add((JComponent) titleView, BorderLayout.PAGE_START);
       }
       contentPane.add((JComponent) _view, BorderLayout.CENTER);
       

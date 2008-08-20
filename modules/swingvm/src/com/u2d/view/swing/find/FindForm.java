@@ -35,7 +35,7 @@ public class FindForm extends JPanel
 		
 		setLayout(new BorderLayout());
 		
-//      add(radiosPnl(), BorderLayout.NORTH);
+//      add(radiosPnl(), BorderLayout.PAGE_START);
 		
       _mainPnl = new JPanel();
       _mainPnl.setBorder(BorderFactory.createEtchedBorder());
@@ -51,7 +51,7 @@ public class FindForm extends JPanel
    
 //   private JPanel radiosPnl()
 //   {
-//      JPanel topPnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//      JPanel topPnl = new JPanel(new FlowLayout(FlowLayout.LEADING));
 //      _radios = new ButtonGroup();
 //      JRadioButton andBtn = new JRadioButton("and", true);  andBtn.setActionCommand("and");
 //      JRadioButton orBtn = new JRadioButton("or", false);  orBtn.setActionCommand("or");

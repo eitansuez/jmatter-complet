@@ -23,7 +23,7 @@ public class MsgDlgTest
 
       dp = new EnhDesktopPane();
       
-      p.add(btn(), BorderLayout.NORTH);
+      p.add(btn(), BorderLayout.PAGE_START);
       p.add(dp, BorderLayout.CENTER);
 
       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

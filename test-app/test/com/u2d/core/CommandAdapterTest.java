@@ -34,7 +34,7 @@ public class CommandAdapterTest extends TestCase
       //    JButton button = new JButton(cmder);
       //    buttonPanel.add(button);
       // }
-      // add(buttonPanel, BorderLayout.SOUTH);
+      // add(buttonPanel, BorderLayout.PAGE_END);
    }
    
    public void testDummy()

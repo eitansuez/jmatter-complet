@@ -50,7 +50,7 @@ public class EditableListView extends JPanel
       setLayout(new BorderLayout());
       setOpaque(false);
 
-      add(northPanel(), BorderLayout.NORTH);
+      add(northPanel(), BorderLayout.PAGE_START);
 //      _leo.parentObject().addChangeListener(this);
 //      setEditable(_leo.parentObject().isEditableState());
       
@@ -89,7 +89,7 @@ public class EditableListView extends JPanel
 
    private JPanel northPanel()
    {
-      _northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+      _northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 5, 0));
       _northPanel.setOpaque(false);
       _northPanel.add(addBtn());
       _northPanel.add(removeBtn());

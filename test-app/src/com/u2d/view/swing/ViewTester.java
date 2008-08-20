@@ -33,15 +33,15 @@ public class ViewTester
       JPanel p = new JPanel();
       p.add((JComponent) iconView);
       p.add((JComponent) listItemView);
-      j.add(p, BorderLayout.NORTH);
+      j.add(p, BorderLayout.PAGE_START);
 
       JScrollPane scrollPane = new JScrollPane((JComponent) formView);
       j.add(scrollPane, BorderLayout.CENTER);
       CommandsButtonView cmdsView = new CommandsButtonView();
-      cmdsView.bind(shipment, (JComponent) formView, BorderLayout.SOUTH,  formView);
+      cmdsView.bind(shipment, (JComponent) formView, BorderLayout.PAGE_END,  formView);
       j.add(cmdsView);
       CommandsButtonView cmdsView2 = new CommandsButtonView();
-      cmdsView2.bind(shipment, (JComponent) formView, BorderLayout.EAST,  formView);
+      cmdsView2.bind(shipment, (JComponent) formView, BorderLayout.LINE_END,  formView);
       j.add(cmdsView2);
 
       f.setLocation(300,200);

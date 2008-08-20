@@ -27,7 +27,7 @@ public class DateView2Test
       JPanel p = (JPanel) f.getContentPane();
       p.setLayout(new BorderLayout());
       _thedate = new JLabel();
-      p.add(_thedate, BorderLayout.WEST);
+      p.add(_thedate, BorderLayout.LINE_START);
       
       Date now = new Date();
       _eo = new DateEO(now);
@@ -41,7 +41,7 @@ public class DateView2Test
          }
             });
       
-      p.add(dv2, BorderLayout.EAST);
+      p.add(dv2, BorderLayout.LINE_END);
       
       f.pack();
       f.setVisible(true);

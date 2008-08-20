@@ -120,10 +120,10 @@ public class AppFrame extends JFrame
       _windowButtonBar = new WindowButtonBar();
 
       _centerPane = new JPanel(new BorderLayout());
-      _centerPane.add(_classBarPanel, BorderLayout.WEST);
+      _centerPane.add(_classBarPanel, BorderLayout.LINE_START);
       JPanel innerPane = new JPanel(new BorderLayout());
       innerPane.add(_desktopPane, BorderLayout.CENTER);
-      innerPane.add(new HorizScrollpane(_windowButtonBar), BorderLayout.SOUTH);
+      innerPane.add(new HorizScrollpane(_windowButtonBar), BorderLayout.PAGE_END);
       _centerPane.add(innerPane, BorderLayout.CENTER); // this is so that classbar drops all the way
         // to the bottom and status pane stops at right edge of classbar
 
@@ -171,6 +171,7 @@ public class AppFrame extends JFrame
       instructionView.bind(instruction);
 
       _cardPanel.show("app-on");
+      applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
    }
    
    private void setupAppIcon()
@@ -371,12 +372,12 @@ public class AppFrame extends JFrame
       _serviceObject = _app.serviceObject();
       if (_serviceObject != null)
       {
-         northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+         northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
          _commandsPnl = new CommandsIconButtonView();
          _commandsMenu = new CommandsMenuView();
          ComponentStyle.addClass(_commandsPnl, "command-bar");
          northPanel.add(_commandsPnl);
-         _centerPane.add(northPanel, BorderLayout.NORTH);
+         _centerPane.add(northPanel, BorderLayout.PAGE_START);
       }
    }
    private void setupMenu()
@@ -820,7 +821,7 @@ public class AppFrame extends JFrame
 
       public WindowButtonBar()
       {
-         setLayout(new FlowLayout(FlowLayout.LEFT, 1, 1));
+         setLayout(new FlowLayout(FlowLayout.LEADING, 1, 1));
          setBorder(new BevelBorder(BevelBorder.LOWERED));
 
          iframeListener = new InternalFrameListener()

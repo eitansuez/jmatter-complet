@@ -49,7 +49,7 @@ public class TypeRestrictionMgrUi extends JPanel
 
       setLayout(new BorderLayout());
       add(new JScrollPane(buildUI()), BorderLayout.CENTER);
-      add(buttonPnl(), BorderLayout.SOUTH);
+      add(buttonPnl(), BorderLayout.PAGE_END);
    }
 
    private void initBackingModel()
@@ -324,7 +324,7 @@ public class TypeRestrictionMgrUi extends JPanel
    
    private JPanel buttonPnl()
    {
-      JPanel buttonPnl = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+      JPanel buttonPnl = new JPanel(new FlowLayout(FlowLayout.TRAILING));
       Command cmd = _mgr.command("ApplyChanges");
       CommandButton cmdBtn = new CommandButton(cmd, _mgr, this, true);
       buttonPnl.add(cmdBtn);

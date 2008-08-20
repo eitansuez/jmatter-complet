@@ -45,7 +45,7 @@ public class ComboBoxTester
       btnPnl.add(new VisibilityToggleButton());
       btnPnl.add(new Selector2Button());
       
-      p.add(btnPnl, BorderLayout.SOUTH);
+      p.add(btnPnl, BorderLayout.PAGE_END);
       
       
       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -41,12 +41,12 @@ public class WizardPane extends JPanel
       setLayout(new BorderLayout());
 
       JPanel mainPane = new JPanel(new BorderLayout());
-      mainPane.add(_titlePane, BorderLayout.NORTH);
+      mainPane.add(_titlePane, BorderLayout.PAGE_START);
       mainPane.add(_centerPane, BorderLayout.CENTER);
 
-      add(_stepsPane, BorderLayout.WEST);
+      add(_stepsPane, BorderLayout.LINE_START);
       add(mainPane, BorderLayout.CENTER);
-      add(_navPane, BorderLayout.SOUTH);
+      add(_navPane, BorderLayout.PAGE_END);
 
       setupActions();
       showCurrentView();
