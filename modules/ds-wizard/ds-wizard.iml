@@ -24,5 +24,8 @@
     <orderEntry type="library" name="Groovy" level="project" />
     <orderEntryProperties />
   </component>
+  <component name="RSpecModuleSettingsStorage">
+    <RSPEC_MODULE_SETTINGS_STORAGE_ID NAME="RSPEC_SUPPORT_TYPE" VALUE="NONE" />
+  </component>
 </module>
 
