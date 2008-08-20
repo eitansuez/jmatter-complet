@@ -103,7 +103,7 @@ public class EObjectUserTypeDelegate implements UserType
       String stringValue;
       if (value instanceof AtomicEObject)
       {
-         stringValue = value.toString();
+         stringValue = ((AtomicEObject) value).marshal();
       }
       else if (value instanceof Choice)
       {
