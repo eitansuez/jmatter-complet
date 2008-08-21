@@ -33,7 +33,7 @@ public class ChoiceRadioEditor extends JPanel implements AtomicEditor
          for (int i=0; i<numCols; i++)
          {
             String descr = ((i%2) == 0) ? "p" : "3dlu";
-            layout.appendColumn(new ColumnSpec(descr));
+            layout.appendColumn(ColumnSpec.decode(descr));
          }
          setLayout(layout);
          DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);

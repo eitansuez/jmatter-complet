@@ -112,8 +112,8 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
       if (!initialLayout)
       {
          row = _builder.getRowCount();
-         _builder.getLayout().insertRow(row, new RowSpec("pref"));
-         _builder.getLayout().insertRow(row+1, new RowSpec("3dlu"));
+         _builder.getLayout().insertRow(row, RowSpec.decode("pref"));
+         _builder.getLayout().insertRow(row+1, RowSpec.decode("3dlu"));
       }
 
       for (int col=0; col<_typefields.size(); col++)
@@ -164,22 +164,22 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
          if ( field.hidden() || "createdOn".equals(field.name()) || "status".equals(field.name()) )
             continue;
 
-         layout.appendColumn(new ColumnSpec("pref"));
-         layout.appendColumn(new ColumnSpec("5dlu"));
+         layout.appendColumn(ColumnSpec.decode("pref"));
+         layout.appendColumn(ColumnSpec.decode("5dlu"));
       }
 
       // next, the rows
-      layout.appendRow(new RowSpec("3dlu")); // for line separator at top
+      layout.appendRow(RowSpec.decode("3dlu")); // for line separator at top
 
-      layout.appendRow(new RowSpec("pref"));  // header row
-      layout.appendRow(new RowSpec("3dlu"));  // separator below header row
+      layout.appendRow(RowSpec.decode("pref"));  // header row
+      layout.appendRow(RowSpec.decode("3dlu"));  // separator below header row
 
       for (int i=0; i <_leo.getSize(); i++)
       {
-         layout.appendRow(new RowSpec("pref"));
-         layout.appendRow(new RowSpec("3dlu"));
+         layout.appendRow(RowSpec.decode("pref"));
+         layout.appendRow(RowSpec.decode("3dlu"));
       }
-      layout.appendRow(new RowSpec("3dlu")); // for line separator at bottom
+      layout.appendRow(RowSpec.decode("3dlu")); // for line separator at bottom
       return layout;
    }
 
