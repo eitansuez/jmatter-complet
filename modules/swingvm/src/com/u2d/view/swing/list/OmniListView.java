@@ -12,12 +12,13 @@ import com.u2d.model.EObject;
 import com.u2d.view.CompositeView;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
+import com.u2d.view.swing.LTRCapableJSplitPane;
 import com.u2d.ui.CardBuffer;
 
 /**
  * @author Eitan Suez
  */
-public class OmniListView extends JSplitPane 
+public class OmniListView extends LTRCapableJSplitPane
                           implements ListEView, ListSelectionListener, CompositeView
 {
    private AbstractListEO _leo;

@@ -25,7 +25,7 @@ import com.u2d.ui.CardBuffer;
  *
  * @author Eitan Suez
  */
-public class OmniView extends JSplitPane 
+public class OmniView extends LTRCapableJSplitPane
                       implements ComplexEView, TreeSelectionListener, CompositeView
 {
    private ComplexEObject _ceo;
@@ -66,7 +66,7 @@ public class OmniView extends JSplitPane
       // when the user resizes it, that the new sizes become the 
       // preferred sizes
    }
-   
+
    public void valueChanged(TreeSelectionEvent evt)
    {
       TreePath path = _tree.getSelectionPath();
