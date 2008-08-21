@@ -1,4 +1,4 @@
-package com.jmatter.synergy;
+package com.u2d.type.atom;
 
 import junit.framework.TestCase;
 import com.u2d.type.atom.TimeSpan;
