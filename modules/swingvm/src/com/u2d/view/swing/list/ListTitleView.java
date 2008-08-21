@@ -29,9 +29,9 @@ public class ListTitleView extends JLabel implements ListEView
       _cmdsView.bind(_leo, this, parentView);
 
       setFocusable(true);
-      setHorizontalAlignment(JLabel.LEFT);
+      setHorizontalAlignment(JLabel.LEADING);
       setVerticalAlignment(JLabel.CENTER);
-      setHorizontalTextPosition(JLabel.RIGHT);
+      setHorizontalTextPosition(JLabel.TRAILING);
       setVerticalTextPosition(JLabel.CENTER);
       setOpaque(false);
       

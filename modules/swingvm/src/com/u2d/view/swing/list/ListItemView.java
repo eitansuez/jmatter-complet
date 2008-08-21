@@ -42,9 +42,9 @@ public class ListItemView extends JLabel implements ListEView
    {
       _leo = leo;
 
-      setHorizontalAlignment(JLabel.LEFT);
+      setHorizontalAlignment(JLabel.LEADING);
       setVerticalAlignment(JLabel.CENTER);
-      setHorizontalTextPosition(JLabel.RIGHT);
+      setHorizontalTextPosition(JLabel.TRAILING);
 
       setText(_leo.title().toString());
       setIcon(_leo.iconSm());

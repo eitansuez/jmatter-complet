@@ -30,7 +30,7 @@ public class TitlePanel extends GradientPanel
    {
       super(color, transparent);
       setLayout(new BorderLayout());
-      _title.setHorizontalTextPosition(JLabel.LEFT);
+      _title.setHorizontalTextPosition(JLabel.LEADING);
       add(_title, BorderLayout.CENTER);
       setText(text);
    }

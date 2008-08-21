@@ -601,7 +601,7 @@ public class AppFrame extends JFrame
          
          PanelBuilder builder = new PanelBuilder(layout);
          CellConstraints cc = new CellConstraints();
-         titleView = new JLabel(_app.title(), _appIcon, JLabel.LEFT);
+         titleView = new JLabel(_app.title(), _appIcon, JLabel.LEADING);
          ComponentStyle.addClass(titleView, "title");
          builder.add(titleView, cc.rc(1, 1));
 

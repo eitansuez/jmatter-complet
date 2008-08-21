@@ -23,9 +23,9 @@ public class GenericTitleView extends JLabel
     */
    public GenericTitleView(View view)
    {
-      setHorizontalAlignment(JLabel.LEFT);
+      setHorizontalAlignment(JLabel.LEADING);
       setVerticalAlignment(JLabel.CENTER);
-      setHorizontalTextPosition(JLabel.RIGHT);
+      setHorizontalTextPosition(JLabel.TRAILING);
       setVerticalTextPosition(JLabel.CENTER);
       setOpaque(false);
       

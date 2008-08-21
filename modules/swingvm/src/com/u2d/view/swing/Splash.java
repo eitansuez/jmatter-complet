@@ -10,6 +10,8 @@ import com.jgoodies.forms.layout.CellConstraints;
 import javax.swing.*;
 import java.net.URL;
 import java.awt.event.*;
+import java.awt.*;
+import java.util.Locale;
 
 /**
  * Date: May 25, 2005
@@ -58,7 +60,14 @@ public class Splash extends JWindow implements AppEventListener
          imgLabel.setOpaque(false);
          contentPane.add(imgLabel, cc.rc(1, 1, "center, center"));
       }
-      contentPane.add(_messageLabel, cc.rc(2, 1, "center, left"));
+      if (ComponentOrientation.getOrientation(Locale.getDefault()).isLeftToRight())
+      {
+         contentPane.add(_messageLabel, cc.rc(2, 1, "center, left"));
+      }
+      else
+      {
+         contentPane.add(_messageLabel, cc.rc(2, 1, "center, right"));
+      }
       setContentPane(contentPane);
 
       timer = new Timer(500, new ActionListener()

@@ -94,9 +94,9 @@ public abstract class BaseCalEventView
       public Header()
       {
          setOpaque(true);
-         setHorizontalAlignment(JLabel.LEFT);
+         setHorizontalAlignment(JLabel.LEADING);
          setVerticalAlignment(JLabel.CENTER);
-         setHorizontalTextPosition(JLabel.RIGHT);
+         setHorizontalTextPosition(JLabel.TRAILING);
          updateText();
          setIcon(_event.iconSm());
       }

@@ -15,6 +15,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.InternalFrameListener;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.awt.event.*;
 import java.awt.*;
 import java.beans.XMLEncoder;
@@ -76,6 +77,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          _tabPane.addTab(view);
       }
 
+      applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
       updateSize();
    }
    

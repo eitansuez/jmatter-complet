@@ -26,9 +26,9 @@ public class ListItemView extends JLabel implements ComplexEView
 
    public ListItemView()
    {
-      setHorizontalAlignment(JLabel.LEFT);
+      setHorizontalAlignment(JLabel.LEADING);
       setVerticalAlignment(JLabel.CENTER);
-      setHorizontalTextPosition(JLabel.RIGHT);
+      setHorizontalTextPosition(JLabel.TRAILING);
       setOpaque(false);
 
       setTransferHandler(new EOTransferHandler(this));  // set up as drag source

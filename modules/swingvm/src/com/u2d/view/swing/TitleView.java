@@ -31,9 +31,9 @@ public class TitleView extends JLabel implements ComplexEView
       _cmdsView.bind(_ceo, this, parentView);
 
       setFocusable(true);
-      setHorizontalAlignment(JLabel.LEFT);
+      setHorizontalAlignment(JLabel.LEADING);
       setVerticalAlignment(JLabel.CENTER);
-      setHorizontalTextPosition(JLabel.RIGHT);
+      setHorizontalTextPosition(JLabel.TRAILING);
       setVerticalTextPosition(JLabel.CENTER);
       setOpaque(false);
 
