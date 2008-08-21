@@ -1,6 +1,6 @@
 <project name="test-app" default="run">
 
- <description><!-- TODO: enter project description here --></description>
+ <description>A JMatter App that exists for the purpose of testing</description>
 
  <property name="build.dir" location="build" />
  <property name="build.classes.dir" location="${build.dir}/classes" />
@@ -81,13 +81,15 @@
    <copy todir="${build.classes.dir}">
       <fileset dir="resources" includes="images/*.gif,images/*.png,**/*.jpg" />
       <fileset dir="resources" includes="model-metadata.properties" />
-      <fileset dir="resources" includes="locale-metadata*.properties" />
       <fileset dir="resources" includes="styles.css" />
       <fileset dir="resources/data" includes="*.xml,*.json" /> <!-- codes files -->
       <!-- <fileset dir="resources" includes="log4j.properties" /> -->
-      <fileset dir="${src.dir}" includes="**/*.xml,**/*.jfrm" />  <!-- jfree report xmls -->
+      <fileset dir="${src.dir}" includes="**/*.xml,**/*.jasper,**/*.jfrm" />
       <fileset dir="${src.dir}" includes="**/*.gif,**/*.png" />  <!-- any images referenced by jfree report xmls -->
    </copy>
+
+   <native2ascii encoding="UTF-8" src="resources" dest="${build.classes.dir}" includes="locale-metadata*.properties" />
+
    <copy file="resources/${hbprops}.properties" tofile="${build.classes.dir}/hibernate.properties" />
  </target>
  
@@ -206,7 +208,7 @@
    <make-jnlp template="resources/jws/dynamic/project-jnlp.st" 
               props="resources/jws/dynamic/project.properties"
               jarbasepath="${jws-dist.dir}"
-              excludejar="${jar.file}"
+              excludejars="${jar.file}"
               tofile="${jws-dist.dir}/project.jnlp" />
 
    <signjar alias="unknown" storepass="public" keystore="tempKeystore">
@@ -219,7 +221,7 @@
    
    <target name="find-drvname">
       <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
-         classpathref="class.path" />
+         classpathref="libtools.path" />
       <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
       <echo message="jdbcdrivername is ${jdbcdrivername}" />
    </target>
