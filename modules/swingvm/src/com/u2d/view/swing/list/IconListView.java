@@ -80,7 +80,7 @@ public class IconListView extends IconList
    
    private void detachItems()
    {
-      Component item = null;
+      Component item;
       for (int i=0; i<getComponentCount(); i++)
       {
          item = getComponent(i);
