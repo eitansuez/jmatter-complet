@@ -161,5 +161,10 @@ public class NewProjectFrontEnd implements BuildListener
 
    public void messageLogged(BuildEvent buildEvent)
    {
+//      System.out.println(buildEvent.getMessage());
+//      if (buildEvent.getException() != null)
+//      {
+//         buildEvent.getException().printStackTrace();
+//      }
    }
 }

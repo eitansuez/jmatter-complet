@@ -13,6 +13,11 @@
       </containerElement>
       <containerElement type="library" level="module">
         <attribute name="method" value="2" />
+        <attribute name="URI" value="/ant-nodeps.jar" />
+        <url>jar://$MODULE_DIR$/../../lib/tools/ant-nodeps.jar!/</url>
+      </containerElement>
+      <containerElement type="library" level="module">
+        <attribute name="method" value="2" />
         <attribute name="URI" value="/ant.jar" />
         <url>jar://$MODULE_DIR$/../../lib/tools/ant.jar!/</url>
       </containerElement>
@@ -52,6 +57,15 @@
     </orderEntry>
     <orderEntry type="module" module-name="css4swing" />
     <orderEntry type="library" name="JUnit" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../lib/tools/ant-nodeps.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
   <component name="RSpecModuleSettingsStorage">
