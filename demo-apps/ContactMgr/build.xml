@@ -176,7 +176,7 @@
  </target>
  <target name="schema-x" depends="genhbm">
     <echo message="performing a schema ${arg}" />
-    <java fork="true" classpathref="class.path" 
+    <java fork="true" classpathref="class.path" failonerror="true"
        classname="com.u2d.persist.HibernatePersistor">
       <arg value="${arg}" />
       <arg value="${build.dir}" />

@@ -17,73 +17,11 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/test/com/u2d/css4swing/UnderstandSizing.java" afterPath="/home/eitan/work/css4swing/test/com/u2d/css4swing/UnderstandSizing.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CommandsIconButtonView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CommandsIconButtonView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ParamListView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ParamListView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/FieldFilter.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/FieldFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/echo2vm/src/com/u2d/view/echo2/AppFrame.java" afterPath="$PROJECT_DIR$/modules/echo2vm/src/com/u2d/view/echo2/AppFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/ds-swing/test/com/u2d/ui/MsgDlgTest.java" afterPath="$PROJECT_DIR$/modules/ds-swing/test/com/u2d/ui/MsgDlgTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AssociationView2.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AssociationView2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AssociationView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AssociationView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/restrict/TypeRestrictionMgrUi.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/restrict/TypeRestrictionMgrUi.java" />
       <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/css4swing.iml" afterPath="/home/eitan/work/css4swing/css4swing.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/DateView2.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/DateView2.java" />
-      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/src/com/u2d/css4swing/StyleMenuBar.java" afterPath="/home/eitan/work/css4swing/src/com/u2d/css4swing/StyleMenuBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/QueryView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/QueryView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/calendar/CellResPanel.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/calendar/CellResPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/ImagePicker.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/ImagePicker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/FindForm.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/FindForm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/tools/HBMPracticeTool.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/tools/HBMPracticeTool.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/TableViewTester.java" afterPath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/TableViewTester.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/ds-swing/src/com/u2d/ui/MessagePanel.java" afterPath="$PROJECT_DIR$/modules/ds-swing/src/com/u2d/ui/MessagePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/CustomReadView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/CustomReadView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/TermsEditor.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/TermsEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AbstractView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AbstractView.java" />
       <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/test/com/u2d/css4swing/SampleTest.java" afterPath="/home/eitan/work/css4swing/test/com/u2d/css4swing/SampleTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AssociationEO.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AssociationEO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/ListEOPanel.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/ListEOPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/GenericExpandableView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/GenericExpandableView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/ViewTester.java" afterPath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/ViewTester.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/wizard/ui/TitlePane.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/wizard/ui/TitlePane.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/SimpleTableCompare.java" afterPath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/SimpleTableCompare.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/EditableListView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/EditableListView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/calendar/fancy/TimeSheet.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/calendar/fancy/TimeSheet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/TopLevelFormView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/TopLevelFormView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/EOPanel.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/EOPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AlternateView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AlternateView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ComplexPickView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ComplexPickView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/SimplePagePanel.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/SimplePagePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/GenericFrame.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/GenericFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/FindView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/FindView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/MultiPickView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/MultiPickView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/test/com/u2d/view/swing/ScrollTest.java" afterPath="$PROJECT_DIR$/modules/swingvm/test/com/u2d/view/swing/ScrollTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ExplicitAssociationView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ExplicitAssociationView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/ds-swing/src/com/u2d/ui/LockablePanel.java" afterPath="$PROJECT_DIR$/modules/ds-swing/src/com/u2d/ui/LockablePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/FindView2.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/FindView2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AssociationEditor.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AssociationEditor.java" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/src/com/u2d/css4swing/StyleMenuBar.java" afterPath="/home/eitan/work/css4swing/src/com/u2d/css4swing/StyleMenuBar.java" />
       <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/test/com/u2d/css4swing/SampleTest2.java" afterPath="/home/eitan/work/css4swing/test/com/u2d/css4swing/SampleTest2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/RelationalListView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/RelationalListView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ExpandableView2.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ExpandableView2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/AlternateListView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/AlternateListView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/calendar/BaseCalEventView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/calendar/BaseCalEventView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/HorizScrollpane.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/HorizScrollpane.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/SimpleAssociationView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/SimpleAssociationView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/FilePicker.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/FilePicker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/TabBodyView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/TabBodyView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/wizard/ui/WizardPane.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/wizard/ui/WizardPane.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/test/com/u2d/core/CommandAdapterTest.java" afterPath="$PROJECT_DIR$/test-app/test/com/u2d/core/CommandAdapterTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/DateView2Test.java" afterPath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/DateView2Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/restrict/RoleTypeRestrictionMgrUi.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/restrict/RoleTypeRestrictionMgrUi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CommandsButtonView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CommandsButtonView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CompositeTableView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CompositeTableView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/GradientBar.java" afterPath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/GradientBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/LoginViewTests.java" afterPath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/LoginViewTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CompositeTabularView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CompositeTabularView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AppFrame.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/AppFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/test/com/u2d/view/swing/MemTest.java" afterPath="$PROJECT_DIR$/test-app/test/com/u2d/view/swing/MemTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/ComboBoxTester.java" afterPath="$PROJECT_DIR$/test-app/src/com/u2d/view/swing/ComboBoxTester.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CheckboxListBuilder.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CheckboxListBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/PaginableView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/PaginableView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
     </list>
     <ignored path="JMatter.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1019,7 +957,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1440" height="850" extended-state="0" />
+    <frame x="0" y="25" width="1440" height="850" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
