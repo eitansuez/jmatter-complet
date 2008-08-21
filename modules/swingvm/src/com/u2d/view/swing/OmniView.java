@@ -7,6 +7,7 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Locale;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.tree.TreePath;
@@ -41,6 +42,7 @@ public class OmniView extends LTRCapableJSplitPane
    public OmniView(ComplexEObject ceo)
    {
       _ceo = ceo;
+      applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
       setOrientation(HORIZONTAL_SPLIT);
       setDividerSize(8);

@@ -4,6 +4,7 @@
 package com.u2d.view.swing.list;
 
 import java.awt.*;
+import java.util.Locale;
 import javax.swing.*;
 import javax.swing.event.*;
 import com.u2d.model.AbstractListEO;
@@ -37,6 +38,7 @@ public class OmniListView extends LTRCapableJSplitPane
    public OmniListView(AbstractListEO leo)
    {
       _leo = leo;
+      applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
       setOrientation(HORIZONTAL_SPLIT);
       setDividerSize(8);
