@@ -5,13 +5,12 @@ import com.u2d.pubsub.AppEventListener;
 import com.u2d.pubsub.AppEvent;
 import com.u2d.ui.UIUtils;
 import com.u2d.css4swing.style.ComponentStyle;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
 import javax.swing.*;
 import java.net.URL;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.Locale;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Date: May 25, 2005
@@ -35,12 +34,12 @@ public class Splash extends JWindow implements AppEventListener
    public Splash()
    {
       layMeOut();
+      applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
    }
    
    private void layMeOut()
    {
-      FormLayout layout = new FormLayout("max(300px;pref)", "pref, pref");
-      CellConstraints cc = new CellConstraints();
+      MigLayout layout = new MigLayout("fill");
       JPanel contentPane = new JPanel(layout);
       ComponentStyle.addClass(contentPane, "splash-pane");
       _messageLabel = new JLabel();
@@ -58,16 +57,9 @@ public class Splash extends JWindow implements AppEventListener
       {
          JLabel imgLabel = new JLabel(new ImageIcon(_imgURL));
          imgLabel.setOpaque(false);
-         contentPane.add(imgLabel, cc.rc(1, 1, "center, center"));
+         contentPane.add(imgLabel, "width max(300, pref), alignx center, aligny bottom, wrap");
       }
-      if (ComponentOrientation.getOrientation(Locale.getDefault()).isLeftToRight())
-      {
-         contentPane.add(_messageLabel, cc.rc(2, 1, "center, left"));
-      }
-      else
-      {
-         contentPane.add(_messageLabel, cc.rc(2, 1, "center, right"));
-      }
+      contentPane.add(_messageLabel, "alignx leading, aligny center");
       setContentPane(contentPane);
 
       timer = new Timer(500, new ActionListener()
