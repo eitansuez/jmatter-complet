@@ -1,17 +1,15 @@
 package com.u2d.view.swing;
 
 import javax.swing.*;
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.factories.ButtonBarFactory;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.Locale;
 import com.u2d.app.*;
 import com.u2d.ui.*;
 import com.u2d.model.ComplexType;
 import com.u2d.css4swing.style.ComponentStyle;
 import org.jdesktop.swingx.JXPanel;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -29,6 +27,7 @@ public class LoginDialog extends JXPanel
       _authMgr = authMgr;
       setupFields();
       layItOut();
+      applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
       setFocusCycleRoot(true);
       new MovableSupport(this);
    }
@@ -37,10 +36,7 @@ public class LoginDialog extends JXPanel
       _authMgr = authMgr;
    }
    
-   private String lookup(String key)
-   {
-      return ComplexType.localeLookupStatic(key);
-   }
+   private String lookup(String key) { return ComplexType.localeLookupStatic(key); }
 
    private void setupFields()
    {
@@ -59,46 +55,35 @@ public class LoginDialog extends JXPanel
 
    private void layItOut()
    {
+      MigLayout layout = new MigLayout("fill");
+      setLayout(layout);
+
       _msg = new JLabel("Please log in..");
       ComponentStyle.addClass(_msg, "title");
-      KeycapsDetector detector = new KeycapsDetector(_pwdField);
 
-      FormLayout layout = new FormLayout(
-            "left:pref:grow, 5px, right:pref",
-            "bottom:pref, center:pref, pref");
+      add(_msg, "growx, gapx unrel, aligny bottom");
+      add(new JLabel(LOGIN_ICON), "alignx trailing, wrap");
 
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
-      builder.setDefaultDialogBorder();
-      builder.setLeadingColumnOffset(1);
-
-      CellConstraints cc = new CellConstraints();
-
-      builder.add(_msg, cc.rc(1, 1));
-      builder.add(new JLabel(LOGIN_ICON), cc.rc(1, 3));
-
-      JPanel bar = ButtonBarFactory.buildOKBar(okBtn());
-      bar.setOpaque(false);
-      builder.add(bar, cc.rc(3, 3));
-
-
-      FormLayout innerLayout = new FormLayout("right:pref, 5px, pref",
-                                              "pref, 5px, pref, 5px, pref");
-      DefaultFormBuilder innerBuilder = new DefaultFormBuilder(innerLayout);
-      
-      JLabel label = innerBuilder.addLabel(lookup("logindlg.lbl.username"), cc.rc(1, 1));
-      label.setLabelFor(_userNameFld);
-      innerBuilder.add(_userNameFld, cc.rc(1, 3));
-      
-      label = innerBuilder.addLabel(lookup("logindlg.lbl.pwd"), cc.rc(3, 1));
-      label.setLabelFor(_pwdField);
-      innerBuilder.add(_pwdField, cc.rc(3, 3));
-      
-      innerBuilder.add(detector, cc.rcw(5, 1, 3));
-      JPanel innerPnl = innerBuilder.getPanel();
-      ComponentStyle.addClass(innerPnl, "login-innerpnl");
+      MigLayout innerLayout = new MigLayout("fill, wrap 2", "[trailing][pref]", "");
+      JPanel innerPnl = new JPanel(innerLayout);
       innerPnl.setOpaque(false);
+      ComponentStyle.addClass(innerPnl, "login-innerpnl");
 
-      builder.add(innerPnl, cc.rcw(2, 1, 3, "center, center"));
+      JLabel label = new LabelWithMnemonic("logindlg.lbl.username");
+      label.setLabelFor(_userNameFld);
+      innerPnl.add(label);
+      innerPnl.add(_userNameFld);
+
+      label = new LabelWithMnemonic("logindlg.lbl.pwd");
+      label.setLabelFor(_pwdField);
+      innerPnl.add(label);
+      innerPnl.add(_pwdField);
+
+      KeycapsDetector detector = new KeycapsDetector(_pwdField);
+      innerPnl.add(detector, "span, alignx leading");
+
+      add(innerPnl, "alignx center, alignx center, wrap, span");
+      add(okBtn(), "tag ok, alignx trailing, span");
    }
    
    private JButton okBtn()
