@@ -2,12 +2,12 @@ package com.u2d.view.swing;
 
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.GradientPanel;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.*;
+
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,17 +19,14 @@ public class GenericExpandableView extends JPanel
 {
    protected ExpandCollapseButton _toggleBtn;
    protected JComponent _leaf;
-   protected CellConstraints cc;
 
    public GenericExpandableView()
    {
       setOpaque(false);
       setBorder(BorderFactory.createLineBorder(Color.black));
-   
-      FormLayout layout = new FormLayout("fill:pref:grow", 
-                                         "top:pref:grow, top:pref:grow");
+
+      MigLayout layout = new MigLayout("insets 0, flowy");
       setLayout(layout);
-      cc = new CellConstraints();
       
       _toggleBtn = new ExpandCollapseButton();
       _toggleBtn.addActionListener( new ActionListener()
@@ -55,8 +52,8 @@ public class GenericExpandableView extends JPanel
       gp.add(handle, BorderLayout.CENTER);
       gp.add(_toggleBtn, BorderLayout.LINE_END);
       
-      add(gp, cc.rc(1, 1));
-      add(leaf, cc.rc(2, 1));
+      add(gp);
+      add(leaf);
       
       expandCollapse(false);
    }

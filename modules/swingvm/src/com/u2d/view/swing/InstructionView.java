@@ -19,8 +19,7 @@ import java.beans.PropertyChangeListener;
  * Date: Dec 26, 2007
  * Time: 10:05:28 PM
  */
-public class InstructionView extends JPanel
-      implements ComplexEView
+public class InstructionView extends JPanel implements ComplexEView
 {
    private Instruction _instruction;
    

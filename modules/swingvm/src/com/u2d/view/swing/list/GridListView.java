@@ -11,7 +11,6 @@ import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.list.RelationalList;
-
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -19,6 +18,7 @@ import javax.swing.event.ListDataEvent;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -67,6 +67,7 @@ public class GridListView
       _leo.addListDataListener(this);
       
       selectFirst();
+      applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
    }
 
    private void selectFirst()
@@ -83,7 +84,7 @@ public class GridListView
 
       if (_views.get(value) == null)
       {
-         EView view = null;
+         EView view;
          
          view = SwingViewMechanism.getInstance().getIconView(ceo);
          ((JComponent) view).setOpaque(true);
@@ -128,7 +129,7 @@ public class GridListView
    }
    private void detachItems()
    {
-      EView view = null;
+      EView view;
       for (Iterator itr = _views.values().iterator(); itr.hasNext(); )
       {
          view = (EView) itr.next();

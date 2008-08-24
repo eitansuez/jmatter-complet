@@ -52,7 +52,7 @@ public class ExpandableView2
       gp.add(_handle, BorderLayout.CENTER);
       gp.add(_toggleBtn, BorderLayout.LINE_END);
       
-      add(gp, cc.rc(1, 1));
+      add(gp);
       
       if (_toggleBtn.isExpanded() != expanded)
          _toggleBtn.doClick();
@@ -92,7 +92,7 @@ public class ExpandableView2
 	{
       if (expand && _toggleBtn.isCollapsed())
       {
-         add(leaf(), cc.rc(2, 1));
+         add(leaf());
       }
       else if (!expand && _toggleBtn.isExpanded())
       {

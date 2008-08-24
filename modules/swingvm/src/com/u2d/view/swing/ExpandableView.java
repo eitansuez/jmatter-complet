@@ -12,8 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -24,18 +23,16 @@ public class ExpandableView extends JPanel implements ComplexEView, Editor
 	private ExpandCollapseButton _toggleBtn;
 	private ListItemView _handle;
 	private FormView _leaf;
-   private CellConstraints cc;
    
 	public ExpandableView()
 	{
       setOpaque(false);
-      
-      FormLayout layout = new FormLayout("pref,pref", "pref,pref");
+
+      MigLayout layout = new MigLayout("wrap 2");
       setLayout(layout);
-      cc = new CellConstraints();
       
       _toggleBtn = new ExpandCollapseButton();
-      add(_toggleBtn, cc.xy(1, 1));
+      add(_toggleBtn, "wrap");
       _toggleBtn.addActionListener( new ActionListener()
          {
             public void actionPerformed(ActionEvent evt)
@@ -61,7 +58,7 @@ public class ExpandableView extends JPanel implements ComplexEView, Editor
       _ceo = ceo;
 
       _handle = (ListItemView) _ceo.getListItemView();
-      add(_handle, cc.xy(2, 1));
+      add(_handle);
 
       if (_toggleBtn.isExpanded() != expanded)
          _toggleBtn.doClick();
@@ -104,7 +101,7 @@ public class ExpandableView extends JPanel implements ComplexEView, Editor
 	{
       if (expand && _toggleBtn.isCollapsed())
       {
-         add(leaf(), cc.xy(2, 2));
+         add(leaf());
       }
       else if (!expand && _toggleBtn.isExpanded())
       {

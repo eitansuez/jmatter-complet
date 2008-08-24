@@ -17,7 +17,7 @@ import java.awt.event.*;
 import com.u2d.ui.*;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.find.CompositeQuery;
-import com.jgoodies.forms.builder.ButtonBarBuilder;
+import net.miginfocom.swing.MigLayout;
 
 
 /**
@@ -43,14 +43,12 @@ public class FindView2 extends JSplitPane implements View
       JPanel topPanel = new JPanel(new BorderLayout());
       topPanel.add(_findForm, BorderLayout.CENTER);
 
-      ButtonBarBuilder builder = new ButtonBarBuilder();
-      builder.addGlue();
-      builder.addGridded(saveBtn());
-      builder.addUnrelatedGap();
-      builder.addGridded(findBtn());
-      builder.addRelatedGap();
-      builder.addGridded(cancelBtn());
-      topPanel.add(builder.getPanel(), BorderLayout.PAGE_END);
+      MigLayout layout = new MigLayout("alignx trailing");
+      JPanel buttonBar = new JPanel(layout);
+      buttonBar.add(saveBtn(), "gapafter unrel");
+      buttonBar.add(findBtn());
+      buttonBar.add(cancelBtn(), "tag cancel");
+      topPanel.add(buttonBar, BorderLayout.PAGE_END);
 
       setTopComponent(topPanel);
       setDividerLocation(topPanel.getPreferredSize().height);
