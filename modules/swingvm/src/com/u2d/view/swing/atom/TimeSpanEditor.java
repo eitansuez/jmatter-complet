@@ -10,9 +10,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.util.*;
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -57,18 +55,15 @@ public class TimeSpanEditor extends JPanel implements AtomicEditor
          }
       });
 
-      FormLayout layout = new FormLayout(
-            "right:pref, 5px, left:pref, 5px, right:pref, 5px , left:pref",
-            "pref, 5px, pref");
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
-      CellConstraints cc = new CellConstraints();
+      MigLayout layout = new MigLayout("insets 0, gapy 2", "[trailing][leading][trailing][leading]", "[][]");
+      setLayout(layout);
 
-      builder.addLabel("Date:", cc.xy(1, 1));
-      builder.add((JComponent) _dateEditor, cc.xyw(3, 1, 5));
-      builder.addLabel("From:", cc.xy(1, 3));
-      builder.add(_fromEditor, cc.xy(3, 3));
-      builder.addLabel("To:", cc.xy(5, 3));
-      builder.add(_toEditor, cc.xy(7, 3));
+      add(new JLabel("Date:"));
+      add((JComponent) _dateEditor, "span, wrap");
+      add(new JLabel("From:"));
+      add(_fromEditor);
+      add(new JLabel("To:"), "gap unrel");
+      add(_toEditor);
    }
 
    public void render(AtomicEObject value)

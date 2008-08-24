@@ -5,9 +5,8 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import javax.swing.*;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -21,14 +20,13 @@ public class DateTimeEditor extends JPanel implements AtomicEditor
 
    public DateTimeEditor()
    {
-      setLayout(new FormLayout("pref", "pref"));
-      CellConstraints cc = new CellConstraints();
+      setLayout(new MigLayout());
 
       _tf = new JTextField();
       _tf.setColumns(12);
       _tf.setToolTipText(INPUT_TIP);
       _tf.setHorizontalAlignment(JTextField.RIGHT);
-      add(_tf, cc.xy(1, 1));
+      add(_tf);
    }
 
 

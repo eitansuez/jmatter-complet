@@ -16,8 +16,7 @@ import java.util.Date;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import com.holub.ui.*;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -30,7 +29,6 @@ public class DateEditor extends JPanel
 
    private Date_selector_dialog _chooser;
    private Date_selector_panel _date_selector_panel;
-   protected CellConstraints _cc;
 
    private static Icon CAL_ICON, CAL_ROLLOVER_ICON;
    static
@@ -77,9 +75,8 @@ public class DateEditor extends JPanel
 
       _date_selector_panel = new Date_selector_panel();
 
-      FormLayout layout = new FormLayout("pref, 3px, pref, 3px, pref", "pref");
+      MigLayout layout = new MigLayout();
       setLayout(layout);
-      _cc = new CellConstraints();
 
       KeyListener keyListener  = new KeyAdapter()
       {
@@ -103,8 +100,8 @@ public class DateEditor extends JPanel
       };
       _tf.addKeyListener(keyListener);
 
-      add(_tf, _cc.xy(1, 1));
-      add(_calendarBtn, _cc.xy(3, 1));
+      add(_tf);
+      add(_calendarBtn);
 
    }
 
