@@ -16,9 +16,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.beans.*;
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -72,23 +70,20 @@ public class EOPanel extends JPanel
    {
       _titleView = new TitleView(_ceo, this);
 
-      FormLayout layout =  new FormLayout("left:pref:grow, right:pref", 
-                                          "bottom:pref");
+      MigLayout layout = new MigLayout("fill, insets 0", "[left][right]", "[bottom]");
       
       GradientPanel gpanel = new GradientPanel(_ceo.type().colorCode(), false);
-      PanelBuilder builder = new PanelBuilder(layout, gpanel);
-      CellConstraints cc = new CellConstraints();
-      builder.add(_titleView, cc.xy(1, 1));
+      gpanel.setLayout(layout);
+      gpanel.add(_titleView, "growx");
       
       AlternateView altView = getAlternateView();
       if (altView != null)
       {
-         builder.add(altView.getControlPane(), cc.xy(2, 1));
+         gpanel.add(altView.getControlPane());
       }
       
-      JPanel topPanel = builder.getPanel();
-      ComponentStyle.addClass(topPanel, "instance-title-panel");
-      add(topPanel, BorderLayout.PAGE_START);
+      ComponentStyle.addClass(gpanel, "instance-title-panel");
+      add(gpanel, BorderLayout.PAGE_START);
    }
    
    public void detach()

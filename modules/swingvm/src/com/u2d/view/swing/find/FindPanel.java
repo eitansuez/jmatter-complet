@@ -1,20 +1,18 @@
 package com.u2d.view.swing.find;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.builder.PanelBuilder;
 import com.u2d.ui.DefaultButton;
 import com.u2d.ui.Platform;
 import com.u2d.find.QueryReceiver;
 import com.u2d.model.ComplexType;
 import com.u2d.view.swing.AppLoader;
-
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,20 +28,19 @@ public class FindPanel extends JPanel
    public FindPanel(QueryReceiver receiver)
    {
       _queryReceiver = receiver;
-      
-      FormLayout layout = new FormLayout("left:pref:grow, 3dlu, right:pref, 1dlu", "pref");
-      PanelBuilder builder = new PanelBuilder(layout, this);
-      CellConstraints cc = new CellConstraints();
+
+      MigLayout layout = new MigLayout("insets 0");
+      setLayout(layout);
       
       _filter = new FieldFilter(_queryReceiver.queryType());
       
       updateResultsDynamically();
-      
-      builder.add(_filter, cc.xy(1, 1));
+
+      add(_filter);
       // trying to get rid of go button and instead dynamically update search results
       // by attaching listeners to value editor.
       // see fieldfilter.ineqactionlistener
-      builder.add(findBtn(), cc.xy(3, 1));
+      add(findBtn(), "gapx unrel");
 
       setBorder(BorderFactory.createEtchedBorder());
       setupKeyStrokes();

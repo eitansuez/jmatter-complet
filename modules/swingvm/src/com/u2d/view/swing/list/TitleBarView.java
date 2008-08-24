@@ -5,15 +5,13 @@ package com.u2d.view.swing.list;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataEvent;
-import com.u2d.list.RelationalList;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.EObject;
 import com.u2d.ui.GradientPanel;
 import com.u2d.view.*;
 import com.u2d.view.swing.find.FindPanel;
 import com.u2d.find.QueryReceiver;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -30,23 +28,20 @@ public class TitleBarView extends GradientPanel implements ListEView
       super(leo.type().colorCode(), false);
       _leo = leo;
       
-      FormLayout layout = new FormLayout(
-            "left:pref:grow, 3dlu, right:pref", 
-            "bottom:pref, pref");
+      MigLayout layout = new MigLayout("fill, insets 0", "[left][right]", "[bottom][center]");
       setLayout(layout);
-      CellConstraints cc = new CellConstraints();
 
       _titleView = new ListTitleView(_leo, parentView);
-      add(_titleView, cc.xy(1, 1));
+      add(_titleView, "growx");
       
       _altView = getAlternateListView(innerView);
       if (_altView != null)
-         add(_altView.getControlPane(), cc.xy(3, 1));
+         add(_altView.getControlPane());
 
       if (_leo instanceof QueryReceiver)
       {
          _findPnl = new FindPanel((QueryReceiver) _leo);
-         add(_findPnl, cc.xyw(1, 2, 3));
+         add(_findPnl, "newline, span");
       }
    }
    
