@@ -134,7 +134,15 @@ public class LoginDialog extends JXPanel
       {
          public void componentResized(ComponentEvent e)
          {
-            setLocation(new Point(10, UIUtils.computeCenter(LoginDialog.this).y));
+            if (getComponentOrientation().isLeftToRight())
+            {
+               setLocation(new Point(10, UIUtils.computeCenter(LoginDialog.this).y));
+            }
+            else
+            {
+               int x = LoginDialog.this.getParent().getWidth() - LoginDialog.this.getWidth() - 10 ;
+               setLocation(new Point(x, UIUtils.computeCenter(LoginDialog.this).y));
+            }
             LoginDialog.this.getParent().removeComponentListener(this);  // one time.
          }
       });
