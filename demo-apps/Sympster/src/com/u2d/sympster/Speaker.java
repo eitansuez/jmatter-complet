@@ -70,7 +70,6 @@ public class Speaker extends AbstractComplexEObject
       return speaker.AddTalk(cmdInfo);
    }
 
-
-   public boolean hasCustomMainTabPanel() { return true; }
-   public EView mainTabPanel() { return new SpeakerPanel(this); }
+//   public boolean hasCustomMainTabPanel() { return true; }
+//   public EView mainTabPanel() { return new SpeakerPanel(this); }
 }
