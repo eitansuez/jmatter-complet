@@ -3,9 +3,6 @@
  */
 package com.u2d.view.swing;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import com.u2d.app.Tracing;
 import com.u2d.element.Field;
 import com.u2d.field.AggregateField;
@@ -31,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -130,26 +128,24 @@ public class FormView extends JXPanel implements IFormView
    private JPanel mainPane()
    {
       boolean hasCustomMainTabPanel = _ceo.hasCustomMainTabPanel();
+      MigLayout layout = new MigLayout("insets 0 5 0 5, wrap 2, gapy 2", "[trailing][grow]", "");
+      FormPane formPane = new FormPane();
+      formPane.setLayout(layout);
+      layoutChildFields(_ceo, formPane, hasCustomMainTabPanel);
+
       if (hasCustomMainTabPanel)
       {
          EView customMainTabPanel = _ceo.mainTabPanel();
          _childViews.add(customMainTabPanel);
-         FormLayout layout = new FormLayout("right:pref, 5px, left:pref:grow", "");
-         DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
-         layoutChildFields(_ceo, builder, new CellConstraints(), hasCustomMainTabPanel);
          return (JPanel) customMainTabPanel;
       }
       else
       {
-         FormLayout layout = new FormLayout("right:pref, 5px, left:pref:grow", "");
-         DefaultFormBuilder builder = new DefaultFormBuilder(layout, new FormPane());
-         layoutChildFields(_ceo, builder, new CellConstraints(), hasCustomMainTabPanel);
-         return builder.getPanel();
+         return formPane;
       }
    }
 
-   private void layoutChildFields(ComplexEObject ceo,
-                                  DefaultFormBuilder builder, CellConstraints cc, boolean hasCustomMainTabPanel)
+   private void layoutChildFields(ComplexEObject ceo, JPanel container, boolean hasCustomMainTabPanel)
    {
       if ( (ceo.field() != null) && (ceo.field().isInterfaceType()) )
          ceo.setField(null, null);
@@ -199,7 +195,7 @@ public class FormView extends JXPanel implements IFormView
 
             if (field.isAggregate() && ((AggregateField) field).flattenIntoParent())
             {
-               layoutChildFields((ComplexEObject) field.get(ceo), builder, cc, hasCustomMainTabPanel);
+               layoutChildFields((ComplexEObject) field.get(ceo), container, hasCustomMainTabPanel);
             }
             else
             {
@@ -213,54 +209,40 @@ public class FormView extends JXPanel implements IFormView
 
                FieldCaption caption = new FieldCaption(field, comp);
                _fieldCaptions.add(caption);
-               appendRow(builder, cc, caption, comp, vPnl);
+               appendRow(container, caption, comp, vPnl);
             }
          }
       }
    }
 
-   private void appendRow(DefaultFormBuilder builder, CellConstraints cc,
+   private void appendRow(JPanel container,
                           JComponent caption, JComponent comp,
                           JComponent vPnl)
    {
-      builder.appendRow("pref");
-      builder.add(vPnl, cc.rc(builder.getRow(), 3));
-      builder.nextLine();
-
-      appendItem(builder, cc, caption, comp);
-
-      builder.appendRow("3px"); // a vertical gap
-      builder.nextLine();
+      container.add(vPnl, "skip, wrap");
+      appendItem(container, caption, comp);
    }
 
-   private void appendItem(DefaultFormBuilder builder, CellConstraints cc,
-                           JComponent caption, JComponent comp)
+   private void appendItem(JPanel container, JComponent caption, JComponent comp)
    {
       // tableviews are wide.  save space by laying out caption and
       // component one below the other..
       if (comp instanceof TableView || comp instanceof CompositeTableView || comp instanceof CompositeTabularView )
       {
-         builder.appendRow("bottom:pref");
-         builder.add(caption, cc.rcw(builder.getRow(), 1, 3));
-         builder.nextLine();
-
-         builder.appendRow("top:pref");
+         container.add(caption, "span, wrap");
          if (comp instanceof JTable)
          {
-            builder.add(new JScrollPane(comp), cc.rcw(builder.getRow(), 1, 3));
+            container.add(new JScrollPane(comp), "span, wrap");
          }
          else
          {
-            builder.add(comp, cc.rcw(builder.getRow(), 1, 3));
+            container.add(comp, "span, wrap");
          }
-         builder.nextLine();
       }
       else
       {
-         builder.appendRow("pref");
-         builder.add(caption, cc.rc(builder.getRow(), 1));
-         builder.add(comp, cc.rc(builder.getRow(), 3));
-         builder.nextLine();
+         container.add(caption);
+         container.add(comp);
       }
    }
 
