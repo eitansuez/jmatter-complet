@@ -20,7 +20,7 @@ public class DateWithAgeRenderer extends DateRenderer
    public DateWithAgeRenderer()
    {
       super();
-      add(_ageLabel, _cc.xy(3, 1));
+      add(_ageLabel);
    }
 
    public void render(AtomicEObject value)

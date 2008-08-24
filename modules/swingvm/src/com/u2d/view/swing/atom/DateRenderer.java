@@ -1,11 +1,9 @@
 package com.u2d.view.swing.atom;
 
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicRenderer;
-
 import javax.swing.*;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Date: Jun 8, 2005
@@ -16,17 +14,15 @@ import javax.swing.*;
 public class DateRenderer extends JPanel implements AtomicRenderer
 {
    private JLabel _label = new JLabel();
-   protected CellConstraints _cc;
 
    public DateRenderer()
    {
       _label.setOpaque(false);
 
-      FormLayout layout = new FormLayout("pref, 5px, pref", "pref");
+      MigLayout layout = new MigLayout();
       setLayout(layout);
-      _cc = new CellConstraints();
 
-      add(_label, _cc.xy(1, 1));
+      add(_label);
    }
 
    public void render(AtomicEObject value)

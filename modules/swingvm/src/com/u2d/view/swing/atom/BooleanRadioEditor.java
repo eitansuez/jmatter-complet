@@ -4,13 +4,12 @@ import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
 import com.u2d.model.ComplexType;
 import com.u2d.type.atom.BooleanEO;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.builder.DefaultFormBuilder;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusListener;
+
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Date: Jun 8, 2005
@@ -52,11 +51,10 @@ public class BooleanRadioEditor extends JPanel implements AtomicEditor
       group.add(_yesBtn);
       group.add(_noBtn);
 
-      FormLayout layout = new FormLayout("pref, 3px, pref", "pref");
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
-      CellConstraints cc = new CellConstraints();
-      builder.add(_yesBtn, cc.xy(1, 1));
-      builder.add(_noBtn, cc.xy(3, 1));
+      MigLayout layout = new MigLayout();
+      setLayout(layout);
+      add(_yesBtn);
+      add(_noBtn);
    }
 
    public void render(AtomicEObject value)

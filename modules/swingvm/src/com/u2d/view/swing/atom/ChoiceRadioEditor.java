@@ -3,11 +3,8 @@ package com.u2d.view.swing.atom;
 import com.u2d.model.AtomicEditor;
 import com.u2d.model.AtomicEObject;
 import com.u2d.type.atom.ChoiceEO;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.builder.DefaultFormBuilder;
 import javax.swing.*;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,16 +25,8 @@ public class ChoiceRadioEditor extends JPanel implements AtomicEditor
       if (! _laidout )
       {
          setOpaque(false);
-         FormLayout layout = new FormLayout("", "p");
-         int numCols = 2 * (eo.entries().size()-1) + 1;
-         for (int i=0; i<numCols; i++)
-         {
-            String descr = ((i%2) == 0) ? "p" : "3dlu";
-            layout.appendColumn(ColumnSpec.decode(descr));
-         }
+         MigLayout layout = new MigLayout();
          setLayout(layout);
-         DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
-         CellConstraints cc = new CellConstraints();
 
          ButtonGroup group = new ButtonGroup();
          _buttons = new JRadioButton[eo.entries().size()];
@@ -47,8 +36,7 @@ public class ChoiceRadioEditor extends JPanel implements AtomicEditor
             JRadioButton btn = new JRadioButton((String) entry);
             btn.setOpaque(false);
             group.add(btn);
-            int col = (i*2)+1;
-            builder.add(btn, cc.rc(1, col));
+            add(btn);
             _buttons[i++] = btn;
          }
          _laidout = true;

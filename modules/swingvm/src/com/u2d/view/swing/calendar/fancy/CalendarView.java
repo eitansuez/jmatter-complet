@@ -13,7 +13,7 @@ import javax.swing.event.ListDataEvent;
 import java.awt.*;
 import java.awt.event.*;
 import com.u2d.view.*;
-import com.jgoodies.forms.builder.ButtonStackBuilder;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -95,11 +95,10 @@ public class CalendarView extends JPanel implements ComplexEView
    
    class CBPanel extends JPanel
    {
-      ButtonStackBuilder builder;
-      
       CBPanel()
       {
-         builder = new ButtonStackBuilder(this);
+         MigLayout layout = new MigLayout("insets 0, flowy, gapy 0, fillx");
+         setLayout(layout);
       }
 
       void addCheckbox(Schedule schedule)
@@ -117,7 +116,7 @@ public class CalendarView extends JPanel implements ComplexEView
                            cb.isSelected());
                   }
                });
-         builder.addGridded(cb);
+         add(cb, "growx");
       }
       void removeCheckbox(int index)
       {

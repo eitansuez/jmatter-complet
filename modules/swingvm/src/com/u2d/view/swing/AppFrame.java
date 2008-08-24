@@ -3,9 +3,6 @@
  */
 package com.u2d.view.swing;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import com.u2d.app.*;
 import com.u2d.css4swing.style.ComponentStyle;
 import com.u2d.element.Command;
@@ -44,6 +41,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 import org.jdesktop.swingx.JXPanel;
+import net.miginfocom.swing.MigLayout;
 //import org.javadev.effects.FadeAnimation;
 
 /**
@@ -594,33 +592,27 @@ public class AppFrame extends JFrame
       private void laymeout()
       {
          JPanel contentPane = (JPanel) getContentPane();
-         contentPane.setLayout(new BorderLayout());
-         
-         FormLayout layout = new FormLayout("pref",  // columns 
-               "pref, 3dlu, pref, 3dlu, pref, 3dlu, pref");           // rows
-         
-         PanelBuilder builder = new PanelBuilder(layout);
-         CellConstraints cc = new CellConstraints();
+         MigLayout layout = new MigLayout("fill, flowy");
+         contentPane.setLayout(layout);
+
          titleView = new JLabel(_app.title(), _appIcon, JLabel.LEADING);
          ComponentStyle.addClass(titleView, "title");
-         builder.add(titleView, cc.rc(1, 1));
+         add(titleView);
 
          descriptionArea = new JTextArea(_app.getDescription(), 5, 40);
          descriptionArea.setEditable(false);
          descriptionArea.setOpaque(false);
-         builder.add(new JScrollPane(descriptionArea), cc.rc(3, 1));
+         add(new JScrollPane(descriptionArea));
 
          link = new URIRenderer();
          link.render(new URI(_app.getHelpContentsUrl()));
-         builder.add(link, cc.rc(5, 1));
+         add(link);
          
          closeBtn = new JButton("OK");
          closeBtn.addActionListener(AboutDlg.this);
-         builder.add(closeBtn, cc.rc(7, 1, "center, center"));
+         add(closeBtn, "tag ok");
          
-         JPanel mainArea = builder.getPanel();
-         ComponentStyle.setIdent(mainArea, "aboutPnl");
-         contentPane.add(mainArea, BorderLayout.CENTER);
+         ComponentStyle.setIdent(contentPane, "aboutPnl");
       }
       
       private String title() { return String.format("About %s", _app.getName()); }
