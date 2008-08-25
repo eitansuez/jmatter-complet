@@ -24,7 +24,6 @@ import java.awt.*;
 import net.miginfocom.swing.MigLayout;
 import net.miginfocom.layout.LC;
 import net.miginfocom.layout.AC;
-import net.miginfocom.layout.CC;
 
 /**
  * Created by IntelliJ IDEA.
@@ -113,6 +112,11 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
 
    private void addRowForObject(ComplexEObject eo, boolean afterTheFact)
    {
+      if (afterTheFact)
+      {
+         _panel.remove(_panel.getComponentCount()-1);
+      }
+      
       for (int col=0; col<_typefields.size(); col++)
       {
          Field field = (Field) _typefields.get(col);
@@ -123,17 +127,12 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
          EView view = field.getView(eo);
          assert(view != null);
          _childViews.add(view);
-         if (afterTheFact)
-         {
-            // how to dynamically insert a row at a specific row index??
-            // this does not work:
-//            CC cc = new CC();
-//            _panel.add((JComponent) view, cc.cell(cc.getCellX(), cc.getCellY()-1));
-         }
-         else
-         {
-            _panel.add((JComponent) view);
-         }
+         _panel.add((JComponent) view);
+      }
+
+      if (afterTheFact)
+      {
+         addSeparator();
       }
    }
 
