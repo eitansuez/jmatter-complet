@@ -9,11 +9,6 @@ import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
 import com.u2d.element.Command;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.builder.ButtonBarBuilder;
-import com.jgoodies.forms.builder.ButtonStackBuilder;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
@@ -22,6 +17,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.awt.*;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,13 +33,10 @@ public class CommandsButtonView extends JPanel implements ListEView
    private EView _source;
    private Map<Integer, Integer> _indexMap = new HashMap<Integer, Integer>();
    private boolean _horizontalLayout;
-   private JPanel buttonPnl;
 
    public CommandsButtonView()
    {
       super();
-      FormLayout layout = new FormLayout("5px, pref, 5px", "pref");
-      setLayout(layout);
       setOpaque(true);
       setBackground(new Color(0xf8f8ff));
       Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
@@ -80,9 +73,9 @@ public class CommandsButtonView extends JPanel implements ListEView
 
    private void detachCmds()
    {
-      for (int i=0; buttonPnl != null && i<buttonPnl.getComponentCount(); i++)
+      for (int i=0; i<getComponentCount(); i++)
       {
-         Component c = buttonPnl.getComponent(i);
+         Component c = getComponent(i);
          if (c instanceof CommandButton)
          {
             ((CommandButton) c).detach();
@@ -116,23 +109,24 @@ public class CommandsButtonView extends JPanel implements ListEView
       
       _commands = _eo.commands();
 
-      // No Common Interface between a buttonbarbuilder and a buttonstackbuilder!!
-      final PanelBuilder builder;
+      String insets = "insets 5";
+      
+      MigLayout layout;
       if (_horizontalLayout)
       {
-         builder = new ButtonBarBuilder();
-         ((ButtonBarBuilder) builder).addGlue();
+         layout = new MigLayout(insets + ", alignx trailing", "fill, sizegroup", "");
       }
       else
       {
-         builder = new ButtonStackBuilder();
-         ((ButtonStackBuilder) builder).addRelatedGap();
+         layout = new MigLayout(insets + ", flowy", "[grow, fill]", "");
       }
+      setLayout(layout);
 
       new OnionPeeler(new Processor()
          {
             int index = 0;
             boolean firstPass = true;
+            boolean gapBefore = false;
             public void process(Object obj)
             {
                Command cmd = (Command) obj;
@@ -141,16 +135,15 @@ public class CommandsButtonView extends JPanel implements ListEView
                
                CommandButton btn = new CommandButton(cmd, _eo, _source, firstPass);
                firstPass = false;
-               
-               if (_horizontalLayout)
+
+               if (gapBefore)
                {
-                  ((ButtonBarBuilder) builder).addFixedNarrow(btn);
-                  ((ButtonBarBuilder) builder).addRelatedGap();
+                  add(btn, "gaptop unrel");
+                  gapBefore = false;
                }
                else
                {
-                  ((ButtonStackBuilder) builder).addFixed(btn);
-                  ((ButtonStackBuilder) builder).addRelatedGap();
+                  add(btn);
                }
 
                _indexMap.put(index, getComponentCount() - 1);
@@ -159,14 +152,7 @@ public class CommandsButtonView extends JPanel implements ListEView
 
             public void pause()
             {
-               if (_horizontalLayout)
-               {
-                  ((ButtonBarBuilder) builder).addUnrelatedGap();
-               }
-               else
-               {
-                  ((ButtonStackBuilder) builder).addUnrelatedGap();
-               }
+               gapBefore = true;
             }
          
             public void done() {}
@@ -174,11 +160,7 @@ public class CommandsButtonView extends JPanel implements ListEView
          }).peel(_eo.filteredCommands());
 
       //System.out.println("buttons grafted, source set on cmdAdapter: "+_source);
-      buttonPnl = builder.getPanel();
-      buttonPnl.setOpaque(false);
 
-      CellConstraints cc = new CellConstraints();
-      add(buttonPnl, cc.xy(2, 1));
       revalidate();
       repaint();
 

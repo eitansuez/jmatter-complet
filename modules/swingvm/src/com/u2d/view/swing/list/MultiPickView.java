@@ -14,14 +14,12 @@ import com.u2d.ui.IconButton;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.field.Association;
 import com.u2d.field.IndexedField;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.builder.DefaultFormBuilder;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * A view used for performing associations to list (indexed) fields.
@@ -102,15 +100,15 @@ public class MultiPickView extends JPanel implements View
          container.add(new JScrollPane(_optionsView), BorderLayout.CENTER);
       }
 
-      FormLayout formLayout = new FormLayout("fill:pref, center:pref, fill:pref", "fill:pref, pref");
-      DefaultFormBuilder builder = new DefaultFormBuilder(formLayout, this);
-      CellConstraints cc = new CellConstraints();
+      MigLayout layout = new MigLayout("fill, wrap 3");
+      setLayout(layout);
 
-      builder.add((JComponent) listView, cc.xy(1, 1, "fill, fill"));
-      builder.add(middlePane, cc.xy(2, 1, "center, center"));
-      builder.add(container, cc.xy(3, 1, "fill, fill"));
+      add((JComponent) listView, "aligny top, growx 0.5, growy");
+      add(middlePane, "aligny center");
+      add(container, "aligny top, growx 0.5, growy");
 
       JButton doneBtn = new JButton("Done");
+      doneBtn.setMnemonic('d');
       doneBtn.addActionListener(new ActionListener()
       {
          public void actionPerformed(ActionEvent e)
@@ -118,7 +116,7 @@ public class MultiPickView extends JPanel implements View
             CloseableJInternalFrame.close(MultiPickView.this);
          }
       });
-      builder.add(doneBtn, cc.xyw(1, 2, 3));
+      add(doneBtn, "alignx trailing, span, tag finished");
    }
 
    public String getTitle() { return "List Picker"; }

@@ -14,8 +14,6 @@ import com.u2d.restrict.FieldRestrictionType;
 import com.u2d.restrict.FieldRestriction;
 import com.u2d.app.Role;
 import com.u2d.app.TypeRestrictionMgr;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.builder.PanelBuilder;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
@@ -27,6 +25,7 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.util.*;
 import java.util.List;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -121,29 +120,27 @@ public class TypeRestrictionMgrUi extends JPanel
       }
    };
 
+   private void addSeparator(JPanel panel, String text)
+   {
+      panel.add(new JLabel(text), "gapbottom 1, span, split 2, aligny center");
+      panel.add(new JSeparator(), "gapleft rel, growx");
+   }
+
    private JPanel buildUI()
    {
       Onion typeCommands = _mgr.getType().commands();
       Map<Class, Onion> instanceCmds = _mgr.getType().instanceCommands();
-      
-      FormLayout layout = new FormLayout("left:pref");
-      PanelBuilder builder = new PanelBuilder(layout, new FormPane());
-      
-      builder.appendRow("pref");
-      builder.addSeparator("Type commands");
-      builder.appendRelatedComponentsGapRow();
-      builder.nextLine(2);
 
-      builder.appendRow("pref");
+      MigLayout layout = new MigLayout("wrap 1");
+      JPanel formPane = new FormPane();
+      formPane.setLayout(layout);
+      
+      addSeparator(formPane, "Type commands");
+
       typeCommandsTable = commandtable(typeCommands);
-      builder.add(new JScrollPane(typeCommandsTable));
-      builder.appendRelatedComponentsGapRow();
-      builder.nextLine(2);
+      formPane.add(new JScrollPane(typeCommandsTable), "gapbottom unrel");
 
-      builder.appendRow("pref");
-      builder.addSeparator("Instance commands");
-      builder.appendRelatedComponentsGapRow();
-      builder.nextLine(2);
+      addSeparator(formPane, "Instance commands");
 
       for (Iterator itr = instanceCmds.keySet().iterator(); itr.hasNext(); )
       {
@@ -161,36 +158,24 @@ public class TypeRestrictionMgrUi extends JPanel
          
          if (stateCls != AbstractComplexEObject.ReadState.class)
          {
-            builder.appendRow("pref");
-            builder.addSeparator(stateName(stateCls));
-            builder.appendRelatedComponentsGapRow();
-            builder.nextLine(2);
+            addSeparator(formPane, stateName(stateCls));
          }
          
-         builder.appendRow("pref");
          instanceCommandsTable = commandtable(stateCmds);
-         builder.add(new JScrollPane(instanceCommandsTable));
-         builder.appendRelatedComponentsGapRow();
-         builder.nextLine(2);
+         formPane.add(new JScrollPane(instanceCommandsTable), "gapbottom unrel");
       }
       
       
       List fields = _mgr.getType().fields();
       
-      builder.appendRow("pref");
-      builder.addSeparator("Fields");
-      builder.appendRelatedComponentsGapRow();
-      builder.nextLine(2);
+      addSeparator(formPane, "Fields");
 
-      builder.appendRow("pref");
       fieldTable = fieldtable(fields);
-      builder.add(new JScrollPane(fieldTable));
-      builder.appendRelatedComponentsGapRow();
-      builder.nextLine(2);
+      formPane.add(new JScrollPane(fieldTable));
 
       _mgr.getRoles().addListDataListener(rolesListDataListener);
 
-      return builder.getPanel();
+      return formPane;
    }
 
    private void updateTables(ListDataEvent e)

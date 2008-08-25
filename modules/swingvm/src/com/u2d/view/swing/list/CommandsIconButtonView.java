@@ -9,7 +9,6 @@ import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
 import com.u2d.element.Command;
-import com.jgoodies.forms.builder.ButtonBarBuilder;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
@@ -18,6 +17,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.awt.*;
 import org.jdesktop.swingx.JXPanel;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -81,12 +81,14 @@ public class CommandsIconButtonView extends JXPanel implements ListEView
 
          _commands = _eo.commands();
 
-         // No Common Interface between a buttonbarbuilder and a buttonstackbuilder!!
-         final ButtonBarBuilder builder = new ButtonBarBuilder(this);
+         MigLayout layout = new MigLayout("insets 0 3 0 3, alignx trailing", "fill, sizegroup", "");
+         setLayout(layout);
 
          new OnionPeeler(new Processor()
             {
                int index = 0;
+               boolean gapBefore = false;
+            
                public void process(Object obj)
                {
                   Command cmd = (Command) obj;
@@ -95,10 +97,14 @@ public class CommandsIconButtonView extends JXPanel implements ListEView
 
                   CommandIconButton btn = new CommandIconButton(cmd, _eo, _source);
 
-                  builder.addGridded(btn);
-                  if (index < _commands.size()-1)
+                  if (gapBefore)
                   {
-                     builder.addRelatedGap();
+                     add(btn, "gapbefore unrel");
+                     gapBefore = false;
+                  }
+                  else
+                  {
+                     add(btn);
                   }
 
                   _indexMap.put(index, getComponentCount() - 1);
@@ -107,7 +113,7 @@ public class CommandsIconButtonView extends JXPanel implements ListEView
 
                public void pause()
                {
-                  builder.addUnrelatedGap();
+                  gapBefore = true;
                }
 
             public void done() { }

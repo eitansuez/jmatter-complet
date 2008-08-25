@@ -4,14 +4,12 @@ import com.u2d.view.ListEView;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.EObject;
 import com.u2d.model.Editor;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.builder.DefaultFormBuilder;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * First pass implementation of a multichoice view.
@@ -41,9 +39,8 @@ public class MultiChoiceView extends JPanel
 
    private void layItOut()
    {
-      FormLayout layout = new FormLayout("left:pref, 5px, left:pref, 5px, left:pref", "");
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
-      CellConstraints cc = new CellConstraints();
+      MigLayout layout = new MigLayout("insets 0, wrap 3");
+      setLayout(layout);
 
       EObject choice;
       for (int i=0; i<_choices.getSize(); i++)
@@ -51,13 +48,7 @@ public class MultiChoiceView extends JPanel
          choice = (EObject) _choices.getElementAt(i);
          MyCheckbox checkbox = new MyCheckbox(choice, _leo.contains(choice));
          _checkboxes.add(checkbox);
-         
-         int column = (i % 3);
-         int colConstraint = 1 + (2 * column);
-         
-         if (column == 0) builder.appendRow("pref");
-         builder.add(checkbox, cc.xy(colConstraint, builder.getRow()));
-         if (column == 2) builder.nextLine();
+         add(checkbox);
       }
    }
    

@@ -11,8 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -23,8 +22,7 @@ public class ExpandableView extends JPanel implements ListEView
 	private ExpandCollapseButton _toggleBtn;
 	private EView _handle;
 	private EditableListView _leaf;
-   private CellConstraints cc;
-   
+
 	public ExpandableView(RelationalList leo)
 	{
       init(leo);
@@ -55,15 +53,14 @@ public class ExpandableView extends JPanel implements ListEView
       setOpaque(false);
       
       _handle = new ListItemView(_leo);
-      
-      FormLayout layout = new FormLayout("pref,pref", "pref,pref");
+
+      MigLayout layout = new MigLayout("insets 0, fill, wrap 2");
       setLayout(layout);
-      cc = new CellConstraints();
       
       _toggleBtn = new ExpandCollapseButton();
       
-      add(_toggleBtn, cc.xy(1, 1));
-      add((JComponent) _handle, cc.xy(2, 1));
+      add(_toggleBtn);
+      add((JComponent) _handle);
       
       _toggleBtn.addActionListener( new ActionListener()
          {
@@ -93,7 +90,7 @@ public class ExpandableView extends JPanel implements ListEView
 		_toggleBtn.toggle();
 		if (expand)
       {
-         add(leaf(), cc.xy(2, 2));
+         add(leaf(), "cell 1 1, grow");  // column row, 0-indexed
       }
       else
       {

@@ -28,7 +28,7 @@ public class RowHeaderCellRenderer implements TableCellRenderer
       Font font = UIManager.getFont("TableHeader.font");
       _cell.setFont(font.deriveFont(10.0f));
       _cell.setVerticalAlignment(SwingConstants.TOP);
-      _cell.setHorizontalAlignment(SwingConstants.RIGHT);
+      _cell.setHorizontalAlignment(SwingConstants.TRAILING);
       _cell.setBorder(BorderFactory.createEmptyBorder(0,2,2,2));
    }
    

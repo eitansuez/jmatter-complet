@@ -18,7 +18,7 @@ public class AtomicTableCellRenderer extends javax.swing.table.DefaultTableCellR
    public void setValue(Object value)
    {
       if (value != null && value instanceof NumericEO)
-         setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+         setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
       super.setValue(value);
    }
 }

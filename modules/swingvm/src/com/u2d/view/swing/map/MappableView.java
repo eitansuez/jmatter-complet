@@ -1,19 +1,16 @@
 package com.u2d.view.swing.map;
 
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import com.u2d.model.EObject;
 import com.u2d.ui.CloseButton;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import org.jdesktop.swingx.JXPanel;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,12 +27,9 @@ public class MappableView extends JXPanel
    public MappableView(EObject eo)
    {
       _eo = eo;
-      
-      FormLayout formLayout = new FormLayout("left:pref:grow, right:pref",
-                                             "pref, pref:grow");
-      CellConstraints cc = new CellConstraints();
-      setLayout(formLayout);
-      setBorder(Borders.DLU2_BORDER);
+
+      MigLayout layout = new MigLayout("insets 0");
+      setLayout(layout);
       
       JButton closeButton = new CloseButton();
       closeButton.addActionListener(new ActionListener()
@@ -45,10 +39,10 @@ public class MappableView extends JXPanel
             MappableView.this.setVisible(false);
          }
       });
-      JLabel label = new JLabel(_eo.title().toString(), _eo.iconLg(), SwingConstants.LEFT);
+      JLabel label = new JLabel(_eo.title().toString(), _eo.iconLg(), SwingConstants.LEADING);
       
-      add(closeButton, cc.rc(1, 2));
-      add(label, cc.rc(2,1));
+      add(closeButton, "alignx trailing, wrap");
+      add(label, "alignx leading, grow");
       
       _cmdsView = new CommandsContextMenuView();
       _cmdsView.bind(_eo, this);

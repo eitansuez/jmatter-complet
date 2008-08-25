@@ -9,6 +9,8 @@ import com.u2d.ui.GradientPanel;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
 
+import net.miginfocom.swing.MigLayout;
+
 /**
  * A more "hip" version of Expandable view.
  * 
@@ -48,9 +50,10 @@ public class ExpandableView2
       _handle.bind(_ceo, this);
 
       GradientPanel gp = new GradientPanel(new Color(0x5171FF), false);
-      gp.setLayout(new BorderLayout());
-      gp.add(_handle, BorderLayout.CENTER);
-      gp.add(_toggleBtn, BorderLayout.LINE_END);
+      MigLayout layout = new MigLayout("insets 0, fill");
+      gp.setLayout(layout);
+      gp.add(_handle, "alignx leading, grow");
+      gp.add(_toggleBtn, "alignx trailing");
       
       add(gp);
       

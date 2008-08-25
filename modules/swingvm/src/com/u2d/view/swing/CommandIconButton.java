@@ -30,7 +30,7 @@ public class CommandIconButton extends JButton implements ComplexEView
 //      setVerticalTextPosition(SwingConstants.BOTTOM);
 //      setHorizontalTextPosition(SwingConstants.CENTER);
       setVerticalTextPosition(SwingConstants.CENTER);
-      setHorizontalTextPosition(SwingConstants.RIGHT);
+      setHorizontalTextPosition(SwingConstants.TRAILING);
 
       ComponentStyle.addClass(this, "command");
 
