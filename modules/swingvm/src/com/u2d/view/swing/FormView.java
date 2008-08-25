@@ -222,7 +222,7 @@ public class FormView extends JXPanel implements IFormView
       // component one below the other..
       if (comp instanceof TableView || comp instanceof CompositeTableView || comp instanceof CompositeTabularView )
       {
-         String constraints = "alignx left, span, wrap";
+         String constraints = "alignx left, growx, span, wrap";
          container.add(caption, constraints);
          if (comp instanceof JTable)
          {
