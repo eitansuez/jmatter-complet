@@ -4,6 +4,7 @@
 package com.u2d.ui;
 
 import java.awt.event.*;
+import java.awt.*;
 import javax.swing.*;
 
 /**
@@ -24,11 +25,11 @@ public class ContextMenu extends JPopupMenu
 	public ContextMenu(JMenuItem[] menuitemlist, JComponent target)
 	{
 		this(target);
-		
-		for (int i=0; i<menuitemlist.length; i++)
-		{
-			add(menuitemlist[i]);
-		}
+
+      for (JMenuItem menuItem : menuitemlist)
+      {
+         add(menuItem);
+      }
 	}
    
    public void attach()
@@ -44,17 +45,27 @@ public class ContextMenu extends JPopupMenu
    class ContextMouseListener extends MouseAdapter
    {
       // for non-microsoft platforms:
-      public void mousePressed(MouseEvent evt)
-      {
-         if (evt.isPopupTrigger() && isEnabled())
-            show(evt.getComponent(), evt.getX(), evt.getY());
-      }
+      public void mousePressed(MouseEvent evt) { showIt(evt); }
+
       // for microsoft platform:
-      public void mouseReleased(MouseEvent evt)
+      public void mouseReleased(MouseEvent evt) { showIt(evt); }
+
+      private void showIt(MouseEvent evt)
       {
          if (evt.isPopupTrigger() && isEnabled())
-            show(evt.getComponent(), evt.getX(), evt.getY());
+         {
+            Component component = evt.getComponent();
+            if (component.getComponentOrientation().isLeftToRight())
+            {
+               show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+            else
+            {
+               show(evt.getComponent(), evt.getX()-getWidth(), evt.getY());
+            }
+         }
       }
+
    }
    
 }
