@@ -293,9 +293,13 @@ public class Harvester
             }
 
             if (tabViewList.contains(descriptors[i].getName()))
+            {
                field.setTabView(true);
+            }
             if (identities.contains(descriptors[i].getName()))
-               ((CompositeField)field).setIdentity(true);
+            {
+               ((CompositeField)field).setIdentity();
+            }
             if (flattenIntoParent.contains(descriptors[i].getName())
                   && field instanceof AggregateField)
             {
