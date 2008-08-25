@@ -43,7 +43,7 @@ public class FindView2 extends JSplitPane implements View
       JPanel topPanel = new JPanel(new BorderLayout());
       topPanel.add(_findForm, BorderLayout.CENTER);
 
-      MigLayout layout = new MigLayout("alignx trailing");
+      MigLayout layout = new MigLayout("alignx trailing", "fill, sizegroup", "");
       JPanel buttonBar = new JPanel(layout);
       buttonBar.add(saveBtn(), "gapafter unrel");
       buttonBar.add(findBtn());
