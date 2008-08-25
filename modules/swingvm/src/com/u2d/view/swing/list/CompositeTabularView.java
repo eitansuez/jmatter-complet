@@ -4,6 +4,7 @@ import com.u2d.list.CompositeList;
 import com.u2d.element.Field;
 import com.u2d.element.Command;
 import com.u2d.type.atom.BooleanEO;
+import com.u2d.type.atom.NumericEO;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
 import com.u2d.view.swing.CommandAdapter;
@@ -14,17 +15,16 @@ import com.u2d.css4swing.style.ComponentStyle;
 import com.u2d.app.Tracing;
 import com.u2d.field.CompositeField;
 import com.u2d.ui.IconButton;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.builder.DefaultFormBuilder;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataEvent;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.*;
+import net.miginfocom.swing.MigLayout;
+import net.miginfocom.layout.LC;
+import net.miginfocom.layout.AC;
+import net.miginfocom.layout.CC;
 
 /**
  * Created by IntelliJ IDEA.
@@ -45,9 +45,9 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
    private CompositeList _leo;
 
    private List<EView> _childViews;  // exclude read-only fields
-   private DefaultFormBuilder _builder;
    private IconButton _addBtn;
    private List _typefields;
+   private JPanel _panel;
 
    public CompositeTabularView(CompositeList leo)
    {
@@ -61,6 +61,11 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
       bind();
    }
 
+   private void addSeparator()
+   {
+      _panel.add(new JSeparator(), "growx, span, wrap");
+   }
+
    // define layout dynamically:
    private void layMeOut()
    {
@@ -68,10 +73,11 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
 
       _childViews = new ArrayList<EView>();
 
-      FormLayout layout = generateLayout();
-      _builder = new DefaultFormBuilder(layout);
+      MigLayout layout = generateLayout();
+      _panel = new JPanel(layout);
+      _panel.setOpaque(false);
 
-      _builder.appendSeparator();  // line at top
+      addSeparator();  // line at top
 
       // first row is table column headings
       for (int i=0; i< _typefields.size(); i++)
@@ -86,36 +92,27 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
          if (cls.equals(BooleanEO.class)) label = label + "?";
          JLabel fieldLabel = new JLabel(label);
          ComponentStyle.addClass(fieldLabel, "tabular-heading");
-         _builder.append(fieldLabel);
+         _panel.add(fieldLabel, "align center");
       }
-      _builder.nextLine();
-      _builder.appendSeparator();  // line separating header row from content rows
+      addSeparator();  // underlining header row
 
       // now the list item rows..
       for (int row=0; row<_leo.getSize(); row++)
       {
          ComplexEObject eo = (ComplexEObject) _leo.get(row);
-         addRowForObject(eo, true);
+         addRowForObject(eo);
       }
 
-      _builder.appendSeparator();  // bottom line separator
+      addSeparator();  // line below table
 
-      JPanel panel = _builder.getPanel();
-      panel.setOpaque(false);
-      add(panel, BorderLayout.CENTER);
+      add(_panel, BorderLayout.CENTER);
       add(btnPanel(), BorderLayout.PAGE_END);
    }
 
-   private void addRowForObject(ComplexEObject eo, boolean initialLayout)
-   {
-      int row = 0;
-      if (!initialLayout)
-      {
-         row = _builder.getRowCount();
-         _builder.getLayout().insertRow(row, RowSpec.decode("pref"));
-         _builder.getLayout().insertRow(row+1, RowSpec.decode("3dlu"));
-      }
+   private void addRowForObject(ComplexEObject eo) { addRowForObject(eo, false); }
 
+   private void addRowForObject(ComplexEObject eo, boolean afterTheFact)
+   {
       for (int col=0; col<_typefields.size(); col++)
       {
          Field field = (Field) _typefields.get(col);
@@ -126,19 +123,19 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
          EView view = field.getView(eo);
          assert(view != null);
          _childViews.add(view);
-         if (initialLayout)
+         if (afterTheFact)
          {
-            _builder.append((JComponent) view);
+            // how to dynamically insert a row at a specific row index??
+            // this does not work:
+//            CC cc = new CC();
+//            _panel.add((JComponent) view, cc.cell(cc.getCellX(), cc.getCellY()-1));
          }
          else
          {
-            _builder.add((JComponent) view, cc.rc(row, (col+1)*2 - 1));
+            _panel.add((JComponent) view);
          }
       }
-
-      _builder.nextLine(2);
    }
-   private CellConstraints cc = new CellConstraints();
 
    private JPanel btnPanel()
    {
@@ -153,10 +150,11 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
       return pnl;
    }
 
-   private FormLayout generateLayout()
+   private MigLayout generateLayout()
    {
-      // first, the columns:
-      FormLayout layout = new FormLayout();
+      int numCols = 0;
+      AC colConstraints = new AC();
+
       for (int i=0; i<_typefields.size(); i++)
       {
          Field field = (Field) _typefields.get(i);
@@ -164,23 +162,18 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
          if ( field.hidden() || "createdOn".equals(field.name()) || "status".equals(field.name()) )
             continue;
 
-         layout.appendColumn(ColumnSpec.decode("pref"));
-         layout.appendColumn(ColumnSpec.decode("5dlu"));
+         numCols++;
+         String alignment = "leading";
+         if (NumericEO.class.isAssignableFrom(field.getJavaClass()))
+         {
+            alignment = "trailing";
+         }
+         colConstraints.align(alignment).gap();
       }
 
-      // next, the rows
-      layout.appendRow(RowSpec.decode("3dlu")); // for line separator at top
-
-      layout.appendRow(RowSpec.decode("pref"));  // header row
-      layout.appendRow(RowSpec.decode("3dlu"));  // separator below header row
-
-      for (int i=0; i <_leo.getSize(); i++)
-      {
-         layout.appendRow(RowSpec.decode("pref"));
-         layout.appendRow(RowSpec.decode("3dlu"));
-      }
-      layout.appendRow(RowSpec.decode("3dlu")); // for line separator at bottom
-      return layout;
+      LC constraints = new LC();
+      constraints.wrapAfter(numCols).gridGapX("unrel").fill();
+      return new MigLayout(constraints, colConstraints);
    }
 
    public EObject getEObject() { return _leo; }
@@ -216,7 +209,7 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
       for (int i=0; i<=num; i++)
       {
          ComplexEObject eo = (ComplexEObject) _leo.getElementAt(e.getIndex1() + i);
-         addRowForObject(eo, false);
+         addRowForObject(eo, true);
       }
    }
 
