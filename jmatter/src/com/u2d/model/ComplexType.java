@@ -238,7 +238,7 @@ public class ComplexType extends AbstractComplexEObject
          _typeCommands = Harvester.simpleHarvestCommands(_clazz, new Onion(), true, this);
          _listCommands = Harvester.harvestListCommands(_clazz, new Onion(), this);
 
-         if (isMetaType())  // no support for dynamic type creation!  we're in javaland afterall..
+         if (isMetaType() || _clazz.equals(CompositeQuery.class))  // no support for dynamic type creation!  we're in javaland afterall..
          {
             Command newCmd = command("New");
             _typeCommands.remove(newCmd);
