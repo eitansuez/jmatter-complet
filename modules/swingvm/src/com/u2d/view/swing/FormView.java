@@ -209,18 +209,11 @@ public class FormView extends JXPanel implements IFormView
 
                FieldCaption caption = new FieldCaption(field, comp);
                _fieldCaptions.add(caption);
-               appendRow(container, caption, comp, vPnl);
+               container.add(vPnl, "skip, wrap");
+               appendItem(container, caption, comp);
             }
          }
       }
-   }
-
-   private void appendRow(JPanel container,
-                          JComponent caption, JComponent comp,
-                          JComponent vPnl)
-   {
-      container.add(vPnl, "skip, wrap");
-      appendItem(container, caption, comp);
    }
 
    private void appendItem(JPanel container, JComponent caption, JComponent comp)
@@ -229,14 +222,15 @@ public class FormView extends JXPanel implements IFormView
       // component one below the other..
       if (comp instanceof TableView || comp instanceof CompositeTableView || comp instanceof CompositeTabularView )
       {
-         container.add(caption, "span, wrap");
+         String constraints = "alignx left, span, wrap";
+         container.add(caption, constraints);
          if (comp instanceof JTable)
          {
-            container.add(new JScrollPane(comp), "span, wrap");
+            container.add(new JScrollPane(comp), constraints);
          }
          else
          {
-            container.add(comp, "span, wrap");
+            container.add(comp, constraints);
          }
       }
       else

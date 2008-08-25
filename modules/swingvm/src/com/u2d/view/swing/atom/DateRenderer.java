@@ -17,6 +17,7 @@ public class DateRenderer extends JPanel implements AtomicRenderer
 
    public DateRenderer()
    {
+      setOpaque(false);
       _label.setOpaque(false);
 
       MigLayout layout = new MigLayout();

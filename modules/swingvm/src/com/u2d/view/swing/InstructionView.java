@@ -6,12 +6,11 @@ import com.u2d.model.ComplexType;
 import com.u2d.ui.UIUtils;
 import com.u2d.interaction.Instruction;
 import com.u2d.element.Command;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -106,14 +105,13 @@ public class InstructionView extends JPanel implements ComplexEView
          }
       };
 
-      FormLayout layout = new FormLayout("180px, 180px", "fill:180px, pref");
-      CellConstraints cc = new CellConstraints();
+      MigLayout layout = new MigLayout("fill, wrap 2", "[180][180]", "[180][pref]");
       setLayout(layout);
       
-      add(_targetView, cc.rc(1, 1));
-      add(_cmdView, cc.rc(1, 2));
+      add(_targetView, "grow");
+      add(_cmdView, "grow");
       _tipLabel.setText(TIP_START_TEXT);
-      add(_tipLabel, cc.rcw(2, 1, 2));
+      add(_tipLabel, "span");
    }
    
    

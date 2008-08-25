@@ -16,6 +16,7 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by IntelliJ IDEA.
@@ -55,14 +56,25 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
                   JList list = (JList) focusOwner;
                   int index = list.getSelectedIndex();
                   Point p = list.indexToLocation(index);
-                  Dimension offset = new Dimension((int) (_target.getPreferredSize().width * 0.75), 
-                                                   (int) (_target.getPreferredSize().height * 0.75));
-                  show(focusOwner, p.x+offset.width, p.y+offset.height);
+
+                  double factor = (getComponentOrientation().isLeftToRight()) ? 0.75 : 0.25;
+                  Dimension targetSize = _target.getPreferredSize();
+                  Dimension offset = new Dimension((int) (targetSize.width * factor), (int) (targetSize.height * 0.75));
+
+                  if (getComponentOrientation().isLeftToRight())
+                  {
+                     show(focusOwner, p.x+offset.width, p.y+offset.height);
+                  }
+                  else
+                  {
+                     show(focusOwner, p.x+offset.width-getPreferredSize().width, p.y+offset.height);
+                  }
                }
             }
          });
       
       setup();
+      applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
    }
    
    public void bind(EObject eo, EView source)
@@ -191,18 +203,24 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
    class ContextMouseListener extends MouseAdapter
    {
       // for non-microsoft platforms:
-      public void mousePressed(MouseEvent evt)
+      public void mousePressed(MouseEvent evt) { showIt(evt); }
+      // for microsoft platform:
+      public void mouseReleased(MouseEvent evt) { showIt(evt); }
+
+      private void showIt(MouseEvent evt)
       {
          if (evt.isPopupTrigger() && isEnabled())
          {
-            show(evt.getComponent(), evt.getX(), evt.getY());
+            Component component = evt.getComponent();
+            if (component.getComponentOrientation().isLeftToRight())
+            {
+               show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+            else
+            {
+               show(evt.getComponent(), evt.getX()-getPreferredSize().width, evt.getY());
+            }
          }
-      }
-      // for microsoft platform:
-      public void mouseReleased(MouseEvent evt)
-      {
-         if (evt.isPopupTrigger() && isEnabled())
-            show(evt.getComponent(), evt.getX(), evt.getY());
       }
    }
    

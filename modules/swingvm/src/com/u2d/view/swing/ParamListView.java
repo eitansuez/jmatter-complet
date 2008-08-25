@@ -11,17 +11,14 @@ import com.u2d.element.EOCommand;
 import com.u2d.element.ListCommand;
 import com.u2d.element.ParameterInfo;
 import com.u2d.model.*;
-import com.u2d.validation.ValidationNotifier;
 import com.u2d.view.*;
 import com.u2d.view.swing.atom.TypePicker;
 import com.u2d.ui.Caption;
 import com.u2d.field.Association;
 import com.u2d.field.DynaAssociationStrategy;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.builder.DefaultFormBuilder;
 import java.util.*;
 import java.lang.reflect.Method;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -45,22 +42,18 @@ public class ParamListView extends JPanel implements View
       _value = value;
       _cmdInfo = cmdInfo;
       
-      FormLayout layout =
-         new FormLayout("right:pref, 5px, left:pref:grow", "");
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-      CellConstraints cc = new CellConstraints();
+      MigLayout layout = new MigLayout("insets 0 5 0 5, wrap 2, gapy 2", "[trailing][grow]", "");
+      JPanel pnl = new JPanel(layout);
 
       try
       {
-         ParameterInfo[] paramInfo = cmd.paramInfo();
-
-         for (int i=0; i<paramInfo.length; i++)
+         for (ParameterInfo paramInfo : cmd.paramInfo())
          {
-            JLabel label = new Caption(paramInfo[i].caption());
+            JLabel label = new Caption(paramInfo.caption());
 
-            EView view = null;
-            EObject eo = null;
-            if ( paramInfo[i].type() == ComplexType.class)
+            EView view;
+            EObject eo;
+            if ( paramInfo.type() == ComplexType.class)
             {
                try
                {
@@ -89,23 +82,23 @@ public class ParamListView extends JPanel implements View
 //                  ex.printStackTrace();
                }
             }
-            else if (ComplexEObject.class.isAssignableFrom(paramInfo[i].type()))
+            else if (ComplexEObject.class.isAssignableFrom(paramInfo.type()))
             {
-               ComplexType type = ComplexType.forClass(paramInfo[i].type());
+               ComplexType type = ComplexType.forClass(paramInfo.type());
                DynaAssociationStrategy das = new DynaAssociationStrategy(type);
                Association association = new Association(das);
                view = SwingViewMechanism.getInstance().getAssociationView(association);
                eo = das;
             }
-            else if (ComplexType.isAbstract(paramInfo[i].type()))
+            else if (ComplexType.isAbstract(paramInfo.type()))
             {
-               ComplexType itype = ComplexType.forClass(paramInfo[i].type());
+               ComplexType itype = ComplexType.forClass(paramInfo.type());
                eo = itype;
                view = new TypePicker(itype);
             }
             else
             {
-               eo = (EObject) paramInfo[i].type().newInstance();
+               eo = (EObject) paramInfo.type().newInstance();
                view = eo.getView();
             }
             
@@ -117,10 +110,11 @@ public class ParamListView extends JPanel implements View
             JComponent comp = (JComponent) view;
             label.setLabelFor(comp);
 
-            ValidationNotifier notifier = (ValidationNotifier) eo;
-            JComponent vPnl = new ValidationNoticePanel(notifier, true);
+            JComponent vPnl = new ValidationNoticePanel(eo, true);
 
-            appendRow(builder, cc, label, comp, vPnl);
+            pnl.add(vPnl, "skip, wrap");
+            pnl.add(label);
+            pnl.add(comp);
          }
       
       }
@@ -132,30 +126,13 @@ public class ParamListView extends JPanel implements View
 
       setLayout(new BorderLayout());
 
-      add(new JScrollPane(builder.getPanel()), BorderLayout.CENTER);
+      add(new JScrollPane(pnl), BorderLayout.CENTER);
       
       JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.TRAILING));
       btnPnl.add(okBtn());
       btnPnl.add(cancelBtn());
       add(btnPnl, BorderLayout.PAGE_END);
    }
-
-   private void appendRow(DefaultFormBuilder builder, CellConstraints cc,
-                          JComponent caption, JComponent comp, JComponent vPnl)
-   {
-      builder.appendRow("pref");
-      builder.add(vPnl, cc.xy(3, builder.getRow()));
-      builder.nextLine();
-
-      builder.appendRow("pref");
-      builder.add(caption, cc.xy(1, builder.getRow()));
-      builder.add(comp, cc.xy(3, builder.getRow()));
-      builder.nextLine();
-
-      builder.appendRow("3px"); // a vertical gap
-      builder.nextLine();
-   }
-
 
    private JButton okBtn()
    {
@@ -182,7 +159,7 @@ public class ParamListView extends JPanel implements View
 
             for (int i=0; i<_views.size(); i++)
             {
-               view = (EView) _views.get(i);
+               view = _views.get(i);
 
                if (view instanceof Editor)
                {
