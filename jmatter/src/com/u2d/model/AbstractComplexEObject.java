@@ -401,12 +401,21 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       if (!sameClassOrProxy(obj)) return false;
 
       ComplexEObject ceo = (ComplexEObject) obj;
-      ComplexType otherType = ceo.type();
 
       // favor comparison by identity fields (if any)
       if (type().hasIdentityFields())
       {
-         return type().identityFields().equals(otherType.identityFields());
+         for (Iterator itr = type().identityFields().iterator(); itr.hasNext(); )
+         {
+            Field field = (Field) itr.next();
+            EObject value = field.get(this);
+            EObject other = field.get(ceo);
+            if (!value.equals(other))
+            {
+               return false;
+            }
+         }
+         return true;
       }
 
       // otherwise fall back to pk, with realization/awareness that not complying exactly with contract
