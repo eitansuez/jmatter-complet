@@ -25,7 +25,7 @@ public class JComboTree extends JPanel implements ActionListener
    {
       JButton trigger = new JButton(EXPAND_ICON);
       trigger.setMargin(new Insets(0,6,0,6));
-      trigger.setHorizontalTextPosition(SwingConstants.LEFT);
+      trigger.setHorizontalTextPosition(SwingConstants.LEADING);
       trigger.setHorizontalAlignment(SwingConstants.CENTER);
       trigger.setOpaque(false);
       
