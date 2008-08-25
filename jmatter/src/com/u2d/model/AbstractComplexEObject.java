@@ -397,76 +397,49 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       if (obj == null) return false;
       if (obj == this) return true;
-      if (!(obj instanceof AbstractComplexEObject))
-         return false;
-      if (!sameClassOrProxy(obj))
-      {
-           return false;
-      }
+      if (!(obj instanceof AbstractComplexEObject)) return false;
+      if (!sameClassOrProxy(obj)) return false;
+
       ComplexEObject ceo = (ComplexEObject) obj;
-      if (ceo.childFields().size() != childFields().size()) return false;
-      List fields = childFields();
-      for (int i=0; i<fields.size(); i++)
+      ComplexType otherType = ceo.type();
+
+      // favor comparison by identity fields (if any)
+      if (type().hasIdentityFields())
       {
-         Field field = (Field) fields.get(i);
-
-         if ( "createdOn".equals(field.name()) || "deleted".equals(field.name())
-               || "deletedOn".equals(field.name()))
-            continue;
-
-         if (field.isComposite())  // exclude associations
-         {
-            if (!field.get(this).equals(field.get(ceo)))
-            {
-               return false;
-            }
-         }
-         else if (field.isAssociation())
-         {
-            Long thisId = ((ComplexEObject) field.get(this)).getID();
-            Long thatId = ((ComplexEObject) field.get(ceo)).getID();
-            if (thisId == null && thatId == null)
-            {
-               return true;
-            }
-            else if (thisId != null)
-            {
-               return thisId.equals(thatId);
-            }
-            else
-            {
-               return thatId.equals(thisId);
-            }
-         }
+         return type().identityFields().equals(otherType.identityFields());
       }
-      return true;
+
+      // otherwise fall back to pk, with realization/awareness that not complying exactly with contract
+      if (getID() != null)
+      {
+         return getID().equals(ceo.getID());
+      }
+      if (ceo.getID() == null) return false;
+
+      return true;  // both transient and of the same type..
    }
 
    public int hashCode()
    {
-      List fields = childFields();
-      int hashCode = 13;
-      for (int i=0; i<fields.size(); i++)
+      if (type().hasIdentityFields())
       {
-         Field field = (Field) fields.get(i);
-
-         if ( "createdOn".equals(field.name()) || "deleted".equals(field.name())
-               || "deletedOn".equals(field.name()))
-            continue;
-
-         if (field.isComposite())  // exclude associations
+         int hashCode = 13;
+         for (Iterator itr = type().identityFields().iterator(); itr.hasNext(); )
          {
-            if (field.isIndexed())
-            {
-               hashCode = hashCode + 17 * ((AbstractListEO) field.get(this)).getSize();
-            }
-            else
-            {
-               hashCode = hashCode + 31 * (field.get(this).hashCode());
-            }
+            Field field = (Field) itr.next();
+            EObject value = field.get(this);
+            hashCode = hashCode + 31 * value.hashCode();
          }
+         return hashCode;
       }
-      return hashCode;
+
+      if (getID()!=null)
+      {
+         return 13 + 31 * (getID().hashCode() + 31 * getCreatedOn().hashCode());
+      }
+
+      // otherwise you have a problem..
+      return 13 + 31 * getClass().hashCode();
    }
 
    protected boolean sameClassOrProxy(Object obj)

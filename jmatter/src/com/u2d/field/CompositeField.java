@@ -5,10 +5,7 @@ package com.u2d.field;
 
 import java.beans.*;
 import com.u2d.element.Field;
-import com.u2d.model.ComplexEObject;
-import com.u2d.model.EObject;
-import com.u2d.model.FieldParent;
-import com.u2d.model.Harvester;
+import com.u2d.model.*;
 
 /**
  * @author Eitan Suez
@@ -78,9 +75,10 @@ public abstract class CompositeField extends Field
    
    public boolean _identity = false;
    public boolean isIdentity() { return _identity; }
-   public void setIdentity(boolean identity)
+   public void setIdentity()
    {
-      _identity = identity;
+      _identity = true;
+      ((ComplexEObject) parent()).type().addIdentityField(this);
       // by default identity fields should also be required:
       getRequired().setValue(true);
    }

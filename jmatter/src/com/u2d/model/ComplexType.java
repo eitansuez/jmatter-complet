@@ -33,7 +33,6 @@ import com.u2d.reflection.*;
 import com.u2d.type.Choice;
 import com.u2d.type.atom.*;
 import com.u2d.pubsub.AppEventType;
-import net.sf.cglib.proxy.Enhancer;
 
 /**
  * @author Eitan Suez
@@ -133,6 +132,7 @@ public class ComplexType extends AbstractComplexEObject
    private transient Onion _listCommands = new Onion();
    private transient Onion _typeCommands = new Onion();
    private List _fields = new ArrayList();
+   private Set<Field> _identityFields = new HashSet<Field>();
    private Map _fieldsMap = new HashMap();
    private final ColorEO _colorCode = new ColorEO();
    private String _sortBy;
@@ -166,6 +166,10 @@ public class ComplexType extends AbstractComplexEObject
       
       localize();
    }
+
+   public boolean hasIdentityFields() { return !_identityFields.isEmpty(); }
+   public Set<Field> identityFields() { return _identityFields; }
+   public void addIdentityField(Field field) { _identityFields.add(field); }
 
    public String tableName()
    {
