@@ -140,7 +140,20 @@ public abstract class Field extends Member
    public String localizedLabel(Localized l)
    {
       String key = getPath();
-      return l.localeLookup(key);
+      String value = l.localeLookup(key);
+      if (value != null) return value;
+
+      ComplexType superType = root();
+//      System.out.println("root is: "+superType.name());
+      while (value == null)
+      {
+         superType = superType.superType();
+         if (superType == null) break;
+         key = superType.name() + "." + _cleanPath;
+//         System.out.println("Trying super type key: " + key);
+         value = l.localeLookup(key);
+      }
+      return value;
    }
 
    public abstract EView getView(ComplexEObject parent);
@@ -280,6 +293,16 @@ public abstract class Field extends Member
 
    public StringEO getFullPath() { return _fullPath; }
 
+   private ComplexType root()
+   {
+      FieldParent parent = parent();
+      while (parent instanceof Field)
+      {
+         parent = parent.parent();
+      }
+      return (ComplexType) parent;
+   }
+   
    private void computeFieldPaths()
    {
       StringBuffer path = new StringBuffer(name());
