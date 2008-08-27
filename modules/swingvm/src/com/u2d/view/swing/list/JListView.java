@@ -123,6 +123,7 @@ public class JListView extends SeeThruList
          // ensure that if a change takes place in an item in the list,
          // that the list gets repainted: 
          view.getEObject().addChangeListener(_memberChangeListener);
+         ((JComponent) view).applyComponentOrientation(getComponentOrientation());
 
          _views.put(ceo, view);
       }
