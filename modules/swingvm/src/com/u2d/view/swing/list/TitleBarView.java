@@ -41,7 +41,7 @@ public class TitleBarView extends GradientPanel implements ListEView
       if (_leo instanceof QueryReceiver)
       {
          _findPnl = new FindPanel((QueryReceiver) _leo);
-         add(_findPnl, "newline, span");
+         add(_findPnl, "newline, span, growx");
       }
    }
    

@@ -29,7 +29,7 @@ public class FindPanel extends JPanel
    {
       _queryReceiver = receiver;
 
-      MigLayout layout = new MigLayout("insets 0");
+      MigLayout layout = new MigLayout("insets 0 0 0 3");
       setLayout(layout);
       
       _filter = new FieldFilter(_queryReceiver.queryType());
