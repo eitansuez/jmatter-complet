@@ -75,7 +75,7 @@ public class DateEditor extends JPanel
 
       _date_selector_panel = new Date_selector_panel();
 
-      MigLayout layout = new MigLayout();
+      MigLayout layout = new MigLayout("insets 0, alignx right");  // not trailing.
       setLayout(layout);
 
       KeyListener keyListener  = new KeyAdapter()

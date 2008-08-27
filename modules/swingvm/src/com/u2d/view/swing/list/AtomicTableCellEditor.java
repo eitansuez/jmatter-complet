@@ -126,10 +126,6 @@ public class AtomicTableCellEditor extends AbstractCellEditor
             textEditor.setRows(2);
             renderer = textEditor;
          }
-         else if (aeo instanceof DateEO)
-         {
-            renderer = aeo.getEditor();  // looks better / less confusing
-         }
          else
          {
             renderer = aeo.getRenderer();
