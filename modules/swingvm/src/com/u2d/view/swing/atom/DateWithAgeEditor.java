@@ -21,7 +21,7 @@ public class DateWithAgeEditor extends DateEditor
    public DateWithAgeEditor()
    {
       super();
-      add(_ageLabel, _cc.xy(5, 1));
+      add(_ageLabel);
    }
 
    public void render(AtomicEObject value)
