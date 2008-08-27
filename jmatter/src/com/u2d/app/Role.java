@@ -94,7 +94,7 @@ public class Role extends AbstractComplexEObject implements Authorizer
    }
    
    @Cmd
-   public RoleTypeRestrictionMgr ManageRestrictionsForType(CommandInfo cmdInfo, final ComplexType type)
+   public RoleTypeRestrictionMgr ManageRestrictionsForType(CommandInfo cmdInfo, ComplexType type)
    {
       return new RoleTypeRestrictionMgr(this, type);
    }
