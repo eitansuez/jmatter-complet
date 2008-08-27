@@ -20,17 +20,6 @@ import java.awt.Color;
 @Entity
 public class Speaker extends AbstractComplexEObject
 {
-   private final StringEO name = new StringEO();
-   private final StringEO title = new StringEO();
-   private final TextEO bio = new TextEO();
-   private final ImgEO photo = new ImgEO();
-   
-   private final Contact contact = new Contact();
-
-   private final RelationalList talks = new RelationalList(Talk.class);
-   public static Class talksType = Talk.class;
-   public static String talksInverseFieldName = "speaker";
-
    public static String[] fieldOrder = {"name", "title", "photo", "bio", "talks"};
    public static Color colorCode = new Color(0x4169aa);
 //   public static String sortBy = "com.u2d.sympster.Speaker#contact.homePhone";
@@ -38,16 +27,30 @@ public class Speaker extends AbstractComplexEObject
    public static String[] tabViews = {"contact", "talks"};
    public static String defaultSearchPath = "name";
 
+   public static String[] identities = {"name"};
+
    public Speaker() {}
 
+   private final StringEO name = new StringEO();
    @Fld(displaysize=12)
    public StringEO getName() { return name; }
+
+   private final StringEO title = new StringEO();
    @Fld(displaysize=30)
    public StringEO getTitle() { return title; }
-   public TextEO getBio() { return bio; }
+
+   private final ImgEO photo = new ImgEO();
    public ImgEO getPhoto() { return photo; }
    public RelationalList getTalks() { return talks; }
-   
+
+   private final TextEO bio = new TextEO();
+   public TextEO getBio() { return bio; }
+
+   private final RelationalList talks = new RelationalList(Talk.class);
+   public static Class talksType = Talk.class;
+   public static String talksInverseFieldName = "speaker";
+
+   private final Contact contact = new Contact();
    public Contact getContact() { return contact; }
 
    private transient PhotoIconAssistant assistant = new PhotoIconAssistant(this, photo);
