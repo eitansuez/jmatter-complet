@@ -80,7 +80,7 @@
       <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- wizard fsm -->
     </copy>
 
-    <native2ascii encoding="UTF-8" src="${resource.dir}" dest="${build.classes.dir}" includes="app/locale-metadata*.properties" />
+    <native2ascii encoding="UTF-8" src="${resource.dir}" dest="${build.classes.dir}" includes="app/locale-metadata*.properties,app/uidefaults*.properties" />
 
   </target>
    

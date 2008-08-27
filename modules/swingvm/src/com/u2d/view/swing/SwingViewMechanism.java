@@ -72,6 +72,7 @@ public class SwingViewMechanism implements ViewMechanism
       // Checks for EDT violations..
 //      RepaintManager.setCurrentManager(new CheckingRepaintManager());
       CSSEngine.initialize();
+      UIManager.getDefaults().addResourceBundle("app/uidefaults");
    }
 
    InputTracker _inputTracker;
