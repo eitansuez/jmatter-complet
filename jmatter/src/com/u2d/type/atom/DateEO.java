@@ -6,7 +6,6 @@ package com.u2d.type.atom;
 import com.u2d.find.Searchable;
 import com.u2d.find.inequalities.DateInequalities;
 import com.u2d.model.*;
-
 import java.util.*;
 import java.text.*;
 
@@ -17,15 +16,17 @@ import java.text.*;
  */
 public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<DateEO>
 {
-   private Calendar _value = Calendar.getInstance();
+   private Calendar _value = null;
 
-   public DateEO()
-   {
-   }
+   public DateEO() { }
 
    public DateEO(Date date)
    {
-      if (date == null) throw new IllegalArgumentException("Null argument not allowed");
+      if (date == null)
+      {
+         return;
+      }
+      _value = Calendar.getInstance();
       _value.setTime(date);
    }
    
@@ -33,38 +34,71 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    protected static long HRS24 = 24 * 60 * 60 * 1000;
    public long milisValue()
    {
+      if (_value == null) return 0;
       long milis = _value.getTimeInMillis();
       long remainder = milis % HRS24;
       return milis - remainder;
    }
-   public Date dateValue() { return _value.getTime(); }
+
+   public Date dateValue()
+   {
+      if (_value == null) return null;
+      return _value.getTime();
+   }
+
    public Calendar calendarValue()
    {
+      if (_value == null) return null;
       Calendar cal = Calendar.getInstance();
       cal.setTime(_value.getTime());
       return cal;
    }
    public void setValue(Date value)
    {
-      if (_value.getTime().equals(value)) return;
       if (value == null)
+      {
          _value = null;
+      }
       else
+      {
+         if (_value == null)
+         {
+             _value = Calendar.getInstance();
+         }
          _value.setTime(value);
+      }
       fireStateChanged();
    }
    public void setValue(EObject value)
    {
-      if (value == null) return; // attempt by hibernate to restore empty value - just ignore
+      if (value == null)
+      {
+         _value = null;
+         return;
+      }
       if (!(value instanceof DateEO))
          throw new IllegalArgumentException("Invalid type ("+value.getClass()+") on set;  must be DateEO");
       setValue(((DateEO) value).dateValue());
    }
-   
-   public int dayofmonth() { return _value.get(Calendar.DAY_OF_MONTH); }
-   public int month() { return _value.get(Calendar.MONTH); }
-   public int year() { return _value.get(Calendar.YEAR); }
-   
+
+   public int dayofmonth()
+   {
+      if (_value == null) return 0;
+      return _value.get(Calendar.DAY_OF_MONTH);
+   }
+
+   public int month()
+   {
+      if (_value == null) return 0;
+      return _value.get(Calendar.MONTH);
+   }
+
+   public int year()
+   {
+      if (_value == null) return 0;
+      return _value.get(Calendar.YEAR);
+   }
+
    public static int daysDifference(DateEO first, DateEO second)
    {
       Date date1 = first.dateValue();
@@ -75,6 +109,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
 
    public void add(TimeInterval interval)
    {
+      if (_value == null) throw new IllegalArgumentException("Cannot add to a null date");
       _value.add(interval.field(), (int) interval.amt());
       fireStateChanged();
 //      long milis = _value.getTime() + interval.getMilis();
@@ -82,6 +117,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    }
    public void subtract(TimeInterval interval)
    {
+      if (_value == null) throw new IllegalArgumentException("Cannot subtract from a null date");
 //      long milis = _value.getTime() - interval.getMilis();
 //      setValue(new Date(milis));
       add(new TimeInterval(interval.field(), - 1 * interval.amt()));
@@ -112,7 +148,7 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    
    public Title title()
    {
-      if (_value == null) return new Title("");
+      if (_value == null) return new Title("--");
       String formattedString = formatter().format(_value.getTime());
       return new Title(formattedString);
    }
@@ -131,7 +167,12 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
              );
    }
 
-   public int hashCode() { return _value.hashCode(); }
+   public int hashCode()
+   {
+      // problem!  because DateEO is mutable, have nothing to hold on to.  cannot base hashcode on a mutable value.
+      if (_value == null) return 13;
+      return _value.hashCode();
+   }
 
    public AtomicRenderer getRenderer() { return vmech().getDateRenderer(); }
    public AtomicEditor getEditor() { return vmech().getDateEditor(); }

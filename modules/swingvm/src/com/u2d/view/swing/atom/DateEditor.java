@@ -84,6 +84,7 @@ public class DateEditor extends JPanel
          {
             DateEO deo = new DateEO();
             bind(deo);
+            if (deo.isEmpty()) return;
             if (e.getKeyChar() == '+' || e.getKeyChar() == '=')
             {
                deo.add(TimeInterval.ONEDAY);
@@ -139,7 +140,14 @@ public class DateEditor extends JPanel
    private SimpleDateFormat _format = null;
    public void render(AtomicEObject value)
    {
-      _tf.setText(value.toString());
+      if (value.isEmpty())
+      {
+         _tf.setText("");
+      }
+      else
+      {
+         _tf.setText(value.marshal());
+      }
       if (_format == null)
       {
          DateEO eo = (DateEO) value;

@@ -2,10 +2,7 @@ package com.u2d.sympster;
 
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
-import com.u2d.type.atom.StringEO;
-import com.u2d.type.atom.TextEO;
-import com.u2d.type.atom.ImgEO;
-import com.u2d.type.atom.PhotoIconAssistant;
+import com.u2d.type.atom.*;
 import com.u2d.type.composite.Contact;
 import com.u2d.list.RelationalList;
 import com.u2d.element.CommandInfo;
@@ -20,7 +17,7 @@ import java.awt.Color;
 @Entity
 public class Speaker extends AbstractComplexEObject
 {
-   public static String[] fieldOrder = {"name", "title", "photo", "bio", "talks"};
+   public static String[] fieldOrder = {"name", "title", "photo", "bio", "talks", "dateOfBirth"};
    public static Color colorCode = new Color(0x4169aa);
 //   public static String sortBy = "com.u2d.sympster.Speaker#contact.homePhone";
    public static String sortBy = "name";
@@ -45,6 +42,9 @@ public class Speaker extends AbstractComplexEObject
 
    private final TextEO bio = new TextEO();
    public TextEO getBio() { return bio; }
+
+   private final DateEO dateOfBirth = new DateEO();
+   public DateEO getDateOfBirth() { return dateOfBirth; }
 
    private final RelationalList talks = new RelationalList(Talk.class);
    public static Class talksType = Talk.class;
