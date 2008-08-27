@@ -61,6 +61,8 @@ public class BasicGridListUI
 
    private long timeFactor = 1000L;
 
+   private boolean isLeftToRight = true;
+   
    protected final static int modelChanged = 1 << 1;
    protected final static int selectionModelChanged = 1 << 2;
    protected final static int fontChanged = 1 << 3;
@@ -237,7 +239,7 @@ public class BasicGridListUI
          Insets insets = parent.getInsets();
 		
          int index, x, y;
-         Component comp = null;
+         Component comp;
          for (int row=0; row<_grid.nrows; row++)
          {
             for (int col=0; col<_grid.ncols; col++)
@@ -246,7 +248,15 @@ public class BasicGridListUI
                if (index >= count) break;
                comp = list.renderedComponent(index);
 				
-               x = insets.left + col * (_grid.compWidth + _hgap);
+               if (isLeftToRight)
+               {
+                  x = insets.left + col * (_grid.compWidth + _hgap);
+               }
+               else
+               {
+                  x = parent.getWidth() - insets.right - ((col + 1) * (_grid.compWidth + _hgap));
+               }
+               
                y = insets.top + row * (_grid.compHeight + _vgap);
                comp.setBounds(x, y, _grid.compWidth, _grid.compHeight);
             }
@@ -340,7 +350,17 @@ public class BasicGridListUI
          {
             int rowindex = index / ncols;
             int colindex = index % ncols;
-            return new Point(colindex * ( compWidth + _hgap ), rowindex * ( compHeight + _vgap ));
+            int x;
+            if (isLeftToRight)
+            {
+               x = list.getInsets().left + colindex * (compWidth + _hgap);
+            }
+            else
+            {
+               x = list.getWidth() - list.getInsets().right - ((colindex+1) * (compWidth + _hgap));
+            }
+            int y = rowindex * ( compHeight + _vgap );
+            return new Point(x, y);
          }
          public int nextRowIndex(int index, int size, int amt)
          {
@@ -409,7 +429,20 @@ public class BasicGridListUI
    {
       if (condition == JComponent.WHEN_FOCUSED)
       {
-         return (InputMap) DefaultLookup.get(list, this, "List.focusInputMap");
+         InputMap keyMap = (InputMap) DefaultLookup.get(list, this, "List.focusInputMap");
+         InputMap rtlKeyMap;
+
+         if (isLeftToRight ||
+               ((rtlKeyMap = (InputMap) DefaultLookup.get(list, this,
+                     "List.focusInputMap.RightToLeft")) == null))
+         {
+            return keyMap;
+         }
+         else
+         {
+            rtlKeyMap.setParent(keyMap);
+            return rtlKeyMap;
+         }
       }
       return null;
    }
@@ -554,6 +587,8 @@ public class BasicGridListUI
 
       rendererPane = new CellRendererPane();
       list.add(rendererPane);
+
+      isLeftToRight = list.getComponentOrientation().isLeftToRight();
 
       installDefaults();
       installListeners();
@@ -1250,6 +1285,7 @@ public class BasicGridListUI
          }
          else if ("componentOrientation" == propertyName)
          {
+            isLeftToRight = list.getComponentOrientation().isLeftToRight();
             updateLayoutStateNeeded |= componentOrientationChanged;
             redrawList();
 
