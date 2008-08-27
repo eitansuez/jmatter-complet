@@ -35,6 +35,7 @@ $classnames:{ cls |
       <value>com.u2d.field.CompositeIndexedField</value>
       <value>com.u2d.element.EOCommand</value>
       <value>com.u2d.element.OverloadedEOCmd</value>
+      <value>com.u2d.element.TypeCommand</value>
    </util:set>
    
 </beans>
