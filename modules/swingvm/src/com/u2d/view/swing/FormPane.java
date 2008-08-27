@@ -17,6 +17,11 @@ public class FormPane extends JXPanel implements Scrollable
       super();
       setOpaque(true);
    }
+   public FormPane(LayoutManager layout)
+   {
+      super(layout);
+      setOpaque(true);
+   }
    
    private static Dimension MAXSIZE = new Dimension(700,450);
    

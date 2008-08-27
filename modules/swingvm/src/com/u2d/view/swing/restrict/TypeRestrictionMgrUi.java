@@ -132,8 +132,7 @@ public class TypeRestrictionMgrUi extends JPanel
       Map<Class, Onion> instanceCmds = _mgr.getType().instanceCommands();
 
       MigLayout layout = new MigLayout("wrap 1");
-      JPanel formPane = new FormPane();
-      formPane.setLayout(layout);
+      JPanel formPane = new FormPane(layout);
       
       addSeparator(formPane, "Type commands");
 

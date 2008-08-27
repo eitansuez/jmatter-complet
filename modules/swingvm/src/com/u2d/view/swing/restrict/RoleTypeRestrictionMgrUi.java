@@ -10,14 +10,13 @@ import com.u2d.model.Editor;
 import com.u2d.model.EObject;
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.app.RoleTypeRestrictionMgr;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.builder.PanelBuilder;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.util.*;
 import java.util.List;
 import java.beans.PropertyChangeEvent;
 import java.awt.*;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,14 +24,18 @@ import java.awt.*;
  * Date: Jul 20, 2007
  * Time: 11:41:46 PM
  */
-public class RoleTypeRestrictionMgrUi extends JPanel implements ComplexEView, Editor
+public class RoleTypeRestrictionMgrUi extends JPanel implements ComplexEView, Editor, Runnable
 {
    private RoleTypeRestrictionMgr _mgr;
    
    public RoleTypeRestrictionMgrUi(RoleTypeRestrictionMgr mgr)
    {
       _mgr = mgr;
-      
+      SwingUtilities.invokeLater(this);
+   }
+
+   public void run()
+   {
       setLayout(new BorderLayout());
       JPanel centerPane = buildUI();
       add(new JScrollPane(centerPane), BorderLayout.CENTER);
@@ -44,35 +47,39 @@ public class RoleTypeRestrictionMgrUi extends JPanel implements ComplexEView, Ed
       add(btnPnl, BorderLayout.PAGE_END);
    }
 
+   private void addSeparator(JPanel panel, String text)
+   {
+      panel.add(new JLabel(text), "gapbottom 1, span, split 2, aligny center");
+      panel.add(new JSeparator(), "gapleft rel, growx");
+   }
+
+   private JPanel addCommandSet(String title, Iterator cmdsIterator)
+   {
+      MigLayout layout = new MigLayout("insets 3 6 3 6, wrap 2", "[right][center]", "");
+      FormPane formPane = new FormPane(layout);
+
+      addSeparator(formPane, title);
+
+      while (cmdsIterator.hasNext())
+      {
+         Command cmd = (Command) cmdsIterator.next();
+         formPane.add(new JLabel(cmd.label()));
+         formPane.add(checkbox(cmd));
+      }
+
+      return formPane;
+   }
    private JPanel buildUI()
    {
       Onion typeCommands = _mgr.getType().commands();
       Map<Class, Onion> instanceCmds = _mgr.getType().instanceCommands();
 
-      FormLayout layout = new FormLayout("right:pref, 3dlu, center:pref");
-//      layout.setColumnGroups(new int[][]{{1, 5}, {3, 7}});
-      
-      PanelBuilder builder = new PanelBuilder(layout, new FormPane());
-      builder.setDefaultDialogBorder();
-      
-      builder.appendRow("pref");
-      builder.addSeparator("Type commands", 3);
-      builder.appendRelatedComponentsGapRow();
-      builder.nextLine(2);
-      
-      for (Iterator itr = typeCommands.deepIterator(); itr.hasNext(); )
-      {
-         builder.appendRow("pref");
-         Command cmd = (Command) itr.next();
-         builder.addLabel(cmd.label());
-         builder.nextColumn(2);
-         builder.add(checkbox(cmd));
-         builder.appendRelatedComponentsGapRow();
-         builder.nextLine(2);
-      }
+      MigLayout mainLayout = new MigLayout("insets panel, gapx unrel", "", "[top]");
+      JPanel mainPnl = new FormPane(mainLayout);
 
-      int colIdx = 1;
-      
+      JPanel childPane = addCommandSet("Type Commands", typeCommands.deepIterator());
+      mainPnl.add(childPane);
+
       for (Iterator itr = instanceCmds.keySet().iterator(); itr.hasNext(); )
       {
          Class stateCls = (Class) itr.next();
@@ -87,43 +94,18 @@ public class RoleTypeRestrictionMgrUi extends JPanel implements ComplexEView, Ed
          }
          
          Onion stateCmds = instanceCmds.get(stateCls);
-         
-         builder.appendColumn("6dlu");
-         builder.appendColumn("right:pref");
-         builder.appendColumn("3dlu");
-         builder.appendColumn("center:pref");
 
-         builder.setRow(1);
-         builder.setColumn(4*colIdx+1);
-         if (stateCls == AbstractComplexEObject.ReadState.class)
+         String title = "Instance Commands";
+         if (stateCls != AbstractComplexEObject.ReadState.class)
          {
-            builder.addSeparator("Instance commands", 3);
-         }
-         else
-         {
-            builder.addSeparator(stateName(stateCls), 3);
-         }
-         builder.nextLine(2);
-         
-         for (Iterator itr2 = stateCmds.deepIterator(); itr2.hasNext(); )
-         {
-            Command cmd = (Command) itr2.next();
-            if (builder.getRow() > builder.getRowCount())
-            {
-               builder.appendRow("pref");
-               builder.appendRelatedComponentsGapRow();
-            }
-            builder.setColumn(4*colIdx+1);
-            builder.addLabel(cmd.label());
-            builder.nextColumn(2);
-            builder.add(checkbox(cmd));
-            builder.nextLine(2);
+            title = stateName(stateCls);
          }
          
-         colIdx++;
+         childPane = addCommandSet(title, stateCmds.deepIterator());
+         mainPnl.add(childPane);
       }
       
-      return builder.getPanel();
+      return mainPnl;
    }
    
    private List<CommandRestrictionCheckbox> _cbs = new ArrayList<CommandRestrictionCheckbox>();

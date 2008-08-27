@@ -25,8 +25,8 @@ public class TypePicker extends CardPanel implements EView, Editor
       _renderer = new TypeRenderer();
       _editor = new TypeEditor();
 
-      JComponent rendererComponent = (JComponent) _renderer;
-      JComponent editorComponent = (JComponent) _editor;
+      JComponent rendererComponent = _renderer;
+      JComponent editorComponent = _editor;
 
       rendererComponent.setOpaque(false);
       editorComponent.setOpaque(false);

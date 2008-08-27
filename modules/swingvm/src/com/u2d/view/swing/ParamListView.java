@@ -69,13 +69,15 @@ public class ParamListView extends JPanel implements View
                   {
                      label.setText(itype.getNaturalName() + " Type: ");
                   }
-
                   view = new TypePicker(itype);
                }
                catch (Exception ex)
                {
                   System.err.println("No specific baseType so go with complexeobject..");
-                  ComplexType itype = ComplexType.forClass(ComplexEObject.class);
+                  // need to look into a bug here: concrete type map for complexeobject is not correct
+//                  ComplexType itype = ComplexType.forClass(ComplexEObject.class);
+                  // for now go with abstractcomplexeobject as the base class..
+                  ComplexType itype = ComplexType.forClass(AbstractComplexEObject.class);
                   eo = itype;
                   view = new TypePicker(itype);
 //                  System.err.println("Exception: "+ex);

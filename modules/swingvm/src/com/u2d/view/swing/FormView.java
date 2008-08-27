@@ -129,8 +129,7 @@ public class FormView extends JXPanel implements IFormView
    {
       boolean hasCustomMainTabPanel = _ceo.hasCustomMainTabPanel();
       MigLayout layout = new MigLayout("insets 0 5 0 5, wrap 2, gapy 2", "[trailing][grow]", "");
-      FormPane formPane = new FormPane();
-      formPane.setLayout(layout);
+      FormPane formPane = new FormPane(layout);
       layoutChildFields(_ceo, formPane, hasCustomMainTabPanel);
 
       if (hasCustomMainTabPanel)
