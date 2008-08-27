@@ -54,11 +54,11 @@ public class SimpleListEO extends AbstractListEO
 
    public Class getJavaClass() { return _clazz; }
 
-   public boolean isEmpty() { return _items.isEmpty(); }
-   public int getSize() { return _items.size(); }
+   public synchronized boolean isEmpty() { return _items.isEmpty(); }
+   public synchronized int getSize() { return _items.size(); }
    public int getTotal() { return getSize(); }
 
-   public EObject makeCopy()
+   public synchronized EObject makeCopy()
    {
       return new SimpleListEO(_itemType, _items);
    }

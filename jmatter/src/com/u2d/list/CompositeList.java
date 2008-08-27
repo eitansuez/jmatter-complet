@@ -99,7 +99,7 @@ public class CompositeList extends SimpleListEO
       return vmech().getMultiChoiceView(this);
    }
 
-   public void setState(final State state)
+   public synchronized void setState(final State state)
    {
       for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
@@ -107,7 +107,7 @@ public class CompositeList extends SimpleListEO
          ceo.setState(state);
       }
    }
-   public void pushState(State state)
+   public synchronized void pushState(State state)
    {
       for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
@@ -115,7 +115,7 @@ public class CompositeList extends SimpleListEO
          ceo.pushState(state);
       }
    }
-   public void popState()
+   public synchronized void popState()
    {
       for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
@@ -123,7 +123,7 @@ public class CompositeList extends SimpleListEO
          ceo.popState();
       }
    }
-   public void setStartState()
+   public synchronized void setStartState()
    {
       for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
@@ -159,7 +159,7 @@ public class CompositeList extends SimpleListEO
    }
 
 
-   public void onBeforeSave()
+   public synchronized void onBeforeSave()
    {
       for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
@@ -168,7 +168,7 @@ public class CompositeList extends SimpleListEO
       }
    }
 
-   public void onLoad()
+   public synchronized void onLoad()
    {
       for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
@@ -199,7 +199,7 @@ public class CompositeList extends SimpleListEO
       }
    }
 
-   public void clear()
+   public synchronized void clear()
    {
       ComplexEObject item;
       int size = _items.size();

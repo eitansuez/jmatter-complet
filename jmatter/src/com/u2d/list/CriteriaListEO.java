@@ -14,13 +14,13 @@ import com.u2d.ui.sorttable.SortTableModel;
 import com.u2d.element.Field;
 import com.u2d.find.Query;
 import com.u2d.find.QueryReceiver;
-import com.u2d.type.atom.StringEO;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import static com.u2d.pubsub.AppEventType.*;
+import com.u2d.type.atom.StringEO;
 
 /**
  * @author Eitan Suez
@@ -181,8 +181,8 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
    }
 
    public boolean isEmpty() { return _count == 0; }
-   public int getSize() { return _items.size(); }
-   public int getTotal() { return (int) _count; }
+   public synchronized int getSize() { return _items.size(); }
+   public synchronized int getTotal() { return (int) _count; }
 
    public String getPageTitleInfo()
    {
@@ -235,14 +235,16 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
       super.removeListDataListener(l);
       if (_listDataListenerList.getListenerCount() == 0)
       {
-        // remove ondelete listener from items
-        Iterator itr = _items.iterator();
-        ComplexEObject ceo;
-        while (itr.hasNext())
-        {
-           ceo = (ComplexEObject) itr.next();
-           ceo.removeAppEventListener(DELETE, this);
-        }
+         synchronized(this)
+         {
+            // remove ondelete listener from items
+            ComplexEObject ceo;
+            for (Iterator itr = _items.iterator(); itr.hasNext(); )
+            {
+               ceo = (ComplexEObject) itr.next();
+               ceo.removeAppEventListener(DELETE, this);
+            }
+         }
       }
    }
    

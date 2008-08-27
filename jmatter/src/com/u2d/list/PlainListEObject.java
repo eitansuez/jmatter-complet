@@ -64,16 +64,19 @@ public class PlainListEObject extends SimpleListEO
       super.removeListDataListener(l);
       if (_listDataListenerList.getListenerCount() == 0)
       {
-        type().removeAppEventListener(CREATE, _addListener);
-        _addListener = null;
+         type().removeAppEventListener(CREATE, _addListener);
+         _addListener = null;
 
-        // remove ondelete listener from items
-        ComplexEObject ceo = null;
-        for (Iterator itr = _items.iterator(); itr.hasNext(); )
-        {
-           ceo = (ComplexEObject) itr.next();
-           ceo.removeAppEventListener(DELETE, this);
-        }
+         synchronized (this)
+         {
+            // remove ondelete listener from items
+            ComplexEObject ceo;
+            for (Iterator itr = _items.iterator(); itr.hasNext();)
+            {
+               ceo = (ComplexEObject) itr.next();
+               ceo.removeAppEventListener(DELETE, this);
+            }
+         }
       }
    }
 

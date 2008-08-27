@@ -60,7 +60,7 @@ public class RelationalList extends SimpleListEO
    /*
     * call only if you know that item type implements Comparable
     */
-   public void sort()
+   public synchronized void sort()
    {
       Collections.sort(_items);
    }

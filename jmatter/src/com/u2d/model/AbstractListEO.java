@@ -126,7 +126,7 @@ public abstract class AbstractListEO extends AbstractEObject
 
    public String toString() { return title().toString(); }
 
-   public List getItems() { return _items; }
+   public synchronized List getItems() { return _items; }
    
    // convenience..
    public void setItems(Set<EObject> items)
@@ -141,7 +141,7 @@ public abstract class AbstractListEO extends AbstractEObject
       if (list.size() == set.size()) return list;
       return new ArrayList(set);
    }
-   public void setItems(List<EObject> items)
+   public synchronized void setItems(List<EObject> items)
    {
       if (_items == items) return;
 
@@ -151,7 +151,7 @@ public abstract class AbstractListEO extends AbstractEObject
       addDeleteListeners();
       fireContentsChanged(this, 0, _items.size());
    }
-   public void restoreItems(List<EObject> items)
+   public synchronized void restoreItems(List<EObject> items)
    {
       if (_items == items) return;
       _items = items;
@@ -188,7 +188,7 @@ public abstract class AbstractListEO extends AbstractEObject
    }
 
    
-   public void add(int index, ComplexEObject item)
+   public synchronized void add(int index, ComplexEObject item)
    {
       if (contains(item)) return;
       
@@ -196,7 +196,7 @@ public abstract class AbstractListEO extends AbstractEObject
       item.addAppEventListener(DELETE, this);
       fireIntervalAdded(this, index, index);
    }
-   public void add(ComplexEObject item)
+   public synchronized void add(ComplexEObject item)
    {
       add(_items.size(), item);
    }
@@ -206,7 +206,7 @@ public abstract class AbstractListEO extends AbstractEObject
       remove((ComplexEObject) evt.getEventInfo());
    }
 
-   public void remove(ComplexEObject item)
+   public synchronized void remove(ComplexEObject item)
    {
       int index = _items.indexOf(item);
       if (index >= 0)
@@ -220,7 +220,7 @@ public abstract class AbstractListEO extends AbstractEObject
    /**
     * Remove all items from list.
     */
-   public void clear()
+   public synchronized void clear()
    {
       int size = _items.size();
       for (Object item : _items)
@@ -232,17 +232,17 @@ public abstract class AbstractListEO extends AbstractEObject
       fireIntervalRemoved(this, 0, size);
    }
    
-   public boolean contains(Object item)
+   public synchronized boolean contains(Object item)
    {
       return _items.contains(item);
    }
    
    /* ** ===== ListModel implementation ===== ** */
    
-   public Object getElementAt(int index) { return _items.get(index); }
-   public EObject first() { return (EObject) _items.get(0); }
-   public EObject get(int i) { return (EObject) _items.get(i); }
-   public EObject last() { return (EObject) _items.get(_items.size()-1); }
+   public synchronized Object getElementAt(int index) { return _items.get(index); }
+   public synchronized EObject first() { return (EObject) _items.get(0); }
+   public synchronized EObject get(int i) { return (EObject) _items.get(i); }
+   public synchronized EObject last() { return (EObject) _items.get(_items.size()-1); }
    
    public abstract int getSize();
    public abstract int getTotal();
@@ -310,7 +310,7 @@ public abstract class AbstractListEO extends AbstractEObject
             }
          }
       
-         public Object getValueAt(int row, int column)
+         public synchronized Object getValueAt(int row, int column)
          {
             ComplexEObject ceo = (ComplexEObject) _items.get(row);
             Field field = (Field) fields.get(column);
@@ -344,7 +344,7 @@ public abstract class AbstractListEO extends AbstractEObject
             );
          }
 
-         public void setValueAt(Object value, int row, int column)
+         public synchronized void setValueAt(Object value, int row, int column)
          {
             Field field = (Field) fields.get(column);
             ComplexEObject parent = (ComplexEObject) _items.get(row);
@@ -406,7 +406,7 @@ public abstract class AbstractListEO extends AbstractEObject
          }
       }
       
-      public Object getValueAt(int row, int column)
+      public synchronized Object getValueAt(int row, int column)
       {
          ComplexEObject ceo = (ComplexEObject) _items.get(row);
          if (column == 0)
@@ -446,7 +446,7 @@ public abstract class AbstractListEO extends AbstractEObject
          );
       }
 
-      public void setValueAt(Object value, int row, int column)
+      public synchronized void setValueAt(Object value, int row, int column)
       {
          if (column == 0) return; // first column of this model not editable
          Field field = _tableFields.get(column - 1);

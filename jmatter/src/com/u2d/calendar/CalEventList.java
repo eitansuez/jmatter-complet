@@ -139,8 +139,8 @@ public class CalEventList extends AbstractListEO
    public ComplexType type() { return queryType(); }
    public Class getJavaClass() { return type().getJavaClass(); }
 
-   public int getSize() { return _items.size(); }
-   public int getTotal() { return getSize(); } 
+   public synchronized int getSize() { return _items.size(); }
+   public synchronized int getTotal() { return getSize(); } 
 
    public EObject makeCopy()
    {
@@ -152,12 +152,15 @@ public class CalEventList extends AbstractListEO
       super.removeListDataListener(l);
       if (_listDataListenerList.getListenerCount() == 0)
       {
-        // remove ondelete listener from items
-        for (Iterator itr = _items.iterator(); itr.hasNext(); )
-        {
-           ComplexEObject ceo = (ComplexEObject) itr.next();
-           ceo.removeAppEventListener(DELETE, this);
-        }
+         synchronized(this)
+         {
+            // remove ondelete listener from items
+            for (Iterator itr = _items.iterator(); itr.hasNext();)
+            {
+               ComplexEObject ceo = (ComplexEObject) itr.next();
+               ceo.removeAppEventListener(DELETE, this);
+            }
+         }
       }
    }
    
@@ -169,7 +172,7 @@ public class CalEventList extends AbstractListEO
       return name.title().appendParens(""+getTotal());
    }
 
-   public boolean isEmpty() { return _items.isEmpty(); }
+   public synchronized boolean isEmpty() { return _items.isEmpty(); }
 
    public EView getMainView() { return getView(); }
    public EView getView()
