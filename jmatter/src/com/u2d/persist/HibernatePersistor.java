@@ -92,28 +92,21 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 
    public Object transactionReturn(HBMReturnBlock block)
    {
+      Transaction tx = null;
       try
       {
-         Transaction tx = null;
-         try
-         {
-            Session session = getSession();
-            tx = session.beginTransaction();
+         Session session = getSession();
+         tx = session.beginTransaction();
 
-            Object result = block.invoke(session);
-            
-            tx.commit();
-            
-            return result;
-         }
-         catch (HibernateException ex)
-         {
-            if (tx != null) tx.rollback();
-            throw ex;
-         }
+         Object result = block.invoke(session);
+
+         tx.commit();
+
+         return result;
       }
       catch (HibernateException ex)
       {
+         if (tx != null) tx.rollback();
          ex.printStackTrace();
          newSession();
          throw ex;
