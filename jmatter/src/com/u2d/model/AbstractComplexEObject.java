@@ -10,6 +10,9 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.beans.*;
 import java.awt.datatransfer.*;
+import java.io.StringWriter;
+import java.io.ByteArrayOutputStream;
+
 import com.u2d.element.*;
 import com.u2d.field.*;
 import com.u2d.find.inequalities.IdentityInequality;
@@ -676,12 +679,16 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          {
             log(LoggedEvent.ERROR, cmdInfo.getCommand(), DUPLICATE_KEY_CONSTRAINT_ERROR_MSG);
             fireValidationException(DUPLICATE_KEY_CONSTRAINT_ERROR_MSG);
+            // solves a weird issue with postgresql where subsequent saving, after this error occurs, 
+            //   claims that the id is not null and so it thinks the object is stale.  ditto for next exception
+            if (isTransientState()) setID(null);
             return DUPLICATE_KEY_CONSTRAINT_ERROR_MSG;
          }
          catch (org.hibernate.exception.ConstraintViolationException ex)
          {
             log(LoggedEvent.ERROR, cmdInfo.getCommand(), DUPLICATE_KEY_CONSTRAINT_ERROR_MSG);
             fireValidationException(DUPLICATE_KEY_CONSTRAINT_ERROR_MSG);
+            if (isTransientState()) setID(null);
             return DUPLICATE_KEY_CONSTRAINT_ERROR_MSG;
          }
          catch (org.hibernate.StaleObjectStateException ex)
