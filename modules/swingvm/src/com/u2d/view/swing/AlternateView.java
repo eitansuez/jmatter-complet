@@ -122,7 +122,9 @@ public class AlternateView extends JPanel
 
    private JComponent view(String viewName)
    {
-      return (JComponent) ViewInfo.getViewByName(viewName, _ceo);
+      JComponent comp = (JComponent) ViewInfo.getViewByName(viewName, _ceo);
+      comp.applyComponentOrientation(getComponentOrientation());
+      return comp;
    }
 
 

@@ -67,7 +67,6 @@ public class GridListView
       _leo.addListDataListener(this);
       
       selectFirst();
-      applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
    }
 
    private void selectFirst()

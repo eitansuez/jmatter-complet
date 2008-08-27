@@ -14,6 +14,7 @@ import com.u2d.view.CompositeView;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
 import com.u2d.view.swing.LTRCapableJSplitPane;
+import com.u2d.view.swing.AlternateView;
 import com.u2d.ui.CardBuffer;
 
 /**
@@ -38,6 +39,7 @@ public class OmniListView extends LTRCapableJSplitPane
    public OmniListView(AbstractListEO leo)
    {
       _leo = leo;
+      // this needs to be eager so that super.setLeftComponent can do the right thing..
       applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
       setOrientation(HORIZONTAL_SPLIT);
@@ -83,7 +85,18 @@ public class OmniListView extends LTRCapableJSplitPane
          }
          else
          {
-            previous = _cardBuffer.switchIn((JComponent) ceo.getMainView());
+            EView view = ceo.getMainView();
+
+            // nested alternateviews in an omniview context can be
+            // confusing so just plant innerview in there
+            while (view instanceof AlternateView)
+            {
+               view = ((AlternateView) view).getInnerView();
+            }
+            JComponent comp = (JComponent) view;
+
+            comp.applyComponentOrientation(getComponentOrientation());
+            previous = _cardBuffer.switchIn(comp);
          }
       }
       finally

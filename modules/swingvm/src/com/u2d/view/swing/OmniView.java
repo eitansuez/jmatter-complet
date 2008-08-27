@@ -42,6 +42,7 @@ public class OmniView extends LTRCapableJSplitPane
    public OmniView(ComplexEObject ceo)
    {
       _ceo = ceo;
+      // this needs to be eager so that super.setLeftComponent can do the right thing..
       applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
       setOrientation(HORIZONTAL_SPLIT);
@@ -144,6 +145,7 @@ public class OmniView extends LTRCapableJSplitPane
       {
          view = ((AlternateView) view).getInnerView();
       }
+      ((JComponent) view).applyComponentOrientation(getComponentOrientation());
       return view;
    }
 

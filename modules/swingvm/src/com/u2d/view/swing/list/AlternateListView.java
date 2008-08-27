@@ -154,7 +154,9 @@ public class AlternateListView extends JPanel
 
    private JComponent view(String viewName)
    {
-      return (JComponent) ViewInfo.getListViewByName(viewName, _leo);
+      JComponent comp = (JComponent) ViewInfo.getListViewByName(viewName, _leo);
+      comp.applyComponentOrientation(getComponentOrientation());
+      return comp;
    }
 
 
