@@ -87,6 +87,12 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
       return _value.get(Calendar.DAY_OF_MONTH);
    }
 
+   public int weekofyear()
+   {
+      if (_value == null) return 0;
+      return _value.get(Calendar.WEEK_OF_YEAR);
+   }
+
    public int month()
    {
       if (_value == null) return 0;
