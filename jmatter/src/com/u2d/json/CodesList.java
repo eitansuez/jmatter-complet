@@ -1,10 +1,8 @@
-package com.u2d.xml;
+package com.u2d.json;
 
 import com.u2d.list.PlainListEObject;
 import com.u2d.app.PersistenceMechanism;
 import com.u2d.app.HBMPersistenceMechanism;
-import com.u2d.app.Context;
-import com.u2d.json.JSON;
 import com.u2d.model.AbstractListEO;
 import com.u2d.persist.HBMBlock;
 import java.util.ArrayList;
@@ -12,17 +10,10 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Set;
 import java.io.InputStream;
-import java.io.IOException;
-import java.text.ParseException;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.JiBXException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.json.JSONObject;
-import org.json.JSONException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -73,7 +64,7 @@ public class CodesList
 			resourceNamePlural = resourceNameSingular + "s";
 		}
 
-		String resourceName = resourceNamePlural + ".xml";
+		String resourceName = resourceNamePlural + ".json";
 		//System.out.println("************ Finding resource: " + resourceName);
 		if ( getStreamForResource(resourceName) != null) {
 			//System.out.println("************ Resource found!");
@@ -99,8 +90,11 @@ public class CodesList
    public static void populateItemsFor(PersistenceMechanism pmech, 
                                        Class klass, String resourceName)
    {
-      List items = (resourceName.endsWith(".json")) ? unmarshalJSON(resourceName)
-            : unmarshalXML(klass, resourceName);
+      if (!resourceName.endsWith(".json"))
+      {
+         throw new RuntimeException("Supporting only JSON-format (no longer supporting xml)");
+      }
+      List items = unmarshalJSON(resourceName);
       if (items == null)
       {
          // redo this design entirely
@@ -120,19 +114,7 @@ public class CodesList
          AbstractListEO leo = JSON.fromJsonList(jso);
          return leo.getItems();
       }
-      catch (IOException e)
-      {
-         e.printStackTrace();
-      }
-      catch (JSONException e)
-      {
-         e.printStackTrace();
-      }
-      catch (ClassNotFoundException e)
-      {
-         e.printStackTrace();
-      }
-      catch (ParseException e)
+      catch (Exception e)
       {
          e.printStackTrace();
       }
@@ -145,28 +127,6 @@ public class CodesList
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
       return loader.getResourceAsStream(resourceName);
    }
-
-   public static List unmarshalXML(Class klass, String resourceName)
-   {
-      try
-      {
-         IBindingFactory _bfact;
-         _bfact = BindingDirectory.getFactory(klass);
-         IUnmarshallingContext uctx = _bfact.createUnmarshallingContext();
-
-         InputStream stream = getStreamForResource(resourceName);
-         CodesList codesList = (CodesList) uctx.unmarshalDocument(stream, null);
-
-         return codesList.items();
-      }
-      catch (JiBXException ex)
-      {
-         System.err.println(ex);
-         ex.printStackTrace();
-      }
-      return null;
-
-   }  // end populateCodes()
 
    private static void saveItems(PersistenceMechanism pmech, Class klass, final List items)
    {
@@ -193,13 +153,4 @@ public class CodesList
       });
    }
 
-
-   public static void dumpItemsFor(Class klass) throws Exception
-   {
-      CodesList codesList = new CodesList();
-      PersistenceMechanism pmech = Context.getInstance().getPersistenceMechanism();
-      codesList.setItems(pmech.list(klass));
-      JibxBoiler boiler = new JibxBoiler(klass);
-      boiler.marshal("dump.xml");
-   }
 }

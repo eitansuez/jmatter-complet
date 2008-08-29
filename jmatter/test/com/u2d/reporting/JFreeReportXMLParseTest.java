@@ -1,7 +1,7 @@
 /*
  * Created on Apr 7, 2005
  */
-package com.u2d.xml;
+package com.u2d.reporting;
 
 import java.io.IOException;
 import org.jfree.report.modules.parser.base.ReportGenerator;
@@ -27,7 +27,7 @@ public class JFreeReportXMLParseTest extends TestCase
    {
       ReportGenerator generator = ReportGenerator.getInstance();
       generator.setValidateDTD(false);
-      java.net.URL layoutURL = getClass().getResource("/com/u2d/xml/test.xml");
+      java.net.URL layoutURL = getClass().getResource("/com/u2d/reporting/test.xml");
 
       try
       {

@@ -1,0 +1,29 @@
+{
+  "item-type": "com.u2d.type.MarritalStatus",
+  "items": [
+    {
+      "caption": "Single",
+      "code": "s"
+    },
+    {
+      "caption": "Married",
+      "code": "m"
+    },
+    {
+      "caption": "Divorced",
+      "code": "d"
+    },
+    {
+      "caption": "Widowed",
+      "code": "w"
+    },
+    {
+      "caption": "Child",
+      "code": "c"
+    },
+    {
+      "caption": "Other",
+      "code": "o"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "item-type": "com.u2d.type.composite.ContactMethod",
+  "items": [
+    {
+      "caption": "Work Phone",
+      "code": "workPhone",
+    },
+    {
+      "caption": "Mobile Phone",
+      "code": "mobilePhone",
+    },
+    {
+      "caption": "Home Phone",
+      "code": "homePhone",
+    },
+    {
+      "caption": "Email",
+      "code": "email",
+    }
+  ]
+}

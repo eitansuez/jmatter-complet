@@ -1,0 +1,13 @@
+{
+  "item-type": "com.u2d.type.Sex",
+  "items": [
+    {
+      "caption": "Male",
+      "code": "m"
+    },
+    {
+      "caption": "Female",
+      "code": "f"
+    }
+  ]
+}

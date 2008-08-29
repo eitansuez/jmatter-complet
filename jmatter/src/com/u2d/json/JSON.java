@@ -8,7 +8,6 @@ import com.u2d.model.*;
 import com.u2d.element.Field;
 import com.u2d.list.PlainListEObject;
 import com.u2d.list.CompositeList;
-import java.util.List;
 import java.util.Iterator;
 import java.text.ParseException;
 import java.io.*;
@@ -21,18 +20,7 @@ import java.io.*;
  */
 public class JSON
 {
-   public static void writeJson(File file, ComplexEObject ceo)
-         throws JSONException, IOException
-   {
-      writeTextFile(json(ceo).toString(2), file.getAbsolutePath());
-   }
-   public static void writeJson(File file, AbstractListEO leo)
-         throws JSONException, IOException
-   {
-      writeTextFile(json(leo).toString(2), file.getAbsolutePath());
-   }
 
-   
    public static JSONObject json(AbstractListEO leo) throws JSONException
    {
       return json(leo, new String[] {});
@@ -47,11 +35,10 @@ public class JSON
    {
       JSONObject jso = new JSONObject();
       jso.put("item-type", leo.type().getJavaClass().getName());
-      List list = leo.getItems();
       JSONArray ra = new JSONArray();
-      for (int i=0; i<list.size(); i++)
+      for (int i=0; i<leo.getSize(); i++)
       {
-         ra.put(json((ComplexEObject) list.get(i), spec));
+         ra.put(json((ComplexEObject) leo.get(i), spec));
       }
       jso.put("items", ra);
       return jso;
@@ -69,6 +56,7 @@ public class JSON
     * @param includes a list of field names (applies only to to-one associations) to include in the serialization
     *        controls serialization depth to a certain extent
     * @return the serialized jsonobject
+    * @throws org.json.JSONException
     */
    public static JSONObject json(ComplexEObject eo, String... includes) throws JSONException
    {
@@ -80,6 +68,14 @@ public class JSON
    {
       JSONObject obj = new JSONObject();
       obj.put("type", eo.getClass().getName());
+
+      if (eo instanceof ComplexType)
+      {
+         ComplexType value = (ComplexType) eo;
+         obj.put("value", value.getJavaClass().getName());
+         return obj;
+      }
+
       for (Iterator itr = eo.childFields().iterator(); itr.hasNext(); )
       {
          Field field = (Field) itr.next();
@@ -91,35 +87,36 @@ public class JSON
             continue;
          }
 
+         Object childObject = field.get(eo);
          if (field.isAtomic())
          {
-            AtomicEObject atom = (AtomicEObject) field.get(eo);
+            AtomicEObject atom = (AtomicEObject) childObject;
             obj.put(field.name(), atom.marshal());
          }
          else if (field.isIndexed())
          {
             if (field.isComposite())
             {
-               CompositeList list = (CompositeList) field.get(eo);
+               CompositeList list = (CompositeList) childObject;
                assert spec != null;
                obj.put(field.name(), json(list, spec.specForComposite(field.name())));
             }
             else
             {
-               AbstractListEO list = (AbstractListEO) field.get(eo);
+               AbstractListEO list = (AbstractListEO) childObject;
                assert spec != null;
                obj.put(field.name(), json(list, spec.specFor(field.name())));
             }
          }
          else if (field.isAggregate())
          {
-            ComplexEObject child = (ComplexEObject) field.get(eo);
+            ComplexEObject child = (ComplexEObject) childObject;
             assert spec != null;
             obj.put(field.name(), json(child, spec.specForComposite(field.name())));
          }
          else if (field.isAssociation() && spec!=null)
          {
-            ComplexEObject association = (ComplexEObject) field.get(eo);
+            ComplexEObject association = (ComplexEObject) childObject;
             if (spec.includes(field.name()))
             {
                obj.put(field.name(), json(association, spec.specFor(field.name())));
@@ -274,6 +271,8 @@ public class JSON
       return eo;
    }
 
+   // i/o related
+
    public static String readInputStream(InputStream is)
          throws IOException
    {
@@ -301,4 +300,24 @@ public class JSON
       pw.print(data);
       pw.close();
    }
+
+   public static void writeJson(File file, ComplexEObject ceo)
+         throws JSONException, IOException
+   {
+      writeTextFile(json(ceo).toString(2), file.getAbsolutePath());
+   }
+   public static void writeJson(File file, AbstractListEO leo)
+         throws JSONException, IOException
+   {
+      writeTextFile(json(leo).toString(2), file.getAbsolutePath());
+   }
+
+   public static Object readJsonFromResource(String resource) throws IOException, JSONException, ClassNotFoundException, ParseException
+   {
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      InputStream stream = loader.getResourceAsStream(resource);
+      String jsonText = readInputStream(stream);
+      return JSON.fromJson(new JSONObject(jsonText));
+   }
+
 }

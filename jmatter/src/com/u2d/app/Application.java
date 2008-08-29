@@ -11,14 +11,13 @@ import com.u2d.type.composite.Folder;
 import com.u2d.type.composite.LoggedEvent;
 import com.u2d.type.LogEventType;
 import com.u2d.element.EOCommand;
-import com.u2d.xml.CodesList;
+import com.u2d.json.CodesList;
+import com.u2d.json.JSON;
 import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
 import org.hibernate.*;
-import org.jibx.runtime.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import java.io.InputStream;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.*;
@@ -175,32 +174,24 @@ public class Application implements AppEventNotifier
       _classBar = Folder.fetchFolderByName(_pmech, TEMPLATE_CLASSBAR);
       if (_classBar == null)
       {
-         _classBar = loadXMLClassList();
+         _classBar = loadJSONClassList();
          ((HBMPersistenceMechanism) _pmech).saveMany(_classBar.getSelfAndNestedFolders());
       }
    }
    public Folder getClassBar() { return _classBar; }
 
-   private Folder loadXMLClassList()
+   private Folder loadJSONClassList()
    {
       try
       {
-         IBindingFactory bfact = BindingDirectory.getFactory(Folder.class);
-         IUnmarshallingContext context = bfact.createUnmarshallingContext();
-
-         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-         InputStream stream = loader.getResourceAsStream("class-list.xml");
-         Folder templateFolder = (Folder) context.unmarshalDocument(stream, null);
+         Folder templateFolder = (Folder) JSON.readJsonFromResource("class-list.json");
          templateFolder.getName().setValue(TEMPLATE_CLASSBAR);
          return templateFolder;
       }
-      catch (JiBXException ex)
+      catch (Exception ex)
       {
-         System.err.println("JiBXException: "+ex.getMessage());
-         ex.printStackTrace();
-         System.exit(1);
+         throw new RuntimeException("Failed to unmarshal class-list.json", ex);
       }
-      return null;
    }
 
    public void message(String msg)

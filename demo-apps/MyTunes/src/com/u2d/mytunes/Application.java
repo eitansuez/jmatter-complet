@@ -1,6 +1,6 @@
 package com.u2d.mytunes;
 
-import com.u2d.xml.CodesList;
+import com.u2d.json.CodesList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,7 +13,6 @@ public class Application extends com.u2d.app.Application
    public void initialize()
    {
       super.initialize();
-//      CodesList.populateItemsFor(_pmech, Genre.class,  "genres.xml");
       CodesList.populateItemsFor(_pmech, Genre.class,  "genres.json");
    }
 

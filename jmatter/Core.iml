@@ -39,7 +39,6 @@
     <orderEntry type="library" name="Spring" level="project" />
     <orderEntry type="library" name="Hibernate" level="project" />
     <orderEntry type="library" name="JFreeReport" level="project" />
-    <orderEntry type="library" name="JiBX" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>

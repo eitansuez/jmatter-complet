@@ -99,7 +99,7 @@
       <fileset dir="resources" includes="styles.css" />
       <fileset dir="resources/data" includes="*.xml,*.json" /> <!-- codes files -->
       <!-- <fileset dir="resources" includes="log4j.properties" /> -->
-      <fileset dir="${src.dir}" includes="**/*.xml,**/*.jasper,**/*.jfrm" />
+      <fileset dir="${src.dir}" includes="**/*.xml,**/*.json,**/*.jasper,**/*.jfrm" />
       <fileset dir="${src.dir}" includes="**/*.gif,**/*.png" />  <!-- any images referenced by jfree report xmls -->
    </copy>
 
@@ -109,7 +109,7 @@
  </target>
  
  <target name="compile-framework">
-   <ant antfile="${framework.dir}/build.xml" inheritAll="false" target="bind" />
+   <ant antfile="${framework.dir}/build.xml" inheritAll="false" target="compile" />
  </target>
 
 
@@ -157,7 +157,7 @@
  </target>
  <target name="schema-x" depends="genhbm">
     <echo message="performing a schema ${arg}" />
-    <java fork="true" classpathref="class.path" 
+    <java fork="true" classpathref="class.path" failonerror="true"
        classname="com.u2d.persist.HibernatePersistor">
       <arg value="${arg}" />
       <arg value="${build.dir}" />
@@ -183,35 +183,11 @@
    </java>
  </target>
  
- <target name="genhbm" depends="bind" description="generate hbm.xml files">
+ <target name="genhbm" depends="compile" description="generate hbm.xml files">
    <java classpathref="class.path" dir="${build.classes.dir}"
          fork="true" classname="com.u2d.persist.HBMGenerator" />
  </target>
 
-
- <!-- JiBX - related -->
-
- <!-- JiBX binding compiler task definition --> 
- <taskdef name="bind" classname="org.jibx.binding.ant.CompileTask">
-   <classpath>
-     <pathelement location="${lib.tools.dir}/bcel.jar" />
-     <pathelement location="${lib.tools.dir}/jibx-bind.jar" />
-     <pathelement location="${lib.dir}/jibx-run.jar" />
-     <pathelement location="${lib.dir}/xpp3.jar" />
-   </classpath>
- </taskdef>
-
- <!-- Run JiBX binding compiler -->
- <target name="bind" depends="compile" description="run JiBX binding compiler">
-   <!-- turn this off;  if there's nothing to bind jibx will instead thrown an
-        error;  when need to write jibx binding files for new types, uncomment this. 
-   <bind binding="resources/binding.xml">
-     <classpathset dir="${build.classes.dir}" />
-     <classpathset dir="${lib.dir}/jmatter.jar" />
-     <classpathset dir="${lib.dir}/hibernate3.jar" />
-     <classpathset dir="${lib.dir}/jibx-run.jar" />
-   </bind> -->
- </target>
 
  <target name="hbm-practice" description="run hbm practice tool" depends="genhbm">
    <java classname="com.u2d.tools.HBMPracticeTool" classpathref="class.path"
@@ -245,19 +221,19 @@
    	    basedir="${jws-dist.dir}" />
  </target>
    
-   <target name="find-drvname">
-      <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
-         classpathref="libtools.path" />
-      <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
-      <echo message="jdbcdrivername is ${jdbcdrivername}" />
-   </target>
+ <target name="find-drvname">
+    <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
+       classpathref="libtools.path" />
+    <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
+    <echo message="jdbcdrivername is ${jdbcdrivername}" />
+ </target>
    
  <target name="copylibs" depends="find-drvname">
     <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->
     <mkdir dir="${target.dir}" />
     <copy todir="${target.dir}" flatten="true">
        <fileset dir="${lib.dir}"
-                includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,${vmname}.jar,${vmname}/*.jar" />
+                includes="*.jar,hb/*.jar,jfree/*.jar,spring/*.jar,jasper/*.jar,${vmname}.jar,${vmname}/*.jar" />
        <fileset dir="${lib.dir}"
                 includes="jdbc/${jdbcdrivername}" />
     </copy>
@@ -277,7 +253,6 @@
       <jarfileset dir="${jws-dist.dir}" includes="${ant.project.name}.jar" />
    </jarbundler>
  </target>
-
 
  <!-- targets pertaining to junit testing -->
 
@@ -301,7 +276,7 @@
     </junit>
  </target>
 
- <target name="run-a-test" depends="compile-tests,bind" description="run a test">
+ <target name="run-a-test" depends="compile-tests" description="run a test">
     <junit fork="true" haltonfailure="true" printsummary="true">
        <classpath refid="test.classpath" />
        <formatter type="brief" usefile="false" /> <!-- alternative type="xml" for producing reports -->
@@ -311,7 +286,7 @@
     </junit>
  </target>
 
- <target name="run-test" description="run a test class" depends="compile-tests,bind">
+ <target name="run-test" description="run a test class" depends="compile-tests">
    <java classname="${main.class}" classpathref="test.classpath" fork="true" />
  </target>
 

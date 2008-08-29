@@ -1,0 +1,40 @@
+{
+  "type": "com.u2d.type.composite.Folder",
+  "items": {
+    "item-type": "com.u2d.type.composite.Folder",
+    "items": [
+      {
+        "name": "Model",
+        "items": {
+          "item-type": "com.u2d.model.ComplexType",
+          "items": [
+            { "value": "com.u2d.domain.Painting" },
+            { "value": "com.u2d.domain.Order" },
+            { "value": "com.u2d.domain.Shipment" },
+            { "value": "com.u2d.type.composite.USAddress" },
+            { "value": "com.u2d.domain.AtomicMedley" },
+            { "value": "com.u2d.calendar.Calendrier" },
+            { "value": "com.u2d.domain.Resource" },
+            { "value": "com.u2d.domain.TestVisit" },
+            { "value": "com.u2d.type.composite.Folder" },
+            { "value": "com.u2d.find.CompositeQuery" },
+            { "value": "com.u2d.reporting.SimpleReport" }
+          ]
+        }
+      },
+      {
+        "name": "Admin",
+        "type": "com.u2d.type.composite.Folder",
+        "items": {
+          "item-type": "com.u2d.model.ComplexType",
+          "items": [
+            { "value": "com.u2d.app.User" },
+            { "value": "com.u2d.app.Role" },
+            { "value": "com.u2d.type.composite.LoggedEvent" },
+            { "value": "com.u2d.model.ComplexType" }
+          ]
+        }
+      }
+    ]
+  }
+}

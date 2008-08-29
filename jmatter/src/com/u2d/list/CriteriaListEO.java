@@ -12,6 +12,7 @@ import com.u2d.view.EView;
 import com.u2d.view.ListEView;
 import com.u2d.ui.sorttable.SortTableModel;
 import com.u2d.element.Field;
+import com.u2d.element.CommandInfo;
 import com.u2d.find.Query;
 import com.u2d.find.QueryReceiver;
 import org.hibernate.Criteria;
@@ -19,8 +20,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.json.JSONObject;
+import org.json.JSONArray;
 import static com.u2d.pubsub.AppEventType.*;
 import com.u2d.type.atom.StringEO;
+import com.u2d.type.atom.FileWEO;
+import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Arg;
+import com.u2d.json.JSON;
 
 /**
  * @author Eitan Suez
@@ -187,6 +194,26 @@ public class CriteriaListEO extends AbstractListEO implements Paginable, QueryRe
    public String getPageTitleInfo()
    {
       return "Page "+pageNum()+" of "+numPages();
+   }
+
+   @Cmd(description="A potentially lengthy operation")
+   public String ExportEntireListingToJSON(CommandInfo cmdInfo, @Arg("Save to:")FileWEO file) throws Exception
+   {
+      CriteriaListEO leo = (CriteriaListEO) type().Browse(cmdInfo);
+      vmech().message("Saving page 1");
+      JSONObject json = JSON.json(leo);
+      JSONArray ra = json.getJSONArray("items");
+      while (leo.hasNextPage())
+      {
+         vmech().message(String.format("Saving page %d", leo.pageNum()));
+         leo.nextPage();
+         for (int i=0; i<leo.getSize(); i++)
+         {
+            ra.put(JSON.json((ComplexEObject) leo.get(i)));
+         }
+      }
+      JSON.writeTextFile(json.toString(2), file.fileValue().getAbsolutePath());
+      return file.fileValue().getName() + " created.";
    }
 
    /* ** ===== View-Related ===== ** */

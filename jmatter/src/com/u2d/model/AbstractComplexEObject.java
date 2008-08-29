@@ -10,8 +10,6 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.beans.*;
 import java.awt.datatransfer.*;
-import java.io.StringWriter;
-import java.io.ByteArrayOutputStream;
 
 import com.u2d.element.*;
 import com.u2d.field.*;
@@ -24,7 +22,6 @@ import com.u2d.type.composite.LoggedEvent;
 import com.u2d.type.atom.DateTime;
 import com.u2d.type.atom.FileWEO;
 import com.u2d.view.*;
-import com.u2d.xml.XMLExport;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
 import com.u2d.json.JSON;
@@ -786,12 +783,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          }
       }
 
-//      @Cmd
-      public void ExportToXML(CommandInfo cmdInfo) throws Exception
-      {
-         XMLExport.export(cmdInfo, AbstractComplexEObject.this);
-      }
-//      @Cmd
+      @Cmd
       public String ExportToJSON(CommandInfo cmdInfo, @Arg("Save to:") FileWEO file) throws Exception
       {
          JSON.writeJson(file.fileValue(), AbstractComplexEObject.this);

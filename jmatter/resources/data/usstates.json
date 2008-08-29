@@ -1,0 +1,237 @@
+{
+  "item-type": "com.u2d.type.USState",
+  "items": [
+    {
+      "caption": "Alabama",
+      "code": "AL"
+    },
+    {
+      "caption": "Alaska",
+      "code": "AK"
+    },
+    {
+      "caption": "Arizona",
+      "code": "AZ"
+    },
+    {
+      "caption": "Arkansas",
+      "code": "AR"
+    },
+    {
+      "caption": "California",
+      "code": "CA"
+    },
+    {
+      "caption": "Colorado",
+      "code": "CO"
+    },
+    {
+      "caption": "Connecticut",
+      "code": "CT"
+    },
+    {
+      "caption": "Delaware",
+      "code": "DE"
+    },
+    {
+      "caption": "District of Columbia",
+      "code": "DC"
+    },
+    {
+      "caption": "Florida",
+      "code": "FL"
+    },
+    {
+      "caption": "Georgia",
+      "code": "GA"
+    },
+    {
+      "caption": "Hawaii",
+      "code": "HI"
+    },
+    {
+      "caption": "Idaho",
+      "code": "ID"
+    },
+    {
+      "caption": "Illinois",
+      "code": "IL"
+    },
+    {
+      "caption": "Indiana",
+      "code": "IN"
+    },
+    {
+      "caption": "Iowa",
+      "code": "IA"
+    },
+    {
+      "caption": "Kansas",
+      "code": "KS"
+    },
+    {
+      "caption": "Kentucky",
+      "code": "KY"
+    },
+    {
+      "caption": "Louisiana",
+      "code": "LA"
+    },
+    {
+      "caption": "Maine",
+      "code": "ME"
+    },
+    {
+      "caption": "Maryland",
+      "code": "MD"
+    },
+    {
+      "caption": "Massachussetts",
+      "code": "MA"
+    },
+    {
+      "caption": "Michigan",
+      "code": "MI"
+    },
+    {
+      "caption": "Minneosta",
+      "code": "MN"
+    },
+    {
+      "caption": "Mississippi",
+      "code": "MS"
+    },
+    {
+      "caption": "Missouri",
+      "code": "MO"
+    },
+    {
+      "caption": "Montana",
+      "code": "MT"
+    },
+    {
+      "caption": "Nebraska",
+      "code": "NE"
+    },
+    {
+      "caption": "Nevada",
+      "code": "NV"
+    },
+    {
+      "caption": "New Hampshire",
+      "code": "NH"
+    },
+    {
+      "caption": "New Jersey",
+      "code": "NJ"
+    },
+    {
+      "caption": "New Mexico",
+      "code": "NM"
+    },
+    {
+      "caption": "New York",
+      "code": "NY"
+    },
+    {
+      "caption": "North Carolina",
+      "code": "NC"
+    },
+    {
+      "caption": "North Dakota",
+      "code": "ND"
+    },
+    {
+      "caption": "Ohio",
+      "code": "OH"
+    },
+    {
+      "caption": "Oklahoma",
+      "code": "OK"
+    },
+    {
+      "caption": "Oregon",
+      "code": "OR"
+    },
+    {
+      "caption": "Pennsylvania",
+      "code": "PA"
+    },
+    {
+      "caption": "Puerto Rico",
+      "code": "PR"
+    },
+    {
+      "caption": "Rhode Island",
+      "code": "RI"
+    },
+    {
+      "caption": "South Carolina",
+      "code": "SC"
+    },
+    {
+      "caption": "South Dakota",
+      "code": "SD"
+    },
+    {
+      "caption": "Tennessee",
+      "code": "TN"
+    },
+    {
+      "caption": "Texas",
+      "code": "TX"
+    },
+    {
+      "caption": "Utah",
+      "code": "UT"
+    },
+    {
+      "caption": "Vermont",
+      "code": "VT"
+    },
+    {
+      "caption": "Virginia",
+      "code": "VA"
+    },
+    {
+      "caption": "Washington",
+      "code": "WA"
+    },
+    {
+      "caption": "West Virginia",
+      "code": "WV"
+    },
+    {
+      "caption": "Wisconsin",
+      "code": "WI"
+    },
+    {
+      "caption": "Wyoming",
+      "code": "WY"
+    },
+    {
+      "caption": "American Samoa",
+      "code": "AS"
+    },
+    {
+      "caption": "N Mariana Islands",
+      "code": "CQ"
+    },
+    {
+      "caption": "Guam",
+      "code": "GU"
+    },
+    {
+      "caption": "Midway Atoll",
+      "code": "MQ"
+    },
+    {
+      "caption": "Virgin Islands",
+      "code": "VI"
+    },
+    {
+      "caption": "Wake Island",
+      "code": "WQ"
+    }
+  ]
+}

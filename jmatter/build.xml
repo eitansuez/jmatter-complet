@@ -76,7 +76,7 @@
     <copy todir="${build.classes.dir}">
       <fileset dir="${resource.dir}" includes="styles.css,images/*.gif,images/*.png,images/*.jpg,app/model-metadata.properties" />
       <fileset dir="${resource.dir}" includes="jfreereport.properties" />
-      <fileset dir="${resource.dir}/data" includes="*.xml" />
+      <fileset dir="${resource.dir}/data" includes="*.json" />
       <fileset dir="${src.dir}" includes="**/*.xml" />  <!-- wizard fsm -->
     </copy>
 
@@ -118,7 +118,7 @@
     </jar>
   </target>
 
-  <target name="jar" description="jar jmatter framework" depends="bind, just-jar" />
+  <target name="jar" description="jar jmatter framework" depends="compile, just-jar" />
   <target name="cleanjar" description="clean first, then jar" depends="clean,jar" />
 
  <!-- targets pertaining to junit testing -->
@@ -129,7 +129,7 @@
   </target>
 
   <target name="compile-tests" 
-          depends="test-init,bind" 
+          depends="test-init,compile" 
           description="compile tests">
     <javac debug="on" deprecation="on"
            classpathref="test.classpath"
@@ -170,26 +170,6 @@
     </junitreport>
   </target>
 
-   <!-- JiBX - related -->
-
-   <!-- JiBX binding compiler task definition --> 
-   <taskdef name="bind" classname="org.jibx.binding.ant.CompileTask">
-     <classpath>
-       <pathelement location="${tools.lib.dir}/bcel.jar" />
-       <pathelement location="${tools.lib.dir}/jibx-bind.jar" />
-       <pathelement location="${runtime.lib.dir}/jibx-run.jar" />
-       <pathelement location="${runtime.lib.dir}/xpp3.jar" />
-     </classpath>
-   </taskdef>
-
-   <!-- Run JiBX binding compiler -->
-   <target name="bind" depends="compile" description="run JiBX binding compiler">
-     <bind binding="${resource.dir}/binding.xml">
-       <classpathset dir="${build.classes.dir}" />
-       <classpathset dir="${runtime.lib.dir}/jibx-run.jar" />
-     </bind>
-   </target>
-   
    
    <!-- TODO: override with -Dnew.project.name flag upon invoking target -->
    <property name="new.project.name" value="new-jmatter-project" />
@@ -241,7 +221,7 @@
       <delete file="${np.basedir}/build-standalone.xml" />
    </target>
 
-   <target name="ultraviolet" description="Launch UltraViolet design tool" depends="bind">
+   <target name="ultraviolet" description="Launch UltraViolet design tool" depends="compile">
       <ant antfile="tools/ultraviolet/build.xml" inheritAll="false" />
    </target> 
 

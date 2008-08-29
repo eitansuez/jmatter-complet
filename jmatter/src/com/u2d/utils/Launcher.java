@@ -17,7 +17,7 @@ public class Launcher
 {
    public static void openFile(File file)
    {
-      openFile(file.getAbsolutePath());
+      openFile(file.getAbsoluteFile().toURI().toString());
    }
 
    public static void openFile(String fileName)
