@@ -1,0 +1,40 @@
+<vjdbc-configuration>
+
+  <connection id="sympster_db" 
+    driver="org.h2.Driver"
+    url="jdbc:h2:file:///home/eitan/work/jmatter-complet/demo-apps/Sympster/db/h2db"
+    user="sa"
+    password=""
+    connectionPooling="on" />
+
+  <connection id="movielib_db" 
+    driver="org.h2.Driver"
+    url="jdbc:h2:file:///home/eitan/work/jmatter-complet/demo-apps/MovieLib/db/h2db"
+    user="sa"
+    password=""
+    connectionPooling="on" />
+
+  <connection id="contactmgr_db" 
+    driver="org.h2.Driver"
+    url="jdbc:h2:file:///home/eitan/work/jmatter-complet/demo-apps/ContactMgr/db/h2db"
+    user="sa"
+    password=""
+    connectionPooling="on" />
+
+  <connection id="issuemgr_db" 
+    driver="org.h2.Driver"
+    url="jdbc:h2:file:///home/eitan/work/jmatter-complet/demo-apps/IssueMgr/db/IssueMgrh2db"
+    user="sa"
+    password=""
+    connectionPooling="on" />
+
+  <connection id="mytunes_db" 
+    driver="org.h2.Driver"
+    url="jdbc:h2:file:///home/eitan/work/jmatter-complet/demo-apps/MyTunes/db/MyTunesh2db"
+    user="sa"
+    password=""
+    connectionPooling="on" />
+
+</vjdbc-configuration>
+
+

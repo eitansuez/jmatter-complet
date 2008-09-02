@@ -1,0 +1,39 @@
+Sept 2008
+
+This folder contains a script that produces a war file you can put in tomcat to route/proxy
+ client database requests through tomcat using a virtual jdbc driver named
+ vjdbc (see vjdbc.sf.net)
+
+The file WEB-INF/classes/vjdbc-config.xml is pre-configured to support a number of 
+ the jmatter demo applications including movielib, issuemgr, contactmgr, sympster, and mytunes
+
+Configure hibernate to talk to the database via the vjdbc url (already specified, may need 
+  to be uncommented, in hibernate.properties).
+
+Deploy the war file / start tomcat
+
+You should now be able to schema-export and run the demo application as usual.  The difference
+  is that you're now going through tomcat.
+
+Vjdbc can be configured with a login handler;  see the vjdbc documentation for the details.
+
+Ideally/Ultimately the aim is to use vjdbc in conjunction with the appbrowser.
+  So the web app would serve two purposes:  as a proxy for communications
+  to the database server, and for serving the application's jar file to the
+  app browser.
+
+At this time there are outstanding issues that need to be resolved, when running 
+ vjdbc together with the app browser.  Here is the description of how to set it up:
+
+Pick a demo app, for example, sympster.  Make sure it's configured with vjdbc.
+Then run the ant target "jar-model" which will produce the application jar file
+dist/Sympster.jar
+
+You can copy this jar file to the vjdbc webapp.  If you're testing locally,
+its url becomes:  http://localhost:8080/vjdbc_webapp/Sympster.jar
+
+Run the app browser.  Add a bookmark for one of the demo apps (Sympster) using
+ the above url.  Then invoke the command "Launch" on the bookmark, which will
+ fetch the jar file and start running.  The fetched application will be communicating
+ to the back-end database via vjdbc.
+
