@@ -1,3 +1,58 @@
+Sept 2 2008
+
+Summary of Changes
+==================
+
+Internal
+--------
+
+1. No longer using jibx for marshalling xml.  Any marshalling, such as the classbar template,
+  or codes lists, are now described using JSON.  Side effect:  class-list.xml is now class-list.json
+
+2. The principal layout manager for the swing view mechanism is now MigLayout (replacing JGoodies Forms).
+   The side effect is that JMatter now works both with left-to-right and right-to-left
+   languages.  As an example, the Sympster demo app has been localized for Hebrew.  Try it out
+   (launch the app with user.language=he).
+
+
+Localization & Internationalization
+-----------------------------------
+
+1. JMatter now works with non-latin character sets.  Resource bundles can be input in utf-8
+   and translated to required iso-8859-1 via native2ascii tool (transparently through ant build
+   file).
+
+2. Adding support for looking up localized field labels in a type hierarchy;  e.g. locale-metadata_fr.properties 
+   in jmatter/app can specify keys such as AbstractComplexEobject.createdOn
+
+3. Automatically adding to uidefaults a resource bundle base name 'app/uidefaults';  see jmatter/resources/app/uidefaults_??.properties 
+   which will automatically be added to localize strings such as minimize, restore, maximize, etc.. (re: mailing list discussion 
+   thread w/kittipat)
+
+
+Other
+-----
+
+1. Added support for association qualification/constraints to to-many associations
+
+2. DateEO retrofitted to support/allow null value
+
+3. Improvement to base implementation of equals/hashcode
+
+4. Synchronizing access to list items across AbstractListEO type hierarchy
+
+5. Enhanced json-based marshalling;  supporting the notion of a dereferencer for 'byref' marshalled objects
+
+
+Database Access
+---------------
+
+1. Integration with vjdbc to proxy database calls via http/tomcat (see file vjdbc/readme)
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 August 11 2008
 
 Summary of Changes
