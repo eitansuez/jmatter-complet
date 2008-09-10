@@ -3,7 +3,7 @@ package ${PACKAGE_NAME};
 import com.u2d.model.AbstractComplexEObject;
 import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
-import javax.persistence.Entity
+import javax.persistence.Entity;
 
 @Entity
 public class ${NAME} extends AbstractComplexEObject
