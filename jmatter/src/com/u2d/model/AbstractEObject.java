@@ -19,6 +19,7 @@ public abstract class AbstractEObject
 {
    public abstract Title title();
    public abstract boolean isEmpty();
+   public boolean isSet() { return !isEmpty(); }
    public abstract int validate();
 
    public abstract EView getView();
