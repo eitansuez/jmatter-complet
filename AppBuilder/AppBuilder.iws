@@ -296,8 +296,8 @@
       </method>
     </configuration>
     <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Application.AppBuilder" />
-      <item index="1" class="java.lang.String" itemvalue="Groovy Script.GTests" />
+      <item index="0" class="java.lang.String" itemvalue="Groovy Script.GTests" />
+      <item index="1" class="java.lang.String" itemvalue="Application.AppBuilder" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>

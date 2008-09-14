@@ -10,7 +10,7 @@
         <customNs />
       </configuration>
     </facet>
-    <facet type="Groovy" name="Groovy" implicit="true">
+    <facet type="Groovy" name="Groovy">
       <configuration />
     </facet>
   </component>

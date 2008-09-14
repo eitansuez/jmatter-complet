@@ -1,11 +1,9 @@
 When write project to disk:  carry over project description to ant build file's project description
 
 ~~~todo~~~~~~~~~~~~~~~~~~~~~~~~~~
-> Fix splash ui to have a minwidth
 > Fix exception ui to grow/expand and resize properly
 --
 > Add the abililty to add an item to a list using the keyboard
-> Write commandorder too
 > Add support for command.returnType and command.arguments
 --
 1. field type should be an association to a type.  all types, including things like StringEO should be in there.

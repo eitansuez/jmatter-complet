@@ -39,7 +39,7 @@ public class Splash extends JWindow implements AppEventListener
    
    private void layMeOut()
    {
-      MigLayout layout = new MigLayout("fill");
+      MigLayout layout = new MigLayout("flowy, fill", "[max(300,pref)]", "");
       JPanel contentPane = new JPanel(layout);
       ComponentStyle.addClass(contentPane, "splash-pane");
       _messageLabel = new JLabel();
@@ -57,7 +57,7 @@ public class Splash extends JWindow implements AppEventListener
       {
          JLabel imgLabel = new JLabel(new ImageIcon(_imgURL));
          imgLabel.setOpaque(false);
-         contentPane.add(imgLabel, "width max(300, pref), alignx center, aligny bottom, wrap");
+         contentPane.add(imgLabel, "alignx center, aligny bottom");
       }
       contentPane.add(_messageLabel, "alignx leading, aligny center");
       setContentPane(contentPane);
