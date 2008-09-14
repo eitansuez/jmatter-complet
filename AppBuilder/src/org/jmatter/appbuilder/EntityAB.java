@@ -14,6 +14,9 @@ import javax.persistence.Entity;
 import org.jmatter.appbuilder.writer.ClassWriter;
 import java.awt.datatransfer.StringSelection;
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 @Entity
 public class EntityAB extends AbstractComplexEObject
@@ -46,6 +49,21 @@ public class EntityAB extends AbstractComplexEObject
    @Fld(description="optional;  defaults to project's")
    public StringEO getPackageName() { return packageName; }
 
+   public String pkgName()
+   {
+     if (!packageName.isEmpty())
+     {
+        return packageName.stringValue();
+     }
+     return getProject().getDefaultPackageName().stringValue();
+   }
+
+   public String dirPathForPkgName()
+   {
+      String pkgName = pkgName();
+      return pkgName.replace('.', File.separatorChar);
+   }
+   
    private ProjectAB project;
    public ProjectAB getProject() { return project; }
    public void setProject(ProjectAB project)
@@ -76,6 +94,37 @@ public class EntityAB extends AbstractComplexEObject
       StringSelection selection = new StringSelection(source);
       Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
       return "Done";
+   }
+
+   @Cmd
+   public Object WriteSourceToProject(CommandInfo cmdInfo)
+   {
+      if (!project.getParentDirectory().isSet())
+      {
+         return "You must first specify the project's parent directory";
+      }
+      String dirPath = project.getParentDirectory().stringValue() + File.separator +
+                        project.getName().stringValue() + File.separator +
+                        "src" + File.separator +
+                        dirPathForPkgName();
+      String fileName = name.stringValue() + ".java";
+      
+      String source = new ClassWriter(this).writeIt();
+      File targetDir = new File(dirPath);
+      File targetFile = new File(targetDir, fileName);
+      try
+      {
+         targetDir.mkdirs();
+         FileWriter fileWriter = new FileWriter(targetFile);
+         fileWriter.write(source);
+         fileWriter.close();
+         return "Done";
+      }
+      catch (IOException ex)
+      {
+         ex.printStackTrace();
+         return String.format("Failed to write to file: %s", ex.getMessage());
+      }
    }
 
    public Title title() { return name.title(); }

@@ -14,6 +14,11 @@ public class FieldAB extends MemberAB
 
    public FieldAB() { }
 
+   public void initialize()
+   {
+      composite.setValue(true);  // make the most common case the default
+   }
+
    // for now define field type as a string
    private final StringEO fieldType = new StringEO();
    public StringEO getFieldType() { return fieldType; }

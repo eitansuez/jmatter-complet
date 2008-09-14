@@ -5,7 +5,9 @@ import com.u2d.model.Title;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.atom.ImgEO;
 import com.u2d.type.atom.TextEO;
+import com.u2d.type.atom.FileEO;
 import com.u2d.reflection.Cmd;
+import com.u2d.reflection.Fld;
 import com.u2d.element.CommandInfo;
 
 import javax.persistence.Entity;
@@ -17,7 +19,11 @@ public class ProjectAB extends AbstractComplexEObject
 
    public ProjectAB() { }
 
+   private final FileEO parentDirectory = new FileEO();
+   public FileEO getParentDirectory() { return parentDirectory; }
+   
    private final StringEO name = new StringEO();
+   @Fld(description="Name is also used as directory name where project lives (or will live) on disk")
    public StringEO getName() { return name; }
 
    private final StringEO caption = new StringEO();
@@ -41,6 +47,13 @@ public class ProjectAB extends AbstractComplexEObject
       entity.association("project").set(this);
       return entity;
    }
+   
+   @Cmd(description="Generate project's skeleton directory structure and files")
+   public String CreateProjectSkeleton(CommandInfo cmdInfo)
+   {
+      return "TBD";
+   }
+   
 
    public static String naturalName()
    {

@@ -35,7 +35,7 @@ class ClassWriter
 
       addImport "javax.persistence.Entity"
       addImport "com.u2d.model.AbstractComplexEObject"
-      addImport "import com.u2d.model.Title"
+      addImport "com.u2d.model.Title"
 
       if (!entity.getChildFields().isEmpty())
       {
@@ -96,7 +96,7 @@ class ClassWriter
 
    def samePackage(String clsName)
    {
-      pkgName().equals(pkgName(clsName))
+      entity.pkgName().equals(pkgName(clsName))
    }
    
    def qualified(String clsName)
@@ -107,15 +107,6 @@ class ClassWriter
    def shortTypeName(String type) { type.substring(type.lastIndexOf(".") + 1) }
 
    def pkgName(String type) { type.substring(0, type.lastIndexOf(".")) }
-
-   def pkgName()
-   {
-     if (entity.getPackageName().isEmpty())
-     {
-       return entity.getProject().getDefaultPackageName().stringValue()
-     }
-     entity.getPackageName().stringValue()
-   }
 
    def entityName() { entity.getName().stringValue() }
 
@@ -175,11 +166,11 @@ class ClassWriter
 
    def packageDecl()
    {
-      writeln "package ${pkgName()};"
+      writeln "package ${entity.pkgName()};"
    }
    def importDecls()
    {
-      imports.each { clsName ->
+      imports.each { String clsName ->
          writeln "import ${clsName};"
       }
    }
@@ -274,13 +265,13 @@ class ClassWriter
          else if (field.isRelationalListField())
          {
             writeln "private final RelationalList ${fieldName} = new RelationalList(${fieldType}.class);"
-            writeln "public static Class ${fieldName}Type = ${fieldType}.class";
+            writeln "public static Class ${fieldName}Type = ${fieldType}.class;"
             writeln "public RelationalList ${getterName}() { return ${fieldName}; }"
          }
          else if (field.isCompositeListField())
          {
             writeln "private final CompositeList ${fieldName} = new CompositeList(${fieldType}.class);"
-            writeln "public static Class ${fieldName}Type = ${fieldType}.class";
+            writeln "public static Class ${fieldName}Type = ${fieldType}.class;"
             writeln "public CompositeList ${getterName}() { return ${fieldName}; }"
          }
          separate()
