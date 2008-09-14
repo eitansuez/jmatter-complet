@@ -123,8 +123,8 @@ public class Application implements AppEventNotifier
    }
    private void contributeToIndex(Class type)
    {
-      AbstractListEO contacts = getPersistenceMechanism().list(type);
-      contributeToIndex(contacts);
+      AbstractListEO instances = getPersistenceMechanism().list(type);
+      contributeToIndex(instances);
 
       ComplexType.forClass(type).addAppEventListener(AppEventType.CREATE,
               new AppEventListener()
