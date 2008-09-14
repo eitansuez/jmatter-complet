@@ -6,6 +6,7 @@ import com.u2d.model.Harvester
 import org.jmatter.appbuilder.CommandAB
 import org.jmatter.appbuilder.MemberAB
 import org.jmatter.appbuilder.FieldMetadata
+import org.jmatter.appbuilder.Argument
 
 /**
  * Created by IntelliJ IDEA.
@@ -70,12 +71,18 @@ class ClassWriter
       cmds.each { CommandAB cmd ->
          String cmdName = cmd.getName().stringValue()
          commandOrder << cmdName
+
+         addImport cmd.getReturnType().stringValue()
+         cmd.getArguments().each { Argument arg ->
+            addImport arg.getArgType().stringValue()
+         }
       }
 
       if (!entity.getCommands().isEmpty())
       {
          addImport "com.u2d.element.CommandInfo"
          addImport "com.u2d.reflection.Cmd"
+         addImport "com.u2d.reflection.Arg"
       }
    }
 
@@ -132,11 +139,11 @@ class ClassWriter
    // ====================
 
    def indent() { " " * indentSize * indentLevel }
-   def separate() { writer.append("\n") }
+   def separate() { writer.append "\n" }
    def write(String text)
    {
-      writer.append(indent())
-      writer.append(text)
+      writer.append indent()
+      writer.append text
    }
    def writeln(String text)
    {
@@ -227,8 +234,8 @@ class ClassWriter
       {
          write("public static String[] ${declFldName} = {")
          def fieldsListing = collection.collect { String fldName -> "\"${fldName}\"" }
-         writer.append(fieldsListing.join(", "))
-         writer.append("};")
+         writer.append fieldsListing.join(", ")
+         writer.append "};"
          separate()
       }
    }
@@ -317,8 +324,8 @@ class ClassWriter
             attrsList << "colsize=${md.getColsize().intValue()}"
          }
 
-         writer.append(attrsList.join(", "))
-         writer.append(")")
+         writer.append attrsList.join(", ")
+         writer.append ")"
          separate()
       }
    }
@@ -329,30 +336,48 @@ class ClassWriter
       commands.each { CommandAB cmd ->
          def cmdName = cmd.getName().stringValue()
          writeCmdAnnotationIfNeeded(cmd)
-         writeln "public void ${cmdName}(CommandInfo cmdInfo)"
+         String returnType = cmd.getReturnType().isEmpty() ? "void" : shortTypeName(cmd.getReturnType().stringValue());
+         writeln "public ${returnType} ${cmdName}(CommandInfo cmdInfo${argsListing(cmd)})"
          nest {
             writeLines(cmd.getBody().stringValue())
          }
          separate()
       }
    }
+   def argsListing(CommandAB cmd)
+   {
+      def buf = new StringBuffer();
+      cmd.getArguments().getItems().each { Argument arg ->
+         String argtype = shortTypeName(arg.getArgType().stringValue())
+         if (arg.getCaption().isEmpty())
+         {
+            buf.append(", ${argtype} ${arg.getName()}");
+         }
+         else
+         {
+            buf.append(", @Arg(\"${arg.getCaption()}\") ${argtype} ${arg.getName()}");
+         }
+      }
+      buf.toString()
+   }
    private def writeCmdAnnotationIfNeeded(CommandAB cmd)
    {
+      write "@Cmd"
       if (!(cmd.getCaption().isEmpty() &&
             cmd.getDescription().isEmpty() &&
             cmd.getMnemonic().isEmpty()) &&
             cmd.getSensitive().isFalse())
       {
-         write "@Cmd("
+         writer.append "("
          List attrsList = baseAnnotationAttrs(cmd)
          if (cmd.getSensitive().isTrue())
          {
             attrsList << "sensitive=true"
          }
-         writer.append(attrsList.join(", "))
-         writer.append(")")
-         separate()
+         writer.append attrsList.join(", ")
+         writer.append ")"
       }
+      separate()
    }
 
    private def baseAnnotationAttrs(MemberAB member)
