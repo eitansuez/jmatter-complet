@@ -5,6 +5,7 @@ import com.u2d.view.CompositeView;
 import com.u2d.view.EView;
 import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.swing.AppLoader;
+import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.view.swing.dnd.DropTargetHandler;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
@@ -44,7 +45,7 @@ public class EditableListView extends JPanel
    {
       _leo = leo;
       _association = new NullAssociation(_leo);
-      _listView = new JListView(_leo);
+      _listView = (JListView) SwingViewMechanism.getInstance().getListView(_leo);
       _listView.setVisibleRowCount(Math.min(leo.getSize()+1, 5));
       
       setLayout(new BorderLayout());
@@ -57,9 +58,10 @@ public class EditableListView extends JPanel
       JScrollPane scrollPane = new JScrollPane(_listView);
       add(scrollPane, BorderLayout.CENTER);
 
-      // allow drop on list to add item to list..
-      _listView.setDropTarget(null); // clear default drop target handling..
-      _listView.setTransferHandler(new DropTargetHandler());
+      // why was i doing this??
+//      // allow drop on list to add item to list..
+//      _listView.setDropTarget(null); // clear default drop target handling..
+//      _listView.setTransferHandler(new DropTargetHandler());
 
       setBorder(BorderFactory.createTitledBorder(_leo.field().getNaturalPath()));
 

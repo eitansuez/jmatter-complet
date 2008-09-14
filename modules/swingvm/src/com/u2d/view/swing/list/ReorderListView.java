@@ -39,10 +39,13 @@ public class ReorderListView extends JListView
 
    private void init()
    {
-      int index = 0;
-      Component c = getCellRenderer().getListCellRendererComponent(ReorderListView.this,
-            _leo.get(index), index, false, false);
-      rowHeight = c.getPreferredSize().getHeight();
+      if (!_leo.isEmpty())
+      {
+         int index = 0;
+         Component c = getCellRenderer().getListCellRendererComponent(ReorderListView.this,
+               _leo.get(index), index, false, false);
+         rowHeight = c.getPreferredSize().getHeight();
+      }
    }
 
    private ReorderDropTarget _dropTarget;

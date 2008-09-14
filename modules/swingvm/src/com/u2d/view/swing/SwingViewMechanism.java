@@ -13,6 +13,7 @@ import com.u2d.element.Command;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.EOCommand;
 import com.u2d.field.Association;
+import com.u2d.field.IndexedField;
 import com.u2d.find.CompositeQuery;
 import com.u2d.list.CompositeList;
 import com.u2d.list.RelationalList;
@@ -801,7 +802,15 @@ public class SwingViewMechanism implements ViewMechanism
    // SimpleListEO Views:
    // ================================
 
-   public ListEView getListView(AbstractListEO leo) { return new JListView(leo); }
+   public ListEView getListView(AbstractListEO leo)
+   {
+      if (leo instanceof RelationalList && leo.field() != null && ((IndexedField) leo.field()).isOrdered())
+      {
+         return new ReorderListView(leo);
+      }
+      return new JListView(leo);
+   }
+
    public ListEView getListViewAsTable(AbstractListEO leo) { return new TableView(leo); }
    public ListEView getListViewAsIcons(AbstractListEO leo) { return new GridListView(leo); }
    public ListEView getListViewAsTree(AbstractListEO leo) { return new MyListTreeView(leo); }
