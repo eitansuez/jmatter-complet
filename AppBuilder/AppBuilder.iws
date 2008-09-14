@@ -157,7 +157,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="PackagesPane" proportions="0.16666667" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="0.16666667" version="1" splitterProportion="0.5">
       <flattenPackages PackagesPane="true" />
       <showMembers />
       <showModules />
@@ -173,6 +173,7 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="false" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -183,7 +184,7 @@
     <RUBY_DOC NAME="DEFAULTS" VALUE="true" />
     <RUBY_DOC NAME="NUMBER" VALUE="0" />
   </component>
-  <component name="RunManager" selected="Groovy Script.GTests">
+  <component name="RunManager" selected="Application.AppBuilder">
     <tempConfiguration default="false" name="GTests" type="GroovyScriptRunConfigurationType" factoryName="Groovy Script">
       <module name="AppBuilder" />
       <setting name="path" value="$PROJECT_DIR$/src/org/jmatter/appbuilder/writer/GTests.groovy" />
@@ -191,6 +192,11 @@
       <setting name="params" value="" />
       <setting name="workDir" value="$PROJECT_DIR$/src/org/jmatter/appbuilder/writer" />
       <setting name="debug" value="false" />
+      <RunnerSettings RunnerId="JProfiler">
+        <option name="WINDOW" value="false" />
+        <option name="JVMPI" value="false" />
+        <option name="INTERPRETED" value="false" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method>
@@ -259,8 +265,39 @@
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Groovy Script.GTests" />
+    <configuration default="false" name="AppBuilder" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="AppBuilder" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="55640" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="JProfiler">
+        <option name="WINDOW" value="false" />
+        <option name="JVMPI" value="false" />
+        <option name="INTERPRETED" value="false" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="Run Ant target" value="true" />
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Application.AppBuilder" />
+      <item index="1" class="java.lang.String" itemvalue="Groovy Script.GTests" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -304,15 +341,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1440" height="850" extended-state="7" />
+    <frame x="0" y="25" width="1440" height="850" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24946082" order="1" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="1" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="3" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3989071" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329235" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
@@ -356,127 +393,124 @@
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
+    <buildFile url="file://$PROJECT_DIR$/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters />
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/list/CompositeList.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/atom/BooleanEO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="13" selection-start="656" selection-end="656" vertical-scroll-proportion="0.17118402">
+        <state line="22" column="3" selection-start="529" selection-end="529" vertical-scroll-proportion="0.28425655">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/field/ListItemAssociation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="10" selection-start="496" selection-end="496" vertical-scroll-proportion="0.32097003">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/dnd/SimpleListTransferHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="7" selection-start="942" selection-end="942" vertical-scroll-proportion="0.5563481">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/JListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="178" column="50" selection-start="5198" selection-end="5198" vertical-scroll-proportion="0.37945792">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/dnd/RelationalListDropTarget.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="20" selection-start="2340" selection-end="2340" vertical-scroll-proportion="0.9201141">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/model-metadata.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.10699002">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jmatter/appbuilder/ProjectAB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="13" selection-start="329" selection-end="329" vertical-scroll-proportion="0.10699002">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/OutlookFolderView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="4" selection-start="2031" selection-end="2031" vertical-scroll-proportion="-0.7164179">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/EditableListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="252" selection-end="252" vertical-scroll-proportion="0.17118402">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/modules/swingvm/src/com/u2d/view/swing/list/ReorderListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="4" selection-start="3405" selection-end="3405" vertical-scroll-proportion="0.61911553">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/AbstractListEO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="130" column="0" selection-start="3762" selection-end="3762" vertical-scroll-proportion="0.59343797">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/list/SimpleListEO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="31" selection-start="1174" selection-end="1174" vertical-scroll-proportion="0.33238232">
+        <state line="14" column="40" selection-start="272" selection-end="272" vertical-scroll-proportion="0.17118402">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jmatter/appbuilder/MemberAB.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/list/RelationalList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="294" selection-end="294" vertical-scroll-proportion="0.10699002">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/lang/Boolean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="19" selection-start="778" selection-end="778" vertical-scroll-proportion="0.33238232">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/reflection/Cmd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="316" selection-end="316" vertical-scroll-proportion="0.14978603">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jmatter/appbuilder/CommandAB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="417" selection-end="417" vertical-scroll-proportion="0.36376604">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///home/eitan/work/thirdparty/groovy-1.5.6/embeddable/groovy-all-1.5.6.jar!/org/codehaus/groovy/runtime/DefaultGroovyMethods.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="34" selection-start="5284" selection-end="5284" vertical-scroll-proportion="0.33236152">
+        <state line="19" column="40" selection-start="430" selection-end="430" vertical-scroll-proportion="0.17118402">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jmatter/appbuilder/EntityAB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="32" selection-start="2412" selection-end="2412" vertical-scroll-proportion="0.46504992">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/atom/IntEO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="430" selection-end="430" vertical-scroll-proportion="0.17118402">
+        <state line="60" column="62" selection-start="2133" selection-end="2133" vertical-scroll-proportion="0.3366619">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jmatter/appbuilder/FieldAB.java">
+    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/model/ComplexType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="0" selection-start="1490" selection-end="1490" vertical-scroll-proportion="0.871612">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jmatter/appbuilder/FieldMetadata.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="48" selection-start="1674" selection-end="1674" vertical-scroll-proportion="0.70042795">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/app/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="4" selection-start="2667" selection-end="2667" vertical-scroll-proportion="0.957204">
+        <state line="102" column="0" selection-start="2816" selection-end="2816" vertical-scroll-proportion="0.8062016">
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jmatter/appbuilder/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="145" selection-end="145" vertical-scroll-proportion="0.17118402">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/applicationContext.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="58" selection-start="1176" selection-end="1176" vertical-scroll-proportion="0.56162244">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jmatter/appbuilder/writer/ClassWriter.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="261" column="7" selection-start="6733" selection-end="6733" vertical-scroll-proportion="-1.7175463">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/eitan/work/jmatter-complet/jmatter/src/com/u2d/type/atom/BooleanEO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="3" selection-start="529" selection-end="529" vertical-scroll-proportion="0.28425655">
+        <state line="71" column="21" selection-start="1895" selection-end="1895" vertical-scroll-proportion="0.957204">
           <folding />
         </state>
       </provider>
