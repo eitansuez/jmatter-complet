@@ -23,6 +23,8 @@ public class BooleanEO extends AbstractAtomicEO implements Searchable
    public BooleanEO(boolean value) { _value = value; }
    
    public boolean booleanValue() { return _value; }
+   public boolean isTrue() { return _value; }
+   public boolean isFalse() { return !_value; }
    public void setValue(boolean value)
    {
       if (_value == value) return;
