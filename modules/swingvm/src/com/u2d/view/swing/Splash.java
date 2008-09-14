@@ -39,7 +39,7 @@ public class Splash extends JWindow implements AppEventListener
    
    private void layMeOut()
    {
-      MigLayout layout = new MigLayout("flowy, fill", "[max(300,pref)]", "");
+      MigLayout layout = new MigLayout("flowy, fill", "[max(300,pref)]");
       JPanel contentPane = new JPanel(layout);
       ComponentStyle.addClass(contentPane, "splash-pane");
       _messageLabel = new JLabel();

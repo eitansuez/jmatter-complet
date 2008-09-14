@@ -25,7 +25,7 @@ public class GenericExpandableView extends JPanel
       setOpaque(false);
       setBorder(BorderFactory.createLineBorder(Color.black));
 
-      MigLayout layout = new MigLayout("insets 0, flowy");
+      MigLayout layout = new MigLayout("insets 0, flowy, hidemode 2, fill");
       setLayout(layout);
       
       _toggleBtn = new ExpandCollapseButton();
@@ -52,8 +52,8 @@ public class GenericExpandableView extends JPanel
       gp.add(handle, BorderLayout.CENTER);
       gp.add(_toggleBtn, BorderLayout.LINE_END);
       
-      add(gp);
-      add(leaf);
+      add(gp, "alignx leading, aligny top, growx");
+      add(leaf, "alignx leading, aligny top, grow");
       
       expandCollapse(false);
    }
