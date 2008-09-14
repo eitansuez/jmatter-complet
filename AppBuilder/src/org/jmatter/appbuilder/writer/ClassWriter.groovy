@@ -19,14 +19,16 @@ class ClassWriter
    StringWriter writer
    int indentLevel = 0
    int indentSize = 3
-   Set imports, readOnly, identities, fieldOrder
+   Set imports, readOnly, identities
+   List fieldOrder, commandOrder
    
    ClassWriter(EntityAB entity)
    {
       imports = [] as Set
       readOnly = [] as Set
       identities = [] as Set
-      fieldOrder = [] as Set
+      fieldOrder = [] as List
+      commandOrder = [] as List
 
       this.entity = entity
 
@@ -62,6 +64,12 @@ class ClassWriter
          {
             addImport "com.u2d.list.CompositeList"
          }
+      }
+
+      def cmds = entity.getCommands().getItems()
+      cmds.each { CommandAB cmd ->
+         String cmdName = cmd.getName().stringValue()
+         commandOrder << cmdName
       }
 
       if (!entity.getCommands().isEmpty())
@@ -187,6 +195,7 @@ class ClassWriter
       staticDecl("readOnly", readOnly)
       staticDecl("identities", identities)
       staticDecl("fieldOrder", fieldOrder)
+      staticDecl("commandOrder", commandOrder)
 
       writeNaturalNameIfNeeded();
       writePluralNameIfNeeded();
@@ -212,12 +221,12 @@ class ClassWriter
       }
    }
 
-   def staticDecl(String declFldName, Set set)
+   def staticDecl(String declFldName, Collection collection)
    {
-      if (set.size() > 0)
+      if (collection.size() > 0)
       {
          write("public static String[] ${declFldName} = {")
-         def fieldsListing = set.collect { String fldName -> "\"${fldName}\"" }
+         def fieldsListing = collection.collect { String fldName -> "\"${fldName}\"" }
          writer.append(fieldsListing.join(", "))
          writer.append("};")
          separate()
