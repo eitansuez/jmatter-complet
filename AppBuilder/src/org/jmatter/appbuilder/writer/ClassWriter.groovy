@@ -245,7 +245,7 @@ class ClassWriter
          {
             writeln "private final ${shortTypeName} ${fieldName} = new ${shortTypeName}();"
             writeFldAnnotationIfNeeded(field)
-            writeln "${shortTypeName} ${getterName}() { return ${fieldName}; }"
+            writeln "public ${shortTypeName} ${getterName}() { return ${fieldName}; }"
          }
          else if (field.isAssociationField())
          {
@@ -254,7 +254,7 @@ class ClassWriter
 
             writeln "private ${shortTypeName} ${fieldName};"
             writeFldAnnotationIfNeeded(field)
-            writeln "${shortTypeName} ${getterName}() { return ${fieldName}; }"
+            writeln "public ${shortTypeName} ${getterName}() { return ${fieldName}; }"
             writeln "public void ${setterName}(${shortTypeName} ${fieldName})"
             nest {
                writeln "${shortTypeName} ${oldName} = this.${fieldName};"
