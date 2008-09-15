@@ -127,7 +127,7 @@ public class FindView2 extends JSplitPane implements View
        {
          public void execute(Object value, EView source)
          {
-            CriteriaListEO cleo = _findForm.doFind();
+            final CriteriaListEO cleo = _findForm.doFind();
             cleo.setPickState(_association);
 
             if (cleo.isEmpty())
@@ -143,9 +143,15 @@ public class FindView2 extends JSplitPane implements View
 //            }
             else
             {
-               detach();
-               setBottomComponent((JComponent) cleo.getView());
-               CloseableJInternalFrame.updateSize(FindView2.this);
+               SwingUtilities.invokeLater(new Runnable()
+               {
+                  public void run()
+                  {
+                     detach();
+                     setBottomComponent((JComponent) cleo.getView());
+                     CloseableJInternalFrame.updateSize(FindView2.this);
+                  }
+               });
             }
 
          } // end execute method
