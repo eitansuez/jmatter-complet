@@ -105,11 +105,11 @@ public class InstructionView extends JPanel implements ComplexEView
          }
       };
 
-      MigLayout layout = new MigLayout("fill, wrap 2", "[180][180]", "[180][pref]");
+      MigLayout layout = new MigLayout("fill, wrap 2", "[][]", "[180][pref]");
       setLayout(layout);
       
-      add(_targetView, "grow");
-      add(_cmdView, "grow");
+      add(_targetView, "wmin 180, grow");
+      add(_cmdView, "wmin 180, grow");
       _tipLabel.setText(TIP_START_TEXT);
       add(_tipLabel, "span");
    }
