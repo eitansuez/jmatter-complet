@@ -214,6 +214,7 @@ public class AppFrame extends JFrame
          public void actionPerformed(ActionEvent e)
          {
             instruction.activate();
+            instruction.getActive().fireStateChanged();
          }
       });
    }
