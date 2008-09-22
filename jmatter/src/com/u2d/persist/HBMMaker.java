@@ -195,7 +195,8 @@ public class HBMMaker
    }
    private Element produceBag(Element parentElem, IndexedField field, FieldParent parent)
    {
-      Element bagElem = produceCollection("bag", parentElem, field, parent);
+      String listType = (field.isComposite()) ? "idbag" : "bag";
+      Element bagElem = produceCollection(listType, parentElem, field, parent);
 
       if (field.isBidirectionalRelationship())
       {
@@ -215,6 +216,13 @@ public class HBMMaker
       listElem.addAttribute("name", field.name());
 
       addAccessAttribute(listElem);
+
+      if ("idbag".equals(listType))
+      {
+         Element collectionId = listElem.addElement("collection-id");
+         collectionId.addAttribute("column", "ID").addAttribute("type", "long");
+         collectionId.addElement("generator").addAttribute("class", "increment");
+      }
       
       Element keyElem = listElem.addElement("key");
       if (field.isBidirectionalRelationship())
@@ -350,12 +358,12 @@ public class HBMMaker
          java.lang.reflect.Field colField = typeClass.getDeclaredField("COLUMNNAMES");
          String[] colNames = (String[]) colField.get(null);
          Element column;
-         
-         for (int i=0; i<colNames.length; i++)
+
+         for (String colName : colNames)
          {
             column = propElem.addElement("column");
             String colprefix = (prefix == null) ? "" : prefix + "_";
-            column.addAttribute("name", colprefix + colNames[i]);
+            column.addAttribute("name", colprefix + colName);
          }
       }
       catch (Exception ex)  // common case:
@@ -505,7 +513,7 @@ public class HBMMaker
          java.lang.reflect.Field colField = typeClass.getDeclaredField("COLUMNNAMES");
          String[] colNames = (String[]) colField.get(null);
          Element column;
-         for (int i=0; i<colNames.length; i++)
+         for (String colName : colNames)
          {
             column = propElem.addElement("column");
             String colprefix = (prefix == null) ? "" : prefix + "_";
@@ -517,10 +525,10 @@ public class HBMMaker
                // e.g. 2: type -> importance_type (where fieldname is 'importance')
             }
 
-            column.addAttribute("name", colprefix + colNames[i]);
+            column.addAttribute("name", colprefix + colName);
             
             if (index)
-               column.addAttribute("index", _type.name() + "_" + colprefix + colNames[i] + "_idx");
+               column.addAttribute("index", _type.name() + "_" + colprefix + colName + "_idx");
          }
       }
       catch (Exception ex)  // common case:
@@ -660,9 +668,9 @@ public class HBMMaker
    private String[] _reservedWords = {"order", "user", "authorization"};
    private boolean isReservedWord(String word)
    {
-      for (int i=0; i<_reservedWords.length; i++)
+      for (String reservedWord : _reservedWords)
       {
-         if (_reservedWords[i].equalsIgnoreCase(word))
+         if (reservedWord.equalsIgnoreCase(word))
             return true;
       }
       return false;
