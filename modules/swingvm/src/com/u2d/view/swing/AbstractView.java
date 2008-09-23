@@ -46,14 +46,14 @@ public class AbstractView extends JPanel
       add(_card, BorderLayout.CENTER);
 
       AbstractListEO types = _field.fieldtype().concreteTypes();
-      EObject eo = null;
+      EObject eo;
       ComplexEObject value = (ComplexEObject) _field.get(_parent);
       ComplexType type;
       for (int i=0; i<types.getSize(); i++)
       {
          type = (ComplexType) types.getElementAt(i);
          eo = type.instance();
-         EView view = null;
+         EView view;
          if (type.equals(value.type()))
          {
             view = value.getView();
