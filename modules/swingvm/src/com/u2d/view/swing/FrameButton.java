@@ -46,6 +46,8 @@ public class FrameButton extends JToggleButton implements ActionListener, Proper
    {
       myframe.removePropertyChangeListener("title", this);
       myframe.removePropertyChangeListener("frameIcon", this);
+      myframe = null;
+      desktopPane = null;
    }
 
    public JInternalFrame getFrame()
