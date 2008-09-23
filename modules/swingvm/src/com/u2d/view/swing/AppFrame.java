@@ -853,7 +853,7 @@ public class AppFrame extends JFrame
          buttonGroup.remove(button);
          remove(button);
 
-         frame.putClientProperty("sibling-button", null); // no remove method.  done by setting to null.
+         frame.putClientProperty(FRAMEBUTTON_CLIENTPROPERTYNAME, null); // no remove method.  done by setting to null.
          frame.removeInternalFrameListener(iframeListener);
       }
 
