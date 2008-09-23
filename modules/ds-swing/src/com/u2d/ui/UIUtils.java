@@ -111,7 +111,7 @@ public class UIUtils
     */
    public static MouseListener doubleClickActionListener(final ActionListener actionListener)
    {
-      return (MouseListener) new MouseAdapter()
+      return new MouseAdapter()
          {
             public void mouseClicked(MouseEvent evt)
             {
