@@ -125,7 +125,12 @@ public class CompositeList extends SimpleListEO
          else
          {
             ceo.popState();
+            if (ceo.isNullState()) // stack is empty after pop..
+            {
+               ceo.setStartState();
+            }
          }
+
       }
    }
    public synchronized void setStartState()
