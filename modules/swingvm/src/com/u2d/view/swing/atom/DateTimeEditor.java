@@ -11,7 +11,7 @@ import net.miginfocom.swing.MigLayout;
 /**
  * @author Eitan Suez
  */
-public class DateTimeEditor extends JPanel implements AtomicEditor
+public class DateTimeEditor extends JPanel implements AtomicEditor, CompositeEditor
 {
    private JTextField _tf;
 
@@ -51,4 +51,5 @@ public class DateTimeEditor extends JPanel implements AtomicEditor
 
    public void passivate() { }
 
+   public JComponent getEditorComponent() { return _tf; }
 }
