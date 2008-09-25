@@ -31,8 +31,6 @@ public class CompositeList extends SimpleListEO
 
    private transient Logger _tracer = Tracing.tracer();
 
-   private CompositeList() {}  // for jibx
-
    public CompositeList(Class clazz) { super(clazz); }
    public CompositeList(Class clazz, ComplexEObject parent)
    {
@@ -120,7 +118,14 @@ public class CompositeList extends SimpleListEO
       for (Iterator itr = _items.iterator(); itr.hasNext(); )
       {
          ComplexEObject ceo = (ComplexEObject) itr.next();
-         ceo.popState();
+         if (ceo.isTransientState())
+         {
+            ceo.setStartState();
+         }
+         else
+         {
+            ceo.popState();
+         }
       }
    }
    public synchronized void setStartState()
