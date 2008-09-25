@@ -195,7 +195,9 @@ public class HBMMaker
    }
    private Element produceBag(Element parentElem, IndexedField field, FieldParent parent)
    {
-      String listType = (field.isComposite()) ? "idbag" : "bag";
+      // commenting out for now:
+//      String listType = (field.isComposite()) ? "idbag" : "bag";
+      String listType = "bag";
       Element bagElem = produceCollection(listType, parentElem, field, parent);
 
       if (field.isBidirectionalRelationship())
