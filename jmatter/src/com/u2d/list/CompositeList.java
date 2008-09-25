@@ -26,7 +26,7 @@ import com.u2d.element.CommandInfo;
 public class CompositeList extends SimpleListEO
 {
    private transient boolean _fixedSize = false;
-   private ComplexEObject _parent;
+   private ComplexEObject _containingParent;
    private Method _setterMethod;
 
    private transient Logger _tracer = Tracing.tracer();
@@ -35,7 +35,7 @@ public class CompositeList extends SimpleListEO
    public CompositeList(Class clazz, ComplexEObject parent)
    {
       this(clazz);
-      _parent = parent;
+      _containingParent = parent;
    }
    public CompositeList(Class clazz, ComplexEObject parent, String parentFldname)
    {
@@ -153,13 +153,13 @@ public class CompositeList extends SimpleListEO
 
    public void add(int index, ComplexEObject item)
    {
-      if (_parent != null) item.setState(_parent.getState());
+      if (_containingParent != null) item.setState(_containingParent.getState());
       super.add(index, item);
    }
 
    public void add(ComplexEObject item)
    {
-      if (_parent != null) item.setState(_parent.getState());
+      if (_containingParent != null) item.setState(_containingParent.getState());
       super.add(item);
    }
 
@@ -185,11 +185,11 @@ public class CompositeList extends SimpleListEO
 
    public void setParent(ComplexEObject ceo)
    {
-      if (_setterMethod != null && _parent != null)
+      if (_setterMethod != null && _containingParent != null)
       {
          try
          {
-            _setterMethod.invoke(ceo, _parent);
+            _setterMethod.invoke(ceo, _containingParent);
          }
          catch (IllegalAccessException e)
          {
