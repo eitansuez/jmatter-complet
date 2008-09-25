@@ -253,7 +253,7 @@ public class AssociationField extends Field implements Bidi, Associable
    
    public int validate(ComplexEObject parent)
    {
-      Association association = association(parent);
+      Association association = parent.association(name());
       Required required = getRequired(parent);
       if (required.isit() && association.isEmpty())
       {
