@@ -9,7 +9,7 @@ Getting Started
 
   - create a model class, conforming to the conventions
   - described in the documentation (see jmatter/doc/guide.pdf)
-  - add type to src/com/u2d/class-list.xml
+  - add type to src/com/u2d/class-list.json
 
   Then:
    ant genhbm
