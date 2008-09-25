@@ -52,7 +52,7 @@ public class CompositeIndexedField extends IndexedField
    public void restore(ComplexEObject parent, Object value)
    {
       super.restore(parent, value);
-      final CompositeList list = (CompositeList) super.get(parent);
+      final CompositeList list = (CompositeList) get(parent);
       for (Iterator itr = list.iterator(); itr.hasNext(); )
       {
          ComplexEObject ceo = (ComplexEObject) itr.next();
