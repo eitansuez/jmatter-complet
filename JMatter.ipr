@@ -89,6 +89,7 @@
       <customJdkName value="" />
       <maximumHeapSize value="128" />
       <properties />
+      <executeOn event="beforeRun" target="compile" runConfigurationType="Application" runConfigurationName="SongHBMMaker" />
       <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="MyTunes" />
     </buildFile>
   </component>
