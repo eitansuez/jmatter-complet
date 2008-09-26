@@ -198,6 +198,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
    
    private void detach()
    {
+      CSSEngine.getInstance().stylesheet().cleanupStylesForRecursive(getContentPane());
       if (_views.size() == 1 && _views.get(0) instanceof EView)
       {
          ((EView) _views.get(0)).getEObject().removeChangeListener(this);
@@ -221,7 +222,6 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       {
          ((EView) view).detach();
       }
-//      CSSEngine.getInstance().stylesheet().cleanupStylesForRecursive(view);
    }
 
 
