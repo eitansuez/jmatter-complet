@@ -69,6 +69,7 @@ public class CommandsButtonView extends JPanel implements ListEView
       {
          _parent.remove(this);
       }
+      _source = null;
    }
 
    private void detachCmds()
