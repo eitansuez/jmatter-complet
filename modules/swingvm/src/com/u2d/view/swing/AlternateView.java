@@ -144,6 +144,7 @@ public class AlternateView extends JPanel
          EView view = (EView) _map.get(key);
          view.detach();
       }
+      _map.clear();
    }
 
    public void stateChanged(ChangeEvent e) {}
