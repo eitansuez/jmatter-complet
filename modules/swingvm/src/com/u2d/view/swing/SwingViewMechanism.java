@@ -223,55 +223,61 @@ public class SwingViewMechanism implements ViewMechanism
    }
 
 
-   public void displayViewFor(Object value, EView source, Positioning positioningHint)
+   public void displayViewFor(final Object value, final EView source, final Positioning positioningHint)
    {
-      if (value == null) return;
-
-      if (value instanceof Throwable)
+      SwingUtilities.invokeLater(new Runnable()
       {
-         displayFrame(new ExceptionFrame((Throwable) value), positioningHint);
-      }
-      if (value instanceof Viewable)
-      {
-         EView view = ((Viewable) value).getMainView();
-
-         if (value instanceof ComplexEObject)
+         public void run()
          {
-            ComplexEObject ceo = (ComplexEObject) value;
-            if (ceo.isEditableState() && view instanceof Editor)
+            if (value == null) return;
+
+            if (value instanceof Throwable)
             {
-               ceo.setEditor((Editor) view);
+               displayFrame(new ExceptionFrame((Throwable) value), positioningHint);
+            }
+            if (value instanceof Viewable)
+            {
+               EView view = ((Viewable) value).getMainView();
+
+               if (value instanceof ComplexEObject)
+               {
+                  ComplexEObject ceo = (ComplexEObject) value;
+                  if (ceo.isEditableState() && view instanceof Editor)
+                  {
+                     ceo.setEditor((Editor) view);
+                  }
+               }
+
+               displayView(view, source);
+            }
+            else if (value instanceof EView)
+            {
+               displayView((EView) value, source);
+            }
+            else if (value instanceof View)
+            {
+               View view = (View) value;
+               displayView(view, positioningHint);
+            }
+            else if (value instanceof String)
+            {
+               message((String) value);
+            }
+            else if (value instanceof Reportable)
+            {
+               displayReport((Reportable) value);
+            }
+            else if (value instanceof Wizard)
+            {
+               displayWizard((Wizard) value);
+            }
+            else if (value instanceof JComponent)
+            {
+               JComponent component = (JComponent) value;
+               displayView(component, positioningHint);
             }
          }
-
-         displayView(view, source);
-      }
-      else if (value instanceof EView)
-      {
-         displayView((EView) value, source);
-      }
-      else if (value instanceof View)
-      {
-         View view = (View) value;
-         displayView(view, positioningHint);
-      }
-      else if (value instanceof String)
-      {
-         message((String) value);
-      }
-      else if (value instanceof Reportable)
-      {
-         displayReport((Reportable) value);
-      }
-      else if (value instanceof Wizard)
-      {
-         displayWizard((Wizard) value);
-      }
-      else if (value instanceof JComponent)
-      {
-         JComponent component = (JComponent) value;
-         displayView(component, positioningHint);
-      }
+      });
    }
 
 
