@@ -81,17 +81,27 @@ public class FormView extends JXPanel implements IFormView
       _ceo.removeChangeListener(this);
 
       stopListeningForValidations();
+      _vPnls.clear();
 
       for (EView view : _childViews)
       {
          view.detach();
       }
+      _childViews.clear();
 
       for (FieldCaption c : _fieldCaptions)
       {
          c.detach();
       }
       _fieldCaptions.clear();
+
+      if (_tabbedPane != null)
+      {
+         for (ChangeListener l : _tabbedPane.getChangeListeners())
+         {
+            _tabbedPane.removeChangeListener(l);
+         }
+      }
    }
 
    private void layItOut()
