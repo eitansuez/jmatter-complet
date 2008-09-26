@@ -17,6 +17,7 @@ import com.u2d.css4swing.style.ComponentStyle;
 public class ValidationNoticePanel extends JLabel implements ValidationListener
 {
    private ValidationNotifier _target;
+   private boolean _listening = false;
    
    public ValidationNoticePanel(ValidationNotifier target, boolean startListening)
    {
@@ -33,13 +34,17 @@ public class ValidationNoticePanel extends JLabel implements ValidationListener
       this(target, ceo.isEditableState());
    }
    
-   public void startListening()
+   public synchronized void startListening()
    {
+      if (_listening) return;
+      
       _target.addValidationListener(this);
+      _listening = true;
    }
-   public void stopListening()
+   public synchronized void stopListening()
    {
       _target.removeValidationListener(this);
+      _listening = false;
    }
    
    public void reset()
