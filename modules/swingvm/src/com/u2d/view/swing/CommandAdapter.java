@@ -105,9 +105,10 @@ public class CommandAdapter extends AbstractAction
 
    public void actionPerformed(ActionEvent evt)
    {
+      final JComponent sourceComp = (JComponent) _source;
       if (_command.blocks())
       {
-         ((JComponent) _source).setEnabled(false);
+         sourceComp.setEnabled(false);
       }
       SwingViewMechanism.invokeSwingAction(new SwingAction()
       {
@@ -127,7 +128,8 @@ public class CommandAdapter extends AbstractAction
          {
             if (_command.blocks())
             {
-               ((JComponent) _source).setEnabled(true);
+               sourceComp.setEnabled(true);  // if the view has closed or detached, then still have a ref to source
+                 // to re-enable it
             }
          }
       });
