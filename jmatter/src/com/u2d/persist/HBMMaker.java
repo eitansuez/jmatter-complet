@@ -341,6 +341,12 @@ public class HBMMaker
          elem.addAttribute("column", prefix + "_" + field.name() + "_id");
       }
 
+      if (field.required())
+      {
+         elem.addAttribute("not-null", "true");
+      }
+
+
       addAccessAttribute(elem);
 
       return elem;
