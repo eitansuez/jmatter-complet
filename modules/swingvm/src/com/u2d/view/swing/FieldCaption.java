@@ -133,5 +133,6 @@ public class FieldCaption extends com.u2d.ui.Caption implements ComplexEView
       _field.getRequired().removeChangeListener(this);
       _field.getDescription().removeChangeListener(this);
       _field.getLabel().removeChangeListener(this);
+      setLabelFor(null);
    }
 }
