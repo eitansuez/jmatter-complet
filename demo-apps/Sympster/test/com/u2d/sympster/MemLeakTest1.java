@@ -34,10 +34,23 @@ public class MemLeakTest1 implements Runnable
       JFrame f = new JFrame();
       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-      formView = new TopLevelFormView(city);
-
       p = new JPanel(new BorderLayout());
-      p.add(formView, BorderLayout.CENTER);
+
+      JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+      JButton setupBtn = new JButton("SetupUI");
+      setupBtn.addActionListener(new ActionListener()
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+            formView = new TopLevelFormView(city);
+            p.add(formView, BorderLayout.CENTER);
+            p.revalidate();
+            p.repaint();
+         }
+      });
+      btnPnl.add(setupBtn);
+      
       JButton detachBtn = new JButton("Detach");
       detachBtn.addActionListener(new ActionListener()
       {
@@ -46,7 +59,6 @@ public class MemLeakTest1 implements Runnable
             formView.detach();
          }
       });
-      JPanel btnPnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
       btnPnl.add(detachBtn);
       JButton removeBtn = new JButton("Remove FormView");
       removeBtn.addActionListener(new ActionListener()
