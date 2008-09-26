@@ -184,7 +184,7 @@ Eitan Suez
 \begin_layout Standard
 \noindent
 \align center
-April 2008
+September 2008
 \end_layout
 
 \begin_layout Standard
@@ -2904,7 +2904,7 @@ Before we generate our schema, we need a way to communicate to JMatter the
  various types of objects we would like to persist.
  We typically do this by adding an annotation (
 \emph on
-@Persist
+@Entity
 \emph default
 ) directly on the model classes that we define.
  However in this case, since we're using pre-existing model classes, we
@@ -3021,53 +3021,80 @@ Similar to the task of specifying which types to persist to the database,
 \begin_layout Standard
 The way to predefine the default classbar items is to edit 
 \emph on
-src/class-list.xml
+src/class-list.json
 \emph default
 :
 \end_layout
 
 \begin_layout LyX-Code
-<folder>
+{
 \end_layout
 
 \begin_layout LyX-Code
-  <name>Class List</name>
+  "type": "com.u2d.type.composite.Folder",
 \end_layout
 
 \begin_layout LyX-Code
-  <items>
+  "items": {
 \end_layout
 
 \begin_layout LyX-Code
-    <folder>
+    "item-type": "com.u2d.type.composite.Folder",
 \end_layout
 
 \begin_layout LyX-Code
-      <name>Model</name>
+    "items": [
 \end_layout
 
 \begin_layout LyX-Code
-        <items>
+      {
 \end_layout
 
 \begin_layout LyX-Code
-          <type>com.u2d.type.composite.Person</type>
+        "name": "Model",
 \end_layout
 
 \begin_layout LyX-Code
-          <type>com.u2d.type.composite.Business</type>
+        "items": {
 \end_layout
 
 \begin_layout LyX-Code
-          <type>com.u2d.type.composite.Folder</type>
+          "item-type": "com.u2d.model.ComplexType",
 \end_layout
 
 \begin_layout LyX-Code
-          ...
+          "items": [
+\end_layout
+
+\begin_layout LyX-Code
+            { "value": "com.u2d.contactmgr.Person" },
+\end_layout
+
+\begin_layout LyX-Code
+            { "value": "com.u2d.type.composite.Business" },
+\end_layout
+
+\begin_layout LyX-Code
+            { "value": "com.u2d.type.composite.Folder" },
+\end_layout
+
+\begin_layout LyX-Code
+            ...
 \end_layout
 
 \begin_layout Standard
-This xml file is nothing but a marshalled Folder object.
+This file is nothing but a marshalled Folder object (in JSON format
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+JSON stands for JavaScript Object Notation.
+ See http://json.org/ for more information
+\end_layout
+
+\end_inset
+
+).
  When the application starts up, the file will be unmarshalled back as a
  Folder object.
  JMatter will detect that our database is empty (it contains no classbar)
@@ -3633,7 +3660,7 @@ src/persistClasses.st
 \emph default
  and 
 \emph on
-src/class-list.xml
+src/class-list.json
 \emph default
  and know a little about how to configure them;
 \end_layout
@@ -3955,7 +3982,7 @@ import com.u2d.type.atom.TextEO;
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 \end_layout
 
 \begin_layout LyX-Code
@@ -3963,7 +3990,7 @@ import com.u2d.persist.Persist;
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -4029,7 +4056,7 @@ Let's analyze the above:
 \begin_layout Enumerate
 The 
 \emph on
-@Persist
+@Entity
 \emph default
  Annotation: automates having to manually edit 
 \emph on
@@ -4274,7 +4301,7 @@ import com.u2d.list.RelationalList;
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 \end_layout
 
 \begin_layout LyX-Code
@@ -4282,7 +4309,7 @@ import com.u2d.persist.Persist;
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -4398,7 +4425,7 @@ import com.u2d.model.ComplexType;
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 \end_layout
 
 \begin_layout LyX-Code
@@ -4406,7 +4433,7 @@ import com.u2d.persist.Persist;
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -4533,7 +4560,7 @@ package com.u2d.mytunes;
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -4843,86 +4870,106 @@ Technically there is no configuration left to do.
  Again, this is optional.
  The file to edit is 
 \emph on
-src/class-list.xml
+src/class-list.json
 \emph default
 .
  Here's a sample that'll do nicely:
 \end_layout
 
 \begin_layout LyX-Code
-<?xml version="1.0" encoding="UTF-8"?>
+{
 \end_layout
 
 \begin_layout LyX-Code
-<folder>
+  "type": "com.u2d.type.composite.Folder",
 \end_layout
 
 \begin_layout LyX-Code
-   <name>Class List</name>
+  "items": {
 \end_layout
 
 \begin_layout LyX-Code
-   <items>
+    "item-type": "com.u2d.type.composite.Folder",
 \end_layout
 
 \begin_layout LyX-Code
-      <folder>
+    "items": [
 \end_layout
 
 \begin_layout LyX-Code
-         <name>Model</name>
+      {
 \end_layout
 
 \begin_layout LyX-Code
-         <items>
+        "name": "Model",
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.mytunes.Song</type>
+        "items": {
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.mytunes.Album</type>
+          "item-type": "com.u2d.model.ComplexType",
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.mytunes.Artist</type>
+          "items": [
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.mytunes.Genre</type>
+            { "value": "com.u2d.mytunes.Song" },
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.app.User</type>
+            { "value": "com.u2d.mytunes.Album" },
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.type.composite.Folder</type>
+            { "value": "com.u2d.mytunes.Artist" },
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.find.CompositeQuery</type>
+            { "value": "com.u2d.mytunes.Genre" },
 \end_layout
 
 \begin_layout LyX-Code
-           <type>com.u2d.type.composite.LoggedEvent</type>
+            { "value": "com.u2d.app.User" },
 \end_layout
 
 \begin_layout LyX-Code
-         </items>
+            { "value": "com.u2d.type.composite.Folder" },
 \end_layout
 
 \begin_layout LyX-Code
-      </folder>
+            { "value": "com.u2d.find.CompositeQuery" },
 \end_layout
 
 \begin_layout LyX-Code
-   </items>
+            { "value": "com.u2d.type.composite.LoggedEvent" }
 \end_layout
 
 \begin_layout LyX-Code
-</folder>
+          ]
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+      }
+\end_layout
+
+\begin_layout LyX-Code
+    ]
+\end_layout
+
+\begin_layout LyX-Code
+  }
+\end_layout
+
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout Subsection
@@ -6783,7 +6830,7 @@ resources/images
 \begin_layout Enumerate
 for startup ease, specify the fully-qualified type name in 
 \emph on
-src/class-list.xml
+src/class-list.json
 \end_layout
 
 \begin_layout Subsection
@@ -6815,7 +6862,7 @@ import com.u2d.type.atom.StringEO;
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 \end_layout
 
 \begin_layout LyX-Code
@@ -6823,7 +6870,7 @@ import com.u2d.persist.Persist;
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -6943,7 +6990,7 @@ import com.u2d.list.RelationalList;
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 \end_layout
 
 \begin_layout LyX-Code
@@ -6951,7 +6998,7 @@ import com.u2d.persist.Persist;
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -7103,7 +7150,7 @@ import com.u2d.type.atom.TextEO;
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 \end_layout
 
 \begin_layout LyX-Code
@@ -7111,7 +7158,7 @@ import com.u2d.persist.Persist;
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -7241,7 +7288,7 @@ import com.u2d.type.atom.StringEO;
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 \end_layout
 
 \begin_layout LyX-Code
@@ -7249,7 +7296,7 @@ import com.u2d.persist.Persist;
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -7325,7 +7372,7 @@ import com.u2d.type.atom.TimeSpan;
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 \end_layout
 
 \begin_layout LyX-Code
@@ -7333,7 +7380,7 @@ import com.u2d.persist.Persist;
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -9763,7 +9810,7 @@ Here is the context within which all this code is written:
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -9840,7 +9887,7 @@ src/persistClasses.st
 \emph default
  by hand: the 
 \emph on
-@Persist
+@Entity
 \emph default
  annotation takes care to add Issue to the list automatically.
  However here we're using a predefined entity 
@@ -10925,7 +10972,7 @@ The first thing we do is define an issue category type:
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -11295,7 +11342,7 @@ import ...
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
@@ -11420,7 +11467,7 @@ Title
 \begin_layout Enumerate
 We use the 
 \emph on
-@Persist
+@Entity
 \emph default
  annotation to mark the type as one that we want to persist to database.
 \end_layout
@@ -15353,7 +15400,7 @@ logged out
 Upon successful login, the user's classbar is fetched from database (upon
  initial login, the classbar is defined from the template file 
 \emph on
-class-list.xml
+class-list.json
 \emph default
 ) and presented in the user interface.
 \end_layout
@@ -20225,7 +20272,7 @@ This requires some explanation.
 \begin_layout Standard
 
 \emph on
-src/class-list.xml
+src/class-list.json
 \end_layout
 
 \end_inset
@@ -20267,7 +20314,7 @@ You typically will not need to edit this file.
  in your application.
  The list is derived from the 
 \emph on
-@Persist
+@Entity
 \emph default
  annotations in your class files.
  It is passed to Hibernate via a Spring configuration file.
@@ -22450,8 +22497,8 @@ dist/Sympster.jar
 \emph default
  which consists strictly of the compiled object model and supporting classes
  (if any), the application resources and configuration files (images, class-list.
-xml, hibernate mapping files, database connection setings, and spring configurat
-ion files).
+json, hibernate mapping files, database connection setings, and spring configura
+tion files).
 \end_layout
 
 \begin_layout Standard
@@ -22910,7 +22957,7 @@ import com.u2d.type.atom.StringEO;
 \end_layout
 
 \begin_layout LyX-Code
-import com.u2d.persist.Persist;
+import javax.persistence.Entity;
 \end_layout
 
 \begin_layout LyX-Code
@@ -22918,7 +22965,7 @@ import com.u2d.persist.Persist;
 \end_layout
 
 \begin_layout LyX-Code
-@Persist
+@Entity
 \end_layout
 
 \begin_layout LyX-Code
