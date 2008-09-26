@@ -8,7 +8,7 @@ import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
 import com.u2d.list.Paginable;
-
+import com.u2d.css4swing.CSSEngine;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -221,6 +221,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       {
          ((EView) view).detach();
       }
+//      CSSEngine.getInstance().stylesheet().cleanupStylesForRecursive(view);
    }
 
 
@@ -398,6 +399,8 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
          {
             detach(i);
          }
+         getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).remove(COMMAND_W);
+         getActionMap().remove(CLOSETAB_MAP_KEY);
       }
       public void detach(int index)
       {
@@ -455,6 +458,10 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       {
          int i = index + 1;
          getActionMap().remove("FOCUS_TAB_"+i);
+         KeyStroke shortcut = KeyStroke.getKeyStroke(
+                                   Character.forDigit(i, 10),
+                                   InputEvent.ALT_MASK);
+         getInputMap(WHEN_IN_FOCUSED_WINDOW).remove(shortcut);
       }
       private void setupKeyBindingForTabIndex(final int index)
       {
