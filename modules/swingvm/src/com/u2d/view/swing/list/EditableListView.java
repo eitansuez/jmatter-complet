@@ -6,7 +6,6 @@ import com.u2d.view.EView;
 import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.swing.AppLoader;
 import com.u2d.view.swing.SwingViewMechanism;
-import com.u2d.view.swing.dnd.DropTargetHandler;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.NullAssociation;
@@ -14,6 +13,7 @@ import com.u2d.list.RelationalList;
 import com.u2d.ui.IconButton;
 import com.u2d.ui.MenuButton;
 import com.u2d.element.Command;
+import com.u2d.field.IndexedField;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataEvent;
@@ -94,7 +94,15 @@ public class EditableListView extends JPanel
       _northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 5, 0));
       _northPanel.setOpaque(false);
       _northPanel.add(addBtn());
-      _northPanel.add(removeBtn());
+
+      IndexedField field = (IndexedField) _leo.field();
+      // don't add "-" button if item's association to this field is required
+      if (! (field.isBidirectionalRelationship() &&
+             field.inverseField().required()) )
+      {
+         _northPanel.add(removeBtn());
+      }
+
       return _northPanel;
    }
 
