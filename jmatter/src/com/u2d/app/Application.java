@@ -15,6 +15,7 @@ import com.u2d.json.CodesList;
 import com.u2d.json.JSON;
 import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
+import com.u2d.persist.HBMBlock;
 import org.hibernate.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -153,15 +154,25 @@ public class Application implements AppEventNotifier
       if (count == 0)
       {
          message("Creating base users and roles..");
-         Role adminRole = new Role("Administrator");
-         Role defaultRole = new Role("Default");
-         Set<EObject> items = new HashSet<EObject>();
-         items.add(adminRole);
-         items.add(defaultRole);
-         items.add(new User("admin", "admin", adminRole));
-         items.add(new User("johndoe", "johndoe", defaultRole));
-         hbm.saveMany(items);
-         
+
+         final Role defaultRole = new Role("Default");
+
+         hbm.transaction(new HBMBlock()
+         {
+            public void invoke(Session session)
+            {
+               Role adminRole = new Role("Administrator");
+               session.save(adminRole);
+               session.save(defaultRole);
+               User admin = new User("admin", "admin", adminRole);
+               User johndoe = new User("johndoe", "johndoe", defaultRole);
+               admin.onBeforeCreate();
+               session.save(admin);
+               johndoe.onBeforeCreate();
+               session.save(johndoe);
+            }
+         });
+
          defaultRole.initializePermissions(hbm);
          CodesList.populateCodes(_pmech, hbm.getClasses());
       }
