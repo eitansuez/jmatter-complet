@@ -1158,11 +1158,9 @@ public class ComplexType extends AbstractComplexEObject
       {
          Criteria c = s.createCriteria(CompositeQuery.class);
          c.addOrder(Order.asc("queryType"));
-         Iterator itr = c.list().iterator();
-         CompositeQuery query;
-         while (itr.hasNext())
+         for (Iterator itr = c.list().iterator(); itr.hasNext(); )
          {
-            query = (CompositeQuery) itr.next();
+            CompositeQuery query = (CompositeQuery) itr.next();
             query.onLoad();
             query.getQueryType().addQuery(query);
          }
