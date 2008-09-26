@@ -271,11 +271,13 @@ public class FieldFilter extends JPanel
       if (_oldComp == null) return;
       if (_oldComp instanceof AtomicView)
       {
-         AtomicEditor editor = ((AtomicView) _oldComp).getEditor();
+         AtomicView view = (AtomicView) _oldComp;
+         AtomicEditor editor = view.getEditor();
          if (editor instanceof JTextField)
          {
             ((JTextField) editor).getDocument().removeDocumentListener(_docListener);
          }
+         view.detach();
       }
       else if (_oldComp instanceof TypePicker)
       {
