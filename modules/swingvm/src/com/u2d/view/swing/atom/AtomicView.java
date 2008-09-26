@@ -174,7 +174,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
       _cmdsView.detach();
       if (_eo.field() != null)
       {
-         _eo.field().removePropertyChangeListener(readOnlyListener);
+         _eo.field().removePropertyChangeListener("readOnly", readOnlyListener);
       }
    }
 
