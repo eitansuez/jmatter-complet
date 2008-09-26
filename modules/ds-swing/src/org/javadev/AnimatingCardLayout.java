@@ -169,6 +169,7 @@ public class AnimatingCardLayout extends CardLayout implements AnimationListener
     public void next(Container parent) {
         synchronized (parent.getTreeLock()) {
             int ncomponents = parent.getComponentCount();
+            if (ncomponents == 0) return;
             int nextCard = (getCurrent(parent) + 1) % ncomponents;
             animate(parent, parent.getComponent(nextCard),true);
         }
