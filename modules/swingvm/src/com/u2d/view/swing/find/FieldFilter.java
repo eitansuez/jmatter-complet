@@ -37,10 +37,7 @@ public class FieldFilter extends JPanel
    private JComboTree _fieldCombo;
    private JComboBox _ineqCombo;
    private java.util.List _inequalities;
-   private JPanel _valueSpot = new JPanel();
-   {
-      _valueSpot.setOpaque(false);
-   }
+   private JPanel _valueSpot;
 
    public FieldFilter(ComplexType type)
    {
@@ -51,6 +48,8 @@ public class FieldFilter extends JPanel
 
       add(fieldCombo());
       add(ineqCombo());
+      _valueSpot = new JPanel();
+      _valueSpot.setOpaque(false);
       add(_valueSpot);
 
       if (_type.hasDefaultSearchPath())
@@ -264,7 +263,7 @@ public class FieldFilter extends JPanel
       {
          fireChange();
       }
-   };
+   }
 
    private void removeOldComp()
    {
@@ -277,7 +276,7 @@ public class FieldFilter extends JPanel
          {
             ((JTextField) editor).getDocument().removeDocumentListener(_docListener);
          }
-         view.detach();
+//         view.detach();
       }
       else if (_oldComp instanceof TypePicker)
       {
