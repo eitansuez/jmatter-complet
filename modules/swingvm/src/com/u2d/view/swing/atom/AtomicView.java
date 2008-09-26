@@ -176,6 +176,9 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
       {
          _eo.field().removePropertyChangeListener("readOnly", readOnlyListener);
       }
+
+      removeAll();  // precaution
+      // noticing some strange references held on stringeditor such as CompositionAreaHandler
    }
 
 
