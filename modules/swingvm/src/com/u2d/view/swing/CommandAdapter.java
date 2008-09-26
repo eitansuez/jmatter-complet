@@ -100,6 +100,7 @@ public class CommandAdapter extends AbstractAction
       _value = null;
       _command.removePropertyChangeListener("enabled", changePropagator);
       changePropagator = null;
+      _source = null;
    }
 
    public void actionPerformed(ActionEvent evt)
