@@ -192,13 +192,14 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
 
    public void dispose()
    {
-      super.dispose();
       detach();
+      super.dispose();
    }
    
    private void detach()
    {
-      CSSEngine.getInstance().stylesheet().cleanupStylesForRecursive(getContentPane());
+      int count = CSSEngine.getInstance().stylesheet().cleanupStylesForRecursive(getContentPane());
+//      System.out.printf("removed %d references from map\n", count);
       if (_views.size() == 1 && _views.get(0) instanceof EView)
       {
          ((EView) _views.get(0)).getEObject().removeChangeListener(this);
