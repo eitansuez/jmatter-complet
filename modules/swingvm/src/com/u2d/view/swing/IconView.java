@@ -78,6 +78,7 @@ public class IconView extends Caption implements ComplexEView
       
       removeMouseListener(_defaultActionListener);
       defaultAction.detach();
+      setTransferHandler(null);
    }
 
    public EObject getEObject() { return _ceo; }

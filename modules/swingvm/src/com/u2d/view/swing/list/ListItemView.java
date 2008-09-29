@@ -71,6 +71,7 @@ public class ListItemView extends JLabel implements ListEView
    {
       _cmdsView.detach();
       _leo.removeListDataListener(this);
+      setTransferHandler(null);
    }
 
    public void contentsChanged(ListDataEvent e) { updateText(); }

@@ -200,6 +200,8 @@ public class SimpleAssociationView extends JXPanel
    public void detach()
    {
       _matcherField.removeActionListener(invokeAction);
+      invokeAction.detach();
+      _matchesList.detach();
    }
    
    public void propertyChange(PropertyChangeEvent evt)
