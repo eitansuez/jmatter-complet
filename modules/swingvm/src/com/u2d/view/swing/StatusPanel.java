@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class StatusPanel extends JPanel
 {
-   java.util.List _views = new ArrayList();
+   java.util.List<EView> _views = new ArrayList<EView>();
 
    public StatusPanel()
    {
@@ -40,9 +40,9 @@ public class StatusPanel extends JPanel
 
    public void detach()
    {
-      for (int i=0; i<_views.size(); i++)
+      for (EView view : _views)
       {
-         ((EView) _views.get(i)).detach();
+         view.detach();
       }
    }
 
