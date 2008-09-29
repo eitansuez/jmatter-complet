@@ -5,6 +5,8 @@ import com.u2d.model.AtomicEObject;
 import com.u2d.type.atom.ChoiceEO;
 import javax.swing.*;
 import net.miginfocom.swing.MigLayout;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,7 +21,7 @@ public class ChoiceRadioEditor extends JPanel implements AtomicEditor
 
    public ChoiceRadioEditor() {}
 
-   public void render(AtomicEObject value)
+   public void render(final AtomicEObject value)
    {
       ChoiceEO eo = (ChoiceEO) value;
       if (! _laidout )
@@ -27,6 +29,17 @@ public class ChoiceRadioEditor extends JPanel implements AtomicEditor
          setOpaque(false);
          MigLayout layout = new MigLayout();
          setLayout(layout);
+
+         ItemListener changeBinder = new ItemListener()
+         {
+            public void itemStateChanged(ItemEvent e)
+            {
+               if (e.getStateChange() == ItemEvent.SELECTED)
+               {
+                  bind(value);
+               }
+            }
+         };
 
          ButtonGroup group = new ButtonGroup();
          _buttons = new JRadioButton[eo.entries().size()];
@@ -36,6 +49,9 @@ public class ChoiceRadioEditor extends JPanel implements AtomicEditor
             JRadioButton btn = new JRadioButton((String) entry);
             btn.setOpaque(false);
             group.add(btn);
+
+            btn.addItemListener(changeBinder);
+
             add(btn);
             _buttons[i++] = btn;
          }
