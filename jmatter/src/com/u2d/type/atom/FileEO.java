@@ -18,7 +18,7 @@ public class FileEO extends AbstractAtomicEO
 {
    public enum FileUseIntent
    {
-      OPEN, SAVE;
+      OPEN, SAVE
    }
    protected File _value;
    protected FileUseIntent _intent = FileUseIntent.OPEN;
@@ -105,9 +105,9 @@ public class FileEO extends AbstractAtomicEO
       List filesList = new ArrayList(Arrays.asList(files));
       
       File[] subdirs = _value.listFiles(dirFilter);
-      for (int i=0; i<subdirs.length; i++)
+      for (File subdir : subdirs)
       {
-         filesList.addAll(new FileEO(subdirs[i]).listRecursive(filter));
+         filesList.addAll(new FileEO(subdir).listRecursive(filter));
       }
       
       return filesList;
