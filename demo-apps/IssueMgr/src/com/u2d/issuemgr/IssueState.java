@@ -2,6 +2,7 @@ package com.u2d.issuemgr;
 
 import java.util.*;
 import com.u2d.type.atom.ChoiceEO;
+import com.u2d.model.ComplexType;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,7 +15,7 @@ public class IssueState extends ChoiceEO
    public IssueState() {}
    public IssueState(String value) { setValue(value); }
    
-   private static Set STATUS_OPTIONS = new HashSet();
+   private static Set<String> STATUS_OPTIONS = new HashSet<String>();
    static
    {
       STATUS_OPTIONS.add(Issue.NEW);
@@ -25,4 +26,11 @@ public class IssueState extends ChoiceEO
    }
    
    public Collection entries() { return STATUS_OPTIONS; }
+
+   public String toString()
+   {
+      String localizedValue = ComplexType.localeLookupStatic("IssueState." + _value);
+      return (localizedValue == null) ? _value : localizedValue;
+   }
+
 }
