@@ -207,7 +207,7 @@ public class Issue extends AbstractComplexEObject
 
 
    public State startState() { return _newState; }
-   public State restoredState() { return (State) _stateMap.get(getStatus().code()); }
+   public State restoredState() { return _stateMap.get(getStatus().code()); }
 
 
    private void transition(State state, LoggedEvent evt)
