@@ -942,6 +942,13 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       _support.addAppEventListener(evtType, l);
    }
+   public void addAppEventListener(AppEventListener l, AppEventType... evtTypes)
+   {
+      for (AppEventType evtType : evtTypes)
+      {
+         addAppEventListener(evtType, l);
+      }
+   }
    public void removeAppEventListener(AppEventType evtType, AppEventListener l)
    {
       _support.removeAppEventListener(evtType, l);
