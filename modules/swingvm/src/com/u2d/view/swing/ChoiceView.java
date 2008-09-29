@@ -38,6 +38,7 @@ public class ChoiceView extends CardPanel implements ComplexEView, Editor
    public void detach()
    {
       _choice.removeChangeListener(this);
+      _choice.removeListDataListener(_cb);
    }
    
    public void stateChanged(ChangeEvent evt)
