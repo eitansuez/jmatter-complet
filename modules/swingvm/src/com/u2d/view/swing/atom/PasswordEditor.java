@@ -2,6 +2,7 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicEditor;
+import com.u2d.model.ComplexType;
 import com.u2d.type.atom.Password;
 import com.u2d.ui.MyPasswordField;
 import javax.swing.*;
@@ -38,13 +39,14 @@ public class PasswordEditor extends JPanel implements AtomicEditor
 
       if (pwd1.length() < Password.MINLENGTH)
       {
-         eo.fireValidationException("Password must be at least "+Password.MINLENGTH+" characters long");
+         String msg = String.format(ComplexType.localeLookupStatic("password.minlength.msg"), Password.MINLENGTH);
+         eo.fireValidationException(msg);
          return 1;
       }
 
       if (! pwd1.equals(pwd2) )
       {
-         eo.fireValidationException("Password and repeated password do not match.");
+         eo.fireValidationException(ComplexType.localeLookupStatic("passwords.match.msg"));
          return 1;
       }
 
