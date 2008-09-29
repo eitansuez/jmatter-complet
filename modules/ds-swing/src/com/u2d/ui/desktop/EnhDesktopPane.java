@@ -129,15 +129,15 @@ public class EnhDesktopPane extends MyDesktopPane
 
             JInternalFrame[] frames = getAllFramesInLayer(JLayeredPane.DEFAULT_LAYER);
             JInternalFrame targetFrame = null;
-            for (int i=0; i<frames.length; i++)
+            for (JInternalFrame frame : frames)
             {
-               Point pt = SwingUtilities.convertPoint((Component) event.getSource(), mouseEvent.getPoint(), frames[i]);
-               boolean candidate = frames[i].contains(pt);
+               Point pt = SwingUtilities.convertPoint((Component) event.getSource(), mouseEvent.getPoint(), frame);
+               boolean candidate = frame.contains(pt);
                if (candidate)
                {
-                  if ((targetFrame == null) || higherzorder(frames[i], targetFrame))
+                  if ((targetFrame == null) || higherzorder(frame, targetFrame))
                   {
-                     targetFrame = frames[i];
+                     targetFrame = frame;
                   }
                }
             }
@@ -326,9 +326,9 @@ public class EnhDesktopPane extends MyDesktopPane
    {
       super.setCursor(cursor);
       JInternalFrame[] frames = getAllFrames();
-      for (int i=0; i<frames.length; i++)
+      for (JInternalFrame frame : frames)
       {
-         frames[i].setCursor(cursor);
+         frame.setCursor(cursor);
       }
    }
 
@@ -349,12 +349,13 @@ public class EnhDesktopPane extends MyDesktopPane
       public void actionPerformed(ActionEvent evt)
       {
          JInternalFrame[] frames = getAllFrames();
-         for (int i=0; i<frames.length; i++)
+         for (JInternalFrame frame : frames)
          {
-            if (!frames[i].isVisible() && !frames[i].isIcon()) continue;
+            if (!frame.isVisible() && !frame.isIcon()) continue;
+            if (frame.getDefaultCloseOperation() == JFrame.HIDE_ON_CLOSE) continue;
 
-            remove(frames[i]);
-            frames[i].dispose();
+            getDesktopManager().closeFrame(frame);
+            try { frame.setClosed(true); } catch (PropertyVetoException ex) { System.err.println("Vetoed"); }
          }
          revalidate();
          repaint();
@@ -376,22 +377,22 @@ public class EnhDesktopPane extends MyDesktopPane
       public void actionPerformed(ActionEvent evt)
       {
          JInternalFrame[] frames = getAllFrames();
-         for (int i=0; i<frames.length; i++)
+         for (JInternalFrame frame : frames)
          {
-            if (!frames[i].isVisible()) continue;
+            if (!frame.isVisible()) continue;
 
-            if (_iconify && !frames[i].isIcon())
+            if (_iconify && !frame.isIcon())
             {
                try {
-                  frames[i].setIcon(true);
+                  frame.setIcon(true);
                } catch (PropertyVetoException e) {
                   e.printStackTrace();
                }
             }
-            else if (!_iconify && frames[i].isIcon())
+            else if (!_iconify && frame.isIcon())
             {
                try {
-                  frames[i].setIcon(false);
+                  frame.setIcon(false);
                } catch (PropertyVetoException e) {
                   e.printStackTrace();
                }
