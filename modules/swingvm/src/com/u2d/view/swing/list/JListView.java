@@ -154,13 +154,15 @@ public class JListView extends SeeThruList
    
    public void detach()
    {
+      detachItems();
       _leo.removeListDataListener(this);
       _leoProxy.detach();
-      detachItems();
       if (_rlDropTarget != null) _rlDropTarget.detach();
       if (_transferHandler != null) _transferHandler.detach();
       firePropertyChange("model", _leo, null);  // get BasicListUI$Handler
       // to stop listening;  jprofiler tells me it still is.
+
+      setCellRenderer(null);
    }
    
    private void detachItems()

@@ -59,11 +59,11 @@ public class ListItemView extends JLabel implements ComplexEView
 
    public void detach()
    {
-      _cmdsView.detach();
-      _ceo.removeChangeListener(this);
-      _ceo.removePropertyChangeListener(this);
       removeMouseListener(_defaultActionListener);
       defaultAction.detach();
+      _ceo.removeChangeListener(this);
+      _ceo.removePropertyChangeListener(this);
+      _cmdsView.detach();
       setTransferHandler(null);
    }
 
