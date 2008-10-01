@@ -14,6 +14,8 @@ import java.beans.PropertyChangeEvent;
  */
 public class ChoiceView extends CardPanel implements ComplexEView, Editor
 {
+   private static ComboBoxModel DEFAULT_CB_MODEL = new DefaultComboBoxModel();
+
    private AbstractChoiceEO _choice;
    private ChoiceComboBox _cb;
    private JLabel _label = new JLabel();
@@ -40,7 +42,7 @@ public class ChoiceView extends CardPanel implements ComplexEView, Editor
       _choice.removeChangeListener(this);
       _choice.removeListDataListener(_cb);
       // garbage collection view objects requires listeners (in this case BasicComboBoxUI$Handler) to detach themselves..
-      _cb.setModel(new DefaultComboBoxModel());  // cannot set null.  throws an NPE.
+      _cb.setModel(DEFAULT_CB_MODEL);  // cannot set null.  throws an NPE.
    }
    
    public void stateChanged(ChangeEvent evt)

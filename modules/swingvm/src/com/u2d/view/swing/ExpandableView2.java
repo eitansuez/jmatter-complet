@@ -8,7 +8,6 @@ import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.GradientPanel;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
-
 import net.miginfocom.swing.MigLayout;
 
 /**
