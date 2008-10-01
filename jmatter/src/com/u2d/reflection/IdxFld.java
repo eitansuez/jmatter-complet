@@ -16,4 +16,5 @@ import java.lang.annotation.ElementType;
 public @interface IdxFld
 {
    boolean ordered() default false;
+   boolean ownschildren() default false;
 }

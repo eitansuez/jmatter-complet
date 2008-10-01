@@ -362,6 +362,11 @@ public class IndexedField extends Field implements Bidi, Associable
    public boolean isOrdered() { return _ordered; }
    public void setOrdered(boolean ordered) { _ordered = ordered; }
 
+   private boolean _ownschildren;
+   public boolean ownsChildren() { return _ownschildren; }
+   public void setOwnsChildren(boolean ownschildren) { _ownschildren = ownschildren; }
+
+
    public void applyMetadata()
    {
       super.applyMetadata();
@@ -369,6 +374,7 @@ public class IndexedField extends Field implements Bidi, Associable
       {
          IdxFld fat = (IdxFld) _getter.getAnnotation(IdxFld.class);
          _ordered = fat.ordered();
+         _ownschildren = fat.ownschildren();
       }
    }
 }

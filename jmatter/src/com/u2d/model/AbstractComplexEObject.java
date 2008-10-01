@@ -10,7 +10,6 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.beans.*;
 import java.awt.datatransfer.*;
-
 import com.u2d.element.*;
 import com.u2d.field.*;
 import com.u2d.find.inequalities.IdentityInequality;

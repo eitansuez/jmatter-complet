@@ -240,6 +240,11 @@ public class HBMMaker
          listIndex.addAttribute("column", genName(field.name(), "_sortorder"));
       }
       
+      if (field.ownsChildren())
+      {
+         listElem.addAttribute("cascade", "delete-orphan");
+      }
+
       if (field.isManyToMany())
       {
          if (field.isInterfaceType())

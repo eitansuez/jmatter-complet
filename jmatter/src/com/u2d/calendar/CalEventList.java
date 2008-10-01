@@ -140,7 +140,7 @@ public class CalEventList extends AbstractListEO
    public Class getJavaClass() { return type().getJavaClass(); }
 
    public synchronized int getSize() { return _items.size(); }
-   public synchronized int getTotal() { return getSize(); } 
+   public synchronized int getTotal() { return getSize(); }
 
    public EObject makeCopy()
    {
@@ -155,7 +155,7 @@ public class CalEventList extends AbstractListEO
          synchronized(this)
          {
             // remove ondelete listener from items
-            for (Iterator itr = _items.iterator(); itr.hasNext();)
+            for (Iterator itr = _items.iterator(); itr.hasNext(); )
             {
                ComplexEObject ceo = (ComplexEObject) itr.next();
                ceo.removeAppEventListener(DELETE, this);
