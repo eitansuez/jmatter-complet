@@ -140,8 +140,11 @@ public class EditableListView extends JPanel
    {
       menu = new JPopupMenu();
       addMenuItem("New");
-      addMenuItem("Browse");
-      addMenuItem("Find");
+      if (!((IndexedField) _leo.field()).ownsChildren())
+      {
+         addMenuItem("Browse");
+         addMenuItem("Find");
+      }
       return new MenuButton(ADD_ICON, ADD_ROLLOVER, menu);
    }
 
