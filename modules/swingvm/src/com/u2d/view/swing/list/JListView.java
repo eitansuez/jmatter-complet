@@ -16,6 +16,7 @@ import com.u2d.view.swing.dnd.SimpleListTransferHandler;
 import com.u2d.view.swing.dnd.RelationalListDropTarget;
 import com.u2d.app.Tracing;
 import com.u2d.list.RelationalList;
+import com.u2d.field.IndexedField;
 import java.awt.*;
 
 /**
@@ -180,7 +181,7 @@ public class JListView extends SeeThruList
       setDragEnabled(true);
       _transferHandler = new SimpleListTransferHandler(this);
       setTransferHandler(_transferHandler);
-      if (_leo instanceof RelationalList)
+      if (_leo instanceof RelationalList && !((IndexedField) _leo.field()).ownsChildren())
       {
          RelationalList rl = (RelationalList) _leo;
          _rlDropTarget = new RelationalListDropTarget(rl);

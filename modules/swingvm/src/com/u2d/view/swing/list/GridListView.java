@@ -18,7 +18,6 @@ import javax.swing.event.ListDataEvent;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Locale;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
