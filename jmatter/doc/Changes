@@ -1,3 +1,27 @@
+Oct 2 2008
+
+Summary of Changes
+==================
+
+- addressed memory leaks.  app memory consumption should no longer grow with prolonged activity.
+- started working on AppBuilder: a jmatter application for constructing / generating jmatter applications
+
+- supporting list reordering in the ui for relationallists marked @IdxFld(ordered=true)
+- added an annotation attribute on relational lists @IdxFld(ownsChildren=true) which treats the relation as cascade=delete-orphan and disabled list item association from ui widget
+
+- updated h2 database jar file to latest version (v20080926)
+- removed hsqldb jar from repository
+
+- minor ui layout improvements
+- fixed a validation issue with a many-to-one association field
+- made datetimeeditor fire change notification on focuslost
+- integrated itemlistener on choiceradioeditor per michadraelian suggestion on mailing list
+- various other bug fixes
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 Sept 2 2008
 
 Summary of Changes
