@@ -7,11 +7,7 @@ import java.text.ParseException;
 import java.util.*;
 import com.u2d.find.Searchable;
 import com.u2d.find.inequalities.IdentityInequality;
-import com.u2d.model.AbstractAtomicEO;
-import com.u2d.model.EObject;
-import com.u2d.model.Title;
-import com.u2d.model.AtomicEditor;
-import com.u2d.model.AtomicRenderer;
+import com.u2d.model.*;
 import com.u2d.type.Choice;
 
 /**
@@ -44,7 +40,13 @@ public abstract class ChoiceEO extends AbstractAtomicEO
    public abstract Collection entries();
    
    public Title title() { return new Title(_value); }
-   public String toString() { return _value; }
+
+   public String toString()
+   {
+      String key = String.format("%s.%s", ComplexType.shortName(getClass()), _value);
+      String localizedValue = ComplexType.localeLookupStatic(key);
+      return (localizedValue == null) ? _value : localizedValue;
+   }
 
    public boolean equals(Object obj)
    {

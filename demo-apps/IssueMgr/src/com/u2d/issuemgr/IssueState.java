@@ -27,10 +27,4 @@ public class IssueState extends ChoiceEO
    
    public Collection entries() { return STATUS_OPTIONS; }
 
-   public String toString()
-   {
-      String localizedValue = ComplexType.localeLookupStatic("IssueState." + _value);
-      return (localizedValue == null) ? _value : localizedValue;
-   }
-
 }
