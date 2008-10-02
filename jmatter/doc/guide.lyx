@@ -14081,6 +14081,49 @@ reference "sub:model-metadata.properties"
 ).
 \end_layout
 
+\begin_layout Subsection
+The @IdxFld Annotation
+\end_layout
+
+\begin_layout Standard
+For relational lists, one can optionally specify an additional annotation:
+ @IdxFld.
+ At the moment, you can specify two attributes:
+\end_layout
+
+\begin_layout Description
+ordered=true Will maintain the list as an ordered list.
+ From a persistence perspective, the hibernate mapping file will use an
+ ordered list (an additional column in the database table specified the
+ list item order).
+ From a UI perspective, in edit mode, the list can be reordered via drag
+ and drop.
+\end_layout
+
+\begin_layout Description
+ownsChildren=true If specified, the to-many relationship is modeled in such
+ a way that when an item is removed from the list, the child item will be
+ deleted from the database (hibernate cascade=delete-orphan).
+ Semantically the list items cannot be freely associated with an entity.
+ In the user interface, the 
+\begin_inset Quotes eld
+\end_inset
+
+Browse
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+Find
+\begin_inset Quotes erd
+\end_inset
+
+ association commands that usually adorn the list view are not accessible.
+\end_layout
+
 \begin_layout Section
 Per-Command Metadata
 \end_layout
@@ -19418,7 +19461,7 @@ FormView
 \end_layout
 
 \begin_layout Chapter
-Localization
+Localization and Internationalization
 \end_layout
 
 \begin_layout Standard
@@ -19490,6 +19533,31 @@ locale-metadata_fr_CA.properties
 _fr
 \emph default
  file, and finally, falling back to the most generic property file.
+\end_layout
+
+\begin_layout Standard
+There exist two sets of 
+\emph on
+locale-metadata
+\emph default
+ files.
+ The first set is located in 
+\emph on
+jmatter/resources/app
+\emph default
+.
+ In this file you'll find localization strings that apply to the framework
+ in general.
+ The second set of locale files are project-specific.
+ So in your project, in the 
+\emph on
+resources/
+\emph default
+ subdirectory, you'll find the second set of 
+\emph on
+locale-metadata
+\emph default
+ files
 \end_layout
 
 \begin_layout Standard
@@ -19656,6 +19724,16 @@ Speaker.contact.homePhone
 \end_layout
 
 \begin_layout Standard
+You can specify a localization for a field across multiple types shared
+ in a base class by simply using the base class name in the field path.
+ For example (French):
+\end_layout
+
+\begin_layout LyX-Code
+ AbstractComplexEObject.createdOn=Crée a la date
+\end_layout
+
+\begin_layout Standard
 Here are some application-specific label designations for French, for the
  Sympster application:
 \end_layout
@@ -19777,7 +19855,7 @@ reference "fig:partiallocalization"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -19818,7 +19896,7 @@ name "fig:login_localized"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -19888,12 +19966,194 @@ Ouvre
 , etc..
 \end_layout
 
+\begin_layout Section
+States
+\end_layout
+
+\begin_layout Standard
+When dealing with state machines, as we saw for example in the IssueMgr
+ demo application, the state names can also be localized.
+ For example, here's how the state names for issues are localized to French
+ in IssurMgr's locale-metadata_fr.properties file:
+\end_layout
+
+\begin_layout LyX-Code
+IssueState.New=Nouveau
+\end_layout
+
+\begin_layout LyX-Code
+IssueState.Assigned=Assigné
+\end_layout
+
+\begin_layout LyX-Code
+IssueState.Accepted=Accepté
+\end_layout
+
+\begin_layout LyX-Code
+IssueState.Fixed=Reparré
+\end_layout
+
+\begin_layout LyX-Code
+IssueState.Closed=Fermé
+\end_layout
+
+\begin_layout Section
+Generic UI Localization
+\end_layout
+
+\begin_layout Standard
+The user interface also has elements that need to be localized.
+ For example Java Swing defaults to a resource bundle named 
+\begin_inset Quotes eld
+\end_inset
+
+uidefaults
+\begin_inset Quotes erd
+\end_inset
+
+ to pick up translations for tooltips such as a window's 
+\begin_inset Quotes eld
+\end_inset
+
+minimize
+\begin_inset Quotes erd
+\end_inset
+
+ button tooltip.
+ JMatter will automatically load custom ui defaults specifications from
+ the file 
+\emph on
+jmatter/resources/app/uidefaults_??.properties
+\emph default
+.
+ For example, here are some hebrew translations for ui defaults loaded by
+ JMatter (the file name is uidefaults_iw.properties):
+\end_layout
+
+\begin_layout LyX-Code
+InternalFrame.closeButtonToolTip=סגור
+\end_layout
+
+\begin_layout LyX-Code
+InternalFrame.iconButtonToolTip=הקטן
+\end_layout
+
+\begin_layout LyX-Code
+InternalFrame.restoreButtonToolTip=החזר
+\end_layout
+
+\begin_layout LyX-Code
+InternalFrame.maxButtonToolTip=הגדל
+\end_layout
+
+\begin_layout Section
+Right-To-Left
+\end_layout
+
+\begin_layout Standard
+JMatter will work with languages that have non-latin alphabets, and ones
+ that are right-to-left such as Hebrew or Arabic.
+ Check out the Sympster demo-app in Hebrew for example.
+ In the USA, you can simply override the locale by uncommenting this line
+ in the Sympster build file:
+\end_layout
+
+\begin_layout LyX-Code
+<sysproperty key="user.language" value="he" />
+\end_layout
+
+\begin_layout Standard
+Following are a couple of screenshots.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/heb_login.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Hebrew Login Dialog
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/heb_sympster.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Sympster Localized for Hebrew
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
 \begin_layout Standard
 Localization support in JMatter is by no means complete or exhaustive.
  For example, at the moment support for the proper date and currency formats
  for different locales needs work.
- We've already gotten some feedback on how to provide a more complete set
- of localization services.
  We hope that future versions will flesh out this support completely.
 \end_layout
 
