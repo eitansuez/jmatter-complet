@@ -321,7 +321,7 @@
 
 
  <!-- not yet fully working:  for deploying as a web application using WingS -->
- <property name="build.web.dir" location="${build.dir}/web" />
+ <property name="build.web.dir" location="jetty/webapps/root" />
  <target name="init-web">
     <mkdir dir="${build.web.dir}" />
     <mkdir dir="${build.web.dir}/WEB-INF" />
@@ -334,9 +334,9 @@
    </antcall>
  </target>
 
- <target name="echo2-app" depends="genhbm, init-web" description="build echo2-based web application">
+ <target name="echo-app" depends="genhbm, init-web" description="build echo-based web application">
     <antcall target="web-app">
-      <param name="vmname" value="echo2" />
+      <param name="vmname" value="echo3" />
     </antcall>
  </target>
 
