@@ -1,4 +1,4 @@
-package com.u2d.view.echo2;
+package com.u2d.view.echo;
 
 import nextapp.echo.app.*;
 import com.u2d.app.AppSession;

@@ -1,4 +1,4 @@
-package com.u2d.view.echo2;
+package com.u2d.view.echo;
 
 import nextapp.echo.extras.app.AccordionPane;
 import nextapp.echo.extras.app.layout.AccordionPaneLayoutData;

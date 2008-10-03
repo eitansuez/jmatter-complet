@@ -1,4 +1,4 @@
-package com.u2d.view.echo2;
+package com.u2d.view.echo;
 
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Color;
