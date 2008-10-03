@@ -1,8 +1,8 @@
 package com.u2d.view.echo2;
 
-import nextapp.echo2.app.ContentPane;
-import nextapp.echo2.app.Color;
-import nextapp.echo2.app.WindowPane;
+import nextapp.echo.app.ContentPane;
+import nextapp.echo.app.Color;
+import nextapp.echo.app.WindowPane;
 import com.u2d.ui.desktop.Positioning;
 
 /**

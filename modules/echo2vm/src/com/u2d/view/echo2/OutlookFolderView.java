@@ -1,9 +1,9 @@
 package com.u2d.view.echo2;
 
-import nextapp.echo2.extras.app.AccordionPane;
-import nextapp.echo2.extras.app.layout.AccordionPaneLayoutData;
-import nextapp.echo2.app.Column;
-import nextapp.echo2.app.Component;
+import nextapp.echo.extras.app.AccordionPane;
+import nextapp.echo.extras.app.layout.AccordionPaneLayoutData;
+import nextapp.echo.app.Column;
+import nextapp.echo.app.Component;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
 import com.u2d.type.composite.Folder;

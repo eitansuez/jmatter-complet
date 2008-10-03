@@ -5,7 +5,7 @@ import org.hibernate.HibernateException;
 import java.util.Map;
 import java.util.HashMap;
 import com.u2d.app.Echo2EntryPoint;
-import nextapp.echo2.webrender.Connection;
+import nextapp.echo.webcontainer.Connection;
 
 /**
  * Created by IntelliJ IDEA.

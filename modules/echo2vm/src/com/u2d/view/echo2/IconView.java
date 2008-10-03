@@ -1,6 +1,6 @@
 package com.u2d.view.echo2;
 
-import nextapp.echo2.app.*;
+import nextapp.echo.app.*;
 import com.u2d.view.ComplexEView;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;

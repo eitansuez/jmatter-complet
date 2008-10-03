@@ -1,6 +1,6 @@
 package com.u2d.view.echo2;
 
-import nextapp.echo2.app.*;
+import nextapp.echo.app.*;
 import com.u2d.app.AppSession;
 import com.u2d.app.Application;
 import com.u2d.app.PersistenceMechanism;

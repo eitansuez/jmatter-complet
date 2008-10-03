@@ -1,8 +1,8 @@
 package com.u2d.app;
 
-import nextapp.echo2.app.ApplicationInstance;
-import nextapp.echo2.app.Window;
-import nextapp.echo2.webcontainer.WebContainerServlet;
+import nextapp.echo.app.ApplicationInstance;
+import nextapp.echo.app.Window;
+import nextapp.echo.webcontainer.WebContainerServlet;
 import javax.servlet.ServletContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;

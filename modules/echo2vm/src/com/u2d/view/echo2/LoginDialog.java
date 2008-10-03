@@ -1,9 +1,9 @@
 package com.u2d.view.echo2;
 
-import nextapp.echo2.app.*;
-import nextapp.echo2.app.layout.RowLayoutData;
-import nextapp.echo2.app.event.ActionListener;
-import nextapp.echo2.app.event.ActionEvent;
+import nextapp.echo.app.*;
+import nextapp.echo.app.layout.RowLayoutData;
+import nextapp.echo.app.event.ActionListener;
+import nextapp.echo.app.event.ActionEvent;
 import com.u2d.app.AuthManager;
 import com.u2d.model.ComplexType;
 
