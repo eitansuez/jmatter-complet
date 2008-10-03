@@ -336,7 +336,7 @@
 
  <target name="echo-app" depends="genhbm, init-web" description="build echo-based web application">
     <antcall target="web-app">
-      <param name="vmname" value="echo3" />
+      <param name="vmname" value="echo" />
     </antcall>
  </target>
 

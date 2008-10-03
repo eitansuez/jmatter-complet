@@ -16,7 +16,7 @@
       <aop:scoped-proxy />
    </bean>
    
-   <bean id="view-mechanism" class="com.u2d.view.echo2.Echo2ViewMechanism" scope="session">
+   <bean id="view-mechanism" class="com.u2d.view.echo.EchoViewMechanism" scope="session">
       <property name="appSession" ref="app-session" />
       <aop:scoped-proxy />
    </bean>
