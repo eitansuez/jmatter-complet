@@ -46,7 +46,7 @@
       <maximumHeapSize value="128" />
       <properties />
     </buildFile>
-    <buildFile url="file://$PROJECT_DIR$/modules/echo2vm/build.xml">
+    <buildFile url="file://$PROJECT_DIR$/modules/echo3vm/build.xml">
       <additionalClassPath />
       <antReference projectDefault="true" />
       <customJdkName value="" />
@@ -624,7 +624,7 @@
       <module fileurl="file:////home/eitan/work/css4swing/css4swing.iml" filepath="//home/eitan/work/css4swing/css4swing.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" filepath="$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" filepath="$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" />
-      <module fileurl="file://$PROJECT_DIR$/modules/echo2vm/echo2vm.iml" filepath="$PROJECT_DIR$/modules/echo2vm/echo2vm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/echo2vm/echo3vm.iml" filepath="$PROJECT_DIR$/modules/echo2vm/echo3vm.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/jmatter-tools//jmatter-tools.iml" filepath="$PROJECT_DIR$/modules/jmatter-tools//jmatter-tools.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/swingvm/swingvm.iml" filepath="$PROJECT_DIR$/modules/swingvm/swingvm.iml" />
       <module fileurl="file://$PROJECT_DIR$/test-app/test-app.iml" filepath="$PROJECT_DIR$/test-app/test-app.iml" />
@@ -726,15 +726,6 @@
       <JAVADOC />
       <SOURCES />
       <jarDirectory url="file://$PROJECT_DIR$/jmatter/lib/runtime/jfree" recursive="false" />
-    </library>
-    <library name="JiBX">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/jmatter/lib/runtime/xpp3.jar!/" />
-        <root url="jar://$PROJECT_DIR$/jmatter/lib/runtime/jibx-extras.jar!/" />
-        <root url="jar://$PROJECT_DIR$/jmatter/lib/runtime/jibx-run.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
     </library>
     <library name="Groovy">
       <CLASSES>
