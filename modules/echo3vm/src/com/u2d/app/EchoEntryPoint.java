@@ -17,14 +17,14 @@ import java.util.logging.Level;
  * Date: Dec 28, 2006
  * Time: 1:07:53 PM
  */
-public class Echo2EntryPoint extends WebContainerServlet
+public class EchoEntryPoint extends WebContainerServlet
 {
     public ApplicationInstance newApplicationInstance()
     {
-       return new Echo2JMatterApp();
+       return new EchoJMatterApp();
     }
    
-   class Echo2JMatterApp extends ApplicationInstance
+   class EchoJMatterApp extends ApplicationInstance
    {
       public Window init()
       {

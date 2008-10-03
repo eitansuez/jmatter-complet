@@ -11,7 +11,7 @@
 
     <servlet>
       <servlet-name>JMatterServlet</servlet-name>
-      <servlet-class>com.u2d.app.Echo2EntryPoint</servlet-class>
+      <servlet-class>com.u2d.app.EchoEntryPoint</servlet-class>
     </servlet>
 
     <servlet-mapping>

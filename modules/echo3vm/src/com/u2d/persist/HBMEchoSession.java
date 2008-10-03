@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.HibernateException;
 import java.util.Map;
 import java.util.HashMap;
-import com.u2d.app.Echo2EntryPoint;
+import com.u2d.app.EchoEntryPoint;
 import nextapp.echo.webcontainer.Connection;
 
 /**
@@ -13,9 +13,9 @@ import nextapp.echo.webcontainer.Connection;
  * Date: Dec 28, 2006
  * Time: 2:07:20 PM
  */
-public class HBMEcho2Session extends HibernatePersistor
+public class HBMEchoSession extends HibernatePersistor
 {
-   public HBMEcho2Session() {}
+   public HBMEchoSession() {}
    
    private Map<Connection, Session> sessions = 
          new HashMap<Connection, Session>();
@@ -40,7 +40,7 @@ public class HBMEcho2Session extends HibernatePersistor
    
    private Connection activeConnection()
    {
-      return Echo2EntryPoint.getActiveConnection();
+      return EchoEntryPoint.getActiveConnection();
    }
 
    // simply discard the session from hashmap..new one obtained automatically

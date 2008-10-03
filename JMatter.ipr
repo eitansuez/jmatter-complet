@@ -624,7 +624,7 @@
       <module fileurl="file:////home/eitan/work/css4swing/css4swing.iml" filepath="//home/eitan/work/css4swing/css4swing.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" filepath="$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" filepath="$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" />
-      <module fileurl="file://$PROJECT_DIR$/modules/echo2vm/echo3vm.iml" filepath="$PROJECT_DIR$/modules/echo2vm/echo3vm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/echo3vm/echo3vm.iml" filepath="$PROJECT_DIR$/modules/echo3vm/echo3vm.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/jmatter-tools//jmatter-tools.iml" filepath="$PROJECT_DIR$/modules/jmatter-tools//jmatter-tools.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/swingvm/swingvm.iml" filepath="$PROJECT_DIR$/modules/swingvm/swingvm.iml" />
       <module fileurl="file://$PROJECT_DIR$/test-app/test-app.iml" filepath="$PROJECT_DIR$/test-app/test-app.iml" />
