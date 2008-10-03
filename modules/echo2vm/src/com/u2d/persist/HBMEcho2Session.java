@@ -26,10 +26,10 @@ public class HBMEcho2Session extends HibernatePersistor
       _sessionFactory = _cfg.buildSessionFactory();
    }
    
-   public Session getSession()
+   public synchronized Session getSession()
    {
       Connection connection = activeConnection();
-      Session hbmSession = (Session) sessions.get(connection);
+      Session hbmSession = sessions.get(connection);
       if (hbmSession == null)
       {
          hbmSession = _sessionFactory.openSession();
@@ -47,7 +47,7 @@ public class HBMEcho2Session extends HibernatePersistor
    public void newSession()
    {
       Connection key = activeConnection();
-      Session session = (Session) sessions.get(key);
+      Session session = sessions.get(key);
       if (session != null)
       {
          try
