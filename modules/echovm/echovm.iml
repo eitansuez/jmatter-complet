@@ -25,7 +25,7 @@
     <orderEntry type="module" module-name="ds-wizard" />
     <orderEntry type="library" name="Spring" level="project" />
     <orderEntry type="library" name="Hibernate" level="project" />
-    <orderEntry type="library" name="Echo3" level="project" />
+    <orderEntry type="library" name="Echo" level="project" />
     <orderEntryProperties />
   </component>
   <component name="RSpecModuleSettingsStorage">

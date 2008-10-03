@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
-<project name="echo3vm" default="jar">
+<project name="echovm" default="jar">
    <description>Echo-Based Web View Mechanism Implementation for JMatter</description>
    
    <property name="srcdir" location="src" />
    <property name="builddir" location="build" />
    <property name="buildclassesdir" location="build/classes" />
-   <property name="libdir" location="../../jmatter/lib/runtime/echo3vm" />
+   <property name="libdir" location="../../jmatter/lib/runtime/echovm" />
    <property name="distdir" location="dist" />
 
    <property name="test.dir" location="test" />

@@ -285,9 +285,9 @@
    </antcall>
  </target>
 
- <target name="echo2-app" depends="genhbm, init-web" description="build echo2-based web application">
+ <target name="echo-app" depends="genhbm, init-web" description="build echo-based web application">
     <antcall target="web-app">
-      <param name="vmname" value="echo2" />
+      <param name="vmname" value="echo" />
     </antcall>
  </target>
 
