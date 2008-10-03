@@ -30,14 +30,14 @@ import com.u2d.interaction.Instruction;
  * Date: Dec 28, 2006
  * Time: 11:51:38 AM
  */
-public class Echo2ViewMechanism implements ViewMechanism
+public class EchoViewMechanism implements ViewMechanism
 {
    private AppSession _appSession;
    private AppFrame _appFrame;
    private LoginDialog _loginDialog;
 //   private transient Logger _tracer = Tracing.tracer();
    
-   public Echo2ViewMechanism() {}
+   public EchoViewMechanism() {}
 
    public void setAppSession(AppSession appSession) { _appSession = appSession; }
 

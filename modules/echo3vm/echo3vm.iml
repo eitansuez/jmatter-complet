@@ -20,21 +20,12 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="Core" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../../jmatter/lib/runtime/echo2vm" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../../jmatter/lib/runtime/echo2vm" recursive="false" />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="JUnit" level="project" />
     <orderEntry type="module" module-name="ds-swing" />
     <orderEntry type="module" module-name="ds-wizard" />
     <orderEntry type="library" name="Spring" level="project" />
     <orderEntry type="library" name="Hibernate" level="project" />
+    <orderEntry type="library" name="Echo3" level="project" />
     <orderEntryProperties />
   </component>
   <component name="RSpecModuleSettingsStorage">

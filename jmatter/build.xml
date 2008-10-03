@@ -101,7 +101,7 @@
         <param name="module.name" value="wingsvm" />
      </antcall>
      <antcall target="compile-module">
-        <param name="module.name" value="echo2vm" />
+        <param name="module.name" value="echo3vm" />
      </antcall>
   </target>
    

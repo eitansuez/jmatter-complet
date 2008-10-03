@@ -6,7 +6,7 @@ import nextapp.echo.webcontainer.WebContainerServlet;
 import javax.servlet.ServletContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import com.u2d.view.echo2.Echo2ViewMechanism;
+import com.u2d.view.echo.EchoViewMechanism;
 import com.u2d.model.ComplexType;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -39,7 +39,7 @@ public class EchoEntryPoint extends WebContainerServlet
          Application app = (Application) context.getBean("application");
          app.postInitialize();
 
-         Echo2ViewMechanism vmech = (Echo2ViewMechanism) context.getBean("view-mechanism");
+         EchoViewMechanism vmech = (EchoViewMechanism) context.getBean("view-mechanism");
          vmech.launch();
 
          AppSession session = (AppSession) context.getBean("app-session");
