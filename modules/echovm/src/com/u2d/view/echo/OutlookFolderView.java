@@ -4,6 +4,8 @@ import nextapp.echo.extras.app.AccordionPane;
 import nextapp.echo.extras.app.layout.AccordionPaneLayoutData;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
+import nextapp.echo.app.Alignment;
+import nextapp.echo.app.layout.ColumnLayoutData;
 import com.u2d.view.ComplexEView;
 import com.u2d.view.EView;
 import com.u2d.type.composite.Folder;
@@ -86,18 +88,24 @@ public class OutlookFolderView extends AccordionPane implements ComplexEView
       {
          _folder = folder;
          folder.getItems().addListDataListener(this);
-
+         ColumnLayoutData layoutInfo = new ColumnLayoutData();
+         layoutInfo.setAlignment(new Alignment(Alignment.CENTER, Alignment.DEFAULT));
          ComplexEObject item;
          for (int i=0; i<folder.size(); i++)
          {
             item = (ComplexEObject) folder.get(i);
-            add(getViewForItem(folder, item));
+            Component view = getViewForItem(folder, item);
+            view.setLayoutData(layoutInfo);
+            add(view);
          }
       }
    
       private Component getViewForItem(Folder folder, ComplexEObject item)
       {
-         return (Component) item.getIconView();
+//         return (Component) item.getIconView();
+         IconView view = (IconView) item.getIconView();
+         return view.getContextMenu();
+         
 //         EView view = item.getIconView();
 //         Component comp = (Component) view;
 //         Association association = folder.association("items");
@@ -120,7 +128,7 @@ public class OutlookFolderView extends AccordionPane implements ComplexEView
       public void intervalAdded(final ListDataEvent e)
       {
          AbstractListEO source = (AbstractListEO) e.getSource();
-         ComplexEObject eo = null;
+         ComplexEObject eo;
          for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
          {
             eo = (ComplexEObject) source.getElementAt(i);
@@ -145,7 +153,7 @@ public class OutlookFolderView extends AccordionPane implements ComplexEView
 
          AbstractListEO source = (AbstractListEO) e.getSource();
 
-         ComplexEObject eo = null;
+         ComplexEObject eo;
          for (int i=0; i<source.getSize(); i++)
          {
             eo = (ComplexEObject) source.getElementAt(i);

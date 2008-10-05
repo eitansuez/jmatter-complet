@@ -2,6 +2,7 @@ package com.u2d.view.echo;
 
 import nextapp.echo.app.*;
 import com.u2d.view.ComplexEView;
+import com.u2d.view.echo.list.CommandsContextMenuView;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import javax.swing.*;
@@ -16,7 +17,7 @@ import java.beans.PropertyChangeEvent;
 public class IconView extends Label implements ComplexEView
 {
    protected ComplexEObject _ceo;
-//   private transient CommandsContextMenuView _cmdsView = new CommandsContextMenuView();
+   private transient CommandsContextMenuView _cmdsView = new CommandsContextMenuView();
 //   private MouseListener _defaultActionListener;
 
    public IconView()
@@ -32,21 +33,26 @@ public class IconView extends Label implements ComplexEView
 //      setBreakPosition(15);
    }
 
-      public void bind(ComplexEObject ceo)
-      {
-         _ceo = ceo;
-         _ceo.addPropertyChangeListener(this);
-         _ceo.addChangeListener(this);
+   public Component getContextMenu()
+   {
+      return _cmdsView.getContextMenu();
+   }
 
-//         _cmdsView.bind(ceo, this);
+   public void bind(ComplexEObject ceo)
+   {
+      _ceo = ceo;
+      _ceo.addPropertyChangeListener(this);
+      _ceo.addChangeListener(this);
 
-         setText(_ceo.title().toString());
-         // this mechanism of getting an image reference is discouraged / inefficient.. TODO: revisit
-         setIcon(new ResourceImageReference(_ceo.iconLgResourceRef()));
+      _cmdsView.bind(ceo, this);
+
+      setText(_ceo.title().toString());
+      // this mechanism of getting an image reference is discouraged / inefficient.. TODO: revisit
+      setIcon(new ResourceImageReference(_ceo.iconLgResourceRef()));
 //         setIcon(_ceo.iconLg());
 
-         // TODO: NullComplexEObject should have its own iconview.
-         //  i shouldn't have to put conditions in like this..
+      // TODO: NullComplexEObject should have its own iconview.
+      //  i shouldn't have to put conditions in like this..
 //         if (_ceo instanceof NullComplexEObject)
 //         {
 //            setTransferHandler(new DropTargetHandler());
@@ -60,43 +66,43 @@ public class IconView extends Label implements ComplexEView
 //         CommandAdapter defaultAction = new CommandAdapter(defaultCmd, _ceo, this);
 //         _defaultActionListener = UIUtils.doubleClickActionListener(defaultAction);
 //         addMouseListener(_defaultActionListener);
-      }
-
-      public void detach()
-      {
-         _ceo.removeChangeListener(this);
-         _ceo.removePropertyChangeListener(this);
-
-//         _cmdsView.detach();
-//         removeMouseListener(_defaultActionListener);
-      }
-
-      public EObject getEObject() { return _ceo; }
-
-      public void propertyChange(PropertyChangeEvent evt)
-      {
-         if ("icon".equals(evt.getPropertyName()))
-         {
-            ImageReference imgRef = new AwtImageReference(((ImageIcon)_ceo.iconLg()).getImage());
-            setIcon(imgRef);
-//            setIcon(_ceo.iconLg());
-         }
-      }
-
-      public void stateChanged(javax.swing.event.ChangeEvent evt)
-      {
-         SwingUtilities.invokeLater(new Runnable()
-            {
-               public void run()
-               {
-                  setText(_ceo.title().toString());
-               }
-            });
-      }
-
-//      private Insets _insets = new Insets(3, 4, 3, 4);
-//      public Insets getInsets() { return _insets; }
-
-      public boolean isMinimized() { return true; }
-
    }
+
+   public void detach()
+   {
+      _ceo.removeChangeListener(this);
+      _ceo.removePropertyChangeListener(this);
+
+      _cmdsView.detach();
+//         removeMouseListener(_defaultActionListener);
+   }
+
+   public EObject getEObject() { return _ceo; }
+
+   public void propertyChange(PropertyChangeEvent evt)
+   {
+      if ("icon".equals(evt.getPropertyName()))
+      {
+         ImageReference imgRef = new AwtImageReference(((ImageIcon)_ceo.iconLg()).getImage());
+         setIcon(imgRef);
+//            setIcon(_ceo.iconLg());
+      }
+   }
+
+   public void stateChanged(javax.swing.event.ChangeEvent evt)
+   {
+      SwingUtilities.invokeLater(new Runnable()
+         {
+            public void run()
+            {
+               setText(_ceo.title().toString());
+            }
+         });
+   }
+
+//   private Insets _insets = new Insets(3, 4, 3, 4);
+//   public Insets getInsets() { return _insets; }
+
+   public boolean isMinimized() { return true; }
+
+}

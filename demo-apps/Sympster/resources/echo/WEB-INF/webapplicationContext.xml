@@ -25,7 +25,7 @@
          factory-method="getInstance" />
    
    <bean id="application" class="com.u2d.app.Application">
-      <property name="name" value="Contact Manager" />
+      <property name="name" value="Sympster" />
       <property name="pagesize" value="15" />
       <property name="persistenceMechanism" ref="persistor" />
    </bean>
