@@ -25,6 +25,7 @@
     <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="JMatter" level="application" />
+    <orderEntry type="library" name="Ant" level="application" />
     <orderEntryProperties />
   </component>
   <component name="RSpecModuleSettingsStorage">
