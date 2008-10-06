@@ -341,7 +341,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1440" height="850" extended-state="1" />
+    <frame x="0" y="25" width="1440" height="850" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -512,7 +512,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jmatter/appbuilder/ProjectAB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="0" selection-start="3125" selection-end="3125" vertical-scroll-proportion="0.72063035">
+        <state line="25" column="55" selection-start="851" selection-end="851" vertical-scroll-proportion="0.53724927">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -34,6 +34,7 @@
    <pathelement location="${build.classes.dir}" />
    <fileset dir="lib" includes="**/*.jar" />
    <fileset dir="../jmatter/lib/tools" includes="ant*.jar,string*.jar" />
+   <fileset dir="${java.home}/lib" includes="tools.jar" />
    <pathelement location="${framework.classes.dir}" />
  </path>
  <path id="libtools.path">

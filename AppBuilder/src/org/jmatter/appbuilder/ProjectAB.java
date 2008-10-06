@@ -19,6 +19,7 @@ import java.io.File;
 public class ProjectAB extends AbstractComplexEObject
 {
    public static String[] fieldOrder = {"name", "caption", "description", "splashImage", "defaultPackageName"};
+   public static String[] commandOrder = {"AddEntity", "CreateProjectSkeleton", "Compile", "SchemaExport", "RunApp"};
 
    public ProjectAB() { }
 
@@ -84,6 +85,13 @@ public class ProjectAB extends AbstractComplexEObject
       }
       return antProject;
    }
+
+   @Cmd
+   public String Compile(CommandInfo cmdInfo)
+   {
+      return runTarget("compile");
+   }
+
    @Cmd
    public String SchemaExport(CommandInfo cmdInfo)
    {
