@@ -141,14 +141,17 @@ public abstract class AbstractListEO extends AbstractEObject
       if (list.size() == set.size()) return list;
       return new ArrayList(set);
    }
-   public synchronized void setItems(List<EObject> items)
+   public void setItems(List<EObject> items)
    {
-      if (_items == items) return;
+      synchronized(this)
+      {
+         if (_items == items) return;
 
-      items = filterDuplicates(items);
-      removeDeleteListeners();
-      _items = items;
-      addDeleteListeners();
+         items = filterDuplicates(items);
+         removeDeleteListeners();
+         _items = items;
+         addDeleteListeners();
+      }
       fireContentsChanged(this, 0, _items.size());
    }
    public synchronized void restoreItems(List<EObject> items)
@@ -208,13 +211,20 @@ public abstract class AbstractListEO extends AbstractEObject
       remove((ComplexEObject) evt.getEventInfo());
    }
 
-   public synchronized void remove(ComplexEObject item)
+   public void remove(ComplexEObject item)
    {
-      int index = _items.indexOf(item);
-      if (index >= 0)
+      int index = -1;
+      synchronized(this)
       {
-         item.removeAppEventListener(DELETE, this);
-         _items.remove(item);
+         index = _items.indexOf(item);
+         if (index >= 0)
+         {
+            item.removeAppEventListener(DELETE, this);
+            _items.remove(item);
+         }
+      }
+      if (index >=0)
+      {
          fireIntervalRemoved(this, index, index);
       }
    }
@@ -222,15 +232,19 @@ public abstract class AbstractListEO extends AbstractEObject
    /**
     * Remove all items from list.
     */
-   public synchronized void clear()
+   public void clear()
    {
-      int size = _items.size();
-      for (Object item : _items)
+      int size;
+      synchronized(this)
       {
-         ComplexEObject ceo = (ComplexEObject) item;
-         ceo.removeAppEventListener(DELETE, this);
+         size = _items.size();
+         for (Object item : _items)
+         {
+            ComplexEObject ceo = (ComplexEObject) item;
+            ceo.removeAppEventListener(DELETE, this);
+         }
+         _items.clear();
       }
-      _items.clear();
       fireIntervalRemoved(this, 0, size);
    }
    
