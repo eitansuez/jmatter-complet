@@ -5,7 +5,8 @@ import com.u2d.ui.LocatableIcon;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import org.jfree.xml.util.Base64;
+
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * @author Eitan Suez
@@ -62,7 +63,7 @@ public class ImgEO extends AbstractAtomicEO
          byte[] bytes = baos.toByteArray();
          oos.close();
          baos.close();
-         return new String(Base64.encode(bytes));
+         return new String(Base64.encodeBase64(bytes));
       }
       catch (IOException e)
       {
@@ -93,7 +94,7 @@ public class ImgEO extends AbstractAtomicEO
          // assume next that perhaps string is base64-encoding of serialized imageicon..
          try
          {
-            byte[] buf = Base64.decode(stringValue.toCharArray());
+            byte[] buf = Base64.decodeBase64(stringValue.getBytes());
             ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(buf));
             ImageIcon icon = (ImageIcon) ois.readObject();
             setValue(icon);
