@@ -74,6 +74,10 @@ public class Application implements AppEventNotifier
       seedDatabase();
       addTypesToIndex();
    }
+   public void onShutdown()
+   {
+      // noop
+   }
 
    /**
     * override this to initialize permissions (one-time)

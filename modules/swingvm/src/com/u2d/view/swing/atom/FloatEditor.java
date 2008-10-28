@@ -88,7 +88,7 @@ public class FloatEditor extends JFormattedTextField
 
    public void validationException(ValidationEvent evt)
    {
-      AtomicView.colorBackground(this, evt);
+      AtomicView.toggleValidationClientProperty(this, evt);
    }
 
    public void passivate() { }
@@ -97,5 +97,10 @@ public class FloatEditor extends JFormattedTextField
    {
       super.paintComponent(g);
       AtomicView.decorateComponentForValidation(g, this, true);
+   }
+   protected void paintBorder(Graphics g)
+   {
+      super.paintBorder(g);
+      AtomicView.decorateBorderForValidation(g, this);
    }
 }

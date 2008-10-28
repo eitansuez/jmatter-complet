@@ -5,7 +5,6 @@ import com.u2d.ui.LocatableIcon;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-
 import org.apache.commons.codec.binary.Base64;
 
 /**

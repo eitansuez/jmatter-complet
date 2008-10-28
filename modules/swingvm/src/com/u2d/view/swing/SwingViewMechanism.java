@@ -9,6 +9,7 @@ import com.u2d.calendar.CalEventList;
 import com.u2d.calendar.Calendrier;
 import com.u2d.calendar.Schedule;
 import com.u2d.css4swing.CSSEngine;
+import com.u2d.css4swing.style.ComponentStyle;
 import com.u2d.element.Command;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.EOCommand;
@@ -25,6 +26,7 @@ import com.u2d.type.composite.Folder;
 import com.u2d.type.composite.USAddress;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.desktop.Positioning;
+import com.u2d.ui.UIUtils;
 import com.u2d.view.*;
 import com.u2d.view.swing.atom.*;
 import com.u2d.view.swing.calendar.fancy.CalEventView;
@@ -52,6 +54,9 @@ import java.awt.event.*;
 import java.lang.reflect.InvocationTargetException;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.StringWriter;
+import java.io.PrintWriter;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * @author Eitan Suez
@@ -69,7 +74,6 @@ public class SwingViewMechanism implements ViewMechanism
 
    private SwingViewMechanism()
    {
-      setupAntiAliasing();
       // Checks for EDT violations..
 //      RepaintManager.setCurrentManager(new CheckingRepaintManager());
       CSSEngine.initialize();
@@ -96,13 +100,6 @@ public class SwingViewMechanism implements ViewMechanism
    {
       _inputTracker = new InputTracker();
       Toolkit.getDefaultToolkit().addAWTEventListener(_inputTracker, AWTEvent.MOUSE_EVENT_MASK);
-   }
-
-   private void setupAntiAliasing()
-   {
-      String antialias_text = "swing.aatext";
-      if (null == System.getProperty(antialias_text))
-         System.setProperty(antialias_text, "true");
    }
 
    public void setAppSession(AppSession appSession)
@@ -154,19 +151,77 @@ public class SwingViewMechanism implements ViewMechanism
 
       invokeSwingAction(new SwingAction()
       {
+         private RuntimeException ex = null;
          public void offEDT()
          {
-            AppLoader.getInstance().launchApp(splash);
+            try
+            {
+               AppLoader.getInstance().launchApp(splash);
+            }
+            catch (RuntimeException ex)
+            {
+               this.ex = ex;
+               throw ex;
+            }
          }
          
          public void backOnEDT()
          {
             splash.dispose();
             _appFrame.setVisible(true);
+
+            if (this.ex != null)
+            {
+               showErrorDialog(ex);
+               System.exit(1);
+            }
          }
       });
    }
-   
+
+   private void showErrorDialog(Exception ex)
+   {
+      final JDialog dlg = new JDialog(_appFrame, "An error has occurred", true);
+      dlg.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+      MigLayout mainLayout = new MigLayout("insets dialog");
+      JPanel errorPane = new JPanel(mainLayout);
+      Icon errorIcon = UIManager.getDefaults().getIcon("OptionPane.errorIcon");
+      JLabel title = new JLabel("An error has occurred", errorIcon, SwingConstants.LEFT);
+      ComponentStyle.addClass(title, "title");
+      errorPane.add(title, "north");
+      MigLayout layout = new MigLayout("flowy", "fill, grow");
+      JPanel centerPane = new JPanel(layout);
+      String explanation = "An initialization error has occurred. " +
+            "Below is a technical description of the underlying cause.";
+      centerPane.add(new JLabel(explanation));
+      JLabel errMsg = new JLabel(ex.getMessage());
+      ComponentStyle.addClass(errMsg, "message-label");
+      centerPane.add(errMsg);
+      StringWriter sw = new StringWriter(500);
+      ex.printStackTrace(new PrintWriter(sw));
+      String text = sw.toString();
+      JTextArea area = new JTextArea(text);
+      area.setEditable(false);
+      centerPane.add(new JScrollPane(area));
+      centerPane.add(new JLabel("The application will now close"));
+      JButton okBtn = new JButton("OK");
+      okBtn.addActionListener(new ActionListener()
+      {
+         public void actionPerformed(ActionEvent evt)
+         {
+            dlg.dispose();
+         }
+      });
+      centerPane.add(okBtn, "alignx trailing, tag ok");
+      errorPane.add(centerPane);
+      dlg.setContentPane(errorPane);
+      dlg.pack();
+      UIUtils.center(_appFrame, dlg, true);
+      okBtn.requestFocusInWindow();
+      dlg.setVisible(true);
+      dlg.dispose();
+   }
+
    public void showLogin()
    {
       SwingUtilities.invokeLater(new Runnable()
@@ -220,6 +275,11 @@ public class SwingViewMechanism implements ViewMechanism
             _loginDialog.userLocked();
          }
       });
+   }
+
+   public void contributeToHeader(JComponent component)
+   {
+      _appFrame.contributeToHeader(component);
    }
 
 

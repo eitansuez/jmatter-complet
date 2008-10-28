@@ -28,17 +28,6 @@
     <orderEntry type="library" name="JUnit" level="project" />
     <orderEntry type="library" name="Spring" level="project" />
     <orderEntry type="library" name="Hibernate" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/xpp3.jar!/" />
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/jibx-run.jar!/" />
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/jibx-extras.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntryProperties />
   </component>
   <component name="RSpecModuleSettingsStorage">

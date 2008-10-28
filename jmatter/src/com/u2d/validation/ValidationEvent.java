@@ -4,6 +4,7 @@
 package com.u2d.validation;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.util.EventObject;
 import java.awt.*;
 
@@ -18,11 +19,21 @@ public class ValidationEvent extends EventObject
    public static final String FAILED_VALIDATION = "failed_validation";
    public static final Color INVALID_COLOR = new Color(0xFFCCCC);
    public static final Color REQUIRED_COLOR = new Color(0xEBEBFF);
+
    public static Color normalColor(JComponent c)
    {
-      String key = (c.isEnabled()) ? "TextField.background" : "ComboBox.disabledBackground";
-      if (c instanceof JComboBox && c.isEnabled()) key = "ComboBox.background";
-      return UIManager.getColor(key);
+      Color color = Color.white;
+      if (c instanceof JTextComponent)
+      {
+         String key = (c.isEnabled()) ? "TextField.background" : "TextField.inactiveBackground";
+         color = UIManager.getColor(key);
+      }
+      else if (c instanceof JComboBox)
+      {
+         String key = (c.isEnabled()) ? "ComboBox.background" : "ComboBox.disabledBackground";
+         color = UIManager.getColor(key);
+      }
+      return color;
    }
 
    public ValidationEvent(Object source, String msg, boolean statusType)

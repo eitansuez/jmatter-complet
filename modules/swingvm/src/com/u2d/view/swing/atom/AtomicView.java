@@ -52,10 +52,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
                {
                   _eo.fireValidationException(""); // reset previous
                }
-               else
-               {
-                  colorBackground(editorComponent(), "", _eo);
-               }
+               colorBackground(editorComponent(), "", _eo);
             }
             _previousErrors = errors;
          }
@@ -242,23 +239,28 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
 
    // common utility for multiple kinds of editors/renderers ..
 
+   public static boolean toggleValidationClientProperty(JComponent component, ValidationEvent evt)
+   {
+      return toggleValidationClientProperty(component, evt.getMsg(), evt.getSource());
+   }
+   private static boolean toggleValidationClientProperty(JComponent component, String msg, Object source)
+   {
+      boolean emptyMsg = StringEO.isEmpty(msg);
+      boolean failedValidation = !(emptyMsg || Required.MSG.equals(msg));
+      component.putClientProperty(ValidationEvent.FAILED_VALIDATION, failedValidation);
+      String toolTipText = failedValidation ? msg : null;
+      component.setToolTipText(toolTipText);
+      return failedValidation;
+   }
+   
    public static void colorBackground(JComponent component, ValidationEvent evt)
    {
       colorBackground(component, evt.getMsg(), evt.getSource());
    }
-   public static void colorBackground(JComponent component, String msg, Object source)
+   private static void colorBackground(JComponent component, String msg, Object source)
    {
-      boolean emptyMsg = StringEO.isEmpty(msg);
-      if (!(emptyMsg || Required.MSG.equals(msg)))
-      {
-         component.setBackground(ValidationEvent.INVALID_COLOR);
-         component.putClientProperty(ValidationEvent.FAILED_VALIDATION, true);
-         component.setToolTipText(msg);
-         return;
-      }
-
-      component.putClientProperty(ValidationEvent.FAILED_VALIDATION, false);
-      component.setToolTipText(null);
+      boolean failedValidation = toggleValidationClientProperty(component, msg, source);
+      if (failedValidation) return;
 
       Color bgColor = ValidationEvent.normalColor(component);
       if (source instanceof EObject)
@@ -281,6 +283,29 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
 
       paintErrorIcon(g, c, placeLeft);
    }
+
+   private static Color redColor = new Color(0xD71E17);
+   private static Stroke redStroke = new BasicStroke(1);
+   public static void decorateBorderForValidation(Graphics g, JComponent c)
+   {
+      Object propValue = c.getClientProperty(ValidationEvent.FAILED_VALIDATION);
+      if (propValue == null) return;
+      boolean passed = ! ((Boolean) propValue);
+      if (passed) return;
+
+      Graphics2D g2 = (Graphics2D) g;
+      Color savedColor = g2.getColor();
+      Stroke savedStroke = g2.getStroke();
+
+      g2.setColor(redColor);
+      g2.setStroke(redStroke);
+
+      g2.drawRect(0, 0, c.getWidth()-1, c.getHeight()-1);
+
+      g2.setColor(savedColor);
+      g2.setStroke(savedStroke);
+   }
+
    private static void paintErrorIcon(Graphics g, Component c, boolean placeLeft)
    {
       int padding = 5;
@@ -298,4 +323,5 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
       ICON_WIDTH = ERROR_ICON.getIconWidth();
       ICON_HEIGHT = ERROR_ICON.getIconHeight();
    }
+
 }

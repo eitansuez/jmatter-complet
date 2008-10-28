@@ -170,6 +170,14 @@ public class AppFrame extends JFrame
 
       _cardPanel.show("app-on");
       applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+
+      addWindowListener(new WindowAdapter()
+      {
+         public void windowClosing(WindowEvent e)
+         {
+            _app.onShutdown();
+         }
+      });
    }
    
    private void setupAppIcon()
@@ -371,14 +379,34 @@ public class AppFrame extends JFrame
       _serviceObject = _app.serviceObject();
       if (_serviceObject != null)
       {
-         northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
-         _commandsPnl = new CommandsIconButtonView();
          _commandsMenu = new CommandsMenuView();
-         ComponentStyle.addClass(_commandsPnl, "command-bar");
+
+         MigLayout layout = new MigLayout("alignx leading, insets 0", "", "[fill, align center]");
+         northPanel = new JPanel(layout);
+
+         _commandsPnl = new CommandsIconButtonView();
          northPanel.add(_commandsPnl);
+
+         ComponentStyle.addClass(northPanel, "command-bar");
          _centerPane.add(northPanel, BorderLayout.PAGE_START);
+        for (Runnable r : deferredActions)
+        {
+           r.run();
+        }
       }
    }
+   private java.util.List<Runnable> deferredActions = new ArrayList<Runnable>();
+   public void contributeToHeader(final JComponent component)
+   {
+      deferredActions.add(new Runnable()
+      {
+         public void run()
+         {
+            northPanel.add(component);
+         }
+      });
+   }
+
    private void setupMenu()
    {
       _menuBar = new JMenuBar();

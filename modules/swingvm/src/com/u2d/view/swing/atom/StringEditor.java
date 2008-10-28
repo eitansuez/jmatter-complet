@@ -57,12 +57,17 @@ public class StringEditor extends JTextField implements AtomicEditor, ActionNoti
 
    public void validationException(ValidationEvent evt)
    {
-      AtomicView.colorBackground(this, evt);
+      AtomicView.toggleValidationClientProperty(this, evt);
    }
    protected void paintComponent(Graphics g)
    {
       super.paintComponent(g);
       AtomicView.decorateComponentForValidation(g, this, false);
+   }
+   protected void paintBorder(Graphics g)
+   {
+      super.paintBorder(g);
+      AtomicView.decorateBorderForValidation(g, this);
    }
    
 }

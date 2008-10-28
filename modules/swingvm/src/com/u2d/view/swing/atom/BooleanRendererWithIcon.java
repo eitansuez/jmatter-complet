@@ -4,7 +4,6 @@ import com.u2d.model.AtomicRenderer;
 import com.u2d.model.AtomicEObject;
 import com.u2d.type.atom.BooleanEO;
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -38,11 +37,6 @@ public class BooleanRendererWithIcon extends JLabel implements AtomicRenderer
       Icon icon = (eo.booleanValue()) ? trueIcon : falseIcon;
       setText(caption);
       setIcon(icon);
-   }
-
-   public Dimension getPreferredSize()
-   {
-      return new Dimension(200, super.getPreferredSize().height);
    }
 
    public void passivate() { }
