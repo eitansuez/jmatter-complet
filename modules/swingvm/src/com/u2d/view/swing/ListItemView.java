@@ -99,7 +99,7 @@ public class ListItemView extends JLabel implements ComplexEView
    {
       Dimension d = super.getPreferredSize();
       d.width += getInsets().left + getInsets().right;
-      d.width = Math.min(d.width,  MAXWIDTH);
+      d.width = Math.min(d.width, MAXWIDTH);
       d.height += getInsets().top + getInsets().bottom;
       return d;
    }
