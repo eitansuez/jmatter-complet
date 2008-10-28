@@ -3,9 +3,11 @@ package com.u2d.view.swing.list;
 import com.u2d.ui.SeeThruTable;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableCellEditor;
 import java.awt.*;
 
 /**
@@ -73,4 +75,16 @@ public class ScrollableTable extends SeeThruTable
       }
       return false;
    }
+
+
+   public Component prepareEditor(TableCellEditor editor, int row, int column)
+   {
+      Component editorComponent = super.prepareEditor(editor, row, column);
+      if (editorComponent instanceof JTextComponent)
+      {
+         ((JTextComponent) editorComponent).selectAll();
+      }
+      return editorComponent;
+   }
+
 }
