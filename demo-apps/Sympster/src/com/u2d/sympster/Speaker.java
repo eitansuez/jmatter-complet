@@ -9,7 +9,6 @@ import com.u2d.element.CommandInfo;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Fld;
 import com.u2d.reflection.Arg;
-import com.u2d.view.EView;
 import javax.swing.Icon;
 import javax.persistence.Entity;
 import java.awt.Color;
@@ -23,6 +22,7 @@ public class Speaker extends AbstractComplexEObject
    public static String sortBy = "name";
    public static String[] tabViews = {"contact", "talks"};
    public static String defaultSearchPath = "name";
+   public static String defaultFocusField = "title";
 
    public static String[] identities = {"name"};
 
