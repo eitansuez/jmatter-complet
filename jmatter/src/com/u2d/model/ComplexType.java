@@ -232,6 +232,12 @@ public class ComplexType extends AbstractComplexEObject
          _defaultSearchPath.setValue(fieldPath);
       }
 
+      String focusField = (String) Harvester.introspectField(_clazz, "defaultFocusField");
+      if (focusField != null)
+      {
+         _defaultFocusField.setValue(focusField);
+      }
+
       try
       {
          _commands = Harvester.harvestCommands(_clazz, this);
@@ -1205,6 +1211,27 @@ public class ComplexType extends AbstractComplexEObject
    }
    
    
+   private StringEO _defaultFocusField = new StringEO();
+
+   public StringEO getDefaultFocusField()
+   {
+      StringEO path = _defaultFocusField;
+      if ( (path.isEmpty()) && !_clazz.isInterface() &&
+           (ComplexEObject.class.isAssignableFrom(_clazz.getSuperclass())) )
+      {
+         path.setValue(ComplexType.forClass(_clazz.getSuperclass()).getDefaultFocusField());
+      }
+      return path;
+   }
+
+   public String defaultFocusField() { return getDefaultFocusField().stringValue(); }
+   public boolean hasDefaultFocusField()
+   {
+      return (!getDefaultFocusField().isEmpty());
+   }
+
+
+
    public static String shortName(Class cls)
    {
       String name = cls.getName();
