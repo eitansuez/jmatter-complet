@@ -735,9 +735,20 @@
       <SOURCES />
     </library>
     <library name="Echo">
-      <CLASSES />
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/jmatter/lib/runtime/echovm" />
+      </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file:///home/eitan/work/thirdparty/NextApp_Echo3/SourceCode/src/server-java/app" />
+        <root url="file:///home/eitan/work/thirdparty/NextApp_Echo3/SourceCode/src/server-java/webcontainer" />
+        <root url="file:///home/eitan/work/thirdparty/NextApp_Echo3_Extras/SourceCode/src/server-java/app" />
+        <root url="file:///home/eitan/work/thirdparty/NextApp_Echo3_Extras/SourceCode/src/server-java/webcontainer" />
+        <root url="file:///home/eitan/work/thirdparty/NextApp_Echo3_Extras/SourceCode/src/server-java/testapp-interactive/lib" />
+        <root url="file:///home/eitan/work/thirdparty/NextApp_Echo3/SourceCode/src/server-java/testapp-interactive/lib" />
+        <root url="file:///home/eitan/work/thirdparty/NextApp_Echo3/SourceCode/src/server-java/webcontainer-test" />
+      </SOURCES>
+      <jarDirectory url="file://$PROJECT_DIR$/jmatter/lib/runtime/echovm" recursive="false" />
     </library>
   </component>
   <component name="testng.defaultConfiguration">
