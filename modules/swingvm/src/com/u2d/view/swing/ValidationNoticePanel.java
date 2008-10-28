@@ -9,6 +9,7 @@ import com.u2d.model.ComplexEObject;
 import com.u2d.validation.ValidationEvent;
 import com.u2d.validation.ValidationListener;
 import com.u2d.validation.ValidationNotifier;
+import com.u2d.validation.Required;
 import com.u2d.css4swing.style.ComponentStyle;
 
 /**
@@ -58,7 +59,10 @@ public class ValidationNoticePanel extends JLabel implements ValidationListener
       {
          public void run()
          {
-            setText(evt.getMsg());
+            if (!Required.MSG.equals(evt.getMsg()))
+            {
+               setText(evt.getMsg());
+            }
          }
       });
    }
