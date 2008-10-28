@@ -61,20 +61,38 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
                   Dimension targetSize = _target.getPreferredSize();
                   Dimension offset = new Dimension((int) (targetSize.width * factor), (int) (targetSize.height * 0.75));
 
+                  int x, y;
                   if (getComponentOrientation().isLeftToRight())
                   {
-                     show(focusOwner, p.x+offset.width, p.y+offset.height);
+                     x = p.x+offset.width;
+                     y = p.y+offset.height;
                   }
                   else
                   {
-                     show(focusOwner, p.x+offset.width-getPreferredSize().width, p.y+offset.height);
+                     x = p.x+offset.width-getPreferredSize().width;
+                     y = p.y+offset.height;
                   }
+
+                  show(focusOwner, x, y);
+                  selectFirst();
                }
             }
          });
       
       setup();
       applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+   }
+
+   /**
+    * Undoing a JDK6u10 change that causes the JPopupMenu to not select the first element in the
+    *  menu by default.
+    */
+   private void selectFirst()
+   {
+       MenuElement me[] = new MenuElement[2];
+       me[0]= this;
+       me[1]= getSubElements()[0];
+       MenuSelectionManager.defaultManager().setSelectedPath(me);
    }
    
    public void bind(EObject eo, EView source)
