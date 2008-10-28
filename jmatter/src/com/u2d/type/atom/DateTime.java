@@ -38,17 +38,39 @@ public class DateTime extends AbstractAtomicEO implements Searchable
    }
    public void setValue(EObject value)
    {
+      if (value == null)
+      {
+         _value = null;
+         return;
+      }
       if (!(value instanceof DateTime))
          throw new IllegalArgumentException("Invalid type on set;  must be DateTime");
       setValue(((DateTime) value).dateValue());
    }
    
-   public boolean isEmpty() { return false; }
+   public boolean isEmpty() { return _value == null; }
    
+   public SimpleDateFormat formatter()
+   {
+      SimpleDateFormat fieldFormat = fieldFormatter();
+      return (fieldFormat == null) ? _dateFormat : fieldFormat;
+   }
+   public SimpleDateFormat fieldFormatter()
+   {
+      if (field() == null || StringEO.isEmpty(field().format()))
+      {
+         return null;
+      }
+      else
+      {
+         return new SimpleDateFormat(field().format());
+      }
+   }
+
    public Title title()
    {
       if (_value == null) return new Title("");
-      String formattedString = _dateFormat.format(_value);
+      String formattedString = formatter().format(_value);
       return new Title(formattedString);
    }
    public String toString()
@@ -69,12 +91,13 @@ public class DateTime extends AbstractAtomicEO implements Searchable
    {
       if (StringEO.isEmpty(stringValue))
       {
+         setValue((Date) null);
          return;
       }
       
       try
       {
-         Date value = _dateFormat.parse(stringValue);
+         Date value = formatter().parse(stringValue);
          Calendar cal = Calendar.getInstance();
          cal.setTime(value);
          if (cal.get(Calendar.YEAR) < 100)  // was a 2-digit year

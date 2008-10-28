@@ -133,12 +133,8 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
    
    public SimpleDateFormat formatter()
    {
-      SimpleDateFormat formatter = STANDARD;
-      if (field() != null && !StringEO.isEmpty(field().format()))
-      {
-         formatter = fieldFormatter();
-      }
-      return formatter;
+      SimpleDateFormat fieldFormat = fieldFormatter();
+      return (fieldFormat == null) ? STANDARD : fieldFormat;
    }
    public SimpleDateFormat fieldFormatter()
    {
