@@ -171,15 +171,7 @@ jm|ExpandableView2 ui|GradientPanel
   padding: 0px 0px 0px 5px;
 }
 
-.command-bar
-{
-   background-color: white;
-   border-radius: 5px;
-   padding: 7px;
-   border: 1px solid black;
-   margin: 5px;
-}
-.command-bar jm|CommandIconButton
+.command-bar JComponent
 {
    font-size: 11pt;
 }
