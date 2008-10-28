@@ -159,7 +159,13 @@ public class DateEO extends AbstractAtomicEO implements Searchable, Comparable<D
       return new Title(formattedString);
    }
    public String toString() { return title().toString(); }
-   
+
+   public String marshal()
+   {
+      if (_value == null) return "";
+      return formatter().format(_value.getTime());
+   }
+
    public boolean equals(Object obj)
    {
       if (obj == null) return false;
