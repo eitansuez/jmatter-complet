@@ -11,5 +11,5 @@ import com.u2d.view.ComplexEView;
  */
 public interface IFormView extends ComplexEView, Editor
 {
-   void focusFirstEditableField();
+   void focusField();
 }

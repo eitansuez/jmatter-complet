@@ -105,7 +105,7 @@ public abstract class AbeilleForm extends JPanel implements IFormView
 
    public boolean isMinimized() { return false; }
 
-   public void focusFirstEditableField()
+   public void focusField()
    {
       UIUtils.focusFirstEditableField(AbeilleForm.this);
    }

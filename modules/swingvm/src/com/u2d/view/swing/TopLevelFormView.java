@@ -72,7 +72,7 @@ public class TopLevelFormView extends JXPanel
             {
                public void run()
                {
-                  _formView.focusFirstEditableField();
+                  _formView.focusField();
                }
             });
          }
@@ -113,7 +113,7 @@ public class TopLevelFormView extends JXPanel
          {
             public void run()
             {
-               _formView.focusFirstEditableField();
+               _formView.focusField();
             }
          });
       }

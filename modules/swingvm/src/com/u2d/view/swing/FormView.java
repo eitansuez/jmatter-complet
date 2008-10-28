@@ -24,10 +24,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
+
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -38,7 +37,7 @@ public class FormView extends JXPanel implements IFormView
    private ComplexEObject _ceo;
    private boolean _leafContext;
 
-   private List<EView> _childViews;  // exclude read-only fields
+   private Map<String, EView> _childViews;  // exclude read-only fields
    private java.util.Collection<ValidationNoticePanel> _vPnls;
 
    private boolean _hasTabs = false;
@@ -83,7 +82,7 @@ public class FormView extends JXPanel implements IFormView
       stopListeningForValidations();
       _vPnls.clear();
 
-      for (EView view : _childViews)
+      for (EView view : _childViews.values())
       {
          view.detach();
       }
@@ -106,7 +105,7 @@ public class FormView extends JXPanel implements IFormView
 
    private void layItOut()
    {
-      _childViews = new ArrayList<EView>();
+      _childViews = new HashMap<String, EView>();
       _vPnls = new HashSet<ValidationNoticePanel>();
 
       JPanel mainPane = mainPane();
@@ -145,7 +144,7 @@ public class FormView extends JXPanel implements IFormView
       if (hasCustomMainTabPanel)
       {
          EView customMainTabPanel = _ceo.mainTabPanel();
-         _childViews.add(customMainTabPanel);
+         _childViews.put("mainTabPanel", customMainTabPanel);
          return (JPanel) customMainTabPanel;
       }
       else
@@ -174,7 +173,7 @@ public class FormView extends JXPanel implements IFormView
          if ( field.isTabView() )
          {
             EView view = field.getView(ceo);
-            _childViews.add(view);
+            _childViews.put(field.name(), view);
             JComponent comp = (JComponent) view;
 
             if (field.isAtomic())
@@ -199,7 +198,7 @@ public class FormView extends JXPanel implements IFormView
          else if (!hasCustomMainTabPanel)
          {
             EView view = field.getView(ceo);
-            _childViews.add(view);
+            _childViews.put(field.name(), view);
             JComponent comp = (JComponent) view;
 
             if (field.isAggregate() && ((AggregateField) field).flattenIntoParent())
@@ -270,7 +269,7 @@ public class FormView extends JXPanel implements IFormView
                      {
                         public void run()
                         {
-                           focusFirstEditableField();
+                           focusField();
                         }
                      });
                   }
@@ -284,7 +283,7 @@ public class FormView extends JXPanel implements IFormView
    public int transferValue()
    {
       int count = 0;
-      for (EView view : _childViews)
+      for (EView view : _childViews.values())
       {
          Tracing.tracer().fine("attempting to transfer value for field " + view.getEObject().field());
          if (view instanceof Editor)
@@ -344,7 +343,7 @@ public class FormView extends JXPanel implements IFormView
       Field field;
       EObject eo;
 
-      for (EView view : _childViews)
+      for (EView view : _childViews.values())
       {
          if (view instanceof Editor)
          {
@@ -416,8 +415,16 @@ public class FormView extends JXPanel implements IFormView
 
    public boolean isMinimized() { return false; }
 
-   public void focusFirstEditableField()
+   public void focusField()
    {
-      UIUtils.focusFirstEditableField(FormView.this);
+      if (_ceo.type().hasDefaultFocusField())
+      {
+         String fieldName = _ceo.type().defaultFocusField();
+         UIUtils.focusFirstEditableField((Container) _childViews.get(fieldName));
+      }
+      else
+      {
+         UIUtils.focusFirstEditableField(FormView.this);
+      }
    }
 }

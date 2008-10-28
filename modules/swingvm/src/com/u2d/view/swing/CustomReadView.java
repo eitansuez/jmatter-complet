@@ -72,7 +72,7 @@ public class CustomReadView
             {
                public void run()
                {
-                  _formView.focusFirstEditableField();
+                  _formView.focusField();
                }
             });
          }
@@ -114,7 +114,7 @@ public class CustomReadView
          {
             public void run()
             {
-               _formView.focusFirstEditableField();
+               _formView.focusField();
             }
          });
       }
