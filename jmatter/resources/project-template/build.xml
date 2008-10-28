@@ -258,7 +258,9 @@
    </signjar>
 
    <war destfile="${war.file}" webxml="resources/jws/web.xml"
-   	    basedir="${jws-dist.dir}" />
+   	    basedir="${jws-dist.dir}">
+     <lib dir="resources/jws" includes="jnlp-servlet.jar" />
+   </war>
  </target>
    
  <target name="find-drvname">

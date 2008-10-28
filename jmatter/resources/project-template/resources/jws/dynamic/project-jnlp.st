@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <jnlp spec="1.0+"
-      codebase="http://$ip_addr$:$port$/@PROJECTNAME@"
+      codebase="\$\$codebase"
       href="project.jnlp">
 
  <information>
@@ -11,8 +11,9 @@
    <description kind="one-line">@PROJECTNAME@ App</description>
    <description kind="short">@PROJECTNAME@ App</description>
    <description kind="tooltip">@PROJECTNAME@ App</description>
-   <icon href="leaf.jpg" />
-   <icon kind="splash" href="leaf.jpg" /> <!-- TODO: plug in splash image here -->
+   <icon kind="shortcut" href="App32.png" /> <!-- TODO: copy App32.png to 'static' folder -->
+   <icon kind="splash" href="splash.png" /> <!-- TODO: reference proper splash img url -->
+   <offline-allowed />
  </information>
 
  <security>
@@ -29,7 +30,6 @@
 
  <application-desc main-class="com.u2d.view.swing.EntryPoint">
    <argument>-Xdock:name=@PROJECTNAME@</argument>
-   <argument>-Xdock:icon=icons.icns</argument>
  </application-desc>
 
 </jnlp>
