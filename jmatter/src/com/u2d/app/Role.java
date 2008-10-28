@@ -16,6 +16,7 @@ import com.u2d.reflection.Cmd;
 import com.u2d.restrict.*;
 import com.u2d.type.atom.StringEO;
 import com.u2d.type.composite.LoggedEvent;
+import com.u2d.type.USState;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -264,7 +265,13 @@ public class Role extends AbstractComplexEObject implements Authorizer
             ComplexType types = ComplexType.forClass(ComplexType.class);
             addCmdRestriction().on(types.instanceCommand("Open"));
             addCmdRestriction().on(types.instanceCommand("ManageRestrictions"));
-            
+
+            // cannot edit us states:
+            ComplexType usstates = ComplexType.forClass(USState.class);
+            addCmdRestriction(new CreationRestriction(usstates));
+            addCmdRestriction().on(usstates.instanceCommand("Delete"));
+            addCmdRestriction().on(usstates.instanceCommand("Edit"));
+
             Set items = new HashSet();
             items.addAll(_restrictions.getItems());
             items.add(this);
