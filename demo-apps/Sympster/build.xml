@@ -238,15 +238,17 @@
    </signjar>
 
    <war destfile="${war.file}" webxml="resources/jws/web.xml"
-   	    basedir="${jws-dist.dir}" />
+   	    basedir="${jws-dist.dir}">
+     <lib dir="resources/jws" includes="jnlp-servlet.jar" />
+   </war>
  </target>
    
-   <target name="find-drvname">
-      <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
-         classpathref="libtools.path" />
-      <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
-      <echo message="jdbcdrivername is ${jdbcdrivername}" />
-   </target>
+ <target name="find-drvname">
+    <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
+       classpathref="libtools.path" />
+    <jdbcdriversetter basepath="${lib.dir}/jdbc"/>
+    <echo message="jdbcdrivername is ${jdbcdrivername}" />
+ </target>
    
  <target name="copylibs" depends="find-drvname">
     <property name="jdbcdrivername" value="*.jar" /> <!-- fallback -->

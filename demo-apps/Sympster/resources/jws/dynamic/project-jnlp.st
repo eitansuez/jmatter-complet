@@ -36,5 +36,10 @@
    <argument>-Xdock:name=Sympster</argument>
  </application-desc>
 
+ <applet-desc main-class="com.u2d.view.swing.JMApplet"
+              width="100%" height="100%"
+              name="Sympster">
+ </applet-desc>
+
 </jnlp>
 
