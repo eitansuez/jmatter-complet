@@ -214,18 +214,28 @@
          fork="true" maxmemory="128m" />
  </target>
 
- <taskdef name="process-template" classname="com.u2d.tools.JnlpMaker" classpathref="libtools.path" />
 
- <target name="jws-dist" description="create java webstart distribution" 
-         depends="jar, keystore">
-   <copy todir="${jws-dist.dir}">
-     <fileset dir="resources/jws/static" includes="*" />
-   </copy>
+ <!-- java web start related targets .. -->
 
-   <antcall target="copylibs">
-      <param name="target.dir" location="${jws-dist.dir}/lib" />
-      <param name="vmname" value="swingvm" />
-   </antcall>
+ <target name="webstart-part1" depends="jar, keystore">
+    <copy todir="${jws-dist.dir}">
+      <fileset dir="resources/jws/static" includes="*" />
+    </copy>
+
+    <antcall target="copylibs">
+       <param name="target.dir" location="${jws-dist.dir}/lib" />
+       <param name="vmname" value="swingvm" />
+    </antcall>
+
+    <antcall target="makejnlp" />
+
+    <fileset id="thejars" dir="${jws-dist.dir}" includes="**/*.jar" />
+ </target>
+
+ <target name="makejnlp">
+   <taskdef name="process-template"
+            classname="com.u2d.tools.JnlpMaker" 
+            classpathref="libtools.path" />
 
    <process-template template="resources/jws/dynamic/project-jnlp.st"
               props="resources/jws/dynamic/project.properties"
@@ -237,16 +247,47 @@
               props="resources/jws/dynamic/project.properties"
               jarbasepath="${jws-dist.dir}"
               tofile="${jws-dist.dir}/applet.html" />
+ </target>
 
+ <target name="jws-dist" description="create java webstart distribution" 
+         depends="webstart-part1, signjars, war" />
+
+ <target name="signjars">
    <signjar alias="unknown" storepass="public" keystore="tempKeystore">
-     <fileset dir="${jws-dist.dir}" includes="**/*.jar" />
+     <fileset refid="thejars" />
    </signjar>
+ </target>
 
+ <target name="war">
    <war destfile="${war.file}" webxml="resources/jws/web.xml"
    	    basedir="${jws-dist.dir}">
      <lib dir="resources/jws" includes="jnlp-servlet.jar" />
    </war>
  </target>
+
+ <target name="jws-dist-pack200"
+         description="create a version of java webstart distribution that includes pack200-compression of jars"
+         depends="webstart-part1">
+
+   <taskdef name="p200ant"
+            classname="de.matthiasmann.p200ant.P200AntTask"
+            classpath="${lib.tools.dir}/p200ant.jar"/>
+
+   <p200ant repack="true">
+     <fileset refid="thejars" />
+   </p200ant>
+
+   <antcall target="signjars" />
+
+   <p200ant destdir="${jws-dist.dir}/lib">
+     <fileset refid="thejars" />
+   </p200ant>
+   <move file="${jws-dist.dir}/lib/${ant.project.name}.jar.pack.gz" todir="${jws-dist.dir}" />
+
+   <antcall target="war" />
+ </target>
+
+
    
  <target name="find-drvname">
     <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"

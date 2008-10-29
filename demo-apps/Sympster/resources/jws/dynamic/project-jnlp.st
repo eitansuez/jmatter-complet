@@ -25,6 +25,7 @@
  </security>
 
  <resources>
+   <property name="jnlp.packEnabled" value="true" />
    <j2se version="1.5+" />
    <jar href="lib/swingvm.jar" main="true" />
    $jars:{jar|
