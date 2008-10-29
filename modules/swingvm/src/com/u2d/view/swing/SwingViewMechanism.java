@@ -66,7 +66,7 @@ public class SwingViewMechanism implements ViewMechanism
    private static SwingViewMechanism vmech = new SwingViewMechanism();
    public static SwingViewMechanism getInstance() { return vmech; }
    
-   private AppFrame _appFrame;
+   private AppContainer _appFrame;
    private LoginDialog _loginDialog;
    private ReportingInterface _reportingInterface;
 
@@ -141,7 +141,24 @@ public class SwingViewMechanism implements ViewMechanism
    }
    public void initReporting() { reportingInterface(); }
    
-   
+
+   public void launch(AppContainer applet)
+   {
+      final Splash splash = new Splash();
+      _appFrame = applet;
+      SwingViewMechanism.invokeSwingAction(new SwingAction()
+      {
+         public void offEDT()
+         {
+            AppLoader.getInstance().launchApp(splash);
+         }
+
+         public void backOnEDT()
+         {
+            splash.dispose();
+         }
+      });
+   }
    public void launch()
    {
       final Splash splash = new Splash();
@@ -181,7 +198,7 @@ public class SwingViewMechanism implements ViewMechanism
 
    private void showErrorDialog(Exception ex)
    {
-      final JDialog dlg = new JDialog(_appFrame, "An error has occurred", true);
+      final JDialog dlg = new JDialog((Frame) _appFrame, "An error has occurred", true);
       dlg.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
       MigLayout mainLayout = new MigLayout("insets dialog");
       JPanel errorPane = new JPanel(mainLayout);
@@ -216,7 +233,7 @@ public class SwingViewMechanism implements ViewMechanism
       errorPane.add(centerPane);
       dlg.setContentPane(errorPane);
       dlg.pack();
-      UIUtils.center(_appFrame, dlg, true);
+      UIUtils.center((Container) _appFrame, dlg, true);
       okBtn.requestFocusInWindow();
       dlg.setVisible(true);
       dlg.dispose();
@@ -361,7 +378,7 @@ public class SwingViewMechanism implements ViewMechanism
                   // such as JList create.  here's a workaround:
                   if (container == null)
                   {
-                     JComponent focusOwner = (JComponent)
+                     Component focusOwner = 
                            KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
                      if (focusOwner instanceof JList)
                      {

@@ -1,54 +1,68 @@
-/*
- * Created on Dec 15, 2003
- */
 package com.u2d.view.swing;
 
 import com.u2d.app.*;
-import com.u2d.css4swing.style.ComponentStyle;
-import com.u2d.element.Command;
-import com.u2d.model.ComplexType;
-import com.u2d.model.EObject;
-import com.u2d.pattern.Filter;
-import com.u2d.pattern.Onion;
-import com.u2d.persist.HBMSingleSession;
-import com.u2d.pubsub.AppEventListener;
-import static com.u2d.pubsub.AppEventType.LOGIN;
-import static com.u2d.pubsub.AppEventType.LOGOUT;
-import com.u2d.type.atom.URI;
-import com.u2d.type.composite.Folder;
-import com.u2d.ui.Platform;
-import com.u2d.ui.UIUtils;
-import com.u2d.ui.CardPanel;
-import com.u2d.ui.LockablePanel;
-import com.u2d.ui.desktop.CloseableJInternalFrame;
-import com.u2d.ui.desktop.Positioning;
-import com.u2d.utils.Launcher;
-import com.u2d.view.swing.atom.URIRenderer;
-import com.u2d.view.swing.dnd.EODesktopPane;
+import com.u2d.interaction.Instruction;
 import com.u2d.view.swing.list.CommandsMenuView;
 import com.u2d.view.swing.list.CommandsIconButtonView;
-import com.u2d.interaction.Instruction;
+import com.u2d.view.swing.dnd.EODesktopPane;
+import com.u2d.view.swing.atom.URIRenderer;
+import com.u2d.pattern.Filter;
+import com.u2d.pattern.Onion;
+import com.u2d.element.Command;
+import com.u2d.ui.LockablePanel;
+import com.u2d.ui.CardPanel;
+import com.u2d.ui.UIUtils;
+import com.u2d.ui.Platform;
+import com.u2d.ui.desktop.CloseableJInternalFrame;
+import com.u2d.ui.desktop.Positioning;
+import static com.u2d.pubsub.AppEventType.LOGIN;
+import static com.u2d.pubsub.AppEventType.LOGOUT;
+import com.u2d.pubsub.AppEventListener;
+import com.u2d.css4swing.style.ComponentStyle;
+import com.u2d.type.composite.Folder;
+import com.u2d.type.atom.URI;
+import com.u2d.model.ComplexType;
+import com.u2d.model.EObject;
+import com.u2d.persist.HBMSingleSession;
+import com.u2d.utils.Launcher;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.InternalFrameListener;
 import javax.swing.event.InternalFrameEvent;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.*;
-import org.jdesktop.swingx.JXPanel;
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.beans.XMLEncoder;
+import java.beans.XMLDecoder;
 import net.miginfocom.swing.MigLayout;
-//import org.javadev.effects.FadeAnimation;
+import org.jdesktop.swingx.JXPanel;
 
 /**
- * @author Eitan Suez
+ * Created by IntelliJ IDEA.
+ * User: Eitan Suez
+ * Date: Oct 28, 2008
+ * Time: 4:36:32 PM
  */
-public class AppFrame extends JFrame implements AppContainer
+public class JMApplet extends JApplet implements AppContainer
 {
+   public void init()
+   {
+   }
+
+   public void start()
+   {
+      SwingViewMechanism.getInstance().launch(this);
+   }
+
+   public void destroy()
+   {
+      _app.onShutdown();
+   }
+
+
+
    private AppSession _appSession;
    private Application _app;
    private JMenuBar _menuBar;
@@ -71,7 +85,7 @@ public class AppFrame extends JFrame implements AppContainer
          return false;
       }
    });
-   
+
    private JPanel _centerPane;
    private OutlookFolderView _classBar = new OutlookFolderView();
    private JPanel _classBarPanel = new LockablePanel(_classBar);
@@ -80,17 +94,17 @@ public class AppFrame extends JFrame implements AppContainer
    private WindowButtonBar _windowButtonBar;
    private CardPanel _cardPanel, _sessionCardPanel;
 
-   public AppFrame()
+   public JMApplet()
    {
       setupUI();
       setupLoginLogoutListeners();
    }
-   public AppFrame(AppSession appSession)
+   public JMApplet(AppSession appSession)
    {
       this();
       setupApp(appSession);
    }
-   
+
    public void appUnloaded()
    {
       _appSession.removeAppEventListener(LOGIN, _loginListener);
@@ -105,14 +119,12 @@ public class AppFrame extends JFrame implements AppContainer
 
    private void setupUI()
    {
-      setTitle("JMatter");
       setupAppIcon();
 
       JPanel contentPane = (JPanel) getContentPane();
 
       _desktopPane = new EODesktopPane();
       _desktopPane.getContextMenu().addSeparator();
-      _desktopPane.getContextMenu().add(new QuitAction());
       setupInstructionView();
 
       _windowButtonBar = new WindowButtonBar();
@@ -131,10 +143,6 @@ public class AppFrame extends JFrame implements AppContainer
       _sessionCardPanel = new CardPanel();
       _sessionCardPanel.add(_loggedOutDesktopPane, "loggedout");
       _sessionCardPanel.add(_centerPane, "loggedin");
-//      _sessionCardPanel.setAnimationAndDuration(new CubeAnimation(), 1000);
-//      _sessionCardPanel.setAnimationAndDuration(new DashboardAnimation(), 1000);
-//      _sessionCardPanel.setAnimationAndDuration(new FadeAnimation(), 1000);
-//      _sessionCardPanel.setAnimationAndDuration(new SlideAnimation(), 1000);
 
       _cardPanel = new CardPanel();
       _cardPanel.add(new AppLoaderPanel(), "app-off");
@@ -143,13 +151,9 @@ public class AppFrame extends JFrame implements AppContainer
 
       contentPane.add(_cardPanel, BorderLayout.CENTER);
 
-      setPreferredSize(new Dimension(1024, 768));
-      setSize(getPreferredSize());
-      
       UIUtils.centerOnScreen(this);
-      setupQuitHooks();
    }
-   
+
    private void setupApp(AppSession appSession)
    {
       _appSession = appSession;
@@ -158,7 +162,6 @@ public class AppFrame extends JFrame implements AppContainer
       _appSession.addAppEventListener(LOGIN, _loginListener);
       _appSession.addAppEventListener(LOGOUT, _logoutListener);
 
-      setTitle(_app.getName());
       setupAppIcon();
 
       if (aboutDlg != null) aboutDlg.rebind();
@@ -170,16 +173,8 @@ public class AppFrame extends JFrame implements AppContainer
 
       _cardPanel.show("app-on");
       applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-
-      addWindowListener(new WindowAdapter()
-      {
-         public void windowClosing(WindowEvent e)
-         {
-            _app.onShutdown();
-         }
-      });
    }
-   
+
    private void setupAppIcon()
    {
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -187,10 +182,9 @@ public class AppFrame extends JFrame implements AppContainer
       if (imgURL != null)
       {
          _appIcon = new ImageIcon(imgURL);
-         setIconImage(_appIcon.getImage());
       }
    }
-   
+
    private void setupInstructionView()
    {
       instructionView = new InstructionView();
@@ -198,7 +192,7 @@ public class AppFrame extends JFrame implements AppContainer
       _desktopPane.add(instructionView, JLayeredPane.POPUP_LAYER);
       UIUtils.center(_desktopPane, instructionView);
    }
-   
+
    private void setupKeyboardShorcuts()
    {
       bindKeyStroke("alt SLASH", "focus-classbar", new AbstractAction()
@@ -226,7 +220,7 @@ public class AppFrame extends JFrame implements AppContainer
          }
       });
    }
-   
+
    private void bindKeyStroke(String shortcut, String key, Action action)
    {
       bindKeyStroke(KeyStroke.getKeyStroke(shortcut), key, action);
@@ -248,9 +242,9 @@ public class AppFrame extends JFrame implements AppContainer
       detachKeyStroke("close-window");
       detachKeyStroke("invoke-instruction");
    }
-   
+
    private Set<String> keybindings = new HashSet<String>();
-   
+
    private void bindTypeKeyboardShortcuts(Folder userClassBar)
    {
       keybindings = new HashSet<String>();
@@ -295,14 +289,14 @@ public class AppFrame extends JFrame implements AppContainer
          detachKeyStroke(key);
       }
    }
-   
+
    private String keyFor(ComplexType type, Command cmd)
    {
       return String.format("%s-%s", type.name(), cmd.name());
    }
 
    AppEventListener _loginListener, _logoutListener;
-   
+
    private void setupLoginLogoutListeners()
    {
       _loginListener = new AppEventListener()
@@ -410,19 +404,8 @@ public class AppFrame extends JFrame implements AppContainer
    private void setupMenu()
    {
       _menuBar = new JMenuBar();
-      _menuBar.add(fileMenu());
       _menuBar.add(helpMenu());
       setJMenuBar(_menuBar);
-   }
-   private JMenu fileMenu()
-   {
-      JMenu fileMenu = configMenu("menubar.file");
-      if (!_app.isAppBrowser() && AppLoader.getInstance().isInBrowserContext())
-      {
-         fileMenu.add(new BackToAppBrowserAction());
-      }
-      fileMenu.add(new QuitAction());
-      return fileMenu;
    }
    private JMenu helpMenu()
    {
@@ -461,7 +444,7 @@ public class AppFrame extends JFrame implements AppContainer
    public void centerFrame(JInternalFrame frame) { _desktopPane.positionFrame(frame, Positioning.CENTERED); }
    public JInternalFrame getSelectedFrame() { return _desktopPane.getSelectedFrame(); }
 
-   
+
    public void popup(JPopupMenu menu)
    {
       _desktopPane.popup(menu);
@@ -524,44 +507,6 @@ public class AppFrame extends JFrame implements AppContainer
 
    //===
 
-   class BackToAppBrowserAction extends AbstractAction
-   {
-      public BackToAppBrowserAction()
-      {
-         putValue(javax.swing.Action.NAME, "Unload Application");
-      }
-
-      public void actionPerformed(ActionEvent e)
-      {
-         try
-         {
-            AppLoader.getInstance().loadApplication(null);
-         }
-         catch (IOException ioex)
-         {
-            ioex.printStackTrace();
-         }
-      }
-   }
-   class QuitAction extends AbstractAction
-   {
-      public QuitAction()
-      {
-         putValue(javax.swing.Action.ACTION_COMMAND_KEY, "exit");
-         configAction(this, "menubar.file.exit");
-
-         KeyStroke quitStroke = KeyStroke.getKeyStroke(KeyEvent.VK_Q,
-                                                       Platform.mask());
-         putValue(javax.swing.Action.ACCELERATOR_KEY, quitStroke);
-      }
-
-      public void actionPerformed(ActionEvent evt)
-      {
-         setWaitCursor();
-         quit();
-      }
-   }
-   
    private void configAction(Action action, String key)
    {
       TextWithMnemonic twm = TextWithMnemonic.lookup(key);
@@ -571,8 +516,8 @@ public class AppFrame extends JFrame implements AppContainer
          action.putValue(Action.MNEMONIC_KEY, (int) twm.mnemonic());
       }
    }
-   
-   
+
+
    class AboutAction extends AbstractAction
    {
       public AboutAction()
@@ -597,13 +542,13 @@ public class AppFrame extends JFrame implements AppContainer
 
       AboutDlg()
       {
-         super(AppFrame.this, "About "+_app.getName(), true);
+         super((JFrame) null, "About "+_app.getName(), true);
          setResizable(false);
-         
+
          laymeout();
-         
+
          pack();
-         UIUtils.center(AppFrame.this, AboutDlg.this, true);
+         UIUtils.center(JMApplet.this, AboutDlg.this, true);
          addComponentListener(new ComponentAdapter()
          {
             public void componentShown(ComponentEvent e)
@@ -636,14 +581,14 @@ public class AppFrame extends JFrame implements AppContainer
          link = new URIRenderer();
          link.render(new URI(_app.getHelpContentsUrl()));
          add(link);
-         
+
          closeBtn = new JButton("OK");
          closeBtn.addActionListener(AboutDlg.this);
          add(closeBtn, "tag ok");
-         
+
          ComponentStyle.setIdent(contentPane, "aboutPnl");
       }
-      
+
       private String title() { return String.format("About %s", _app.getName()); }
       public void rebind()
       {
@@ -659,7 +604,7 @@ public class AppFrame extends JFrame implements AppContainer
          AboutDlg.this.setVisible(false);
       }
    }
-   
+
    class HelpContentsAction extends AbstractAction
    {
       public HelpContentsAction()
@@ -671,41 +616,6 @@ public class AppFrame extends JFrame implements AppContainer
          Launcher.openInBrowser(_app.getHelpContentsUrl());
       }
    }
-
-   private void setupQuitHooks()
-   {
-      addWindowListener(new WindowAdapter()
-            {
-               public void windowClosing(WindowEvent evt)
-               {
-                  quit();
-               }
-            });
-
-
-      if (Platform.APPLE) new AppleQuitListener();
-   }
-
-   class AppleQuitListener extends com.apple.eawt.ApplicationAdapter
-   {
-      AppleQuitListener()
-      {
-         new com.apple.eawt.Application().addApplicationListener(this);
-      }
-
-      public void handleQuit(com.apple.eawt.ApplicationEvent evt)
-      {
-         evt.setHandled(false);
-         quit();
-      }
-   }
-
-   private void quit()
-   {
-      if (_appSession != null && _appSession.getUser() != null) _appSession.onLogout();
-      System.exit(0);
-   }
-
 
    public void onMessage(String msg)
    {
@@ -730,7 +640,7 @@ public class AppFrame extends JFrame implements AppContainer
    /* ======
     *
     * methods related to saving and restoring the user desktop follow..
-    * 
+    *
     * ------
     */
 
@@ -742,7 +652,7 @@ public class AppFrame extends JFrame implements AppContainer
       enc.close();
       User currentUser = _appSession.getUser();
       currentUser.getDesktop().setValue(baos.toString());
-      
+
       // currentuser lives for entire session.  if obtain a new session, must attach
       // object to new session;  this is not always the cause but a good precaution.
       // actually avoids an exception in certain circumstances.
@@ -758,14 +668,12 @@ public class AppFrame extends JFrame implements AppContainer
       XMLDecoder dec = new XMLDecoder(new ByteArrayInputStream(desktop.getBytes()));
       deserialize(dec);
    }
-   
+
    private void serialize(XMLEncoder enc)
    {
-      enc.writeObject(getBounds());
-
       JInternalFrame[] frames = _desktopPane.getAllFrames();
       java.util.List<CloseableJInternalFrame> framesToSave = new ArrayList<CloseableJInternalFrame>();
-      
+
       for (JInternalFrame f : frames)
       {
          if (!f.isVisible() || f.isIcon()) continue;
@@ -773,40 +681,15 @@ public class AppFrame extends JFrame implements AppContainer
          CloseableJInternalFrame cjif = (CloseableJInternalFrame) f;
          framesToSave.add(cjif);
       }
-      
+
       enc.writeObject(framesToSave.size());
       for (CloseableJInternalFrame f : framesToSave)
       {
          f.serialize(enc);
       }
-      
-/*
-         else if (frames[i] instanceof GenericFrame)
-         {
-            View view = ((GenericFrame) frames[i]).getView();
-            if (view instanceof FindView)
-            {
-               ComplexType type = ((FindView) view).getType();
-               frameInfo.add(new FrameInfo(FrameInfo.FIND, new Long(0),
-                                           type.getJavaClass().getName()));
-            }
-         }
-      }
-      */
    }
    private void deserialize(XMLDecoder dec)
    {
-      Rectangle bounds = (Rectangle) dec.readObject();
-      if (bounds != null)
-      {
-         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-         Dimension windowSize = bounds.getSize();
-         int screenArea = screenSize.width*screenSize.height;
-         int windowArea = windowSize.width*windowSize.height;
-         double ratio = ((double) windowArea / screenArea);
-         if (ratio < 0.9) setBounds(bounds);  // if window was maximized, probably don't want to start out maximized..
-      }
-
       int numFrames = (Integer) dec.readObject();
       for (int i=0; i<numFrames; i++)
       {
@@ -824,8 +707,8 @@ public class AppFrame extends JFrame implements AppContainer
          catch (IllegalAccessException ex) { ex.printStackTrace(); }
       }
    }
-   
-   
+
+
    class AppLoaderPanel extends JXPanel
    {
       public AppLoaderPanel()

@@ -18,7 +18,7 @@ import java.io.*;
 public class JnlpMaker extends Task
 {
    private File _template, _propsFile, _jarbasepath, _tofile;
-   private String[] _excludejars;
+   private String[] _excludejars = new String[0];
    public void setTemplate(File template) { _template = template; }
    public void setProps(File propsFile) { _propsFile = propsFile; }
    public void setJarbasepath(File jarbasepath) { _jarbasepath = jarbasepath; }
@@ -34,7 +34,10 @@ public class JnlpMaker extends Task
       try
       {
          StringTemplate template = STUtils.templateForFile(_template);
-         bindProperties(template);
+         if (_propsFile != null)
+         {
+            bindProperties(template);
+         }
 
          List jarpathlist = jarpaths(_jarbasepath);
          template.setAttribute("jars", jarpathlist);
@@ -66,12 +69,12 @@ public class JnlpMaker extends Task
    {
       List<String> list = new ArrayList<String>();
       File[] paths = basePath.listFiles();
-      for (int i=0; i<paths.length; i++)
+      for (File path : paths)
       {
-         if ( paths[i].isFile() && paths[i].getName().endsWith(".jar")
-               && (!excluded(paths[i].getName())) )
+         if ( path.isFile() && path.getName().endsWith(".jar")
+               && (!excluded(path.getName())) )
          {
-            String relativePath = paths[i].getCanonicalPath();
+            String relativePath = path.getCanonicalPath();
             String basepath = _jarbasepath.getAbsolutePath() + File.separator;
             int index = relativePath.indexOf(basepath);
             relativePath = relativePath.substring(index + basepath.length());
@@ -79,9 +82,9 @@ public class JnlpMaker extends Task
             // (thanks to lex for catching this) 
             list.add(relativePath.replace('\\', '/'));
          }
-         else if (paths[i].isDirectory())
+         else if (path.isDirectory())
          {
-            list.addAll(jarpaths(paths[i]));
+            list.addAll(jarpaths(path));
          }
       }
       return list;

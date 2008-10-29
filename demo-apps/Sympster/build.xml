@@ -214,7 +214,7 @@
          fork="true" maxmemory="128m" />
  </target>
 
- <taskdef name="make-jnlp" classname="com.u2d.tools.JnlpMaker" classpathref="libtools.path" />
+ <taskdef name="process-template" classname="com.u2d.tools.JnlpMaker" classpathref="libtools.path" />
 
  <target name="jws-dist" description="create java webstart distribution" 
          depends="jar, keystore">
@@ -227,11 +227,16 @@
       <param name="vmname" value="swingvm" />
    </antcall>
 
-   <make-jnlp template="resources/jws/dynamic/project-jnlp.st" 
+   <process-template template="resources/jws/dynamic/project-jnlp.st"
               props="resources/jws/dynamic/project.properties"
               jarbasepath="${jws-dist.dir}"
               excludejars="swingvm.jar"
               tofile="${jws-dist.dir}/project.jnlp" />
+
+   <process-template template="resources/jws/dynamic/applet-html.st"
+              props="resources/jws/dynamic/project.properties"
+              jarbasepath="${jws-dist.dir}"
+              tofile="${jws-dist.dir}/applet.html" />
 
    <signjar alias="unknown" storepass="public" keystore="tempKeystore">
      <fileset dir="${jws-dist.dir}" includes="**/*.jar" />
