@@ -163,11 +163,11 @@ public class HBMMaker
             IndexedField idxField = (IndexedField) field;
             if (idxField.isOrdered())
             {
-               produceList(parentElem, idxField, fieldParent);
+               produceList(parentElem, idxField, fieldParent, prefix);
             }
             else
             {
-               produceBag(parentElem, idxField, fieldParent);
+               produceBag(parentElem, idxField, fieldParent, prefix);
             }
          }
 //         else if (field.isMap())
@@ -178,9 +178,9 @@ public class HBMMaker
    }
    
    // possible alternative to using a bag.  not sure yet what this buys me
-   private Element produceList(Element parentElem, IndexedField field, FieldParent parent)
+   private Element produceList(Element parentElem, IndexedField field, FieldParent parent, String prefix)
    {
-      Element listElem = produceCollection("list", parentElem, field, parent);
+      Element listElem = produceCollection("list", parentElem, field, parent, prefix);
 
       // hibernate:  cannot mark a bidi one-many association's indexed collection side inverse
       if (field.isBidirectionalRelationship())
@@ -193,12 +193,12 @@ public class HBMMaker
       
       return listElem;
    }
-   private Element produceBag(Element parentElem, IndexedField field, FieldParent parent)
+   private Element produceBag(Element parentElem, IndexedField field, FieldParent parent, String prefix)
    {
       // commenting out for now:
 //      String listType = (field.isComposite()) ? "idbag" : "bag";
       String listType = "bag";
-      Element bagElem = produceCollection(listType, parentElem, field, parent);
+      Element bagElem = produceCollection(listType, parentElem, field, parent, prefix);
 
       if (field.isBidirectionalRelationship())
       {
@@ -210,12 +210,23 @@ public class HBMMaker
 
       return bagElem;
    }
+
+   private String colname(String prefix, Field field)
+   {
+      String firsthalf = (prefix == null) ? "" : prefix + "_";
+      return firsthalf + field.name().toLowerCase();
+   }
    
    private Element produceCollection(String listType, 
-                                     Element parentElem, IndexedField field, FieldParent parent)
+                                     Element parentElem, IndexedField field, FieldParent parent, String prefix)
    {
       Element listElem = parentElem.addElement(listType);
       listElem.addAttribute("name", field.name());
+
+      if (field.isComposite())
+      {
+         listElem.addAttribute("table", colname(prefix, field));
+      }
 
       addAccessAttribute(listElem);
 
@@ -337,14 +348,7 @@ public class HBMMaker
          elem.addAttribute("cascade", "save-update");
       }
 
-      if (prefix == null)
-      {
-         elem.addAttribute("column", field.name() + "_id");
-      }
-      else
-      {
-         elem.addAttribute("column", prefix + "_" + field.name() + "_id");
-      }
+      elem.addAttribute("column", colname(prefix, field) + "_id");
 
       if (field.required())
       {
@@ -555,7 +559,7 @@ public class HBMMaker
          }
          else
          {
-            propElem.addAttribute("column", prefix + "_" + field.getName());
+            propElem.addAttribute("column", prefix + "_" + field.name());
          }
       }
       
