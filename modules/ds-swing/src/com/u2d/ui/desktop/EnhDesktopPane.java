@@ -12,8 +12,8 @@ import java.awt.event.*;
 import java.awt.*;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
-import fr.jayasoft.jexplose.Explosable;
-import fr.jayasoft.jexplose.JExploseUtils;
+import org.jdesktop.swingx.jexplose.Explosable;
+import org.jdesktop.swingx.jexplose.JExploseUtils;
 
 /**
  * @author Eitan Suez
@@ -42,7 +42,7 @@ public class EnhDesktopPane extends MyDesktopPane
       menuItems[0] = new JMenuItem(_closeAllAction);
       menuItems[1] = new JMenuItem(new MinimizeAllAction(true));
       menuItems[2] = new JMenuItem(new MinimizeAllAction(false));
-      menuItems[3] = new JMenuItem(JExploseUtils.getLightningAction(explosable));
+      menuItems[3] = new JMenuItem(JExploseUtils.getAction(explosable));
       menuItems[4] = new JMenuItem(new AbstractAction("Messages")
       {
          public void actionPerformed(ActionEvent e)
@@ -58,7 +58,7 @@ public class EnhDesktopPane extends MyDesktopPane
       _msgPnl = new MsgPnl(1000);
       add(_msgPnl, JLayeredPane.POPUP_LAYER);
 
-      JExploseUtils.installLightningHotKey(explosable, KeyEvent.VK_F12);
+      JExploseUtils.registerHotkey(explosable, KeyEvent.VK_F12);
 
       _msgView = new MsgView();
    }
