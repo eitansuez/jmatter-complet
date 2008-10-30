@@ -227,29 +227,25 @@
        <param name="vmname" value="swingvm" />
     </antcall>
 
-    <antcall target="makejnlp" />
+    <taskdef name="process-template"
+             classname="com.u2d.tools.JnlpMaker"
+             classpathref="libtools.path" />
+
+    <process-template template="resources/jws/dynamic/project-jnlp.st"
+               props="resources/jws/dynamic/project.properties"
+               jarbasepath="${jws-dist.dir}"
+               excludejars="swingvm.jar"
+               tofile="${jws-dist.dir}/project.jnlp" />
+
+    <process-template template="resources/jws/dynamic/applet-html.st"
+               props="resources/jws/dynamic/project.properties"
+               jarbasepath="${jws-dist.dir}"
+               tofile="${jws-dist.dir}/applet.html" />
 
     <fileset id="thejars" dir="${jws-dist.dir}" includes="**/*.jar" />
  </target>
 
- <target name="makejnlp">
-   <taskdef name="process-template"
-            classname="com.u2d.tools.JnlpMaker" 
-            classpathref="libtools.path" />
-
-   <process-template template="resources/jws/dynamic/project-jnlp.st"
-              props="resources/jws/dynamic/project.properties"
-              jarbasepath="${jws-dist.dir}"
-              excludejars="swingvm.jar"
-              tofile="${jws-dist.dir}/project.jnlp" />
-
-   <process-template template="resources/jws/dynamic/applet-html.st"
-              props="resources/jws/dynamic/project.properties"
-              jarbasepath="${jws-dist.dir}"
-              tofile="${jws-dist.dir}/applet.html" />
- </target>
-
- <target name="jws-dist" description="create java webstart distribution" 
+ <target name="jws-dist" description="create java webstart distribution"
          depends="webstart-part1, signjars, war" />
 
  <target name="signjars">
@@ -269,24 +265,43 @@
          description="create a version of java webstart distribution that includes pack200-compression of jars"
          depends="webstart-part1">
 
-   <taskdef name="p200ant"
-            classname="de.matthiasmann.p200ant.P200AntTask"
-            classpath="${lib.tools.dir}/p200ant.jar"/>
+    <taskdef name="pack200"
+             classname="com.sun.tools.apache.ant.pack200.Pack200Task"
+             classpath="${lib.tools.dir}/Pack200Task.jar"/>
 
-   <p200ant repack="true">
-     <fileset refid="thejars" />
-   </p200ant>
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+      <classpath>
+        <pathelement location="${lib.tools.dir}/ant-contrib.jar"/>
+      </classpath>
+    </taskdef>
 
-   <antcall target="signjars" />
+    <taskdef name="pack200"
+             classname="com.sun.tools.apache.ant.pack200.Pack200Task"
+             classpath="${lib.tools.dir}/Pack200Task.jar" />
 
-   <p200ant destdir="${jws-dist.dir}/lib">
-     <fileset refid="thejars" />
-   </p200ant>
-   <move file="${jws-dist.dir}/lib/${ant.project.name}.jar.pack.gz" todir="${jws-dist.dir}" />
+    <for param="file">
+      <path>
+        <fileset refid="thejars" />
+      </path>
+      <sequential>
+         <antcall target="repack-sign-pack-jar">
+            <param name="file" value="@{file}" />
+         </antcall>
+      </sequential>
+    </for>
 
    <antcall target="war" />
  </target>
 
+ <!-- using different names here because running into errors: unpack200 -> signjar verify fails for
+    a subset of the jars -->
+ <target name="repack-sign-pack-jar">
+    <pack200 src="${file}" destfile="${file}.repacked.jar" repack="true"/>
+    <signjar alias="unknown" storepass="public" keystore="tempKeystore" jar="${file}.repacked.jar" signedjar="${file}.signed" />
+    <pack200 src="${file}.signed" destfile="${file}.pack.gz" gzipoutput="true" />
+    <move file="${file}.signed" tofile="${file}" />
+    <delete file="${file}.repacked.jar" />
+ </target>
 
    
  <target name="find-drvname">
