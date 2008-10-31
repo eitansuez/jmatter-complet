@@ -256,7 +256,7 @@
 
  <target name="war">
    <war destfile="${war.file}" webxml="resources/jws/web.xml"
-   	    basedir="${jws-dist.dir}">
+        basedir="${jws-dist.dir}">
      <lib dir="resources/jws" includes="jnlp-servlet.jar" />
    </war>
  </target>
@@ -274,10 +274,6 @@
         <pathelement location="${lib.tools.dir}/ant-contrib.jar"/>
       </classpath>
     </taskdef>
-
-    <taskdef name="pack200"
-             classname="com.sun.tools.apache.ant.pack200.Pack200Task"
-             classpath="${lib.tools.dir}/Pack200Task.jar" />
 
     <for param="file">
       <path>

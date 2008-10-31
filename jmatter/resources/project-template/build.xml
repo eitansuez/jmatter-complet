@@ -295,10 +295,6 @@
       </classpath>
     </taskdef>
 
-    <taskdef name="pack200"
-             classname="com.sun.tools.apache.ant.pack200.Pack200Task"
-             classpath="${lib.tools.dir}/Pack200Task.jar" />
-
     <for param="file">
       <path>
         <fileset refid="thejars" />
