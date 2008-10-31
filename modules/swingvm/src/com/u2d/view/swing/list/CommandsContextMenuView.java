@@ -94,7 +94,7 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
        me[1]= getSubElements()[0];
        MenuSelectionManager.defaultManager().setSelectedPath(me);
    }
-   
+
    public void bind(EObject eo, EView source)
    {
       bind(eo, (JComponent) source, source);
