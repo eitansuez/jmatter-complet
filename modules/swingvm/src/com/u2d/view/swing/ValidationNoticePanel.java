@@ -6,6 +6,8 @@ package com.u2d.view.swing;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import com.u2d.model.ComplexEObject;
+import com.u2d.model.EObject;
+import com.u2d.model.AtomicEObject;
 import com.u2d.validation.ValidationEvent;
 import com.u2d.validation.ValidationListener;
 import com.u2d.validation.ValidationNotifier;
@@ -59,10 +61,17 @@ public class ValidationNoticePanel extends JLabel implements ValidationListener
       {
          public void run()
          {
-            if (!Required.MSG.equals(evt.getMsg()))
+            if (!Required.MSG.equals(evt.getMsg()) ||
+                  !sourceIsAtomic(evt.getSource()))
             {
                setText(evt.getMsg());
             }
+         }
+
+         private boolean sourceIsAtomic(Object source)
+         {
+            return (source instanceof EObject) &&
+                  ( ((EObject) source) instanceof AtomicEObject );
          }
       });
    }
