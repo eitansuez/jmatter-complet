@@ -165,7 +165,6 @@
    </jar>
  </target>
 
-
  <target name="schema-export" description="export schema to db">
     <antcall target="schema-x">
       <param name="arg" value="export" />
@@ -191,6 +190,7 @@
          classname="com.u2d.app.Application" />
  </target>
 
+
  <!-- TODO: (optional) to test .hbm.xml file generation for a single class file,
     specify name of class file in the following property 'class.file' -->
  <property name="class.file" value="com.u2d.nfjs.Talk" />
@@ -214,33 +214,91 @@
          fork="true" maxmemory="128m" />
  </target>
 
- <taskdef name="make-jnlp" classname="com.u2d.tools.JnlpMaker" classpathref="libtools.path" />
+ <!-- java web start related targets .. -->
 
- <target name="jws-dist" description="create java webstart distribution" 
-         depends="jar, keystore">
-   <copy todir="${jws-dist.dir}">
-     <fileset dir="resources/jws/static" includes="*" />
-   </copy>
+ <target name="webstart-part1" depends="jar, keystore">
+    <copy todir="${jws-dist.dir}">
+      <fileset dir="resources/jws/static" includes="*" />
+    </copy>
 
-   <antcall target="copylibs">
-      <param name="target.dir" location="${jws-dist.dir}/lib" />
-      <param name="vmname" value="swingvm" />
-   </antcall>
+    <antcall target="copylibs">
+       <param name="target.dir" location="${jws-dist.dir}/lib" />
+       <param name="vmname" value="swingvm" />
+    </antcall>
 
-   <make-jnlp template="resources/jws/dynamic/project-jnlp.st" 
-              props="resources/jws/dynamic/project.properties"
-              jarbasepath="${jws-dist.dir}"
-              excludejars="swingvm.jar"
-              tofile="${jws-dist.dir}/project.jnlp" />
+    <taskdef name="process-template"
+             classname="com.u2d.tools.JnlpMaker"
+             classpathref="libtools.path" />
 
-   <signjar alias="unknown" storepass="public" keystore="tempKeystore">
-     <fileset dir="${jws-dist.dir}" includes="**/*.jar" />
-   </signjar>
+    <process-template template="resources/jws/dynamic/project-jnlp.st"
+               props="resources/jws/dynamic/project.properties"
+               jarbasepath="${jws-dist.dir}"
+               excludejars="swingvm.jar"
+               tofile="${jws-dist.dir}/project.jnlp" />
 
-   <war destfile="${war.file}" webxml="resources/jws/web.xml"
-   	    basedir="${jws-dist.dir}" />
+    <process-template template="resources/jws/dynamic/applet-html.st"
+               props="resources/jws/dynamic/project.properties"
+               jarbasepath="${jws-dist.dir}"
+               tofile="${jws-dist.dir}/applet.html" />
+
+    <fileset id="thejars" dir="${jws-dist.dir}" includes="**/*.jar" />
  </target>
-   
+
+ <target name="jws-dist" description="create java webstart distribution"
+         depends="webstart-part1, signjars, war" />
+
+ <target name="signjars">
+   <signjar alias="unknown" storepass="public" keystore="tempKeystore">
+     <fileset refid="thejars" />
+   </signjar>
+ </target>
+
+ <target name="war">
+   <war destfile="${war.file}" webxml="resources/jws/web.xml"
+   	    basedir="${jws-dist.dir}">
+     <lib dir="resources/jws" includes="jnlp-servlet.jar" />
+   </war>
+ </target>
+
+ <target name="jws-dist-pack200"
+         description="create a version of java webstart distribution that includes pack200-compression of jars"
+         depends="webstart-part1">
+
+    <taskdef name="pack200"
+             classname="com.sun.tools.apache.ant.pack200.Pack200Task"
+             classpath="${lib.tools.dir}/Pack200Task.jar"/>
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+      <classpath>
+        <pathelement location="${lib.tools.dir}/ant-contrib.jar"/>
+      </classpath>
+    </taskdef>
+
+    <for param="file">
+      <path>
+        <fileset refid="thejars" />
+      </path>
+      <sequential>
+         <antcall target="repack-sign-pack-jar">
+            <param name="file" value="@{file}" />
+         </antcall>
+      </sequential>
+    </for>
+
+   <antcall target="war" />
+ </target>
+
+ <!-- using different names here because running into errors: unpack200 -> signjar verify fails for
+    a subset of the jars -->
+ <target name="repack-sign-pack-jar">
+    <pack200 src="${file}" destfile="${file}.repacked.jar" repack="true"/>
+    <signjar alias="unknown" storepass="public" keystore="tempKeystore" jar="${file}.repacked.jar" signedjar="${file}.signed" />
+    <pack200 src="${file}.signed" destfile="${file}.pack.gz" gzipoutput="true" />
+    <move file="${file}.signed" tofile="${file}" />
+    <delete file="${file}.repacked.jar" />
+ </target>
+
+
  <target name="find-drvname">
     <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
        classpathref="libtools.path" />
@@ -273,6 +331,7 @@
       <jarfileset dir="${jws-dist.dir}" includes="${ant.project.name}.jar" />
    </jarbundler>
  </target>
+
 
  <!-- targets pertaining to junit testing -->
 
