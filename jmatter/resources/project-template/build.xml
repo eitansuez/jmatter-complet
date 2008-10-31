@@ -319,7 +319,7 @@
     <delete file="${file}.repacked.jar" />
  </target>
 
-   
+
  <target name="find-drvname">
     <taskdef name="jdbcdriversetter" classname="com.u2d.tools.DriverPropertySetter"
        classpathref="libtools.path" />
