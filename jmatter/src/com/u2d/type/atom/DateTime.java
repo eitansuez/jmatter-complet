@@ -140,11 +140,14 @@ public class DateTime extends AbstractAtomicEO implements Searchable
       if (obj == null) return false;
       if (obj == this) return true;
       if (!(obj instanceof DateTime)) return false;
-      return _value == ((DateTime) obj).dateValue();
+      DateTime other = (DateTime) obj;
+      if (_value == null && other.isEmpty()) return true;
+      return _value.equals(other.dateValue());
    }
 
    public int hashCode()
    {
+      if (isEmpty()) return 13;
       return _value.hashCode();
    }
 }
