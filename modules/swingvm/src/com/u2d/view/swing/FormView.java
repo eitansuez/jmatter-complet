@@ -26,7 +26,6 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.util.*;
 import java.util.List;
-
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -116,7 +115,7 @@ public class FormView extends JXPanel implements IFormView
       {
          _hasTabs = true;
          mainPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-         tabbedPane().insertTab(ComplexType.localeLookupStatic("main"), null, new JScrollPane(mainPane), "", 0);
+         tabbedPane().insertTab(_ceo.type().mainTabCaption(), null, new JScrollPane(mainPane), "", 0);
          add(tabbedPane(), BorderLayout.CENTER);
       }
       else

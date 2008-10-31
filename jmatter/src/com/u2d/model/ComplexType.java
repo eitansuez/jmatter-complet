@@ -136,6 +136,7 @@ public class ComplexType extends AbstractComplexEObject
    private Map _fieldsMap = new HashMap();
    private final ColorEO _colorCode = new ColorEO();
    private String _sortBy;
+   private String _mainTabCaption = "Main";
 
    private static Map<Class, PlainListEObject> CONCRETE_TYPE_MAP = new HashMap<Class, PlainListEObject>();
    private static Map<Class, HashSet> ABSTRACT_TYPE_MAP = new HashMap<Class, HashSet>();
@@ -207,7 +208,9 @@ public class ComplexType extends AbstractComplexEObject
       Color code = (Color) Harvester.introspectField(_clazz, "colorCode", DEFAULT_COLOR);
       _colorCode.setValue(code);
       _sortBy = (String) Harvester.introspectField(_clazz, "sortBy");
-      
+
+      String defaultMainTabCaption = localeLookup("main");
+      _mainTabCaption = (String) Harvester.introspectField(_clazz, "mainTabCaption", defaultMainTabCaption);
       
       String dateFormat = metadata.getProperty("DateEO.format");
       if (dateFormat != null)
@@ -737,6 +740,8 @@ public class ComplexType extends AbstractComplexEObject
       // an hql sort but a sql sort, so for example sort appointments
       // by charge.amount throws an exception :-(
    }
+
+   public String mainTabCaption() { return _mainTabCaption; }
 
 
    // type commands:
