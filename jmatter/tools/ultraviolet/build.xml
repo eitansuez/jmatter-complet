@@ -46,12 +46,9 @@
                  file="${java.home}/../lib/tools.jar"/>
       <property name="tools.jar" location="${haveToolsJar}"/>
       <path id="antelopeCP">
-         <fileset dir="${basedir}">
-            <include name="*.jar"/>
-         </fileset>
-         <fileset dir="${basedir}/lib">
-            <include name="**/*.jar"/>
-         </fileset>
+         <fileset dir="${basedir}" includes="*.jar" />
+         <fileset dir="${basedir}/lib" includes="**/*.jar" />
+         <fileset dir="../../lib/tools" includes="ant.jar,ant-launcher.jar,antlr*.jar" />
          <pathelement path="${java.class.path}"/>
          <pathelement location="${tools.jar}"/>
       </path>
