@@ -49,15 +49,11 @@ public class JMApplet extends JApplet implements AppContainer
 {
    public void init()
    {
-   }
-
-   public void start()
-   {
       SwingViewMechanism.getInstance().launch(this);
    }
-
    public void destroy()
    {
+      SwingViewMechanism.getInstance().end();
       _app.onShutdown();
    }
 
@@ -98,11 +94,6 @@ public class JMApplet extends JApplet implements AppContainer
    {
       setupUI();
       setupLoginLogoutListeners();
-   }
-   public JMApplet(AppSession appSession)
-   {
-      this();
-      setupApp(appSession);
    }
 
    public void appUnloaded()

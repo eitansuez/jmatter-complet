@@ -66,7 +66,7 @@ public class SwingViewMechanism implements ViewMechanism
    private static SwingViewMechanism vmech = new SwingViewMechanism();
    public static SwingViewMechanism getInstance() { return vmech; }
    
-   private AppContainer _appFrame;
+   private AppContainer _appContainer;
    private LoginDialog _loginDialog;
    private ReportingInterface _reportingInterface;
 
@@ -113,13 +113,13 @@ public class SwingViewMechanism implements ViewMechanism
       
       if (_appSession == null)
       {
-         _appFrame.appUnloaded();
+         _appContainer.appUnloaded();
       }
       else
       {
          if (_appSession.getApp() != null) // hack
          {
-            _appFrame.appLoaded(_appSession);
+            _appContainer.appLoaded(_appSession);
          }
       }
       
@@ -145,7 +145,7 @@ public class SwingViewMechanism implements ViewMechanism
    public void launch(AppContainer applet)
    {
       final Splash splash = new Splash();
-      _appFrame = applet;
+      _appContainer = applet;
       SwingViewMechanism.invokeSwingAction(new SwingAction()
       {
          public void offEDT()
@@ -159,11 +159,17 @@ public class SwingViewMechanism implements ViewMechanism
          }
       });
    }
+   public void end()
+   {
+      AppLoader.getInstance().endApp();
+      _loginDialog = null;
+   }
+   
    public void launch()
    {
       final Splash splash = new Splash();
 
-      _appFrame = new AppFrame();
+      _appContainer = new AppFrame();
       setupInputTracker();
 
       invokeSwingAction(new SwingAction()
@@ -185,7 +191,7 @@ public class SwingViewMechanism implements ViewMechanism
          public void backOnEDT()
          {
             splash.dispose();
-            _appFrame.setVisible(true);
+            _appContainer.setVisible(true);
 
             if (this.ex != null)
             {
@@ -198,7 +204,7 @@ public class SwingViewMechanism implements ViewMechanism
 
    private void showErrorDialog(Exception ex)
    {
-      final JDialog dlg = new JDialog((Frame) _appFrame, "An error has occurred", true);
+      final JDialog dlg = new JDialog((Frame) _appContainer, "An error has occurred", true);
       dlg.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
       MigLayout mainLayout = new MigLayout("insets dialog");
       JPanel errorPane = new JPanel(mainLayout);
@@ -233,7 +239,7 @@ public class SwingViewMechanism implements ViewMechanism
       errorPane.add(centerPane);
       dlg.setContentPane(errorPane);
       dlg.pack();
-      UIUtils.center((Container) _appFrame, dlg, true);
+      UIUtils.center((Container) _appContainer, dlg, true);
       okBtn.requestFocusInWindow();
       dlg.setVisible(true);
       dlg.dispose();
@@ -256,7 +262,7 @@ public class SwingViewMechanism implements ViewMechanism
       if (_loginDialog == null)
       {
          _loginDialog = new LoginDialog(_appSession);
-         _appFrame.addLoginDialog(_loginDialog);
+         _appContainer.addLoginDialog(_loginDialog);
          _loginDialog.position();
       }
    }
@@ -296,7 +302,7 @@ public class SwingViewMechanism implements ViewMechanism
 
    public void contributeToHeader(JComponent component)
    {
-      _appFrame.contributeToHeader(component);
+      _appContainer.contributeToHeader(component);
    }
 
 
@@ -367,7 +373,7 @@ public class SwingViewMechanism implements ViewMechanism
                {
                   if (source == null)
                   {
-                     _appFrame.addFrame(frameFor(view));
+                     _appContainer.addFrame(frameFor(view));
                      return;
                   }
                   
@@ -410,7 +416,7 @@ public class SwingViewMechanism implements ViewMechanism
                      addDisplayChoiceItem(menu, ViewOpenChoice.IN_NEWWINDOW, listener);
                      addDisplayChoiceItem(menu, ViewOpenChoice.IN_NEWTAB, listener);
                      addDisplayChoiceItem(menu, ViewOpenChoice.IN_PLACE, listener);
-                     _appFrame.popup(menu);
+                     _appContainer.popup(menu);
                   }
                   else
                   {
@@ -432,7 +438,7 @@ public class SwingViewMechanism implements ViewMechanism
    {
       if (ViewOpenChoice.IN_NEWWINDOW.equals(choice) || targetFrame == null)
       {
-         _appFrame.addFrame(frameFor(view));
+         _appContainer.addFrame(frameFor(view));
       }
       else if (ViewOpenChoice.IN_NEWTAB.equals(choice))
       {
@@ -502,7 +508,7 @@ public class SwingViewMechanism implements ViewMechanism
             {
                frame = new GenericFrame(view);
             }
-            _appFrame.addFrame(frame, positioning);
+            _appContainer.addFrame(frame, positioning);
          }
       });
    }
@@ -518,7 +524,7 @@ public class SwingViewMechanism implements ViewMechanism
             JInternalFrame frame = new CloseableJInternalFrame(title, true, true, true, true);
             frame.setContentPane(component);
             frame.pack();
-            _appFrame.addFrame(frame, positioning);
+            _appContainer.addFrame(frame, positioning);
          }
       });
    }
@@ -534,7 +540,7 @@ public class SwingViewMechanism implements ViewMechanism
             WizardPane wizPane = new WizardPane(wizard);
             frame.setContentPane(wizPane);
             frame.pack();
-            _appFrame.addFrame(frame);
+            _appContainer.addFrame(frame);
          }
       });
    }
@@ -561,22 +567,22 @@ public class SwingViewMechanism implements ViewMechanism
    {
       if (SwingUtilities.isEventDispatchThread())
       {
-         if (_appFrame != null && _appFrame.isVisible())
-            _appFrame.onMessage(msg);
+         if (_appContainer != null && _appContainer.isVisible())
+            _appContainer.onMessage(msg);
       }
       else
       {
          SwingUtilities.invokeLater(new Runnable() {
             public void run()
             {
-               if (_appFrame != null && _appFrame.isVisible())
-                  _appFrame.onMessage(msg);
+               if (_appContainer != null && _appContainer.isVisible())
+                  _appContainer.onMessage(msg);
             } });
       }
    }
 
-   public void setWaitCursor() { _appFrame.setWaitCursor(); }
-   public void setDefaultCursor() { _appFrame.setDefaultCursor(); }
+   public void setWaitCursor() { _appContainer.setWaitCursor(); }
+   public void setDefaultCursor() { _appContainer.setDefaultCursor(); }
 
    /* package private */ void displayFrame(final JInternalFrame frame)
    {
@@ -589,7 +595,7 @@ public class SwingViewMechanism implements ViewMechanism
             {
                public void run()
                {
-                  _appFrame.addFrame(frame, positioning);
+                  _appContainer.addFrame(frame, positioning);
                }
             });
    }

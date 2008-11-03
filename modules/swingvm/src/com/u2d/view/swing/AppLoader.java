@@ -61,8 +61,7 @@ public class AppLoader implements ThreadMaker
 
       if (_currentSession != null)
       {
-         _currentSession.end();
-         _currentSession = null;
+         endApp();
       }
       
       if (SwingUtilities.isEventDispatchThread())
@@ -118,6 +117,12 @@ public class AppLoader implements ThreadMaker
       {
          initializeApp(splash);
       }
+   }
+
+   public void endApp()
+   {
+      _currentSession.end();
+      _currentSession = null;
    }
 
    private boolean inContextOfAppBrowser = false;
