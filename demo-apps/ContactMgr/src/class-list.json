@@ -11,7 +11,8 @@
             { "value": "com.u2d.contactmgr.PersonContact" },
             { "value": "com.u2d.type.composite.Business" },
             { "value": "com.u2d.type.composite.Folder" },
-            { "value": "com.u2d.find.CompositeQuery" }
+            { "value": "com.u2d.find.CompositeQuery" },
+            { "value": "com.u2d.examples.CalculatedField" }
           ]
         }
       },

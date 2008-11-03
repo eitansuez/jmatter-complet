@@ -82,6 +82,23 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       return _type;
    }
 
+   private List<ChangeListener> derivedFieldUpdaters = new ArrayList<ChangeListener>();
+   protected void configureAsDerivedField(final EObject targetObject, EObject[] inputs, final Updater updater)
+   {
+      for (EObject eo : inputs)
+      {
+         ChangeListener listener = new ChangeListener()
+         {
+            public void stateChanged(ChangeEvent e)
+            {
+               targetObject.setValue(updater.update());
+            }
+         };
+         eo.addChangeListener(listener);
+         derivedFieldUpdaters.add(listener);
+      }
+   }
+
    public void onLoad()
    {
       restoreState();
@@ -103,7 +120,13 @@ public abstract class AbstractComplexEObject extends AbstractEObject
             }
          }
       }
+
+      for (ChangeListener l : derivedFieldUpdaters)
+      {
+         l.stateChanged(null);
+      }
    }
+   
    public void onDelete()
    {
       vmech().message(ComplexType.localeLookupStatic("deleted")+" "+title());
