@@ -59,6 +59,11 @@ public class IntEO extends AbstractAtomicEO implements NumericEO, Searchable
    public AtomicRenderer getRenderer() { return vmech().getIntRenderer(); }
    public AtomicEditor getEditor() { return vmech().getIntEditor(); }
 
+   public IntEO add(IntEO other)
+   {
+      return new IntEO(_value + other.intValue());
+   }
+
    @Cmd
    public void Double(CommandInfo cmdInfo)
    {
