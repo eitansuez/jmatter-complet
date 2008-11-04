@@ -253,7 +253,7 @@ public class HBMMaker
       
       if (field.ownsChildren())
       {
-         listElem.addAttribute("cascade", "delete-orphan");
+         listElem.addAttribute("cascade", "all,delete-orphan");
       }
 
       if (field.isManyToMany())
@@ -345,7 +345,7 @@ public class HBMMaker
       
       if (Member.class.isAssignableFrom(field.getJavaClass()))
       {
-         elem.addAttribute("cascade", "save-update");
+         elem.addAttribute("cascade", "all");
       }
 
       elem.addAttribute("column", colname(prefix, field) + "_id");
