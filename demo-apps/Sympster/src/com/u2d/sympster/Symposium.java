@@ -4,7 +4,7 @@ import com.u2d.model.Title;
 import com.u2d.model.AbstractListEO;
 import com.u2d.model.ComplexType;
 import com.u2d.type.atom.StringEO;
-import com.u2d.type.atom.USDollar;
+import com.u2d.type.atom.Money;
 import com.u2d.calendar.CalendarEO;
 import com.u2d.reflection.Cmd;
 import com.u2d.element.CommandInfo;
@@ -34,13 +34,13 @@ import javax.persistence.Entity;
 public class Symposium extends CalendarEO
 {
    private final StringEO name = new StringEO();
-   private final USDollar registrationPrice = new USDollar();
+   private final Money registrationPrice = new Money();
    private Venue venue;
    private City city;
 
    public static Color colorCode = new Color(0x04b144);
    
-   public static String[] fieldOrder = {"name", "city", "venue", "registrationPrice"};
+   public static String[] fieldOrder = {"name", "registrationPrice", "city", "venue"};
 
    public Symposium() {}
 
@@ -71,7 +71,7 @@ public class Symposium extends CalendarEO
       firePropertyChange("city", oldCity, this.city);
    }
    
-   public USDollar getRegistrationPrice() { return registrationPrice; }
+   public Money getRegistrationPrice() { return registrationPrice; }
    
    public Title title() { return name.title(); }
    public static String pluralName() { return "Symposia"; }

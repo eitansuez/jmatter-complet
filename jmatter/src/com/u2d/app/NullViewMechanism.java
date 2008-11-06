@@ -117,9 +117,13 @@ public class NullViewMechanism implements ViewMechanism
    public AtomicEditor getEmailEditor() { return null; } 
    public AtomicRenderer getURIRenderer() { return null; } 
    public AtomicEditor getURIEditor() { return null; } 
+
    public AtomicRenderer getUSDollarRenderer() { return null; } 
-   public AtomicEditor getUSDollarEditor() { return null; } 
-   public AtomicRenderer getUSZipRenderer() { return null; } 
+   public AtomicEditor getUSDollarEditor() { return null; }
+   public AtomicRenderer getMoneyRenderer() { return null; }
+   public AtomicEditor getMoneyEditor() { return null; }
+
+   public AtomicRenderer getUSZipRenderer() { return null; }
    public AtomicEditor getUSZipEditor() { return null; } 
    public AtomicRenderer getUSPhoneRenderer() { return null; } 
    public AtomicEditor getUSPhoneEditor() { return null; } 

@@ -1,10 +1,8 @@
 package com.u2d.view.echo;
 
-import com.u2d.app.ViewMechanism;
-import com.u2d.app.AppSession;
-import com.u2d.app.TypeRestrictionMgr;
-import com.u2d.app.RoleTypeRestrictionMgr;
+import com.u2d.app.*;
 import com.u2d.view.*;
+import com.u2d.view.echo.list.ListView;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.wizard.details.Wizard;
 import com.u2d.reporting.Reportable;
@@ -21,6 +19,8 @@ import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
 import com.u2d.list.RelationalList;
 import com.u2d.interaction.Instruction;
+import nextapp.echo.app.Component;
+import nextapp.echo.app.WindowPane;
 //import com.u2d.app.Tracing;
 //import java.util.logging.Logger;
 
@@ -79,16 +79,106 @@ public class EchoViewMechanism implements ViewMechanism
    {
    }
 
-   public void displayViewFor(Object object, EView eView, Positioning positioning)
+   public void displayViewFor(Object value, EView source, Positioning positioningHint)
    {
+      if (value == null) return;
+
+      if (value instanceof Throwable)
+      {
+//         displayFrame(new ExceptionFrame((Throwable) value), positioningHint);
+      }
+      if (value instanceof Viewable)
+      {
+         EView view = ((Viewable) value).getMainView();
+
+         if (value instanceof ComplexEObject)
+         {
+            ComplexEObject ceo = (ComplexEObject) value;
+            if (ceo.isEditableState() && view instanceof Editor)
+            {
+               ceo.setEditor((Editor) view);
+            }
+         }
+
+         displayView(view, source);
+      }
+      else if (value instanceof EView)
+      {
+         displayView((EView) value, source);
+      }
+      else if (value instanceof View)
+      {
+         View view = (View) value;
+         displayView(view, positioningHint);
+      }
+      else if (value instanceof String)
+      {
+         message((String) value);
+      }
+      else if (value instanceof Reportable)
+      {
+         displayReport((Reportable) value);
+      }
+      else if (value instanceof Wizard)
+      {
+         displayWizard((Wizard) value);
+      }
+      else if (value instanceof Component)
+      {
+         Component component = (Component) value;
+         displayView(component, positioningHint);
+      }
    }
 
    public void displayView(View view, Positioning positioning)
    {
+      if (view instanceof WindowPane)
+      {
+         _appFrame.addFrame((WindowPane) view, positioning);
+      }
+      else
+      {
+         _appFrame.addFrame(new GenericFrame(view), positioning);
+      }
    }
 
-   public void displayView(EView eView, EView eView1)
+   public void displayView(EView view, EView source)
    {
+      _appFrame.addFrame(frameFor(view));
+   }
+
+   private WindowPane frameFor(EView view)
+   {
+      if (view instanceof WindowPane)
+      {
+         return (WindowPane) view;
+      }
+      if (view instanceof ListEView)
+      {
+//         return new FlexiFrame(new ListEOPanel(view));
+         return new FlexiFrame(view);
+      }
+//      else if (view instanceof CalendarView)
+//      {
+//         return new CalendarFrame(view);
+//      }
+//      else if (view instanceof ScheduleView)
+//      {
+//         return new CalendarFrame(view);
+//      }
+      else if (view instanceof ComplexEView)
+      {
+//         return new FlexiFrame(new EOPanel(view));
+         return new FlexiFrame(view);
+      }
+
+      throw new IllegalArgumentException(
+            "Don't know how to make a frame for view: "+view);
+   }
+
+   public void displayView(Component component, Positioning positioning)
+   {
+      _appFrame.addFrame(new FlexiFrame(component));
    }
 
    public void displayWizard(Wizard wizard)
@@ -132,9 +222,12 @@ public class EchoViewMechanism implements ViewMechanism
       return null;
    }
 
-   public ComplexEView getListItemView(ComplexEObject complexEObject)
+   public ComplexEView getListItemView(ComplexEObject ceo)
    {
-      return null;
+      checkState(ceo);
+      ListItemView view = new ListItemView();
+      view.bind(ceo);
+      return view;
    }
 
    public ComplexEView getFormView(ComplexEObject complexEObject)
@@ -297,115 +390,40 @@ public class EchoViewMechanism implements ViewMechanism
    public AtomicRenderer getDegreeRenderer() { return null; }
    public AtomicEditor getDegreeEditor() { return null; }
 
-   public AtomicRenderer getEmailRenderer()
-   {
-      return null;
-   }
+   public AtomicRenderer getEmailRenderer() { return null; }
+   public AtomicEditor getEmailEditor() { return null; }
 
-   public AtomicEditor getEmailEditor()
-   {
-      return null;
-   }
+   public AtomicRenderer getURIRenderer() { return null; }
+   public AtomicEditor getURIEditor() { return null; }
 
-   public AtomicRenderer getURIRenderer()
-   {
-      return null;
-   }
+   public AtomicRenderer getUSDollarRenderer() { return null; }
+   public AtomicEditor getUSDollarEditor() { return null; }
+   public AtomicRenderer getMoneyRenderer() { return null; } 
+   public AtomicEditor getMoneyEditor() { return null; }
 
-   public AtomicEditor getURIEditor()
-   {
-      return null;
-   }
+   public AtomicRenderer getUSZipRenderer() { return null; }
+   public AtomicEditor getUSZipEditor() { return null; }
 
-   public AtomicRenderer getUSDollarRenderer()
-   {
-      return null;
-   }
+   public AtomicRenderer getUSPhoneRenderer() { return null; }
+   public AtomicEditor getUSPhoneEditor() { return null; }
 
-   public AtomicEditor getUSDollarEditor()
-   {
-      return null;
-   }
+   public AtomicRenderer getSSNRenderer() { return null; }
+   public AtomicEditor getSSNEditor() { return null; }
 
-   public AtomicRenderer getUSZipRenderer()
-   {
-      return null;
-   }
+   public AtomicRenderer getColorRenderer() { return null; }
+   public AtomicEditor getColorEditor() { return null; }
 
-   public AtomicEditor getUSZipEditor()
-   {
-      return null;
-   }
+   public AtomicRenderer getDateRenderer() { return null; }
+   public AtomicEditor getDateEditor() { return null; }
 
-   public AtomicRenderer getUSPhoneRenderer()
-   {
-      return null;
-   }
+   public AtomicRenderer getDateWithAgeRenderer() { return null; }
+   public AtomicEditor getDateWithAgeEditor() { return null; }
 
-   public AtomicEditor getUSPhoneEditor()
-   {
-      return null;
-   }
+   public AtomicRenderer getDateTimeRenderer() { return null; }
+   public AtomicEditor getDateTimeEditor() { return null; }
 
-   public AtomicRenderer getSSNRenderer()
-   {
-      return null;
-   }
-
-   public AtomicEditor getSSNEditor()
-   {
-      return null;
-   }
-
-   public AtomicRenderer getColorRenderer()
-   {
-      return null;
-   }
-
-   public AtomicEditor getColorEditor()
-   {
-      return null;
-   }
-
-   public AtomicRenderer getDateRenderer()
-   {
-      return null;
-   }
-
-   public AtomicEditor getDateEditor()
-   {
-      return null;
-   }
-
-   public AtomicRenderer getDateWithAgeRenderer()
-   {
-      return null;
-   }
-
-   public AtomicEditor getDateWithAgeEditor()
-   {
-      return null;
-   }
-
-   public AtomicRenderer getDateTimeRenderer()
-   {
-      return null;
-   }
-
-   public AtomicEditor getDateTimeEditor()
-   {
-      return null;
-   }
-
-   public AtomicRenderer getTimeRenderer()
-   {
-      return null;
-   }
-
-   public AtomicEditor getTimeEditor()
-   {
-      return null;
-   }
+   public AtomicRenderer getTimeRenderer() { return null; }
+   public AtomicEditor getTimeEditor() { return null; }
 
    public AtomicRenderer getTimeSpanRenderer()
    {
@@ -457,22 +475,22 @@ public class EchoViewMechanism implements ViewMechanism
       return null;
    }
 
-   public ListEView getListView(AbstractListEO abstractListEO)
+   public ListEView getListView(AbstractListEO leo)
+   {
+      return new ListView(leo);
+   }
+
+   public ListEView getListViewAsTable(AbstractListEO leo)
    {
       return null;
    }
 
-   public ListEView getListViewAsTable(AbstractListEO abstractListEO)
+   public ListEView getListViewAsIcons(AbstractListEO leo)
    {
       return null;
    }
 
-   public ListEView getListViewAsIcons(AbstractListEO abstractListEO)
-   {
-      return null;
-   }
-
-   public ListEView getListViewAsTree(AbstractListEO abstractListEO)
+   public ListEView getListViewAsTree(AbstractListEO leo)
    {
       return null;
    }
@@ -483,59 +501,62 @@ public class EchoViewMechanism implements ViewMechanism
       return null;
    }
 
-   public ListEView getOmniListView(AbstractListEO abstractListEO)
+   public ListEView getOmniListView(AbstractListEO leo)
    {
       return null;
    }
 
-   public ListEView getToolbarView(String string, AbstractListEO abstractListEO)
+   public ListEView getToolbarView(String string, AbstractListEO leo)
    {
       return null;
    }
 
-   public ListEView getRelationalListView(RelationalList relationalList)
+   public ListEView getRelationalListView(RelationalList list)
    {
       return null;
    }
 
-   public ListEView getPickView(AbstractListEO abstractListEO)
+   public ListEView getPickView(AbstractListEO leo)
    {
       return null;
    }
 
-   public View getMultiPickView(AbstractListEO abstractListEO)
+   public View getMultiPickView(AbstractListEO leo)
    {
       return null;
    }
 
-   public ListEView getListViewMinimized(AbstractListEO abstractListEO)
+   public ListEView getListViewMinimized(AbstractListEO leo)
    {
       return null;
    }
 
    public ListEView getPaginableView(ListEView listEView)
    {
-      return null;
+      // TODO: implement
+      // for now..
+      return listEView;
    }
 
-   public ListEView getEditableListView(AbstractListEO abstractListEO)
+   public ListEView getEditableListView(AbstractListEO leo)
    {
       return null;
    }
 
-   public ListEView getExpandableListView(RelationalList relationalList)
+   public ListEView getExpandableListView(RelationalList list)
    {
       return null;
    }
 
-   public ListEView getMultiChoiceView(AbstractListEO abstractListEO)
+   public ListEView getMultiChoiceView(AbstractListEO leo)
    {
       return null;
    }
 
-   public ListEView getAlternateListView(AbstractListEO abstractListEO, String[] strings)
+   public ListEView getAlternateListView(AbstractListEO leo, String[] strings)
    {
-      return null;
+      // for now short-circuit alternate views..
+      return getListView(leo);
    }
 
    public ComplexEView getAlternateView(ComplexEObject complexEObject, String[] strings)

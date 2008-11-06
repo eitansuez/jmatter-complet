@@ -848,6 +848,9 @@ public class SwingViewMechanism implements ViewMechanism
    public AtomicRenderer getUSDollarRenderer() { return new StringRenderer(); }
    public AtomicEditor getUSDollarEditor() { return new USDollarEditor(); }
 
+   public AtomicRenderer getMoneyRenderer() { return new StringRenderer(); }
+   public AtomicEditor getMoneyEditor() { return new MoneyEditor(); }
+
    public AtomicRenderer getUSZipRenderer() { return new StringRenderer(); }
    public AtomicEditor getUSZipEditor() { return new USZipEditor(); }
 

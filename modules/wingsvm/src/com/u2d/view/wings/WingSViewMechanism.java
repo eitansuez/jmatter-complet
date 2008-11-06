@@ -374,6 +374,9 @@ public class WingSViewMechanism implements ViewMechanism
    public AtomicRenderer getUSDollarRenderer() { return getStringRenderer(); }
    public AtomicEditor getUSDollarEditor() { return new USDollarEditor(); }
 
+   public AtomicRenderer getMoneyRenderer() { return getUSDollarRenderer(); }
+   public AtomicEditor getMoneyEditor() { return getUSDollarEditor(); }
+
    public AtomicRenderer getUSZipRenderer() { return getStringRenderer(); }
    public AtomicEditor getUSZipEditor() { return new USZipEditor(); }
 

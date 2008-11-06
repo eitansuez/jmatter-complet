@@ -132,8 +132,17 @@ public interface ViewMechanism
    public AtomicRenderer getURIRenderer();
    public AtomicEditor getURIEditor();
 
+   /**
+    * @deprecated Use Money Class and Corresponding MoneyEditor instead
+    */
    public AtomicRenderer getUSDollarRenderer();
+   /**
+    * @deprecated Use Money Class and Corresponding MoneyEditor instead
+    */
    public AtomicEditor getUSDollarEditor();
+
+   public AtomicRenderer getMoneyRenderer();
+   public AtomicEditor getMoneyEditor();
 
    public AtomicRenderer getUSZipRenderer();
    public AtomicEditor getUSZipEditor();

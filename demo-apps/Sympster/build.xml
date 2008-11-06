@@ -106,7 +106,9 @@
    <java classname="${main.class}" classpathref="class.path" 
          fork="true" maxmemory="192m">
     <!-- to test sympster in a different language, uncomment one of these..
+         (country code is important for locale-to-currency correspondence to work out)
      <sysproperty key="user.language" value="fr" />
+     <sysproperty key="user.country" value="FR" />
      <sysproperty key="user.language" value="he" />
       -->
      <sysproperty key="apple.awt.textantialiasing" value="on" />
