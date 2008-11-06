@@ -12,7 +12,7 @@ import javax.swing.*;
  */
 public class ConditionStep implements Step
 {
-   private Step _firstStep, _secondStep;
+   private Step _firstStep, _secondStep, _elseStep;
    private Condition _condition;
    private Step _currentStep;
 
@@ -20,13 +20,22 @@ public class ConditionStep implements Step
 
    public ConditionStep(Step firstStep, Step secondStep, Condition condition)
    {
-      init(firstStep, secondStep, condition);
+      this(firstStep, secondStep, condition, null);
+   }
+
+   public ConditionStep(Step firstStep, Step secondStep, Condition condition, Step elseStep)
+   {
+      init(firstStep, secondStep, condition, elseStep);
    }
    
-   protected void init(Step firstStep, Step secondStep, Condition condition)
+   protected void init(Step firstStep, Step secondStep, Condition condition, Step elseStep)
    {
       _firstStep = new FirstStepState(firstStep);
       _secondStep = new SecondStepState(secondStep);
+      if (elseStep != null)
+      {
+         _elseStep = new ElseStepState(elseStep);
+      }
       _condition = condition;
       _currentStep = _firstStep;
    }
@@ -70,6 +79,14 @@ public class ConditionStep implements Step
                _currentStep = _secondStep;
                return ConditionStep.this;
             }
+            else
+            {
+               if (_elseStep != null)
+               {
+                  _currentStep = _elseStep;
+                  return ConditionStep.this;
+               }
+            }
          }
          return null;
       }
@@ -111,6 +128,55 @@ public class ConditionStep implements Step
    {
       Step _step;
       SecondStepState(Step step) { _step = step; }
+
+      public Step nextStep()
+      {
+         if (_step instanceof CommitStep)
+         {
+            ((CommitStep) _step).commit();
+         }
+         Step next = _step.nextStep();
+         return (next == null) ? null : ConditionStep.this;
+      }
+
+      public Step previousStep()
+      {
+         Step prev = _step.previousStep();
+         if (prev instanceof CommitStep) return ConditionStep.this;
+         if (prev == null)
+         {
+            _currentStep = _firstStep;
+         }
+         return ConditionStep.this;
+      }
+
+      public Step currentStep() { return _step.currentStep(); }
+
+      public boolean hasNextStep()
+      {
+         if (_step.hasNextStep()) return true;
+         return false;
+      }
+
+      public boolean hasPreviousStep()
+      {
+         return true;
+      }
+
+      public String title() { return _step.title(); }
+      public String description() { return _step.description(); }
+
+      public JComponent getView() { return _step.getView(); }
+      public boolean viewDirty() { return _step.viewDirty(); }
+   }
+
+   /// ==================================
+
+   class ElseStepState
+         implements Step
+   {
+      Step _step;
+      ElseStepState(Step step) { _step = step; }
 
       public Step nextStep()
       {

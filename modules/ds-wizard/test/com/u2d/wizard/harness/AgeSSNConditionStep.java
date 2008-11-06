@@ -24,6 +24,6 @@ public class AgeSSNConditionStep extends ConditionStep
          }
       };
 
-      init(ageStep, ssnStep, condition);
+      init(ageStep, ssnStep, condition, null);
    }
 }
