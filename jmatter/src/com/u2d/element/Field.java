@@ -262,7 +262,7 @@ public abstract class Field extends Member
             !(EOCommand.class.isAssignableFrom(_clazz)) &&
             _searchable );
    }
-   public void setSearchable(boolean value) { _searchable = false; }
+   public void setSearchable(boolean value) { _searchable = value; }
 
 
    protected String _sortPropertyName;
