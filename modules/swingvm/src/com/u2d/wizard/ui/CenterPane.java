@@ -22,11 +22,12 @@ public class CenterPane extends JPanel
    private Map<String,JComponent> _stepViewMap = new HashMap<String,JComponent>();
    private JComponent _currentView;
 
-   public CenterPane()
+   public CenterPane(Dimension preferredSize)
    {
       _cardLayout = new CardLayout();
       setLayout(_cardLayout);
       setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+      setPreferredSize(preferredSize);
    }
 
    public void updateStep(Step step)
@@ -66,9 +67,6 @@ public class CenterPane extends JPanel
    }
 
    public JComponent getCurrentView() { return _currentView; }
-
-   public static final Dimension PREFERRED_SIZE = new Dimension(350,400);
-   public Dimension getPreferredSize() { return PREFERRED_SIZE; }
 
    public void detach()
    {

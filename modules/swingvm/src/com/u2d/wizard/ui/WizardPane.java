@@ -26,13 +26,14 @@ public class WizardPane extends JPanel
    private Step _step;
 
    private TitlePane _titlePane = new TitlePane();
-   private CenterPane _centerPane = new CenterPane();
+   private CenterPane _centerPane;
    private NavPane _navPane = new NavPane();
    private StepsPane _stepsPane;
 
 
    public WizardPane(Wizard wizard)
    {
+      _centerPane = new CenterPane(wizard.getContentPaneSize());
       _wizard = wizard;
       _step = wizard;
 
