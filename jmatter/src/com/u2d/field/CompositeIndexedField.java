@@ -4,6 +4,7 @@ import com.u2d.list.CompositeList;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.FieldParent;
+import com.u2d.pattern.State;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.util.Iterator;
@@ -59,4 +60,26 @@ public class CompositeIndexedField extends IndexedField
          list.setParent(ceo);
       }
    }
+
+  // ==
+  public void setState(ComplexEObject parent, State state)
+  {
+     ((CompositeList) get(parent)).setState(state);
+  }
+
+  public void pushState(ComplexEObject parent, State state)
+  {
+     ((CompositeList) get(parent)).pushState(state);
+  }
+
+  public void popState(ComplexEObject parent)
+  {
+     ((CompositeList) get(parent)).popState();
+  }
+
+  public void setStartState(ComplexEObject parent)
+  {
+     ((CompositeList) get(parent)).setStartState();
+  }
+
 }

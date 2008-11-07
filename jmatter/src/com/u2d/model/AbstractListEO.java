@@ -551,19 +551,6 @@ public abstract class AbstractListEO extends AbstractEObject
          ((AbstractTableModel) _tableModel).fireTableRowsDeleted(index0, index1);
    }
    
-   public void jibxAdd(Object obj)
-   {
-      if (!(obj instanceof ComplexEObject))
-         throw new IllegalArgumentException("Cannot add object that is not a ComplexEObject");
-      
-      ComplexEObject ceo = (ComplexEObject) obj;
-      
-      if (ceo.isNullState())
-         ceo.setReadState();
-      
-      add(ceo);
-   }
-   
    public ListEView getAssociationView() { return vmech().getListView(this); }
    public ListEView getPickView() { return vmech().getPickView(this); }
    

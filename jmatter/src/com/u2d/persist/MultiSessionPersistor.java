@@ -1,12 +1,6 @@
 package com.u2d.persist;
 
 import com.u2d.model.ComplexEObject;
-import com.u2d.model.AbstractListEO;
-import com.u2d.model.ComplexType;
-import com.u2d.list.PagedList;
-import com.u2d.list.PlainListEObject;
-import com.u2d.find.SimpleQuery;
-import com.u2d.type.atom.Password;
 import org.hibernate.*;
 import org.hibernate.cfg.Environment;
 

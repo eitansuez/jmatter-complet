@@ -986,7 +986,9 @@ public class ComplexType extends AbstractComplexEObject
          {
             Field field = ((AssociationSearchNode) node).getField();
             if (_treeFields.contains(field))
+            {
                return true;
+            }
             else
             {
                _treeFields.add(field);
@@ -999,8 +1001,7 @@ public class ComplexType extends AbstractComplexEObject
          }
 
          Field field = (Field) node;
-         return (field.isAtomic() || field.isIndexed() || field.isAssociation()
-               || field.isChoice() );
+         return (field.isAtomic() || field.isIndexed() || field.isAssociation() || field.isChoice() );
       }
       // TreeModel implemented specifically for JComboTree, which doesn't employ these:
       public int getIndexOfChild(Object parent, Object child) { return 0; }
@@ -1012,11 +1013,11 @@ public class ComplexType extends AbstractComplexEObject
       private Map searchFieldMap = new HashMap();
       private Set<Field> _treeFields;
 
-      private List searchFields(FieldParent fp)
+      private synchronized List searchFields(FieldParent fp)
       {
          if (searchFieldMap.get(fp) == null)
          {
-            java.util.List searchFields = new ArrayList();
+            List searchFields = new ArrayList();
             if (fp instanceof ComplexType && ((ComplexType) fp).hasConcreteSubTypes())
             {
                searchFields.add(fp);

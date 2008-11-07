@@ -20,8 +20,6 @@ import java.util.List;
 public class RelationalList extends SimpleListEO
              implements Searchable
 {
-   private RelationalList() {}  // for jibx
-
    public RelationalList(Class clazz) { super(clazz); }
 
    public EView getView() { return vmech().getExpandableListView(this); }
@@ -42,18 +40,6 @@ public class RelationalList extends SimpleListEO
    public List getInequalities()
    {
       return new ContainsInequality((IndexedField) field()).getInequalities();
-   }
-
-
-   public void jibxAdd(Object obj)
-   {
-      if (!(obj instanceof ComplexEObject))
-         throw new IllegalArgumentException("Cannot add object that is not a ComplexEObject");
-      super.add((ComplexEObject) obj);
-   }
-   public java.util.Iterator jibxIterator()
-   {
-      return super.iterator();
    }
 
 

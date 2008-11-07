@@ -40,7 +40,7 @@ public class FieldPath extends AbstractAtomicEO
    private void derivePathString()
    {
       StringBuffer buf = new StringBuffer();
-      Object item = null;
+      Object item;
       boolean first = true;
       for (int i=1; i<_pathList.size(); i++)
       {
@@ -68,7 +68,7 @@ public class FieldPath extends AbstractAtomicEO
       
       String[] fieldPaths = _pathString.split("\\|");
 
-      AssociationField afield = null;
+      AssociationField afield;
       
       for (int i=0; i<fieldPaths.length - 1; i++)
       {

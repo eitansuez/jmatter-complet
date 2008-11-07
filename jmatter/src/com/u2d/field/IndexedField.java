@@ -19,7 +19,6 @@ import com.u2d.model.NullComplexEObject;
 import com.u2d.pattern.*;
 import com.u2d.validation.Required;
 import com.u2d.view.*;
-import com.u2d.list.CompositeList;
 import com.u2d.reflection.IdxFld;
 import com.u2d.find.QuerySpecification;
 import com.u2d.find.CompositeQuery;
@@ -192,7 +191,7 @@ public class IndexedField extends Field implements Bidi, Associable
       return _inverseSide.booleanValue();
    }
 
-   public ComplexType fieldtype()
+   public synchronized ComplexType fieldtype()
    {
       if (_fieldtype == null)
       {
@@ -312,12 +311,6 @@ public class IndexedField extends Field implements Bidi, Associable
    {
       AbstractListEO leo = (AbstractListEO) get(parent);
       
-      if (leo instanceof CompositeList) // propagate state to children
-      {
-         ((CompositeList)leo).setState(state);
-         return;
-      }
-
       for (java.util.Iterator itr = leo.iterator(); itr.hasNext(); )
       {
          ComplexEObject ceo = (ComplexEObject) itr.next();
@@ -328,35 +321,9 @@ public class IndexedField extends Field implements Bidi, Associable
       }
    }
 
-   public void pushState(ComplexEObject parent, State state)
-   {
-      AbstractListEO leo = (AbstractListEO) get(parent);
-
-      if (leo instanceof CompositeList) // propagate state to children
-      {
-         ((CompositeList)leo).pushState(state);
-      }
-   }
-
-   public void popState(ComplexEObject parent)
-   {
-      AbstractListEO leo = (AbstractListEO) get(parent);
-
-      if (leo instanceof CompositeList) // propagate state to children
-      {
-         ((CompositeList)leo).popState();
-      }
-   }
-
-   public void setStartState(ComplexEObject parent)
-   {
-      AbstractListEO leo = (AbstractListEO) get(parent);
-
-      if (leo instanceof CompositeList) // propagate state to children
-      {
-         ((CompositeList)leo).setStartState();
-      }
-   }
+   public void pushState(ComplexEObject parent, State state) { /* noop */ }
+   public void popState(ComplexEObject parent) { /* noop */ }
+   public void setStartState(ComplexEObject parent) { /* noop */ }
 
    private boolean _ordered;
    public boolean isOrdered() { return _ordered; }

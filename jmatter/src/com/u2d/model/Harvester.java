@@ -343,7 +343,7 @@ public class Harvester
       return sort(fields, clazz, "fieldOrder");
    }
 
-   private static List introspectArrayField(Class clazz, String fieldName)
+   public static List introspectArrayField(Class clazz, String fieldName)
    {
       List list = new ArrayList();
       try

@@ -59,17 +59,6 @@ public class CompositeList extends SimpleListEO
       }
    }
 
-   public void jibxAdd(Object obj)
-   {
-      if (!(obj instanceof ComplexEObject))
-         throw new IllegalArgumentException("Cannot add object that is not a ComplexEObject");
-      super.add((ComplexEObject) obj);
-   }
-   public java.util.Iterator jibxIterator()
-   {
-      return super.iterator();
-   }
-
    public boolean isFixedSize() { return _fixedSize; }
    public void setFixedSize(boolean fs) { _fixedSize = fs; }
 
