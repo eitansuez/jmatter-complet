@@ -15,11 +15,59 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ListItemView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ListItemView.java" />
+    <list default="true" readonly="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/src/class-list.json" afterPath="$PROJECT_DIR$/test-app/src/class-list.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/persist/HibernatePersistor.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/persist/HibernatePersistor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/model/Harvester.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/model/Harvester.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.iws" afterPath="$PROJECT_DIR$/JMatter.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/JListView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/JListView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ChoiceView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ChoiceView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-app/test-app.iml" afterPath="$PROJECT_DIR$/test-app/test-app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/model/NullAssociation.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/model/NullAssociation.java" />
+      <change type="MODIFICATION" beforePath="/home/eitan/work/css4swing/css4swing.iml" afterPath="/home/eitan/work/css4swing/css4swing.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/SwingViewMechanism.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/SwingViewMechanism.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/ExpandableView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/ExpandableView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/field/AssociationField.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/field/AssociationField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/field/CompositeField.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/field/CompositeField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/model/ComplexType.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/model/ComplexType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/AtomicViewReadOnly.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/AtomicViewReadOnly.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/field/AggregateField.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/field/AggregateField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" afterPath="$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/ReorderListView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/ReorderListView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/list/RelationalList.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/list/RelationalList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd/JMNewProjectFrontEnd.iml" afterPath="$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd/JMNewProjectFrontEnd.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/Core.iml" afterPath="$PROJECT_DIR$/jmatter/Core.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/MyTunes/MyTunes.iml" afterPath="$PROJECT_DIR$/demo-apps/MyTunes/MyTunes.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JMatter.ipr" afterPath="$PROJECT_DIR$/JMatter.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iml" afterPath="$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/echovm/echovm.iml" afterPath="$PROJECT_DIR$/modules/echovm/echovm.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/Sympster/resources/hibernate.properties" afterPath="$PROJECT_DIR$/demo-apps/Sympster/resources/hibernate.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/persist/MultiSessionPersistor.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/persist/MultiSessionPersistor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/field/CompositeIndexedField.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/field/CompositeIndexedField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/model/AbstractEObject.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/model/AbstractEObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/Self/Self.iml" afterPath="$PROJECT_DIR$/demo-apps/Self/Self.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/dnd/RelationalListDropTarget.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/dnd/RelationalListDropTarget.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/IssueMgr/IssueMgr.iml" afterPath="$PROJECT_DIR$/demo-apps/IssueMgr/IssueMgr.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/element/Field.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/element/Field.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" afterPath="$PROJECT_DIR$/modules/ds-swing/ds-swing.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/swingvm.iml" afterPath="$PROJECT_DIR$/modules/swingvm/swingvm.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/find/FieldPath.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/find/FieldPath.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/StateCardPanel.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/StateCardPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/EditableListView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/EditableListView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" afterPath="$PROJECT_DIR$/modules/ds-wizard/ds-wizard.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/field/AtomicField.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/field/AtomicField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/MultiPickView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/MultiPickView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AppBrowser/AppBrowser.iml" afterPath="$PROJECT_DIR$/AppBrowser/AppBrowser.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/RelationalListView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/RelationalListView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/list/CompositeList.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/list/CompositeList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/model/EObject.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/model/EObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/model/AbstractListEO.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/model/AbstractListEO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CompositeTableView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CompositeTableView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/Sympster/src/com/u2d/sympster/Talk.java" afterPath="$PROJECT_DIR$/demo-apps/Sympster/src/com/u2d/sympster/Talk.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/Sympster/Sympster.iml" afterPath="$PROJECT_DIR$/demo-apps/Sympster/Sympster.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/AtomicView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/atom/AtomicView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatter/src/com/u2d/field/IndexedField.java" afterPath="$PROJECT_DIR$/jmatter/src/com/u2d/field/IndexedField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo-apps/Sympster/src/com/u2d/sympster/Session.java" afterPath="$PROJECT_DIR$/demo-apps/Sympster/src/com/u2d/sympster/Session.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/jmatter-tools/jmatter-tools.iml" afterPath="$PROJECT_DIR$/modules/jmatter-tools/jmatter-tools.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CompositeTabularView.java" afterPath="$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CompositeTabularView.java" />
     </list>
     <ignored path="JMatter.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -95,10 +143,6 @@
       <map />
     </option>
   </component>
-  <component name="ErrorTreeViewConfiguration">
-    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
-    <option name="HIDE_WARNINGS" value="false" />
-  </component>
   <component name="FavoritesManager">
     <favorites_list name="JMatter">
       <favorite_root url="file://$PROJECT_DIR$/modules/ds-swing/src/com/u2d/ui/desktop/EnhDesktopPane.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
@@ -136,7 +180,7 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="Sympster" />
+          <option name="myItemId" value="test-app" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -146,11 +190,11 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="Sympster" />
+          <option name="myItemId" value="test-app" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.sympster" />
+          <option name="myItemId" value="com.u2d.domain" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -188,7 +232,7 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.view.swing.dnd" />
+          <option name="myItemId" value="com.u2d.view.swing.find" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -250,34 +294,6 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.type.composite" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.type" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
           <option name="myItemId" value="com.u2d.model" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
@@ -292,7 +308,7 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="com.u2d.list" />
+          <option name="myItemId" value="com.u2d.find.inequalities" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -302,12 +318,12 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="AppBrowser" />
+          <option name="myItemId" value="Core" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
+          <option name="myItemId" value="com.u2d.find" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
       <PATH>
@@ -316,62 +332,12 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="AppBrowser" />
+          <option name="myItemId" value="Core" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar!/javax/swing" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="AppBrowser" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar!/java/beans" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="AppBrowser" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar!/java/awt" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="AppBrowser" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+          <option name="myItemId" value="com.u2d.field" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
     </subPane>
@@ -397,30 +363,6 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
         </PATH_ELEMENT>
       </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="JMatter" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/eitan/work/jmatter-complet/modules/swingvm" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
     </subPane>
   </component>
   <component name="ProjectReloadState">
@@ -441,35 +383,45 @@
     </navigator>
   </component>
   <component name="PropertiesComponent">
-    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web" value="/tmp/webExplodedDir56733tmp" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="false" />
-    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_ContactMgr/web/Web2" value="/tmp/webExplodedDir56737tmp" />
-    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_ContactMgr/web/Web3" value="/tmp/webExplodedDir56736tmp" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web3" value="/tmp/webExplodedDir56735tmp" />
     <property name="last_opened_file_path" value="/home/eitan/Desktop" />
-    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web2" value="/tmp/webExplodedDir56734tmp" />
     <property name="TEMP_MODULE_EXPLODED_DIR_FOR_ContactMgr/web/Web" value="/tmp/webExplodedDir56729tmp" />
-    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_MyTunes/web/Web" value="/private/tmp/webExplodedDir7160tmp" />
     <property name="GoToClass.includeJavaFiles" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="TEMP_MODULE_EXPLODED_DIR_FOR_IssueMgr/web/Web" value="/tmp/webExplodedDir9433tmp" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="TEMP_MODULE_EXPLODED_DIR_FOR_test-app/web/Web" value="/tmp/webExplodedDir21930tmp" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="TEMP_MODULE_EXPLODED_DIR_FOR_AppBrowser/web/Web" value="/tmp/webExplodedDir8529tmp" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_ContactMgr/web/Web2" value="/tmp/webExplodedDir56737tmp" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web5" value="/tmp/webExplodedDir8079tmp" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_ContactMgr/web/Web3" value="/tmp/webExplodedDir56736tmp" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web3" value="/tmp/webExplodedDir56735tmp" />
+    <property name="options.lastSelected" value="preferences.updates" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web4" value="/tmp/webExplodedDir38919tmp" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_Sympster/web/Web2" value="/tmp/webExplodedDir56734tmp" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="TEMP_MODULE_EXPLODED_DIR_FOR_MyTunes/web/Web" value="/private/tmp/webExplodedDir7160tmp" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.u2d.view.swing.atom" />
+      <recent name="com.u2d.persist.type" />
+      <recent name="com.u2d.view.echo" />
       <recent name="com.u2d.list" />
       <recent name="com.u2d.view.swing.list" />
-      <recent name="com.u2d.view.swing" />
-      <recent name="com.u2d.element" />
-      <recent name="com.u2d.persist.type" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.u2d.examples" />
       <recent name="com.u2d.view.swing" />
       <recent name="com.u2d.contactmgr" />
     </key>
@@ -478,37 +430,47 @@
     <RUBY_DOC NAME="DEFAULTS" VALUE="true" />
     <RUBY_DOC NAME="NUMBER" VALUE="0" />
   </component>
-  <component name="RunManager" selected="Application.Sympster">
-    <tempConfiguration default="false" name="MemLeakTest1" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" value="com.u2d.sympster.MemLeakTest1" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+  <component name="RunManager" selected="Application.TestApp">
+    <tempConfiguration default="false" name="CommandPathTests" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
+      <pattern>
+        <option name="PATTERN" value="com.u2d.element.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <module name="test-app" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="PACKAGE_NAME" value="com.u2d.element" />
+      <option name="MAIN_CLASS_NAME" value="com.u2d.element.CommandPathTests" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="Sympster" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
       <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="33815" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
       <RunnerSettings RunnerId="JProfiler">
         <option name="WINDOW" value="false" />
         <option name="JVMPI" value="false" />
         <option name="INTERPRETED" value="false" />
       </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="JProfiler" />
       <ConfigurationWrapper RunnerId="Run" />
       <method>
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -520,8 +482,11 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -537,7 +502,7 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -559,14 +524,7 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="false" name="Self" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Self" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
       <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -590,7 +548,7 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="false" name="AppBrowser" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="AppBrowser" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
       <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -620,7 +578,7 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="false" name="Sympster" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Sympster" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
       <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -651,7 +609,7 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="false" name="ContactMgr" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="ContactMgr" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
       <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -681,7 +639,7 @@
         <option name="Make" value="false" />
       </method>
     </configuration>
-    <configuration default="false" name="Tabular View Test" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Tabular View Test" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
       <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.list.TabularViewTest" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -699,7 +657,7 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="false" name="MyTunes" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="MyTunes" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
       <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -728,7 +686,7 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="false" name="SongHBMMaker" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="SongHBMMaker" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
       <option name="MAIN_CLASS_NAME" value="com.u2d.persist.HBMMaker" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="com.u2d.mytunes.Song" />
@@ -758,8 +716,37 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <list size="8">
-      <item index="0" class="java.lang.String" itemvalue="Application.MemLeakTest1" />
+    <configuration default="false" name="TestApp" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
+      <option name="MAIN_CLASS_NAME" value="com.u2d.view.swing.EntryPoint" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/test-app" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="test-app" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="47600" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="JProfiler">
+        <option name="WINDOW" value="false" />
+        <option name="JVMPI" value="false" />
+        <option name="INTERPRETED" value="false" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <list size="9">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.CommandPathTests" />
       <item index="1" class="java.lang.String" itemvalue="Application.Self" />
       <item index="2" class="java.lang.String" itemvalue="Application.AppBrowser" />
       <item index="3" class="java.lang.String" itemvalue="Application.Sympster" />
@@ -767,7 +754,42 @@
       <item index="5" class="java.lang.String" itemvalue="Application.Tabular View Test" />
       <item index="6" class="java.lang.String" itemvalue="Application.MyTunes" />
       <item index="7" class="java.lang.String" itemvalue="Application.SongHBMMaker" />
+      <item index="8" class="java.lang.String" itemvalue="Application.TestApp" />
     </list>
+    <configuration default="true" type="RSpecRunConfigurationType" factoryName="RSpec">
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e STDOUT.sync=true;STDERR.sync=true;load($0=ARGV.shift)" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="MODULE_NAME" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="[none]" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_ARGS" VALUE="-fs" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUN_SPECS_SEPARATELY" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="USE_COLOURED_OUTPUT_ENABLED" VALUE="true" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_SPEC_RUNNER" VALUE="false" />
+    </configuration>
+    <configuration default="true" type="RubyRunConfigurationType" factoryName="Ruby test">
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e STDOUT.sync=true;STDERR.sync=true;load($0=ARGV.shift)" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="MODULE_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_CLASS_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_METHOD_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="INHERITANCE_CHECK_DISABLED" VALUE="false" />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -798,6 +820,7 @@
       </method>
     </configuration>
   </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
   <component name="StarteamConfiguration">
     <option name="SERVER" value="" />
     <option name="PORT" value="49201" />
@@ -819,8 +842,8 @@
     <option name="PASSWORD" value="" />
     <option name="LAST_MERGED_REVISION" />
     <option name="UPDATE_RUN_STATUS" value="false" />
-    <option name="UPDATE_RECURSIVELY" value="true" />
     <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
     <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
     <configuration useDefault="true">/home/eitan/.subversion</configuration>
     <upgradeMode>none</upgradeMode>
@@ -850,32 +873,36 @@
     <frame x="0" y="25" width="1440" height="850" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22254336" order="3" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2716763" order="6" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24658519" order="1" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33607683" order="1" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43347052" order="3" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="14" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31412894" order="9" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.248023" order="1" />
-      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32784638" order="10" />
-      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="5" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23210412" order="0" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="11" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2494577" order="2" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
-      <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="13" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.436214" order="2" x="-4" y="25" width="1032" height="721" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="12" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="4" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="5" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991323" order="0" />
-      <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="4" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2716763" sideWeight="0.5" order="6" side_tool="false" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24658519" sideWeight="0.5" order="1" side_tool="false" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33333334" sideWeight="0.5" order="1" side_tool="false" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43347052" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3127572" sideWeight="0.5" order="9" side_tool="false" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2615607" sideWeight="0.5569273" order="1" side_tool="false" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.216763" sideWeight="0.6776406" order="0" side_tool="false" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" />
+      <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43484226" sideWeight="0.5" order="2" side_tool="false" x="-4" y="25" width="1032" height="721" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22254336" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" />
+      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2494577" sideWeight="0.5" order="2" side_tool="false" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991323" sideWeight="0.5" order="0" side_tool="false" />
+      <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" />
+      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32784638" sideWeight="0.5" order="10" side_tool="false" />
+      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" />
+      <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" />
     </layout>
   </component>
   <component name="VcsManagerConfiguration">
@@ -884,6 +911,7 @@
     <option name="PERFORM_UPDATE_IN_BACKGROUND" value="false" />
     <option name="PERFORM_COMMIT_IN_BACKGROUND" value="false" />
     <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="LAST_COMMIT_MESSAGE" value="" />
@@ -931,6 +959,13 @@
       <option name="RECURSIVE" value="false" />
       <option name="VERSION" />
     </GetOptions>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="XPathView.XPathProjectComponent">
+    <history />
+    <find-history />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -983,7 +1018,7 @@
       <verbose value="true" />
       <viewClosedWhenNoErrors value="false" />
     </buildFile>
-    <buildFile url="file://$PROJECT_DIR$/modules/echo2vm/build.xml">
+    <buildFile url="file://$PROJECT_DIR$/modules/echovm/build.xml">
       <antCommandLine value="" />
       <runInBackground value="true" />
       <targetFilters />
@@ -1033,122 +1068,180 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/demo-apps/Sympster/src/com/u2d/sympster/Talk.java">
+    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/EOPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="35" selection-start="595" selection-end="595" vertical-scroll-proportion="0.3318584">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/model/AbstractEObject.java">
+    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/TitleBarView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="31" selection-start="2370" selection-end="2370" vertical-scroll-proportion="0.46460176">
+        <state line="42" column="29" selection-start="1195" selection-end="1195" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/model/ChangeNotifier.java">
+    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/ListEOPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="215" selection-end="215" vertical-scroll-proportion="0.36504424">
+        <state line="36" column="21" selection-start="1043" selection-end="1043" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/type/AbstractChoiceEO.java">
+    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/FindPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="1319" selection-end="1319" vertical-scroll-proportion="0.36946902">
+        <state line="96" column="0" selection-start="2412" selection-end="2412" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/type/composite/ContactMethod.java">
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/find/Inequality.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="46" selection-start="217" selection-end="217" vertical-scroll-proportion="0.26548672">
+        <state line="15" column="0" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/list/PagedList.java">
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/field/PseudoField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="9" selection-start="525" selection-end="525" vertical-scroll-proportion="0.49778762">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/find/inequalities/ContainsInequality.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="76" selection-start="1252" selection-end="1272" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ds-swing/src/com/u2d/ui/JComboTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="172" column="0" selection-start="4566" selection-end="4566" vertical-scroll-proportion="0.6596306">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/beans/PropertyChangeSupport.java">
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/find/inequalities/TextualInequalities.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="333" column="0" selection-start="12058" selection-end="12058" vertical-scroll-proportion="0.5641593">
+        <state line="63" column="44" selection-start="1788" selection-end="1788" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/awt/Component.java">
+    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/find/FieldFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7867" column="31" selection-start="292007" selection-end="292007" vertical-scroll-proportion="0.5641593">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/javax/swing/JComboBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="298" column="22" selection-start="9383" selection-end="9383" vertical-scroll-proportion="0.72540045">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ChoiceView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="1103" selection-end="1103" vertical-scroll-proportion="0.6637168">
+        <state line="311" column="31" selection-start="8782" selection-end="8782" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/CommandsContextMenuView.java">
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/find/QuerySpecification.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="7" selection-start="3104" selection-end="3104" vertical-scroll-proportion="0.7300885">
+        <state line="53" column="15" selection-start="1396" selection-end="1396" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/CommandAdapter.java">
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/find/SimpleQuery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="15" selection-start="2964" selection-end="2964" vertical-scroll-proportion="0.6681416">
+        <state line="85" column="0" selection-start="2224" selection-end="2224" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ListItemViewAdapter.java">
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/find/FieldPath.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="50" selection-start="236" selection-end="236" vertical-scroll-proportion="0.3318584">
+        <state line="49" column="62" selection-start="1208" selection-end="1229" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/SwingViewMechanism.java">
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/field/IndexedField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="975" column="22" selection-start="29406" selection-end="29406" vertical-scroll-proportion="0.3323782">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/list/JListView.java">
+    <entry file="file://$PROJECT_DIR$/test-app/src/com/u2d/domain/Worker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="158" column="0" selection-start="4567" selection-end="4567" vertical-scroll-proportion="0.41833812">
+        <state line="21" column="0" selection-start="663" selection-end="663" vertical-scroll-proportion="0.6728232">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/swingvm/src/com/u2d/view/swing/ListItemView.java">
+    <entry file="file://$PROJECT_DIR$/jmatter/src/com/u2d/model/ComplexType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="6" selection-start="1264" selection-end="1264" vertical-scroll-proportion="0.260745">
+        <state line="1016" column="36" selection-start="29987" selection-end="29987" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <option name="states">
+      <map>
+        <entry key="Errors.UI">
+          <value>
+            <UIState>
+              <option name="proportions">
+                <SplitterProportionsDataImpl />
+              </option>
+            </UIState>
+          </value>
+        </entry>
+        <entry key="ScopeChooserConfigurable.UI">
+          <value>
+            <UIState>
+              <option name="proportions">
+                <SplitterProportionsDataImpl>
+                  <option name="proportions">
+                    <list>
+                      <option value="0.2" />
+                    </list>
+                  </option>
+                </SplitterProportionsDataImpl>
+              </option>
+            </UIState>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="myStates">
+      <map>
+        <entry key="Errors.UI">
+          <value>
+            <UIState>
+              <option name="proportions">
+                <SplitterProportionsDataImpl />
+              </option>
+            </UIState>
+          </value>
+        </entry>
+        <entry key="ScopeChooserConfigurable.UI">
+          <value>
+            <UIState>
+              <option name="proportions">
+                <SplitterProportionsDataImpl>
+                  <option name="proportions">
+                    <list>
+                      <option value="0.2" />
+                    </list>
+                  </option>
+                </SplitterProportionsDataImpl>
+              </option>
+            </UIState>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
 

@@ -2,19 +2,13 @@
 <module relativePaths="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
-      <configuration>
-        <options>
-          <option name="enableValidation" value="true" />
-          <option name="reportErrorsAsWarnings" value="true" />
-        </options>
-        <customNs />
-      </configuration>
+      <configuration />
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/build/classes" />
-    <exclude-output />
     <output-test url="file://$MODULE_DIR$/build/classes" />
+    <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
@@ -72,7 +66,33 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntryProperties />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/forms-1.2.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/swingx.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/animation.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/Date_selector.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/jtidy-r7.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/swing-worker.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/swingx-ws.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/AppleJavaExtensions.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/swingx-bean.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/rome-0.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/miglayout-3.5.6-swing.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/l2fprod-common-outlookbar.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/formsrt.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/jexplose.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/jdom.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/xercesImpl.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/commons-httpclient-3.0.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/css4swing.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jmatter/lib/runtime/swingvm/antlr-3.1.1-runtime.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
   <component name="RSpecModuleSettingsStorage">
     <RSPEC_MODULE_SETTINGS_STORAGE_ID NAME="RSPEC_SUPPORT_TYPE" VALUE="NONE" />

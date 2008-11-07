@@ -7,6 +7,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
       <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="Self" />
     </buildFile>
@@ -15,6 +16,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/jmatter/build.xml">
@@ -22,6 +24,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/demo-apps/ContactMgr/build.xml">
@@ -29,6 +32,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
       <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="ContactMgr" />
     </buildFile>
@@ -37,6 +41,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/modules/jmatter-tools/build.xml">
@@ -44,6 +49,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/modules/echovm/build.xml">
@@ -51,6 +57,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/modules/swingvm/build.xml">
@@ -58,6 +65,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/modules/wingsvm/build.xml">
@@ -65,6 +73,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/demo-apps/Sympster/build.xml">
@@ -72,6 +81,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
       <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="Sympster" />
     </buildFile>
@@ -80,6 +90,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
       <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="AppBrowser" />
     </buildFile>
@@ -88,6 +99,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
       <executeOn event="beforeRun" target="compile" runConfigurationType="Application" runConfigurationName="SongHBMMaker" />
       <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="MyTunes" />
@@ -223,6 +235,7 @@
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
     <option name="MAXIMUM_HEAP_SIZE" value="128" />
   </component>
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -591,10 +604,10 @@
       </item>
     </group>
   </component>
-  <component name="ProjectFileVersion" converted="true">
-    <converter id="javaee-modules" />
-    <converter id="ror-modules" />
+  <component name="ProjectDetails">
+    <option name="projectName" value="JMatter" />
   </component>
+  <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AppBrowser/AppBrowser.iml" filepath="$PROJECT_DIR$/AppBrowser/AppBrowser.iml" />
@@ -615,7 +628,7 @@
       <module fileurl="file://$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" filepath="$PROJECT_DIR$/modules/wingsvm/wingsvm.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="RUBY_DOC_SETTINGS">
@@ -637,7 +650,7 @@
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
   </component>
   <component name="SvnBranchConfigurationManager">
-    <option name="myVersion" value="123" />
+    <option name="myVersion" value="124" />
   </component>
   <component name="SvnChangesBrowserSettings">
     <option name="USE_AUTHOR_FIELD" value="true" />
