@@ -15,6 +15,8 @@ import javax.swing.event.ListDataEvent;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,6 +30,8 @@ public class CompositeTableView extends JPanel
    private CompositeList _leo;
    private TableView _tableView;
    private JButton _addBtn, _removeBtn;
+   private JPanel northPanel;
+   private PropertyChangeListener readOnlyChangeListener;
 
    public CompositeTableView(CompositeList leo)
    {
@@ -43,6 +47,15 @@ public class CompositeTableView extends JPanel
       setOpaque(false);
 
       add(northPanel(), BorderLayout.PAGE_START);
+      northPanel.setVisible(!_leo.field().isReadOnly());
+      readOnlyChangeListener = new PropertyChangeListener()
+      {
+         public void propertyChange(PropertyChangeEvent evt)
+         {
+            northPanel.setVisible(!_leo.field().isReadOnly());
+         }
+      };
+      _leo.field().addPropertyChangeListener("readOnly", readOnlyChangeListener);
 
       JScrollPane scrollPane = new JScrollPane(_tableView);
       add(scrollPane, BorderLayout.CENTER);
@@ -67,7 +80,7 @@ public class CompositeTableView extends JPanel
 
    private JPanel northPanel()
    {
-      JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+      northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
       northPanel.setOpaque(false);
       northPanel.add(addBtn());
       northPanel.add(removeBtn());
@@ -140,6 +153,7 @@ public class CompositeTableView extends JPanel
       {
          _leo.parentObject().removeChangeListener(this);
       }
+      _leo.field().removePropertyChangeListener("readOnly", readOnlyChangeListener);
    }
 
    public void stateChanged(ChangeEvent e)
