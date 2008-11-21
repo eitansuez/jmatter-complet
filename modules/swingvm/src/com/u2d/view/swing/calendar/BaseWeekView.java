@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TooManyListenersException;
 import java.util.Iterator;
+import java.util.Date;
 import java.awt.*;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.DataFlavor;
@@ -101,12 +102,19 @@ public abstract class BaseWeekView
    private void adjustSpan()
    {
       Calendar startOfWeek = Calendar.getInstance();
-      startOfWeek.setTime(_datetimeBounds.position().dateValue());
+      Date time = _datetimeBounds.position().dateValue();
+      startOfWeek.setTime(time);
 
       Calendar weekStartTimeCalendar = _datetimeBounds.weekStartTime().calendarValue();
 
       // TODO: No way to represent this in an EOType.
       startOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+      
+      // this happens in locales where sunday falls in a different position in the week:
+      if (startOfWeek.getTime().after(time))
+      {
+         startOfWeek.add(Calendar.DAY_OF_WEEK, -7);
+      }
 	   
       startOfWeek.set(Calendar.HOUR_OF_DAY, weekStartTimeCalendar.get(Calendar.HOUR_OF_DAY));
       startOfWeek.set(Calendar.MINUTE, weekStartTimeCalendar.get(Calendar.MINUTE));
