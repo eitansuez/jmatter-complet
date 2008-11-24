@@ -10,24 +10,22 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../thirdparty/swingx-ws-2008_01_20-bin/swingx-ws-2008_01_27-src/src/java" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm" recursive="false" />
-      </library>
-    </orderEntry>
     <orderEntry type="module" module-name="Core" />
     <orderEntry type="module" module-name="ds-swing" />
     <orderEntry type="module" module-name="ds-wizard" />
     <orderEntry type="library" name="JUnit" level="project" />
     <orderEntry type="library" name="Spring" level="project" />
     <orderEntry type="library" name="Hibernate" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
   <component name="RSpecModuleSettingsStorage">
     <RSPEC_MODULE_SETTINGS_STORAGE_ID NAME="RSPEC_SUPPORT_TYPE" VALUE="NONE" />

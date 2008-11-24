@@ -20,15 +20,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/swingx.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="JExplose">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/animation.jar!/" />
@@ -44,6 +35,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/l2fprod-common-outlookbar.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/swingx.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
