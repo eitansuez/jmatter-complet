@@ -27,6 +27,7 @@ import com.u2d.type.composite.USAddress;
 import com.u2d.ui.desktop.CloseableJInternalFrame;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.ui.UIUtils;
+import com.u2d.ui.Caption;
 import com.u2d.view.*;
 import com.u2d.view.swing.atom.*;
 import com.u2d.view.swing.calendar.fancy.CalEventView;
@@ -217,13 +218,13 @@ public class SwingViewMechanism implements ViewMechanism
       String explanation = "An initialization error has occurred. " +
             "Below is a technical description of the underlying cause.";
       centerPane.add(new JLabel(explanation));
-      JLabel errMsg = new JLabel(ex.getMessage());
+      JLabel errMsg = new Caption(ex.getMessage(), 120);
       ComponentStyle.addClass(errMsg, "message-label");
       centerPane.add(errMsg);
       StringWriter sw = new StringWriter(500);
       ex.printStackTrace(new PrintWriter(sw));
       String text = sw.toString();
-      JTextArea area = new JTextArea(text);
+      JTextArea area = new JTextArea(text, 35, 80);
       area.setEditable(false);
       centerPane.add(new JScrollPane(area));
       centerPane.add(new JLabel("The application will now close"));
@@ -237,6 +238,7 @@ public class SwingViewMechanism implements ViewMechanism
       });
       centerPane.add(okBtn, "alignx trailing, tag ok");
       errorPane.add(centerPane);
+      errorPane.setMaximumSize(new Dimension(800,600));
       dlg.setContentPane(errorPane);
       dlg.pack();
       UIUtils.center((Container) _appContainer, dlg, true);
