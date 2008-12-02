@@ -23,6 +23,11 @@ public class Caption extends JLabel
    {
       setText(text);
    }
+   public Caption(String text, int breakPosition)
+   {
+      setBreakPosition(breakPosition);
+      setText(text);
+   }
    
    
    public void setBreakPosition(int index)
@@ -39,7 +44,7 @@ public class Caption extends JLabel
    
    private String multiLine(String text)
    {
-      String original = new String(text);
+      String original = text;
       
       boolean processed = false;
       if (text == null) text = "";
@@ -82,7 +87,7 @@ public class Caption extends JLabel
    {
       String leftPart = text.substring(0, _breakPosition);
       int index = leftPart.lastIndexOf(" ");
-      String rest = "";
+      String rest;
       
       if (index < 0)
       {
