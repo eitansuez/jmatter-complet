@@ -2,6 +2,8 @@
 @namespace types com.u2d.view.swing.atom
 @namespace jmaps com.u2d.view.swing.map
 @namespace ui com.u2d.ui
+@namespace swingx org.jdesktop.swingx
+@namespace jetta com.jeta.forms.components.panel
 
 
 JComponent
@@ -9,6 +11,14 @@ JComponent
   font-family: "Arial", "Lucida Sans", sans-serif;
   font-size: 12pt;
 }
+ui|BasePopupMenu
+{
+  opacity: 0.7;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
 jm|LoginDialog
 {
   border-radius: 15px;
@@ -35,9 +45,12 @@ jm|LoginDialog
 JDesktopPane
 {
   background-color: #7684FF;
+/* example:
+  background-image: resource("images/retrobg.gif") tiled;
+ */
 }
 
-jm|FormPane
+jm|FormPane, jetta|FormPanel
 {
   background-color: #fffaf0;
   padding: 5px;
@@ -122,20 +135,19 @@ jmaps|MappableView
 
 #command-panel
 {
-  border-radius: 15px;
-  border: 1px solid black;
-  background-color: black;
-  opacity: 0.7;
-  padding: 10px;
-  color: white;
   font-weight: normal;
   font-size: 14pt;
+  color: white;
+  background-color: black;
+  padding: 10px;
+  border-radius: 15px;
+  opacity: 0.7;
 }
 #command-panel jm|SimpleAssociationView
 {
   margin: 7px;
   background-color: #666;
-/*  border-radius: 10px; */
+  border-radius: 10px;
   border: 1px solid black;
 }
 #command-panel jm|CustomIconView
