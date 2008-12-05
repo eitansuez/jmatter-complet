@@ -18,7 +18,7 @@ swingx|JXButton
   border: 1px solid black;
   opacity: 0.7;
 }
-JPopupMenu
+ui|BasePopupMenu
 {
   opacity: 0.7;
   background-color: white;

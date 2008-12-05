@@ -10,6 +10,7 @@ import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
 import com.u2d.css4swing.style.ComponentStyle;
 import com.u2d.ui.Platform;
+import com.u2d.ui.BasePopupMenu;
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import java.awt.event.*;
@@ -18,15 +19,13 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Locale;
 
-import org.jdesktop.swingx.painter.Painter;
-
 /**
  * Created by IntelliJ IDEA.
  * User: eitan
  * Date: Oct 14, 2005
  * Time: 11:03:09 AM
  */
-public class CommandsContextMenuView extends JPopupMenu implements ListEView
+public class CommandsContextMenuView extends BasePopupMenu implements ListEView
 {
    private EObject _eo;
    private Onion _commands;
@@ -37,7 +36,7 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
 
    public CommandsContextMenuView()
    {
-      setLightWeightPopupEnabled(true);
+      super();
    }
 
    public void bind(final EObject eo, final JComponent target, final EView source)
@@ -158,7 +157,6 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
                if (cmd.isOpenInNonMinimizedContext(_source)) return;
 
                JMenuItem item = new JMenuItem(new CommandAdapter(cmd, _eo, _source));
-               item.setOpaque(false);
                ComponentStyle.addClass(item, "command");
                add(item);
                
@@ -190,7 +188,6 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
 
                Action action = new CommandAdapter(cmd, _eo, _source);
                JMenuItem item = new JMenuItem(action);
-               item.setOpaque(false);
                ComponentStyle.addClass(item, "command");
                add(item, componentIndex);
             }
@@ -249,18 +246,5 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
       }
    }
 
-
-   Painter bgPainter;
-   public void setBackgroundPainter(Painter p) { this.bgPainter = p; }
-   protected void paintComponent(Graphics g)
-   {
-      if (bgPainter != null)
-      {
-         bgPainter.paint((Graphics2D) g, this, getWidth(), getHeight());
-      }
-      super.paintComponent(g);
-   }
-
-   
 }
 
