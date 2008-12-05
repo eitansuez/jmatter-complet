@@ -3,6 +3,8 @@
  */
 package com.u2d.ui;
 
+import org.jdesktop.swingx.JXButton;
+
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +12,7 @@ import java.awt.*;
 /**
  * @author Eitan Suez
  */
-public class LockedButton extends JButton implements ActionListener
+public class LockedButton extends JXButton implements ActionListener
 {
    private LockToggle _lock;
 
