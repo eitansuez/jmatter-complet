@@ -112,7 +112,9 @@ public class AppFrame extends JFrame implements AppContainer
 
       _desktopPane = new EODesktopPane();
       _desktopPane.getContextMenu().addSeparator();
-      _desktopPane.getContextMenu().add(new QuitAction());
+      JMenuItem quitItem = new JMenuItem(new QuitAction());
+      quitItem.setOpaque(false);
+      _desktopPane.getContextMenu().add(quitItem);
       setupInstructionView();
 
       _windowButtonBar = new WindowButtonBar();

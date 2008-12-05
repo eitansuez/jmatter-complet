@@ -223,14 +223,8 @@ public class MyDesktopPane extends JDesktopPane
       }
    }
 
-
    Painter bgPainter;
-   public void setBackgroundPainter(Painter p)
-   {
-      this.bgPainter = p;
-   }
-
-   @Override
+   public void setBackgroundPainter(Painter p) { this.bgPainter = p; }
    protected void paintComponent(Graphics g)
    {
       if (bgPainter != null)

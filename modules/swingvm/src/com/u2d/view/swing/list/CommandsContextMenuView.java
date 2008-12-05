@@ -190,6 +190,7 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
 
                Action action = new CommandAdapter(cmd, _eo, _source);
                JMenuItem item = new JMenuItem(action);
+               item.setOpaque(false);
                ComponentStyle.addClass(item, "command");
                add(item, componentIndex);
             }
@@ -249,17 +250,8 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
    }
 
 
-
    Painter bgPainter;
-   public void setBackgroundPainter(Painter p)
-   {
-      this.bgPainter = p;
-   }
-
-   @Override
-   public boolean isOpaque() { return false; }
-
-   @Override
+   public void setBackgroundPainter(Painter p) { this.bgPainter = p; }
    protected void paintComponent(Graphics g)
    {
       if (bgPainter != null)

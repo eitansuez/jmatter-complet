@@ -11,6 +11,7 @@ import javax.swing.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import net.miginfocom.swing.MigLayout;
+import org.jdesktop.swingx.JXPanel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,7 +19,7 @@ import net.miginfocom.swing.MigLayout;
  * Date: Dec 26, 2007
  * Time: 10:05:28 PM
  */
-public class InstructionView extends JPanel implements ComplexEView
+public class InstructionView extends JXPanel implements ComplexEView
 {
    private Instruction _instruction;
    
