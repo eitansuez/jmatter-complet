@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Locale;
 
+import org.jdesktop.swingx.painter.Painter;
+
 /**
  * Created by IntelliJ IDEA.
  * User: eitan
@@ -33,7 +35,10 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
    private Map<Integer, Integer> _indexMap = new HashMap<Integer, Integer>();
    private ContextMouseListener _listener = new ContextMouseListener();
 
-   public CommandsContextMenuView() {}
+   public CommandsContextMenuView()
+   {
+      setLightWeightPopupEnabled(true);
+   }
 
    public void bind(final EObject eo, final JComponent target, final EView source)
    {
@@ -153,6 +158,7 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
                if (cmd.isOpenInNonMinimizedContext(_source)) return;
 
                JMenuItem item = new JMenuItem(new CommandAdapter(cmd, _eo, _source));
+               item.setOpaque(false);
                ComponentStyle.addClass(item, "command");
                add(item);
                
@@ -241,6 +247,28 @@ public class CommandsContextMenuView extends JPopupMenu implements ListEView
          }
       }
    }
+
+
+
+   Painter bgPainter;
+   public void setBackgroundPainter(Painter p)
+   {
+      this.bgPainter = p;
+   }
+
+   @Override
+   public boolean isOpaque() { return false; }
+
+   @Override
+   protected void paintComponent(Graphics g)
+   {
+      if (bgPainter != null)
+      {
+         bgPainter.paint((Graphics2D) g, this, getWidth(), getHeight());
+      }
+      super.paintComponent(g);
+   }
+
    
 }
 

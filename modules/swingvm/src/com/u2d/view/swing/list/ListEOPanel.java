@@ -25,13 +25,15 @@ import java.awt.event.KeyEvent;
 import java.beans.XMLEncoder;
 import java.beans.XMLDecoder;
 
+import org.jdesktop.swingx.JXPanel;
+
 /**
  * Created by IntelliJ IDEA.
  * User: eitan
  * Date: Dec 5, 2006
  * Time: 5:10:55 PM
  */
-public class ListEOPanel  extends JPanel
+public class ListEOPanel extends JXPanel
       implements ListEView, CompositeView
 {
    private TitleBarView _titleBarView;

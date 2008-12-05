@@ -17,6 +17,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.beans.*;
 import net.miginfocom.swing.MigLayout;
+import org.jdesktop.swingx.JXPanel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,7 +26,7 @@ import net.miginfocom.swing.MigLayout;
  * Time: 5:55:00 PM
  * @author Eitan Suez
  */
-public class EOPanel extends JPanel
+public class EOPanel extends JXPanel
       implements ComplexEView, Editor, CompositeView
 {
    private transient EView _view;
