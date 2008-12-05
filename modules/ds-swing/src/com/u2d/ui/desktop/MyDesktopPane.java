@@ -1,5 +1,7 @@
 package com.u2d.ui.desktop;
 
+import org.jdesktop.swingx.painter.Painter;
+
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameAdapter;
@@ -218,6 +220,26 @@ public class MyDesktopPane extends JDesktopPane
          updatePositions();
 
          if (findNext) { activateNextFrame(); }
+      }
+   }
+
+
+   Painter bgPainter;
+   public void setBackgroundPainter(Painter p)
+   {
+      this.bgPainter = p;
+   }
+
+   @Override
+   protected void paintComponent(Graphics g)
+   {
+      if (bgPainter != null)
+      {
+         bgPainter.paint((Graphics2D) g, this, getWidth(), getHeight());
+      }
+      else
+      {
+         super.paintComponent(g);
       }
    }
 
