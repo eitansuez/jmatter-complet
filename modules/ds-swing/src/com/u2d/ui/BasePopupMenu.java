@@ -17,6 +17,7 @@ public class BasePopupMenu extends JPopupMenu
    {
       super();
       setLightWeightPopupEnabled(true);
+      setOpaque(false);
    }
 
    public JMenuItem add(JMenuItem menuItem)
@@ -36,6 +37,7 @@ public class BasePopupMenu extends JPopupMenu
    public void setBackgroundPainter(Painter p) { this.bgPainter = p; }
    protected void paintComponent(Graphics g)
    {
+      setOpaque(bgPainter == null);
       if (bgPainter != null)
       {
          bgPainter.paint((Graphics2D) g, this, getWidth(), getHeight());
