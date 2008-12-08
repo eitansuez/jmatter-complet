@@ -12,13 +12,6 @@ JComponent
   font-family: "Arial", "Lucida Sans", sans-serif;
   font-size: 12pt;
 }
-swingx|JXButton
-{
-  border-radius: 5px;
-  border: 1px solid black;
-  opacity: 0.7;
-  background-color: gradient(0,0,#F9FBFC, 0,20,#C0D4E8);
-}
 ui|BasePopupMenu
 {
   opacity: 0.7;
@@ -52,14 +45,25 @@ jm|LoginDialog
 
 JDesktopPane
 {
-  background-color: #7684FF;
-  background-image: resource("images/retrobg.gif") tiled;
+  background-color: gradient(0,0,white,800,0,#C4D5DE);
+  background-image: resource("images/jmatter.png") centered;
+/* example:
+ *   background-image: resource("images/retrobg.gif") tiled;
+ */
 }
 
 jm|FormPane, jetta|FormPanel
 {
-  background-color: #fffaf0;
+  background-color: gradient(0,0,#A9C3B6,300,0,white);
   padding: 5px;
+}
+.formcommands-panel
+{
+  background-color: gradient(0,0,#EDECEB,0,500,#4F5ACF);
+}
+jm|StatusPanel
+{
+    background-color: #d3d3d3;
 }
 
 .command
@@ -93,6 +97,13 @@ jm|FieldCaption
    font-style: italic;
 }
 
+ui|NormalButton
+{
+  border-radius: 5px;
+  border: 1px solid black;
+  opacity: 0.7;
+  background-color: gradient(0,0,#F9FBFC, 0,20,#C0D4E8);
+}
 .default-button
 {
   font-weight: bold;
@@ -162,15 +173,13 @@ jmaps|MappableView
 }
 .message-label
 {
-  padding: 15px;
   font-style:  italic;
-  opacity: 0.0;
+  padding: 15px;
 }
 .splash-pane
 {
   background-color: white;
-  opacity: 0.0;
-  border: 1px solid black;   
+  border: 1px solid black;
 }
 .exception ui|GradientPanel
 {
