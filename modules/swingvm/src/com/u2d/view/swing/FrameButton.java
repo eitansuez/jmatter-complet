@@ -1,5 +1,7 @@
 package com.u2d.view.swing;
 
+import com.u2d.ui.BaseToggleButton;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -14,7 +16,7 @@ import java.beans.PropertyChangeEvent;
  *
  * For lack of a better name. This is the button used in AppFrame's window button bar
  */
-public class FrameButton extends JToggleButton implements ActionListener, PropertyChangeListener
+public class FrameButton extends BaseToggleButton implements ActionListener, PropertyChangeListener
 {
    private JInternalFrame myframe;
    private JDesktopPane desktopPane;

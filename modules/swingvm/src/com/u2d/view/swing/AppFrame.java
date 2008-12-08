@@ -834,7 +834,7 @@ public class AppFrame extends JFrame implements AppContainer
       }
    }
 
-   class WindowButtonBar extends JPanel implements Scrollable
+   class WindowButtonBar extends JXPanel implements Scrollable
    {
       ButtonGroup buttonGroup = new ButtonGroup();
       private InternalFrameListener iframeListener;

@@ -9,6 +9,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+import org.jdesktop.swingx.JXPanel;
+
 /**
  * Date: May 16, 2005
  * Time: 10:48:49 PM
@@ -18,14 +20,12 @@ import java.util.ArrayList;
  *
  * @author Eitan Suez
  */
-public class StatusPanel extends JPanel
+public class StatusPanel extends JXPanel
 {
    java.util.List<EView> _views = new ArrayList<EView>();
 
    public StatusPanel()
    {
-      setOpaque(true);
-      setBackground(new Color(0xd3d3d3));
       setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
       setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
    }
@@ -45,5 +45,4 @@ public class StatusPanel extends JPanel
          view.detach();
       }
    }
-
 }

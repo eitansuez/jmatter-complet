@@ -18,6 +18,7 @@ import javax.swing.event.ChangeEvent;
 import java.beans.*;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXPanel;
+import org.jdesktop.swingx.JXLabel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -44,7 +45,7 @@ public class EOPanel extends JXPanel
       buildHeaderPanel();
       
       // centerpane bundles a little message area (north) and the main view (center)
-      JPanel centerPane = new JPanel(new BorderLayout());
+      JXPanel centerPane = new JXPanel(new BorderLayout());
       _statusPanel = new StatusPanel();
       centerPane.add(_statusPanel, BorderLayout.PAGE_START);
       
@@ -114,10 +115,10 @@ public class EOPanel extends JXPanel
    public boolean isMinimized() { return false; }
 
 
-   class StatusPanel extends JPanel implements ValidationListener
+   class StatusPanel extends JXPanel implements ValidationListener
    {
-      JLabel _statusLabel = msgLabel();
-      JLabel _msgLabel = msgLabel();
+      JXLabel _statusLabel = msgLabel();
+      JXLabel _msgLabel = msgLabel();
       
       StatusPanel()
       {
@@ -128,9 +129,9 @@ public class EOPanel extends JXPanel
          _ceo.addValidationListener(this);
       }
       
-      private JLabel msgLabel()
+      private JXLabel msgLabel()
       {
-         JLabel label = new JLabel("");
+         JXLabel label = new JXLabel("");
          ComponentStyle.addClass(label, "validation-msg");
          return label;
       }

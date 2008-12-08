@@ -8,7 +8,6 @@ import com.u2d.element.Field;
 import com.u2d.field.AggregateField;
 import com.u2d.field.CompositeField;
 import com.u2d.model.ComplexEObject;
-import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
 import com.u2d.model.Editor;
 import com.u2d.ui.CustomTabbedPane;
@@ -127,7 +126,6 @@ public class FormView extends JXPanel implements IFormView
          }
          else
          {
-//            mainPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
             add(new JScrollPane(mainPane), BorderLayout.CENTER);
          }
       }

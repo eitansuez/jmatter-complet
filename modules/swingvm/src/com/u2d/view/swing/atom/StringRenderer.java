@@ -2,7 +2,6 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.model.AtomicEObject;
 import com.u2d.model.AtomicRenderer;
-
 import javax.swing.*;
 
 /**

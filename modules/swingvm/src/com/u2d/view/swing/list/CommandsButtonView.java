@@ -9,6 +9,8 @@ import com.u2d.pattern.Onion;
 import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
 import com.u2d.element.Command;
+import com.u2d.css4swing.style.ComponentStyle;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
@@ -18,6 +20,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.awt.*;
 import net.miginfocom.swing.MigLayout;
+import org.jdesktop.swingx.JXPanel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,7 +28,7 @@ import net.miginfocom.swing.MigLayout;
  * Date: Oct 14, 2005
  * Time: 11:02:34 AM
  */
-public class CommandsButtonView extends JPanel implements ListEView
+public class CommandsButtonView extends JXPanel implements ListEView
 {
    private EObject _eo;
    private Onion _commands;
@@ -37,10 +40,7 @@ public class CommandsButtonView extends JPanel implements ListEView
    public CommandsButtonView()
    {
       super();
-      setOpaque(true);
-      setBackground(new Color(0xf8f8ff));
-      Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-      setBorder(border);
+      ComponentStyle.addClass(this, "formcommands-panel");
    }
 
    public void bind(EObject eo, JComponent parent, Object constraints, EView source)
