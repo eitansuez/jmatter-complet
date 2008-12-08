@@ -25,8 +25,11 @@ jm|LoginDialog
   border-radius: 15px;
   border: 1px solid black;
   color: black;
+ /*
   background-color: white;
   opacity: 0.7;
+  */
+  background-color: gradient(0,0,rgba(255,255,255,0.3), 0,100,rgba(255,255,255,1.0)); /* varying opacity */
   padding: 20px 40px;
 }
 .login-innerpnl
