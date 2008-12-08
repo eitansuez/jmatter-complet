@@ -4,7 +4,6 @@
 package com.u2d.ui;
 
 import java.awt.Cursor;
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;

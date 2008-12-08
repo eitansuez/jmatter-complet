@@ -5,7 +5,6 @@ package com.u2d.ui;
 
 import org.javadev.AnimatingCardLayout;
 import org.javadev.effects.Animation;
-
 import javax.swing.*;
 import java.awt.*;
 

@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * @author Eitan Suez
  */
-public class LockedButton extends JXButton implements ActionListener
+public class LockedButton extends NormalButton implements ActionListener
 {
    private LockToggle _lock;
 

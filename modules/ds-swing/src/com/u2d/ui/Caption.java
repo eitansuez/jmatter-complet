@@ -3,20 +3,19 @@
  */
 package com.u2d.ui;
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 /**
  * A caption is a JLabel that can span multiple lines.  The implementation
  * relies on the ability to use html for the label text (the <p> tag is 
  * used as a line break)
- * 
+ *
  * @author Eitan Suez
  */
 public class Caption extends JLabel
 {
    private int _breakPosition = 20;
-   
+
    public Caption() {}
    
    public Caption(String text)
@@ -105,5 +104,3 @@ public class Caption extends JLabel
    }
    
 }
-
-
