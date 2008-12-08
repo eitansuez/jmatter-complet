@@ -14,8 +14,7 @@ JComponent
 }
 ui|BasePopupMenu
 {
-  opacity: 0.7;
-  background-color: white;
+  background-color: gradient(0,0,white,120,0,rgba(255,255,255,0.5));
   border-radius: 10px;
   border: 1px solid black;
 }
@@ -25,11 +24,7 @@ jm|LoginDialog
   border-radius: 15px;
   border: 1px solid black;
   color: black;
- /*
-  background-color: white;
-  opacity: 0.7;
-  */
-  background-color: gradient(0,0,rgba(255,255,255,0.3), 0,100,rgba(255,255,255,1.0)); /* varying opacity */
+  background-color: gradient(0,0,rgba(255,255,255,0.3), 0,150,rgba(255,255,255,1.0)); /* varying opacity */
   padding: 20px 40px;
 }
 .login-innerpnl
