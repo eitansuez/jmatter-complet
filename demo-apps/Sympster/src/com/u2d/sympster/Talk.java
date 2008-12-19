@@ -20,22 +20,24 @@ Implemented in this way to illustrate how to allow for a table with a natural pr
 //@PKGen(strategy= PKGenStrategy.ASSIGNED)
 public class Talk extends AbstractComplexEObject implements Event
 {
-   private final StringEO title = new StringEO();
-   private final TextEO talkAbstract = new TextEO();
-   private Speaker speaker;
-   public static String speakerInverseFieldName = "talks";
-
    public static String[] fieldOrder = {"title", "talkAbstract", "speaker"};
    public static Color colorCode = new Color(0xff3333);
 //   public static String sortBy = "speaker";  // not yet working..
    public static String sortBy = "title";
    public static String defaultSearchpath = "title";
+   public static String[] readOnly = {"speaker"};
 
    public Talk() {}
 
+   private final StringEO title = new StringEO();
    @Fld(displaysize=25)
    public StringEO getTitle() { return title; }
+
+   private final TextEO talkAbstract = new TextEO();
    public TextEO getTalkAbstract() { return talkAbstract; }
+
+   private Speaker speaker;
+   public static String speakerInverseFieldName = "talks";
    public Speaker getSpeaker() { return speaker; }
    public void setSpeaker(Speaker speaker)
    {
