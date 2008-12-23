@@ -13,11 +13,11 @@ That is, you may choose from either of the following two licenses:
 
    2.  Commercial License
 
-      This license allows you distribute jMatter-based applications. This license is for organizations that do not want to release the source code for their applications as open source / free software.  See pricing for more information.  Below are the term's of UptoData's commercial license for jMatter.
+      This license allows you distribute jMatter-based applications. This license is for organizations that do not want to release the source code for their applications as open source / free software.  See pricing for more information.  Below are the term's of JMatterSoft's commercial license for jMatter.
 
 -----------------------------------------------------
 
-UptoData's jMatter License Agreement
+JMatterSoft's jMatter License Agreement
 
 
 IMPORTANT! READ CAREFULLY: THIS IS A LEGAL AGREEMENT. BY DOWNLOADING, INSTALLING, COPYING, SAVING ON YOUR COMPUTER, OR OTHERWISE USING jMatter, YOU (LICENSEE, AS DEFINED BELOW) ARE BECOMING A PARTY TO THIS AGREEMENT AND YOU ARE CONSENTING TO BE BOUND BY ALL THE TERMS AND CONDITIONS OF THIS AGREEMENT.
@@ -27,7 +27,7 @@ IF YOU DO NOT AGREE TO THE TERMS AND CONDITIONS OF THIS AGREEMENT, YOU SHOULD NO
 PARTIES
 -------
 
-  1. "UptoData" means UptoData, Inc. having its principal place of business at 9300 Axtellon Ct, Austin TX 78749, USA.
+  1. "JMatterSoft" means JMatterSoft LLC having its principal place of business at 1115 Kinwest Parkway, Suite 100, Irving TX 75063, USA.
 
   2. "Licensee" means the individual or legal entity specified in the License Certificate. For legal entities, "Licensee" includes any entity which controls, is controlled by, or is under common control with Licensee. For purposes of this definition, "control" means (i) the power, direct or indirect, to cause the direction or management of such entity, whether by contract or otherwise, or (ii) ownership of fifty percent (50%) or more of the outstanding shares or beneficial ownership of such entity.
 
@@ -39,23 +39,23 @@ DEFINITIONS
 
   2. "jMatter" means software program known as jMatter in binary form
 
-  3. "License Certificate" means evidence of a license provided by UptoData to Licensee in electronic or printed form.
+  3. "License Certificate" means evidence of a license provided by JMatterSoft to Licensee in electronic or printed form.
 
-  4. "License Key" means a unique key-code that enables a single Authorized User to use jMatter at a time. Only UptoData and/or its representatives are permitted to produce License Keys for jMatter.
+  4. "License Key" means a unique key-code that enables a single Authorized User to use jMatter at a time. Only JMatterSoft and/or its representatives are permitted to produce License Keys for jMatter.
   
   
 OWNERSHIP
 ---------
 
- - jMatter is the property of UptoData.  jMatter is licensed, not sold.  Title and copyrights to jMatter, in whole and in part and all copies thereof, and all modifications, enhancements, derivatives and other alterations of jMatter regardless of who made any modifications, if any, are, and will remain, the sole and exclusive property of UptoData.
+ - jMatter is the property of JMatterSoft.  jMatter is licensed, not sold.  Title and copyrights to jMatter, in whole and in part and all copies thereof, and all modifications, enhancements, derivatives and other alterations of jMatter regardless of who made any modifications, if any, are, and will remain, the sole and exclusive property of JmatterSoft.
  
- - jMatter is protected by United States Copyright Law and International Treaty provisions.  Further, the structure, organization, and code embodied in jMatter are the valuable and confidential trade secrets of UptoData and are protected by intellectual property laws and treaties.  Licensee agrees to abide by the copyright law and all other applicable laws of the United States including, but not limited to, export control laws.
+ - jMatter is protected by United States Copyright Law and International Treaty provisions.  Further, the structure, organization, and code embodied in jMatter are the valuable and confidential trade secrets of JMatterSoft and are protected by intellectual property laws and treaties.  Licensee agrees to abide by the copyright law and all other applicable laws of the United States including, but not limited to, export control laws.
  
  
 GRANT OF LICENSE
 ----------------
  
-Subject to the terms, conditions, and limitations set forth in this Agreement, UptoData hereby grants to Licensee a limited, non-exclusive, non-transferable license to use jMatter as follows:
+Subject to the terms, conditions, and limitations set forth in this Agreement, JMatterSoft hereby grants to Licensee a limited, non-exclusive, non-transferable license to use jMatter as follows:
  
  - Licensee may:
  
@@ -65,7 +65,7 @@ Subject to the terms, conditions, and limitations set forth in this Agreement, U
    
  - Licensee may not:
  
-   - sell, redistribute, encumber, give, lend, rent, lease, sublicense, or otherwise transfer jMatter, or any portions thereof, to anyone without the prior written consent of UptoData;
+   - sell, redistribute, encumber, give, lend, rent, lease, sublicense, or otherwise transfer jMatter, or any portions thereof, to anyone without the prior written consent of JMatterSoft;
    
    - reverse engineer, decompile, disassemble, modify, translate, make any attempt to discover the source code of jMatter, or create derivative works from jMatter;
 
@@ -73,54 +73,54 @@ Subject to the terms, conditions, and limitations set forth in this Agreement, U
 PROVISION FOR OPEN SOURCE DEVELOPMENT
 -------------------------------------
 
-In the event that Licensee represents a non-commercial, and open-source (as defined by the GNU Software Foundation) software development effort, UptoData hereby grants Licensee a free, non-expiring, limited, non-exclusive, non-transferrable license of jMatter.  This provision applies solely to open-source, non-commercial purposes.  That is, a developer that is a member of an open-source project may not employ, or apply jMatter for the development of commercial software.
+In the event that Licensee represents a non-commercial, and open-source (as defined by the GNU Software Foundation) software development effort, JMatterSoft hereby grants Licensee a free, non-expiring, limited, non-exclusive, non-transferrable license of jMatter.  This provision applies solely to open-source, non-commercial purposes.  That is, a developer that is a member of an open-source project may not employ, or apply jMatter for the development of commercial software.
 
    
 THIRD PART SOFTWARE
 -------------------
 
-Each third-party software item redistributed with jMatter is governed by its respective license. UptoData claims no right in the third-party Software, and the same is owned exclusively by the licensor(s) of the Third Party Software.  UptoData PROVIDES NO WARRANTY, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT, WITH RESPECT TO ANY THIRD PARTY SOFTWARE.
+Each third-party software item redistributed with jMatter is governed by its respective license. JMatterSoft claims no right in the third-party Software, and the same is owned exclusively by the licensor(s) of the Third Party Software.  JMatterSoft PROVIDES NO WARRANTY, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT, WITH RESPECT TO ANY THIRD PARTY SOFTWARE.
   
   
 LICENSE FEES AND PAYMENTS
 -------------------------
 
-  Licensee will pay to UptoData the license fee and other charges and expenses as set forth in an appropriate invoice or other purchase documentation.  UptoData may charge licensee interest for any payment that is more than thirty (30) days past due at the rate of one and one-half percent (1.5%) per month or the highest amount allowed by law, whichever is lower.
+  Licensee will pay to JMatterSoft the license fee and other charges and expenses as set forth in an appropriate invoice or other purchase documentation.  JMatterSoft may charge licensee interest for any payment that is more than thirty (30) days past due at the rate of one and one-half percent (1.5%) per month or the highest amount allowed by law, whichever is lower.
   
   
 UPGRADES
 --------
 
-Upgrades to new versions of jMatter are optional and may be provided by UptoData either for free or at an additional charge pursuant to the upgrade terms set forth by Licensor or in a separate agreement between Licensee and Licensor (if applicable).
+Upgrades to new versions of jMatter are optional and may be provided by JMatterSoft either for free or at an additional charge pursuant to the upgrade terms set forth by Licensor or in a separate agreement between Licensee and Licensor (if applicable).
   
 PATENT AND COPYRIGHT INDEMNITY
 ------------------------------
 
-  1. UptoData will defend and indemnify Licensee for all costs (including reasonable attorneys fees) arising from a claim that Software furnished and used within the scope of this Agreement infringes a U.S. copyright or U.S. patent provided that: (i) Licensee notify UptoData in writing within 30 days of the claim; (ii) UptoData has sole control of the defense and all related settlement negotiations, and (iii) Licensee provide UptoData with the assistance, information, and authority necessary to perform the above.
+  1. JMatterSoft will defend and indemnify Licensee for all costs (including reasonable attorneys fees) arising from a claim that Software furnished and used within the scope of this Agreement infringes a U.S. copyright or U.S. patent provided that: (i) Licensee notify JMatterSoft in writing within 30 days of the claim; (ii) JMatterSoft has sole control of the defense and all related settlement negotiations, and (iii) Licensee provide JMatterSoft with the assistance, information, and authority necessary to perform the above.
 
-  2. UptoData will have no liability for any claim of infringement based on (i) code contained within the Software which was not created by UptoData; (ii) use of a superseded or altered release of the Software, except for such alteration(s) or modification(s) which have been made by UptoData or under UptoData's direction, if such infringement would have been avoided by the use of a current, unaltered release of the Software that UptoData provides to Licensee, or (iii) the combination, operation, or use of any Software furnished under this Agreement with programs or data not furnished by UptoData if such infringement would have been avoided by the use of the Software without such programs or data.
+  2. JMatterSoft will have no liability for any claim of infringement based on (i) code contained within the Software which was not created by JMatterSoft; (ii) use of a superseded or altered release of the Software, except for such alteration(s) or modification(s) which have been made by JMatterSoft or under JMatterSoft's direction, if such infringement would have been avoided by the use of a current, unaltered release of the Software that JMatterSoft provides to Licensee, or (iii) the combination, operation, or use of any Software furnished under this Agreement with programs or data not furnished by JMatterSoft if such infringement would have been avoided by the use of the Software without such programs or data.
 
-  3. In the event the Software is held or believed by UptoData to infringe, or Licensee's use of the Software is enjoined, UptoData will have the option, at its expense, to (i) modify the Software to cause it to become non-infringing; (ii) obtain for Licensee a license to continue using the Software; (iii) substitute the Software with other Software reasonably suitable to Licensee, or (iv) if none of the foregoing remedies are commercially feasible, terminate the license for the infringing Software and refund any license fees paid for the Software, prorated over a three-year term from the effective date of the Agreement.
+  3. In the event the Software is held or believed by JMatterSoft to infringe, or Licensee's use of the Software is enjoined, JMatterSoft will have the option, at its expense, to (i) modify the Software to cause it to become non-infringing; (ii) obtain for Licensee a license to continue using the Software; (iii) substitute the Software with other Software reasonably suitable to Licensee, or (iv) if none of the foregoing remedies are commercially feasible, terminate the license for the infringing Software and refund any license fees paid for the Software, prorated over a three-year term from the effective date of the Agreement.
 
-This Section states UptoData's entire liability for infringement.
+This Section states JMatterSoft's entire liability for infringement.
 
 
 LIMITED WARRANTY
 ----------------
 
-  1. If Licensee has paid a license fee for the Software, then for a period of thirty (30) days from the date of receipt of the Software, UptoData warrants the Software against any defects resulting from the electronic transmission process, and that any Software media supplied by UptoData will be free from defects in materials and workmanship ("Limited Warranty").
+  1. If Licensee has paid a license fee for the Software, then for a period of thirty (30) days from the date of receipt of the Software, JMatterSoft warrants the Software against any defects resulting from the electronic transmission process, and that any Software media supplied by JMatterSoft will be free from defects in materials and workmanship ("Limited Warranty").
 
-  2. UptoData's entire liability and Licensee's exclusive remedy will be, at UptoData's option, either (i) return of the price paid, or (ii) repair or replacement of the Software that does not meet UptoData's Limited Warranty. This Limited Warranty is void if failure of the Software has resulted from accident, abuse, or misapplication. Any replacement Software will be warranted for an additional thirty (30) days. Outside the United States, neither these remedies nor any product support services offered by UptoData are available without proof of purchase from an authorized international source.
+  2. JMatterSoft's entire liability and Licensee's exclusive remedy will be, at JMatterSoft's option, either (i) return of the price paid, or (ii) repair or replacement of the Software that does not meet JMatterSoft's Limited Warranty. This Limited Warranty is void if failure of the Software has resulted from accident, abuse, or misapplication. Any replacement Software will be warranted for an additional thirty (30) days. Outside the United States, neither these remedies nor any product support services offered by JMatterSoft are available without proof of purchase from an authorized international source.
 
-  3. EXCEPT FOR THE FOREGOING LIMITED WARRANTY, THE SOFTWARE IS PROVIDED TO LICENSEE "AS IS" AND WITHOUT WARRANTIES. UptoData MAKES NO WARRANTY AS TO ITS USE OR PERFORMANCE. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, and UptoData, DISCLAIM ALL OTHER WARRANTIES AND CONDITIONS, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT, WITH REGARD TO THE SOFTWARE, AND THE PROVISION OF OR FAILURE TO PROVIDE SUPPORT SERVICES. THIS LIMITED WARRANTY GIVES LICENSEE SPECIFIC LEGAL RIGHTS. LICENSEE MAY HAVE OTHERS, WHICH VARY FROM STATE/JURISDICTION TO STATE/JURISDICTION.
+  3. EXCEPT FOR THE FOREGOING LIMITED WARRANTY, THE SOFTWARE IS PROVIDED TO LICENSEE "AS IS" AND WITHOUT WARRANTIES. JMatterSoft MAKES NO WARRANTY AS TO ITS USE OR PERFORMANCE. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, and JMatterSoft, DISCLAIM ALL OTHER WARRANTIES AND CONDITIONS, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT, WITH REGARD TO THE SOFTWARE, AND THE PROVISION OF OR FAILURE TO PROVIDE SUPPORT SERVICES. THIS LIMITED WARRANTY GIVES LICENSEE SPECIFIC LEGAL RIGHTS. LICENSEE MAY HAVE OTHERS, WHICH VARY FROM STATE/JURISDICTION TO STATE/JURISDICTION.
 
 
 DISCLAIMER OF DAMAGES
 ---------------------
 
-  1. REGARDLESS OF WHETHER ANY REMEDY SET FORTH HEREIN FAILS OF ITS ESSENTIAL PURPOSE, IN NO EVENT WILL UptoData BE LIABLE TO LICENSEE UNDER ANY THEORY FOR ANY DAMAGES SUFFERED BY LICENSEE OR ANY USER OF THE SOFTWARE, OR FOR ANY SPECIAL, INCIDENTAL, INDIRECT, CONSEQUENTIAL, OR SIMILAR DAMAGES (INCLUDING WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR ANY OTHER PECUNIARY LOSS) ARISING OUT OF THE USE OR INABILITY TO USE THE SOFTWARE, OR THE PROVISION OF OR FAILURE TO PROVIDE SUPPORT SERVICES, EVEN IF UptoData HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, AND REGARDLESS OF THE LEGAL OR EQUITABLE THEORY (CONTRACT, TORT OR OTHERWISE) UPON WHICH THE CLAIM IS BASED.
+  1. REGARDLESS OF WHETHER ANY REMEDY SET FORTH HEREIN FAILS OF ITS ESSENTIAL PURPOSE, IN NO EVENT WILL JMatterSoft BE LIABLE TO LICENSEE UNDER ANY THEORY FOR ANY DAMAGES SUFFERED BY LICENSEE OR ANY USER OF THE SOFTWARE, OR FOR ANY SPECIAL, INCIDENTAL, INDIRECT, CONSEQUENTIAL, OR SIMILAR DAMAGES (INCLUDING WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR ANY OTHER PECUNIARY LOSS) ARISING OUT OF THE USE OR INABILITY TO USE THE SOFTWARE, OR THE PROVISION OF OR FAILURE TO PROVIDE SUPPORT SERVICES, EVEN IF JMatterSoft HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, AND REGARDLESS OF THE LEGAL OR EQUITABLE THEORY (CONTRACT, TORT OR OTHERWISE) UPON WHICH THE CLAIM IS BASED.
 
-  2. IN ANY CASE, UptoData'S ENTIRE LIABILITY UNDER ANY PROVISION OF THIS AGREEMENT WILL BE LIMITED TO THE AMOUNT ACTUALLY PAID BY LICENSEE FOR THE SOFTWARE. BECAUSE SOME STATES AND JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY, THE ABOVE LIMITATION MAY NOT APPLY TO LICENSEE.
+  2. IN ANY CASE, JMatterSoft'S ENTIRE LIABILITY UNDER ANY PROVISION OF THIS AGREEMENT WILL BE LIMITED TO THE AMOUNT ACTUALLY PAID BY LICENSEE FOR THE SOFTWARE. BECAUSE SOME STATES AND JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY, THE ABOVE LIMITATION MAY NOT APPLY TO LICENSEE.
 
 
 U.S. GOVERNMENT RESTRICTED RIGHTS
@@ -132,7 +132,7 @@ The Software has been developed entirely at private expense and is provided as "
 TERMINATION
 -----------
 
-If Licensee fails to comply with the terms and conditions of this Agreement, this Agreement and Licensee's right and license to use the Software will terminate immediately. Licensee may terminate this Agreement at any time by notifying UptoData. Upon the termination of this Agreement, Licensee must delete the Software from its computers and archives.
+If Licensee fails to comply with the terms and conditions of this Agreement, this Agreement and Licensee's right and license to use the Software will terminate immediately. Licensee may terminate this Agreement at any time by notifying JMatterSoft. Upon the termination of this Agreement, Licensee must delete the Software from its computers and archives.
 
 LICENSEE AGREES THAT UPON TERMINATION OF THIS AGREEMENT FOR ANY REASON, UpoData MAY TAKE ACTIONS SO THAT THE SOFTWARE NO LONGER OPERATES.
 
@@ -140,21 +140,21 @@ LICENSEE AGREES THAT UPON TERMINATION OF THIS AGREEMENT FOR ANY REASON, UpoData 
 MARKETING
 ---------
 
-Licensee agree to be identified as a customer of UptoData and that UptoData may refer to Licensee by name, trade name and trademark, if applicable, and may briefly describe Licensee's business in UptoData's marketing materials, on UptoData's web site, in public or legal documents. Licensee hereby grants UptoData a license to use Licensee's name and any of Licensee's trade names and trademarks solely pursuant to this marketing section.
+Licensee agree to be identified as a customer of JMatterSoft and that JMatterSoft may refer to Licensee by name, trade name and trademark, if applicable, and may briefly describe Licensee's business in JMatterSoft's marketing materials, on JMatterSoft's web site, in public or legal documents. Licensee hereby grants JMatterSoft a license to use Licensee's name and any of Licensee's trade names and trademarks solely pursuant to this marketing section.
 
 
 GENERAL
 -------
 
-  1. UptoData reserves the right at any time to cease the support of jMatter and to alter prices, features, specifications, capabilities, functions, licensing terms, release dates, general availability or other characteristics of jMatter.
+  1. JMatterSoft reserves the right at any time to cease the support of jMatter and to alter prices, features, specifications, capabilities, functions, licensing terms, release dates, general availability or other characteristics of jMatter.
 
-  2. This Agreement, including the Third Party Software license agreements, constitutes the entire agreement between the parties concerning Licensee's use of jMatter, and supersedes any and all prior or contemporaneous oral or written representations, communications, or advertising with respect to jMatter. No purchase order, other ordering document or any hand written or typewritten text which purports to modify or supplement the printed text of this Agreement or any schedule will add to or vary the terms of this Agreement unless signed by both Licensee and UptoData.
+  2. This Agreement, including the Third Party Software license agreements, constitutes the entire agreement between the parties concerning Licensee's use of jMatter, and supersedes any and all prior or contemporaneous oral or written representations, communications, or advertising with respect to jMatter. No purchase order, other ordering document or any hand written or typewritten text which purports to modify or supplement the printed text of this Agreement or any schedule will add to or vary the terms of this Agreement unless signed by both Licensee and JMatterSoft.
 
   3. A waiver by either party of any term or condition of this Agreement or any breach thereof, in any one instance, will not waive such term or condition or any subsequent breach. The provisions of this Agreement which require or contemplate performance after the expiration or termination of this Agreement will be enforceable notwithstanding said expiration or termination.
 
   4. This Agreement will be governed by the laws of the United States of America, without reference to conflict of laws principles. Licensee agrees that any litigation relating to this Agreement may only be brought in, and will be subject to the jurisdiction of, any Court of the United States of America.
 
-  5. Titles are inserted for convenience only and will not affect in any way the meaning or interpretation of this Agreement. If any provision of this Agreement is held invalid, the remainder of this Agreement will continue in full force and effect. Either UptoData or Licensee may assign this Agreement in the case of a merger or sale of substantially all of its respective assets to another entity. This Agreement will be binding upon and will inure to the benefit of the parties, their successors and assigns.
+  5. Titles are inserted for convenience only and will not affect in any way the meaning or interpretation of this Agreement. If any provision of this Agreement is held invalid, the remainder of this Agreement will continue in full force and effect. Either JMatterSoft or Licensee may assign this Agreement in the case of a merger or sale of substantially all of its respective assets to another entity. This Agreement will be binding upon and will inure to the benefit of the parties, their successors and assigns.
 
 
-For exceptions or modifications to this Agreement, please contact UptoData by email at services@u2d.com
+For exceptions or modifications to this Agreement, please contact JMatterSoft by email at services@u2d.com
