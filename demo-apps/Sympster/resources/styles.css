@@ -7,6 +7,11 @@
 @namespace sympster com.u2d.sympster
 
 
+swingx|JXMapViewer, jmaps|MapView JComponent
+{
+ -c4s-ignore: true;
+}
+
 JComponent
 {
   font-family: "Arial", "Lucida Sans", sans-serif;
