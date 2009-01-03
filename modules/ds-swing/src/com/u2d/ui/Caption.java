@@ -75,6 +75,8 @@ public class Caption extends JLabel
    
    private String html(String text)
    {
+      if (text == null) return "<html></html>";
+      if (text.toLowerCase().startsWith("<html>")) return text;
       return "<html>" + text + "</html>";
    }
    private String center(String text)
