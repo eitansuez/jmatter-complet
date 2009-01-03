@@ -119,7 +119,8 @@ public class JListView extends SeeThruList
          }
          else
          {
-            view = SwingViewMechanism.getInstance().getListItemViewAdapter(ceo);
+            view = SwingViewMechanism.getInstance().getListItemView(ceo);
+            ((JComponent) view).setOpaque(true);
          }
          // ensure that if a change takes place in an item in the list,
          // that the list gets repainted: 
