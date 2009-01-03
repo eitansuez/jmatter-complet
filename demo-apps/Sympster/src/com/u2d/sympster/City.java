@@ -8,19 +8,14 @@ import javax.persistence.Entity;
 @Entity
 public class City extends AbstractComplexEObject
 {
+
+   public City() { }
+
    private final StringEO name = new StringEO();
-
-   public City()
-   {
-   }
-
-   public StringEO getName()
-   {
-      return name;
-   }
+   public StringEO getName() { return name; }
 
    public Title title()
    {
-      return name.title();
+      return new Title("<html><i>" + name.title().toString() + "</i></html>");
    }
 }
