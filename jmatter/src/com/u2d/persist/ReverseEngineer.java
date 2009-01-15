@@ -143,6 +143,7 @@ public class ReverseEngineer {
         = Pattern.compile(FOREIGN_KEY_NAME_PATTERN_WITHOUT_UNDERSCORE_CASE_SENSITIVE);
     loadDbProperties(hibernatePropertiesFileName);
     Class.forName(dbProperties.getProperty("hibernate.connection.driver_class"));
+    
     loadMetaData();
     for (Table table : database.tables) {
       String pojo = makePojo(packageName, table);
@@ -255,6 +256,7 @@ public class ReverseEngineer {
         dbProperties.getProperty("hibernate.connection.password"));
     DatabaseMetaData metadata = connection.getMetaData();
     database = new Database();
+    
     ResultSet resultSet = metadata.getTables(null, null, "%", new String[] {"TABLE"});
     while (resultSet.next()) {
       String tableName = resultSet.getString("TABLE_NAME");
@@ -282,16 +284,26 @@ public class ReverseEngineer {
           }
           table.columns.add(column);
         }
+       // System.out.printf("Before getindexinfo1 for table %s ...\n", tableName);
         ResultSet resultSetIndexes = metadata.getIndexInfo(null, null, tableName, true, false);
         while (resultSetIndexes.next()) {
-          Column column = table.findColumn(resultSetIndexes.getString("COLUMN_NAME"));
-          column.isUnique = true;
+          //16 Jan 09 -Added since COLUMN_NAME will be null for tableIndexStatistic
+          if(resultSetIndexes.getShort("TYPE")!= metadata.tableIndexStatistic)
+          {
+            Column column = table.findColumn(resultSetIndexes.getString("COLUMN_NAME"));
+            column.isUnique = true;
+          }
         }
+        //System.out.printf("Before getindexinfo2 for table %s ...\n", tableName);
         // Do the same thing for approximate == true.
         resultSetIndexes = metadata.getIndexInfo(null, null, tableName, true, true);
         while (resultSetIndexes.next()) {
-          Column column = table.findColumn(resultSetIndexes.getString("COLUMN_NAME"));
-          column.isUnique = true;
+          //16 Jan 09 -Added since COLUMN_NAME will be null for tableIndexStatistic
+          if(resultSetIndexes.getShort("TYPE")!= metadata.tableIndexStatistic)
+          {
+            Column column = table.findColumn(resultSetIndexes.getString("COLUMN_NAME"));
+            column.isUnique = true;
+          }
         }
         ResultSet resultSetKeys = metadata.getPrimaryKeys(null, null, tableName);
         while (resultSetKeys.next()) {
