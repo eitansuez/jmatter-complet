@@ -7,12 +7,15 @@ import java.beans.*;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.EObject;
 import com.u2d.model.NullComplexEObject;
+import com.u2d.model.ComplexType;
 import com.u2d.ui.Caption;
 import com.u2d.ui.UIUtils;
 import com.u2d.view.*;
 import com.u2d.view.swing.dnd.*;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import com.u2d.element.Command;
+import com.u2d.reflection.DefaultAction;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
@@ -65,7 +68,17 @@ public class IconView extends Caption implements ComplexEView
       Command defaultCmd = _ceo.defaultCommand();
       defaultAction = new CommandAdapter(defaultCmd, _ceo, this);
       _defaultActionListener = UIUtils.doubleClickActionListener(defaultAction);
-      addMouseListener(_defaultActionListener);
+
+      Class typeClass = _ceo.getClass();
+      if (typeClass.equals(ComplexType.class))
+      {
+         typeClass = ((ComplexType) _ceo).getJavaClass();
+      }
+      DefaultAction annotation = (DefaultAction) typeClass.getAnnotation(DefaultAction.class);
+      if (annotation == null || annotation.enabled())
+      {
+         addMouseListener(_defaultActionListener);
+      }
    }
 
    public void detach()
