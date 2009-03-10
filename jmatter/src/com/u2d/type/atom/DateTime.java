@@ -29,7 +29,7 @@ public class DateTime extends AbstractAtomicEO implements Searchable
    {
       _value = value;
    }
-   
+
    public Date dateValue() { return _value; }
    public void setValue(Date value)
    {
@@ -40,14 +40,14 @@ public class DateTime extends AbstractAtomicEO implements Searchable
    {
       if (value == null)
       {
-         _value = null;
+         setValue((Date) null);
          return;
       }
       if (!(value instanceof DateTime))
          throw new IllegalArgumentException("Invalid type on set;  must be DateTime");
       setValue(((DateTime) value).dateValue());
    }
-   
+
    public boolean isEmpty() { return _value == null; }
    
    public SimpleDateFormat formatter()
@@ -76,6 +76,12 @@ public class DateTime extends AbstractAtomicEO implements Searchable
    public String toString()
    {
       return title().toString();
+   }
+
+   public String marshal()
+   {
+      if (_value == null) return "";
+      return _dateFormat.format(_value);
    }
 
    public AtomicRenderer getRenderer() { return vmech().getDateTimeRenderer(); }
