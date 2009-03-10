@@ -6,8 +6,12 @@ import org.hibernate.Hibernate;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.H2Dialect;
 import org.hibernate.dialect.MySQLDialect;
-
 import javax.swing.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 
 /**
  * Date: May 24, 2005
@@ -20,27 +24,56 @@ public class ImgEOUserType extends BaseUserType
    public boolean equals(Object x, Object y)
    {
       if (x == null || (!(x instanceof ImgEO))) return false;
-      return ((ImgEO) x).equals(y);
+      return x.equals(y);
    }
 
    public Object nullSafeGet(java.sql.ResultSet rs, String[] names, Object owner)
       throws HibernateException, java.sql.SQLException
    {
-      ImageIcon value = (ImageIcon) Hibernate.SERIALIZABLE.nullSafeGet(rs, names[0]);
-      return (value==null) ? new ImgEO() : new ImgEO(value);
+      byte[] buf = (byte[]) Hibernate.BINARY.nullSafeGet(rs, names[0]);
+      if (buf != null)
+      {
+         ByteArrayInputStream src = new ByteArrayInputStream(buf);
+         try
+         {
+            BufferedImage img = ImageIO.read(src);
+            if (img != null)
+            {
+               ImageIcon icon = new ImageIcon(img);
+               return new ImgEO(icon);
+            }
+         }
+         catch (IOException e)
+         {
+         }
+      }
+      return new ImgEO();
    }
 
    public void nullSafeSet(java.sql.PreparedStatement pstmt, Object value, int index)
       throws HibernateException, java.sql.SQLException
    {
-      ImageIcon imgValue = null;
+      byte[] bytes = null;
       if (value != null)
       {
          ImgEO eo = (ImgEO) value;
          if (!eo.isEmpty())
-            imgValue = eo.imageValue();
+         {
+            BufferedImage img = eo.bufferedImageValue();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            try
+            {
+               ImageIO.write(img, "png", baos);
+               bytes = baos.toByteArray();
+               baos.close();
+            }
+            catch (IOException e)
+            {
+               e.printStackTrace();
+            }
+         }
       }
-      Hibernate.SERIALIZABLE.nullSafeSet(pstmt, imgValue, index);
+      Hibernate.BINARY.nullSafeSet(pstmt, bytes, index);
    }
 
    public Class returnedClass() { return ImgEO.class; }

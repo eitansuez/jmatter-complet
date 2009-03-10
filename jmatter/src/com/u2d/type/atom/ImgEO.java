@@ -3,7 +3,9 @@ package com.u2d.type.atom;
 import com.u2d.model.*;
 import com.u2d.ui.LocatableIcon;
 import javax.swing.*;
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import org.apache.commons.codec.binary.Base64;
 
@@ -19,6 +21,25 @@ public class ImgEO extends AbstractAtomicEO
 
    public Object getValue() { return _value; }
    public ImageIcon imageValue() { return _value; }
+
+   public BufferedImage bufferedImageValue()
+   {
+      Image image = _value.getImage();
+      if (image instanceof BufferedImage)
+      {
+         return (BufferedImage) image;
+      }
+      int type = BufferedImage.TYPE_INT_RGB;
+      BufferedImage bimage =
+            new BufferedImage(image.getWidth(null), image.getHeight(null), type);
+
+     Graphics g = bimage.createGraphics();
+     g.drawImage(image, 0, 0, null);
+     g.dispose();
+
+     return bimage;
+   }
+
 
    public void setValue(ImageIcon value)
    {
@@ -57,10 +78,8 @@ public class ImgEO extends AbstractAtomicEO
       try
       {
          ByteArrayOutputStream baos = new ByteArrayOutputStream();
-         ObjectOutputStream oos = new ObjectOutputStream(baos);
-         oos.writeObject(_value);
+         ImageIO.write(bufferedImageValue(), "png", baos);
          byte[] bytes = baos.toByteArray();
-         oos.close();
          baos.close();
          return new String(Base64.encodeBase64(bytes));
       }
@@ -71,10 +90,6 @@ public class ImgEO extends AbstractAtomicEO
       }
    }
 
-   public AtomicRenderer getRenderer() { return vmech().getImageRenderer(); }
-   public AtomicEditor getEditor() { return vmech().getImageEditor(); }
-
-   // attempt to resolve stringValue as a path or url
    public void parseValue(String stringValue)
    {
       if (StringEO.isEmpty(stringValue))
@@ -90,24 +105,24 @@ public class ImgEO extends AbstractAtomicEO
       }
       catch (java.net.MalformedURLException ex)
       {
-         // assume next that perhaps string is base64-encoding of serialized imageicon..
+         // assume next that perhaps string is base64-encoding of pngencodedimg
          try
          {
             byte[] buf = Base64.decodeBase64(stringValue.getBytes());
-            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(buf));
-            ImageIcon icon = (ImageIcon) ois.readObject();
-            setValue(icon);
+            ByteArrayInputStream src = new ByteArrayInputStream(buf);
+            BufferedImage img = ImageIO.read(src);
+            setValue(new ImageIcon(img));
          }
          catch (IOException e)
          {
             e.printStackTrace();
          }
-         catch (ClassNotFoundException e)
-         {
-            e.printStackTrace();
-         }
       }
    }
+
+
+   public AtomicRenderer getRenderer() { return vmech().getImageRenderer(); }
+   public AtomicEditor getEditor() { return vmech().getImageEditor(); }
 
    public EObject makeCopy() { return new ImgEO(imageValue()); }
 
