@@ -40,7 +40,7 @@ public class ReportingInterface
       {
          ClassLoader loader = Thread.currentThread().getContextClassLoader();
          java.net.URL layoutURL = loader.getResource(reportable.reportName());
-         JFreeReport report = null;
+         JFreeReport report;
          if (layoutURL == null)
          {
             report = new JFreeReport();
@@ -48,7 +48,7 @@ public class ReportingInterface
 
             // it really sucks that jfree makes me do this..
             TableModel model = reportable.tableModel();
-            TextFieldElementFactory factory = null;
+            TextFieldElementFactory factory;
             float start = 0;  int width = 200;
             for (int i=0; i<model.getColumnCount(); i++)
             {
