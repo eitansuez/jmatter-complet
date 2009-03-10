@@ -24,7 +24,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.beans.XMLEncoder;
 import java.beans.XMLDecoder;
-
 import org.jdesktop.swingx.JXPanel;
 
 /**

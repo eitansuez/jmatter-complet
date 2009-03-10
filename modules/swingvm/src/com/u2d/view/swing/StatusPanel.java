@@ -3,12 +3,9 @@ package com.u2d.view.swing;
 import com.u2d.model.AtomicEObject;
 import com.u2d.view.EView;
 import com.u2d.view.swing.atom.StatusView;
-
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import java.awt.*;
 import java.util.ArrayList;
-
 import org.jdesktop.swingx.JXPanel;
 
 /**

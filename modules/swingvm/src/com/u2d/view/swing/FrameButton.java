@@ -1,7 +1,6 @@
 package com.u2d.view.swing;
 
 import com.u2d.ui.BaseToggleButton;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

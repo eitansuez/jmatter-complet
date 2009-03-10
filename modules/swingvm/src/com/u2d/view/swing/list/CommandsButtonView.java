@@ -10,7 +10,6 @@ import com.u2d.pattern.OnionPeeler;
 import com.u2d.pattern.Processor;
 import com.u2d.element.Command;
 import com.u2d.css4swing.style.ComponentStyle;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
