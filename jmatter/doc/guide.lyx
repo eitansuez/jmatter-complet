@@ -20026,32 +20026,48 @@ minimize
 jmatter/resources/app/uidefaults_??.properties
 \emph default
 .
- For example, here are some hebrew translations for ui defaults loaded by
- JMatter (the file name is uidefaults_iw.properties):
+ For example, the figure below shows some hebrew translations for ui defaults
+ loaded by JMatter (the file name is uidefaults_iw.properties):
 \end_layout
 
 \begin_layout LyX-Code
-InternalFrame.closeButtonToolTip=
-\lang hebrew
-סגור
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/uilocalization.png
+	scale 50
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout LyX-Code
-InternalFrame.iconButtonToolTip=
-\lang hebrew
-הקטן
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+UI Defaults Localization (e.g.
+ Hebrew)
 \end_layout
 
-\begin_layout LyX-Code
-InternalFrame.restoreButtonToolTip=
-\lang hebrew
-החזר
+\end_inset
+
+
 \end_layout
 
-\begin_layout LyX-Code
-InternalFrame.maxButtonToolTip=
-\lang hebrew
-הגדל
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
