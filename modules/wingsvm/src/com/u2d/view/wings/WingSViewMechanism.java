@@ -316,6 +316,11 @@ public class WingSViewMechanism implements ViewMechanism
    public AtomicRenderer getStringRenderer()    { return new StringRenderer(); }
    public AtomicEditor getStringEditor() { return new StringEditor(); }
 
+   public AtomicEditor getMultiPickEditor(String[] options)
+   {
+      return null;
+   }
+
    public AtomicRenderer getPasswordRenderer() { return new PasswordRenderer(); }
    public AtomicEditor getPasswordEditor() { return new PasswordEditor(); }
 

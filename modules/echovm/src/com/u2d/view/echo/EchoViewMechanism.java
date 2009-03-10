@@ -325,6 +325,11 @@ public class EchoViewMechanism implements ViewMechanism
       return null;
    }
 
+   public AtomicEditor getMultiPickEditor(String[] options)
+   {
+      return null;
+   }
+
    public AtomicRenderer getPasswordRenderer()
    {
       return null;
