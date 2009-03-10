@@ -1017,7 +1017,7 @@ public class ComplexType extends AbstractComplexEObject
       {
          if (searchFieldMap.get(fp) == null)
          {
-            List searchFields = new ArrayList();
+            java.util.List searchFields = new ArrayList();
             if (fp instanceof ComplexType && ((ComplexType) fp).hasConcreteSubTypes())
             {
                searchFields.add(fp);

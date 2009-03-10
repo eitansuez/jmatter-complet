@@ -23,7 +23,7 @@ import com.u2d.type.atom.DateTime;
 public interface ComplexEObject 
       extends EObject, AppEventNotifier,
               PersistorListener, Searchable,
-              Transferable, PropertyChangeNotifier,
+              Transferable,
               Typed, PostChangeNotifier
                                           
 {

@@ -126,7 +126,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          l.stateChanged(null);
       }
    }
-   
+
    public void onDelete()
    {
       vmech().message(ComplexType.localeLookupStatic("deleted")+" "+title());
@@ -523,44 +523,6 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public boolean hasCustomMainTabPanel() { return false; }
    public EView mainTabPanel() { return null; }
 
-   /* ** PropertyChangeSupport "Support" ** */
-   protected transient SwingPropertyChangeSupport _changeSupport = new SwingPropertyChangeSupport(this);
-
-   public void firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
-      _changeSupport.firePropertyChange(propertyName, oldValue, newValue);
-   }
-   public void firePropertyChange(PropertyChangeEvent event)
-   {
-      _changeSupport.firePropertyChange(event);
-   }
-   public void firePropertyChange(String propertyName, int oldValue, int newValue)
-   {
-      firePropertyChange(propertyName, new Integer(oldValue), new Integer(newValue));
-   }
-   public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue)
-   {
-      firePropertyChange(propertyName, Boolean.valueOf(oldValue), Boolean.valueOf(newValue));
-   }
-
-   public void addPropertyChangeListener(PropertyChangeListener listener)
-   {
-      _changeSupport.addPropertyChangeListener(listener);
-   }
-   public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
-   {
-      _changeSupport.addPropertyChangeListener(propertyName, listener);
-   }
-
-   public void removePropertyChangeListener(PropertyChangeListener listener)
-   {
-      _changeSupport.removePropertyChangeListener(listener);
-   }
-   public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener)
-   {
-      _changeSupport.removePropertyChangeListener(propertyName, listener);
-   }
-
    /*
    * note this code is from the perspective of the ui
    * it gives editor (ui) a chance to transfer entered
@@ -597,9 +559,11 @@ public abstract class AbstractComplexEObject extends AbstractEObject
 
    public int validate()
    {
-      if (field() == null)
-         return type().validate(this);
-      return 0;
+      if (field() != null && field().isComposite())
+      {
+         return 0;
+      }
+      return type().validate(this);
    }
 
 

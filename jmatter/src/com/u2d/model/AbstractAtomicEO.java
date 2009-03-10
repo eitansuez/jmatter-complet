@@ -42,5 +42,16 @@ public abstract class AbstractAtomicEO extends AbstractEObject
    public String iconSmResourceRef() { return null; }
    public String iconLgResourceRef() { return null; }
 
-   public String marshal() {  return toString(); } 
+   public String marshal() {  return toString(); }
+
+
+   protected boolean _readOnly = false;
+   public boolean isReadOnly() { return _readOnly; }
+   public void setReadOnly(boolean readOnly)
+   {
+      boolean oldValue = _readOnly;
+      _readOnly = readOnly;
+      firePropertyChange("readOnly", oldValue, _readOnly);
+   }
+
 }

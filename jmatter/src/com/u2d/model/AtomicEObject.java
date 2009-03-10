@@ -13,12 +13,17 @@ import java.util.Collection;
  */
 public interface AtomicEObject extends EObject, Marshallable
 {
-   public void parseValue(String stringValue) throws java.text.ParseException;
-   public AtomicRenderer getRenderer();
-   public AtomicEditor getEditor();
+   void parseValue(String stringValue) throws java.text.ParseException;
+   AtomicRenderer getRenderer();
+   AtomicEditor getEditor();
 
    // validation-related:
-   public void addRule(Rule rule);
-   public void removeRule(Rule rule);
-   public Collection<Rule> rules();
+   void addRule(Rule rule);
+   void removeRule(Rule rule);
+   Collection<Rule> rules();
+
+   // this introduces the need to track properties on atomics
+   boolean isReadOnly();
+   void setReadOnly(boolean readOnly);
+
 }

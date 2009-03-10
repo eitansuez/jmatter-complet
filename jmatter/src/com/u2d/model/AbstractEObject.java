@@ -10,6 +10,8 @@ import com.u2d.validation.ValidationEvent;
 import com.u2d.validation.ValidationListener;
 import com.u2d.view.*;
 import javax.swing.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * @author Eitan Suez
@@ -136,6 +138,44 @@ public abstract class AbstractEObject
          field().get(parentObject()).fireValidationException(errorMsg, false);
       }
       fireValidationException(errorMsg, false);
+   }
+
+   /* ** PropertyChangeSupport "Support" ** */
+   protected transient SwingPropertyChangeSupport _changeSupport = new SwingPropertyChangeSupport(this);
+
+   public void firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      _changeSupport.firePropertyChange(propertyName, oldValue, newValue);
+   }
+   public void firePropertyChange(PropertyChangeEvent event)
+   {
+      _changeSupport.firePropertyChange(event);
+   }
+   public void firePropertyChange(String propertyName, int oldValue, int newValue)
+   {
+      firePropertyChange(propertyName, new Integer(oldValue), new Integer(newValue));
+   }
+   public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue)
+   {
+      firePropertyChange(propertyName, Boolean.valueOf(oldValue), Boolean.valueOf(newValue));
+   }
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
+   {
+      _changeSupport.addPropertyChangeListener(listener);
+   }
+   public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
+   {
+      _changeSupport.addPropertyChangeListener(propertyName, listener);
+   }
+
+   public void removePropertyChangeListener(PropertyChangeListener listener)
+   {
+      _changeSupport.removePropertyChangeListener(listener);
+   }
+   public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener)
+   {
+      _changeSupport.removePropertyChangeListener(propertyName, listener);
    }
 
 }

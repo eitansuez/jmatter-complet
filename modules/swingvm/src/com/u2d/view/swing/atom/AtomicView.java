@@ -89,7 +89,8 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
 
       if (_eo.parentObject() != null)
       {
-         setEditable(_eo.parentObject().isEditableState() && !_eo.field().isReadOnly()
+         boolean readOnly = _eo.field().isReadOnly() || _eo.isReadOnly();
+         setEditable(_eo.parentObject().isEditableState() && !readOnly
            && !(((CompositeField) _eo.field()).isIdentity() && !_eo.parentObject().isTransientState()) );
       }
       else
@@ -117,12 +118,14 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
       {
          public void propertyChange(PropertyChangeEvent evt)
          {
-            setEditable(!_eo.field().isReadOnly());
+            boolean readOnly = _eo.field().isReadOnly() || _eo.isReadOnly();
+            setEditable(!readOnly);
          }
       };
       if (_eo.field() != null)
       {
          _eo.field().addPropertyChangeListener("readOnly", readOnlyListener);
+         _eo.addPropertyChangeListener("readOnly", readOnlyListener);
       }
    }
 
@@ -173,6 +176,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
       {
          _eo.field().removePropertyChangeListener("readOnly", readOnlyListener);
       }
+      _eo.removePropertyChangeListener("readOnly", readOnlyListener);
 
       removeAll();  // precaution
       // noticing some strange references held on stringeditor such as CompositionAreaHandler

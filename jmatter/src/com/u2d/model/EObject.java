@@ -11,7 +11,7 @@ import com.u2d.validation.ValidationNotifier;
  * @author Eitan Suez
  */
 public interface EObject
-       extends ValidationNotifier, ChangeNotifier, Viewable
+       extends ValidationNotifier, ChangeNotifier, Viewable, PropertyChangeNotifier
 {
    public Title title();
    public boolean isEmpty();
