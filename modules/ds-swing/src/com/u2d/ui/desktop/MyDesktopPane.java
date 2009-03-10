@@ -1,7 +1,6 @@
 package com.u2d.ui.desktop;
 
 import org.jdesktop.swingx.painter.Painter;
-
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameAdapter;
