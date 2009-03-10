@@ -3,8 +3,6 @@
  */
 package com.u2d.ui;
 
-import org.jdesktop.swingx.JXButton;
-
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -35,14 +33,26 @@ public class LockedButton extends NormalButton implements ActionListener
       setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
       Dimension min = new Dimension(0,0);
       Dimension preferred = getPreferredSize();
-      Dimension max = new Dimension(500, 3);
+      Dimension max = new Dimension(500,3);
       Box.Filler elastic = new Box.Filler(min, preferred, max);
       add(elastic);
       add(_lock);
       setOpaque(false);
       super.setEnabled(false);
    }
-   
+
+   /*
+    * overridden because otherwise getMinimumSize() returns null, causing
+    *  a nullpointerexception, when the button text contains html
+    * see basicbuttonui line 344.  d.width is referenced when d == null
+    * because BasicGraphicUtils.getPreferredButtonSize returns null
+    */
+   @Override
+   public Dimension getMinimumSize()
+   {
+      return new Dimension(10,10);
+   }
+
    public void setEnabled(boolean enabled)
    {
       if (_lock == null)
