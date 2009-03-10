@@ -90,8 +90,10 @@ public class NullViewMechanism implements ViewMechanism
    public AtomicEView getAtomicView(AtomicEObject eo) { return null; }
 
    public AtomicRenderer getStringRenderer() { return null; }
-   public AtomicEditor getStringEditor() { return null; } 
-   public AtomicRenderer getPasswordRenderer() { return null; } 
+   public AtomicEditor getStringEditor() { return null; }
+   public AtomicEditor getMultiPickEditor(String[] options) { return null; }
+
+   public AtomicRenderer getPasswordRenderer() { return null; }
    public AtomicEditor getPasswordEditor() { return null; } 
    public AtomicRenderer getBooleanRenderer() { return null; } 
    public AtomicEditor getBooleanEditor() { return null; } 

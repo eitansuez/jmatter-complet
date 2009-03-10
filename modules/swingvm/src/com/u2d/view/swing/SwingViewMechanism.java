@@ -782,6 +782,10 @@ public class SwingViewMechanism implements ViewMechanism
 
    public AtomicRenderer getStringRenderer() { return new StringRenderer(); }
    public AtomicEditor getStringEditor() { return new StringEditor(); }
+   public AtomicEditor getMultiPickEditor(String[] options)
+   {
+      return new MultiPickEditor(options);
+   }
 
    public AtomicRenderer getPasswordRenderer() { return new PasswordRenderer(); }
    public AtomicEditor getPasswordEditor() { return new PasswordEditor(); }

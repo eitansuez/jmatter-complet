@@ -95,6 +95,7 @@ public interface ViewMechanism
 
    public AtomicRenderer getStringRenderer();
    public AtomicEditor getStringEditor();
+   public AtomicEditor getMultiPickEditor(String[] options);
 
    public AtomicRenderer getPasswordRenderer();
    public AtomicEditor getPasswordEditor();
