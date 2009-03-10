@@ -184,7 +184,7 @@ Eitan Suez
 \begin_layout Standard
 \noindent
 \align center
-September 2008
+March 2009
 \end_layout
 
 \begin_layout Standard
@@ -222,7 +222,7 @@ copyright
 \end_inset
 
  \InsetSpace \space{}
-2008 JMatterSoft LLC.
+2009 JMatterSoft LLC.
  All rights reserved.
 \end_layout
 
@@ -897,7 +897,6 @@ reference "cha:Deploying-your-Application"
 At the time of writing, JMatter already has early (alpha quality) implementation
 s of the infrastructure necessary to deploy the very same applications over
  the world wide web, using a three-tier architecture.
- We hope to release a final implementation some time in 2008.
  This will give users the ability to deploy their applications either to
  the web or using Swing, or both (a mixed population of users).
 \end_layout
