@@ -5,7 +5,6 @@ import com.u2d.model.AtomicEditor;
 import com.u2d.model.AtomicEObject;
 import com.u2d.type.atom.BooleanEO;
 import com.u2d.type.atom.TextEO;
-import com.u2d.type.atom.DateEO;
 import com.u2d.view.swing.atom.BooleanCheckboxEditor;
 import com.u2d.view.swing.atom.TextEditor;
 import com.u2d.view.ActionNotifier;
@@ -65,7 +64,12 @@ public class AtomicTableCellEditor extends AbstractCellEditor
 
       currentEditor = fetchEditor(aeo);
       currentEditor.render(aeo);
-         
+
+      if (currentEditor instanceof JComboBox)
+      {
+         ((JComboBox) currentEditor).getModel().setSelectedItem(aeo);
+      }
+
       return (Component) currentEditor;
    }
 
