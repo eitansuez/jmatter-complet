@@ -117,17 +117,20 @@ public class JSON
          else if (field.isAssociation() && spec!=null)
          {
             ComplexEObject association = (ComplexEObject) childObject;
-            if (spec.includes(field.name()))
+            if (!association.isEmpty())
             {
-               obj.put(field.name(), json(association, spec.specFor(field.name())));
-            }
-            else if (spec.byRef(field.name()))
-            {
-               JSONObject child = new JSONObject();
-               child.put("byRef", "true");
-               child.put("type", association.getClass().getName());
-               child.put("id", association.getID());
-               obj.put(field.name(), child);
+               if (spec.includes(field.name()))
+               {
+                  obj.put(field.name(), json(association, spec.specFor(field.name())));
+               }
+               else if (spec.byRef(field.name()))
+               {
+                  JSONObject child = new JSONObject();
+                  child.put("byRef", "true");
+                  child.put("type", association.getClass().getName());
+                  child.put("id", association.getID());
+                  obj.put(field.name(), child);
+               }
             }
          }
       }
