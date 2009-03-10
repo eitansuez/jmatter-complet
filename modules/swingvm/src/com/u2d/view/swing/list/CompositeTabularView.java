@@ -8,9 +8,7 @@ import com.u2d.type.atom.NumericEO;
 import com.u2d.view.EView;
 import com.u2d.view.ListEView;
 import com.u2d.view.swing.CommandAdapter;
-import com.u2d.model.ComplexEObject;
-import com.u2d.model.EObject;
-import com.u2d.model.Editor;
+import com.u2d.model.*;
 import com.u2d.css4swing.style.ComponentStyle;
 import com.u2d.app.Tracing;
 import com.u2d.field.CompositeField;
@@ -32,32 +30,34 @@ import net.miginfocom.layout.AC;
  * Time: 3:46:22 PM
  *
  * The idea here is to use a tabular layout but not a jtable.
- * i.e. use FormLayout to layout the rows and columns properly for a list
- *
- * Separately: this class is a good example of where java breaks down from a perspective of
- * refactoring.  I want to refactor the pattern of iterating over the fields, which is repeated
- * here three times, and in FormView.  A closure would make the implementation DRY, devoid of
- * cruft (like the creation of inner classes and interfaces).
+ * i.e. layout the rows and columns properly like a grid.
  */
 public class CompositeTabularView extends JPanel implements ListEView, Editor
 {
    private CompositeList _leo;
 
    private List<EView> _childViews;  // exclude read-only fields
-   private IconButton _addBtn;
    private List _typefields;
    private JPanel _panel;
+   private boolean _fixedList;
+   private IconButton _addBtn;
 
    public CompositeTabularView(CompositeList leo)
+   {
+      this(leo, false);
+   }
+   public CompositeTabularView(CompositeList leo, boolean fixedList)
    {
       _leo = leo;
       _typefields = _leo.type().fields();
       _leo.parentObject().addChangeListener(this);
 
+      _fixedList = fixedList;
+
       setOpaque(false);
       layMeOut();
 
-      bind();
+      _leo.addListDataListener(this);
    }
 
    private void addSeparator()
@@ -105,7 +105,10 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
       addSeparator();  // line below table
 
       add(_panel, BorderLayout.CENTER);
-      add(btnPanel(), BorderLayout.PAGE_END);
+      if (!_fixedList)
+      {
+         add(btnPanel(), BorderLayout.PAGE_END);
+      }
    }
 
    private void addRowForObject(ComplexEObject eo) { addRowForObject(eo, false); }
@@ -116,7 +119,7 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
       {
          _panel.remove(_panel.getComponentCount()-1);
       }
-      
+
       for (int col=0; col<_typefields.size(); col++)
       {
          Field field = (Field) _typefields.get(col);
@@ -171,15 +174,11 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
       }
 
       LC constraints = new LC();
-      constraints.wrapAfter(numCols).gridGapX("unrel").fill();
+      constraints.wrapAfter(numCols).gridGapX("unrel").fillX();
       return new MigLayout(constraints, colConstraints);
    }
 
    public EObject getEObject() { return _leo; }
-   private void bind()
-   {
-      _leo.addListDataListener(this);
-   }
 
    public void detach()
    {
@@ -196,7 +195,7 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
 
    public void stateChanged(ChangeEvent e)
    {
-      if (_leo.parentObject() != null)
+      if (_leo.parentObject() != null && !_fixedList)
       {
          _addBtn.setEnabled(_leo.parentObject().isEditableState());
       }
@@ -211,7 +210,6 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
          addRowForObject(eo, true);
       }
    }
-
    public void intervalRemoved(ListDataEvent e) { }
    public void contentsChanged(ListDataEvent e) { }
 
@@ -266,6 +264,9 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
             Field field = eo.field();
 
             if (field.hidden()) continue;
+
+            if ( editable && (eo instanceof AtomicEObject) && ((AtomicEObject) eo).isReadOnly() )
+               continue;
 
             if (field.isComposite() && editable && !field.isIndexed())
             {
