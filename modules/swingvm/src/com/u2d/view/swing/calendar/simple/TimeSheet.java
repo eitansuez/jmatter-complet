@@ -55,11 +55,17 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
       {
          public void actionPerformed(ActionEvent evt)
          {
+            Command cmd = _list.command("New");
+            // .. unless command is forbidden / unauthorized
+            if (cmd.isForbidden(_list))
+            {
+               return;
+            }
+
             CalActionEvent tevt = (CalActionEvent) evt;
             Date startDate = tevt.getTime();
             final TimeSpan span = new TimeSpan(startDate, CalEvent.DEFAULT_DURATION);
 
-            Command cmd = _list.command("New");
             cmd.setCallback(new Callback()
             {
                public void call(Object obj)
