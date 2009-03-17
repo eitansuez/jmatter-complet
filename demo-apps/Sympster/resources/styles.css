@@ -102,7 +102,7 @@ jm|FieldCaption
 
 ui|NormalButton
 {
-  border-radius: 5px;
+  border-radius: 3px;
   border: 1px solid black;
   opacity: 0.7;
   background-color: gradient(0,0,#F9FBFC, 0,20,#C0D4E8);
