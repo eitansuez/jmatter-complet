@@ -111,6 +111,7 @@ public class AppFrame extends JFrame implements AppContainer
       JPanel contentPane = (JPanel) getContentPane();
 
       _desktopPane = new EODesktopPane();
+      ComponentStyle.addClass(_desktopPane, "loggedin");
       _desktopPane.getContextMenu().addSeparator();
       _desktopPane.getContextMenu().add(new QuitAction());
       setupInstructionView();
@@ -126,6 +127,7 @@ public class AppFrame extends JFrame implements AppContainer
         // to the bottom and status pane stops at right edge of classbar
 
       _loggedOutDesktopPane = new EODesktopPane();
+      ComponentStyle.addClass(_loggedOutDesktopPane, "loggedout");
       _loggedOutDesktopPane.setEnabled(false);
 
       _sessionCardPanel = new CardPanel();
