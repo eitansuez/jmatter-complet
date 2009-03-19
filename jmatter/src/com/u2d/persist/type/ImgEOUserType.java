@@ -4,8 +4,9 @@ import com.u2d.type.atom.ImgEO;
 import org.hibernate.HibernateException;
 import org.hibernate.Hibernate;
 import org.hibernate.dialect.Dialect;
-import org.hibernate.dialect.H2Dialect;
 import org.hibernate.dialect.MySQLDialect;
+import org.hibernate.dialect.H2Dialect;
+
 import javax.swing.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -78,24 +79,20 @@ public class ImgEOUserType extends BaseUserType
 
    public Class returnedClass() { return ImgEO.class; }
 
-   private static int[] TYPES = { java.sql.Types.VARBINARY};
-   private static int[] H2TYPES = { java.sql.Types.LONGVARBINARY};
-   private static int[] MYSQLTYPES = { java.sql.Types.BLOB };
-
    public int[] sqlTypes()
    {
       Dialect dialect = Dialect.getDialect();
-      if (dialect instanceof H2Dialect)
+      if (dialect instanceof MySQLDialect || dialect.getClass().getName().startsWith("Oracle"))
       {
-         return H2TYPES;
+         return new int[] { java.sql.Types.BLOB };
       }
-      else if (dialect instanceof MySQLDialect)
+      else if (dialect instanceof H2Dialect)
       {
-         return MYSQLTYPES;
+         return new int[] { java.sql.Types.LONGVARBINARY };
       }
       else
       {
-         return TYPES;
+         return new int[] { java.sql.Types.VARBINARY };
       }
    }
 
