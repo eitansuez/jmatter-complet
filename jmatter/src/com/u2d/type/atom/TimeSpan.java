@@ -135,9 +135,12 @@ public class TimeSpan extends AbstractAtomicEO
       assign(_startCal, _endCal);
       fireStateChanged();
    }
-   
-   
+
    public boolean contains(Date date)
+   {
+      return contains(date, true);
+   }
+   public boolean contains(Date date, boolean inclusive)
    {
       // check no further than resolution of one second
       long item = date.getTime();
@@ -145,8 +148,16 @@ public class TimeSpan extends AbstractAtomicEO
       long lowerbound_sec = _startCal.getTimeInMillis() / 1000;
       long upperbound_sec = _endCal.getTimeInMillis() / 1000;
 
-         return ( item_sec <= upperbound_sec ) && 
+      if (inclusive)
+      {
+         return ( item_sec <= upperbound_sec ) &&
                 ( item_sec >= lowerbound_sec );
+      }
+      else
+      {
+         return (item_sec < upperbound_sec ) &&
+               ( item_sec > lowerbound_sec );
+      }
    }
    
    public boolean containsCompletely(TimeSpan span)
@@ -157,7 +168,7 @@ public class TimeSpan extends AbstractAtomicEO
    
    public boolean containsOrIntersects(TimeSpan span)
    {
-      return contains(span.startDate()) || contains(span.endDate());
+      return contains(span.startDate(), false) || contains(span.endDate(), false);
    }
    
    
