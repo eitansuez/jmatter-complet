@@ -82,7 +82,7 @@ public class ImgEOUserType extends BaseUserType
    public int[] sqlTypes()
    {
       Dialect dialect = Dialect.getDialect();
-      if (dialect instanceof MySQLDialect || dialect.getClass().getName().startsWith("Oracle"))
+      if (dialect instanceof MySQLDialect || dialect.getClass().getName().startsWith("org.hibernate.dialect.Oracle"))
       {
          return new int[] { java.sql.Types.BLOB };
       }
