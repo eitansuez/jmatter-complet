@@ -9,6 +9,7 @@ import com.u2d.calendar.Calendrier;
 import com.u2d.calendar.Schedule;
 import com.u2d.element.CommandInfo;
 import com.u2d.element.EOCommand;
+import com.u2d.element.Command;
 import com.u2d.field.Association;
 import com.u2d.find.CompositeQuery;
 import com.u2d.list.RelationalList;
@@ -209,5 +210,8 @@ public interface ViewMechanism
    public EView getInstructionView(Instruction instruction);
 
    public void setEditable(Editor editor, boolean editable);
+
+   public EView getCommandView(Command cmd, EObject eo);
+   
    
 }
