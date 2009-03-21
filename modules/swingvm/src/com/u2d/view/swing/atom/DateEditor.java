@@ -52,6 +52,8 @@ public class DateEditor extends JPanel
          {
             if (_chooser == null) setupChooser();
 
+            positionChooser();
+
             if (_tf.getText().trim().length() > 0)
             {
                try
@@ -125,15 +127,28 @@ public class DateEditor extends JPanel
          System.err.println("What's DateField's top-level container?:\n\t"+container);
       }
       _chooser.setDragable(false);
-      _chooser.setLocation(positionChooser());
    }
    
-   private Point positionChooser()
+   private void positionChooser()
    {
       // need btn location on screen, not relative,
       // because dialog positioning is screen-relative..
       Point iconLoc = _calendarBtn.getLocationOnScreen();
-      return new Point( iconLoc.x + _calendarBtn.getWidth() + 5, iconLoc.y );
+
+      int pad = 5;
+      int xright = iconLoc.x + _calendarBtn.getWidth() + pad;
+      int xleft = iconLoc.x - pad - _chooser.getWidth();
+      int ydown = iconLoc.y;
+      int yup = iconLoc.y + _calendarBtn.getHeight() - _chooser.getHeight();
+
+      Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+      boolean right = _chooser.getWidth() < (screen.width - xright);
+      boolean down = _chooser.getHeight() < (screen.height - ydown);
+
+      int x = (right) ? xright : xleft;
+      int y = (down) ? ydown : yup;
+
+      _chooser.setLocation(new Point(x, y));
    }
 
 
