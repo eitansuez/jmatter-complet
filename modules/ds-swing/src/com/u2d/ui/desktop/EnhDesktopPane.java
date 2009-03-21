@@ -63,6 +63,11 @@ public class EnhDesktopPane extends MyDesktopPane
       _msgView = new MsgView();
    }
 
+   public void setMsgPnlTimerDelay(int ms)
+   {
+      _msgPnl.setDelay(ms);
+   }
+
    class BasicListModel extends AbstractListModel
    {
       private java.util.List<String> _items;
