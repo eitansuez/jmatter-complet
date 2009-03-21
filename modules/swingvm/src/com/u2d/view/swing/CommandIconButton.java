@@ -5,6 +5,7 @@ import com.u2d.view.EView;
 import com.u2d.element.Command;
 import com.u2d.model.EObject;
 import com.u2d.css4swing.style.ComponentStyle;
+import com.u2d.ui.NormalButton;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeEvent;
@@ -15,7 +16,7 @@ import java.beans.PropertyChangeEvent;
  * Date: Nov 13, 2006
  * Time: 2:02:03 PM
  */
-public class CommandIconButton extends JButton implements ComplexEView
+public class CommandIconButton extends NormalButton implements ComplexEView
 {
    private Command _cmd;
    private transient CommandAdapter _cmdAdapter;

@@ -5,7 +5,9 @@ import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.view.EView;
 import com.u2d.element.Field;
+import com.u2d.element.Command;
 import com.u2d.field.CompositeField;
+import com.u2d.field.Association;
 import com.u2d.ui.UIUtils;
 import com.jeta.forms.components.panel.FormPanel;
 import javax.swing.*;
@@ -34,6 +36,22 @@ public abstract class AbeilleForm extends FormPane implements IFormView
    protected JComponent getView(EObject eo)
    {
       EView view = eo.getMainView();
+      _views.add(view);
+      return (JComponent) view;
+   }
+   protected JComponent getAssociationView(Association association)
+   {
+      EView view = SwingViewMechanism.getInstance().getAssociationView(association);
+      _views.add(view);
+      return (JComponent) view;
+   }
+   protected JComponent getCommandView(Command cmd)
+   {
+      return getCommandView(cmd, eo());
+   }
+   protected JComponent getCommandView(Command cmd, EObject eo)
+   {
+      EView view = SwingViewMechanism.getInstance().getCommandView(cmd, eo);
       _views.add(view);
       return (JComponent) view;
    }

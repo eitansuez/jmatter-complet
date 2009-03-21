@@ -170,7 +170,7 @@ public class CompositeTabularView extends JPanel implements ListEView, Editor
          {
             alignment = "trailing";
          }
-         colConstraints.align(alignment).gap();
+         colConstraints.align(alignment).fill().gap();
       }
 
       LC constraints = new LC();

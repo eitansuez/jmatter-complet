@@ -111,6 +111,7 @@ public class AppFrame extends JFrame implements AppContainer
       JPanel contentPane = (JPanel) getContentPane();
 
       _desktopPane = new EODesktopPane();
+      _desktopPane.setMsgPnlTimerDelay(2000);
       ComponentStyle.addClass(_desktopPane, "loggedin");
       _desktopPane.getContextMenu().addSeparator();
       _desktopPane.getContextMenu().add(new QuitAction());

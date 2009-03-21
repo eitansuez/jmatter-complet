@@ -982,7 +982,12 @@ public class SwingViewMechanism implements ViewMechanism
       }
    }
 
-   
+   public EView getCommandView(Command cmd, EObject eo)
+   {
+      return new CommandButton(cmd, eo, null, false);
+   }
+
+
    // ================================
    // Custom Views:
    // ================================

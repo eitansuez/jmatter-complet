@@ -23,8 +23,10 @@ public class FormPane extends JXPanel implements Scrollable
       setOpaque(true);
    }
    
-   private static Dimension MAXSIZE = new Dimension(700,450);
-   
+   private static Dimension MAXSIZE = new Dimension(700,500);
+   @Override
+   public Dimension getMaximumSize() { return MAXSIZE; }
+
    public Dimension getPreferredScrollableViewportSize()
    {
       Dimension p = getPreferredSize();
@@ -38,8 +40,8 @@ public class FormPane extends JXPanel implements Scrollable
          p.height += 20;
       }
       
-      p.height = Math.min(p.height, MAXSIZE.height);
-      p.width = Math.min(p.width, MAXSIZE.width);
+      p.height = Math.min(p.height, getMaximumSize().height);
+      p.width = Math.min(p.width, getMaximumSize().width);
       return p;
    }
    public boolean getScrollableTracksViewportHeight()

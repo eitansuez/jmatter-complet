@@ -39,10 +39,13 @@ public class TabBodyView extends JPanel implements ComplexEView, Editor
       {
          _main.detach();
          _main = new FormView(_ceo);
+         add((JComponent) _main, BorderLayout.CENTER);
+      }
+      else
+      {
+         add(new JScrollPane((JComponent) _main), BorderLayout.CENTER);
       }
 
-
-      add((JComponent) _main, BorderLayout.CENTER);
    }
    
 	public void propertyChange(PropertyChangeEvent evt) {}

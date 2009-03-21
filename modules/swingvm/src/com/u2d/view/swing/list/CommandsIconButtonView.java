@@ -36,7 +36,7 @@ public class CommandsIconButtonView extends JXPanel implements ListEView
       {
          super();
          setLayout(new FlowLayout(FlowLayout.LEADING));
-         setOpaque(true);
+         setOpaque(false);
          setBackground(new Color(0xf8f8ff));
          Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
          setBorder(border);
@@ -81,40 +81,27 @@ public class CommandsIconButtonView extends JXPanel implements ListEView
 
          _commands = _eo.commands();
 
-         MigLayout layout = new MigLayout("insets 0 3 0 3, alignx trailing", "fill, sizegroup", "");
+         MigLayout layout = new MigLayout("insets 2");
          setLayout(layout);
 
          new OnionPeeler(new Processor()
+         {
+            int index = 0;
+
+            public void process(Object obj)
             {
-               int index = 0;
-               boolean gapBefore = false;
-            
-               public void process(Object obj)
-               {
-                  Command cmd = (Command) obj;
-                  if (cmd.isOpenInNonMinimizedContext(_source)) return;
-                  if (cmd.isMinorCommand(_source)) return;
+               Command cmd = (Command) obj;
+               if (cmd.isOpenInNonMinimizedContext(_source)) return;
+               if (cmd.isMinorCommand(_source)) return;
 
-                  CommandIconButton btn = new CommandIconButton(cmd, _eo, _source);
+               CommandIconButton btn = new CommandIconButton(cmd, _eo, _source);
+               add(btn);
 
-                  if (gapBefore)
-                  {
-                     add(btn, "gapbefore unrel");
-                     gapBefore = false;
-                  }
-                  else
-                  {
-                     add(btn);
-                  }
+               _indexMap.put(index, getComponentCount() - 1);
+               index++;
+            }
 
-                  _indexMap.put(index, getComponentCount() - 1);
-                  index++;
-               }
-
-               public void pause()
-               {
-                  gapBefore = true;
-               }
+            public void pause() { }
 
             public void done() { }
 
@@ -136,9 +123,7 @@ public class CommandsIconButtonView extends JXPanel implements ListEView
                {
                   Command cmd = (Command) _eo.commands().get(i);
                   int componentIndex = _indexMap.get(i);
-
-                  Action action = new CommandAdapter(cmd, _eo, _source);
-                  add(new JButton(action), componentIndex);
+                  add(new CommandIconButton(cmd, _eo, _source), componentIndex);
                }
             }
          });
