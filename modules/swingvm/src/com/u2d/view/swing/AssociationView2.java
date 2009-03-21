@@ -25,6 +25,7 @@ import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeEvent;
 import java.awt.*;
 import java.awt.event.*;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -120,10 +121,10 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
       public CustomPnl()
       {
-         setLayout(new FlowLayout(FlowLayout.LEADING, 3, 0));
+         setLayout(new MigLayout("fillx, insets 0"));
          setOpaque(false);
          itemPnl = new ItemPanel();
-         add(itemPnl);
+         add(itemPnl, "growx");
       }
 
       protected void customizeFocusBehavior()
@@ -363,7 +364,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
 
       public ItemPanel()
       {
-         setLayout(new FlowLayout(FlowLayout.CENTER, 3, 0));
+         setLayout(new MigLayout("fillx, insets 0"));
          setBackground(Color.white);
          setOpaque(true);
          Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
@@ -436,7 +437,7 @@ public class AssociationView2 extends CardPanel implements ComplexEView
       public void addItem(EView view)
       {
          _itemView = (Component) view;
-         add(_itemView, 0);
+         add(_itemView, "growx", 0);
          _itemView.addMouseListener(this);
       }
       
