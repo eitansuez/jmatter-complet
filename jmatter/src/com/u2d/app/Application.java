@@ -19,6 +19,8 @@ import com.u2d.persist.HBMBlock;
 import org.hibernate.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import javax.jnlp.ServiceManager;
+import javax.jnlp.UnavailableServiceException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.*;
@@ -97,6 +99,19 @@ public class Application implements AppEventNotifier
    public boolean isAppBrowser()
    {
       return getName().equals("JMatter App Browser");
+   }
+
+   public boolean isInWebStartMode()
+   {
+      try
+      {
+         ServiceManager.lookup("javax.jnlp.BasicService");
+         return true;
+      }
+      catch (UnavailableServiceException ex)
+      {
+         return false;
+      }
    }
 
    /*
