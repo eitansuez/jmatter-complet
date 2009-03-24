@@ -2,6 +2,7 @@ package com.u2d.view.swing.atom;
 
 import com.u2d.view.AtomicEView;
 import com.u2d.view.swing.FieldCaption;
+import com.u2d.view.swing.SwingViewMechanism;
 import com.u2d.model.EObject;
 import com.u2d.model.AtomicEObject;
 import javax.swing.*;
@@ -29,6 +30,12 @@ public class StatusView extends JPanel implements AtomicEView
 
       _label.setFont(SMALL_FONT);
       _label.setText(_eo.toString());
+
+      if ("status".equals(_eo.field().name()))
+      {
+         SwingViewMechanism.getInstance().addStatusCssClassName(_label, _eo.parentObject());
+      }
+
       caption = new FieldCaption(_eo.field(), _label);
       caption.setFont(SMALL_FONT);
       add(caption);

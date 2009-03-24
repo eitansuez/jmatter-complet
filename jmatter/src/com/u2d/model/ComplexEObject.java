@@ -4,6 +4,7 @@
 package com.u2d.model;
 
 import java.awt.datatransfer.Transferable;
+import java.awt.*;
 import java.util.List;
 import javax.swing.tree.TreeModel;
 import com.u2d.element.Command;
@@ -94,5 +95,7 @@ public interface ComplexEObject
    public boolean isMeta();
    
    public String viewTitle();
+
+   public Color colorCode();
 
 }

@@ -9,6 +9,7 @@ import com.u2d.calendar.CalEventList;
 import com.u2d.calendar.Calendrier;
 import com.u2d.calendar.Schedule;
 import com.u2d.css4swing.CSSEngine;
+import com.u2d.css4swing.selector.Selector;
 import com.u2d.css4swing.style.ComponentStyle;
 import com.u2d.element.Command;
 import com.u2d.element.CommandInfo;
@@ -57,6 +58,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.StringWriter;
 import java.io.PrintWriter;
+import java.util.Set;
+
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -1161,6 +1164,28 @@ public class SwingViewMechanism implements ViewMechanism
       }).start();
    }
 
+   public void addStatusCssClassName(JComponent c, ComplexEObject ceo)
+   {
+      if (ceo.field("status") == null) return;
+
+      Set<String> cssClasses = (Set<String>) c.getClientProperty(Selector.CLASS);
+      if (cssClasses != null)
+      {
+         for (String name : cssClasses)
+         {
+            if (name.startsWith("state-"))
+            {
+               cssClasses.remove(name);
+            }
+         }
+      }
+
+      String stateName = ceo.field("status").get(ceo).toString();
+      String cssClassName = String.format("state-%s", stateName.toLowerCase());
+      ComponentStyle.addClass(c, cssClassName);
+   }
+
+   
    
    /* ** PropertyChangeSupport "Support" ** */
    protected transient SwingPropertyChangeSupport _changeSupport = new SwingPropertyChangeSupport(this);

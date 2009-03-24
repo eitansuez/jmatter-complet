@@ -239,6 +239,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
    public EObject getEObject() { return _eo; }
    
    public AtomicEditor getEditor() { return _editor; }
+   public AtomicRenderer getRenderer() { return _renderer; }
 
 
    // common utility for multiple kinds of editors/renderers ..

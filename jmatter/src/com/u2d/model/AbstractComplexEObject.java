@@ -4,12 +4,14 @@
 package com.u2d.model;
 
 import java.util.*;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.event.*;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.beans.*;
 import java.awt.datatransfer.*;
+import java.awt.*;
 import com.u2d.element.*;
 import com.u2d.field.*;
 import com.u2d.find.inequalities.IdentityInequality;
@@ -493,9 +495,14 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    {
       return cleanCGLIBEnhancer(obj.getClass().getName());
    }
+   static String CGLIBKey = "$$EnhancerByCGLIB$$";
+   public static boolean isCGLIBEnhanced(String clsName)
+   {
+      return clsName.indexOf(CGLIBKey) > 0;
+   }
    public static String cleanCGLIBEnhancer(String clsName)
    {
-      int idx = clsName.indexOf("$$EnhancerByCGLIB$$");
+      int idx = clsName.indexOf(CGLIBKey);
       if (idx > 0) clsName = clsName.substring(0, idx);
       return clsName;
    }
@@ -1099,7 +1106,9 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       app().log(typeString, cmd, msg);
    }
    public Logger tracer() { return Tracing.tracer(); }
-   
-   
 
+   public Color colorCode()
+   {
+      return type().colorCode();
+   }
 }

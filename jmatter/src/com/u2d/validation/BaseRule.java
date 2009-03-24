@@ -10,6 +10,8 @@ public abstract class BaseRule implements Rule
 {
    public boolean pass() { return !fail(); }
 
+   public Severity severity() { return Severity.DEFAULT; }
+
    public boolean equals(Object obj)
    {
       if (obj == null) return false;

@@ -24,7 +24,7 @@ public class CalEventView extends BaseCalEventView
    
    protected void setupColor()
    {
-      final Color backgroundColor = _event.type().colorCode();
+      final Color backgroundColor = _event.colorCode();
       _header.setBackground(backgroundColor);
       _body.setupColor(backgroundColor);
    }

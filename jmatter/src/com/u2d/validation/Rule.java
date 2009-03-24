@@ -11,9 +11,10 @@ import java.util.List;
  */
 public interface Rule
 {
-   public boolean pass();
-   public boolean fail();
-   public String msg();
-   public List<EObject> inputs();
-   public EObject targetObject();
+   boolean pass();
+   boolean fail();
+   String msg();
+   List<EObject> inputs();
+   EObject targetObject();
+   Severity severity();
 }

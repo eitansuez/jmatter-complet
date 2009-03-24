@@ -55,6 +55,8 @@ public class ListItemView extends JLabel implements ComplexEView
       defaultAction = new CommandAdapter(defaultCmd, _ceo, source);
       _defaultActionListener = UIUtils.doubleClickActionListener(defaultAction);
       addMouseListener(_defaultActionListener);
+
+      SwingViewMechanism.getInstance().addStatusCssClassName(this, ceo);
    }
 
    public void detach()
