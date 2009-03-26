@@ -177,4 +177,6 @@ public class NullViewMechanism implements ViewMechanism
 
    public EView getCommandView(Command cmd, EObject eo) { return null; }
 
+   public void displayParamsListView(EOCommand cmd, Object value, CommandInfo cmdInfo) { }
+
 }
