@@ -17,6 +17,7 @@ import com.u2d.calendar.CalEvent;
 import com.u2d.calendar.CalEventList;
 import com.u2d.element.EOCommand;
 import com.u2d.element.CommandInfo;
+import com.u2d.element.Command;
 import com.u2d.list.RelationalList;
 import com.u2d.interaction.Instruction;
 import nextapp.echo.app.Component;
@@ -582,6 +583,15 @@ public class EchoViewMechanism implements ViewMechanism
    }
 
    public EView getInstructionView(Instruction instruction)
+   {
+      return null;
+   }
+
+   public void displayParamsListView(EOCommand cmd, Object value, CommandInfo cmdInfo)
+   {
+   }
+
+   public EView getCommandView(Command cmd, EObject eo)
    {
       return null;
    }

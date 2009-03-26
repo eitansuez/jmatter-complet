@@ -497,7 +497,18 @@ public class SwingViewMechanism implements ViewMechanism
       throw new IllegalArgumentException(
             "Don't know how to make a frame for view: "+view);
    }
-   
+
+   public void displayParamsListView(final EOCommand cmd, final Object value, final CommandInfo cmdInfo)
+   {
+      SwingUtilities.invokeLater(new Runnable() {
+         public void run()
+         {
+            View paramsView = getParamListView(cmd, value, cmdInfo);
+            JInternalFrame frame = new GenericFrame(paramsView);
+            _appContainer.addFrame(frame, Positioning.NEARMOUSE);
+         }
+      });
+   }
    public void displayView(final View view, final Positioning positioning)
    {
       SwingUtilities.invokeLater(new Runnable()

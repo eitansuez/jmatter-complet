@@ -86,8 +86,7 @@ public class EOCommand extends Command
 
       if (haveParameters())
       {
-         View paramsView = vmech().getParamListView(this, value, cmdInfo);
-         vmech().displayView(paramsView, Positioning.NEARMOUSE);
+         vmech().displayParamsListView(this, value, cmdInfo);
       }
       else
       {
