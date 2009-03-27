@@ -43,7 +43,7 @@ public interface ViewMechanism
    public void displayView(EView view, EView source);
    public void displayWizard(Wizard wizard);
    public void displayReport(Reportable reportable);
-   public void displayParamsListView(final EOCommand cmd, final Object value, final CommandInfo cmdInfo);
+   public void displayParamsListView(EOCommand cmd, Object value, CommandInfo cmdInfo);
 
    public void dismiss(EView eview);
 
