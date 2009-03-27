@@ -54,7 +54,7 @@ public class ExpandableView extends JPanel implements ListEView
       
       _handle = new ListItemView(_leo);
 
-      MigLayout layout = new MigLayout("insets 0, fill, wrap 2");
+      MigLayout layout = new MigLayout("insets 0, fill, wrap 2", "[][grow, fill]", "[][grow, fill]");
       setLayout(layout);
       
       _toggleBtn = new ExpandCollapseButton();
@@ -98,39 +98,39 @@ public class ExpandableView extends JPanel implements ListEView
       }
       CloseableJInternalFrame.updateSize(this);
 	}
-	
-	public void stateChanged(ChangeEvent evt)
-	{
-	}
-	
-	public EObject getEObject() { return _leo; }
-   
-   
-	static ImageIcon EXPAND_ICON, COLLAPSE_ICON;
+
+   public void stateChanged(ChangeEvent evt)
+   {
+   }
+
+   public EObject getEObject() { return _leo; }
+
+
+   static ImageIcon EXPAND_ICON, COLLAPSE_ICON;
    static ImageIcon EXPAND_ROLLOVER, COLLAPSE_ROLLOVER;
-	static
-	{
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		java.net.URL imgURL = loader.getResource("images/expand.gif");
-		EXPAND_ICON = new ImageIcon(imgURL);
-		imgURL = loader.getResource("images/collapse.gif");
-		COLLAPSE_ICON = new ImageIcon(imgURL);
+   static
+   {
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      java.net.URL imgURL = loader.getResource("images/expand.gif");
+      EXPAND_ICON = new ImageIcon(imgURL);
+      imgURL = loader.getResource("images/collapse.gif");
+      COLLAPSE_ICON = new ImageIcon(imgURL);
 //      imgURL = loader.getResource("images/expand_rollover.png");
 //      EXPAND_ROLLOVER = new ImageIcon(imgURL);
 //      imgURL = loader.getResource("images/collapse_rollover.png");
 //      COLLAPSE_ROLLOVER = new ImageIcon(imgURL);
-	}
+   }
 
-	
-	class ExpandCollapseButton extends JButton
-	{
-		ExpandCollapseButton()
-		{
+
+   class ExpandCollapseButton extends JButton
+   {
+      ExpandCollapseButton()
+      {
          setOpaque(false);
-			setIcon(EXPAND_ICON);
-			setActionCommand("+");
-			setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
-			setContentAreaFilled(false);  // causes no painting of background of button when pressed
+         setIcon(EXPAND_ICON);
+         setActionCommand("+");
+         setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+         setContentAreaFilled(false);  // causes no painting of background of button when pressed
 //         setRolloverEnabled(true);
          setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}
