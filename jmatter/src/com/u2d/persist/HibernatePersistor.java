@@ -106,8 +106,8 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
       }
       catch (HibernateException ex)
       {
-         if (tx != null) tx.rollback();
          ex.printStackTrace();
+         if (tx != null) tx.rollback();
          newSession();
          throw ex;
       }
