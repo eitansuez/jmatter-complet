@@ -1,6 +1,8 @@
 package com.u2d.view.swing;
 
 import javax.swing.*;
+import org.jvnet.substance.skin.*;
+import org.jvnet.substance.SubstanceLookAndFeel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,25 +14,23 @@ public class EntryPoint
 {
    public static void main(String[] args)
    {
+      JFrame.setDefaultLookAndFeelDecorated(true);
+      UIManager.put(SubstanceLookAndFeel.BUTTON_NO_MIN_SIZE_PROPERTY, Boolean.TRUE);
+
+      try {
+         LookAndFeel substance = new SubstanceBusinessBlueSteelLookAndFeel();
+         UIManager.setLookAndFeel(substance);
+//         UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+      }
+      catch (Exception ex)
+      {
+         System.err.printf("Look and feel warning: %s\n", ex.getMessage());
+      }
+
       SwingUtilities.invokeLater(new Runnable()
       {
          public void run()
          {
-            try {
-               // feel free to replace with a different look and feel
-
-               // making this explicit so will be default on platforms such as macosx,
-               // where at the moment there are rendering issues with mac system look and feel
-               UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-
-//               UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-            }
-            catch (Exception ex)
-            {
-               System.err.printf("Look and feel warning: %s\n", ex.getMessage());
-            }
-
-
             SwingViewMechanism.getInstance().launch();
          }
       });

@@ -11,15 +11,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/skinlf.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="JExplose">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/animation.jar!/" />
@@ -37,13 +28,24 @@
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/l2fprod-common-outlookbar.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../../thirdparty/l2fprod-common-7.3/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/swingx.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm/substance.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

@@ -23,7 +23,7 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../thirdparty/swingx-0.9.4-src/src/java" />
+          <root url="file://$MODULE_DIR$/../../../thirdparty/swingx-0.9.5-src/src/java" />
         </SOURCES>
         <jarDirectory url="file://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm" recursive="false" />
       </library>
