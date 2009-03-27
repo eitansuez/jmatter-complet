@@ -37,12 +37,16 @@ public class MenuButton extends JButton
    public MenuButton(Icon icon, Icon rollover, JPopupMenu menu)
    {
       this(menu);
+
       setIcon(icon);
-      setFocusPainted(false);
+
       setBorder(BorderFactory.createEmptyBorder(1,2,1,2));
-      setFocusable(false);
       setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       setContentAreaFilled(false);
+
+      setFocusPainted(false);
+      setFocusable(false);
+
       setRolloverEnabled(true);
       setRolloverIcon(rollover);
    }
