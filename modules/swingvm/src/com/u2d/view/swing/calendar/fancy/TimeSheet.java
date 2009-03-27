@@ -12,6 +12,7 @@ import javax.swing.event.ChangeEvent;
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
+import com.u2d.view.swing.atom.DateView3;
 import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.swing.AppLoader;
 import com.u2d.view.swing.calendar.*;
@@ -54,7 +55,7 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
       
       _eastPanel = new JPanel(new BorderLayout());
       _eastPanel.setOpaque(false);
-      _eastPanel.add(new DateView2(_position), BorderLayout.PAGE_START);
+      _eastPanel.add(new DateView3(_position), BorderLayout.PAGE_START);
       add(_eastPanel, BorderLayout.LINE_END);
       
       // double clicking on a cell should initiate the creation of an event..

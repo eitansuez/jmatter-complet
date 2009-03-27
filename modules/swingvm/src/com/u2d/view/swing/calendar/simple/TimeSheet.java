@@ -12,6 +12,7 @@ import javax.swing.event.ChangeEvent;
 import com.u2d.calendar.*;
 import com.u2d.type.atom.*;
 import com.u2d.view.swing.atom.DateView2;
+import com.u2d.view.swing.atom.DateView3;
 import com.u2d.view.swing.CommandAdapter;
 import com.u2d.view.swing.AppLoader;
 import com.u2d.view.swing.calendar.*;
@@ -103,7 +104,7 @@ public class TimeSheet extends JPanel implements ChangeListener, ITimeSheet
       accessor.replaceBean("body", body());
       
       FormAccessor nestedForm = formPanel.getFormAccessor("sidePnl");
-      nestedForm.replaceBean("dateChooser", new DateView2(_position));
+      nestedForm.replaceBean("dateChooser", new DateView3(_position));
       nestedForm.replaceBean("cellResPnl", new CellResPanel(TimeSheet.this));
       
       setLayout(new BorderLayout());
