@@ -26,6 +26,8 @@ public class DateView3 extends JPanel implements AtomicEView, Editor
    private DateEO _eo;
    private JTextField _tf;
 
+   public static String[] daysOfTheWeek = {"S", "M", "T", "W", "T", "F", "S"};
+
    private JXMonthView _monthView;
 
    public DateView3(DateEO eo)
@@ -66,6 +68,8 @@ public class DateView3 extends JPanel implements AtomicEView, Editor
       add(topPnl);
 
       _monthView = new JXMonthView();
+      _monthView.setTraversable(true);
+      _monthView.setDaysOfTheWeek(daysOfTheWeek);
 
       _monthView.addActionListener(new ActionListener()
             {
