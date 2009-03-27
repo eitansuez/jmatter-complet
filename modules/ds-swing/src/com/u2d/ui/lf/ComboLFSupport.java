@@ -28,12 +28,12 @@ public class ComboLFSupport implements LookAndFeelSupport
       
       _system = new BasicLFSupport(_topLevelContainers,
             new BasicLFSupport.SystemLFProvider(), this);
-      _skin = new SkinLFSupport(_topLevelContainers, this);
+//      _skin = new SkinLFSupport(_topLevelContainers, this);
 //      _jgoodies = new BasicLFSupport(_topLevelContainers, 
 //            new BasicLFSupport.JGoodiesLooks(), this);
       
       addMenu(_system.getMenu());
-      addMenu(_skin.getMenu());
+//      addMenu(_skin.getMenu());
 //      addMenu(_jgoodies.getMenu());
       
       _selectedLF = _system;

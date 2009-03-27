@@ -18,7 +18,6 @@
    <path id="class.path">
       <fileset dir="${libdir}" includes="*.jar" />
       <pathelement location="${buildclassesdir}" />
-      <fileset dir="lib" includes="skinlf.jar" />
    </path>
 
    <path id="test.classpath">
