@@ -99,13 +99,15 @@ public class Symposium extends CalendarEO
    }
    
    @Cmd(mnemonic='l')
-   public void ReportSchedule(CommandInfo cmdInfo)
+   public String ReportSchedule(CommandInfo cmdInfo)
          throws IOException
    {
       String queryString = "from Session s where s.symposium = :symposium order by s.time, s.event";
       Query hqlQuery = hbmPersistor().getSession().createQuery(queryString);
       hqlQuery.setParameter("symposium", this);
-      List sessions = hbmPersistor().hqlQuery(hqlQuery).getItems();
+      AbstractListEO list = hbmPersistor().hqlQuery(hqlQuery);
+      if (list == null) { return "This symposium has no sessions"; }
+      List sessions = list.getItems();
       
       Map paramMap = new HashMap();
       String sympoTitle = String.format("%s schedule", this);
@@ -139,6 +141,7 @@ public class Symposium extends CalendarEO
          pdfExporter.setParameter(JRExporterParameter.OUTPUT_FILE, reportFile);
          pdfExporter.exportReport();
          Launcher.openFile(reportFile);
+         return null;
       }
       catch (JRException e)
       {
