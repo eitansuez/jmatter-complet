@@ -133,7 +133,10 @@ public class Calendrier extends AbstractComplexEObject
          event.onLoad();
          Schedule s = event.schedulable().schedule();
          List l = scheduleEvents.get(s);
-         l.add(event);
+         if (l != null)
+         {
+            l.add(event);
+         }
       }
       
       for (Schedule s : scheduleEvents.keySet())
