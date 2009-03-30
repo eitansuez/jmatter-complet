@@ -78,8 +78,6 @@ public class SwingViewMechanism implements ViewMechanism
 
    private SwingViewMechanism()
    {
-      // Checks for EDT violations..
-//      RepaintManager.setCurrentManager(new CheckingRepaintManager());
       CSSEngine.initialize();
       UIManager.getDefaults().addResourceBundle("app/uidefaults");
    }
@@ -884,7 +882,7 @@ public class SwingViewMechanism implements ViewMechanism
    public AtomicEditor getColorEditor() { return new ColorPicker(); }
 
    public AtomicRenderer getDateRenderer() { return new DateRenderer(); }
-   public AtomicEditor getDateEditor() { return new DateEditor(); }
+   public AtomicEditor getDateEditor() { return new DateEditor3(); }
 
    public AtomicRenderer getDateWithAgeRenderer() { return new DateWithAgeRenderer(); }
    public AtomicEditor getDateWithAgeEditor() { return new DateWithAgeEditor(); }

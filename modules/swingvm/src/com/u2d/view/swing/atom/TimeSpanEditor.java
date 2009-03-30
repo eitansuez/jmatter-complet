@@ -23,7 +23,7 @@ public class TimeSpanEditor extends JPanel implements AtomicEditor
 
    public TimeSpanEditor()
    {
-      _dateEditor = new DateEditor();
+      _dateEditor = new DateEditor3();
       _fromEditor = new TimeSpinnerEditor();
       _toEditor = new TimeSpinnerEditor();
 
