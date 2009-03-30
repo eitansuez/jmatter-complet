@@ -50,7 +50,7 @@ JDesktopPane
 {
   background-color: gradient(0,0,white,800,0,#C4D5DE);
 }
-.loggedout /* should be JDesktopPane.loggedout -- perhaps not supported by css4swing yet */
+JDesktopPane.loggedout
 {
   background-image: resource("images/jmatter.png") centered;
 /* example:
