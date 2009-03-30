@@ -37,14 +37,6 @@ jm|LoginDialog
   padding: 10px 0px;
   border-top: 1px solid black;
 }
-#login-okbtn
-{
-  color: white;
-  background-color: black;
-  opacity: 0.7;
-  border: 1px solid black;
-  border-radius: 4px;
-}
 
 JDesktopPane
 {
@@ -108,14 +100,7 @@ jm|FieldCaption
    font-style: italic;
 }
 
-ui|NormalButton
-{
-  border-radius: 3px;
-  border: 1px solid black;
-  opacity: 0.7;
-  background-color: gradient(0,0,#F9FBFC, 0,20,#C0D4E8);
-}
-.default-button
+JButton.default-button
 {
   font-weight: bold;
 }
