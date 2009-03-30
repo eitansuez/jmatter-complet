@@ -55,19 +55,20 @@ public class LoginDialog extends JXPanel
 
    private void layItOut()
    {
-      MigLayout layout = new MigLayout("fill");
-      setLayout(layout);
+      setLayout(new MigLayout("fill, flowy"));
 
+      JPanel topPnl = new JPanel(new MigLayout("fill", "[grow][]", "[align bottom]"));
+      topPnl.setOpaque(false);
+      topPnl.setMinimumSize(new Dimension(335, 30));
+      ComponentStyle.addClass(topPnl, "top");
       _msg = new JLabel("Please log in..");
       ComponentStyle.addClass(_msg, "title");
+      topPnl.add(_msg);
+      topPnl.add(new JLabel(LOGIN_ICON));
 
-      add(_msg, "growx, gapx unrel, aligny bottom");
-      add(new JLabel(LOGIN_ICON), "alignx trailing, wrap");
-
-      MigLayout innerLayout = new MigLayout("fill, wrap 2", "[trailing][pref]", "");
-      JPanel innerPnl = new JPanel(innerLayout);
+      JPanel innerPnl = new JPanel(new MigLayout("fill, wrap 2", "[trailing][pref]"));
       innerPnl.setOpaque(false);
-      ComponentStyle.addClass(innerPnl, "login-innerpnl");
+      ComponentStyle.setIdent(innerPnl, "login-innerpnl");
 
       JLabel label = new LabelWithMnemonic("logindlg.lbl.username");
       label.setLabelFor(_userNameFld);
@@ -82,8 +83,9 @@ public class LoginDialog extends JXPanel
       KeycapsDetector detector = new KeycapsDetector(_pwdField);
       innerPnl.add(detector, "span, alignx leading");
 
-      add(innerPnl, "alignx center, alignx center, wrap, span");
-      add(okBtn(), "tag ok, alignx trailing, span");
+      add(topPnl, "grow");
+      add(innerPnl, "align center");
+      add(okBtn(), "tag ok, alignx trailing");
    }
    
    private JButton okBtn()

@@ -28,15 +28,27 @@ jm|LoginDialog
 {
   border-radius: 15px;
   border: 1px solid black;
+  padding: 10px;
   color: black;
   background-color: gradient(0,0,rgba(255,255,255,0.3), 0,150,rgba(255,255,255,1.0)); /* varying opacity */
-  padding: 20px 40px;
 }
-.login-innerpnl
+jm|LoginDialog JComponent
 {
-  padding: 10px 0px;
-  border-top: 1px solid black;
+  font-size: 12pt;
 }
+jm|LoginDialog .top
+{
+  border-bottom: 1px solid black;
+}
+jm|LoginDialog .title
+{
+  font-size: 24pt;
+}
+#login-innerpnl
+{
+  padding: 10px 0px 0px 0px;
+}
+
 
 JDesktopPane
 {
