@@ -19,6 +19,9 @@ import com.holub.ui.*;
 import net.miginfocom.swing.MigLayout;
 
 /**
+ * Original date picker, using a customized/tweaked implementation of holub's Date_selector_panel.
+ * SwingX's JXMonthView now preferred.
+ * 
  * @author Eitan Suez
  */
 public class DateEditor extends JPanel

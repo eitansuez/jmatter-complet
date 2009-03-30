@@ -14,6 +14,8 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXDatePicker;
 
 /**
+ * A version of date editor that uses swingx's jxdatepicker.  Prefer DateEditor3
+ *
  * @author Eitan Suez
  */
 public class DateEditor2 extends JPanel
