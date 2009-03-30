@@ -22,9 +22,11 @@ public class KeycapsDetector extends JLabel
 
 	public KeycapsDetector(JComponent targetComponent)
 	{
-		super();
+      setText(capsOnMsg);
+      setIcon(icon);
 		targetComponent.addKeyListener(new MyKeyAdapter());
 		setBorder(BorderFactory.createEmptyBorder(2,8,2,8));
+      setVisible(false);
 	}
 	
 	public Dimension getPreferredSize()
@@ -49,16 +51,7 @@ public class KeycapsDetector extends JLabel
 				char keychar = evt.getKeyChar();
 				capsOn = (Character.isUpperCase(keychar) && !evt.isShiftDown());
 			}
-			if (capsOn)
-			{
-				setText(capsOnMsg);
-				setIcon(icon);
-			}
-			else
-			{
-				setText("");
-				setIcon(null);
-			}
+         setVisible(capsOn);
 		}
 	}
 }
