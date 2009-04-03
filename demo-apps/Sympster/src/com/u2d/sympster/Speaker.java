@@ -68,7 +68,7 @@ public class Speaker extends AbstractComplexEObject
    }
 
    @Cmd
-   public static Talk AddTalkForSpeaker(CommandInfo cmdInfo, @Arg(value = "speaker", valueIsLookupkey = true) Speaker speaker)
+   public static Talk AddTalkForSpeaker(CommandInfo cmdInfo, @Arg(value="Speaker", valueIsLookupkey=true) Speaker speaker)
    {
       return speaker.AddTalk(cmdInfo);
    }
