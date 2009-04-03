@@ -116,6 +116,7 @@ public class FormView extends JXPanel implements IFormView
          mainPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
          tabbedPane().insertTab(_ceo.type().mainTabCaption(), null, new JScrollPane(mainPane), "", 0);
          add(tabbedPane(), BorderLayout.CENTER);
+         addTabbedPaneChangeListener();
       }
       else
       {
@@ -252,29 +253,28 @@ public class FormView extends JXPanel implements IFormView
       if (_tabbedPane == null)
       {
          _tabbedPane = new CustomTabbedPane();
-         _tabbedPane.addChangeListener(new ChangeListener()
-         {
-            public void stateChanged(ChangeEvent e)
-            {
-               // this sucks but it works (turns out to be known bug, posted
-               //  against java1.4.2)
-               AppLoader.getInstance().newThread(new Runnable()
-               {
-                  public void run()
-                  {
-                     SwingUtilities.invokeLater(new Runnable()
-                     {
-                        public void run()
-                        {
-                           focusField();
-                        }
-                     });
-                  }
-               }).start();
-            }
-         });
       }
       return _tabbedPane;
+   }
+
+   private void addTabbedPaneChangeListener()
+   {
+      _tabbedPane.addChangeListener(new ChangeListener() {
+         public void stateChanged(ChangeEvent e)
+         {
+            AppLoader.getInstance().newThread(new Runnable() {
+               public void run()
+               {
+                  SwingUtilities.invokeLater(new Runnable() {
+                     public void run()
+                     {
+                        focusField();
+                     }
+                  });
+               }
+            }).start();
+         }
+      });
    }
 
    public int transferValue()
