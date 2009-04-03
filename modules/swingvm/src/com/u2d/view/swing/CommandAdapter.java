@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import com.u2d.element.Command;
+import com.u2d.element.EOCommand;
 import com.u2d.view.*;
 import com.u2d.type.atom.StringEO;
 import com.u2d.ui.desktop.Positioning;
@@ -19,10 +20,10 @@ import com.u2d.ui.desktop.Positioning;
  */
 public class CommandAdapter extends AbstractAction
 {
-   private Command _command;
-   private Object _value;
-   private EView _source;  // the view from which the command was invoked
-   private PropertyChangeListener changePropagator;
+   protected Command _command;
+   protected Object _value;
+   protected EView _source;  // the view from which the command was invoked
+   protected PropertyChangeListener changePropagator;
 
    public CommandAdapter(Command command, EView source)
    {
@@ -110,29 +111,47 @@ public class CommandAdapter extends AbstractAction
       {
          sourceComp.setEnabled(false);
       }
-      SwingViewMechanism.invokeSwingAction(new SwingAction()
+
+      if ((_command instanceof EOCommand) && ((EOCommand) _command).returnsAView())
       {
-         public void offEDT()
+         executeCommand();
+         if (_command.blocks())
          {
-            try
-            {
-               //System.out.println("cmdAdapter:: executing command, passing source: "+_source);
-               _command.execute(_value, _source);
-            }
-            catch (java.lang.reflect.InvocationTargetException ex)
-            {
-               SwingViewMechanism.getInstance().displayViewFor(ex.getCause(), _source, Positioning.NEARMOUSE);
-            }
+            sourceComp.setEnabled(true);  // if the view has closed or detached, then still have a ref to source
+              // to re-enable it
          }
-         public void backOnEDT()
+      }
+      else
+      {
+         SwingViewMechanism.invokeSwingAction(new SwingAction()
          {
-            if (_command.blocks())
+            public void offEDT()
             {
-               sourceComp.setEnabled(true);  // if the view has closed or detached, then still have a ref to source
-                 // to re-enable it
+               executeCommand();
             }
-         }
-      });
+            public void backOnEDT()
+            {
+               if (_command.blocks())
+               {
+                  sourceComp.setEnabled(true);  // if the view has closed or detached, then still have a ref to source
+                    // to re-enable it
+               }
+            }
+         });
+      }
+   }
+
+   private void executeCommand()
+   {
+      try
+      {
+         //System.out.println("cmdAdapter:: executing command, passing source: "+_source);
+         _command.execute(_value, _source);
+      }
+      catch (java.lang.reflect.InvocationTargetException ex)
+      {
+         SwingViewMechanism.getInstance().displayViewFor(ex.getCause(), _source, Positioning.NEARMOUSE);
+      }
    }
 
 }
