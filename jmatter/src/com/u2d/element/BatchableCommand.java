@@ -40,8 +40,7 @@ public class BatchableCommand
       {
          EObject firstItem = _target.first();
          CommandInfo cmdInfo = new CommandInfo(this, source);
-         View paramsView = vmech().getParamListView(this, firstItem, cmdInfo);
-         vmech().displayView(paramsView, Positioning.NEARMOUSE);
+         vmech().displayParamsListView(this, firstItem, cmdInfo);
       }
       else
       {
