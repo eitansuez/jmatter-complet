@@ -13,6 +13,7 @@ import com.jeta.forms.components.panel.FormPanel;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 
@@ -58,6 +59,9 @@ public abstract class AbeilleForm extends FormPane implements IFormView
 
    public void detach()
    {
+      stopListeningForValidations();
+      _vPnls.clear();
+
       for (EView view : _views)
       {
          view.detach();
@@ -73,6 +77,17 @@ public abstract class AbeilleForm extends FormPane implements IFormView
    public void setEditable(boolean editable)
    {
       _editable = editable;
+
+      if (_editable)
+      {
+         listenForValidations();
+      }
+      else
+      {
+         stopListeningForValidations();
+         resetValidations();
+      }
+      
       for (EView view : _views)
       {
          if (!(view instanceof Editor)) continue;
@@ -81,7 +96,7 @@ public abstract class AbeilleForm extends FormPane implements IFormView
          if (eo == null) return;  // see comment in FormView
          Field field = eo.field();
 
-         if (field.isComposite() && editable && !field.isIndexed())
+         if (field != null && field.isComposite() && editable && !field.isIndexed())
          {
             CompositeField cfield = ((CompositeField) field);
             if (cfield.isReadOnly() ||
@@ -104,7 +119,7 @@ public abstract class AbeilleForm extends FormPane implements IFormView
          {
             Field field = view.getEObject().field();
 
-            if (field.isComposite() && !field.isIndexed())
+            if (field != null && field.isComposite() && !field.isIndexed())
             {
                CompositeField cfield = ((CompositeField) field);
                if (cfield.isReadOnly() ||
@@ -131,4 +146,38 @@ public abstract class AbeilleForm extends FormPane implements IFormView
    {
       UIUtils.focusFirstEditableField(AbeilleForm.this);
    }
+
+   // validation-related work..
+   private java.util.Collection<ValidationNoticePanel> _vPnls = new HashSet<ValidationNoticePanel>();
+
+   protected ValidationNoticePanel getValidationPanel(EObject eo)
+   {
+      ValidationNoticePanel vPnl = new ValidationNoticePanel(eo, eo());
+      _vPnls.add(vPnl);
+      return vPnl;
+   }
+
+   private void resetValidations()
+   {
+      for (ValidationNoticePanel vPnl : _vPnls)
+      {
+         vPnl.reset();
+      }
+   }
+   private void listenForValidations()
+   {
+      for (ValidationNoticePanel vPnl : _vPnls)
+      {
+         vPnl.startListening();
+      }
+   }
+   private void stopListeningForValidations()
+   {
+      for (ValidationNoticePanel vPnl : _vPnls)
+      {
+         vPnl.stopListening();
+      }
+   }
+
+   
 }
