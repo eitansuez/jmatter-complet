@@ -260,7 +260,7 @@ public class JSON
             AtomicEObject fieldValue = (AtomicEObject) field.get(eo);
             try
             {
-               fieldValue.parseValue((String) value);
+               fieldValue.unmarshal((String) value);
             }
             catch (ParseException ex)
             {

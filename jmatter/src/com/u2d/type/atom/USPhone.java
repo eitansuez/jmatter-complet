@@ -55,17 +55,22 @@ public class USPhone extends AbstractAtomicEO implements Searchable
    
    private static String omit = "()-. '";
    private static String valid = "0123456789";
-   
-   public int validate()
+
+   private int validate(boolean fireEvent)
    {
       String value = SimpleParser.parseValue(omit, valid, _value);
-      if (value == null || value.length() != 10) return invalid();
+      if (value == null || value.length() != 10) return invalid(fireEvent);
       return 0;
    }
-   
-   private int invalid()
+   public int validate()
    {
-      fireValidationException("Invalid phone number: "+_value);
+      return validate(true);
+   }
+
+   private int invalid(boolean fireEvent)
+   {
+      if (fireEvent)
+         fireValidationException("Invalid phone number: "+_value);
       return 1;
    }
    
@@ -84,7 +89,7 @@ public class USPhone extends AbstractAtomicEO implements Searchable
    public String toString()
    {
       if (isEmpty()) return "";
-      if (!isEmpty() && validate() > 0) return _value;
+      if (!isEmpty() && validate(false) > 0) return _value;
       return "(" + areaCode() + ") " + localPart();
    }
    
@@ -120,6 +125,23 @@ public class USPhone extends AbstractAtomicEO implements Searchable
       {
          throw new java.text.ParseException("Failed to parse phone number "+stringValue, 0);
       }
+      setValue(parsedValue);
+   }
+
+   /**
+    * omits the validation check
+    * @param stringValue the text to be unmarshalled
+    */
+   @Override
+   public void unmarshal(String stringValue)
+   {
+      if (StringEO.isEmpty(stringValue))
+      {
+         setValue("");
+         return;
+      }
+
+      String parsedValue = SimpleParser.parseValue(omit, valid, stringValue);
       setValue(parsedValue);
    }
 

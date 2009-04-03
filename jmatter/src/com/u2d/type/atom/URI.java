@@ -117,6 +117,17 @@ public class URI extends AbstractAtomicEO implements Searchable
       }
    }
 
+   @Override
+   public void unmarshal(String stringValue) throws ParseException
+   {
+      if (StringEO.isEmpty(stringValue))
+      {
+         setValue("");
+         return;
+      }
+      setValue(stringValue);
+   }
+
    public EObject makeCopy()
    {
       return new URI(this.stringValue());

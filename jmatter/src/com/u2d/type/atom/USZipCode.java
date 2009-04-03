@@ -55,17 +55,22 @@ public class USZipCode extends AbstractAtomicEO implements Searchable
    
    private static String omit = "- ";
    private static String valid = "0123456789";
-   
+
    public int validate()
    {
+      return validate(true);
+   }
+   public int validate(boolean fireEvent)
+   {
       String value = SimpleParser.parseValue(omit, valid, _value);
-      if (value == null || value.length() != 5 && value.length() != 9) return invalid();
+      if (value == null || value.length() != 5 && value.length() != 9) return invalid(fireEvent);
       return 0;
    }
    
-   private int invalid()
+   private int invalid(boolean fireEvent)
    {
-      fireValidationException("Invalid zip code: "+_value);
+      if (fireEvent)
+         fireValidationException("Invalid zip code: "+_value);
       return 1;
    }
    
@@ -81,9 +86,9 @@ public class USZipCode extends AbstractAtomicEO implements Searchable
    public String toString()
    {
       if (isEmpty()) return "";
-      if (!isEmpty() && validate() > 0) return _value;
+      if (!isEmpty() && validate(false) > 0) return _value;
       
-      if (_value == "") return "";
+      if ("".equals(_value)) return "";
       if (_value.length() == 5) return _value;
       String five = _value.substring(0, 5);
       String four = _value.substring(5);
@@ -111,6 +116,23 @@ public class USZipCode extends AbstractAtomicEO implements Searchable
       {
          throw new java.text.ParseException("Failed to parse zip code: "+stringValue, 0);
       }
+      setValue(parsedValue);
+   }
+
+   /**
+    * omits the validation check
+    * @param stringValue the text to be unmarshalled
+    */
+   @Override
+   public void unmarshal(String stringValue)
+   {
+      if (stringValue == null || stringValue.trim().length() == 0)
+      {
+         setValue("");
+         return;
+      }
+
+      String parsedValue = SimpleParser.parseValue(omit, valid, stringValue);
       setValue(parsedValue);
    }
 

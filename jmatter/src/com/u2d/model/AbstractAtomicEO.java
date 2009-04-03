@@ -9,6 +9,7 @@ import com.u2d.validation.Rule;
 import javax.swing.Icon;
 import java.util.Collection;
 import java.util.ArrayList;
+import java.text.ParseException;
 
 /**
  * @author Eitan Suez
@@ -43,7 +44,7 @@ public abstract class AbstractAtomicEO extends AbstractEObject
    public String iconLgResourceRef() { return null; }
 
    public String marshal() {  return toString(); }
-
+   public void unmarshal(String text) throws ParseException { parseValue(text); }
 
    protected boolean _readOnly = false;
    public boolean isReadOnly() { return _readOnly; }

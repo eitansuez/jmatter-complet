@@ -9,4 +9,9 @@ package com.u2d.model;
 public interface Marshallable
 {
    public String marshal();
+   /**
+    * omits the validation check
+    * @param stringValue the text to be unmarshalled
+    */
+   public void unmarshal(String stringValue) throws java.text.ParseException;
 }
