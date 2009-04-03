@@ -94,6 +94,11 @@ public class EOCommand extends Command
          execute(target, param);
       }
    }
+
+   public boolean returnsAView()
+   {
+      return _method.getReturnType().isAssignableFrom(View.class);
+   }
    
    protected boolean haveParameters()
    {
