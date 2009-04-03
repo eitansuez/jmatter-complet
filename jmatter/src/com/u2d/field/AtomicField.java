@@ -139,6 +139,8 @@ public class AtomicField extends CompositeField
 
    public int validate(ComplexEObject parent)
    {
+      if (isReadOnly()) return 0;
+      
       AtomicEObject value = (AtomicEObject) get(parent);
 
       for (Rule rule : value.rules())
