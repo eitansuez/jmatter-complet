@@ -55,6 +55,9 @@ public class NullAssociation extends NullComplexEObject
       }
    }
 
+   public boolean isIndexedAssociation() { return _association.field().isIndexed(); }
+   public AbstractListEO getAsList() { return _association.getAsList(); }
+
 //   public Title title() { return _association.title(); }
 //   public boolean isEmpty() { return _association.isEmpty(); }
 
@@ -86,23 +89,11 @@ public class NullAssociation extends NullComplexEObject
 
 
    @Cmd
-   public Object Browse(CommandInfo cmdInfo)
+   public AbstractListEO Browse(CommandInfo cmdInfo)
    {
-      if (_association.field().isIndexed())
-      {
-         return vmech().getMultiPickView(_association.getAsList());
-      }
-      else
-      {
-         // using callbacks in this fashion is not necessary.
-         // instead just return a special view of the object itself
-         // that will display a view of a list of items to pick from.
-         // it can then perform the association without needing a 
-         // callback.  see what multipickview does for an example.
-         AbstractListEO leo = _type.Browse(cmdInfo);
-         leo.setPickState(_association);
-         return leo;
-      }
+      AbstractListEO leo = _type.Browse(cmdInfo);
+      leo.setPickState(_association);
+      return leo;
    }
    @Cmd
    public View Find(CommandInfo cmdInfo)

@@ -87,7 +87,7 @@ public class NullComplexEObject extends AbstractComplexEObject
       return _type.New(cmdInfo);
    }
    @Cmd
-   public Object Browse(CommandInfo cmdInfo)
+   public AbstractListEO Browse(CommandInfo cmdInfo)
    {
       return _type.Browse(cmdInfo);
    }

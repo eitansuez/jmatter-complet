@@ -12,6 +12,7 @@ import com.u2d.model.NullAssociation;
 import com.u2d.list.RelationalList;
 import com.u2d.ui.IconButton;
 import com.u2d.ui.MenuButton;
+import com.u2d.ui.desktop.Positioning;
 import com.u2d.element.Command;
 import com.u2d.field.IndexedField;
 import javax.swing.*;
@@ -147,10 +148,48 @@ public class EditableListView extends JPanel
       addMenuItem("New");
       if (!((IndexedField) _leo.field()).ownsChildren())
       {
-         addMenuItem("Browse");
+         addMenuItemForBrowseCmd();
          addMenuItem("Find");
       }
       return new MenuButton(ADD_ICON, ADD_ROLLOVER, menu);
+   }
+
+   private void addMenuItemForBrowseCmd()
+   {
+      if (!_association.isIndexedAssociation())
+      {
+         addMenuItem("Browse");
+         return;
+      }
+
+      Command cmd = _association.command("Browse");
+      if (cmd.isForbidden(_association))
+      {
+         return;
+      }
+
+      CommandAdapter action = new CommandAdapter(cmd, _association, this)
+      {
+         @Override
+         public void actionPerformed(ActionEvent evt)
+         {
+            final JComponent sourceComp = (JComponent) _source;
+            if (_command.blocks())
+            {
+               sourceComp.setEnabled(false);
+            }
+
+            SwingViewMechanism vmech = SwingViewMechanism.getInstance();
+            vmech.displayViewFor(vmech.getMultiPickView(_association.getAsList()), _source, Positioning.NEARMOUSE);
+
+            if (_command.blocks())
+            {
+               sourceComp.setEnabled(true);  // if the view has closed or detached, then still have a ref to source
+                 // to re-enable it
+            }
+         }
+      };
+      menu.add(new JMenuItem(action));
    }
 
    private void addMenuItem(String cmdName)
