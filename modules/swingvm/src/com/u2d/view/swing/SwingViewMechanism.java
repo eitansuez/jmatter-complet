@@ -87,7 +87,7 @@ public class SwingViewMechanism implements ViewMechanism
    private boolean isShiftDown() { return (_modifiers & InputEvent.SHIFT_MASK) != 0; }
    public boolean isControlDown() { return (_modifiers & InputEvent.CTRL_MASK) != 0; }
    public boolean isAltDown() { return (_modifiers & InputEvent.ALT_MASK) != 0; }
-   
+
    class InputTracker implements AWTEventListener
    {
       public void eventDispatched(AWTEvent event)
