@@ -30,6 +30,7 @@
  <property name="hbprops" value="hibernate" />
 
  <path id="class.path">
+   <fileset dir="lib" includes="**/*.jar" />
    <fileset dir="${lib.dir}" includes="**/*.jar" />
    <pathelement location="${build.classes.dir}" />
    <pathelement location="${framework.classes.dir}" />
@@ -110,6 +111,9 @@
      <sysproperty key="user.language" value="fr" />
      <sysproperty key="user.country" value="FR" />
      <sysproperty key="user.language" value="he" />
+
+     example support/respecting swing.defaultlaf property (uncomment of course):
+     <sysproperty key="swing.defaultlaf" value="com.birosoft.liquid.LiquidLookAndFeel" />
       -->
      <sysproperty key="apple.awt.textantialiasing" value="on" />
    </java>
