@@ -15,18 +15,22 @@ public class EntryPoint
    public static void main(String[] args)
    {
       JFrame.setDefaultLookAndFeelDecorated(true);
-      UIManager.put(SubstanceLookAndFeel.BUTTON_NO_MIN_SIZE_PROPERTY, Boolean.TRUE);
 
-      try {
-         LookAndFeel substance = new SubstanceBusinessBlueSteelLookAndFeel();
-         UIManager.setLookAndFeel(substance);
-//         UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-      }
-      catch (Exception ex)
+      if (System.getProperty("swing.defaultlaf") == null)
       {
-         System.err.printf("Look and feel warning: %s\n", ex.getMessage());
-      }
+         UIManager.put(SubstanceLookAndFeel.BUTTON_NO_MIN_SIZE_PROPERTY, Boolean.TRUE);
 
+         try {
+            LookAndFeel substance = new SubstanceBusinessBlueSteelLookAndFeel();
+            UIManager.setLookAndFeel(substance);
+//         UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+         }
+         catch (Exception ex)
+         {
+            System.err.printf("Look and feel warning: %s\n", ex.getMessage());
+         }
+      }
+      
       SwingUtilities.invokeLater(new Runnable()
       {
          public void run()
