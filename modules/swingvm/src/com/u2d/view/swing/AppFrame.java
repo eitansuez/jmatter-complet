@@ -173,14 +173,6 @@ public class AppFrame extends JFrame implements AppContainer
 
       _cardPanel.show("app-on");
       applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-
-      addWindowListener(new WindowAdapter()
-      {
-         public void windowClosing(WindowEvent e)
-         {
-            _app.onShutdown();
-         }
-      });
    }
    
    private void setupAppIcon()
@@ -706,6 +698,7 @@ public class AppFrame extends JFrame implements AppContainer
    private void quit()
    {
       if (_appSession != null && _appSession.getUser() != null) _appSession.onLogout();
+      _app.onShutdown();
       System.exit(0);
    }
 
