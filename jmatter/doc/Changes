@@ -1,3 +1,74 @@
+
+April 6 2009
+
+Summary of Changes
+==================
+
+- deployment-related
+  - can now deploy app either as webstart app or as java applet (same target "jws-dist"
+    will produce both a web page (index.html) that can be used to launch app as a webstart app
+    and a web page (applet.html) for deploying app as an applet
+  - webstart app is now configured to work with jnlp downloadservlet (war file bundles the
+     necessary dependency)
+  - a new ant target is available for producing a pack200-enabled webstart distribution.
+
+- ui-related
+  - look and feel
+    - substance (v5.1) is now the standard look and feel
+    - edt bugfixes
+    - ensured that ui respects swing.defaultlaft setting (to override look and feel if desired)
+  - date picker and calendar minimonth view now use swingx jxmonthview
+  - made dateeditor popup placement aware of screen edges (so it doesn't gets clipped by screen bounds)
+  - css4swing
+    - css bug fix:  selector of type <component>.<cssclassname> now works
+    - css implementation now supports gradients and rgba color specification
+  - tweaked login panel look
+  - various tweaks to default/template stylesheet
+    - css styles "logged out" jdesktoppane with background image (centered)
+  - added ability to set a different/custom delay time on msgpnl in enhdesktoppane
+  - wrote a new type of stringeditor that translates a list of comma separated values in a single string
+    into a multiple choice selector
+  - integrated a contribution from michadraelian on mailing list: the ability to disable double-click -> default action on a type
+  - trying to use mostly swingx containers so can be background-paintable: exploited by css implementation
+  - added ability to specify/customize main tab caption in formview (per type)
+  - added the notion of a type's default focus field
+
+- api
+  - color coding can be done now per instance.  useful in calendar context
+    to, for example, distinguish various events by state
+  - added utility method: isinwebstartmode on application
+  - added support for per-instance metaproperty 'readOnly' on atomic types
+  - added a basic money atomic type along with ability to persist and display/edit, along with a simple example in sympster.Symposium
+
+- persistence-related
+  - fixed an issue with blob types and oracle
+  - revised imgeo persistence strategy to encode image as png (not ideal but better than before) instead of image serialization which is extremely inefficient (100:1 ratio in blob size)
+  - slight enhancement to hbmmaker:  composite list table name specification is now explicit:  uses full concatenated field name for better namespacing
+
+- fixes
+  - fixed issue with logic testing whether two timespans overlap
+  - fixed DateTime to support custom formatter and to allow for null/empty value
+  - various bug fixes
+
+- libraries updated:
+  - h2 jar (new version 20090403)
+  - miglayout (updated to v3.7)
+  - swingx (updated to v 0.96)
+  - removed skinlf.jar
+  - antlr runtime (used by css4swing) (updated to v3.1.1)
+  - stringtemplate (design time) (upped to v3.2)
+  - jexplose
+
+- other
+  - continued updates/fixes/refinement of json-based object marshalling
+
+a big thank you to the various members of the jmatter mailing list who have
+reported issues, contributed fixes, and enhancements to this release!
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 Oct 2 2008
 
 Summary of Changes
@@ -7,7 +78,7 @@ Summary of Changes
 - started working on AppBuilder: a jmatter application for constructing / generating jmatter applications
 
 - supporting list reordering in the ui for relationallists marked @IdxFld(ordered=true)
-- added an annotation attribute on relational lists @IdxFld(ownsChildren=true) which treats the relation as cascade=delete-orphan and disabled list item association from ui widget
+- added an annotation attribute on relational lists @IdxFld(ownsChildren=true) which treats the relation as cascade=delete-orphan and disables list item association from ui widget
 
 - updated h2 database jar file to latest version (v20080926)
 - removed hsqldb jar from repository
