@@ -3,7 +3,7 @@
 @namespace jmaps com.u2d.view.swing.map
 @namespace ui com.u2d.ui
 @namespace swingx org.jdesktop.swingx
-@namespace jetta com.jeta.forms.components.panel
+@namespace jeta com.jeta.forms.components.panel
 @namespace sympster com.u2d.sympster
 
 
@@ -57,12 +57,9 @@ JDesktopPane
 JDesktopPane.loggedout
 {
   background-image: resource("images/jmatter.png") centered;
-/* example:
- *   background-image: resource("images/retrobg.gif") tiled;
- */
 }
 
-jetta|FormPanel /* FormPanel is not paintable so cannot apply gradient */
+jeta|FormPanel /* FormPanel is not paintable so cannot apply gradient */
 {
   background-color: #fffaf0;
   padding: 5px;
