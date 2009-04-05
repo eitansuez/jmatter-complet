@@ -9,6 +9,8 @@ import com.u2d.pattern.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.view.*;
 
+import javax.swing.*;
+
 /**
  * @author Eitan Suez
  */
@@ -97,7 +99,8 @@ public class EOCommand extends Command
 
    public boolean returnsAView()
    {
-      return _method.getReturnType().isAssignableFrom(View.class);
+      return _method.getReturnType().isAssignableFrom(View.class) ||
+             _method.getReturnType().isAssignableFrom(JComponent.class);
    }
    
    protected boolean haveParameters()
