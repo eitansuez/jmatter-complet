@@ -23,6 +23,8 @@ import com.u2d.type.composite.Folder;
 import com.u2d.type.atom.URI;
 import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
+import com.u2d.model.ComplexEObject;
+import com.u2d.model.AbstractListEO;
 import com.u2d.persist.HBMSingleSession;
 import com.u2d.utils.Launcher;
 import javax.swing.*;
@@ -32,10 +34,13 @@ import javax.swing.event.InternalFrameEvent;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import java.beans.XMLEncoder;
 import java.beans.XMLDecoder;
+import java.beans.PropertyVetoException;
+
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXPanel;
 
@@ -435,6 +440,45 @@ public class JMApplet extends JApplet implements AppContainer
    public void centerFrame(JInternalFrame frame) { _desktopPane.positionFrame(frame, Positioning.CENTERED); }
    public JInternalFrame getSelectedFrame() { return _desktopPane.getSelectedFrame(); }
 
+   // for now copied from AppFrame (code is duplicated):
+   public boolean focusFrameForObject(EObject eo)
+   {
+      JInternalFrame frame = frameForObject(eo);
+      if (frame == null) return false;
+
+      try {
+         frame.setSelected(true);
+      } catch (PropertyVetoException e) { /* vetoed */ }
+
+      return true;
+   }
+   private JInternalFrame frameForObject(EObject eo)
+   {
+      for (FlexiFrame ff : eoFrames())
+      {
+         if (eo instanceof ComplexEObject && ff.representsCEO((ComplexEObject) eo))
+         {
+            return ff;
+         }
+         else if (eo instanceof AbstractListEO && ff.representsListOfType(((AbstractListEO) eo).type()))
+         {
+            return ff;
+         }
+      }
+      return null;
+   }
+   private List<FlexiFrame> eoFrames()
+   {
+      List<FlexiFrame> frames = new ArrayList<FlexiFrame>();
+      for (JInternalFrame f : _desktopPane.getAllFrames())
+      {
+         if (!(f instanceof FlexiFrame)) continue;
+         FlexiFrame ff = (FlexiFrame) f;
+         if (ff.isEoFrame()) frames.add(ff);
+      }
+      return frames;
+   }
+   
 
    public void popup(JPopupMenu menu)
    {

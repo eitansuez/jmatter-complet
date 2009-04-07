@@ -8,7 +8,6 @@ import com.u2d.model.*;
 import com.u2d.pattern.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.view.*;
-
 import javax.swing.*;
 
 /**

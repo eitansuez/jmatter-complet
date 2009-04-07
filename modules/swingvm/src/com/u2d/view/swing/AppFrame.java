@@ -8,6 +8,8 @@ import com.u2d.css4swing.style.ComponentStyle;
 import com.u2d.element.Command;
 import com.u2d.model.ComplexType;
 import com.u2d.model.EObject;
+import com.u2d.model.ComplexEObject;
+import com.u2d.model.AbstractListEO;
 import com.u2d.pattern.Filter;
 import com.u2d.pattern.Onion;
 import com.u2d.persist.HBMSingleSession;
@@ -36,10 +38,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.beans.PropertyVetoException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
+
 import org.jdesktop.swingx.JXPanel;
 import net.miginfocom.swing.MigLayout;
 //import org.javadev.effects.FadeAnimation;
@@ -456,7 +461,54 @@ public class AppFrame extends JFrame implements AppContainer
    public void centerFrame(JInternalFrame frame) { _desktopPane.positionFrame(frame, Positioning.CENTERED); }
    public JInternalFrame getSelectedFrame() { return _desktopPane.getSelectedFrame(); }
 
-   
+   public boolean focusFrameForObject(EObject eo)
+   {
+      JInternalFrame frame = frameForObject(eo);
+      if (frame == null) return false;
+
+      try {
+         frame.setSelected(true);
+      } catch (PropertyVetoException e) { /* vetoed */ }
+      
+      return true;
+   }
+   private JInternalFrame frameForObject(EObject eo)
+   {
+      for (FlexiFrame ff : eoFrames())
+      {
+         if (eo instanceof ComplexEObject && ff.representsCEO((ComplexEObject) eo))
+         {
+            return ff;
+         }
+         else if (eo instanceof AbstractListEO && ff.representsListOfType(((AbstractListEO) eo).type()))
+         {
+            return ff;
+         }
+      }
+      return null;
+   }
+   private List<FlexiFrame> ceoFrames()
+   {
+      List<FlexiFrame> frames = new ArrayList<FlexiFrame>();
+      for (JInternalFrame f : _desktopPane.getAllFrames())
+      {
+         if (!(f instanceof FlexiFrame)) continue;
+         FlexiFrame ff = (FlexiFrame) f;
+         if (ff.isCeoFrame()) frames.add(ff);
+      }
+      return frames;
+   }
+   private List<FlexiFrame> eoFrames()
+   {
+      List<FlexiFrame> frames = new ArrayList<FlexiFrame>();
+      for (JInternalFrame f : _desktopPane.getAllFrames())
+      {
+         if (!(f instanceof FlexiFrame)) continue;
+         FlexiFrame ff = (FlexiFrame) f;
+         if (ff.isEoFrame()) frames.add(ff);
+      }
+      return frames;
+   }
    public void popup(JPopupMenu menu)
    {
       _desktopPane.popup(menu);

@@ -323,6 +323,14 @@ public class SwingViewMechanism implements ViewMechanism
             }
             if (value instanceof Viewable)
             {
+               if (value instanceof ComplexEObject)
+               {
+                  if (_appContainer.focusFrameForObject((EObject) value))
+                  {
+                     return;
+                  }
+               }
+
                EView view = ((Viewable) value).getMainView();
 
                if (value instanceof ComplexEObject)

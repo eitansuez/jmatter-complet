@@ -2,7 +2,8 @@ package com.u2d.view.swing;
 
 import com.u2d.app.AppSession;
 import com.u2d.ui.desktop.Positioning;
-
+import com.u2d.model.ComplexEObject;
+import com.u2d.model.EObject;
 import javax.swing.*;
 
 /**
@@ -25,4 +26,5 @@ public interface AppContainer
    void onMessage(String msg);
    void setWaitCursor();
    void setDefaultCursor();
+   boolean focusFrameForObject(EObject eo);
 }

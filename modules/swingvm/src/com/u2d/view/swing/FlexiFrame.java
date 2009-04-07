@@ -7,6 +7,7 @@ import com.u2d.view.swing.list.ListEOPanel;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
 import com.u2d.model.AbstractListEO;
+import com.u2d.model.ComplexType;
 import com.u2d.list.Paginable;
 import com.u2d.css4swing.CSSEngine;
 import javax.swing.*;
@@ -45,6 +46,44 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       addView(view);
       updateSize();
    }
+   public boolean isCeoFrame()
+   {
+      return isEoFrame() && (_views.get(0) instanceof ComplexEView);
+   }
+   public boolean isListFrame()
+   {
+      return isEoFrame() && (_views.get(0) instanceof ListEView);
+   }
+   public boolean isEoFrame()
+   {
+      if (_views.isEmpty()) return false;
+      if (_views.size() > 1) return false;
+      JComponent c = _views.get(0);
+      return c instanceof EView;
+   }
+   public EObject eo()
+   {
+      if (!isEoFrame()) return null;
+      return ((EView) _views.get(0)).getEObject();
+   }
+   public ComplexEObject ceo()
+   {
+      if (!isCeoFrame()) return null;
+      return (ComplexEObject) ((ComplexEView) _views.get(0)).getEObject();
+   }
+   public AbstractListEO listEo()
+   {
+      if (!isListFrame()) return null;
+      return (AbstractListEO) ((ListEView) _views.get(0)).getEObject();
+   }
+   public boolean representsCEO(ComplexEObject ceo)
+   {
+      return isCeoFrame() && ceo().equals(ceo);
+   }
+   public boolean representsListOfType(ComplexType type)
+   {
+      return isListFrame() && listEo().type().equals(type);
+   }
    
    public void addView(JComponent view)
    {
@@ -61,11 +100,11 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       else if (_views.size() == 1)
       {
          JComponent comp = _views.get(0);
-         remove(comp);
          if (comp instanceof EView)
          {
             ((EView) view).getEObject().removeChangeListener(this);
          }
+         remove(comp);
          _views.add(view);
          _tabPane.addTab(_views.get(0));
          _tabPane.addTab(_views.get(1));
@@ -200,9 +239,9 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
    {
       int count = CSSEngine.getInstance().stylesheet().cleanupStylesForRecursive(getContentPane());
 //      System.out.printf("removed %d references from map\n", count);
-      if (_views.size() == 1 && _views.get(0) instanceof EView)
+      if (isEoFrame())
       {
-         ((EView) _views.get(0)).getEObject().removeChangeListener(this);
+         eo().removeChangeListener(this);
       }
       for (JComponent view : _views)
       {
@@ -284,7 +323,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
 
    static String CLOSETAB_MAP_KEY = "CLOSE_TAB";
    static KeyStroke COMMAND_W = KeyStroke.getKeyStroke(KeyEvent.VK_W, Platform.mask());
-   
+
    class TabContainer extends JTabbedPane implements ChangeListener
    {
       JPopupMenu _contextMenu;
