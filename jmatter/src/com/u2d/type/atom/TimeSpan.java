@@ -120,13 +120,15 @@ public class TimeSpan extends AbstractAtomicEO
    }
    
    // convenience..
-   public Calendar startCal()
+   public Calendar startCal() { return calFor(_startCal.getTime()); }
+   public Calendar endCal() { return calFor(_endCal.getTime()); }
+   private Calendar calFor(Date date)
    {
       Calendar cal = Calendar.getInstance();
-      cal.setTime(_startCal.getTime());
+      cal.setTime(date);
       return cal;
    }
-   
+
    
    public TimeInterval duration() { return _duration; }
    public void setDuration(TimeInterval duration)
@@ -169,6 +171,11 @@ public class TimeSpan extends AbstractAtomicEO
    public boolean containsOrIntersects(TimeSpan span)
    {
       return contains(span.startDate(), false) || contains(span.endDate(), false);
+   }
+
+   public boolean overlapsWith(TimeSpan span)
+   {
+      return span.startCal().before(_endCal) && span.endCal().after(_startCal);
    }
    
    
