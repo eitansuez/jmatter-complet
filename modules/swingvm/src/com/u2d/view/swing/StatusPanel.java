@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.util.ArrayList;
 import org.jdesktop.swingx.JXPanel;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Date: May 16, 2005
@@ -23,7 +24,7 @@ public class StatusPanel extends JXPanel
 
    public StatusPanel()
    {
-      setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+      setLayout(new MigLayout("fill, insets 0 indent 0 indent, gapx indent, gapy 0"));
       setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
    }
 
@@ -31,7 +32,6 @@ public class StatusPanel extends JXPanel
    {
       EView view = new StatusView(eo);
       add((JComponent) view);
-      add(Box.createHorizontalStrut(30));
       _views.add(view);
    }
 

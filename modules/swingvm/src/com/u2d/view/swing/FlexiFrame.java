@@ -46,6 +46,7 @@ public class FlexiFrame extends CloseableJInternalFrame implements RootView, Cha
       addView(view);
       updateSize();
    }
+
    public boolean isCeoFrame()
    {
       return isEoFrame() && (_views.get(0) instanceof ComplexEView);

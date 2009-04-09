@@ -44,7 +44,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
-
 import org.jdesktop.swingx.JXPanel;
 import net.miginfocom.swing.MigLayout;
 //import org.javadev.effects.FadeAnimation;
@@ -372,7 +371,7 @@ public class AppFrame extends JFrame implements AppContainer
 
    EObject _serviceObject = null;
    CommandsIconButtonView _commandsPnl = null;
-   JPanel northPanel = null;
+   JXPanel northPanel = null;
    CommandsMenuView _commandsMenu = null;
    private void setupCommandBar()
    {
@@ -382,17 +381,16 @@ public class AppFrame extends JFrame implements AppContainer
          _commandsMenu = new CommandsMenuView();
 
          MigLayout layout = new MigLayout("alignx leading, insets 0", "", "[fill, align center]");
-         northPanel = new JPanel(layout);
+         northPanel = new JXPanel(layout);
 
          _commandsPnl = new CommandsIconButtonView();
          northPanel.add(_commandsPnl);
-
          ComponentStyle.addClass(northPanel, "command-bar");
          _centerPane.add(northPanel, BorderLayout.PAGE_START);
-        for (Runnable r : deferredActions)
-        {
-           r.run();
-        }
+      }
+      for (Runnable r : deferredActions)
+      {
+         r.run();
       }
    }
    private java.util.List<Runnable> deferredActions = new ArrayList<Runnable>();

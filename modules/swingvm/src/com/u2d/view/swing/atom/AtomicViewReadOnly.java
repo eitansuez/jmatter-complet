@@ -22,6 +22,7 @@ public class AtomicViewReadOnly extends JPanel implements AtomicEView
 
    public AtomicViewReadOnly()
    {
+      setOpaque(false);
       setLayout(new BorderLayout());
       _cmdsView = new CommandsContextMenuView();
    }

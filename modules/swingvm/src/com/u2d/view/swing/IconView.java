@@ -15,7 +15,6 @@ import com.u2d.view.swing.dnd.*;
 import com.u2d.view.swing.list.CommandsContextMenuView;
 import com.u2d.element.Command;
 import com.u2d.reflection.DefaultAction;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;

@@ -31,7 +31,13 @@ public abstract class AbeilleForm extends FormPane implements IFormView
    {
       String clsName = getEObject().getClass().getName();
       String formName = clsName.replace('.', File.separatorChar) + ".jfrm";
-      return new FormPanel(formName);
+      return formPanel(formName);
+   }
+   protected FormPanel formPanel(String resourcePath)
+   {
+      FormPanel formPanel = new FormPanel(resourcePath);
+      formPanel.setOpaque(false);
+      return formPanel;
    }
 
    protected JComponent getView(EObject eo)
