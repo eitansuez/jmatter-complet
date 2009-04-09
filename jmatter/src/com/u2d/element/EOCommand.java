@@ -98,6 +98,7 @@ public class EOCommand extends Command
 
    public boolean returnsAView()
    {
+      if (_method == null) return false;
       return _method.getReturnType().isAssignableFrom(View.class) ||
              _method.getReturnType().isAssignableFrom(JComponent.class);
    }
