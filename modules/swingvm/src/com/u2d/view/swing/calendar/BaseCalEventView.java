@@ -51,7 +51,10 @@ public abstract class BaseCalEventView
       _cmdsView = new CommandsContextMenuView();
       _cmdsView.bind(_event, _header, this);
 
-      _header.setTransferHandler(new EOTransferHandler(_header, this));
+      if (allowed())
+      {
+         _header.setTransferHandler(new EOTransferHandler(_header, this));
+      }
 
       Command defaultCmd = _event.defaultCommand();
       CommandAdapter defaultAction = new CommandAdapter(defaultCmd, _event, this);
@@ -61,11 +64,19 @@ public abstract class BaseCalEventView
       stateChanged(null);
    }
 
+   private boolean allowed()
+   {
+      return !_event.timeSpan().field().isReadOnly();
+   }
+   
    public void setupExtendSpan(ITimeSheet timesheet)
    {
-      EventSpanAdjuster eventSpanAdjuster = new EventSpanAdjuster(this, timesheet);
-      _body.addMouseListener(eventSpanAdjuster);
-      _body.addMouseMotionListener(eventSpanAdjuster);
+      if (allowed())
+      {
+         EventSpanAdjuster eventSpanAdjuster = new EventSpanAdjuster(this, timesheet);
+         _body.addMouseListener(eventSpanAdjuster);
+         _body.addMouseMotionListener(eventSpanAdjuster);
+      }
    }
 
    public void propertyChange(final PropertyChangeEvent evt)
