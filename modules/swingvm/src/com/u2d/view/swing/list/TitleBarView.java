@@ -28,11 +28,10 @@ public class TitleBarView extends GradientPanel implements ListEView
       super(leo.type().colorCode(), false);
       _leo = leo;
       
-      MigLayout layout = new MigLayout("fill, insets 0", "[left][right]", "[bottom][center]");
-      setLayout(layout);
+      setLayout(new MigLayout("fill, insets 0, gap 0", "[grow, fill][right]", "[bottom][center]"));
 
       _titleView = new ListTitleView(_leo, parentView);
-      add(_titleView, "growx");
+      add(_titleView);
       
       _altView = getAlternateListView(innerView);
       if (_altView != null)
@@ -41,7 +40,7 @@ public class TitleBarView extends GradientPanel implements ListEView
       if (_leo instanceof QueryReceiver)
       {
          _findPnl = new FindPanel((QueryReceiver) _leo);
-         add(_findPnl, "newline, span, growx");
+         add(_findPnl, "newline, span");
       }
    }
    
