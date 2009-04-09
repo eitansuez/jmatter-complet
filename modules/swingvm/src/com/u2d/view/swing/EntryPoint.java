@@ -19,6 +19,7 @@ public class EntryPoint
       if (System.getProperty("swing.defaultlaf") == null)
       {
          UIManager.put(SubstanceLookAndFeel.BUTTON_NO_MIN_SIZE_PROPERTY, Boolean.TRUE);
+         UIManager.put(SubstanceLookAndFeel.COLORIZATION_FACTOR, 1.0);
 
          try {
             LookAndFeel substance = new SubstanceBusinessBlueSteelLookAndFeel();
