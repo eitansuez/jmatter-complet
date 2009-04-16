@@ -112,7 +112,7 @@
    <target name="clean-modules">
       <ant antfile="modules/ds-swing/build.xml" inheritAll="false" target="clean" />
       <ant antfile="modules/ds-wizard/build.xml" inheritAll="false" target="clean" />
-      <ant antfile="modules/echo2vm/build.xml" inheritAll="false" target="clean" />
+      <ant antfile="modules/echovm/build.xml" inheritAll="false" target="clean" />
       <ant antfile="modules/jmatter-tools/build.xml" inheritAll="false" target="clean" />
       <ant antfile="modules/swingvm/build.xml" inheritAll="false" target="clean" />
       <ant antfile="modules/wingsvm/build.xml" inheritAll="false" target="clean" />
