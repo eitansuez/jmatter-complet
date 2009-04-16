@@ -409,6 +409,10 @@ public class AppFrame extends JFrame implements AppContainer
    {
       _menuBar = new JMenuBar();
       _menuBar.add(fileMenu());
+      if (!_app.isInWebStartMode())  // i.e. allow checking out / switching skins in development..
+      {
+         Substance.addSkinMenuTo(_menuBar);
+      }
       _menuBar.add(helpMenu());
       setJMenuBar(_menuBar);
    }
