@@ -3,7 +3,9 @@ package com.u2d.view.swing;
 import com.u2d.model.Editor;
 import com.u2d.model.EObject;
 import com.u2d.model.ComplexEObject;
+import com.u2d.model.AtomicEObject;
 import com.u2d.view.EView;
+import com.u2d.view.swing.atom.AtomicViewReadOnly;
 import com.u2d.element.Field;
 import com.u2d.element.Command;
 import com.u2d.field.CompositeField;
@@ -45,6 +47,12 @@ public abstract class AbeilleForm extends FormPane implements IFormView
       EView view = eo.getMainView();
       _views.add(view);
       return (JComponent) view;
+   }
+   protected AtomicViewReadOnly getAtomicViewReadOnly(AtomicEObject aeo)
+   {
+      AtomicViewReadOnly view = new AtomicViewReadOnly(aeo);
+      _views.add(view);
+      return view;
    }
    protected JComponent getAssociationView(Association association)
    {
