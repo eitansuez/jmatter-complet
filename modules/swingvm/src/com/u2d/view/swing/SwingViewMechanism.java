@@ -204,6 +204,8 @@ public class SwingViewMechanism implements ViewMechanism
       });
    }
 
+   public Frame getFrame() { return (Frame) _appContainer; }
+
    private void showErrorDialog(Exception ex)
    {
       final JDialog dlg = new JDialog((Frame) _appContainer, "An error has occurred", true);
