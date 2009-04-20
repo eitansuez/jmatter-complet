@@ -44,9 +44,21 @@ public class CommandAdapter extends AbstractAction
 
       changePropagator = new PropertyChangeListener()
       {
-         public void propertyChange(PropertyChangeEvent evt)
+         public void propertyChange(final PropertyChangeEvent evt)
          {
-            firePropertyChange("enabled", evt.getOldValue(), evt.getNewValue());
+            if (SwingUtilities.isEventDispatchThread())
+            {
+               firePropertyChange("enabled", evt.getOldValue(), evt.getNewValue());
+            }
+            else
+            {
+               SwingUtilities.invokeLater(new Runnable() {
+                  public void run()
+                  {
+                     firePropertyChange("enabled", evt.getOldValue(), evt.getNewValue());
+                  }
+               });
+            }
          }
       };
       _command.addPropertyChangeListener("enabled", changePropagator);
