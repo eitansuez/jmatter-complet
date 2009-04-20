@@ -26,6 +26,7 @@ public class LockablePanel extends JPanel
          }
       });
       lock.setToolTipText(lockable.lockTooltip());
+      lock.setFocusable(false);
       // initial state sync..
       _lockable.setLocked(lock.isLocked());
 

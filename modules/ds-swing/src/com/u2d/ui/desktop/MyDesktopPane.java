@@ -150,7 +150,7 @@ public class MyDesktopPane extends JDesktopPane
                   {
                      if (noNextFrame())
                      {
-                        MyDesktopPane.this.requestFocusInWindow();
+                        MyDesktopPane.this.transferFocusBackward();
                         return;
                      }
                      JInternalFrame f = jifs.getFirst();
