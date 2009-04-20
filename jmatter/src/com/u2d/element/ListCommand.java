@@ -1,10 +1,8 @@
 package com.u2d.element;
 
 import com.u2d.view.EView;
-import com.u2d.view.View;
 import com.u2d.model.ComplexType;
 import com.u2d.model.AbstractListEO;
-import com.u2d.ui.desktop.Positioning;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 

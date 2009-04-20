@@ -4,10 +4,10 @@ import com.u2d.element.Command;
 import com.u2d.pattern.Onion;
 import com.u2d.list.RelationalList;
 import com.u2d.list.CompositeList;
-
 import javax.swing.*;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 
@@ -52,7 +52,12 @@ public class ListType
    private ListType(Class listClass, Class itemClass)
    {
       _commands = Harvester.simpleHarvestCommands(listClass, new Onion(), false, null);
-      
+      for (Iterator itr = _commands.deepIterator(); itr.hasNext(); )
+      {
+         Command cmd = (Command) itr.next();
+         cmd.localize(ComplexType.forClass(itemClass));
+      }
+
       ComplexType itemType = ComplexType.forClass(itemClass);
       _commands.wrap(itemType.listCommands());
       
