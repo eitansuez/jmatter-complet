@@ -718,7 +718,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          }
          transferCopy(AbstractComplexEObject.this, copy, true);
       }
-      @Cmd(mnemonic='l')
+      @Cmd(mnemonic='l', blocks=true)
       public void SaveAndClose(CommandInfo cmdInfo)
       {
          if (doSave())
@@ -852,7 +852,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
          if (copy == null) return;
          transferCopy(AbstractComplexEObject.this, copy, true);
       }
-      @Cmd(mnemonic='l')
+      @Cmd(mnemonic='l', blocks=true)
       public void SaveAndClose(CommandInfo cmdInfo)
       {
          if (doSave())
