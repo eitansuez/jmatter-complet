@@ -5,7 +5,6 @@ import com.u2d.view.*;
 import com.u2d.view.echo.list.ListView;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.wizard.details.Wizard;
-import com.u2d.reporting.Reportable;
 import com.u2d.model.*;
 import com.u2d.find.CompositeQuery;
 import com.u2d.field.Association;
@@ -116,10 +115,6 @@ public class EchoViewMechanism implements ViewMechanism
       {
          message((String) value);
       }
-      else if (value instanceof Reportable)
-      {
-         displayReport((Reportable) value);
-      }
       else if (value instanceof Wizard)
       {
          displayWizard((Wizard) value);
@@ -183,10 +178,6 @@ public class EchoViewMechanism implements ViewMechanism
    }
 
    public void displayWizard(Wizard wizard)
-   {
-   }
-
-   public void displayReport(Reportable reportable)
    {
    }
 

@@ -3,7 +3,6 @@ package com.u2d.app;
 import com.u2d.view.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.wizard.details.Wizard;
-import com.u2d.reporting.Reportable;
 import com.u2d.model.*;
 import com.u2d.find.CompositeQuery;
 import com.u2d.field.Association;
@@ -38,12 +37,10 @@ public class NullViewMechanism implements ViewMechanism
    public void dismissLogin() { }
    public void loginInvalid() { } 
    public void userLocked() { } 
-   public void initReporting() { }
    public void displayViewFor(Object value, EView source, Positioning positioningHint) { }
    public void displayView(View view, Positioning positioning) { }
    public void displayView(EView view, EView source) { }
    public void displayWizard(Wizard wizard) { }
-   public void displayReport(Reportable reportable) { }
    public void dismiss(EView eview) { }
    public void message(String message) { }
    public void showMsgDlg(String message) { }

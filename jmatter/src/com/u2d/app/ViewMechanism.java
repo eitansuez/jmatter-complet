@@ -14,7 +14,6 @@ import com.u2d.field.Association;
 import com.u2d.find.CompositeQuery;
 import com.u2d.list.RelationalList;
 import com.u2d.model.*;
-import com.u2d.reporting.Reportable;
 import com.u2d.type.AbstractChoiceEO;
 import com.u2d.type.composite.USAddress;
 import com.u2d.ui.desktop.Positioning;
@@ -36,13 +35,10 @@ public interface ViewMechanism
    public void loginInvalid();
    public void userLocked();
    
-   public void initReporting();
-
    public void displayViewFor(Object value, EView source, Positioning positioningHint);
    public void displayView(View view, Positioning positioning);
    public void displayView(EView view, EView source);
    public void displayWizard(Wizard wizard);
-   public void displayReport(Reportable reportable);
    public void displayParamsListView(EOCommand cmd, Object value, CommandInfo cmdInfo);
 
    public void dismiss(EView eview);

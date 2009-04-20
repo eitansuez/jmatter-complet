@@ -20,8 +20,6 @@ import com.u2d.find.CompositeQuery;
 import com.u2d.list.CompositeList;
 import com.u2d.list.RelationalList;
 import com.u2d.model.*;
-import com.u2d.reporting.Reportable;
-import com.u2d.reporting.ReportingInterface;
 import com.u2d.type.AbstractChoiceEO;
 import com.u2d.type.composite.Folder;
 import com.u2d.type.composite.USAddress;
@@ -59,7 +57,6 @@ import java.beans.PropertyChangeListener;
 import java.io.StringWriter;
 import java.io.PrintWriter;
 import java.util.Set;
-
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -72,7 +69,6 @@ public class SwingViewMechanism implements ViewMechanism
    
    private AppContainer _appContainer;
    private LoginDialog _loginDialog;
-   private ReportingInterface _reportingInterface;
 
    private AppSession _appSession;
 
@@ -135,15 +131,6 @@ public class SwingViewMechanism implements ViewMechanism
    public boolean isLabelEditorLayoutHorizontal() { return labelEditorLayoutHorizontal; }
 
    
-   private ReportingInterface reportingInterface()
-   {
-      if (_reportingInterface == null)
-         _reportingInterface = new ReportingInterface();
-      return _reportingInterface;
-   }
-   public void initReporting() { reportingInterface(); }
-   
-
    public void launch(AppContainer applet)
    {
       final Splash splash = new Splash();
@@ -358,10 +345,6 @@ public class SwingViewMechanism implements ViewMechanism
             else if (value instanceof String)
             {
                message((String) value);
-            }
-            else if (value instanceof Reportable)
-            {
-               displayReport((Reportable) value);
             }
             else if (value instanceof Wizard)
             {
@@ -581,12 +564,6 @@ public class SwingViewMechanism implements ViewMechanism
       });
    }
    
-   public void displayReport(Reportable reportable)
-   {
-      reportingInterface().displayReport(reportable);
-   }
-
-
    public void message(final String msg)
    {
       if (SwingUtilities.isEventDispatchThread())

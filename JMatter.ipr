@@ -678,15 +678,6 @@
       </SOURCES>
       <jarDirectory url="file://$PROJECT_DIR$/jmatter/lib/runtime/hb" recursive="false" />
     </library>
-    <library name="JFreeReport">
-      <CLASSES>
-        <root url="file://$PROJECT_DIR$/jmatter/lib/runtime/jfree" />
-        <root url="jar://$PROJECT_DIR$/jmatter/lib/runtime/jfreereport-0.8.7.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://$PROJECT_DIR$/jmatter/lib/runtime/jfree" recursive="false" />
-    </library>
     <library name="Groovy">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/jmatter/lib/runtime/groovy-all-1.6.0.jar!/" />

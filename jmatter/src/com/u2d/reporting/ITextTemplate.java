@@ -7,7 +7,6 @@ import com.lowagie.text.pdf.*;
 import com.lowagie.text.rtf.RtfWriter2;
 import com.lowagie.tools.Executable;
 import com.u2d.utils.Launcher;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

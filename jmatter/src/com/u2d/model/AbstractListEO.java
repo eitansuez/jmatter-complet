@@ -17,8 +17,6 @@ import com.u2d.pattern.Block;
 import com.u2d.pattern.Filter;
 import com.u2d.pubsub.*;
 import static com.u2d.pubsub.AppEventType.*;
-import com.u2d.reporting.Reportable;
-import com.u2d.reporting.ReportFormat;
 import com.u2d.view.ListEView;
 import com.u2d.reflection.Cmd;
 import com.u2d.reflection.Arg;
@@ -579,31 +577,6 @@ public abstract class AbstractListEO extends AbstractEObject
    public AbstractListEO Open(CommandInfo cmdInfo)
    {
       return this;
-   }
-
-   
-   
-   // basic print capability
-   private PrintForm _printForm = null;
-//   @Cmd  //  works but .. needs some work.
-   public Reportable Print(CommandInfo cmdInfo)
-   {
-      if (_printForm == null)
-      {
-         _printForm = new PrintForm();
-      }
-      return _printForm;
-   }
-   
-   // technically could just make AbstractListEO itself reportable.  might
-   // be simpler
-   class PrintForm implements Reportable
-   {
-      Properties p = new Properties();
-      public Properties properties() { return p; }
-      public String reportName() { return toString(); }
-      public TableModel tableModel() { return AbstractListEO.this.tableModel(); }
-      public ReportFormat reportFormat() { return ReportFormat.PDF; }
    }
 
    

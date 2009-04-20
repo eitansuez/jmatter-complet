@@ -6,7 +6,6 @@ import com.u2d.view.wings.list.*;
 import com.u2d.view.wings.atom.*;
 import com.u2d.ui.desktop.Positioning;
 import com.u2d.wizard.details.Wizard;
-import com.u2d.reporting.Reportable;
 import com.u2d.model.*;
 import com.u2d.find.CompositeQuery;
 import com.u2d.field.Association;
@@ -81,11 +80,6 @@ public class WingSViewMechanism implements ViewMechanism
       _loginDialog.userLocked();
    }
 
-   public void initReporting()
-   {
-      // [tbd] noop
-   }
-
    public void displayViewFor(Object value, EView source, Positioning positioningHint)
    {
       _tracer.fine("displayViewFor:: value: "+value);
@@ -149,25 +143,20 @@ public class WingSViewMechanism implements ViewMechanism
          return (SInternalFrame) view;
       if (view instanceof ListEView)
       {
-         return new ListEOFrame((ListEView) view);
+         return new ListEOFrame(view);
       }
 //      else if (view instanceof CalendarView)
 //         return new CalendarFrame((CalendarView) view);
 //      else if (view instanceof ScheduleView)
 //         return new CalendarFrame((ScheduleView) view);
       else if (view instanceof ComplexEView)
-         return new EOFrame((ComplexEView) view);
+         return new EOFrame(view);
 
       throw new IllegalArgumentException(
             "Don't know how to make a frame for view: "+view);
    }
 
    public void displayWizard(Wizard wizard)
-   {
-      // [tbd] noop
-   }
-
-   public void displayReport(Reportable reportable)
    {
       // [tbd] noop
    }
