@@ -55,7 +55,6 @@ public class PaginableView extends JPanel implements ListEView, CompositeView
       {
          public void run()
          {
-//            _pagePnl.contentsChanged();
             _pageScrollBar.contentsChanged();
          }
       });

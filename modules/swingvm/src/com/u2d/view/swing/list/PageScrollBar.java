@@ -118,17 +118,9 @@ public class PageScrollBar extends JScrollBar
       setMaximum(_paginable.numPages()+1);
       setBlockIncrement(calcBlockIncrement());
       setToolTipText(_paginable.getPageTitleInfo());
-      
-      if ( (_paginable.numPages() == 1) && (_nextBtn.isVisible()) )
-      {
-         _nextBtn.setVisible(false);
-         _prevBtn.setVisible(false);
-      }
-      else if ( (_paginable.numPages() > 1) && (!_nextBtn.isVisible()) )
-      {
-         _nextBtn.setVisible(true);
-         _prevBtn.setVisible(true);
-      }
+
+      _prevBtn.setEnabled(_paginable.hasPreviousPage());
+      _nextBtn.setEnabled(_paginable.hasNextPage());
    }
 
    private int calcBlockIncrement()
