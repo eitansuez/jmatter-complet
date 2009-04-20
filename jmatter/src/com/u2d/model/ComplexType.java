@@ -712,6 +712,7 @@ public class ComplexType extends AbstractComplexEObject
    {
       instanceCommands(block);
       _typeCommands.forEach(block);
+      _listCommands.forEach(block);
    }
    
 
