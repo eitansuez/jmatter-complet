@@ -2,15 +2,14 @@ package com.u2d.persist.type;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
 import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
-import org.hibernate.cache.CacheConcurrencyStrategy;
-import org.hibernate.engine.Mapping;
+import org.hibernate.cache.access.EntityRegionAccessStrategy;
+import org.hibernate.mapping.PersistentClass;
 import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.engine.SessionImplementor;
-import org.hibernate.mapping.PersistentClass;
+import org.hibernate.engine.Mapping;
 import com.u2d.model.ComplexType;
 
 /**
@@ -23,11 +22,9 @@ public class ComplexTypePersister extends EntityPersisterAdapter
 {
    protected SessionFactoryImplementor factory;
 
-   public ComplexTypePersister(
-         PersistentClass model,
-         CacheConcurrencyStrategy cache,
-         SessionFactoryImplementor factory,
-         Mapping mapping) {
+   public ComplexTypePersister(PersistentClass cls, EntityRegionAccessStrategy strategy,
+                               SessionFactoryImplementor factory, Mapping mapping)
+   {
       this.factory = factory;
    }
 
@@ -100,18 +97,15 @@ public class ComplexTypePersister extends EntityPersisterAdapter
       }
    }
 
-   public boolean isInstance(Object object, EntityMode entityMode) {
+   public boolean isInstance(Object object, EntityMode entityMode)
+   {
       checkEntityMode( entityMode );
       return object instanceof ComplexType;
    }
 
-   public Object load(
-      Serializable id,
-      Object optionalObject,
-      LockMode lockMode,
-      SessionImplementor session
-   ) throws HibernateException {
-
+   public Object load(Serializable id, Object optionalObject, LockMode lockMode, SessionImplementor session)
+         throws HibernateException
+   {
       // fails when optional object is supplied
 
 //      Custom clone = null;
@@ -149,13 +143,9 @@ public class ComplexTypePersister extends EntityPersisterAdapter
    }
 
 
-   public void insert(
-      Serializable id,
-      Object[] fields,
-      Object object,
-      SessionImplementor session
-   ) throws HibernateException {
-
+   public void insert(Serializable id, Object[] fields, Object object, SessionImplementor session)
+         throws HibernateException
+   {
       getComplexType((String) id);
    }
 
@@ -167,22 +157,11 @@ public class ComplexTypePersister extends EntityPersisterAdapter
    public Serializable[] getPropertySpaces() { return new String[] { "COMPLEXTYPES" }; }
    public Serializable[] getQuerySpaces() { return new String[] { "COMPLEXTYPES" }; }
 
-   public Object getCurrentVersion(
-      Serializable id,
-      SessionImplementor session)
-      throws HibernateException {
-
+   public Object getCurrentVersion(Serializable id, SessionImplementor session) throws HibernateException
+   {
       return getComplexType((String) id);
    }
 
-
-   public boolean canExtractIdOutOfEntity()
-   {
-      return true;
-   }
-
-   public Comparator getVersionComparator()
-   {
-      return null;
-   }
+   public boolean canExtractIdOutOfEntity() { return true; }
+   public Comparator getVersionComparator() { return null; }
 }

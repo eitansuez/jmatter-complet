@@ -14,7 +14,7 @@ import java.util.*;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Junction;
-import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Restrictions;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListDataEvent;
 
@@ -88,7 +88,7 @@ public class Calendrier extends AbstractComplexEObject
       Session session = Context.getInstance().hbmpersistor().getSession();
       Criteria criteria = session.createCriteria(eventType().getJavaClass());
 
-      Junction junction = Expression.conjunction();
+      Junction junction = Restrictions.conjunction();
       
       Class evtClass = eventType().getJavaClass();
       
@@ -99,8 +99,8 @@ public class Calendrier extends AbstractComplexEObject
 //      }
       
       String timespanFieldname = CalEvent.timespanFieldname(evtClass);
-      junction.add(Expression.ge(timespanFieldname + ".start", _span.startDate()));
-      junction.add(Expression.le(timespanFieldname + ".end", _span.endDate()));
+      junction.add(Restrictions.ge(timespanFieldname + ".start", _span.startDate()));
+      junction.add(Restrictions.le(timespanFieldname + ".end", _span.endDate()));
       criteria.add(junction);
 
       return criteria;
@@ -179,7 +179,7 @@ public class Calendrier extends AbstractComplexEObject
    {
       public void intervalAdded(ListDataEvent e)
       {
-         Schedulable schedulable = null;
+         Schedulable schedulable;
          for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
          {
             schedulable = (Schedulable) _cal.schedulables().getElementAt(i);
@@ -189,7 +189,7 @@ public class Calendrier extends AbstractComplexEObject
 
       public void intervalRemoved(ListDataEvent e)
       {
-         Schedulable schedulable = null;
+         Schedulable schedulable;
          for (int i=e.getIndex0(); i<=e.getIndex1(); i++)
          {
             schedulable = (Schedulable) _cal.schedulables().getElementAt(i);

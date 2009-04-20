@@ -10,7 +10,6 @@ import com.u2d.model.EObject;
 import com.u2d.model.Editor;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.*;
-
 import java.util.*;
 
 /**
@@ -50,7 +49,7 @@ public class DateInequalities
    {
       public void addExpression(Criteria criteria, Field field, EObject eo)
       {
-         Criterion criterion = Expression.lt(field.getCleanPath(), eo);
+         Criterion criterion = Restrictions.lt(field.getCleanPath(), eo);
          criteria.add(criterion);
       }
 
@@ -68,7 +67,7 @@ public class DateInequalities
    {
       public void addExpression(Criteria criteria, Field field, EObject eo)
       {
-         Criterion criterion = Expression.gt(field.getCleanPath(), eo);
+         Criterion criterion = Restrictions.gt(field.getCleanPath(), eo);
          criteria.add(criterion);
       }
 
@@ -86,7 +85,7 @@ public class DateInequalities
    {
       public void addExpression(Criteria criteria, Field field, EObject eo)
       {
-         Criterion criterion = Expression.eq(field.getCleanPath(), eo);
+         Criterion criterion = Restrictions.eq(field.getCleanPath(), eo);
          criteria.add(criterion);
       }
       

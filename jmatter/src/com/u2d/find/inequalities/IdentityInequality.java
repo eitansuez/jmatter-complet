@@ -70,12 +70,12 @@ public class IdentityInequality
          if (field.isChoice())
          {
             String code = ((Choice) eo).code();
-            Criterion criterion = Expression.eq(field.getCleanPath()+".code", code);
+            Criterion criterion = Restrictions.eq(field.getCleanPath()+".code", code);
             criteria.add(criterion);
          }
          else
          {
-            Criterion criterion = Expression.eq(field.getCleanPath(), eo);
+            Criterion criterion = Restrictions.eq(field.getCleanPath(), eo);
             criteria.add(criterion);
          }
       }
@@ -101,12 +101,12 @@ public class IdentityInequality
          if (field.isChoice())
          {
             String code = ((Choice) eo).code();
-            Criterion criterion = Expression.ne(field.getCleanPath()+".code", code);
+            Criterion criterion = Restrictions.ne(field.getCleanPath()+".code", code);
             criteria.add(criterion);
          }
          else
          {
-            Criterion criterion = Expression.ne(field.getCleanPath(), eo);
+            Criterion criterion = Restrictions.ne(field.getCleanPath(), eo);
             criteria.add(criterion);
          }
       }
@@ -131,7 +131,7 @@ public class IdentityInequality
       {
          ComplexType type = (ComplexType) eo;
          String clsName = type.getJavaClass().getName();
-         Criterion criterion = Expression.eq(field.getCleanPath()+".class", clsName);
+         Criterion criterion = Restrictions.eq(field.getCleanPath()+".class", clsName);
          criteria.add(criterion);
       }
       public String toString() { return ComplexType.localeLookupStatic("type_is"); }

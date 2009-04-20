@@ -17,7 +17,7 @@ import org.hibernate.cfg.*;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.hibernate.*;
-import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.logging.Logger;
@@ -273,7 +273,7 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
 
    public com.u2d.type.Choice lookup(final Class clazz, final String code)
    {
-      List items = getSession().createCriteria(clazz).add(Expression.eq("code", code)).list();
+      List items = getSession().createCriteria(clazz).add(Restrictions.eq("code", code)).list();
       if (items.isEmpty()) return null;
       ComplexEObject ceo = (ComplexEObject) items.iterator().next();
       ceo.onLoad();
@@ -283,7 +283,7 @@ public abstract class HibernatePersistor implements HBMPersistenceMechanism
    public ComplexEObject lookup(final Class clazz, final String uniqueFieldName, final String value)
    {
       Criteria criteria = getSession().createCriteria(clazz);
-      criteria.add(Expression.eq(uniqueFieldName, value));
+      criteria.add(Restrictions.eq(uniqueFieldName, value));
       List list = criteria.list();
       if (list.isEmpty()) return null;
       ComplexEObject ceo = (ComplexEObject) list.iterator().next();

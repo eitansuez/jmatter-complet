@@ -61,7 +61,7 @@ public class TextualInequalities
       
       public void addExpression(Criteria criteria, Field field, EObject eo)
       {
-         Criterion criterion = Expression.eq(field.getCleanPath(), eo).ignoreCase();
+         Criterion criterion = Restrictions.eq(field.getCleanPath(), eo).ignoreCase();
          criteria.add(criterion);
       }
 
@@ -82,7 +82,7 @@ public class TextualInequalities
       public void addExpression(Criteria c, Field field, EObject eo)
       {
          Criterion criterion = 
-            Expression.ilike(field.getCleanPath(), eo.toString(), MatchMode.ANYWHERE);
+            Restrictions.ilike(field.getCleanPath(), eo.toString(), MatchMode.ANYWHERE);
          c.add(criterion);
       }
 
@@ -103,7 +103,7 @@ public class TextualInequalities
       public void addExpression(Criteria c, Field field, EObject eo)
       {
          Criterion criterion = 
-            Expression.ilike(field.getCleanPath(), eo.toString(), MatchMode.START);
+            Restrictions.ilike(field.getCleanPath(), eo.toString(), MatchMode.START);
          c.add(criterion);
       }
 
@@ -124,7 +124,7 @@ public class TextualInequalities
       public void addExpression(Criteria c, Field field, EObject eo)
       {
          Criterion criterion = 
-            Expression.ilike(field.getCleanPath(), eo.toString(), MatchMode.END);
+            Restrictions.ilike(field.getCleanPath(), eo.toString(), MatchMode.END);
          c.add(criterion);
       }
 

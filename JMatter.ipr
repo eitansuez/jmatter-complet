@@ -662,7 +662,9 @@
         <root url="file://$PROJECT_DIR$/jmatter/lib/runtime/spring" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file:///home/eitan/work/thirdparty/spring-framework-2.5.6/src" />
+      </SOURCES>
       <jarDirectory url="file://$PROJECT_DIR$/jmatter/lib/runtime/spring" recursive="false" />
     </library>
     <library name="Hibernate">
@@ -672,7 +674,7 @@
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="file:///home/eitan/work/thirdparty/hibernate-3.2/src" />
+        <root url="file:///home/eitan/work/thirdparty/hibernate-3.3.1/project/core/src/main/java" />
       </SOURCES>
       <jarDirectory url="file://$PROJECT_DIR$/jmatter/lib/runtime/hb" recursive="false" />
     </library>
@@ -687,7 +689,7 @@
     </library>
     <library name="Groovy">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/jmatter/lib/runtime/groovy-all-1.5.6.jar!/" />
+        <root url="jar://$PROJECT_DIR$/jmatter/lib/runtime/groovy-all-1.6.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

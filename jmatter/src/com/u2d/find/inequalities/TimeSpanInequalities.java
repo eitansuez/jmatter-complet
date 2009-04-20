@@ -62,12 +62,12 @@ public class TimeSpanInequalities
          Date enddate = cal.getTime();
          
          Criterion firstCriterion = 
-            Expression.gt(field.getCleanPath()+".start", begindate);
+            Restrictions.gt(field.getCleanPath()+".start", begindate);
          
          Criterion secondCriterion = 
-            Expression.lt(field.getCleanPath()+".end", enddate);
+            Restrictions.lt(field.getCleanPath()+".end", enddate);
          
-         Junction junction = Expression.conjunction();
+         Junction junction = Restrictions.conjunction();
          junction.add(firstCriterion);
          junction.add(secondCriterion);
          
@@ -90,7 +90,7 @@ public class TimeSpanInequalities
       {
          DateEO deo = (DateEO) eo;
          Date begindate = deo.dateValue();
-         Criterion criterion = Expression.lt(field.getCleanPath()+".end", begindate);
+         Criterion criterion = Restrictions.lt(field.getCleanPath()+".end", begindate);
          criteria.add(criterion);
       }
 
@@ -116,7 +116,7 @@ public class TimeSpanInequalities
          cal.add(Calendar.HOUR, 24);
          Date enddate = cal.getTime();
          
-         Criterion criterion = Expression.gt(field.getCleanPath()+".start", enddate);
+         Criterion criterion = Restrictions.gt(field.getCleanPath()+".start", enddate);
          criteria.add(criterion);
       }
 

@@ -47,7 +47,7 @@ public class NumericalInequalities
    {
       public void addExpression(Criteria criteria, Field field, EObject eo)
       {
-         Criterion criterion = Expression.eq(field.getCleanPath(), eo);
+         Criterion criterion = Restrictions.eq(field.getCleanPath(), eo);
          criteria.add(criterion);
       }
 
@@ -65,7 +65,7 @@ public class NumericalInequalities
    {
       public void addExpression(Criteria criteria, Field field, EObject eo)
       {
-         Criterion criterion = Expression.lt(field.getCleanPath(), eo);
+         Criterion criterion = Restrictions.lt(field.getCleanPath(), eo);
          criteria.add(criterion);
       }
 
@@ -83,7 +83,7 @@ public class NumericalInequalities
    {
       public void addExpression(Criteria criteria, Field field, EObject eo)
       {
-         Criterion criterion = Expression.gt(field.getCleanPath(), eo);
+         Criterion criterion = Restrictions.gt(field.getCleanPath(), eo);
          criteria.add(criterion);
       }
 

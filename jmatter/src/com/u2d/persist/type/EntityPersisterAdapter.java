@@ -13,12 +13,11 @@ import org.hibernate.type.Type;
 import org.hibernate.util.EqualsHelper;
 import org.hibernate.cache.entry.CacheEntryStructure;
 import org.hibernate.cache.entry.UnstructuredCacheEntry;
-import org.hibernate.cache.CacheConcurrencyStrategy;
+import org.hibernate.cache.access.EntityRegionAccessStrategy;
 import org.hibernate.engine.SessionImplementor;
 import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.engine.CascadeStyle;
 import org.hibernate.engine.ValueInclusion;
-
 import java.io.Serializable;
 import java.util.Map;
 
@@ -76,27 +75,33 @@ public abstract class EntityPersisterAdapter implements EntityPersister
 
    public boolean isInherited() { return false; }
 
-   public boolean implementsLifecycle(EntityMode entityMode) {
+   public boolean implementsLifecycle(EntityMode entityMode)
+   {
       checkEntityMode( entityMode );
       return false;
    }
 
-   public boolean implementsValidatable(EntityMode entityMode) {
+   public boolean implementsValidatable(EntityMode entityMode)
+   {
       checkEntityMode( entityMode );
       return false;
    }
 
-   public Object getVersion(Object object, EntityMode entityMode) throws HibernateException {
+   public Object getVersion(Object object, EntityMode entityMode) throws HibernateException
+   {
       checkEntityMode( entityMode );
       return null;
    }
 
-   public boolean hasUninitializedLazyProperties(Object object, EntityMode entityMode) {
+   public boolean hasUninitializedLazyProperties(Object object, EntityMode entityMode)
+   {
       checkEntityMode( entityMode );
       return false;
    }
 
-   public EntityPersister getSubclassEntityPersister(Object instance, SessionFactoryImplementor factory, EntityMode entityMode) {
+   public EntityPersister getSubclassEntityPersister(Object instance, SessionFactoryImplementor factory,
+                                                     EntityMode entityMode)
+   {
       checkEntityMode( entityMode );
       return this;
    }
@@ -115,29 +120,20 @@ public abstract class EntityPersisterAdapter implements EntityPersister
       }
    }
 
-   public boolean hasIdentifierProperty() {
-      return true;
-   }
-
+   public boolean hasIdentifierProperty() { return true; }
    public boolean isVersioned() { return false; }
-
    public VersionType getVersionType() { return null; }
-
    public int getVersionProperty() { return 0; }
 
    public Serializable insert(Object[] fields, Object object, SessionImplementor session)
-   throws HibernateException {
-
+   throws HibernateException
+   {
       throw new UnsupportedOperationException();
    }
 
-   public void delete(
-      Serializable id,
-      Object version,
-      Object object,
-      SessionImplementor session
-   ) throws HibernateException {
-
+   public void delete(Serializable id, Object version, Object object, SessionImplementor session)
+         throws HibernateException
+   {
 //      INSTANCES.remove(id);
    }
 
@@ -173,21 +169,16 @@ public abstract class EntityPersisterAdapter implements EntityPersister
 
    public boolean hasNaturalIdentifier() { return true; }
    public Type[] getNaturalIdentifierTypes() { return TYPES; }
-   public int[] getNaturalIdentifierProperties() {
-      return NATURALIDENTIFIERS;
-   }
+   public int[] getNaturalIdentifierProperties() { return NATURALIDENTIFIERS; }
 
-   public Object[] getNaturalIdentifierSnapshot(Serializable id, SessionImplementor session)
-         throws HibernateException
+   public Object[] getNaturalIdentifierSnapshot(Serializable id, SessionImplementor session) throws HibernateException
    {
       return null;
    }
 
 
    public boolean hasCache() { return false; }
-   public CacheConcurrencyStrategy getCache() { return null; }
 
-   public boolean isDynamic() { return false; }
    public boolean isCacheInvalidationRequired() { return false; }
 
    public void applyFilters(QuerySelect select, String alias, Map filters) { }
@@ -196,8 +187,8 @@ public abstract class EntityPersisterAdapter implements EntityPersister
    public void afterInitialize(Object entity, boolean fetched, SessionImplementor session) { }
    public void afterReassociate(Object entity, SessionImplementor session) { }
 
-   public Object[] getDatabaseSnapshot(Serializable id, SessionImplementor session)
-   throws HibernateException {
+   public Object[] getDatabaseSnapshot(Serializable id, SessionImplementor session) throws HibernateException
+   {
       return null;
    }
 
@@ -218,9 +209,7 @@ public abstract class EntityPersisterAdapter implements EntityPersister
       }
    }
 
-   public boolean[] getPropertyNullability() {
-      return MUTABILITY;
-   }
+   public boolean[] getPropertyNullability() { return MUTABILITY; }
 
    public ClassMetadata getClassMetadata() { return null; }
 
@@ -233,46 +222,29 @@ public abstract class EntityPersisterAdapter implements EntityPersister
     * Which of the properties of this class are database generated values?
     */
    public boolean[] getPropertyGeneration() { return GENERATION; }
-
-   public boolean hasIdentifierPropertyOrEmbeddedCompositeIdentifier() {
-      return true;
-   }
+   public boolean hasIdentifierPropertyOrEmbeddedCompositeIdentifier() { return true; }
 
    public boolean isBatchLoadable() { return false; }
+   public Type getPropertyType(String propertyName) { throw new UnsupportedOperationException(); }
 
-   public Type getPropertyType(String propertyName) {
+   public Object getPropertyValue(Object object, String propertyName) throws HibernateException
+   {
       throw new UnsupportedOperationException();
    }
 
-   public Object getPropertyValue(Object object, String propertyName)
-      throws HibernateException {
-      throw new UnsupportedOperationException();
-   }
-
-   public Object createProxy(Serializable id, SessionImplementor session)
-      throws HibernateException {
+   public Object createProxy(Serializable id, SessionImplementor session) throws HibernateException
+   {
       throw new UnsupportedOperationException("no proxy for this class");
    }
 
    public void postInstantiate() throws MappingException {}
-
    public boolean hasProxy() { return false; }
-
    public boolean hasCollections() { return false; }
-
    public boolean hasCascades() { return false; }
-
    public boolean isMutable() { return false; }
-
    public boolean isSelectBeforeUpdateRequired() { return false; }
-
-   public boolean isIdentifierAssignedByInsert() {
-      return false;
-   }
-
-   public Boolean isTransient(Object object, SessionImplementor session) {
-      return Boolean.FALSE;
-   }
+   public boolean isIdentifierAssignedByInsert() { return false; }
+   public Boolean isTransient(Object object, SessionImplementor session) { return Boolean.FALSE; }
 
    public void setPropertyValues(Object object, Object[] values, EntityMode entityMode) throws HibernateException {
       checkEntityMode( entityMode );
@@ -293,16 +265,12 @@ public abstract class EntityPersisterAdapter implements EntityPersister
       }
    }
 
-   protected static final IdentifierGenerator GENERATOR =
-         new Assigned();
+   protected static final IdentifierGenerator GENERATOR = new Assigned();
 
    /**
     * @see EntityPersister#getIdentifierGenerator()
     */
-   public IdentifierGenerator getIdentifierGenerator()
-   throws HibernateException {
-      return GENERATOR;
-   }
+   public IdentifierGenerator getIdentifierGenerator() throws HibernateException { return GENERATOR; }
 
    public Object[] getPropertyValuesToInsert(Object object, Map mergeMap, SessionImplementor session)
    throws HibernateException {
@@ -313,16 +281,17 @@ public abstract class EntityPersisterAdapter implements EntityPersister
       throw new UnsupportedOperationException();
    }
 
-   
 
    public abstract Class getMappedClass();
    public String getEntityName() { return getMappedClass().getName(); }
 
-   public boolean isSubclassEntityName(String entityName) {
+   public boolean isSubclassEntityName(String entityName)
+   {
       return getMappedClass().getName().equals(entityName);
    }
 
-   public Class getConcreteProxyClass(EntityMode entityMode) {
+   public Class getConcreteProxyClass(EntityMode entityMode)
+   {
       checkEntityMode( entityMode );
       return getMappedClass();
    }
@@ -350,19 +319,8 @@ public abstract class EntityPersisterAdapter implements EntityPersister
       return null;
    }
 
-
-   public ValueInclusion[] getPropertyInsertGenerationInclusions()
-   {
-      return new ValueInclusion[0];
-   }
-
-   public ValueInclusion[] getPropertyUpdateGenerationInclusions()
-   {
-      return new ValueInclusion[0];
-   }
-
-   public EntityMetamodel getEntityMetamodel()
-   {
-      return null;
-   }
+   public ValueInclusion[] getPropertyInsertGenerationInclusions() { return new ValueInclusion[0]; }
+   public ValueInclusion[] getPropertyUpdateGenerationInclusions() { return new ValueInclusion[0]; }
+   public EntityMetamodel getEntityMetamodel() { return null; }
+   public EntityRegionAccessStrategy getCacheAccessStrategy() { return null; }
 }

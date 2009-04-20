@@ -14,7 +14,7 @@ import com.u2d.view.EView;
 import com.u2d.app.Tracing;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Junction;
-import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Restrictions;
 import javax.swing.event.ListDataListener;
 import java.util.Iterator;
 
@@ -87,18 +87,18 @@ public class CalEventList extends AbstractListEO
    private Criteria constrainBySpan()
    {
       Criteria criteria = _query.getCriteria();
-      Junction junction = Expression.conjunction();
+      Junction junction = Restrictions.conjunction();
 
       if (_schedulable != null)
       {
          Class eventClass = _schedulable.eventType();
          String schedulableFieldname = CalEvent.schedulableFieldname(eventClass);
-         junction.add(Expression.eq(schedulableFieldname , _schedulable));
+         junction.add(Restrictions.eq(schedulableFieldname , _schedulable));
       }
 
       String timespanFieldname = CalEvent.timespanFieldname(getJavaClass());
-      junction.add(Expression.ge(timespanFieldname + ".start", _span.startDate()));
-      junction.add(Expression.le(timespanFieldname + ".end", _span.endDate()));
+      junction.add(Restrictions.ge(timespanFieldname + ".start", _span.startDate()));
+      junction.add(Restrictions.le(timespanFieldname + ".end", _span.endDate()));
       criteria.add(junction);
       
       return criteria;
