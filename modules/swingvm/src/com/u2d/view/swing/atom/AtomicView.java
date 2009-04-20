@@ -44,7 +44,7 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
             int errors = _editor.bind(_eo);
             if (errors == 0)
             {
-               if (_eo.field() != null)
+               if (_eo.field() != null && _eo.parentObject() != null)
                {
                   errors += _eo.field().validate(_eo.parentObject());
                }
@@ -118,15 +118,15 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
       {
          public void propertyChange(PropertyChangeEvent evt)
          {
-            boolean readOnly = _eo.field().isReadOnly() || _eo.isReadOnly();
+            boolean readOnly = (_eo.field() != null && _eo.field().isReadOnly()) || _eo.isReadOnly();
             setEditable(!readOnly);
          }
       };
       if (_eo.field() != null)
       {
          _eo.field().addPropertyChangeListener("readOnly", readOnlyListener);
-         _eo.addPropertyChangeListener("readOnly", readOnlyListener);
       }
+      _eo.addPropertyChangeListener("readOnly", readOnlyListener);
    }
 
    private JComponent editorComponent()
@@ -231,6 +231,8 @@ public class AtomicView extends CardPanel implements AtomicEView, Editor, Valida
    private boolean _editable = false;
    public void setEditable(boolean editable)
    {
+      if (editable && _eo.isReadOnly()) return;  // veto
+
       _editable = editable;
       show((editable) ? "edit" : "view");
    }
