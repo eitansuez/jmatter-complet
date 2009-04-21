@@ -26,7 +26,7 @@
 
  <resources>
    <property name="jnlp.packEnabled" value="true" />
-   <j2se version="1.5+" initial-heap-size="96m" max-heap-size="192m" />
+   <j2se version="1.6+" initial-heap-size="96m" max-heap-size="192m" />
    <jar href="lib/swingvm.jar" main="true" />
    $jars:{jar|
    <jar href="$jar$" />
