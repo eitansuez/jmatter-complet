@@ -4,10 +4,7 @@
 package com.u2d.list;
 
 import java.io.*;
-import java.awt.Component;
-import javax.swing.*;
 import javax.swing.table.TableModel;
-import com.u2d.element.*;
 import com.u2d.model.*;
 import com.u2d.field.Association;
 
@@ -16,24 +13,8 @@ import com.u2d.field.Association;
  */
 public class CSVExport
 {
-   private static File START_PATH = new File(System.getProperty("user.home"));
-
-   public static void export(CommandInfo cmdInfo, AbstractListEO leo)
+   public static void export(AbstractListEO leo, File targetFile)
    {
-      JFileChooser chooser = new JFileChooser(START_PATH);
-      chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-      
-      String fileName = leo.type().getPluralName() + ".csv";
-      String targetFileName = START_PATH + File.separator + fileName;
-      
-      chooser.setSelectedFile(new File(targetFileName));
-      int result = chooser.showSaveDialog((Component) cmdInfo.getSource());
-      if (result != JFileChooser.APPROVE_OPTION)
-         return;
-
-      File targetFile = chooser.getSelectedFile();
-      START_PATH = targetFile.getParentFile();
-
       PrintWriter pw = null;
       try
       {
@@ -85,8 +66,8 @@ public class CSVExport
    
    private static void writeList(TableModel listTableModel, PrintWriter pw)
    {
-      StringBuffer line = null;
-      String item = null;
+      StringBuffer line;
+      String item;
       
       for (int i=0; i<listTableModel.getRowCount(); i++)
       {

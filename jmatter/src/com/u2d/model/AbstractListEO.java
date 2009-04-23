@@ -554,9 +554,10 @@ public abstract class AbstractListEO extends AbstractEObject
    
    
    @Cmd
-   public void ExportToCSV(CommandInfo cmdInfo)
+   public String ExportToCSV(CommandInfo cmdInfo, @Arg("Save to:") FileWEO file) throws Exception
    {
-      CSVExport.export(cmdInfo, this);
+      CSVExport.export(this, file.fileValue());
+      return file.fileValue().getName() + " created.";
    }
    @Cmd
    public String ExportToJSON(CommandInfo cmdInfo, @Arg("Save to:") FileWEO file) throws Exception
