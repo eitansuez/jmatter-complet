@@ -1,0 +1,20 @@
+
+Technical Notes:
+
+a. To make hibernate work with the JMatter AppBrowser (see documentation for more
+   information on the AppBrowser (chapter: deployment, take 2)), hibernate needs to be
+   patched as follows:
+
+   class:  org.hibernate.proxy.pojo.cglib.CGLIBLazyInitializer
+   method:  public static Class getProxyFactory(Class persistentClass, Class[] interfaces)
+   after line:  140
+   description:  need to make sure the Enhancer uses the right class loader
+   instructions:  add line:
+      e.setClassLoader(Thread.currentThread().getContextClassLoader());
+
+   Every release of JMatter strives to use the latest stable version of Hibernate
+   (upcoming:  v3.3.1), with the above patch installed.
+   (currently waiting for hibernate site to come back online so can review
+    how to build hibernate3.jar with mvn)
+
+
