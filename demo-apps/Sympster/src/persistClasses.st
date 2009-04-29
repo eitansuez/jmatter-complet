@@ -19,8 +19,8 @@ $classnames:{ cls |
       <value>com.u2d.restrict.CommandRestriction</value>
       <value>com.u2d.restrict.UserRestriction</value>
       <value>com.u2d.restrict.FieldRestriction</value>
-      <value>com.u2d.restrict.Restriction</value>
       <value>com.u2d.restrict.CreationRestriction</value>
+      <value>com.u2d.restrict.Restriction</value>
       <value>com.u2d.reporting.SimpleReport</value>
       <value>com.u2d.element.ProgrammingElement</value>
       <value>com.u2d.element.Member</value>
