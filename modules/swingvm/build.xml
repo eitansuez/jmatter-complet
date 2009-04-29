@@ -21,7 +21,7 @@
       <pathelement location="../../jmatter/build/classes" />
       <pathelement location="../ds-swing/build/classes" />
       <pathelement location="../ds-wizard/build/classes" />
-      <fileset dir="../../jmatter/lib/runtime/" includes="*.jar,spring/*.jar" />
+      <fileset dir="../../jmatter/lib/runtime/" includes="*.jar,spring/*.jar,hb/*.jar" />
    </path>
 
    <path id="test.classpath">

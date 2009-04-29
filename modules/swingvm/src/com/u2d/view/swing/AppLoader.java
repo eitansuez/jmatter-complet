@@ -14,6 +14,7 @@ import com.u2d.app.Application;
 import com.u2d.app.AppSession;
 import static com.u2d.pubsub.AppEventType.MESSAGE;
 import com.u2d.model.ComplexType;
+import javassist.util.proxy.ProxyFactory;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,6 +25,15 @@ import com.u2d.model.ComplexType;
 public class AppLoader implements ThreadMaker
 {
    public static AppLoader _appLoader = new AppLoader();
+   static
+   {
+      ProxyFactory.classLoaderProvider = new ProxyFactory.ClassLoaderProvider() {
+         public ClassLoader get(ProxyFactory proxyFactory)
+         {
+            return Thread.currentThread().getContextClassLoader();
+         }
+      };
+   }
    public static AppLoader getInstance() { return _appLoader; }
 
    private ClassLoader initialClassLoader = Thread.currentThread().getContextClassLoader();
