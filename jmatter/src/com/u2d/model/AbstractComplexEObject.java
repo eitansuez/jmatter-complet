@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import javax.swing.event.*;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
-import java.beans.*;
 import java.awt.datatransfer.*;
 import java.awt.*;
 import com.u2d.element.*;
@@ -330,6 +329,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
    public Command command(String commandName, State state)
    {
       Onion commands = type().commands(state);
+      if (commands == null) return null;
       return (Command) commands.find(Command.finder(commandName));
    }
    public Onion commands()
