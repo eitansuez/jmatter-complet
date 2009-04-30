@@ -1,3 +1,49 @@
+April 30 2009
+
+Summary of Changes
+==================
+
+* ui
+  - revised ui to not allow display of duplicate view for same instance;  instead just focus on existing view that's in ui
+  - list view's titlebar "active area" for right-clicking list commands is now wider (a layout fix)
+  - disabled substance application of a colorization factor
+
+* libs
+  - updated swingx lib to version 0.9.7
+  - updated h2 jar file (20090410)
+  - updated embedded groovy libs to v1.6
+  - updated hibernate to v3.3.1 and spring to v2.5.6
+  - updated jasperreports (v3.0 -> v3.5); updated iText (-> v2.1.5)
+  - removed jfreereport support/dependencies from jmatter
+
+* calendar
+  - fixed/revised algorithm in calendar for positioning overlapping events
+  
+* persistence
+  - slightly improved hbmmaker hibernate map generation to specify good defaults for choiceeo type columns
+
+* authorization
+  - ensuring that time and duration of events in calendar can be changed only if timespan field is not restricted
+  
+* development
+  - adding substance skin switching as menu in app frame
+
+* localization
+  - i was not localizing list commands
+
+* deployment
+  - revised template jnlp file to specify j2se v1.6+
+
+* bugs
+  - fixed possible npe in eocommand 'returnsaview' check (minor)
+  - fixed some edt violations
+  - various other bug fixes (see subversion log for complete details)
+
+
+Again, thank you to the various subscribers on the mailing list who have provided feedback, reported bugs, and posted fixes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 April 6 2009
 
