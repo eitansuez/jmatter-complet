@@ -5,9 +5,11 @@ import org.hibernate.Hibernate;
 import org.hibernate.engine.SessionImplementor;
 import org.hibernate.type.Type;
 import org.hibernate.usertype.CompositeUserType;
+import org.dom4j.Element;
 import com.u2d.type.atom.ChoiceEO;
 import com.u2d.type.Choice;
 import com.u2d.model.EObject;
+import com.u2d.element.Field;
 import java.io.Serializable;
 
 /**
@@ -79,18 +81,8 @@ public class ChoiceEOUserType implements CompositeUserType
    private static final int[] TYPES = { java.sql.Types.VARCHAR, java.sql.Types.VARCHAR };
    public int[] sqlTypes() { return TYPES; }
 
-   public static String[] COLUMNNAMES = {"type", "code"};
-
-
-   public String[] getPropertyNames()
-   {
-      return new String[] {"type", "code"};
-   }
-
-   public Type[] getPropertyTypes()
-   {
-      return new Type[] { Hibernate.STRING,  Hibernate.STRING };
-   }
+   public String[] getPropertyNames() { return new String[] {"type", "code"}; }
+   public Type[] getPropertyTypes() { return new Type[] { Hibernate.STRING,  Hibernate.STRING }; }
 
    public Object getPropertyValue(Object component, int property)
    {
@@ -135,5 +127,19 @@ public class ChoiceEOUserType implements CompositeUserType
    }
 
    public boolean isMutable() { return true; }
+
+   public static void fillPropertyElement(Element propElem, Field field, String prefix)
+   {
+      String colprefix = (prefix == null) ? "" : prefix + "_";
+      colprefix += field.getName();
+
+      Element typecol = propElem.addElement("column");
+      typecol.addAttribute("name", colprefix + "_type");
+      typecol.addAttribute("default", String.format("'%s'", field.getJavaClass().getName()));
+
+      Element codecol = propElem.addElement("column");
+      codecol.addAttribute("name", colprefix + "_code");
+      codecol.addAttribute("default", "''");
+   }
 
 }

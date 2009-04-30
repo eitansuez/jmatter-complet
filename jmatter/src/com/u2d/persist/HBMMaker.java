@@ -519,66 +519,73 @@ public class HBMMaker
          propElem.addAttribute("not-null", "true");
       
 
-      // TODO: this should be incapsulated in type and exposed via an interface (fix)
-      boolean index = false;
-      if (TimeSpan.class.isAssignableFrom(field.getJavaClass()))
-         index = true;
-      
-      // for user types that map to > 1 field: (as in TimeSpan)
-      try
+      if (field.isChoice())
       {
-         java.lang.reflect.Field colField = typeClass.getDeclaredField("COLUMNNAMES");
-         String[] colNames = (String[]) colField.get(null);
-         Element column;
-         for (String colName : colNames)
-         {
-            column = propElem.addElement("column");
-            String colprefix = (prefix == null) ? "" : prefix + "_";
-
-            if (CompositeUserType.class.isAssignableFrom(typeClass))
-            {
-               colprefix += field.getName() + "_";
-               // e.g. type -> severity_type (where fieldname is 'severity')
-               // e.g. 2: type -> importance_type (where fieldname is 'importance')
-            }
-
-            column.addAttribute("name", colprefix + colName);
-            
-            if (index)
-               column.addAttribute("index", _type.name() + "_" + colprefix + colName + "_idx");
-         }
+         ChoiceEOUserType.fillPropertyElement(propElem, field, prefix);
       }
-      catch (Exception ex)  // common case:
+      else
       {
-         if (prefix == null)
+         // TODO: this should be incapsulated in type and exposed via an interface (fix)
+         boolean index = false;
+         if (TimeSpan.class.isAssignableFrom(field.getJavaClass()))
+            index = true;
+
+         // for user types that map to > 1 field: (as in TimeSpan)
+         try
          {
-            if (!field.getColname().isEmpty())
+            java.lang.reflect.Field colField = typeClass.getDeclaredField("COLUMNNAMES");
+            String[] colNames = (String[]) colField.get(null);
+            Element column;
+            for (String colName : colNames)
             {
-               propElem.addAttribute("column", field.colname());
+               column = propElem.addElement("column");
+               String colprefix = (prefix == null) ? "" : prefix + "_";
+
+               if (CompositeUserType.class.isAssignableFrom(typeClass))
+               {
+                  colprefix += field.getName() + "_";
+                  // e.g. type -> severity_type (where fieldname is 'severity')
+                  // e.g. 2: type -> importance_type (where fieldname is 'importance')
+               }
+
+               column.addAttribute("name", colprefix + colName);
+
+               if (index)
+                  column.addAttribute("index", _type.name() + "_" + colprefix + colName + "_idx");
             }
          }
-         else
+         catch (Exception ex)  // common case:
          {
-            propElem.addAttribute("column", prefix + "_" + field.name());
+            if (prefix == null)
+            {
+               if (!field.getColname().isEmpty())
+               {
+                  propElem.addAttribute("column", field.colname());
+               }
+            }
+            else
+            {
+               propElem.addAttribute("column", prefix + "_" + field.name());
+            }
          }
-      }
-      
-      if (field.colsize() > 0)
-      {
-         propElem.addAttribute("length", ""+field.colsize());
-      }
-      
-      try
-      {
-         java.lang.reflect.Method method = field.getJavaClass().getMethod("getLength");
-         if (method != null)
+
+         if (field.colsize() > 0)
          {
-            Integer length  = (Integer) method.invoke(null);
-            propElem.addAttribute("length", length.toString());
+            propElem.addAttribute("length", ""+field.colsize());
          }
+
+         try
+         {
+            java.lang.reflect.Method method = field.getJavaClass().getMethod("getLength");
+            if (method != null)
+            {
+               Integer length  = (Integer) method.invoke(null);
+               propElem.addAttribute("length", length.toString());
+            }
+         }
+         catch (Exception ex) {}
       }
-      catch (Exception ex) {}
-      
+
       addAccessAttribute(propElem);
       return propElem;
    }
