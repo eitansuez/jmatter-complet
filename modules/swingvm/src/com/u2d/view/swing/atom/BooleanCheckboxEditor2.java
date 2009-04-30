@@ -5,6 +5,8 @@ import com.u2d.model.AtomicEObject;
 import com.u2d.view.ActionNotifier;
 import com.u2d.type.atom.BooleanEO;
 import javax.swing.*;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,8 +21,19 @@ public class BooleanCheckboxEditor2 extends JCheckBox implements AtomicEditor, A
       setOpaque(false);
    }
 
-   public void render(AtomicEObject value)
+   private boolean _laidout = false;
+   public void render(final AtomicEObject value)
    {
+      if (!_laidout)
+      {
+         addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e)
+            {
+               bind(value);
+            }
+         });
+         _laidout = true;
+      }
       BooleanEO eo = (BooleanEO) value;
       setText(eo.field().label());
       setSelected(eo.booleanValue());
