@@ -1163,6 +1163,7 @@ public class SwingViewMechanism implements ViewMechanism
    public void addStatusCssClassName(JComponent c, ComplexEObject ceo)
    {
       if (ceo.field("status") == null) return;
+      if (ceo instanceof NullAssociation) return;
 
       Set<String> cssClasses = (Set<String>) c.getClientProperty(Selector.CLASS);
       if (cssClasses != null)

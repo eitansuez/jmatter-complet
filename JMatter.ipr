@@ -84,6 +84,7 @@
       <maximumStackSize value="32" />
       <properties />
       <executeOn event="beforeRun" target="genhbm" />
+      <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="IssueMgr" />
       <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="Sympster" />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/AppBrowser/build.xml">
