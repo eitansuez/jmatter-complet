@@ -582,8 +582,17 @@ public class SwingViewMechanism implements ViewMechanism
       }
    }
 
-   public void setWaitCursor() { _appContainer.setWaitCursor(); }
-   public void setDefaultCursor() { _appContainer.setDefaultCursor(); }
+   public void setWaitCursor()
+   {
+      if (_appContainer == null) return;
+      _appContainer.setWaitCursor();
+   }
+
+   public void setDefaultCursor()
+   {
+      if (_appContainer == null) return;
+      _appContainer.setDefaultCursor();
+   }
 
    /* package private */ void displayFrame(final JInternalFrame frame)
    {
