@@ -14,6 +14,19 @@ public class EntryPoint
 {
    public static void main(String[] args)
    {
+      setSubstanceLookAndFeel();
+      
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         public void run()
+         {
+            SwingViewMechanism.getInstance().launch();
+         }
+      });
+   }
+
+   private static void setSubstanceLookAndFeel()
+   {
       JFrame.setDefaultLookAndFeelDecorated(true);
 
       if (System.getProperty("swing.defaultlaf") == null)
@@ -31,14 +44,6 @@ public class EntryPoint
             System.err.printf("Look and feel warning: %s\n", ex.getMessage());
          }
       }
-      
-      SwingUtilities.invokeLater(new Runnable()
-      {
-         public void run()
-         {
-            SwingViewMechanism.getInstance().launch();
-         }
-      });
    }
 
 }
