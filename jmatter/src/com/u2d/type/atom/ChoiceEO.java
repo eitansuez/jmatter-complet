@@ -17,8 +17,8 @@ public abstract class ChoiceEO extends AbstractAtomicEO
                                implements Searchable, Choice
 {
    protected String _value = "";
-   
-   public boolean isEmpty() { return false; }
+
+   public boolean isEmpty() { return _value.length() == 0; }
 
    public void parseValue(String value) throws java.text.ParseException
    {
