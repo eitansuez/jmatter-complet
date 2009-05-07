@@ -15,8 +15,8 @@ import com.u2d.calendar.*;
 public class PositionedLayout implements LayoutManager2
 {
 	private TimeIntervalView _view;
-	private java.util.List _events = new ArrayList();
-	private java.util.Map _components = new HashMap();
+	private java.util.List<CalEvent> _events = new ArrayList<CalEvent>();
+	private java.util.Map<CalEvent, Component> _components = new HashMap<CalEvent, Component>();
 
 	public PositionedLayout(TimeIntervalView view)
 	{
@@ -100,18 +100,17 @@ public class PositionedLayout implements LayoutManager2
 		throw new IllegalArgumentException("use addLayoutComponent(comp, constraints) instead");
 	}
 
-   private int calcNumOverlappingEventsFor(CalEvent targetEvent)
+   private List<CalEvent> calcOverlappingEventsFor(CalEvent targetEvent)
    {
-      int count = 0;
-      for (int i=0; i<_events.size(); i++)
+      List<CalEvent> overlappingEvents = new ArrayList<CalEvent>();
+      for (CalEvent evt : _events)
       {
-         CalEvent evt = (CalEvent) _events.get(i);
          if ((evt == targetEvent) || (evt.timeSpan().overlapsWith(targetEvent.timeSpan())))
          {
-            count += 1;
+            overlappingEvents.add(evt);
          }
       }
-      return count;
+      return overlappingEvents;
    }
 
 	public void layoutContainer(Container parent)
@@ -123,11 +122,10 @@ public class PositionedLayout implements LayoutManager2
 
          Collections.sort(_events);
          int xPos = 0;
-         for (int i=0; i<_events.size(); i++)
+         for (CalEvent event : _events)
          {
-            CalEvent event = (CalEvent) _events.get(i);
-            int numOverlappingEvents = calcNumOverlappingEventsFor(event);
-            xPos = layoutEvent(event, numOverlappingEvents, xPos);
+            List<CalEvent> overlappingEvents = calcOverlappingEventsFor(event);
+            xPos = layoutEvent(event, overlappingEvents, xPos);
          }
       }
    }
@@ -135,17 +133,26 @@ public class PositionedLayout implements LayoutManager2
    static int event_padding = 4;
 
    /**
-    * @param event
-    * @param numOverlapping
-    * @param xPos
+    * @param event event to layout
+    * @param overlappingEvents list of overlapping events for event
+    * @param xPos current x position
     * @return next xPos
     */
-   private int layoutEvent(CalEvent event, int numOverlapping, int xPos)
+   private int layoutEvent(CalEvent event, List<CalEvent> overlappingEvents, int xPos)
    {
-      Component comp = (Component) _components.get(event);
+      Component comp = _components.get(event);
       Rectangle bounds = _view.getBounds(event);
+      int numOverlapping = overlappingEvents.size();
       int width = bounds.width / numOverlapping;
-      if (xPos + width > bounds.getWidth()) xPos = 0;
+      if (xPos + width > bounds.getWidth())
+      {
+         xPos = 0;
+         for (CalEvent e : overlappingEvents)
+         {
+            if (e == event) break;
+            xPos += _components.get(e).getWidth() + event_padding;
+         }
+      }
       comp.setBounds(new Rectangle(bounds.x + xPos + event_padding /2, bounds.y, width - event_padding, bounds.height));
       return xPos + width;
 	}
