@@ -150,10 +150,15 @@ public class PositionedLayout implements LayoutManager2
          for (CalEvent e : overlappingEvents)
          {
             if (e == event) break;
-            xPos += _components.get(e).getWidth() + event_padding;
+            Rectangle ebounds = _components.get(e).getBounds();
+            int pos = xPos + (event_padding / 2);
+            if (ebounds.getX() - bounds.x == pos)
+            {
+               xPos += _components.get(e).getWidth() + event_padding;
+            }
          }
       }
-      comp.setBounds(new Rectangle(bounds.x + xPos + event_padding /2, bounds.y, width - event_padding, bounds.height));
+      comp.setBounds(new Rectangle(bounds.x + xPos + event_padding/2, bounds.y, width - event_padding, bounds.height));
       return xPos + width;
 	}
    
