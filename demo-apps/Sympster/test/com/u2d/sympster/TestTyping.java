@@ -1,11 +1,10 @@
 package com.u2d.sympster;
 
 import junit.framework.TestCase;
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
-
 import java.lang.reflect.Method;
+import org.hibernate.repackage.cglib.proxy.Enhancer;
+import org.hibernate.repackage.cglib.proxy.MethodInterceptor;
+import org.hibernate.repackage.cglib.proxy.MethodProxy;
 
 /**
  * Created by IntelliJ IDEA.
