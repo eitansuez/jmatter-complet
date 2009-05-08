@@ -15,6 +15,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="swingvm" />
     <orderEntry type="module" module-name="Core" />
     <orderEntry type="library" name="JUnit" level="project" />
     <orderEntry type="module-library">
@@ -27,7 +28,6 @@
         <jarDirectory url="file://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="swingvm" />
     <orderEntry type="module" module-name="ds-swing" />
     <orderEntry type="library" name="Hibernate" level="project" />
     <orderEntry type="module-library">
