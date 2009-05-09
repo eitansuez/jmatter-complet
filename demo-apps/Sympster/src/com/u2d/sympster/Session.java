@@ -67,9 +67,13 @@ public class Session extends CalEvent
          Talk talk = (Talk) event;
          return talk.title().append(" by", talk.getSpeaker());
       }
-      else
+      else if (event != null)
       {
          return event.title();
+      }
+      else
+      {
+         return new Title("--");
       }
    }
 
