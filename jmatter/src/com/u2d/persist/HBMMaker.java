@@ -277,9 +277,13 @@ public class HBMMaker
          }
          else
          {
-            String tableName = (field.isInverse() ? 
-                  field.fieldtype().name() + "_" + parent.name() : 
-                  parent.name() + "_" + field.fieldtype().name());
+            String tableName = (parent.name() + "_" + field.name()).toLowerCase();
+            if (field.isInverse())
+            {
+               Field inverseField = field.inverseField();
+               tableName = (field.fieldtype().name() + "_" + inverseField.name()).toLowerCase();
+            }
+            
             listElem.addAttribute("table", tableName);
             Element manyToManyElem = listElem.addElement("many-to-many");
             manyToManyElem.addAttribute("column", genIdName(field.name()));
