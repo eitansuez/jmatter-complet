@@ -457,7 +457,10 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       {
          return getID().equals(ceo.getID());
       }
-      if (ceo.getID() == null) return false;
+      else if (ceo.getID() != null)
+      {
+         return ceo.getID().equals(getID());
+      }
 
       return true;  // both transient and of the same type..
    }
