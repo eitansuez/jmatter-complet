@@ -40,7 +40,7 @@ public class EditableListView extends JPanel
    private JButton _removeBtn;
    private NullAssociation _association = null;
    private JPanel _northPanel;
-   private JPopupMenu menu;
+   private JPopupMenu _menu = new JPopupMenu();
 
    public EditableListView(RelationalList leo)
    {
@@ -52,7 +52,10 @@ public class EditableListView extends JPanel
       setLayout(new BorderLayout());
       setOpaque(false);
 
-      add(northPanel(), BorderLayout.PAGE_START);
+      if (!leo.field().isReadOnly())
+      {
+         add(northPanel(), BorderLayout.PAGE_START);
+      }
 //      _leo.parentObject().addChangeListener(this);
 //      setEditable(_leo.parentObject().isEditableState());
       
@@ -92,7 +95,10 @@ public class EditableListView extends JPanel
    private void adjustRemoveBtnEnabled()
    {
       boolean selected = (_listView.selectedEO() != null);
-      _removeBtn.setEnabled(selected);
+      if (_removeBtn != null)
+      {
+         _removeBtn.setEnabled(selected);
+      }
    }
 
    private JPanel northPanel()
@@ -144,14 +150,13 @@ public class EditableListView extends JPanel
 
    private JButton addBtn()
    {
-      menu = new JPopupMenu();
       addMenuItem("New");
       if (!((IndexedField) _leo.field()).ownsChildren())
       {
          addMenuItemForBrowseCmd();
          addMenuItem("Find");
       }
-      return new MenuButton(ADD_ICON, ADD_ROLLOVER, menu);
+      return new MenuButton(ADD_ICON, ADD_ROLLOVER, _menu);
    }
 
    private void addMenuItemForBrowseCmd()
@@ -189,7 +194,7 @@ public class EditableListView extends JPanel
             }
          }
       };
-      menu.add(new JMenuItem(action));
+      _menu.add(new JMenuItem(action));
    }
 
    private void addMenuItem(String cmdName)
@@ -198,7 +203,7 @@ public class EditableListView extends JPanel
       if (!cmd.isForbidden(_association))
       {
          CommandAdapter action = new CommandAdapter(cmd, _association, this);
-         menu.add(new JMenuItem(action));
+         _menu.add(new JMenuItem(action));
       }
    }
 
@@ -214,9 +219,9 @@ public class EditableListView extends JPanel
       _listView.detach();
       _leo.removeListDataListener(this);
 
-      for (int i=0; i<menu.getComponentCount(); i++)
+      for (int i=0; i< _menu.getComponentCount(); i++)
       {
-         ((CommandAdapter) ((JMenuItem) menu.getComponent(i)).getAction()).detach();
+         ((CommandAdapter) ((JMenuItem) _menu.getComponent(i)).getAction()).detach();
       }
    }
 

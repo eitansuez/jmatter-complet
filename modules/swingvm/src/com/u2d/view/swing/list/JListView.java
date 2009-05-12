@@ -182,7 +182,11 @@ public class JListView extends SeeThruList
       setDragEnabled(true);
       _transferHandler = new SimpleListTransferHandler(this);
       setTransferHandler(_transferHandler);
-      if (_leo instanceof RelationalList && !((IndexedField) _leo.field()).ownsChildren())
+
+      if (_leo.field() != null && _leo.field().isReadOnly())
+         return;
+
+      if ( (_leo instanceof RelationalList && !((IndexedField) _leo.field()).ownsChildren()))
       {
          RelationalList rl = (RelationalList) _leo;
          _rlDropTarget = new RelationalListDropTarget(rl);
