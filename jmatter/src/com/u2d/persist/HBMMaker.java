@@ -433,15 +433,27 @@ public class HBMMaker
 
          // Establish a convention:
          String className = field.getJavaClass().getName();
-         className = className.substring(className.lastIndexOf(".")+1);
-         className = "com.u2d.persist.type." + className + "UserType";
+
+         int index = className.lastIndexOf(".");
+         String packageName = className.substring(0, index);
+         className = className.substring(index+1);
+         String jmatterClassName = "com.u2d.persist.type." + className + "UserType";
+
          try
          {
-            return Class.forName(className);
+            return Class.forName(jmatterClassName);
          }
          catch (ClassNotFoundException e)
          {
-            throw new RuntimeException("Class Not Found!: "+className);
+            try
+            {
+               String userClassName = packageName + ".persist." + className + "UserType";
+               return Class.forName(userClassName);
+            }
+            catch (ClassNotFoundException e2)
+            {
+               throw new RuntimeException("Failed to resolve user type for class "+field.getJavaClass().getName(), e2);
+            }
          }
       }
    }
