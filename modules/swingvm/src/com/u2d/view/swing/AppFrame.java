@@ -78,7 +78,7 @@ public class AppFrame extends JFrame implements AppContainer
    
    private JPanel _centerPane;
    private OutlookFolderView _classBar = new OutlookFolderView();
-   private JPanel _classBarPanel = new LockablePanel(_classBar);
+   private LockablePanel _classBarPanel = new LockablePanel(_classBar);
    private ClassMenu _classMenu = new ClassMenu();
    private EODesktopPane _desktopPane, _loggedOutDesktopPane;
    private WindowButtonBar _windowButtonBar;
@@ -319,6 +319,9 @@ public class AppFrame extends JFrame implements AppContainer
                   _menuBar.revalidate(); _menuBar.repaint();
                   setupKeyboardShorcuts();
                   restoreUserDesktop();
+
+                  Command classBarEditCmd = ComplexType.forClass(ComplexType.class).command("EditClassBar");
+                  _classBarPanel.setLockEnabled(!classBarEditCmd.isForbidden(null));
                }
             });
          }

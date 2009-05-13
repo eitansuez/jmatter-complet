@@ -1280,4 +1280,12 @@ public class ComplexType extends AbstractComplexEObject
       return ComplexType.forClass(superClass);
    }
 
+
+   @Cmd
+   public static void EditClassBar(CommandInfo cmdInfo)
+   {
+      // exists only for the purpose of defining authorization policy on a button
+      // whose action is actually not modeled as a command.
+   }
+
 }
