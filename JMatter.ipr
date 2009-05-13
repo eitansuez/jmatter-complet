@@ -565,10 +565,7 @@
   <component name="ProjectDetails">
     <option name="projectName" value="JMatter" />
   </component>
-  <component name="ProjectFileVersion" converted="true">
-    <converter id="ror-modules" />
-    <converter id="SelenaRunConfToDiana" />
-  </component>
+  <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectKey">
     <option name="state" value="http://svn.jmatter.org/jmatter-complet/trunk/JMatter.ipr" />
   </component>
@@ -579,6 +576,7 @@
       <module fileurl="file://$PROJECT_DIR$/jmatter//Core.iml" filepath="$PROJECT_DIR$/jmatter//Core.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/IssueMgr/IssueMgr.iml" filepath="$PROJECT_DIR$/demo-apps/IssueMgr/IssueMgr.iml" />
       <module fileurl="file://$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd//JMNewProjectFrontEnd.iml" filepath="$PROJECT_DIR$/jmatter/tools/JMNewProjectFrontEnd//JMNewProjectFrontEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-apps/MovieLib/MovieLib.iml" filepath="$PROJECT_DIR$/demo-apps/MovieLib/MovieLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/MyTunes//MyTunes.iml" filepath="$PROJECT_DIR$/demo-apps/MyTunes//MyTunes.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/Self//Self.iml" filepath="$PROJECT_DIR$/demo-apps/Self//Self.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/Sympster//Sympster.iml" filepath="$PROJECT_DIR$/demo-apps/Sympster//Sympster.iml" />

@@ -22,12 +22,7 @@
         <jarDirectory url="file://$MODULE_DIR$/../../jmatter/lib/runtime/swingvm" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="Core" />
-    <orderEntry type="module" module-name="ds-swing" />
-    <orderEntry type="module" module-name="ds-wizard" />
-    <orderEntry type="library" name="JUnit" level="project" />
-    <orderEntry type="library" name="Spring" level="project" />
-    <orderEntry type="library" name="Hibernate" level="project" />
+    <orderEntry type="module" module-name="Core" exported="" />
   </component>
   <component name="RSpecModuleSettingsStorage">
     <RSPEC_MODULE_SETTINGS_STORAGE_ID NAME="RSPEC_SUPPORT_TYPE" VALUE="NONE" />

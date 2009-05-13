@@ -26,8 +26,8 @@
         <jarDirectory url="file://$MODULE_DIR$/lib/runtime/jdbc" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="ds-swing" />
-    <orderEntry type="module" module-name="ds-wizard" />
+    <orderEntry type="module" module-name="ds-swing" exported="" />
+    <orderEntry type="module" module-name="ds-wizard" exported="" />
     <orderEntry type="library" name="JUnit" level="project" />
     <orderEntry type="library" name="Spring" level="project" />
     <orderEntry type="library" name="Hibernate" level="project" />
@@ -42,7 +42,6 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="swingvm" />
   </component>
   <component name="RSpecModuleSettingsStorage">
     <RSPEC_MODULE_SETTINGS_STORAGE_ID NAME="RSPEC_SUPPORT_TYPE" VALUE="NONE" />
