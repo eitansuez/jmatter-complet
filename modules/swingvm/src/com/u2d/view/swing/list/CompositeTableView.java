@@ -158,10 +158,15 @@ public class CompositeTableView extends JPanel
 
    public void stateChanged(ChangeEvent e)
    {
-      if (_leo.parentObject() != null)
-      {
-         _addBtn.setEnabled(_leo.parentObject().isEditableState());
-      }
+      SwingUtilities.invokeLater(new Runnable() {
+         public void run()
+         {
+            if (_leo.parentObject() != null)
+            {
+               _addBtn.setEnabled(_leo.parentObject().isEditableState());
+            }
+         }
+      });
    }
 
    public void intervalAdded(ListDataEvent e) { }
