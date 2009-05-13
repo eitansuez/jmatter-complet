@@ -25,7 +25,7 @@ public class Talk extends AbstractComplexEObject implements Event
 //   public static String sortBy = "speaker";  // not yet working..
    public static String sortBy = "title";
    public static String defaultSearchpath = "title";
-   public static String[] readOnly = {"speaker"};
+//   public static String[] readOnly = {"speaker"};
 
    public Talk() {}
 
