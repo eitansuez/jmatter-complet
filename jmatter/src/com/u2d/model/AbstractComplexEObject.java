@@ -461,8 +461,7 @@ public abstract class AbstractComplexEObject extends AbstractEObject
       {
          return ceo.getID().equals(getID());
       }
-
-      return true;  // both transient and of the same type..
+      return false;  // both transient and of the same type..assume false
    }
 
    public int hashCode()
