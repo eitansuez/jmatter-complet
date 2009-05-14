@@ -19,8 +19,8 @@ public class PersonContact extends Person
    @Cmd(shortcut="control Z")
    public static Wizard NewPersonWizard(CommandInfo cmdInfo)
    {
-      // was:
-//       return new Wizard(new NewPersonWizard());
+      // basic:
+       return new Wizard(new NewPersonWizard());
       
       // New Alternative:
 //      DomainWizard wizard = new DomainWizard(PersonContact.class,
@@ -30,7 +30,7 @@ public class PersonContact extends Person
 //      return new Wizard( wizard );
       
       // Third alternative, using Groovy Builder for JMatter Wizards:
-      return PersonWizardBuilder.wizard();
+//      return PersonWizardBuilder.wizard();
    }
    
    
