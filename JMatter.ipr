@@ -84,6 +84,7 @@
       <maximumStackSize value="32" />
       <properties />
       <executeOn event="beforeRun" target="genhbm" />
+      <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="CompositeListExample" />
       <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="IssueMgr" />
       <executeOn event="beforeRun" target="genhbm" runConfigurationType="Application" runConfigurationName="Sympster" />
     </buildFile>
@@ -572,6 +573,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AppBrowser/AppBrowser.iml" filepath="$PROJECT_DIR$/AppBrowser/AppBrowser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-apps/CompositeListExample/CompositeListExample.iml" filepath="$PROJECT_DIR$/demo-apps/CompositeListExample/CompositeListExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iml" filepath="$PROJECT_DIR$/demo-apps/ContactMgr/ContactMgr.iml" />
       <module fileurl="file://$PROJECT_DIR$/jmatter//Core.iml" filepath="$PROJECT_DIR$/jmatter//Core.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-apps/IssueMgr/IssueMgr.iml" filepath="$PROJECT_DIR$/demo-apps/IssueMgr/IssueMgr.iml" />
