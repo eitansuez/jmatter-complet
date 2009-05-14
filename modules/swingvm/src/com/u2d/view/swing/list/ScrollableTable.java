@@ -57,7 +57,7 @@ public class ScrollableTable extends SeeThruTable
    public Dimension getPreferredScrollableViewportSize()
    {
       Dimension preferred = super.getPreferredScrollableViewportSize();
-      preferred.height =  getModel().getRowCount() * getRowHeight() + 50;
+      preferred.height =  getModel().getRowCount() * getRowHeight();
       preferred.height = Math.min(preferred.height, MAXHEIGHT);
 
       preferred.width = Math.min(_tableWidth, MAXWIDTH);
