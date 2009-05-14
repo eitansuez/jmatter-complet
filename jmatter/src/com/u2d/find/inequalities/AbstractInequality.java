@@ -40,7 +40,7 @@ public abstract class AbstractInequality extends AbstractEObject
       Method method = parentClass.getMethod("getInequalities");
       List inequalities = (List) method.invoke(parentInstance);
       Iterator itr = inequalities.iterator();
-      Inequality ineq = null;
+      Inequality ineq;
       while (itr.hasNext())
       {
          ineq = (Inequality) itr.next();
