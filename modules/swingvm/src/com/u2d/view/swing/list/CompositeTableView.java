@@ -6,17 +6,23 @@ import com.u2d.view.EView;
 import com.u2d.view.swing.AppLoader;
 import com.u2d.list.CompositeList;
 import com.u2d.model.EObject;
+import com.u2d.model.ComplexEObject;
+import com.u2d.model.ComplexType;
 import com.u2d.ui.IconButton;
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ListDataEvent;
+import javax.swing.event.*;
 import java.awt.*;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.io.IOException;
+import java.util.TooManyListenersException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,8 +36,8 @@ public class CompositeTableView extends JPanel
    private CompositeList _leo;
    private TableView _tableView;
    private JButton _addBtn, _removeBtn;
-   private JPanel northPanel;
-   private PropertyChangeListener readOnlyChangeListener;
+   private JPanel _northPanel;
+   private PropertyChangeListener _readOnlyChangeListener;
 
    public CompositeTableView(CompositeList leo)
    {
@@ -47,15 +53,15 @@ public class CompositeTableView extends JPanel
       setOpaque(false);
 
       add(northPanel(), BorderLayout.PAGE_START);
-      northPanel.setVisible(!_leo.field().isReadOnly());
-      readOnlyChangeListener = new PropertyChangeListener()
+      _northPanel.setVisible(!_leo.field().isReadOnly());
+      _readOnlyChangeListener = new PropertyChangeListener()
       {
          public void propertyChange(PropertyChangeEvent evt)
          {
-            northPanel.setVisible(!_leo.field().isReadOnly());
+            _northPanel.setVisible(!_leo.field().isReadOnly());
          }
       };
-      _leo.field().addPropertyChangeListener("readOnly", readOnlyChangeListener);
+      _leo.field().addPropertyChangeListener("readOnly", _readOnlyChangeListener);
 
       JScrollPane scrollPane = new JScrollPane(_tableView);
       add(scrollPane, BorderLayout.CENTER);
@@ -67,10 +73,85 @@ public class CompositeTableView extends JPanel
          public void valueChanged(ListSelectionEvent e)
          {
             if (e.getValueIsAdjusting()) return;
-            adjustRemoveBtnEnabled();
+            SwingUtilities.invokeLater(new Runnable() {
+               public void run() {
+                  adjustRemoveBtnEnabled();
+               }
+            });
          }
       });
+
+      setupDropHandler();
    }
+
+   protected void setupDropHandler()
+   {
+      DropTarget dropTarget = new DropTarget();
+      try
+      {
+         dropTarget.addDropTargetListener(new DropTargetAdapter()
+         {
+            public void drop(final java.awt.dnd.DropTargetDropEvent dropTargetDropEvent)
+            {
+               Transferable t = dropTargetDropEvent.getTransferable();
+
+               Object transferObject = null;
+               try
+               {
+                  DataFlavor flavor = t.getTransferDataFlavors()[0];
+                  transferObject = t.getTransferData(flavor);
+               }
+               catch (UnsupportedFlavorException ex)
+               {
+                  System.err.println("UnsupportedFlavorException: "+ex.getMessage());
+                  ex.printStackTrace();
+                  dropTargetDropEvent.rejectDrop();
+               }
+               catch (IOException ex)
+               {
+                  System.err.println("IOException: "+ex.getMessage());
+                  ex.printStackTrace();
+                  dropTargetDropEvent.rejectDrop();
+               }
+
+               if (transferObject instanceof ComplexEObject)
+               {
+                  ComplexEObject droppedItem = (ComplexEObject) transferObject;
+                  ComplexType droppedType = droppedItem.type();
+                  ComplexType listItemType = _leo.type();
+
+                  if (listItemType.hasFieldOfType(droppedType.getJavaClass()))
+                  {
+                     ComplexEObject newItem = listItemType.instance();
+                     listItemType.firstFieldOfType(droppedType.getJavaClass()).set(newItem, droppedItem);
+                     _leo.add(newItem);
+                     if (!_leo.parentObject().isEditableState())
+                     {
+                        AppLoader.getInstance().newThread(new Runnable() {
+                           public void run()
+                           {
+                              _leo.parentObject().save();
+                           }
+                        }).start();
+                     }
+                     dropTargetDropEvent.dropComplete(true);
+                     return;
+                  }
+               }
+               // in all other cases reject drop..
+               dropTargetDropEvent.rejectDrop();
+            }
+         });
+         _tableView.setDropTarget(dropTarget);
+         _tableView.getTableHeader().setDropTarget(dropTarget);
+      }
+      catch (TooManyListenersException ex)
+      {
+         System.err.println("TooManyListenersException: "+ex.getMessage());
+         ex.printStackTrace();
+      }
+   }
+
 
    private void adjustRemoveBtnEnabled()
    {
@@ -80,11 +161,11 @@ public class CompositeTableView extends JPanel
 
    private JPanel northPanel()
    {
-      northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
-      northPanel.setOpaque(false);
-      northPanel.add(addBtn());
-      northPanel.add(removeBtn());
-      return northPanel;
+      _northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+      _northPanel.setOpaque(false);
+      _northPanel.add(addBtn());
+      _northPanel.add(removeBtn());
+      return _northPanel;
    }
 
    private JButton addBtn()
@@ -153,7 +234,7 @@ public class CompositeTableView extends JPanel
       {
          _leo.parentObject().removeChangeListener(this);
       }
-      _leo.field().removePropertyChangeListener("readOnly", readOnlyChangeListener);
+      _leo.field().removePropertyChangeListener("readOnly", _readOnlyChangeListener);
    }
 
    public void stateChanged(ChangeEvent e)
