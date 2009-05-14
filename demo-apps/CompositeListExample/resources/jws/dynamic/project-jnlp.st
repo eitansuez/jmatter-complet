@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<jnlp spec="1.0+"
+      codebase="\$\$codebase"
+      href="project.jnlp">
+
+ <information>
+   <title>CompositeListExample Application</title> <!-- TODO: revise title appropriately -->
+   <vendor>JMatterSoft LLC</vendor> <!-- TODO: plug in vendor name here -->
+   <homepage href="index.html" />
+   <description kind="one-line">CompositeListExample App</description>
+   <description kind="short">CompositeListExample App</description>
+   <description kind="tooltip">CompositeListExample App</description>
+   <icon kind="shortcut" href="App32.png" /> <!-- TODO: copy App32.png to 'static' folder -->
+   <icon kind="splash" href="splash.png" /> <!-- TODO: reference proper splash img url -->
+   <offline-allowed />
+   <shortcut online="false">
+     <desktop />
+     <menu submenu="JMatter" />
+   </shortcut>
+ </information>
+
+ <security>
+   <all-permissions />
+ </security>
+
+ <resources>
+   <property name="jnlp.packEnabled" value="true" />
+   <j2se version="1.6+" initial-heap-size="96m" max-heap-size="192m" />
+   <jar href="lib/swingvm.jar" main="true" />
+   $jars:{jar|
+   <jar href="$jar$" />
+   }$
+ </resources>
+
+ <application-desc main-class="com.u2d.view.swing.EntryPoint">
+   <argument>-Xdock:name=CompositeListExample</argument>
+ </application-desc>
+
+ <applet-desc main-class="com.u2d.view.swing.JMApplet"
+              width="100%" height="100%"
+              name="Sympster">
+ </applet-desc>
+
+</jnlp>
+

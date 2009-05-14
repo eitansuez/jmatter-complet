@@ -1,0 +1,226 @@
+@namespace jm com.u2d.view.swing
+@namespace types com.u2d.view.swing.atom
+@namespace jmaps com.u2d.view.swing.map
+@namespace ui com.u2d.ui
+@namespace swingx org.jdesktop.swingx
+@namespace jeta com.jeta.forms.components.panel
+
+
+swingx|JXMapViewer, jmaps|MapView JComponent
+{
+ -c4s-ignore: true;
+}
+
+JComponent
+{
+  font-family: "Arial", "Lucida Sans", sans-serif;
+  font-size: 12pt;
+}
+ui|BasePopupMenu
+{
+  background-color: gradient(0,0,white,120,0,rgba(255,255,255,0.5));
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+jm|LoginDialog
+{
+  border-radius: 15px;
+  border: 1px solid black;
+  padding: 10px;
+  color: black;
+  background-color: gradient(0,0,rgba(255,255,255,0.3), 0,150,rgba(255,255,255,1.0)); /* varying opacity */
+}
+jm|LoginDialog JComponent
+{
+  font-size: 12pt;
+}
+jm|LoginDialog .top
+{
+  border-bottom: 1px solid black;
+}
+jm|LoginDialog .title
+{
+  font-size: 24pt;
+}
+#login-innerpnl
+{
+  padding: 10px 0px 0px 0px;
+}
+
+
+JDesktopPane
+{
+  background-color: gradient(0,0,white,800,0,#C4D5DE);
+}
+JDesktopPane.loggedout
+{
+  background-image: resource("images/jmatter.png") centered;
+}
+
+jeta|FormPanel /* FormPanel is not paintable so cannot apply gradient */
+{
+  background-color: #fffaf0;
+  padding: 5px;
+}
+jm|FormPane
+{
+  background-color: gradient(0,0,#A9C3B6,300,0,white);
+  padding: 5px;
+}
+.formcommands-panel
+{
+  background-color: gradient(0,0,#EDECEB,0,500,#4F5ACF);
+}
+jm|StatusPanel
+{
+    background-color: #d3d3d3;
+}
+
+.command
+{
+/*  font-style: italic; */
+}
+
+.list-title, .instance-title, .title
+{
+  color: #400;
+  font-weight: bold;
+  font-size: 16pt;
+}
+.list-title-panel, .instance-title-panel
+{
+}
+
+jm|FieldCaption
+{
+  color: #2f4f4f;
+  font-weight: normal;
+}
+.required
+{
+  color: #483d8b;
+  font-weight: bold;
+}
+.validation-msg
+{
+   color: red;
+   font-style: italic;
+}
+
+JButton.default-button
+{
+  font-weight: bold;
+}
+
+.feedback-pane
+{
+  background-color: black;
+  padding: 30px;
+  border-radius: 24px;
+  opacity: 0.7;
+}
+#msg-label
+{
+  color: white;
+  font-weight: bold;
+  font-size:  24pt;
+}
+
+#aboutPnl
+{
+  background-color: white;
+  padding: 5px;
+}
+#aboutPnl JTextArea
+{
+  color: #300;
+  font-size: 12pt;
+  padding: 10px;
+}
+
+types|URIRenderer
+{
+  cursor: pointer;
+}
+
+jmaps|MappableView
+{
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  opacity: 0.7;
+  color: black;
+  font-size: 12pt;
+}
+
+#command-panel
+{
+  font-weight: normal;
+  font-size: 14pt;
+  color: white;
+  background-color: black;
+  padding: 10px;
+  border-radius: 15px;
+  opacity: 0.7;
+}
+#command-panel jm|SimpleAssociationView
+{
+  margin: 7px;
+  background-color: #666;
+  border-radius: 10px;
+  border: 1px solid black;
+  opacity: 0.85;
+}
+#command-panel jm|CustomIconView
+{
+  font-size: 16pt;
+}
+.message-label
+{
+  font-style:  italic;
+  padding: 15px;
+}
+.splash-pane
+{
+  background-color: white;
+  border: 1px solid black;
+}
+.exception ui|GradientPanel
+{
+  padding: 2px 0px 2px 7px;
+}
+.exception-summary
+{
+  font-size: 14pt;
+}
+.exception-detail
+{
+  background-color: white;
+}
+jm|ExpandableView2 ui|GradientPanel
+{
+  padding: 0px 0px 0px 5px;
+}
+
+.command-bar
+{
+   background-color: white;
+   border-radius: 5px;
+   padding: 7px;
+   border: 1px solid black;
+   margin: 5px;
+}
+.command-bar jm|CommandIconButton
+{
+   font-size: 11pt;
+}
+
+jm|FrameButton
+{
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: #D0E0ED;
+  font-size: 12pt;
+}
+
