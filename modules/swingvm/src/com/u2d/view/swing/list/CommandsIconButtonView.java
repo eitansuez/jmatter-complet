@@ -35,7 +35,6 @@ public class CommandsIconButtonView extends JXPanel implements ListEView
       public CommandsIconButtonView()
       {
          super();
-         setLayout(new FlowLayout(FlowLayout.LEADING));
          setOpaque(false);
          Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
          setBorder(border);
