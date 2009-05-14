@@ -15,20 +15,19 @@ import java.util.Set;
  */
 public interface HBMPersistenceMechanism extends PersistenceMechanism
 {
-   public Session getSession();
-   public ComplexEObject fetch(String query);
-   public AbstractListEO hql(String query);
+   Session getSession();
+   ComplexEObject fetch(String query);
+   AbstractListEO hql(String query);
 
-   public Set<Class> getClasses();
-   public AbstractListEO hqlQuery(Query query);
-   public void saveMany(Set ceos);
-   public void deleteMany(Set ceos);
-   public void refresh(ComplexEObject eo);
+   Set<Class> getClasses();
+   AbstractListEO hqlQuery(Query query);
+   void saveMany(Set ceos);
+   void deleteMany(Set ceos);
+   void refresh(ComplexEObject eo);
    
-   public ComplexEObject lookup(Class clazz, String uniqueFieldName, String value);
+   ComplexEObject lookup(Class clazz, String uniqueFieldName, String value);
    
-   public void transaction(HBMBlock block);
+   void transaction(HBMBlock block);
    
-   public void close();
-   
+   void close();
 }
