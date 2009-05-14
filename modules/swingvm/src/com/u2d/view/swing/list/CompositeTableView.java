@@ -209,6 +209,10 @@ public class CompositeTableView extends JPanel
                public void run()
                {
                   _leo.remove(_tableView.selectedEO());
+                  if (!_leo.parentObject().isEditableState())
+                  {
+                     _leo.parentObject().save();
+                  }
                   SwingUtilities.invokeLater(new Runnable()
                   {  // ensures that table resizes appropriately
                      public void run()
