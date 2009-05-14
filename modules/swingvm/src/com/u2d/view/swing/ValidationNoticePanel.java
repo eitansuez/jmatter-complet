@@ -21,20 +21,28 @@ public class ValidationNoticePanel extends JLabel implements ValidationListener
 {
    private ValidationNotifier _target;
    private boolean _listening = false;
-   
-   public ValidationNoticePanel(ValidationNotifier target, boolean startListening)
+
+   public ValidationNoticePanel()
    {
-      _target = target;
-      
       setText("");
       ComponentStyle.addClass(this, "validation-msg");
-      
-      if (startListening)
-         startListening();
+   }
+   public ValidationNoticePanel(ValidationNotifier target, boolean startListening)
+   {
+      this();
+      _target = target;
+      if (startListening) startListening();
    }
    public ValidationNoticePanel(ValidationNotifier target, ComplexEObject ceo)
    {
       this(target, ceo.isEditableState());
+   }
+
+   public void setTarget(ValidationNotifier notifier)
+   {
+      stopListening();
+      _target = notifier;
+      startListening();
    }
    
    public synchronized void startListening()
@@ -46,7 +54,10 @@ public class ValidationNoticePanel extends JLabel implements ValidationListener
    }
    public synchronized void stopListening()
    {
-      _target.removeValidationListener(this);
+      if (_target != null)
+      {
+         _target.removeValidationListener(this);
+      }
       _listening = false;
    }
    

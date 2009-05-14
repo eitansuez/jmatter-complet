@@ -2,6 +2,7 @@ package com.u2d.wizard.ui;
 
 import com.u2d.wizard.abstractions.Step;
 import com.u2d.wizard.details.Wizard;
+import com.u2d.wizard.details.BasicStep;
 import com.u2d.model.Editor;
 import com.u2d.model.EObject;
 import com.u2d.view.EView;
@@ -129,12 +130,22 @@ public class WizardPane extends JPanel
          {
             errorCount = eo.field().validate(eo.parentObject());
          }
-         
+
          if (errorCount > 0)
          {
             String plural = (errorCount == 1) ? "" : "s";
             eo.fireValidationException("["+errorCount+" validation error"+plural+".]", true);
             return false;
+         }
+
+         if (_wizard.currentStep() instanceof BasicStep)
+         {
+            BasicStep bstep = (BasicStep) _wizard.currentStep();
+            errorCount = bstep.validate(eo);
+            if (errorCount > 0)
+            {
+               return false;
+            }
          }
 
          eo.fireValidationException("");  // reset any validation messages from last attempt
@@ -158,7 +169,7 @@ public class WizardPane extends JPanel
          setLayout(new PercentLayout(PercentLayout.VERTICAL, 1));
 
          StepLabel label = null;
-         Step step = null;
+         Step step;
          for (int i=0; i<flattenedSteps.size(); i++)
          {
             step = (Step) flattenedSteps.get(i);

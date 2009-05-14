@@ -1,6 +1,8 @@
 package com.u2d.wizard.details;
 
 import com.u2d.wizard.abstractions.Step;
+import com.u2d.validation.ValidationNotifier;
+
 import javax.swing.*;
 
 /**
@@ -24,6 +26,15 @@ public abstract class BasicStep implements Step
    public abstract JComponent getView();
 
    public boolean viewDirty() { return false; }
+
+   /**
+    * @param notifier use this object to send validation messages to the ui
+    * @return number of validation errors (should return 0 if validation passed)
+    */
+   public int validate(ValidationNotifier notifier)
+   {
+      return 0; // default implementation.  overriding optional.
+   }
 
    public String toString() { return title(); }
 }
