@@ -63,6 +63,7 @@ public class IntEO extends AbstractAtomicEO implements NumericEO, Searchable
    {
       return new IntEO(_value + other.intValue());
    }
+   public void increment() { setValue(_value + 1); }
 
    @Cmd
    public void Double(CommandInfo cmdInfo)
