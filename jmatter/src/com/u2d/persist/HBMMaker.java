@@ -40,7 +40,7 @@ public class HBMMaker
    private ComplexType _type;
    private Document _doc;
    private boolean _joinedSubclass = false;
-   
+
    public HBMMaker(Class clazz)
    {
       _type = ComplexType.forClass(clazz);
@@ -581,7 +581,7 @@ public class HBMMaker
             }
             else
             {
-               propElem.addAttribute("column", prefix + "_" + field.name());
+               addColumnAttribute(propElem, prefix, field);
             }
          }
 
@@ -604,6 +604,20 @@ public class HBMMaker
 
       addAccessAttribute(propElem);
       return propElem;
+   }
+
+   private Set<String> colNames = new HashSet<String>();
+   /* ensure unique column names */
+   private void addColumnAttribute(Element propElem, String prefix, Field field)
+   {
+      String colName = String.format("%s_%s", prefix, field.name());
+      int i=2;
+      while (colNames.contains(colName))
+      {
+         colName = String.format("%s%d_%s", prefix, i++, field.name());
+      }
+      propElem.addAttribute("column", colName);
+      colNames.add(colName);
    }
 
    private boolean aggregated(AtomicField field)
