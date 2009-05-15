@@ -113,6 +113,8 @@ public class PositionedLayout implements LayoutManager2
       return overlappingEvents;
    }
 
+   static int event_padding = 4;
+
 	public void layoutContainer(Container parent)
 	{
       synchronized (parent.getTreeLock())
@@ -122,44 +124,51 @@ public class PositionedLayout implements LayoutManager2
 
          Collections.sort(_events);
          int xPos = 0;
-         for (CalEvent event : _events)
+
+         CalEvent prevEvt = null;
+         for (CalEvent calEvent : _events)
          {
-            List<CalEvent> overlappingEvents = calcOverlappingEventsFor(event);
-            xPos = layoutEvent(event, overlappingEvents, xPos);
+            List<CalEvent> overlappingEvents = calcOverlappingEventsFor(calEvent);
+
+            Rectangle bounds = _view.getBounds(calEvent);
+            int numOverlapping = overlappingEvents.size();
+            int width = bounds.width / numOverlapping;
+            if (xPos + width > bounds.width)
+            {
+               // first, correct x position of previous event (align right to avoid overlap conflict
+               // with next overlapping items)
+               if (prevEvt != null && overlappingEvents.contains(prevEvt))
+               {
+                  Component prevComp = _components.get(prevEvt);
+                  Point location = prevComp.getLocation();
+                  int x = bounds.x + bounds.width - (prevComp.getWidth() + event_padding/2);
+                  prevComp.setLocation(x, location.y);
+               }
+
+               // second, carriage-return logic
+               xPos = 0;
+               for (CalEvent e : overlappingEvents)
+               {
+                  if (e == calEvent) break;
+                  Rectangle ebounds = _components.get(e).getBounds();
+                  int pos = xPos + (event_padding / 2);
+                  if (ebounds.getX() - bounds.x == pos)
+                  {
+                     xPos += _components.get(e).getWidth() + event_padding;
+                  }
+               }
+            }
+
+            Rectangle eventBounds = new Rectangle(bounds.x + xPos + event_padding/2, bounds.y, width - event_padding, bounds.height);
+            _components.get(calEvent).setBounds(eventBounds);
+            
+            xPos += xPos + width;
+
+            prevEvt = calEvent;
          }
+
+
       }
    }
 
-   static int event_padding = 4;
-
-   /**
-    * @param event event to layout
-    * @param overlappingEvents list of overlapping events for event
-    * @param xPos current x position
-    * @return next xPos
-    */
-   private int layoutEvent(CalEvent event, List<CalEvent> overlappingEvents, int xPos)
-   {
-      Component comp = _components.get(event);
-      Rectangle bounds = _view.getBounds(event);
-      int numOverlapping = overlappingEvents.size();
-      int width = bounds.width / numOverlapping;
-      if (xPos + width > bounds.getWidth())
-      {
-         xPos = 0;
-         for (CalEvent e : overlappingEvents)
-         {
-            if (e == event) break;
-            Rectangle ebounds = _components.get(e).getBounds();
-            int pos = xPos + (event_padding / 2);
-            if (ebounds.getX() - bounds.x == pos)
-            {
-               xPos += _components.get(e).getWidth() + event_padding;
-            }
-         }
-      }
-      comp.setBounds(new Rectangle(bounds.x + xPos + event_padding/2, bounds.y, width - event_padding, bounds.height));
-      return xPos + width;
-	}
-   
 }
