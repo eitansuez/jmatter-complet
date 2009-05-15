@@ -48,7 +48,7 @@ public class Tracing
       try
       {
          String filePattern = "application%g.log";
-         Handler fileHandler = new FileHandler(filePattern, LOGFILE_SIZELIMIT, 5, false);
+         Handler fileHandler = new FileHandler(filePattern, LOGFILE_SIZELIMIT, 3, false);
          fileHandler.setFormatter(formatter);
          fileHandler.setLevel(desiredLogLevel);
          rootLogger.addHandler(fileHandler);
