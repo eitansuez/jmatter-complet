@@ -24,6 +24,11 @@ public class Money extends AbstractAtomicEO implements Comparable<Money>
       setValue(amt, currencyCode);
    }
 
+   public Money(BigDecimal amt, Currency currency)
+   {
+      setValue(amt, currency);
+   }
+
    public void setValue(BigDecimal amt, String currencyCode)
    {
       Currency currency = Currency.getInstance(currencyCode);

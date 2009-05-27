@@ -12,6 +12,7 @@ import com.u2d.model.AtomicEditor;
 import com.u2d.model.AtomicRenderer;
 import java.text.*;
 import java.util.List;
+import java.math.BigDecimal;
 
 /**
  * @author Eitan Suez
@@ -53,7 +54,12 @@ public class Percent extends AbstractAtomicEO
    {
       return _value * amt.doubleValue();
    }
-   
+
+   public Money applyTo(Money value)
+   {
+      return new Money(new BigDecimal(_value).multiply(value.amount()), value.currency());
+   }
+
    public Title title()
    {
       String formattedString = _percentFormat.format(_value);
