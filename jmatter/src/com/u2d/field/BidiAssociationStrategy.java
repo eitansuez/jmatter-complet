@@ -65,8 +65,11 @@ public class BidiAssociationStrategy
       }
       else
       {
-         _otherSide.set(value, parent());
          super.set(value);
+         if (value != null)
+         {
+            _otherSide.set(value, parent());
+         }
       }
    }
 
