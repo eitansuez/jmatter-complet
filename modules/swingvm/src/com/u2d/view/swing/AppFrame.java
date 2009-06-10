@@ -683,6 +683,8 @@ public class AppFrame extends JFrame implements AppContainer
          descriptionArea = new JTextArea(_app.getDescription(), 5, 40);
          descriptionArea.setEditable(false);
          descriptionArea.setOpaque(false);
+         descriptionArea.setLineWrap(true);
+         descriptionArea.setWrapStyleWord(true);
          add(new JScrollPane(descriptionArea));
 
          link = new URIRenderer();
