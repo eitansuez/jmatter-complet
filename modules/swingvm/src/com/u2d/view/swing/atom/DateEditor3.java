@@ -14,6 +14,7 @@ import java.awt.*;
 import java.net.URL;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.Date;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXMonthView;
@@ -135,6 +136,9 @@ public class DateEditor3 extends JPanel
                eo.setValue(date);
                _tf.setText(_format.format(eo.dateValue()));
                _popup.setVisible(false);
+               try {
+                  _value.parseValue(_tf.getText());
+               } catch (ParseException e1) { /* ignore */ }
             }
          }
       });
@@ -165,6 +169,7 @@ public class DateEditor3 extends JPanel
 
 
    private SimpleDateFormat _format = null;
+   private AtomicEObject _value = null;
    public void render(AtomicEObject value)
    {
       if (value.isEmpty())
@@ -182,12 +187,14 @@ public class DateEditor3 extends JPanel
          String tooltip = "[" + _format.toPattern() + "]";
          _tf.setToolTipText(tooltip);
       }
+      if (_value == null) _value = value;
    }
 
    public int bind(AtomicEObject value)
    {
       try
       {
+         _value = value;
          value.parseValue(_tf.getText());
          return 0;
       }
