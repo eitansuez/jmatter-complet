@@ -22,9 +22,27 @@ public class HBMGenerator
    
    public HBMGenerator() {}
    
-   public void setPersistClasses(Set<Class> classes)
+   public void setPersistClasses(Set classes)
    {
-      _persistClasses = classes;
+      _persistClasses = new java.util.LinkedHashSet<Class>();
+      for (Object item : classes)
+      {
+         if (item instanceof Class)
+         {
+            _persistClasses.add((Class) item);
+         }
+         else if (item instanceof String)
+         {
+            try
+            {
+               _persistClasses.add(Class.forName((String) item));
+            }
+            catch (ClassNotFoundException e)
+            {
+               throw new RuntimeException("Cannot load class: " + item, e);
+            }
+         }
+      }
    }
    
 
