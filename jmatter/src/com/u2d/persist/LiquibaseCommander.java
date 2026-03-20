@@ -48,28 +48,7 @@ public class LiquibaseCommander
    private HibernateDatabase hibernateDatabase;
 
    protected Set<Class> _classes;
-   public void setClasses(Set classes)
-   {
-      _classes = new java.util.LinkedHashSet<Class>();
-      for (Object item : classes)
-      {
-         if (item instanceof Class)
-         {
-            _classes.add((Class) item);
-         }
-         else if (item instanceof String)
-         {
-            try
-            {
-               _classes.add(Class.forName((String) item));
-            }
-            catch (ClassNotFoundException e)
-            {
-               throw new RuntimeException("Cannot load class: " + item, e);
-            }
-         }
-      }
-   }
+   public void setClasses(Set<Class> classes) { _classes = classes; }
 
    public void doDiffToChangeLog() throws JDBCException, IOException, ParserConfigurationException
    {

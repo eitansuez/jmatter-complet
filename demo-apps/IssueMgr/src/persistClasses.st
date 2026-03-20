@@ -6,7 +6,7 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd"
       default-init-method="initialize">
 
-   <util:set id="persist-classes">
+   <util:set id="persist-classes" value-type="java.lang.Class">
 $classnames:{ cls |
       <value>$cls$</value> }$
       <value>com.u2d.type.composite.Note</value>
