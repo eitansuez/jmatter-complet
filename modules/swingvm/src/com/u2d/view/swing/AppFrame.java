@@ -737,20 +737,11 @@ public class AppFrame extends JFrame implements AppContainer
             });
 
 
-      if (Platform.APPLE) new AppleQuitListener();
-   }
-
-   class AppleQuitListener extends com.apple.eawt.ApplicationAdapter
-   {
-      AppleQuitListener()
-      {
-         new com.apple.eawt.Application().addApplicationListener(this);
-      }
-
-      public void handleQuit(com.apple.eawt.ApplicationEvent evt)
-      {
-         evt.setHandled(false);
-         quit();
+      if (java.awt.Desktop.isDesktopSupported()) {
+         java.awt.Desktop.getDesktop().setQuitHandler((evt, response) -> {
+            response.cancelQuit();
+            quit();
+         });
       }
    }
 
