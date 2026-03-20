@@ -42,7 +42,7 @@
       <javac debug="on" 
              srcdir="${srcdir}" destdir="${buildclassesdir}" 
              listfiles="false" 
-             target="1.5"
+             source="8" target="8"
              classpathref="class.path" />
       <copy todir="${buildclassesdir}">
         <fileset dir="${srcdir}" includes="**/*.xml,**/*.txt,**/*.png" />

@@ -68,7 +68,7 @@
     <javac debug="on" deprecation="on" 
            classpathref="class.path"
            listfiles="false"
-           target="1.5"
+           source="8" target="8"
            destdir="${build.classes.dir}">
       <src path="${src.dir}" />
       <src path="${build.gen.dir}" />

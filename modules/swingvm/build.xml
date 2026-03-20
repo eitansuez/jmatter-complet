@@ -46,7 +46,7 @@
       <javac debug="on" 
              srcdir="${src.dir}" 
              destdir="${build.classes.dir}" 
-             target="1.5"
+             source="8" target="8"
              classpathref="class.path" />
 
       <!-- <java classname="org.codehaus.groovy.ant.Groovyc" fork="true" maxmemory="128M">
